@@ -41,46 +41,45 @@
     </div>
 </nav>
 
-<div class="container text-center bg-blue border  my-4 justify-content-center d-flex align-items-center ">
-    <h3 class="m-0 my-2">Welcome to LMS</h3>
+<div class="fluid-container">
+<div class="fluid-container text-center bg-blue border  my-4 justify-content-center d-flex align-items-center ">
+    <img src="../../assets/img/user1.jpg" alt="image" width="100%">
+  </div>
+  <div class="card text-center bg-blue border" >
+    <h1><b>Learning never exhausts the mind</b></h1>
+    <h4>Skills for your present (and your future). Get started with us.</h4>
 </div>
-
-<!-- <h1 class="text-center mt-3">Welcome User</h1> -->
-<div class="progress-spinner text-center mt-4" *ngIf="isLoading == true">
-    <p-progressSpinner></p-progressSpinner>
 </div>
 <div class="container">
     <div class="row">
-        <h3>All Courses</h3>
-        <span class="p-input-icon-left mb-2">
-            <i class="pi pi-search"></i>
-            <input type="search" pInputText placeholder="Search" />
-        </span>
+      <span class="p-input-icon-left mb-2 pl-1">
+        <input type="search" pInputText placeholder="Search here..." >
+        <i class="pi pi-search"></i>
+    </span>
+    </div>
+</div>
 
-        <div class="col-lg-4 mb-3" *ngFor="let data of contentData">
-            <div class="card" style="height: 450px;">
-                <img style="height: 250px;" src="{{data.attributes.media.data[0].attributes.formats.thumbnail.url}}"
-                    class="card-img-top" alt="...">
+<div class="container">
+  <div class="courseDetails text-center bg-blue border  my-4  d-flex align-items-center">
 
-                <div class="card-body">
-                    <h3 class="card-title mb-2" style="font-weight: bold;">{{data.attributes.name}}</h3>
-                    <span class="d-flex mb-2 align-items-center"> <mat-icon style="font-size: 20px;"
-                            fontIcon="person"></mat-icon> {{data.attributes.author}}</span>
-                    <p class="card-text"> {{data.attributes.description}}.</p>
-                    <div class="row align-items-center">
-                        <div class="col-lg-4">
-                            <span class="d-flex align-items-center">
-                                <mat-icon aria-hidden="false" aria-label="Example home icon"
-                                    fontIcon="visibility"></mat-icon><span class="ms-1">14</span>
-                            </span>
-                        </div>
-                        <div class="col-lg-4"><button type="button" class="btn btn-outline-secondary">
-                                {{data.attributes.price | currency : 'INR'}}</button>
-                        </div>
-                        <div class="col-lg-4 d-flex justify-content-end"><a class="btn btn-primary">Buy</a>
+    <p-card header="{{course.courseTitle}}" subheader="{{course.author}}" styleClass="p-card-shadow ml-1" *ngFor="let course of courseList">
+      <ng-template pTemplate="header">
+          <img alt="Card" src="{{course.courseImage}}" style="width:300px;height:200px" >
+      </ng-template>
+         <!-- <p-rating [(ngModel)]="val"></p-rating> -->
+        <p-rating [ngModel]="val" [readonly]="true"  [cancel]="false">{{course.rating}}</p-rating>
 
-                        </div>
-                    </div>
 
-                </div>
-            </div>
+       <ng-template pTemplate="footer" >
+      <div class="d-flex">
+        <h3><b>₹: {{course.price}}</b></h3>
+          <p-button label="Buy Now" icon="pi pi-check"></p-button>
+        </div>
+        </ng-template>
+  </p-card>
+</div>
+  </div>
+
+
+
+
