@@ -1,85 +1,123 @@
 <!-- <h1 class="text-center mt-3">Welcome Admin</h1> -->
-<nav class="navbar sticky-top bg-white navbar-expand-lg navbar-light shadow-sm"
-    style="height: auto; box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);">
-    <div class="container-fluid">
-        <div class="col-lg-4">
-            <a class="navbar-brand" style="font-size: 24px;" href="#">LMS</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-        <div class="col-lg-4">
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav" style="font-size: 24px;">
-                <ul class="navbar-nav" >
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" routerLinkActive="active" routerLink="/user">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLinkActive="active" routerLink="/user/library">My Libraries</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLinkActive="active" routerLink="/user">About</a>
-                    </li>
+<nav
+  class="navbar sticky-top bg-white navbar-expand-lg navbar-light shadow-sm"
+  style="height: auto; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2)"
+>
+  <div class="container-fluid">
+    <div class="col-lg-4">
+      <a class="navbar-brand" style="font-size: 24px" href="#">LMS</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    <div class="col-lg-4">
+      <div
+        class="collapse navbar-collapse justify-content-center"
+        id="navbarNav"
+        style="font-size: 24px"
+      >
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              aria-current="page"
+              routerLinkActive="active"
+              routerLink="/user"
+              >Home</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLinkActive="active"
+              routerLink="/user/library"
+              >My Libraries</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" routerLink="/user"
+              >About</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
 
-                </ul>
-            </div>
-        </div>
-
-
-        <div class="col-lg-4 d-flex justify-content-end">
-            <!-- <span class="material-symbols-outlined cursor-pointer" (click)="menu.toggle($event)">
+    <div class="col-lg-4 d-flex justify-content-end">
+      <!-- <span class="material-symbols-outlined cursor-pointer" (click)="menu.toggle($event)">
                 account_circle
             </span> -->
-            <i class="pi pi-user ml-1 cursor-pointer" (click)="menu.toggle($event)"></i>
-            <i class="pi  pi-caret-down ml-1 cursor-pointer color-blue-light" (click)="menu.toggle($event)"></i>
-            <p-menu #menu [popup]="true" [model]="items"></p-menu>
-
-
-        </div>
-
+      <i
+        class="pi pi-user ml-1 cursor-pointer"
+        (click)="menu.toggle($event)"
+      ></i>
+      <i
+        class="pi pi-caret-down ml-1 cursor-pointer color-blue-light"
+        (click)="menu.toggle($event)"
+      ></i>
+      <p-menu #menu [popup]="true" [model]="items"></p-menu>
     </div>
+  </div>
 </nav>
 
 <div class="fluid-container">
-<div class="fluid-container text-center bg-blue border  my-4 justify-content-center d-flex align-items-center ">
-    <img src="../../assets/img/user1.jpg" alt="image" width="100%">
+  <div
+    class="fluid-container text-center bg-blue border my-4 justify-content-center d-flex align-items-center"
+  >
+    <img src="../../assets/img/user1.jpg" alt="image" width="100%" />
   </div>
-  <div class="card text-center bg-blue border" >
+  <div class="card text-center bg-blue border">
     <h1><b>Learning never exhausts the mind</b></h1>
     <h4>Skills for your present (and your future). Get started with us.</h4>
-</div>
+  </div>
 </div>
 <div class="container">
-    <div class="row">
-      <span class="p-input-icon-left mb-2 pl-1">
-        <input type="search" pInputText placeholder="Search here..." >
-        <i class="pi pi-search"></i>
+  <div class="row">
+    <span class="p-input-icon-left mb-2 pl-1">
+      <input type="search" pInputText placeholder="Search here..." />
+      <i class="pi pi-search"></i>
     </span>
-    </div>
+  </div>
 </div>
 
 <div class="container">
-  <div class="courseDetails text-center bg-blue border  my-4  d-flex align-items-center">
-
-    <p-card header="{{course.courseTitle}}" subheader="{{course.author}}" styleClass="p-card-shadow ml-1" *ngFor="let course of courseList">
+  <div
+    class="courseDetails text-center bg-blue border my-4 d-flex align-items-center"
+  >
+    <p-card
+      header="{{ course.courseTitle }}"
+      subheader="{{ course.author }}"
+      styleClass="p-card-shadow ml-1"
+      *ngFor="let course of courseList"
+    >
       <ng-template pTemplate="header">
-          <img alt="Card" src="{{course.courseImage}}" style="width:300px;height:200px" >
+        <img
+          alt="Card"
+          src="{{ course.courseImage }}"
+          style="width: 300px; height: 200px"
+        />
       </ng-template>
-         <!-- <p-rating [(ngModel)]="val"></p-rating> -->
-        <p-rating [ngModel]="val" [readonly]="true"  [cancel]="false">{{course.rating}}</p-rating>
+      <!-- <p-rating [(ngModel)]="val"></p-rating> -->
+      <p-rating [ngModel]="val" [readonly]="true" [cancel]="false">{{
+        course.rating
+      }}</p-rating>
 
-
-       <ng-template pTemplate="footer" >
-      <div class="d-flex">
-        <h3><b>₹: {{course.price}}</b></h3>
+      <ng-template pTemplate="footer">
+        <div class="d-flex">
+          <h3>
+            <b>₹: {{ course.price }}</b>
+          </h3>
           <p-button label="Buy Now" icon="pi pi-check"></p-button>
         </div>
-        </ng-template>
-  </p-card>
-</div>
+      </ng-template>
+    </p-card>
   </div>
-
-
-
-
+</div>
