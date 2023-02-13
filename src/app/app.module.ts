@@ -29,7 +29,7 @@ import { UserGuard } from 'src/guards/user.guard';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SheredModule } from './component/shered.module';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { MenuModule } from 'primeng/menu';
+import {TabMenuModule} from 'primeng/tabmenu';
 
 
 let module = [
@@ -52,8 +52,10 @@ let module = [
   DialogModule,
   TooltipModule,
   ButtonModule,
-  SheredModule
-  
+  SheredModule,
+  TabMenuModule
+
+
 ]
 
 @NgModule({
@@ -69,21 +71,20 @@ let module = [
     AppRoutingModule,
     HttpClientModule,
     ConfirmDialogModule,
-    MenuModule,
     SheredModule,
     // SpinnerModule,
     TooltipModule, ButtonModule
-    
+
   ],
   providers: [
     AuthService,AuthGuard,UserGuard,
-    
+
       {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
     }
-    
+
   ],
   bootstrap: [AppComponent]
 })
