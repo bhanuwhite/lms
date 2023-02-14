@@ -10,7 +10,7 @@ import { ApiService } from 'src/app/services/api.service';
 export class CourseDetailsComponent implements OnInit {
 
   protected id!: any;
-  courseData!: {};
+  courseData!: any;
 
   constructor(
     private route: ActivatedRoute,
