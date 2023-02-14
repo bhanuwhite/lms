@@ -53,7 +53,8 @@ let module = [
   TooltipModule,
   ButtonModule,
   SheredModule,
-  TabMenuModule
+  TabMenuModule,
+
 
 
 ]
