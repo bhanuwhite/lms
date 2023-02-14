@@ -1,1 +1,21 @@
-<p>my-library works!</p>
+<div>
+  <div class="h-25 w-100 bg-dark">
+    <div>
+      <h1 class="text-center text-white pt-5 fs-1">𝐌𝐲 𝐋𝐞𝐚𝐫𝐧𝐢𝐧𝐠𝐬</h1>
+    </div>
+    <p-tabMenu [model]="items" class="ms-5"></p-tabMenu>
+
+    <div class=" course_DetailsDiv">
+      <div class="courseDiv" *ngFor="let courseDetails of course_Details">
+        <img src={{courseDetails.url}} alt="" class="courseFigure">
+        <h2 class="text-center"> {{courseDetails.title}} </h2>
+        <div>
+          <div class="text-wrap">
+            <p class="ms-3 me-2">{{courseDetails.desc}} </p>
+          </div>
+          <i class="ms-3"> Rating : {{courseDetails.rating}} </i>
+
+        </div>
+      </div>
+
+    </div>

@@ -18,7 +18,8 @@ import { SheredModule } from '../component/shered.module';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InputTextModule } from 'primeng/inputtext';
 import { MyLibraryComponent } from './my-library/my-library.component';
-
+import {MenubarModule} from 'primeng/menubar';
+import {TabMenuModule} from 'primeng/tabmenu';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,9 @@ import { MyLibraryComponent } from './my-library/my-library.component';
     MessagesModule,
     ProgressSpinnerModule,
     InputTextModule,
-    AdminRoutingModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule
+    AdminRoutingModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule,
+    MenubarModule,
+    TabMenuModule
   ]
 })
 export class UserModule { }
