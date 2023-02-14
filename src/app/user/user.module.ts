@@ -20,6 +20,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MyLibraryComponent } from './my-library/my-library.component';
 import {CardModule} from 'primeng/card'
 import {RatingModule} from 'primeng/rating';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import {RatingModule} from 'primeng/rating';
     MessagesModule,
     ProgressSpinnerModule,
     InputTextModule,
-    AdminRoutingModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule,CardModule,RatingModule
+    AdminRoutingModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule,CardModule,RatingModule,MatTabsModule
   ]
 })
 export class UserModule { }
