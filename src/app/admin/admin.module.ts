@@ -47,6 +47,7 @@ import {TabViewModule} from 'primeng/tabview';
 import {MenuItem} from 'primeng/api';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CourseDetailsComponent } from './course-details/course-details.component';
+import {AccordionModule} from 'primeng/accordion';
 
 
 
@@ -97,6 +98,7 @@ import { CourseDetailsComponent } from './course-details/course-details.componen
     ProgressBarModule,
     MegaMenuModule,
     TabViewModule,
+    AccordionModule,
     ToolbarModule
   ],
   providers: [
