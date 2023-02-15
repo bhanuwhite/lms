@@ -25,8 +25,9 @@ import {ProgressBarModule} from 'primeng/progressbar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {RatingModule} from 'primeng/rating';
 import { CourseDetailsComponent } from './course-details/course-details.component';
-
-
+import {CardModule} from 'primeng/card';
+import {AccordionModule} from 'primeng/accordion';
+import {CheckboxModule} from 'primeng/checkbox';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,10 @@ import { CourseDetailsComponent } from './course-details/course-details.componen
     ProgressBarModule,
     MatProgressBarModule,
     RatingModule,
-    MatTabsModule
+    MatTabsModule,
+    CardModule,
+    AccordionModule,
+    CheckboxModule
   ]
 })
 export class UserModule { }

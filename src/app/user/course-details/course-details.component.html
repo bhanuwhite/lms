@@ -1,42 +1,165 @@
-<div class="masterdiv">
-  <div class="headDiv" *ngIf="course_Details">
-    <div class="d-flex ms-5 pt-5">
-      <a href="#"><h3>Beginner</h3></a>
-      <a href="#"><h3 class="ms-2"> --> Intermediate</h3></a>
-      <a href="#"><h3 class="ms-2"> --> Proficient</h3></a>
-    </div>
-    <div class="ms-5 title">
-      <h1> {{course_Details.title}} </h1>
-    </div>
-    <div>
-      <b class="description ms-5"> {{course_Details.desc}} </b>
-    </div>
-    <div class="d-flex ms-5 mt-3">
-      <button class="btn btn-warning">Besteller</button>
-      <b class="mt-2 ms-2">{{course_Details.rating}}</b>
-      <p-rating class="mt-2 ms-2" [stars]=5  [cancel]=false [ngModel]=course_Details.rating> </p-rating>
-    </div>
-    <div class="mt-2 ms-5">
-      <p>Created by <a href="#" >Midhun Chakravarthy</a> | <a href="#" >Raghu Nandhan</a> | <a href="#" >Lokesh Naranyan</a></p>
-    </div>
-    <div class="ms-5 mt-2 mb-2">
-      <i class="pi  pi-globe" style="font-size: 1rem"></i>  <u class="ms-2 fs-6">English</u> <u class="ms-2 fs-6">Telugu</u> <u class="ms-2 fs-6">Hindi</u>
-    </div>
-  </div>
-  <div class="container">
-    <div class="border-2 w-75">
-      <h2>What you'll learn</h2>
-      <div class="LearnContent">
-      <p style="width: 50%;"><i class="pi pi-check"></i> Software Architecture of large scale systems, capable of handling millions of requests/day</p>
-      <p style="width: 50%;"><i class="pi pi-check"></i>Apply industry proven software architectural patterns, building blocks and best practices </p>
-      <p style="width: 50%;;"><i class="pi pi-check"></i> Gain confidence for an upcoming System Design Interview</p>
-      <p style="width: 50%;"><i class="pi pi-check"></i>Apply industry proven software architectural patterns, building blocks and best practices </p>
-      <p style="width: 50%;"><i class="pi pi-check"></i> Gain confidence for an upcoming System Design Interview</p>
-      <p style="width: 50%;"><i class="pi pi-check"></i>Apply industry proven software architectural patterns, building blocks and best practices </p>
-      <p style="width: 50%;;"><i class="pi pi-check"></i> Gain confidence for an upcoming System Design Interview</p>
-      <p style="width: 50%;"><i class="pi pi-check"></i>Apply industry proven software architectural patterns, building blocks and best practices </p>
+<div class="bg-info w-100 h-auto d-flex">
+  <img class="lmsLogo"
+    src="https://w7.pngwing.com/pngs/826/933/png-transparent-learning-management-system-education-lms-thumbnail.png"
+    alt="">
 
+  <button class="btn btn-warning share">Share</button>
+  <button class="btn btn-outline-primary ms-5 ">  <i class="pi pi-ellipsis-v" style="font-size: 2rem; color: white;"></i> </button>
+</div>
+<div class="mt-1 ">
+  <div *ngIf="course_Details">
+    <video src={{course_Details.videoUrl}} controls class="course_video"></video>
+    <aside>
+      <p-accordion>
+        <p-accordionTab header="section-01:Intro">
+          <div>
+            <p>
+              <p-checkbox name="groupname" value="val2"></p-checkbox>
+              <b class="ms-2">What is Web Developement</b> <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 15min
+            </p>
+          </div>
+          <div>
+            <p>
+              <p-checkbox name="groupname" value="val2"></p-checkbox>
+              <b class="ms-2">What you became</b> <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 10min
+            </p>
+          </div>
+          <div>
+            <p>
+              <p-checkbox name="groupname" value="val2"></p-checkbox>
+             <b class="ms-2"> Job Opportunities</b> <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 8min
+            </p>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab header="section-02:PreRequisites & Info">
+          <div>
+            <p>
+              <p-checkbox name="groupname" value="val2"></p-checkbox>
+              <b class="ms">PreRequisites</b> <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 5min
+            </p>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab header="section-03:Program Setup">
+          <div>
+            <p>
+              <p-checkbox name="groupname" value="val2"></p-checkbox>
+               <b class="ms">Installations</b> <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 10min
+            </p>
+          </div>
+          <div>
+            <p>
+              <p-checkbox name="groupname" value="val2"></p-checkbox>
+              <b class="ms">Others</b> <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 5min
+            </p>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab header="section-03:Starting 1st Lesson">
+          <div>
+            <p>
+              <p-checkbox name="groupname" value="val2"></p-checkbox>
+              Lesson 001 <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 5min
+            </p>
+          </div>
+          <div>
+            <p>
+              <p-checkbox name="groupname" value="val2"></p-checkbox>
+              Lesson 002 <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 5min
+            </p>
+          </div>
+          <div>
+            <p>
+              <p-checkbox name="groupname" value="val2"></p-checkbox>
+              Lesson 003 <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 5min
+            </p>
+          </div>
+          <div>
+            <p>
+              <p-checkbox name="groupname" value="val2"></p-checkbox>
+              Lesson 004 <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 5min
+            </p>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab header="section-03:2nd Lesson">
+          <p>3rt accordian</p>
+        </p-accordionTab>
+      </p-accordion>
+    </aside>
+  </div>
+
+  <div class="courseDetailsDiv ">
+    <div class="border border-dark">
+      <mat-tab-group>
+        <mat-tab label="Overview">
+          <div class="d-flex mt-3">
+            <div class="ms-4">
+              <i class="pi pi-clock" style="font-size: 2rem;"></i>
+            </div>
+            <div class="ms-4">
+              <b>Schedule Learning Time</b>
+              <p>A learning schedule outlines the plan on how to study a new subject or skill. It can include a timeline
+                for completing different tasks and milestones, as well as the specific methods and resources that will
+                be used to learn the material.</p>
+              <button class="btn btn-info mb-3">Get Started</button>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Q&A">
+          <div class="shadow p-4 m-4 mb-5  rounded fs-4 text-center">Q & A here</div>
+        </mat-tab>
+        <mat-tab label="Notes">
+          <div class="shadow p-3 mb-5 bg-body rounded fs-4 text-center">Notes here</div>
+        </mat-tab>
+        <mat-tab label="Announcements">
+          <div class="shadow p-3 mb-5 bg-body rounded fs-4 text-center">Announcements here</div>
+        </mat-tab>
+        <mat-tab label="Reviews">
+          <div class="shadow p-3 mb-5 bg-body rounded fs-4 text-center">Reviews here</div>
+        </mat-tab>
+
+      </mat-tab-group>
     </div>
+
+    <div class="mt-4">
+      <b class="ms-4 fs-4 ">About this Course</b>
+      <p class="ms-5 mt-1">Website Development refers to the tasks associated with creating, building, and maintaining
+        websites and web
+        applications that run online on a browser. It may, however, also include web design, web programming, and
+        database management.</p>
+      <hr>
+    </div>
+    <div class="d-flex mt-3">
+      <p class="ms-4 " style="width: 25%;">By the Numbers</p>
+      <div style="width: 25%;" class="ms-4">
+        <p>Skill Level: All Levels</p>
+        <p>Students: 42368</p>
+        <p>Languge : English & Telugu</p>
+        <p>Caption : Yes</p>
+      </div>
+      <div style="width: 25%;" class="ms-4">
+        <p>Lectures : 123</p>
+        <p>Videos : 36.5 hrs</p>
+      </div>
+    </div>
+    <hr>
+    <div class="d-flex">
+      <div style="width: 25%;" class="ms-4">
+        <b>Certificates</b>
+      </div>
+      <div style="width: 50%;" class="ms-4">
+        <p>Get LMS certificate by By completing entire Course</p>
+        <button class="btn btn-primary">Get LMS Certificate</button>
+      </div>
+      <hr>
     </div>
   </div>
 

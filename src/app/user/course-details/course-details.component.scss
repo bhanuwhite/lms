@@ -1,19 +1,22 @@
-.headDiv{
-  height: 25%;
-  width: 100%;
-  background-color: black;
-  color: white;
+
+.course_video{
+  height: 75vh;
+  width: 75%;
 }
-.title h1{
-  font-size: 3.2rem;
-  font-family: sans-serif;
+.courseDetailsDiv{
+  max-width: 75%;
 }
-.description{
-  font-size: 1rem;
-  font-family: serif;
+.lmsLogo{
+  border-radius: 10rem;
+  height: 50px;
 
 }
-.LearnContent{
-  display: flex;
-  flex-wrap: wrap;
+aside{
+  float: right;
+  width: 23%;
+  background-color: white;
+  color: black;
+}
+.share{
+  margin-left: 80%;
 }
