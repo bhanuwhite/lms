@@ -21,12 +21,17 @@ import { MyLibraryComponent } from './my-library/my-library.component';
 import {CardModule} from 'primeng/card'
 import {RatingModule} from 'primeng/rating';
 import {MatTabsModule} from '@angular/material/tabs';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CourseDetailsComponent } from './course-details/course-details.component';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
   declarations: [
     UserComponent,
-    MyLibraryComponent
+    MyLibraryComponent,
+    CourseDetailsComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +44,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MessagesModule,
     ProgressSpinnerModule,
     InputTextModule,
-    AdminRoutingModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule,CardModule,RatingModule,MatTabsModule
+    AdminRoutingModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule,CardModule,RatingModule,MatTabsModule,
+    NgbModule
   ]
 })
 export class UserModule { }

@@ -90,4 +90,8 @@ export class UserComponent implements OnInit {
       }
     });
   }
+
+  openCourseDetails(){
+      this.router.navigate(['user/courseDetails'])
+  }
 }
