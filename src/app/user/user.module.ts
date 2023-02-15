@@ -18,14 +18,15 @@ import { SheredModule } from '../component/shered.module';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InputTextModule } from 'primeng/inputtext';
 import { MyLibraryComponent } from './my-library/my-library.component';
-import {MatTabsModule} from '@angular/material/tabs';
 import {MenubarModule} from 'primeng/menubar';
 import {TabMenuModule} from 'primeng/tabmenu';
 import {ProgressBarModule} from 'primeng/progressbar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {RatingModule} from 'primeng/rating';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 
+import {CardModule} from 'primeng/card'
+import {RatingModule} from 'primeng/rating';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { CourseDetailsComponent } from './course-details/course-details.componen
     MatProgressBarModule,
     RatingModule,
     MatTabsModule
+    , MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule,CardModule,RatingModule,MatTabsModule
   ]
 })
 export class UserModule { }
