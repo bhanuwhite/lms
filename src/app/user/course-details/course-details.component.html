@@ -1,0 +1,43 @@
+<div class="masterdiv">
+  <div class="headDiv" *ngIf="course_Details">
+    <div class="d-flex ms-5 pt-5">
+      <a href="#"><h3>Beginner</h3></a>
+      <a href="#"><h3 class="ms-2"> --> Intermediate</h3></a>
+      <a href="#"><h3 class="ms-2"> --> Proficient</h3></a>
+    </div>
+    <div class="ms-5 title">
+      <h1> {{course_Details.title}} </h1>
+    </div>
+    <div>
+      <b class="description ms-5"> {{course_Details.desc}} </b>
+    </div>
+    <div class="d-flex ms-5 mt-3">
+      <button class="btn btn-warning">Besteller</button>
+      <b class="mt-2 ms-2">{{course_Details.rating}}</b>
+      <p-rating class="mt-2 ms-2" [stars]=5  [cancel]=false [ngModel]=course_Details.rating> </p-rating>
+    </div>
+    <div class="mt-2 ms-5">
+      <p>Created by <a href="#" >Midhun Chakravarthy</a> | <a href="#" >Raghu Nandhan</a> | <a href="#" >Lokesh Naranyan</a></p>
+    </div>
+    <div class="ms-5 mt-2 mb-2">
+      <i class="pi  pi-globe" style="font-size: 1rem"></i>  <u class="ms-2 fs-6">English</u> <u class="ms-2 fs-6">Telugu</u> <u class="ms-2 fs-6">Hindi</u>
+    </div>
+  </div>
+  <div class="container">
+    <div class="border-2 w-75">
+      <h2>What you'll learn</h2>
+      <div class="LearnContent">
+      <p style="width: 50%;"><i class="pi pi-check"></i> Software Architecture of large scale systems, capable of handling millions of requests/day</p>
+      <p style="width: 50%;"><i class="pi pi-check"></i>Apply industry proven software architectural patterns, building blocks and best practices </p>
+      <p style="width: 50%;;"><i class="pi pi-check"></i> Gain confidence for an upcoming System Design Interview</p>
+      <p style="width: 50%;"><i class="pi pi-check"></i>Apply industry proven software architectural patterns, building blocks and best practices </p>
+      <p style="width: 50%;"><i class="pi pi-check"></i> Gain confidence for an upcoming System Design Interview</p>
+      <p style="width: 50%;"><i class="pi pi-check"></i>Apply industry proven software architectural patterns, building blocks and best practices </p>
+      <p style="width: 50%;;"><i class="pi pi-check"></i> Gain confidence for an upcoming System Design Interview</p>
+      <p style="width: 50%;"><i class="pi pi-check"></i>Apply industry proven software architectural patterns, building blocks and best practices </p>
+
+    </div>
+    </div>
+  </div>
+
+</div>
