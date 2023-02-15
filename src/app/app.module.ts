@@ -30,6 +30,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SheredModule } from './component/shered.module';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MenuModule } from 'primeng/menu';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 
 let module = [
@@ -52,8 +54,9 @@ let module = [
   DialogModule,
   TooltipModule,
   ButtonModule,
-  SheredModule
-  
+  SheredModule,
+
+
 ]
 
 @NgModule({
@@ -72,18 +75,18 @@ let module = [
     MenuModule,
     SheredModule,
     // SpinnerModule,
-    TooltipModule, ButtonModule
-    
+    TooltipModule, ButtonModule, MatTabsModule
+
   ],
   providers: [
     AuthService,AuthGuard,UserGuard,
-    
+
       {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
     }
-    
+
   ],
   bootstrap: [AppComponent]
 })

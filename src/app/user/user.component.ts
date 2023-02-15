@@ -5,6 +5,8 @@ import { MessageService } from 'primeng/api';
 import { ApiService } from '../services/api.service';
 import courseList from '../../assets/data/courseDetails.json';
 
+
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -13,8 +15,8 @@ import courseList from '../../assets/data/courseDetails.json';
 })
 export class UserComponent implements OnInit {
   contentData!: any;
-  public val: number = 3;
-  msg: string | undefined;
+  currentRate:number=2
+
 
   isLoading: boolean = false;
   public items: any;
@@ -36,13 +38,13 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.iconMenu();
     this.getContent();
+    console.log(courseList);
 
-    // console.log(courseList[0].courseTitle);
-    // for(let i=0;i<=courseList.length;i++){
 
-    //   this.val=courseList[i].rating;
-    // }
   }
+
+
+
 
   public iconMenu(): void {
     this.items = [
