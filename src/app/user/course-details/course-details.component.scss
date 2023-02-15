@@ -1,0 +1,19 @@
+.headDiv{
+  height: 25%;
+  width: 100%;
+  background-color: black;
+  color: white;
+}
+.title h1{
+  font-size: 3.2rem;
+  font-family: sans-serif;
+}
+.description{
+  font-size: 1rem;
+  font-family: serif;
+
+}
+.LearnContent{
+  display: flex;
+  flex-wrap: wrap;
+}

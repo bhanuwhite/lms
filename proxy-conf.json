@@ -2,7 +2,7 @@
     {
         "context": [
             "/api",
-            "/uploads" 
+            "/uploads"
         ],
         "target": "https://e153cbac15d730720d18294eea2ab2e4.loophole.site/",
         "secure": true,

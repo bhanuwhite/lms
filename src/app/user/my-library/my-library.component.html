@@ -1,1 +1,39 @@
-<p>my-library works!</p>
+<div>
+  <div class="h-25 w-100 bg-dark">
+    <div>
+      <h1 class="text-center text-white pt-5 pb-2 fs-1">𝐌𝐲 𝐋𝐞𝐚𝐫𝐧𝐢𝐧𝐠𝐬</h1>
+    </div>
+  </div>
+  <div>
+    <mat-tab-group>
+      <mat-tab label="All Courses">
+        <div class=" course_DetailsDiv">
+          <div class="courseDiv" *ngFor="let courseDetails of course_Details">
+            <a [routerLink]="['/user/library',courseDetails.id]" routerLinkActive="routerActive" > <img src={{courseDetails.url}} alt="" class="courseFigure" (click)="myCourseDetails(courseDetails)" >      </a>
+            <h2 class="ms-3"> {{courseDetails.title}} </h2>
+            <div>
+              <div class="text-wrap">
+                <p class="ms-3 me-2">{{courseDetails.desc}} </p>
+              </div>
+              <div class="ms-3 me-3">
+                <mat-progress-bar mode="determinate" [value]="progressValue"></mat-progress-bar>
+                <p> {{progressValue}} %  Complete</p>
+              </div>
+              <div class="mt-2 text-center" >
+                <p-rating  [stars]=5  [cancel]=false> </p-rating>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="My List"> Content 2 </mat-tab>
+      <mat-tab label="wish List"> Content 3 </mat-tab>
+      <mat-tab label="Archives"> Content 4 </mat-tab>
+      <mat-tab label="My Tools"> Content 5 </mat-tab>
+
+    </mat-tab-group>
+  </div>
+
+
+
+</div>

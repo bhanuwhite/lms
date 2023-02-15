@@ -18,12 +18,22 @@ import { SheredModule } from '../component/shered.module';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InputTextModule } from 'primeng/inputtext';
 import { MyLibraryComponent } from './my-library/my-library.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MenubarModule} from 'primeng/menubar';
+import {TabMenuModule} from 'primeng/tabmenu';
+import {ProgressBarModule} from 'primeng/progressbar';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {RatingModule} from 'primeng/rating';
+import { CourseDetailsComponent } from './course-details/course-details.component';
+
 
 
 @NgModule({
   declarations: [
     UserComponent,
-    MyLibraryComponent
+    MyLibraryComponent,
+    CourseDetailsComponent,
+
   ],
   imports: [
     CommonModule,
@@ -36,7 +46,13 @@ import { MyLibraryComponent } from './my-library/my-library.component';
     MessagesModule,
     ProgressSpinnerModule,
     InputTextModule,
-    AdminRoutingModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule
+    AdminRoutingModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule,
+    MenubarModule,
+    TabMenuModule,
+    ProgressBarModule,
+    MatProgressBarModule,
+    RatingModule,
+    MatTabsModule
   ]
 })
 export class UserModule { }
