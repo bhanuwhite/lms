@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
 import { MenuModule } from 'primeng/menu';
@@ -18,15 +17,18 @@ import { SheredModule } from '../component/shered.module';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InputTextModule } from 'primeng/inputtext';
 import { MyLibraryComponent } from './my-library/my-library.component';
-import {MenubarModule} from 'primeng/menubar';
-import {TabMenuModule} from 'primeng/tabmenu';
-import {ProgressBarModule} from 'primeng/progressbar';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MenubarModule } from 'primeng/menubar';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 
-import {CardModule} from 'primeng/card'
-import {RatingModule} from 'primeng/rating';
-import {MatTabsModule} from '@angular/material/tabs';
+import { CardModule } from 'primeng/card';
+import { RatingModule } from 'primeng/rating';
+import { MatTabsModule } from '@angular/material/tabs';
+import { AboutComponent } from './about/about.component';
+import { UserHeaderComponent } from './user-header/user-header.component';
+import { AvatarModule } from 'primeng/avatar';
 
 
 @NgModule({
@@ -34,6 +36,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     UserComponent,
     MyLibraryComponent,
     CourseDetailsComponent,
+    AboutComponent,
+    UserHeaderComponent
 
   ],
   imports: [
@@ -53,8 +57,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     ProgressBarModule,
     MatProgressBarModule,
     RatingModule,
-    MatTabsModule
-    , MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule,CardModule,RatingModule,MatTabsModule
+    MatTabsModule,
+    AvatarModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule, CardModule, RatingModule, MatTabsModule
   ]
 })
 export class UserModule { }
