@@ -48,6 +48,7 @@ import {MenuItem} from 'primeng/api';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import {AccordionModule} from 'primeng/accordion';
+import { MeetingsComponent } from './meetings/meetings.component';
 
 
 
@@ -64,7 +65,8 @@ import {AccordionModule} from 'primeng/accordion';
     DashboardComponent,
     SpinnerComponent,
     ContentComponent,
-    CourseDetailsComponent
+    CourseDetailsComponent,
+    MeetingsComponent
 
   ],
   imports: [

@@ -6,6 +6,7 @@ import { ContentComponent } from './content/content.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CoursesComponent } from './courses/courses.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MeetingsComponent } from './meetings/meetings.component';
 import { QuizComponent } from './quiz/quiz.component';
 
 const routes: Routes = [
@@ -29,6 +30,9 @@ const routes: Routes = [
       },
       {
         path: 'quiz', component: QuizComponent
+      },
+      {
+        path: 'meetings',component: MeetingsComponent
       }
     ]
   },

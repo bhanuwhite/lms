@@ -30,8 +30,8 @@
                        >
                         <i class="pi pi-stopwatch me-2"></i> <span>Quiz</span>
                     </li>
-                    <li class="listbox-item">
-                        <i class="pi pi-calendar me-2"></i> <span>Schedule</span>
+                    <li class="listbox-item" [class.active]="isActive('/admin/meetings')" routerLink="/admin/meetings">
+                        <i class="pi pi-calendar me-2"></i> <span>Meetings</span>
                     </li>
                     <li class="listbox-item">
                         <i class="pi pi-envelope me-2"></i> <span>Messages</span>
