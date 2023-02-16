@@ -33,7 +33,6 @@ import { MenuModule } from 'primeng/menu';
 import {MatTabsModule} from '@angular/material/tabs';
 
 
-
 let module = [
   MatButtonModule,
   MatCardModule,
@@ -63,7 +62,7 @@ let module = [
   declarations: [
     AppComponent,
     EmailDirective,
-    // SpinnerComponent,
+
   ],
   imports: [
     ...module,

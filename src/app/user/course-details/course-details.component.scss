@@ -1,0 +1,54 @@
+.fluid-container{
+  height: 300px;
+  background-color:black;
+}
+.container{
+  margin-left: 90px;
+  margin-top: 30px;
+
+}
+.card{
+  min-height: 30vh;
+  max-height: 45vh;
+  width: 100vh;
+  margin-bottom: 40px;
+  border:1px solid lightgrey;
+  h4{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   }
+}
+i{
+margin-right: 10px;
+}
+
+.header{
+   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+     margin:30px;
+}
+ul{
+  flex-wrap: wrap;
+}
+.course-detiails{
+  width: 80vh;
+h5{
+  font-size: medium;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+}
+.companies-offer{
+
+  min-height: 20vh;
+  max-height: 35vh;
+  width: 100vh;
+  margin-bottom: 40px;
+  border:1px solid lightgrey;
+  h3{
+    margin:20px;
+  }
+  img{
+    width:80px;
+    height: 80px;
+    margin-left: 70px;
+    margin-bottom: 10px;
+  }
+}

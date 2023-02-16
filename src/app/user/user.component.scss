@@ -73,7 +73,23 @@ button {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   }
 }
-.rating{
+ngb-rating{
   margin-bottom: 10px;
+  font-size: 40px;
+  color:gray
+}
+a{
+  cursor: pointer;
+}
+.defaultStar{
+  position:relative;
+  display: inline-block;
+
+}
+.paintStar{
+  position:absolute;
+  display: inline-block;
+  color:gold;
+  overflow: hidden;
 }
 
