@@ -49,6 +49,8 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import {AccordionModule} from 'primeng/accordion';
 import { MeetingsComponent } from './meetings/meetings.component';
+import {CheckboxModule} from 'primeng/checkbox';
+import {AvatarGroupModule} from 'primeng/avatargroup';
 
 
 
@@ -101,7 +103,9 @@ import { MeetingsComponent } from './meetings/meetings.component';
     MegaMenuModule,
     TabViewModule,
     AccordionModule,
-    ToolbarModule
+    ToolbarModule,
+    AvatarGroupModule,
+    CheckboxModule
   ],
   providers: [
     ApiService

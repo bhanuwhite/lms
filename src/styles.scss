@@ -202,7 +202,7 @@ a {
 ::-webkit-scrollbar-thumb:hover {
     background: #20854e;
 }
-
+// sidebar global styles
 @media only screen and (max-width: 760px) {
     .p-sidebar-left {
         top: 0;
@@ -212,3 +212,18 @@ a {
     }
 }
 
+// meetings global style
+.meeting-btn{
+    button.p-element.p-ripple.p-button.p-component {
+        background: #fff !important;
+        color: #959595 !important;
+        border: 1px solid #F1F0F2 !important;
+    }
+}
+.meeting-details-btn{
+    button.p-ripple.p-element.p-button-lg.p-button.p-component {
+        width: 100% !important;
+        border-radius: 0px !important;
+        font-size: 15px !important;
+    }
+}
