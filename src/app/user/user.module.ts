@@ -28,6 +28,7 @@ import { CourseDetailsComponent } from './course-details/course-details.componen
 import {CardModule} from 'primeng/card';
 import {AccordionModule} from 'primeng/accordion';
 import {CheckboxModule} from 'primeng/checkbox';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 @NgModule({
   declarations: [
@@ -56,7 +57,9 @@ import {CheckboxModule} from 'primeng/checkbox';
     MatTabsModule,
     CardModule,
     AccordionModule,
-    CheckboxModule
-  ]
+    CheckboxModule,
+    FontAwesomeModule
+  ],
+  providers:[]
 })
 export class UserModule { }
