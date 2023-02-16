@@ -29,6 +29,7 @@ import {CardModule} from 'primeng/card';
 import {AccordionModule} from 'primeng/accordion';
 import {CheckboxModule} from 'primeng/checkbox';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
     CardModule,
     AccordionModule,
     CheckboxModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgbRatingModule
   ],
   providers:[]
 })

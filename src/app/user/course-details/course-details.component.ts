@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
+import {newObj} from '../../interface'
+
 import {
   faShare,
   faMessage,
@@ -12,12 +15,16 @@ import {
   styleUrls: ['./course-details.component.scss'],
 })
 export class CourseDetailsComponent implements OnInit {
-  course_Details: any = {};
-  jsonCourse_Details: any = {};
+  course_Details:{ videoUrl:string}={
+    videoUrl: ''
+  }
+  jsonCourse_Details:{ videoUrl:string}={
+    videoUrl: ''
+  };
   faShare = faShare;
   faMessage = faMessage;
   faThumbsUp = faThumbsUp;
-  faStar=faStar
+  faStar=faStar;
   reviews:{ "name": string; "image": string; "rating": number; "date": string; "review": string;}[] = [
     {
       name: 'Mahesh',
@@ -43,8 +50,9 @@ export class CourseDetailsComponent implements OnInit {
     }
   ];
   ngOnInit(): void {
-    this.jsonCourse_Details = localStorage.getItem('courseDetails');
-    this.course_Details = JSON.parse(this.jsonCourse_Details);
+    // this.jsonCourse_Details = localStorage.getItem('courseDetails');
+    this.jsonCourse_Details = JSON.parse(localStorage.getItem('courseDetails') || '{}')
+    this.course_Details = this.jsonCourse_Details;
     console.log(this.course_Details);
   }
 }

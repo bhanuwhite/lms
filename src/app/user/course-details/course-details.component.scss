@@ -31,7 +31,35 @@ aside{
   border-color: blue;
   color: white;
 }
+.avgRating{
+  width: 25%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.filled {
+  color: orange;
+  overflow: hidden;
+  position: absolute;
+  font-size: 1.5rem;
+}
+.RatingprogressBar {
+  width: 50%;
+  p-progressBar{
+    margin-right: 10px;
+  }
+}
+.ratingStar{
 
+  ngb-rating{
+    margin-right: 1px;
+  }
+}
+.ntr{
+  display: flex;
 
-
+}
 
