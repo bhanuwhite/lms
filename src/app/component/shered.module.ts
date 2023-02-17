@@ -23,6 +23,7 @@ import {ButtonModule} from 'primeng/button';
 
 
 let module = [
+  CommonModule,
   MatSlideToggleModule,
   MatButtonModule,
   MatCardModule,
@@ -51,7 +52,6 @@ let module = [
   ],
   imports: [
     ...module,
-    CommonModule,
   ],
   exports:[
     ...module,

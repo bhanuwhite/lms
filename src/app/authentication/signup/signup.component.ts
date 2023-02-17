@@ -44,11 +44,13 @@ export class SignupComponent {
     }
 
     this.body = {
-      username: this.formgroup.value.name,
-      email: this.formgroup.value.email,
-      password: this.formgroup.value.pwd
+        username: this.formgroup.value.name,
+        email: this.formgroup.value.email,
+        password: this.formgroup.value.pwd
     }
     this.isLoading = true;
+
+    console.log(this.formgroup.value)
     this.authSerice.signupUser(this.body).subscribe(res => {
       console.log('sign up data', res)
       try {

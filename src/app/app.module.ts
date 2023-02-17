@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { forwardRef, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {DialogModule} from 'primeng/dialog';
 import {TooltipModule} from 'primeng/tooltip';
@@ -30,6 +30,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SheredModule } from './component/shered.module';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MenuModule } from 'primeng/menu';
+import { UserModule } from './user/user.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 let module = [
@@ -48,33 +50,29 @@ let module = [
   MatSelectModule,
   ReactiveFormsModule,
   FormsModule,
-  MatSnackBarModule,
-  DialogModule,
-  TooltipModule,
-  ButtonModule,
-  SheredModule
+  SheredModule,
+  UserModule,
+  forwardRef(() => MatSnackBarModule),
+
   
 ]
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    EmailDirective,
-    // SpinnerComponent,
-  ],
   imports: [
     ...module,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    ConfirmDialogModule,
-    MenuModule,
-    SheredModule,
-    // SpinnerModule,
-    TooltipModule, ButtonModule
-    
+    NgbModule,
+    SheredModule
+    ],
+  declarations: [
+    AppComponent,
+    EmailDirective,
+    // SpinnerComponent,
   ],
+
   providers: [
     AuthService,AuthGuard,UserGuard,
     

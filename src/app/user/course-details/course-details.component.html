@@ -1,0 +1,252 @@
+<div class="mt-1 ">
+  <div *ngIf="course_Details">
+    <video src={{course_Details.videoUrl}} controls class="course_video"></video>
+    <aside>
+      <p-accordion>
+        <p-accordionTab header="Section-01:Intro">
+          <div>
+            <p>
+              <p-checkbox name="groupName" value="val"></p-checkbox>
+              <b class="ms-2">What is Web Developement</b> <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 15min
+            </p>
+          </div>
+          <div>
+            <p>
+              <p-checkbox name="groupName" value="val"></p-checkbox>
+              <b class="ms-2">What you became</b> <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 10min
+            </p>
+          </div>
+          <div>
+            <p>
+              <p-checkbox name="groupName" value="val"></p-checkbox>
+              <b class="ms-2"> Job Opportunities</b> <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 8min
+            </p>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab header="Section-02:PreRequisites & Info">
+          <div>
+            <p>
+              <p-checkbox name="groupname" value="val2"></p-checkbox>
+              <b class="ms">PreRequisites</b> <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 5min
+            </p>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab header="Section-03:Program Setup">
+          <div>
+            <p>
+              <p-checkbox name="groupname" value="val2"></p-checkbox>
+              <b class="ms">Installations</b> <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 10min
+            </p>
+          </div>
+          <div>
+            <p>
+              <p-checkbox name="groupname" value="val2"></p-checkbox>
+              <b class="ms">Others</b> <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 5min
+            </p>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab header="Section-04:Starting 1st Lesson">
+          <div>
+            <p>
+              <p-checkbox name="groupname" value="val2"></p-checkbox>
+              Lesson 001 <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 5min
+            </p>
+          </div>
+          <div>
+            <p>
+              <p-checkbox name="groupName" value="val"></p-checkbox>
+              Lesson 002 <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 5min
+            </p>
+          </div>
+          <div>
+            <p>
+              <p-checkbox name="groupName" value="val"></p-checkbox>
+              Lesson 003 <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 5min
+            </p>
+          </div>
+          <div>
+            <p>
+              <p-checkbox name="groupName" value="val"></p-checkbox>
+              Lesson 004 <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 5min
+            </p>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab header="Section-05:2nd Lesson">
+          <p>Currently no data avoilable
+          <p>
+        </p-accordionTab>
+      </p-accordion>
+    </aside>
+  </div>
+
+  <div class="courseDetailsDiv ">
+    <mat-tab-group>
+      <mat-tab label="Overview">
+        <div class="d-flex border border-dark">
+          <div class="ms-4 pt-4">
+            <i class="pi pi-clock" style="font-size: 2rem;"></i>
+          </div>
+          <div class="ms-4 pt-4 ">
+            <b>Schedule Learning Time</b>
+            <p>A learning schedule outlines the plan on how to study a new subject or skill. It can include a timeline
+              for completing different tasks and milestones, as well as the specific methods and resources that will
+              be used to learn the material.</p>
+            <button class="btn btn-info mb-3">Get Started</button>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <b class="ms-4 fs-4 ">About this Course</b>
+          <p class="ms-5 mt-1">Website Development refers to the tasks associated with creating, building, and
+            maintaining
+            websites and web
+            applications that run online on a browser. It may, however, also include web design, web programming, and
+            database management.</p>
+          <hr>
+        </div>
+        <div class="d-flex mt-3">
+          <p class="ms-4 " style="width: 25%;">By the Numbers</p>
+          <div style="width: 25%;" class="ms-4">
+            <p>Skill Level: All Levels</p>
+            <p>Students: 42368</p>
+            <p>Languge : English & Telugu</p>
+            <p>Caption : Yes</p>
+          </div>
+          <div style="width: 25%;" class="ms-4">
+            <p>Lectures : 123</p>
+            <p>Videos : 36.5 hrs</p>
+          </div>
+        </div>
+        <hr>
+        <div class="d-flex">
+          <div style="width: 25%;" class="ms-4">
+            <b>Certificates</b>
+          </div>
+          <div style="width: 50%;" class="ms-4">
+            <p>Get LMS certificate by By completing entire Course</p>
+            <button class="btn btn-primary">Get LMS Certificate</button>
+          </div>
+          <hr>
+        </div>
+      </mat-tab>
+      <mat-tab label="Q&A">
+        <div class="  mb-5  rounded fs-4 text-center">FAQ's</div>
+        <div class="mt-4">
+          <b class="ms-4 fs-4 ">What is FAQ?</b>
+          <p class="ms-5 mt-1"> Here user can ask his/her questions on the course. Tutor will help to solve your
+            questions or sometimes students are also help you.
+          </p>
+          <hr>
+        </div>
+        <div class="ms-4 mt-3">
+          <p-accordion>
+            <p-accordionTab header="What should I learn for web development course?">
+              <p>To become a Web Developer, you should have an understanding of HTML, CSS, and JavaScript. It's also
+                recommended to learn about CSS and CSS frameworks. Developing these fundamental web development skills
+                will give you the foundation and logic for communicating with programming languages.</p>
+            </p-accordionTab>
+            <p-accordionTab header="What are the benefits of web development course?">
+              <p>
+                1) You can learn in a short period of time. 2) Limited skills. 3) You can do freelancing projects. 4)
+                Start our own business.</p>
+            </p-accordionTab>
+            <p-accordionTab header="Does web development have a future?">
+              <p>
+                Web Developers Are Always Learning
+                Technology changes quickly, which means Web Developers have to stay on top of any important new
+                programming language, web development software, or trend. Even coding experts with advanced computer
+                science degrees will need to continually upskill in this field to stay ahead.</p>
+            </p-accordionTab>
+          </p-accordion>
+          <p class="ms-4 mt-2">Feel free to ask any questions here. <button class="btn btn-primary">Ask
+              Question</button> </p>
+        </div>
+        <hr>
+      </mat-tab>
+      <mat-tab label="Notes">
+        <div class="mt-4 mb-5 bg-body rounded fs-4 text-center"> Writes Notes Here</div>
+        <div class="ms-4 mt-2">
+          <textarea name="userNotes" cols="100" rows="5" placeholder="Start notes from here" class="mb-4"></textarea>
+        </div>
+      </mat-tab>
+      <mat-tab label="Announcements">
+        <div class="shadow p-3 mb-5 bg-body rounded fs-4 text-center">
+          <div class="ms-4 mt-2 text-center">
+            <p>Currently we don't have any Announcements. We will update you.</p> <br>
+            <button class="btn btn-primary mt-3 mb-3">Notify Me</button>
+          </div>
+        </div>
+
+      </mat-tab> -->
+      <mat-tab label="Reviews">
+        <div class="ms-4 mt-2">
+          <b class="pb-3"> Student Reviews</b>
+          <div class="d-flex">
+            <div class="avgRating">
+              <b class="fs-2">4.5</b> <br>
+              <!-- <ngb-rating [rate]="5" [max]="5" [readonly]="true" class="filled"> </ngb-rating> -->
+              <p>Course Rating</p>
+            </div>
+            <div class="ms-5 RatingprogressBar">
+              <b>To make the label visible you need to set a proper height to the bar.</b>
+              <p-progressBar [value]="63" [style]="{'height': '10px'}"></p-progressBar>
+              <p-progressBar [value]="33" [style]="{'height': '10px'}"></p-progressBar>
+              <p-progressBar [value]="23" [style]="{'height': '10px'}"></p-progressBar>
+              <p-progressBar [value]="13" [style]="{'height': '10px'}"></p-progressBar>
+              <p-progressBar [value]="3" [style]="{'height': '10px'}"></p-progressBar>
+            </div>
+            <!-- <div class="ratingStar">
+              <p class="ms-3 "> <ngb-rating [rate]="5" [max]="5" [readonly]="true" class="filled"> </ngb-rating> <br>
+              </p>
+              <p class="ms-3 mt-3"> <ngb-rating [rate]="3" [max]="5" [readonly]="true" class="filled"> </ngb-rating>
+                <br> </p>
+              <p class="ms-3 mt-3"> <ngb-rating [rate]="3" [max]="5" [readonly]="true" class="filled"> </ngb-rating>
+                <br></p>
+              <p class="ms-3 mt-3"> <ngb-rating [rate]="1" [max]="5" [readonly]="true" class="filled"> </ngb-rating>
+                <br> </p>
+              <p class="ms-3 mt-3"> <ngb-rating [rate]="0" [max]="5" [readonly]="true" class="filled"> </ngb-rating>
+              </p>
+            </div> -->
+          </div>
+
+
+        </div>
+
+
+        <!-- <button class="btn btn-primary float-end">Write Review</button> -->
+        <div class="ms-4 mt-2" *ngFor="let review of reviews">
+          <div class="d-flex">
+            <img src={{review.image}} alt="" class="reviewsImg">
+            <div>
+              <a href="#" class="ms-3"> {{review.name}}</a> <br>
+              <button class="ratingBtn ms-3"> {{review.rating}} </button>
+            </div>
+          </div>
+          <p class="ms-4 pt-3 pb-3"> {{review.review}} </p>
+
+          <div class="d-flex ">
+            <button class="btn btn-outline-danger ms-5">  </button>
+            <button class="btn btn-outline-warning ms-5">  </button>
+            <button class="btn btn-outline-info ms-5">  </button>
+          </div>
+          <hr>
+        </div>
+      </mat-tab>
+
+    </mat-tab-group>
+
+
+  </div>
+
+</div>
+<app-user-footer></app-user-footer>

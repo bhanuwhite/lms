@@ -2,9 +2,9 @@
     {
         "context": [
             "/api",
-            "/uploads" 
+            "/uploads"
         ],
-        "target": "https://fb9dc8b63a1046b4391d663f0bfefa6c.loophole.site/",
+        "target": "https://34219232e8458bfff65828371f67f586.loophole.site/",
         "secure": true,
         "changeOrigin": true
     }
