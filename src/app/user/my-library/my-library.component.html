@@ -9,7 +9,8 @@
       <mat-tab label="All Courses">
         <div class=" course_DetailsDiv">
           <div class="courseDiv" *ngFor="let courseDetails of course_Details">
-            <a [routerLink]="['/user/library',courseDetails.id]" routerLinkActive="routerActive" > <img src={{courseDetails.url}} alt="" class="courseFigure" (click)="myCourseDetails(courseDetails)" >      </a>
+            <a [routerLink]="['/user/library',courseDetails.id]" routerLinkActive="routerActive"> <img
+                src={{courseDetails.url}} alt="" class="courseFigure" (click)="myCourseDetails(courseDetails)"> </a>
             <h2 class="ms-3"> {{courseDetails.title}} </h2>
             <div>
               <div class="text-wrap">
@@ -17,10 +18,10 @@
               </div>
               <div class="ms-3 me-3">
                 <mat-progress-bar mode="determinate" [value]="progressValue"></mat-progress-bar>
-                <p> {{progressValue}} %  Complete</p>
+                <p> {{progressValue}} % Complete</p>
               </div>
-              <div class="mt-2 text-center" >
-                <p-rating  [stars]=5  [cancel]=false> </p-rating>
+              <div class="mt-2 text-center">
+                <p-rating [stars]=5 [cancel]=false> </p-rating>
               </div>
             </div>
           </div>

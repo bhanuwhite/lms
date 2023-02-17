@@ -30,13 +30,12 @@ import {AccordionModule} from 'primeng/accordion';
 import {CheckboxModule} from 'primeng/checkbox';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
-
+import {DropdownModule} from 'primeng/dropdown';
 @NgModule({
   declarations: [
     UserComponent,
     MyLibraryComponent,
     CourseDetailsComponent,
-
   ],
   imports: [
     CommonModule,
@@ -60,7 +59,8 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
     AccordionModule,
     CheckboxModule,
     FontAwesomeModule,
-    NgbRatingModule
+    NgbRatingModule,
+    DropdownModule,
   ],
   providers:[]
 })

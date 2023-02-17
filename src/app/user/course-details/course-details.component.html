@@ -140,13 +140,37 @@
         </div>
       </mat-tab>
       <mat-tab label="Q&A">
-        <div class="  mb-5  rounded fs-4 text-center">FAQ's</div>
         <div class="mt-4">
-          <b class="ms-4 fs-4 ">What is FAQ?</b>
-          <p class="ms-5 mt-1"> Here user can ask his/her questions on the course. Tutor will help to solve your
-            questions or sometimes students are also help you.
-          </p>
-          <hr>
+          <div class="d-flex ms-5">
+            <input type="search" class="form-control w-75" placeholder="Enter something">
+            <button class="btn btn-dark"><fa-icon [icon]="faSearch"> </fa-icon></button>
+          </div>
+          <div class="d-flex mt-3 ms-4">
+            <div>
+              <select style="height: 3rem; width: 10rem; text-align: center; font-size: 1rem; gap: 10px;" class="ms-4"
+                (change)="filterByRating($event)">
+                <option class="ms-4">All Lectures</option>
+                <option value="{{lecture.key}}" *ngFor="let lecture of AllLectures" class="ms-5">{{lecture.key}}
+                </option>
+              </select>
+            </div>
+            <div>
+              <select style="height: 3rem; width: 10rem; text-align: center; font-size: 1rem;" class="ms-4"
+                (change)="filterByRating($event)">
+                <option value="ALL" class="ms-4">Filter Question</option>
+                <option value="{{question.key}}" *ngFor="let question of filterQuestion"  class="mt-4">{{question.key}}
+                </option>
+              </select>
+            </div>
+            <div>
+              <select style="height: 3rem; width: 10rem; text-align: center; font-size: 1rem;" class="ms-4"
+                (change)="filterByRating($event)">
+                <option value="ALL" class="ms-4">Sort by Recommends</option>
+                <option value="{{recommends.key}}" *ngFor="let recommends of recommended"  class="pt-4" >{{recommends.key}}
+                </option>
+              </select>
+            </div>
+          </div>
         </div>
         <div class="ms-4 mt-3">
           <p-accordion>
@@ -187,54 +211,110 @@
           </div>
         </div>
 
-      </mat-tab> -->
+      </mat-tab>
       <mat-tab label="Reviews">
-        <div class="ms-4 mt-2">
-          <b class="pb-3"> Student Reviews</b>
+        <div class="ms-5 mt-2">
+          <b class="pb-3 fs-3"> Student Reviews</b>
           <div class="d-flex">
             <div class="avgRating">
               <b class="fs-2">4.5</b> <br>
               <ngb-rating [rate]="5" [max]="5" [readonly]="true" class="filled"> </ngb-rating>
               <p>Course Rating</p>
             </div>
-            <div class="ms-5 RatingprogressBar">
-              <b>To make the label visible you need to set a proper height to the bar.</b>
-              <p-progressBar [value]="63" [style]="{'height': '10px'}"></p-progressBar>
-              <p-progressBar [value]="33" [style]="{'height': '10px'}"></p-progressBar>
-              <p-progressBar [value]="23" [style]="{'height': '10px'}"></p-progressBar>
-              <p-progressBar [value]="13" [style]="{'height': '10px'}"></p-progressBar>
-              <p-progressBar [value]="3" [style]="{'height': '10px'}"></p-progressBar>
-            </div>
-            <div class="ratingStar">
-              <p class="ms-3 "> <ngb-rating [rate]="5" [max]="5" [readonly]="true" class="filled"> </ngb-rating> <br></p>
-              <p class="ms-3 mt-3"> <ngb-rating [rate]="3" [max]="5" [readonly]="true" class="filled"> </ngb-rating> <br> </p>
-              <p class="ms-3 mt-3"> <ngb-rating [rate]="3" [max]="5" [readonly]="true" class="filled"> </ngb-rating> <br></p>
-              <p class="ms-3 mt-3"> <ngb-rating [rate]="1" [max]="5" [readonly]="true" class="filled"> </ngb-rating> <br> </p>
-              <p class="ms-3 mt-3"> <ngb-rating [rate]="0" [max]="5" [readonly]="true" class="filled"> </ngb-rating> </p>
-            </div>
-          </div>
-
-
-        </div>
-
-
-        <!-- <button class="btn btn-primary float-end">Write Review</button> -->
-        <div class="ms-4 mt-2" *ngFor="let review of reviews">
-          <div class="d-flex">
-            <img src={{review.image}} alt="" class="reviewsImg">
             <div>
-              <a href="#" class="ms-3"> {{review.name}}</a> <br>
-              <button class="ratingBtn ms-3"> {{review.rating}} <fa-icon [icon]="faStar"> </fa-icon> </button>
+              <b class="text-white">To make the label visible you need to set a proper height to the bar.</b>
+              <div class="ratingGrid">
+                <!-- <p-progressBar [value]="63" [style]="{'height': '12px'}" class="mt-2"></p-progressBar> -->
+                <div class="progress" style="height: 12px;">
+                  <div class="progress-bar bg-warning" role="progressbar" [style.width]="progressBarValue1 + '%'" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="ms-2"> <ngb-rating [rate]="5" [max]="5" [readonly]="true" class="filled"> </ngb-rating>
+                </p>
+                <b class="text-warning">{{progressBarValue1}}%</b>
+              </div>
+              <div class="ratingGrid mt-2">
+                <!-- <p-progressBar [value]="44" [style]="{'height': '12px'}" class="mt-2"></p-progressBar> -->
+                <div class="progress" style="height: 12px;">
+                  <div class="progress-bar bg-warning" role="progressbar" [style.width]="progressBarValue2 + '%'" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="ms-2"> <ngb-rating [rate]="4" [max]="5" [readonly]="true" class="filled"> </ngb-rating> <br>
+                </p>
+                <b class="text-warning">{{progressBarValue2}}%</b>
+
+              </div>
+              <div class="ratingGrid">
+                <!-- <p-progressBar [value]="22" [style]="{'height': '12px'}" class="mt-2"></p-progressBar> -->
+                <div class="progress" style="height: 12px;">
+                  <div class="progress-bar bg-warning" role="progressbar" [style.width]="progressBarValue3 + '%'" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="ms-2"> <ngb-rating [rate]="3" [max]="5" [readonly]="true" class="filled"> </ngb-rating> <br>
+                </p>
+                <b class="text-warning">{{progressBarValue3}}%</b>
+
+              </div>
+              <div class="ratingGrid" >
+                <!-- <p-progressBar [value]="12" [style]="{'height': '12px'}" class="mt-2"></p-progressBar> -->
+                <div class="progress" style="height: 12px;">
+                  <div class="progress-bar bg-warning" role="progressbar" [style.width]="progressBarValue4 + '%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="ms-2"> <ngb-rating [rate]="2" [max]="5" [readonly]="true" class="filled"> </ngb-rating> <br>
+                </p>
+                <b class="text-warning">{{progressBarValue4}}%</b>
+              </div>
+              <div class="ratingGrid" >
+                <!-- <p-progressBar [value]="2" [style]="{'height': '12px'}" class="mt-2"></p-progressBar> -->
+                <div class="progress" style="height: 12px;">
+                  <div class="progress-bar bg-warning" role="progressbar" [style.width]="progressBarValue5 + '%'" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="ms-2"> <ngb-rating [rate]="1" [max]="5" [readonly]="true" class="filled"> </ngb-rating> <br>
+                </p>
+                <b class="text-warning">{{progressBarValue5}}%</b>
+
+              </div>
             </div>
           </div>
-          <p class="ms-4 pt-3 pb-3"> {{review.review}} </p>
-
-          <div class="d-flex ">
-            <button class="btn btn-outline-danger ms-5"> <fa-icon [icon]="faThumbsUp"> </fa-icon> </button>
-            <button class="btn btn-outline-warning ms-5"> <fa-icon [icon]="faMessage"> </fa-icon> </button>
-            <button class="btn btn-outline-info ms-5"> <fa-icon [icon]="faShare"> </fa-icon> </button>
+          <div class="d-flex">
+            <div class="w-75">
+              <h2 class="text-center fs-2">Reviews</h2>
+              <div class="d-flex">
+                <input type="search" class="form-control w-75" placeholder="Enter something">
+                <button class="btn btn-dark"><fa-icon [icon]="faSearch"> </fa-icon></button>
+              </div>
+            </div>
+            <div class="w-50 mt-3">
+              <p class="ms-5">Filter by Rating</p>
+              <select style="height: 2rem; width: 9rem; text-align: center; font-size: 1rem;" class="ms-4"
+                (change)="filterByRating($event)">
+                <option value="ALL" class="ms-4">ALL</option>
+                <option value="{{ratingValue.rating}}" *ngFor="let ratingValue of filterRating">{{ratingValue.rating}}
+                </option>
+              </select>
+            </div>
           </div>
-          <hr>
+          <div>
+            <div *ngIf="reviews.length==0">
+              <h1 class="text-center  mt-5 mb-5">No data is avoilable for this rating </h1>
+            </div>
+            <div *ngIf="reviews.length!=0">
+              <div class="ms-4 mt-4" *ngFor="let review of reviews ">
+                <div class="d-flex">
+                  <img src={{review.image}} alt="" class="reviewsImg">
+                  <div>
+                    <a href="#" class="ms-3"> {{review.name}}</a> <br>
+                    <button class="ratingBtn ms-3"> {{review.rating}} <fa-icon [icon]="faStar"> </fa-icon> </button>
+                  </div>
+                </div>
+                <p class="ms-4 pt-3 pb-3"> {{review.review}} </p>
+                <div class="d-flex ">
+                  <button class="btn btn-outline-danger ms-5"> <fa-icon [icon]="faThumbsUp"> </fa-icon> </button>
+                  <button class="btn btn-outline-warning ms-5"> <fa-icon [icon]="faMessage"> </fa-icon> </button>
+                  <button class="btn btn-outline-info ms-5"> <fa-icon [icon]="faShare"> </fa-icon> </button>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+
         </div>
       </mat-tab>
 

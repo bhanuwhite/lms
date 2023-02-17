@@ -1,37 +1,35 @@
-
-.course_video{
+.course_video {
   height: 75vh;
   width: 75%;
 }
-.courseDetailsDiv{
+.courseDetailsDiv {
   max-width: 75%;
 }
-.lmsLogo{
+.lmsLogo {
   border-radius: 10rem;
   height: 50px;
-
 }
-aside{
+aside {
   float: right;
   width: 23%;
   background-color: white;
   color: black;
 }
-.share{
+.share {
   margin-left: 80%;
 }
-.reviewsImg{
+.reviewsImg {
   height: 50px;
   width: 50px;
   border-radius: 80%;
 }
-.ratingBtn{
+.ratingBtn {
   border-radius: 98%;
   background-color: blue;
   border-color: blue;
   color: white;
 }
-.avgRating{
+.avgRating {
   width: 25%;
   height: 200px;
   display: flex;
@@ -46,20 +44,13 @@ aside{
   position: absolute;
   font-size: 1.5rem;
 }
-.RatingprogressBar {
-  width: 50%;
-  p-progressBar{
-    margin-right: 10px;
-  }
-}
-.ratingStar{
-
-  ngb-rating{
+.ratingStar {
+  ngb-rating {
     margin-right: 1px;
   }
 }
-.ntr{
-  display: flex;
-
+.ratingGrid {
+  display: grid;
+  grid-template-columns: auto auto auto;
 }
 
