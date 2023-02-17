@@ -90,8 +90,10 @@ export class UserComponent implements OnInit {
       }
     });
   }
-
-  openCourseDetails(){
-      this.router.navigate(['user/courseDetails'])
+ public courseDetails!:string
+  openCourseDetails(course:{}){
+      this.router.navigate(['user/courseDetails']);
+      this.courseDetails =JSON.stringify(course)
+      localStorage.setItem('courseDetails',this.courseDetails)
   }
 }

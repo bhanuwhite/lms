@@ -24,7 +24,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { HeaderComponent } from './header/header.component';
-
+import {AccordionModule} from 'primeng/accordion';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,8 @@ import { HeaderComponent } from './header/header.component';
     ProgressSpinnerModule,
     InputTextModule,
     AdminRoutingModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule,CardModule,RatingModule,MatTabsModule,
-    NgbModule
+    NgbModule,
+    AccordionModule
   ]
 })
 export class UserModule { }
