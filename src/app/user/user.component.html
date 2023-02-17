@@ -101,7 +101,7 @@
            <a><img
               alt="Card"
               src="{{ course.courseImage }}"
-              style="width: 260px; height: 150px; border-radius: 10px 10px 2px 2px" (click)="openCourseDetails()"
+              style="width: 260px; height: 150px; border-radius: 10px 10px 2px 2px" (click)="openCourseDetails(course)"
             /></a>
           </div>
           <div class="courseContent mt-1">
@@ -118,6 +118,7 @@
                     </span>
                   </ng-template>
                 </ngb-rating>
+
               <p>({{ course.rating }})</p>
             </div>
             <div class="buttons d-flex mt-1">
@@ -142,7 +143,7 @@
             <a><img
                alt="Card"
                src="{{ course.courseImage }}"
-               style="width: 260px; height: 150px; border-radius: 10px 10px 2px 2px" (click)="openCourseDetails()"
+               style="width: 260px; height: 150px; border-radius: 10px 10px 2px 2px" (click)="openCourseDetails(course)"
              /></a>
            </div>
           <div class="courseContent mt-1">

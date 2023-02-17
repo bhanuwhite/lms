@@ -1,6 +1,33 @@
 .fluid-container{
   height: 300px;
-  background-color:black;
+  background-color:lightblue;
+  color: black;
+  .course{
+
+    a{
+      margin:5px;
+      cursor: pointer;
+    }
+  }
+}
+ngb-rating{
+  margin-bottom: 10px;
+  font-size: 25px;
+  color:rgb(244, 236, 236)
+}
+a{
+  cursor: pointer;
+}
+.defaultStar{
+  position:relative;
+  display: inline-block;
+
+}
+.paintStar{
+  position:absolute;
+  display: inline-block;
+  color:black;
+  overflow: hidden;
 }
 .container{
   margin-left: 90px;
@@ -10,12 +37,19 @@
 .card{
   min-height: 30vh;
   max-height: 45vh;
-  width: 100vh;
+  width: 130vh;
+  padding: 5px;
   margin-bottom: 40px;
   border:1px solid lightgrey;
   h4{
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
    }
+}
+.courseTitle{
+  h1{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+   font-size: 35px;
+  }
 }
 i{
 margin-right: 10px;
@@ -28,8 +62,8 @@ margin-right: 10px;
 ul{
   flex-wrap: wrap;
 }
-.course-detiails{
-  width: 80vh;
+.courseIncludes{
+  width: 100vh;
 h5{
   font-size: medium;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -38,17 +72,46 @@ h5{
 .companies-offer{
 
   min-height: 20vh;
-  max-height: 35vh;
-  width: 100vh;
+  max-height: 37vh;
+  width: 130vh;
   margin-bottom: 40px;
   border:1px solid lightgrey;
   h3{
     margin:20px;
   }
   img{
-    width:80px;
-    height: 80px;
-    margin-left: 70px;
+    width:70px;
+    height: 50px;
+    margin-left: 80px;
     margin-bottom: 10px;
   }
+}
+p-accordion{
+  width:5rem;
+}
+.courseContent{
+  width:130vh;
+}
+.requirements{
+  h1{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+     font-size: 20px;
+  }
+  li{
+    font-size:medium;
+    margin: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+}
+.description{
+h1{
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+     font-size: 20px;
+}
+li{
+  font-size:medium;
+    margin: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+}
 }
