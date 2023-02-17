@@ -29,6 +29,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { AboutComponent } from './about/about.component';
 import { UserHeaderComponent } from './user-header/user-header.component';
 import { AvatarModule } from 'primeng/avatar';
+import { UserFooterComponent } from './user-footer/user-footer.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { AvatarModule } from 'primeng/avatar';
     MyLibraryComponent,
     CourseDetailsComponent,
     AboutComponent,
-    UserHeaderComponent
+    UserHeaderComponent,
+    UserFooterComponent
 
   ],
   imports: [

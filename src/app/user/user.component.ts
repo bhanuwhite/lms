@@ -38,8 +38,6 @@ export class UserComponent implements OnInit {
     this.iconMenu();
     this.getContent();
     console.log(courseList);
-
-
   }
 
 
