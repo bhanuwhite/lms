@@ -38,9 +38,6 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.iconMenu();
     this.getContent();
-    console.log(courseList);
-
-
   }
 
 
