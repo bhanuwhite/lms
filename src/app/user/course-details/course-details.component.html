@@ -19,7 +19,7 @@
           <div class="d-flex ml-1">
             <h5
               class="border"
-              style="background-color: rgb(23, 22, 16); color: white"
+              style="background-color: rgb(12, 93, 186); color: white;padding: 1px;"
             >
               Best Seller
             </h5>
@@ -28,6 +28,7 @@
                 [ngModel]="courseDetails.rating"
                 [stars]="5"
                 [cancel]="false"
+                [readonly]="true"
                 [className]="'custom-star'"
               >
               </p-rating>
@@ -60,11 +61,11 @@
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3bb7qtbLwSQYT2BnBYY7IqYOKOrjfM8WDLA&usqp=CAU"
                   alt="Image"
                   title="play"
-                  width="50px;height:30px;"
+                  width="50px;height:70px;"
                   style="
-                    margin-left: 130px;
-                    margin-top: -220px;
-                    border-radius: 10px;
+                    margin-left: 140px;
+                    margin-top: -75%;
+                    border-radius: 100%;
                     cursor: pointer;
                   "
                   (click)="onClickVideo(courseDetails)"
