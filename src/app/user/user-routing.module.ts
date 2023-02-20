@@ -21,6 +21,11 @@ const routes: Routes = [
     path: 'about',
     component: AboutComponent,
   },
+  {
+    path: 'courseDetails', component: CourseDetailsComponent
+  }
+
+
 ];
 
 @NgModule({

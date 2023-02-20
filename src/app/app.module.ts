@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import {DialogModule} from 'primeng/dialog';
 import {TooltipModule} from 'primeng/tooltip';
 import {ButtonModule} from 'primeng/button';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,7 +31,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import {TabMenuModule} from 'primeng/tabmenu';
 import { MenuModule } from 'primeng/menu';
 import {MatTabsModule} from '@angular/material/tabs';
-
+import { AppRoutingModule } from './app-routing.module';
 
 
 let module = [
@@ -56,6 +55,7 @@ let module = [
   TooltipModule,
   ButtonModule,
   SheredModule,
+  MatTabsModule,
 
 
 ]
@@ -64,7 +64,6 @@ let module = [
   declarations: [
     AppComponent,
     EmailDirective,
-    // SpinnerComponent,
   ],
   imports: [
     ...module,
@@ -75,8 +74,9 @@ let module = [
     ConfirmDialogModule,
     SheredModule,
     // SpinnerModule,
-    TooltipModule, ButtonModule, MatTabsModule
-
+    TooltipModule,
+     ButtonModule, 
+    MenuModule,
   ],
   providers: [
     AuthService,AuthGuard,UserGuard,

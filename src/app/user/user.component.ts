@@ -37,7 +37,6 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.iconMenu();
     this.getContent();
-    console.log(courseList);
   }
 
 
@@ -86,5 +85,11 @@ export class UserComponent implements OnInit {
         });
       }
     });
+  }
+ public courseDetails!:string
+  openCourseDetails(course:{}){
+      this.router.navigate(['user/courseDetails']);
+      this.courseDetails =JSON.stringify(course)
+      localStorage.setItem('courseDetails',this.courseDetails)
   }
 }
