@@ -55,6 +55,5 @@ export class UserHeaderComponent implements OnInit {
   public onLogout(): void {
     this.router.navigateByUrl('/login');
     localStorage.clear();
-    location.reload();
   }
 }
