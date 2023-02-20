@@ -13,35 +13,31 @@ export class MyLibraryComponent implements OnInit {
   public course_Details: any = [];
   public course_Details2: any = [];
   public value: number = 10;
-  public progressValue:number=25
+  public progressValue: number = 25;
   courseDetailsJSON = '../../assets/course_details/courseDetails.json';
   ngOnInit(): void {
+    this.readingJSON();
+  }
+
+  public readingJSON():void {
     this.httpClient.get(this.courseDetailsJSON).subscribe((data) => {
-      this.course_Details = data;
-      this.course_Details2 = this.course_Details;
-      console.log(this.course_Details);
-      this.items = [
-        { label: 'All Courses' },
-        { label: 'My List' },
-        { label: 'Wish List' },
-        { label: 'Archives' },
-        { label: 'My Tools' },
-      ];
+      try {
+        this.course_Details = data;
+        this.course_Details2 = this.course_Details;
+        this.items = [
+          { label: 'All Courses' },
+          { label: 'My List' },
+          { label: 'Wish List' },
+          { label: 'Archives' },
+          { label: 'My Tools' },
+        ];
+      } catch (error) {
+        console.log(error);
+      }
     });
-
   }
 
-  public myCourseDetails(courseDetails:object):void{
-    localStorage.setItem("courseDetails",JSON.stringify(courseDetails))
+  public myCourseDetails(courseDetails: object): void {
+    localStorage.setItem('courseDetails', JSON.stringify(courseDetails));
   }
-  // filterCategory(categoryName: string) {
-  //   if (categoryName.toLowerCase() === 'all courses') {
-  //     return (this.course_Details = this.course_Details2);
-  //   } else {
-  //     this.course_Details = this.course_Details2.filter((each: any) => {
-  //       return each.category === categoryName;
-  //     });
-  //   }
-  // }
-
 }

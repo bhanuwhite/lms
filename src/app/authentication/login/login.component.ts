@@ -36,7 +36,6 @@ export class LoginComponent {
   }
 
   ngOnInit(): void {
-
     this.formgroup = this.fb.group({
       name: new FormControl('', [Validators.required, emailValidator()]),
       pwd: new FormControl('', [Validators.required, Validators.minLength(8)]),
@@ -46,41 +45,41 @@ export class LoginComponent {
 
   public onSubmit(): void {
     console.log('form values', this.formgroup.value)
+    this.router.navigate(['user']);
+    // this.body = {
+    //   identifier: this.formgroup.value.name,//'admin@admin.com',//test@test.com
+    //   password: this.formgroup.value.pwd,//'admin@admin.com',//Password
+    // }
+    // this.isLoading = true;
+    // this.aurhService.loginUser(this.body).subscribe(res => {
+    //   try {
+    //     const data = res.user;
+    //     localStorage.setItem('token', res.jwt);
+    //     localStorage.setItem('user', JSON.stringify(data));
+    //     if (data.role_id == "1") {
+    //       localStorage.setItem('role', 'admin');
+    //       this.isLoading = false;
+    //       localStorage.setItem('isAuthenticate', 'true');
 
-    this.body = {
-      identifier: this.formgroup.value.name,//'admin@admin.com',//test@test.com
-      password: this.formgroup.value.pwd,//'admin@admin.com',//Password
-    }
-    this.isLoading = true;
-    this.aurhService.loginUser(this.body).subscribe(res => {
-      try {
-        const data = res.user;
-        localStorage.setItem('token', res.jwt);
-        localStorage.setItem('user', JSON.stringify(data));
-        if (data.role_id == "1") {
-          localStorage.setItem('role', 'admin');
-          this.isLoading = false;
-          localStorage.setItem('isAuthenticate', 'true');
-
-          this.router.navigateByUrl('/admin');
-        } else if (data.role_id == "3") {
-          localStorage.setItem('role', 'user');
-          this.isLoading = false;
-          localStorage.setItem('isAuthenticate', 'true');
-          this.router.navigate(['user']);
-          // location.reload();
-        } 
-        // else {
-        //   this.snakeBar.open('Somthing went to wrong !!', 'Login again', {
-        //     horizontalPosition: this.horizontalPosition,
-        //     verticalPosition: this.verticalPosition
-        //   })
-        // }
-      } catch (error) {
-        console.log('error',error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail:'Somthing went to wrong !! '})
-      }
-    });
+    //       this.router.navigateByUrl('/admin');
+    //     } else if (data.role_id == "3") {
+    //       localStorage.setItem('role', 'user');
+    //       this.isLoading = false;
+    //       localStorage.setItem('isAuthenticate', 'true');
+    //       this.router.navigate(['user']);
+    //       // location.reload();
+    //     }
+    //     // else {
+    //     //   this.snakeBar.open('Somthing went to wrong !!', 'Login again', {
+    //     //     horizontalPosition: this.horizontalPosition,
+    //     //     verticalPosition: this.verticalPosition
+    //     //   })
+    //     // }
+    //   } catch (error) {
+    //     console.log('error',error);
+    //     this.messageService.add({ severity: 'error', summary: 'Error', detail:'Somthing went to wrong !! '})
+    //   }
+    // });
 
   }
 

@@ -25,15 +25,17 @@ import {ProgressBarModule} from 'primeng/progressbar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {RatingModule} from 'primeng/rating';
 import { CourseDetailsComponent } from './course-details/course-details.component';
-
-
-
+import {CardModule} from 'primeng/card';
+import {AccordionModule} from 'primeng/accordion';
+import {CheckboxModule} from 'primeng/checkbox';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import {DropdownModule} from 'primeng/dropdown';
 @NgModule({
   declarations: [
     UserComponent,
     MyLibraryComponent,
     CourseDetailsComponent,
-
   ],
   imports: [
     CommonModule,
@@ -52,7 +54,14 @@ import { CourseDetailsComponent } from './course-details/course-details.componen
     ProgressBarModule,
     MatProgressBarModule,
     RatingModule,
-    MatTabsModule
-  ]
+    MatTabsModule,
+    CardModule,
+    AccordionModule,
+    CheckboxModule,
+    FontAwesomeModule,
+    NgbRatingModule,
+    DropdownModule,
+  ],
+  providers:[]
 })
 export class UserModule { }
