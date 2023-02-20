@@ -19,9 +19,15 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MyLibraryComponent } from './my-library/my-library.component';
 import { AboutComponent } from './about/about.component';
 import { CardModule } from 'primeng/card';
+import { MessageComponent } from './message/message.component';
+import { DropdownModule } from 'primeng/dropdown';
+import {  AvatarModule } from 'primeng/avatar';
+import { EditorModule } from 'primeng/editor';
+import { HttpClientModule } from '@angular/common/http';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
-  declarations: [UserComponent, MyLibraryComponent, AboutComponent],
+  declarations: [UserComponent, MyLibraryComponent, AboutComponent, MessageComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
@@ -40,6 +46,11 @@ import { CardModule } from 'primeng/card';
     TooltipModule,
     ButtonModule,
     CardModule,
+    DropdownModule,
+    AvatarModule,
+    EditorModule,
+    HttpClientModule,
+    TableModule
   ],
 })
 export class UserModule {}
