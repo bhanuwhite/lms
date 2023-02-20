@@ -18,20 +18,24 @@ import { SheredModule } from '../component/shered.module';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InputTextModule } from 'primeng/inputtext';
 import { MyLibraryComponent } from './my-library/my-library.component';
-import {CardModule} from 'primeng/card'
+import {CardModule} from 'primeng/card';
 import {RatingModule} from 'primeng/rating';
-import {MatTabsModule} from '@angular/material/tabs';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { HeaderComponent } from './header/header.component';
 import {AccordionModule} from 'primeng/accordion';
+import {TabViewModule} from 'primeng/tabview';
+import { VideoPopUpComponent } from './video-pop-up/video-pop-up.component';
+import {DynamicDialogModule} from 'primeng/dynamicdialog';
+
+// import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   declarations: [
     UserComponent,
     MyLibraryComponent,
     CourseDetailsComponent,
-    HeaderComponent
+    HeaderComponent,
+    VideoPopUpComponent
   ],
   imports: [
     CommonModule,
@@ -44,9 +48,11 @@ import {AccordionModule} from 'primeng/accordion';
     MessagesModule,
     ProgressSpinnerModule,
     InputTextModule,
-    AdminRoutingModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule,CardModule,RatingModule,MatTabsModule,
-    NgbModule,
-    AccordionModule
+
+    AdminRoutingModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule,CardModule,RatingModule,
+
+    AccordionModule,TabViewModule, DialogModule,DynamicDialogModule
+
   ]
 })
 export class UserModule { }

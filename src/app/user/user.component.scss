@@ -42,9 +42,12 @@ input {
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
   }
 }
+.custom-star{
+  color: gold;
+}
 
 .courseDetails {
-  box-sizing: content-box;
+  box-sizing:content-box;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,7 +55,7 @@ input {
   margin: 30px;
   height: fit-content;
 }
-.card{
+p-card{
   width:260px;
   height:350px;
   margin-left: 20px;

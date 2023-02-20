@@ -6,7 +6,9 @@
       <div class="course d-flex mt-1">
         <a><h3>Development ></h3></a>
         <a><h3>Software Engineering ></h3></a>
-        <a><h3>{{ courseDetails.category }} ></h3></a>
+        <a
+          ><h3>{{ courseDetails.category }} ></h3></a
+        >
       </div>
       <div class="courseTitle">
         <div>
@@ -15,25 +17,27 @@
           </h1>
           <h2>{{ courseDetails.courseAuthor }}</h2>
           <div class="d-flex ml-1">
-            <h5 class="border" style="background-color:rgb(23, 22, 16); color:white">Best Seller</h5>
+            <h5
+              class="border"
+              style="background-color: rgb(23, 22, 16); color: white"
+            >
+              Best Seller
+            </h5>
             <div class="d-flex ml-1">
-              <ngb-rating
-                [max]="5"
-                [(rate)]="courseDetails.rating"
-                [readonly]="true"
+              <p-rating
+                [ngModel]="courseDetails.rating"
+                [stars]="5"
+                [cancel]="false"
+                [className]="'custom-star'"
               >
-                <ng-template let-fill="fill">
-                  <span class="defaultStar" [class.filled]="fill === 100">
-                    <span class="paintStar" [style.width.%]="fill">&Star;</span
-                    >&Star;
-                  </span>
-                </ng-template>
-              </ngb-rating>
+              </p-rating>
               <p>({{ courseDetails.rating }})</p>
             </div>
-            </div>
-            <div class="d-flex mt-3">
-            <h5 class="mr-3"><i class="pi pi-pencil"></i>Last updated 2/2023</h5>
+          </div>
+          <div class="d-flex mt-3">
+            <h5 class="mr-3">
+              <i class="pi pi-pencil"></i>Last updated 2/2023
+            </h5>
             <h5 class="mr-3"><i class="pi pi-globe"></i>English</h5>
             <h5 class="mr-3"><i class="pi pi-print"></i>English</h5>
           </div>
@@ -44,75 +48,177 @@
       <div class="headDiv">
         <div>
           <aside>
-            <video src={{courseDetails.video}} alt="Course Preiview" height="220px" width="328px" (click)="onClickVideo(employeepopup)" data-bs-toggle="modal" data-bs-target="#employeepopup">
+            <ng-container>
+              <img
+                src="{{ courseDetails.courseImage }}"
+                alt="courseImage"
+                width="328px"
+                height="220px"
+              />
+              <div>
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3bb7qtbLwSQYT2BnBYY7IqYOKOrjfM8WDLA&usqp=CAU"
+                  alt="Image"
+                  title="play"
+                  width="50px;height:30px;"
+                  style="
+                    margin-left: 130px;
+                    margin-top: -220px;
+                    border-radius: 10px;
+                    cursor: pointer;
+                  "
+                  (click)="onClickVideo(courseDetails)"
+                />
+                <h3 style="text-align: center"><b>preview this course</b></h3>
+              </div>
+            </ng-container>
 
-            </video>
-            <mat-tab-group>
-              <mat-tab label="Personel">
+            <p-tabView>
+              <p-tabPanel header="Personal">
                 <div class="">
                   <div class="ms-3 mt-5">
-                    <b class="mt-5"> {{courseDetails.price | currency:"INR"}}</b>
+                    <b class="mt-5">
+                      {{ courseDetails.price | currency : "INR" }}</b
+                    >
                     <div>
-                      <button class="btn mt-3" style="background-color: #9c4be9;color:white;width:97%"><b>Buy this Course</b></button>
+                      <button
+                        class="btn mt-3"
+                        style="
+                          background-color: #9c4be9;
+                          color: white;
+                          width: 97%;
+                        "
+                      >
+                        <b>Buy this Course</b>
+                      </button>
                     </div>
-                    <Div class="text-center" style="font-family:serif">
-                    <p class="mt-2">30-Day Money-Back Guarantee</p>
+                    <Div class="text-center" style="font-family: serif">
+                      <p class="mt-2">30-Day Money-Back Guarantee</p>
                       <p>Full Lifetime Access</p>
                     </Div>
-                    <div class="d-flex ml-3" style="color: black;">
-                     <a class="pr-2" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ; color:black"><b>Share</b></a>
-                     <a class="pr-2" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ; color:black"><b>Gift This Course</b></a>
-                      <a class="pr-2" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ; color:black"><b>Apply Coupon</b></a>
+                    <div class="d-flex ml-3" style="color: black">
+                      <a
+                        class="pr-2"
+                        style="
+                          font-family: 'Lucida Sans', 'Lucida Sans Regular',
+                            'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+                            Verdana, sans-serif;
+                          color: black;
+                        "
+                        ><b>Share</b></a
+                      >
+                      <a
+                        class="pr-2"
+                        style="
+                          font-family: 'Lucida Sans', 'Lucida Sans Regular',
+                            'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+                            Verdana, sans-serif;
+                          color: black;
+                        "
+                        ><b>Gift This Course</b></a
+                      >
+                      <a
+                        class="pr-2"
+                        style="
+                          font-family: 'Lucida Sans', 'Lucida Sans Regular',
+                            'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+                            Verdana, sans-serif;
+                          color: black;
+                        "
+                        ><b>Apply Coupon</b></a
+                      >
                     </div>
 
                     <div class="text-center mt-3">
                       <h5><b>OR</b></h5>
                     </div>
                     <div>
-                      <h3 class="text-center" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"><b>Subscribe to LMS top courses</b></h3>
-                      <p class="mt-1">Get this course plus top-rated picks in Software Engineering and other popular topics
+                      <h3
+                        class="text-center"
+                        style="
+                          font-family: 'Lucida Sans', 'Lucida Sans Regular',
+                            'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+                            Verdana, sans-serif;
+                        "
+                      >
+                        <b>Subscribe to LMS top courses</b>
+                      </h3>
+                      <p class="mt-1">
+                        Get this course plus top-rated picks in Software
+                        Engineering and other popular topics
                         <a href="#">Learn more</a>
                       </p>
                     </div>
-                   <div class="text-center">
-                    <button style="border:1px solid black; background-color:white;padding:5px;width:70%"><b>Start subscription</b></button>
-                    <h5 class="mt-3">₹ 650.00 per month</h5>
-                   </div>
+                    <div class="text-center">
+                      <button
+                        style="
+                          border: 1px solid black;
+                          background-color: white;
+                          padding: 5px;
+                          width: 70%;
+                        "
+                      >
+                        <b>Start subscription</b>
+                      </button>
+                      <h5 class="mt-3">₹ 650.00 per month</h5>
+                    </div>
                   </div>
-
                 </div>
-
-              </mat-tab>
-              <mat-tab label="For Team">
+              </p-tabPanel>
+              <p-tabPanel header="For Team">
                 <div class="ml-5">
-               <div class="text-center d-flex">
-                  <h3><b>LMS</b></h3><h3 style="color:#9c4be9;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" class="ml-1"> business</h3>
-              </div>
-              <p>Subscribe to this course and 19,000+ top‑rated Udemy courses for your organization</p>
-              <button class="btn mb-5" style="background-color: #9c4be9;color: white; width:90%">Try LMS Business</button>
-              <div>
-                <ul style="list-style: none; margin-left:-20px;">
-                  <li><i class="pi pi-check"></i>For teams of 5 or more users</li>
-                  <li><i class="pi pi-check"></i>10,000+ fresh & in-demand courses</li>
-                  <li><i class="pi pi-check"></i>Learning Engagement tools</li>
-                </ul>
-              </div>
-            </div>
-            </mat-tab>
-
-            </mat-tab-group>
-
+                  <div class="text-center d-flex">
+                    <h3><b>LMS</b></h3>
+                    <h3
+                      style="
+                        color: #9c4be9;
+                        font-family: 'Lucida Sans', 'Lucida Sans Regular',
+                          'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+                          Verdana, sans-serif;
+                      "
+                      class="ml-1"
+                    >
+                      business
+                    </h3>
+                  </div>
+                  <p>
+                    Subscribe to this course and 19,000+ top‑rated Udemy courses
+                    for your organization
+                  </p>
+                  <button
+                    class="btn mb-5"
+                    style="background-color: #9c4be9; color: white; width: 90%"
+                  >
+                    Try LMS Business
+                  </button>
+                  <div>
+                    <ul style="list-style: none; margin-left: -20px">
+                      <li>
+                        <i class="pi pi-check"></i>For teams of 5 or more users
+                      </li>
+                      <li>
+                        <i class="pi pi-check"></i>10,000+ fresh & in-demand
+                        courses
+                      </li>
+                      <li>
+                        <i class="pi pi-check"></i>Learning Engagement tools
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </p-tabPanel>
+            </p-tabView>
           </aside>
         </div>
+      </div>
     </div>
-  </div>
   </div>
   <div class="container">
     <div class="card">
       <div class="header">
         <h1><b>What you'll learn</b></h1>
       </div>
-      <ul style="list-style-type: none ;padding-top: -12px;" class="d-flex">
+      <ul style="list-style-type: none; padding-top: -12px" class="d-flex">
         <li style="width: 50%">
           <h5>
             <i class="pi pi-check"></i>Design and build massively Parallel Java
@@ -187,60 +293,45 @@
       </div>
     </div>
     <div>
-        <div>
-            <h2><b>Course content</b></h2>
-            <h4>11 sections • 51 lectures • 7h 34m total length</h4>
-        </div>
-        <div>
-             <div class="courseContent">
-              <p-accordion [multiple]="true">
-                <p-accordionTab header="Header 1">
-                    Content 1
-                </p-accordionTab>
-                <p-accordionTab header="Header 2">
-                    Content 2
-                </p-accordionTab>
-                <p-accordionTab header="Header 3">
-                    Content 3
-                </p-accordionTab>
-            </p-accordion>
-
-             </div>
-        </div>
-        <div class="requirements">
-          <h1><b>Requirements</b></h1>
-          <ul>
-            <li>Proficiency in the C</li>
-            <li>Passion for Software Engineering and Computer Science</li>
-            <li>C programming: Recommended</li>
-          </ul>
-        </div>
-        <div class="description">
-          <h1><b>Description</b></h1>
-          <p>Have you always wanted to build software that reaches millions of users and impact people's lives?</p>
-             <p> Have you been wondering how modern companies</p>
-          <ul>
-            <li>Handle massive amount of internet traffic and transactions?</li>
-            <li>Securely store billions of our photos, videos, and other data?</li>
-            <li>Provide impeccable user experience and high performance 24/7 all around the globe?</li>
-          </ul>
-        </div>
-
+      <div>
+        <h2><b>Course content</b></h2>
+        <h4>11 sections • 51 lectures • 7h 34m total length</h4>
       </div>
-  </div>
-
-  <ng-template #employeepopup let-modal>
-    <div style="background-color: black;color: white;">
-      <div class="d-flex">
-      <h4 class="ml-5 mt-3">Course preview</h4>
-      <a class= "mt-3" style="margin-left: 300px;color:white" (click)="onClose()">X</a>
+      <div>
+        <div class="courseContent">
+          <p-accordion [multiple]="true">
+            <p-accordionTab header="Header 1"> Content 1 </p-accordionTab>
+            <p-accordionTab header="Header 2"> Content 2 </p-accordionTab>
+            <p-accordionTab header="Header 3"> Content 3 </p-accordionTab>
+          </p-accordion>
+        </div>
       </div>
-    <h2 class="ml-5"><b>{{courseDetails.courseTitle }}</b></h2>
-    <video class="ml-5" src={{courseDetails.video}} alt="Course Preiview" controls height="300px" width="440px"></video>
-    <h4 class="ml-5"><b>Free Sample Videos:</b></h4>
+      <div class="requirements">
+        <h1><b>Requirements</b></h1>
+        <ul>
+          <li>Proficiency in the C</li>
+          <li>Passion for Software Engineering and Computer Science</li>
+          <li>C programming: Recommended</li>
+        </ul>
+      </div>
+      <div class="description">
+        <h1><b>Description</b></h1>
+        <p>
+          Have you always wanted to build software that reaches millions of
+          users and impact people's lives?
+        </p>
+        <p>Have you been wondering how modern companies</p>
+        <ul>
+          <li>Handle massive amount of internet traffic and transactions?</li>
+          <li>
+            Securely store billions of our photos, videos, and other data?
+          </li>
+          <li>
+            Provide impeccable user experience and high performance 24/7 all
+            around the globe?
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
-  </ng-template>
-
-
 </div>
-

@@ -1,28 +1,33 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
+import { DialogService } from 'primeng/dynamicdialog';
+import { VideoPopUpComponent } from '../video-pop-up/video-pop-up.component';
+
 
 @Component({
   selector: 'app-course-details',
   templateUrl: './course-details.component.html',
-  styleUrls: ['./course-details.component.scss']
+  styleUrls: ['./course-details.component.scss'],
+  providers: [DialogService]
 })
 export class CourseDetailsComponent implements OnInit{
+ public displayDialog = false;
 
   ngOnInit(): void {
 
    this.getLocalStorageData()
       }
 
-  constructor(private popUp:NgbModal){}
+  constructor(public dialogService: DialogService){}
 
-courseDetails:{id:number,category:string,courseTitle:string,courseAuthor:string,rating:number,video:string,price:number}={
+courseDetails:{id:number,category:string,courseImage:string,courseTitle:string,courseAuthor:string,rating:number,video:string,price:number}={
   id: 0,
   category: '',
   courseTitle: '',
   courseAuthor:'',
   rating:0,
   video:'',
-  price:0
+  price:0,
+  courseImage:''
 
 }
 
@@ -31,14 +36,19 @@ courseDetails:{id:number,category:string,courseTitle:string,courseAuthor:string,
 
   }
 
-  onClickVideo(popUp:TemplateRef<string>){
-    console.log("hello");
-    this.popUp.open(popUp)
-
+  onClickVideo(courseDetails:{}){
+    // this.displayDialog = true;
+    // console.log(courseDetails);
+    const ref = this.dialogService.open(VideoPopUpComponent, {
+      header: 'Course Preview',
+      width: '50%',
+      data: { name: 'John' },
+  });
   }
   onClose(){
-    this.popUp.dismissAll();
+    this.displayDialog = false;
   }
+
 
 
 

@@ -15,7 +15,8 @@ import courseList from '../../assets/data/courseDetails.json';
 })
 export class UserComponent implements OnInit {
   contentData!: any;
-  currentRate:number=2
+  currentRate:number=2;
+
 
 
   isLoading: boolean = false;
@@ -35,9 +36,12 @@ export class UserComponent implements OnInit {
     private messageService: MessageService
   ) {}
 
+
   ngOnInit(): void {
     this.iconMenu();
     this.getContent();
+
+
   }
 
 
@@ -91,6 +95,8 @@ export class UserComponent implements OnInit {
   openCourseDetails(course:{}){
       this.router.navigate(['user/courseDetails']);
       this.courseDetails =JSON.stringify(course)
-      localStorage.setItem('courseDetails',this.courseDetails)
+      localStorage.setItem('courseDetails',this.courseDetails);
+      console.log(this.courseDetails);
+
   }
 }

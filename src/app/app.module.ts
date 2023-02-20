@@ -32,7 +32,6 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MenuModule } from 'primeng/menu';
 import {MatTabsModule} from '@angular/material/tabs';
 
-
 let module = [
   MatButtonModule,
   MatCardModule,
@@ -61,8 +60,7 @@ let module = [
 @NgModule({
   declarations: [
     AppComponent,
-    EmailDirective,
-
+    EmailDirective
   ],
   imports: [
     ...module,
