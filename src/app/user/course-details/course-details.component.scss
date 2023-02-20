@@ -44,13 +44,7 @@ aside {
   justify-content: center;
   align-items: center;
   gap: 10px;
-}
-
-.filled {
-  color: orange;
-  overflow: hidden;
-  position: absolute;
-  font-size: 1.5rem;
+  
 }
 
 .ratingStar {
@@ -62,4 +56,13 @@ aside {
 .ratingGrid {
   display: grid;
   grid-template-columns: auto auto auto;
+}
+
+.QAprofilePic {
+  height: 35px;
+  width: 35px;
+  border-radius: 80%;
+}
+ :ng-deep p-rating {
+  color: gold !important;
 }

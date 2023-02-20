@@ -14,7 +14,12 @@ export class CourseDetailsComponent implements OnInit{
   progressBarValue3 = 30;
   progressBarValue4 = 25;
   progressBarValue5 = 10;
-
+  avgRatingVal: number = 5
+  ratingVal1: number = 5;
+  ratingVal2: number = 4;
+  ratingVal3: number = 3;
+  ratingVal4: number = 2;
+  ratingVal5: number = 1;
   course_Details: { videoUrl: string } = {
     videoUrl: '',
   };

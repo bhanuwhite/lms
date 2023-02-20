@@ -87,9 +87,7 @@
 
 <!-- <app-header></app-header> -->
 <div class="fluid-container">
-  <div
-    class="fluid-container text-center bg-blue border my-0 justify-content-center d-flex align-items-center"
-  >
+  <div class="fluid-container text-center bg-blue border my-4 justify-content-center d-flex align-items-center">
     <img src="../../assets/img/user1.jpg" alt="image" width="100%" />
   </div>
   <div class="container text-center bg-blue border">
@@ -102,19 +100,53 @@
     <h2><b>Courses to get you started</b></h2>
   </div>
 </div>
-<mat-tab-group animationDuration="0ms" mat-stretch-tabs="false">
-  <mat-tab label="Most Popular">
 
+<p-tabView>
+  <p-tabPanel header="Most Popular">
     <div>
       <div class="courseDetails bg-blue border my-4 d-flex">
-        <div class="card" *ngFor="let course of courseList">
-          <div class="courseImage">
-           <a><img
-              alt="Card"
-              src="{{ course.courseImage }}"
-              style="width: 260px; height: 150px; border-radius: 10px 10px 2px 2px" (click)="openCourseDetails(course)"
-            /></a>
+        <p-card *ngFor="let course of courseList">
+          <ng-template pTemplate="header">
+            <div class="courseImage">
+              <a><img alt="Card" src="{{ course.courseImage }}"
+                  style="width: 260px; height: 150px; border-radius: 10px 10px 2px 2px"
+                  (click)="openCourseDetails(course)" /></a>
+            </div>
+          </ng-template>
+          <div class="courseContent mt-1">
+            <h4>
+              <b>{{ course.courseTitle }}</b>
+            </h4>
+            <p>{{ course.author }}</p>
+            <div class="d-flex">
+              <p-rating [ngModel]="course.rating" [stars]="5" [cancel]="false" [className]="'custom-star'">
+              </p-rating>
+              <p>({{ course.rating }})</p>
+            </div>
           </div>
+          <ng-template pTemplate="footer">
+            <div class="buttons d-flex mt-1">
+              <h3>
+                <p>{{ course.price | currency : "INR" }}</p>
+              </h3>
+              <button class="btn btn-warning">BuyNow</button>
+            </div>
+          </ng-template>
+        </p-card>
+      </div>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel header="Trending">
+    <div>
+      <div class="courseDetails bg-blue border my-4 d-flex">
+        <p-card *ngFor="let course of courseList">
+          <ng-template pTemplate="header">
+            <div class="courseImage">
+              <a><img alt="Card" src="{{ course.courseImage }}"
+                  style="width: 260px; height: 150px; border-radius: 10px 10px 2px 2px"
+                  (click)="openCourseDetails(course)" /></a>
+            </div>
+          </ng-template>
           <div class="courseContent mt-1">
             <h4>
               <b>{{ course.courseTitle }}</b>
@@ -122,69 +154,25 @@
             <p>{{ course.author }}</p>
             <div class="d-flex">
 
-                <ngb-rating [max]="5" [(rate)]="course.rating" [readonly]="true" >
-                  <ng-template let-fill="fill">
-                    <span class="defaultStar" [class.filled]="fill === 100">
-                      <span class="paintStar" [style.width.%]="fill">&Star;</span>&Star;
-                    </span>
-                  </ng-template>
-                </ngb-rating>
+              <div>
+                <p-rating [ngModel]="course.rating" [cancel]="false" [readonly]="true"></p-rating>
+              </div>
 
               <p>({{ course.rating }})</p>
             </div>
+          </div>
+          <ng-template pTemplate="footer">
             <div class="buttons d-flex mt-1">
               <h3>
                 <p>{{ course.price | currency : "INR" }}</p>
               </h3>
               <button class="btn btn-warning">BuyNow</button>
             </div>
-          </div>
-        </div>
+          </ng-template>
+        </p-card>
       </div>
     </div>
-
-  </mat-tab>
-
-
-  <mat-tab label="Trending">
-    <div>
-      <div class="courseDetails bg-blue border my-4 d-flex">
-        <div class="card" *ngFor="let course of courseList">
-          <div class="courseImage">
-            <a><img
-               alt="Card"
-               src="{{ course.courseImage }}"
-               style="width: 260px; height: 150px; border-radius: 10px 10px 2px 2px" (click)="openCourseDetails(course)"
-             /></a>
-           </div>
-          <div class="courseContent mt-1">
-            <h4>
-              <b>{{ course.courseTitle }}</b>
-            </h4>
-            <p>{{ course.author }}</p>
-            <div class="d-flex">
-
-              <ngb-rating [max]="5" [(rate)]="course.rating" [readonly]="true" >
-                <ng-template let-fill="fill">
-                  <span class="defaultStar" [class.filled]="fill === 100">
-                    <span class="paintStar" [style.width.%]="fill">&Star;</span>&Star;
-                  </span>
-                </ng-template>
-              </ngb-rating>
-            <p>({{ course.rating }})</p>
-          </div>
-            <div class="buttons d-flex mt-1">
-              <h3>
-                <p>{{ course.price | currency : "INR" }}</p>
-              </h3>
-              <button class="btn btn-warning">BuyNow</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </mat-tab>
-
-</mat-tab-group>
+  </p-tabPanel>
+</p-tabView>
 
 <app-user-footer></app-user-footer>
