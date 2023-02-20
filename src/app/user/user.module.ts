@@ -34,6 +34,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import {AccordionModule} from 'primeng/accordion';
 import { ContentDetailsComponent } from './content-details/content-details.component';
+import { MessageComponent } from './message/message.component';
+import { HttpClientModule } from '@angular/common/http';
+import { DropdownModule } from 'primeng/dropdown';
+import { EditorModule } from 'primeng/editor';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -44,8 +49,12 @@ import { ContentDetailsComponent } from './content-details/content-details.compo
     // HeaderComponent,
     UserHeaderComponent,
     UserFooterComponent,
-    ContentDetailsComponent
+    ContentDetailsComponent,
+    MessageComponent
   ],
+
+
+
   imports: [
     CommonModule,
     UserRoutingModule,
@@ -67,7 +76,18 @@ import { ContentDetailsComponent } from './content-details/content-details.compo
     AvatarModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule, CardModule, RatingModule, MatTabsModule,
     AdminRoutingModule,
     NgbModule,
-    AccordionModule
+    AccordionModule,
+    MatIconModule,
+    MenuModule,
+    DialogModule,
+    TooltipModule,
+    ButtonModule,
+    CardModule,
+    DropdownModule,
+    AvatarModule,
+    EditorModule,
+    HttpClientModule,
+    TableModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

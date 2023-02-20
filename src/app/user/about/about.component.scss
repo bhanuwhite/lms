@@ -3,12 +3,10 @@
 @import url("https://fonts.googleapis.com/css2? family=IBM+Plex+Sans+Arabic&family=Oswald:wght@300&family=Prata&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic&family=Mukta&family=Oswald:wght@300&family=Prata&family=Roboto:wght@300&display=swap");
 
-* {
-  font-family: "Times New Roman", Times, serif;
-}
 
 .about {
   background-color: #f7f9fa;
+  font-family: "Times New Roman", Times, serif;
 }
 
 $font-size: 50px;
@@ -36,11 +34,9 @@ $font-size: 50px;
   color: #1c1d1f;
   text-align: center;
 }
-
 .improving {
   width: 100%;
   background-color: white;
-
   .about-paragraph {
     font-size: 20px;
     line-height: 1.2;
@@ -110,11 +106,9 @@ $font-size: 50px;
     }
   }
 }
-
 .about-lms-main {
   width: 100%;
   background-color: white;
-
   .about-lms-section {
     .about-lms {
       color: #1c1d1f;
@@ -123,18 +117,15 @@ $font-size: 50px;
       letter-spacing: 1px;
       line-height: 25px;
       font-family: "IBM Plex Sans Arabic", sans-serif;
-
       .learn-more-btn {
         margin-left: 10px;
       }
     }
-
     .about-lms-button:hover {
       background-color: #383b3b;
     }
   }
 }
-
 .companies {
   width: 100%;
   background-color: #f7f9fa;
@@ -172,5 +163,26 @@ $font-size: 50px;
   a {
     text-decoration: none;
     color: #5624d0;
+  }
+}
+.footer {
+  font-family: "Mukta", sans-serif;
+  .h-line {
+    width: 100%;
+    height: 1px;
+    background-color: #f7f9fa;
+  }
+  .footer-lang-btn {
+    margin-right: 100px;
+    a {
+      width: 300px;
+      height: 20px;
+      text-decoration: none;
+      border: 2px solid white;
+      padding: 10px;
+      color: white;
+      font-size: 20px;
+      justify-content: end;
+    }
   }
 }
