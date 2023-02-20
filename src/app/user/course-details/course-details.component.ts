@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-course-details',
@@ -8,20 +8,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CourseDetailsComponent implements OnInit{
 
-courseDetails:{id:number,category:string,courseTitle:string,courseAuthor:string,rating:number}={
+  ngOnInit(): void {
+
+   this.getLocalStorageData()
+      }
+
+  constructor(private popUp:NgbModal){}
+
+courseDetails:{id:number,category:string,courseTitle:string,courseAuthor:string,rating:number,video:string,price:number}={
   id: 0,
   category: '',
   courseTitle: '',
   courseAuthor:'',
-  rating:0
+  rating:0,
+  video:'',
+  price:0
 
 }
 
-  ngOnInit(): void {
-
+  getLocalStorageData(){
     this.courseDetails = JSON.parse(localStorage.getItem('courseDetails') || '{}');
-    console.log(this.courseDetails.courseAuthor);
 
+  }
+
+  onClickVideo(popUp:TemplateRef<string>){
+    console.log("hello");
+    this.popUp.open(popUp)
+
+  }
+  onClose(){
+    this.popUp.dismissAll();
   }
 
 
