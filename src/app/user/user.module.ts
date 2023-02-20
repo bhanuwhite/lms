@@ -18,19 +18,17 @@ import { SheredModule } from '../component/shered.module';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InputTextModule } from 'primeng/inputtext';
 import { MyLibraryComponent } from './my-library/my-library.component';
-import {MatTabsModule} from '@angular/material/tabs';
 import {MenubarModule} from 'primeng/menubar';
 import {TabMenuModule} from 'primeng/tabmenu';
 import {ProgressBarModule} from 'primeng/progressbar';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {RatingModule} from 'primeng/rating';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import {CardModule} from 'primeng/card';
 import {AccordionModule} from 'primeng/accordion';
 import {CheckboxModule} from 'primeng/checkbox';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
-import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import {DropdownModule} from 'primeng/dropdown';
+import {TabViewModule} from 'primeng/tabview';
 @NgModule({
   declarations: [
     UserComponent,
@@ -52,15 +50,14 @@ import {DropdownModule} from 'primeng/dropdown';
     MenubarModule,
     TabMenuModule,
     ProgressBarModule,
-    MatProgressBarModule,
+    // MatProgressBarModule,
     RatingModule,
-    MatTabsModule,
     CardModule,
     AccordionModule,
     CheckboxModule,
     FontAwesomeModule,
-    NgbRatingModule,
     DropdownModule,
+    TabViewModule
   ],
   providers:[]
 })

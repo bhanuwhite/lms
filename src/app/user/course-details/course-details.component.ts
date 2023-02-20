@@ -32,7 +32,12 @@ export class CourseDetailsComponent implements OnInit {
   faThumbsUp = faThumbsUp;
   faStar = faStar;
   faSearch = faSearch;
-  myValue=45
+  avgRatingVal:number=5
+  ratingVal1:number=5;
+  ratingVal2:number=4;
+  ratingVal3:number=3;
+  ratingVal4:number=2;
+  ratingVal5:number=1;
   reViews: {
     name: string;
     image: string;

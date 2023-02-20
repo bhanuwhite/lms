@@ -5,8 +5,8 @@
     </div>
   </div>
   <div>
-    <mat-tab-group>
-      <mat-tab label="All Courses">
+    <p-tabView>
+      <p-tabPanel header="All Course">
         <div class=" course_DetailsDiv">
           <div class="courseDiv" *ngFor="let courseDetails of course_Details">
             <a [routerLink]="['/user/library',courseDetails.id]" routerLinkActive="routerActive"> <img
@@ -17,7 +17,10 @@
                 <p class="ms-3 me-2">{{courseDetails.desc}} </p>
               </div>
               <div class="ms-3 me-3">
-                <mat-progress-bar mode="determinate" [value]="progressValue"></mat-progress-bar>
+                <div class="progress" style="height: 4px;">
+                  <div class="progress-bar bg-primary" role="progressbar" [style.width]="progressValue + '%'"
+                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
                 <p> {{progressValue}} % Complete</p>
               </div>
               <div class="mt-2 text-center">
@@ -26,15 +29,20 @@
             </div>
           </div>
         </div>
-      </mat-tab>
-      <mat-tab label="My List"> Content 2 </mat-tab>
-      <mat-tab label="Wish List"> Content 3 </mat-tab>
-      <mat-tab label="Archives"> Content 4 </mat-tab>
-      <mat-tab label="My Tools"> Content 5 </mat-tab>
+      </p-tabPanel>
+      <p-tabPanel header="My List">
+        Content 2
+      </p-tabPanel>
+      <p-tabPanel header="Wish List">
+        Content 3
+      </p-tabPanel>
+      <p-tabPanel header="Archives">
+        Content 4
+      </p-tabPanel>
+      <p-tabPanel header="MY Tools">
+        Content 5
+      </p-tabPanel>
+    </p-tabView>
 
-    </mat-tab-group>
+
   </div>
-
-
-
-</div>
