@@ -88,8 +88,8 @@ export class UserComponent implements OnInit {
   }
  public courseDetails!:string
   openCourseDetails(course:{}){
-      this.router.navigate(['user/courseDetails']);
+    this.router.navigate(['user/contentDetails']);
       this.courseDetails =JSON.stringify(course)
-      localStorage.setItem('courseDetails',this.courseDetails)
+      localStorage.setItem('contentDetails',this.courseDetails)
   }
 }

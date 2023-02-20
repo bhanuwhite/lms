@@ -4,6 +4,7 @@ import { CourseDetailsComponent } from './course-details/course-details.componen
 import { AboutComponent } from './about/about.component';
 import { MyLibraryComponent } from './my-library/my-library.component';
 import { UserComponent } from './user.component';
+import { ContentDetailsComponent } from './content-details/content-details.component';
 
 
 const routes: Routes = [
@@ -15,14 +16,14 @@ const routes: Routes = [
     path: 'library', component: MyLibraryComponent
   },
   {
-    path: 'library/:id', component: CourseDetailsComponent
+    path: 'contentDetails', component: ContentDetailsComponent
   },
   {
     path: 'about',
     component: AboutComponent,
   },
   {
-    path: 'courseDetails', component: CourseDetailsComponent
+    path: 'library/:id', component: CourseDetailsComponent
   }
 
 

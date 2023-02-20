@@ -1,246 +1,335 @@
-<div>
-  <app-header></app-header>
+<app-user-header></app-user-header>
+<div class="mt-1 ">
+  <div *ngIf="course_Details">
+    <!-- {{course_Details.videoUrl}} -->
+    <video src= "../../../assets/data/javaVideo.mp4" controls class="course_video"></video>
+    <aside>
+      <p-accordion>
+        <p-accordionTab header="Section-01:Intro">
+          <div>
+            <p>
+              <p-checkbox name="groupName" value="val"></p-checkbox>
+              <b class="ms-2">What is Web Developement</b> <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 15min
+            </p>
+          </div>
+          <div>
+            <p>
+              <p-checkbox name="groupName" value="val"></p-checkbox>
+              <b class="ms-2">What you became</b> <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 10min
+            </p>
+          </div>
+          <div>
+            <p>
+              <p-checkbox name="groupName" value="val"></p-checkbox>
+              <b class="ms-2"> Job Opportunities</b> <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 8min
+            </p>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab header="Section-02:PreRequisites & Info">
+          <div>
+            <p>
+              <p-checkbox name="groupname" value="val2"></p-checkbox>
+              <b class="ms">PreRequisites</b> <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 5min
+            </p>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab header="Section-03:Program Setup">
+          <div>
+            <p>
+              <p-checkbox name="groupname" value="val2"></p-checkbox>
+              <b class="ms">Installations</b> <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 10min
+            </p>
+          </div>
+          <div>
+            <p>
+              <p-checkbox name="groupname" value="val2"></p-checkbox>
+              <b class="ms">Others</b> <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 5min
+            </p>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab header="Section-04:Starting 1st Lesson">
+          <div>
+            <p>
+              <p-checkbox name="groupname" value="val2"></p-checkbox>
+              Lesson 001 <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 5min
+            </p>
+          </div>
+          <div>
+            <p>
+              <p-checkbox name="groupName" value="val"></p-checkbox>
+              Lesson 002 <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 5min
+            </p>
+          </div>
+          <div>
+            <p>
+              <p-checkbox name="groupName" value="val"></p-checkbox>
+              Lesson 003 <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 5min
+            </p>
+          </div>
+          <div>
+            <p>
+              <p-checkbox name="groupName" value="val"></p-checkbox>
+              Lesson 004 <br>
+              <i class="pi pi-play ms-4 text-danger"> </i> 5min
+            </p>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab header="Section-05:2nd Lesson">
+          <p>Currently no data avoilable
+          <p>
+        </p-accordionTab>
+      </p-accordion>
+    </aside>
+  </div>
 
-  <div class="fluid-container bg-blue border d-flex">
-    <div class="container">
-      <div class="course d-flex mt-1">
-        <a><h3>Development ></h3></a>
-        <a><h3>Software Engineering ></h3></a>
-        <a><h3>{{ courseDetails.category }} ></h3></a>
-      </div>
-      <div class="courseTitle">
-        <div>
-          <h1>
-            <b>{{ courseDetails.courseTitle }}</b>
-          </h1>
-          <h2>{{ courseDetails.courseAuthor }}</h2>
-          <div class="d-flex ml-1">
-            <h5 class="border" style="background-color:rgb(23, 22, 16); color:white">Best Seller</h5>
-            <div class="d-flex ml-1">
-              <ngb-rating
-                [max]="5"
-                [(rate)]="courseDetails.rating"
-                [readonly]="true"
-              >
-                <ng-template let-fill="fill">
-                  <span class="defaultStar" [class.filled]="fill === 100">
-                    <span class="paintStar" [style.width.%]="fill">&Star;</span
-                    >&Star;
-                  </span>
-                </ng-template>
-              </ngb-rating>
-              <p>({{ courseDetails.rating }})</p>
-            </div>
-            </div>
-            <div class="d-flex mt-3">
-            <h5 class="mr-3"><i class="pi pi-pencil"></i>Last updated 2/2023</h5>
-            <h5 class="mr-3"><i class="pi pi-globe"></i>English</h5>
-            <h5 class="mr-3"><i class="pi pi-print"></i>English</h5>
+  <div class="courseDetailsDiv ">
+    <mat-tab-group>
+      <mat-tab label="Overview">
+        <div class="d-flex border border-dark">
+          <div class="ms-4 pt-4">
+            <i class="pi pi-clock" style="font-size: 2rem;"></i>
+          </div>
+          <div class="ms-4 pt-4 ">
+            <b>Schedule Learning Time</b>
+            <p>A learning schedule outlines the plan on how to study a new subject or skill. It can include a timeline
+              for completing different tasks and milestones, as well as the specific methods and resources that will
+              be used to learn the material.</p>
+            <button class="btn btn-info mb-3">Get Started</button>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="card-container">
-      <div class="headDiv">
-        <div>
-          <aside>
-            <video src={{courseDetails.video}} alt="Course Preiview" height="220px" width="328px" (click)="onClickVideo(employeepopup)" data-bs-toggle="modal" data-bs-target="#employeepopup">
 
-            </video>
-            <mat-tab-group>
-              <mat-tab label="Personel">
-                <div class="">
-                  <div class="ms-3 mt-5">
-                    <b class="mt-5"> {{courseDetails.price | currency:"INR"}}</b>
-                    <div>
-                      <button class="btn mt-3" style="background-color: #9c4be9;color:white;width:97%"><b>Buy this Course</b></button>
-                    </div>
-                    <Div class="text-center" style="font-family:serif">
-                    <p class="mt-2">30-Day Money-Back Guarantee</p>
-                      <p>Full Lifetime Access</p>
-                    </Div>
-                    <div class="d-flex ml-3" style="color: black;">
-                     <a class="pr-2" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ; color:black"><b>Share</b></a>
-                     <a class="pr-2" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ; color:black"><b>Gift This Course</b></a>
-                      <a class="pr-2" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ; color:black"><b>Apply Coupon</b></a>
-                    </div>
+        <div class="mt-4">
+          <b class="ms-4 fs-4 ">About this Course</b>
+          <p class="ms-5 mt-1">Website Development refers to the tasks associated with creating, building, and
+            maintaining
+            websites and web
+            applications that run online on a browser. It may, however, also include web design, web programming, and
+            database management.</p>
+          <hr>
+        </div>
+        <div class="d-flex mt-3">
+          <p class="ms-4 " style="width: 25%;">By the Numbers</p>
+          <div style="width: 25%;" class="ms-4">
+            <p>Skill Level: All Levels</p>
+            <p>Students: 42368</p>
+            <p>Languge : English & Telugu</p>
+            <p>Caption : Yes</p>
+          </div>
+          <div style="width: 25%;" class="ms-4">
+            <p>Lectures : 123</p>
+            <p>Videos : 36.5 hrs</p>
+          </div>
+        </div>
+        <hr>
+        <div class="d-flex">
+          <div style="width: 25%;" class="ms-4">
+            <b>Certificates</b>
+          </div>
+          <div style="width: 50%;" class="ms-4">
+            <p>Get LMS certificate by By completing entire Course</p>
+            <button class="btn btn-primary">Get LMS Certificate</button>
+          </div>
+          <hr>
+        </div>
+      </mat-tab>
+      <mat-tab label="Q&A">
+        <div class="mt-4">
+          <div class="d-flex ms-5">
+            <input type="search" class="form-control w-75" placeholder="Enter something">
+            <button class="btn btn-dark"><i class="pi pi-check"></i></button>
+          </div>
+          <div class="d-flex mt-3 ms-4">
+            <div>
+              <select style="height: 3rem; width: 10rem; text-align: center; font-size: 1rem; gap: 10px;" class="ms-4"
+                (change)="filterByRating($event)">
+                <option class="ms-4">All Lectures</option>
+                <option value="{{lecture.key}}" *ngFor="let lecture of AllLectures" class="ms-5">{{lecture.key}}
+                </option>
+              </select>
+            </div>
+            <div>
+              <select style="height: 3rem; width: 10rem; text-align: center; font-size: 1rem;" class="ms-4"
+                (change)="filterByRating($event)">
+                <option value="ALL" class="ms-4">Filter Question</option>
+                <option value="{{question.key}}" *ngFor="let question of filterQuestion" class="mt-4">{{question.key}}
+                </option>
+              </select>
+            </div>
+            <div>
+              <select style="height: 3rem; width: 10rem; text-align: center; font-size: 1rem;" class="ms-4"
+                (change)="filterByRating($event)">
+                <option value="ALL" class="ms-4">Sort by Recommends</option>
+                <option value="{{recommends.key}}" *ngFor="let recommends of recommended" class="pt-4">
+                  {{recommends.key}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="ms-4 mt-3">
+          <p-accordion>
+            <p-accordionTab header="What should I learn for web development course?">
+              <p>To become a Web Developer, you should have an understanding of HTML, CSS, and JavaScript. It's also
+                recommended to learn about CSS and CSS frameworks. Developing these fundamental web development skills
+                will give you the foundation and logic for communicating with programming languages.</p>
+            </p-accordionTab>
+            <p-accordionTab header="What are the benefits of web development course?">
+              <p>
+                1) You can learn in a short period of time. 2) Limited skills. 3) You can do freelancing projects. 4)
+                Start our own business.</p>
+            </p-accordionTab>
+            <p-accordionTab header="Does web development have a future?">
+              <p>
+                Web Developers Are Always Learning
+                Technology changes quickly, which means Web Developers have to stay on top of any important new
+                programming language, web development software, or trend. Even coding experts with advanced computer
+                science degrees will need to continually upskill in this field to stay ahead.</p>
+            </p-accordionTab>
+          </p-accordion>
+          <p class="ms-4 mt-2">Feel free to ask any questions here. <button class="btn btn-primary">Ask
+              Question</button> </p>
+        </div>
+        <hr>
+      </mat-tab>
+      <mat-tab label="Notes">
+        <div class="mt-4 mb-5 bg-body rounded fs-4 text-center"> Writes Notes Here</div>
+        <div class="ms-4 mt-2">
+          <textarea name="userNotes" cols="100" rows="5" placeholder="Start notes from here" class="mb-4"></textarea>
+        </div>
+      </mat-tab>
+      <mat-tab label="Announcements">
+        <div class="shadow p-3 mb-5 bg-body rounded fs-4 text-center">
+          <div class="ms-4 mt-2 text-center">
+            <p>Currently we don't have any Announcements. We will update you.</p> <br>
+            <button class="btn btn-primary mt-3 mb-3">Notify Me</button>
+          </div>
+        </div>
 
-                    <div class="text-center mt-3">
-                      <h5><b>OR</b></h5>
-                    </div>
-                    <div>
-                      <h3 class="text-center" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"><b>Subscribe to LMS top courses</b></h3>
-                      <p class="mt-1">Get this course plus top-rated picks in Software Engineering and other popular topics
-                        <a href="#">Learn more</a>
-                      </p>
-                    </div>
-                   <div class="text-center">
-                    <button style="border:1px solid black; background-color:white;padding:5px;width:70%"><b>Start subscription</b></button>
-                    <h5 class="mt-3">₹ 650.00 per month</h5>
-                   </div>
-                  </div>
-
+      </mat-tab>
+      <mat-tab label="Reviews">
+        <div class="ms-5 mt-2">
+          <b class="pb-3 fs-3"> Student Reviews</b>
+          <div class="d-flex">
+            <div class="avgRating">
+              <b class="fs-2">4.5</b> <br>
+              <ngb-rating [rate]="5" [max]="5" [readonly]="true" class="filled"> </ngb-rating>
+              <p>Course Rating</p>
+            </div>
+            <div>
+              <b class="text-white">To make the label visible you need to set a proper height to the bar.</b>
+              <div class="ratingGrid">
+                <!-- <p-progressBar [value]="63" [style]="{'height': '12px'}" class="mt-2"></p-progressBar> -->
+                <div class="progress" style="height: 12px;">
+                  <div class="progress-bar bg-warning" role="progressbar" [style.width]="progressBarValue1 + '%'"
+                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-
-              </mat-tab>
-              <mat-tab label="For Team">
-                <div class="ml-5">
-               <div class="text-center d-flex">
-                  <h3><b>LMS</b></h3><h3 style="color:#9c4be9;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" class="ml-1"> business</h3>
+                <p class="ms-2"> <ngb-rating [rate]="5" [max]="5" [readonly]="true" class="filled"> </ngb-rating>
+                </p>
+                <b class="text-warning">{{progressBarValue1}}%</b>
               </div>
-              <p>Subscribe to this course and 19,000+ top‑rated Udemy courses for your organization</p>
-              <button class="btn mb-5" style="background-color: #9c4be9;color: white; width:90%">Try LMS Business</button>
-              <div>
-                <ul style="list-style: none; margin-left:-20px;">
-                  <li><i class="pi pi-check"></i>For teams of 5 or more users</li>
-                  <li><i class="pi pi-check"></i>10,000+ fresh & in-demand courses</li>
-                  <li><i class="pi pi-check"></i>Learning Engagement tools</li>
-                </ul>
+              <div class="ratingGrid mt-2">
+                <!-- <p-progressBar [value]="44" [style]="{'height': '12px'}" class="mt-2"></p-progressBar> -->
+                <div class="progress" style="height: 12px;">
+                  <div class="progress-bar bg-warning" role="progressbar" [style.width]="progressBarValue2 + '%'"
+                    aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="ms-2"> <ngb-rating [rate]="4" [max]="5" [readonly]="true" class="filled"> </ngb-rating> <br>
+                </p>
+                <b class="text-warning">{{progressBarValue2}}%</b>
+
+              </div>
+              <div class="ratingGrid">
+                <!-- <p-progressBar [value]="22" [style]="{'height': '12px'}" class="mt-2"></p-progressBar> -->
+                <div class="progress" style="height: 12px;">
+                  <div class="progress-bar bg-warning" role="progressbar" [style.width]="progressBarValue3 + '%'"
+                    aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="ms-2"> <ngb-rating [rate]="3" [max]="5" [readonly]="true" class="filled"> </ngb-rating> <br>
+                </p>
+                <b class="text-warning">{{progressBarValue3}}%</b>
+
+              </div>
+              <div class="ratingGrid">
+                <!-- <p-progressBar [value]="12" [style]="{'height': '12px'}" class="mt-2"></p-progressBar> -->
+                <div class="progress" style="height: 12px;">
+                  <div class="progress-bar bg-warning" role="progressbar" [style.width]="progressBarValue4 + '%'"
+                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="ms-2"> <ngb-rating [rate]="2" [max]="5" [readonly]="true" class="filled"> </ngb-rating> <br>
+                </p>
+                <b class="text-warning">{{progressBarValue4}}%</b>
+              </div>
+              <div class="ratingGrid">
+                <!-- <p-progressBar [value]="2" [style]="{'height': '12px'}" class="mt-2"></p-progressBar> -->
+                <div class="progress" style="height: 12px;">
+                  <div class="progress-bar bg-warning" role="progressbar" [style.width]="progressBarValue5 + '%'"
+                    aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="ms-2"> <ngb-rating [rate]="1" [max]="5" [readonly]="true" class="filled"> </ngb-rating> <br>
+                </p>
+                <b class="text-warning">{{progressBarValue5}}%</b>
+
               </div>
             </div>
-            </mat-tab>
+          </div>
+          <div class="d-flex">
+            <div class="w-75">
+              <h2 class="text-center fs-2">Reviews</h2>
+              <div class="d-flex">
+                <input type="search" class="form-control w-75" placeholder="Enter something">
+                <button class="btn btn-dark"><i class="pi pi-check"></i></button>
+              </div>
+            </div>
+            <div class="w-50 mt-3">
+              <p class="ms-5">Filter by Rating</p>
+              <select style="height: 2rem; width: 9rem; text-align: center; font-size: 1rem;" class="ms-4"
+                (change)="filterByRating($event)">
+                <option value="ALL" class="ms-4">ALL</option>
+                <option value="{{ratingValue.rating}}" *ngFor="let ratingValue of filterRating">{{ratingValue.rating}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <div *ngIf="reviews.length==0">
+              <h1 class="text-center  mt-5 mb-5">No data is avoilable for this rating </h1>
+            </div>
+            <div *ngIf="reviews.length!=0">
+              <div class="ms-4 mt-4" *ngFor="let review of reviews ">
+                <div class="d-flex">
+                  <img src={{review.image}} alt="" class="reviewsImg">
+                  <div>
+                    <a href="#" class="ms-3"> {{review.name}}</a> <br>
+                    <button class="ratingBtn ms-3"> {{review.rating}} <i class="pi pi-check"></i> </button>
+                  </div>
+                </div>
+                <p class="ms-4 pt-3 pb-3"> {{review.review}} </p>
+                <div class="d-flex ">
+                  <button class="btn btn-outline-danger ms-5"> <i class="pi pi-check"></i> </button>
+                  <button class="btn btn-outline-warning ms-5"> <i class="pi pi-check"></i> </button>
+                  <button class="btn btn-outline-info ms-5"> <i class="pi pi-check"></i> </button>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
 
-            </mat-tab-group>
-
-          </aside>
         </div>
-    </div>
+      </mat-tab>
+
+    </mat-tab-group>
+
+
   </div>
-  </div>
-  <div class="container">
-    <div class="card">
-      <div class="header">
-        <h1><b>What you'll learn</b></h1>
-      </div>
-      <ul style="list-style-type: none ;padding-top: -12px;" class="d-flex">
-        <li style="width: 50%">
-          <h5>
-            <i class="pi pi-check"></i>Design and build massively Parallel Java
-            Applications and Distributed Algorithms at Scale
-          </h5>
-        </li>
-        <li style="width: 50%">
-          <h5>
-            <i class="pi pi-check"></i>Create efficient Cloud-based Software
-            Systems for Low Latency, Fault Tolerance, High Availability and
-            Performance
-          </h5>
-        </li>
-        <li style="width: 50%">
-          <h5>
-            <i class="pi pi-check"></i>Master Software Architecture designed for
-            the modern era of Cloud Computing
-          </h5>
-        </li>
-        <li style="width: 50%">
-          <h5>
-            <i class="pi pi-check"></i>Globally deploy Distributed Programs on
-            the Cloud serving millions of users, billions of requests, &
-            petabytes of data
-          </h5>
-        </li>
-      </ul>
-    </div>
-    <div class="courseIncludes">
-      <h2><b>This course includes:</b></h2>
-      <ul style="list-style-type: none" class="d-flex">
-        <li style="width: 50%">
-          <h5><i class="pi pi-video"></i>7.5 hours on-demand vedio</h5>
-        </li>
-        <li style="width: 50%">
-          <h5><i class="pi pi-download"></i>20 downloadable resources</h5>
-        </li>
-        <li style="width: 50%">
-          <h5><i class="pi pi-file-o"></i>6 Articles</h5>
-        </li>
-        <li style="width: 50%">
-          <h5><i class="pi pi-mobile"></i>Access on mobile and TV</h5>
-        </li>
-        <li style="width: 50%">
-          <h5><i class="pi pi-star-fill"></i>Certification of completion</h5>
-        </li>
-      </ul>
-    </div>
-    <div class="companies-offer">
-      <h3><b>Top companies offer this course to their employees</b></h3>
-      <h3>
-        This course was selected for our collection of top-rated courses trusted
-        by businesses worldwide. <a href="#">Learn more</a>
-      </h3>
-      <div>
-        <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAUkex8Z3tCG_SghdnK9AL0oKxrHKkihfoWQ&usqp=CAU"
-          alt=""
-        />
-        <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr7mtcZKT_5KjInVDoVELl9VWb-FUsgvB1Kg&usqp=CAU"
-          alt=""
-        />
-        <img
-          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAb1BMVEU6VZ////82Up4zUJ1UbKx4ibswTpyMmsQ5V6EtTJupss8nSJnN0+WVosgqSpo4U56eqcyDksDj5vBwgbb3+PxFXqNabqt9jb3S2OhidbC9xdy3v9l0hLjZ3etLY6bq7fTEyt4dQpdJYqekrs2uttK97JEgAAADFUlEQVR4nO3c2XLiMBBAUUZmM3IsFsNgSIAk/P83TsLzjCNbI3c3de9rqlw+BV7VZDIhIiIiIiIiIiIiIiIiIlJeCM4VxbzsrJDey8G50s/3h91ss3jp7LdJYii8262rbfPr545eem/753y9qWJwjypzwqJuT7E6i0JX7459fOaEvn3r5zMmLPy5r8+W0L9Gn15MCkO9GuAzJHSh9xFoS1hcrsOAVoTzdsghaEhYTAcDbQjdfjjQhDAshx6DRoShrhKAFoR+nQI0ICzaJKABYZlyEFoQ1p9pQPVCd0m4UJgQ+lsiULvQXVKB2oW+1ysZg8KwTAYqF5ZpF3sDQr99cqFLvJ3RL0y+2usXDnw1Y0YYUh58TQiL3X8Aql57Kvschs3xdF/9pftC8fphj3vSalZ6X5tbA/axJ5rtzhdBem+HVEeeaKq55s+po1DHAW/vJj+/yfdifdxX1OYX9LuwjxIejH5Fv3LTGOBJ8eXup+KEH056P4cXJby+S+9mQlHCUy29mwlFCddz6d1MKEq4sXsmjRTOEGoOIUL9IUSoP4QI9YcQof4QItQfQoT6Q4hQR27+78qYucRX37GFR7Jrb65ddBQz1Hbv2sCjpSixvEcgEitlhcN+cNenRnZxagThm+wK6ghC4TXiEYSr8tmFwstvIwhb2XX+EYR72St+fmEj6htDuBW+a8svPArPauQXnp9e+CI8jZJfKP38mF8ofDnML2wuwsOn2YVX6ena7MKt9PRpduHt6YUr6eHM7MKF9HBmduGr9OvU7MKp9BR4bmEjDcwulJ9zzy2U/+1hbqH0s1N+4afsq8QRhPKT/LmFB+kb7+xC6Tua7ELhdacRhOLPTtmFCv7ZQOY14LP4xWISlh2FqFkM17UF8VPpF7Hjb3HTJl2nSwXAzp5jnqYrhAj1hxCh/hAi1B9ChPpDiFB/CBHqDyFC/SFEqD+ECPWHEKH+ECLUH0KE+kOIUH8IEeoPIUL9IUSoP4QI9YcQof4QItQfQoT6Q4hQfwgR6g8hQv0hRKg/hAj1hxCh/hAi1B9ChD36A+1ASVvVoq0WAAAAAElFTkSuQmCC"
-          alt=""
-        />
-        <img
-          src="data:image/png;base64,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"
-          alt=""
-        />
-      </div>
-    </div>
-    <div>
-        <div>
-            <h2><b>Course content</b></h2>
-            <h4>11 sections • 51 lectures • 7h 34m total length</h4>
-        </div>
-        <div>
-             <div class="courseContent">
-              <p-accordion [multiple]="true">
-                <p-accordionTab header="Header 1">
-                    Content 1
-                </p-accordionTab>
-                <p-accordionTab header="Header 2">
-                    Content 2
-                </p-accordionTab>
-                <p-accordionTab header="Header 3">
-                    Content 3
-                </p-accordionTab>
-            </p-accordion>
-
-             </div>
-        </div>
-        <div class="requirements">
-          <h1><b>Requirements</b></h1>
-          <ul>
-            <li>Proficiency in the C</li>
-            <li>Passion for Software Engineering and Computer Science</li>
-            <li>C programming: Recommended</li>
-          </ul>
-        </div>
-        <div class="description">
-          <h1><b>Description</b></h1>
-          <p>Have you always wanted to build software that reaches millions of users and impact people's lives?</p>
-             <p> Have you been wondering how modern companies</p>
-          <ul>
-            <li>Handle massive amount of internet traffic and transactions?</li>
-            <li>Securely store billions of our photos, videos, and other data?</li>
-            <li>Provide impeccable user experience and high performance 24/7 all around the globe?</li>
-          </ul>
-        </div>
-
-      </div>
-  </div>
-
-  <ng-template #employeepopup let-modal>
-    <div style="background-color: black;color: white;">
-      <div class="d-flex">
-      <h4 class="ml-5 mt-3">Course preview</h4>
-      <a class= "mt-3" style="margin-left: 300px;color:white" (click)="onClose()">X</a>
-      </div>
-    <h2 class="ml-5"><b>{{courseDetails.courseTitle }}</b></h2>
-    <video class="ml-5" src={{courseDetails.video}} alt="Course Preiview" controls height="300px" width="440px"></video>
-    <h4 class="ml-5"><b>Free Sample Videos:</b></h4>
-  </div>
-  </ng-template>
-
 
 </div>
-
+<app-user-footer></app-user-footer>

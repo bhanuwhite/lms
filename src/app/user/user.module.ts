@@ -32,17 +32,19 @@ import {RatingModule} from 'primeng/rating';
 import {MatTabsModule} from '@angular/material/tabs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CourseDetailsComponent } from './course-details/course-details.component';
-import { HeaderComponent } from './header/header.component';
 import {AccordionModule} from 'primeng/accordion';
+import { ContentDetailsComponent } from './content-details/content-details.component';
 
 @NgModule({
   declarations: [
     UserComponent,
     MyLibraryComponent,
     CourseDetailsComponent,
-    HeaderComponent,
+    AboutComponent,
+    // HeaderComponent,
     UserHeaderComponent,
-    UserFooterComponent
+    UserFooterComponent,
+    ContentDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -67,5 +69,8 @@ import {AccordionModule} from 'primeng/accordion';
     NgbModule,
     AccordionModule
   ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ]
 })
 export class UserModule { }
