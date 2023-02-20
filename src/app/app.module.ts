@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
+import {DialogModule} from 'primeng/dialog';
+import {TooltipModule} from 'primeng/tooltip';
+import {ButtonModule} from 'primeng/button';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -26,9 +26,14 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { UserGuard } from 'src/guards/user.guard';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SheredModule } from './component/shered.module';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MenuModule } from 'primeng/menu';
+import {MatTabsModule} from '@angular/material/tabs';
+import { AppRoutingModule } from './app-routing.module';
+
 
 let module = [
-  MatSlideToggleModule,
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
@@ -44,8 +49,14 @@ let module = [
   MatSelectModule,
   ReactiveFormsModule,
   FormsModule,
-  MatSnackBarModule
-  
+  MatSnackBarModule,
+  DialogModule,
+  TooltipModule,
+  ButtonModule,
+  SheredModule,
+  MatTabsModule,
+
+
 ]
 
 @NgModule({
@@ -58,18 +69,22 @@ let module = [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule
-    
+    HttpClientModule,
+    ConfirmDialogModule,
+    // SpinnerModule,
+    TooltipModule,
+     ButtonModule, 
+    MenuModule,
   ],
   providers: [
     AuthService,AuthGuard,UserGuard,
-    
+
       {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
     }
-    
+
   ],
   bootstrap: [AppComponent]
 })
