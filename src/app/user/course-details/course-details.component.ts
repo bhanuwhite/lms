@@ -15,11 +15,11 @@ import {
   styleUrls: ['./course-details.component.scss'],
 })
 export class CourseDetailsComponent implements OnInit {
-  progressBarValue1=75;
-  progressBarValue2=55;
-  progressBarValue3=30;
-  progressBarValue4=25;
-  progressBarValue5=10;
+  progressBarValue1 = 75;
+  progressBarValue2 = 55;
+  progressBarValue3 = 30;
+  progressBarValue4 = 25;
+  progressBarValue5 = 10;
 
   course_Details: { videoUrl: string } = {
     videoUrl: '',
@@ -32,12 +32,12 @@ export class CourseDetailsComponent implements OnInit {
   faThumbsUp = faThumbsUp;
   faStar = faStar;
   faSearch = faSearch;
-  avgRatingVal:number=5
-  ratingVal1:number=5;
-  ratingVal2:number=4;
-  ratingVal3:number=3;
-  ratingVal4:number=2;
-  ratingVal5:number=1;
+  avgRatingVal: number = 5;
+  ratingVal1: number = 5;
+  ratingVal2: number = 4;
+  ratingVal3: number = 3;
+  ratingVal4: number = 2;
+  ratingVal5: number = 1;
   reViews: {
     name: string;
     image: string;
@@ -137,13 +137,8 @@ export class CourseDetailsComponent implements OnInit {
       { rating: 2 },
       { rating: 1 },
     ];
-    this.AllLectures = [
-      { key: 'Current Lecture ' }
-    ];
-    this.recommended = [
-      { key: 'Most Recent' },
-      { key: 'Most upvoted' }
-    ];
+    this.AllLectures = [{ key: 'Current Lecture ' }];
+    this.recommended = [{ key: 'Most Recent' }, { key: 'Most upvoted' }];
     this.filterQuestion = [
       { key: 'Question am Following' },
       { key: 'I asked questioned' },
