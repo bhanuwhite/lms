@@ -38,12 +38,7 @@ aside {
   align-items: center;
   gap: 10px;
 }
-.filled {
-  color: orange;
-  overflow: hidden;
-  position: absolute;
-  font-size: 1.5rem;
-}
+
 .ratingStar {
   ngb-rating {
     margin-right: 1px;
@@ -53,4 +48,8 @@ aside {
   display: grid;
   grid-template-columns: auto auto auto;
 }
-
+.QAprofilePic{
+  height: 35px;
+  width: 35px;
+  border-radius: 80%;
+}
