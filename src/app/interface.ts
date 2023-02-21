@@ -11,3 +11,6 @@ export interface ratingObj {
 export interface QAcategory {
   key: string;
 }
+export interface dropDown {
+  name: string;
+}

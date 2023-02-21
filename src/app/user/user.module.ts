@@ -18,23 +18,20 @@ import { SheredModule } from '../component/shered.module';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InputTextModule } from 'primeng/inputtext';
 import { MyLibraryComponent } from './my-library/my-library.component';
-import {MenubarModule} from 'primeng/menubar';
-import {TabMenuModule} from 'primeng/tabmenu';
-import {ProgressBarModule} from 'primeng/progressbar';
-import {RatingModule} from 'primeng/rating';
+import { MenubarModule } from 'primeng/menubar';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { RatingModule } from 'primeng/rating';
 import { CourseDetailsComponent } from './course-details/course-details.component';
-import {CardModule} from 'primeng/card';
-import {AccordionModule} from 'primeng/accordion';
-import {CheckboxModule} from 'primeng/checkbox';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
-import {DropdownModule} from 'primeng/dropdown';
-import {TabViewModule} from 'primeng/tabview';
+import { CardModule } from 'primeng/card';
+import { AccordionModule } from 'primeng/accordion';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DropdownModule } from 'primeng/dropdown';
+import { TabViewModule } from 'primeng/tabview';
+
 @NgModule({
-  declarations: [
-    UserComponent,
-    MyLibraryComponent,
-    CourseDetailsComponent,
-  ],
+  declarations: [UserComponent, MyLibraryComponent, CourseDetailsComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
@@ -46,7 +43,12 @@ import {TabViewModule} from 'primeng/tabview';
     MessagesModule,
     ProgressSpinnerModule,
     InputTextModule,
-    AdminRoutingModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule,
+    AdminRoutingModule,
+    MatIconModule,
+    MenuModule,
+    DialogModule,
+    TooltipModule,
+    ButtonModule,
     MenubarModule,
     TabMenuModule,
     ProgressBarModule,
@@ -57,8 +59,8 @@ import {TabViewModule} from 'primeng/tabview';
     CheckboxModule,
     FontAwesomeModule,
     DropdownModule,
-    TabViewModule
+    TabViewModule,
   ],
-  providers:[]
+  providers: [],
 })
-export class UserModule { }
+export class UserModule {}
