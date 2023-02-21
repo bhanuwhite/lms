@@ -26,6 +26,9 @@ import {AccordionModule} from 'primeng/accordion';
 import {TabViewModule} from 'primeng/tabview';
 import { VideoPopUpComponent } from './video-pop-up/video-pop-up.component';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
+import { PaymentComponent } from './payment/payment.component';
+import {DropdownModule} from 'primeng/dropdown';
+import {RadioButtonModule} from 'primeng/radiobutton';
 
 // import {DialogModule} from 'primeng/dialog';
 
@@ -35,7 +38,8 @@ import {DynamicDialogModule} from 'primeng/dynamicdialog';
     MyLibraryComponent,
     CourseDetailsComponent,
     HeaderComponent,
-    VideoPopUpComponent
+    VideoPopUpComponent,
+    PaymentComponent
   ],
   imports: [
     CommonModule,
@@ -51,7 +55,7 @@ import {DynamicDialogModule} from 'primeng/dynamicdialog';
 
     AdminRoutingModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule,CardModule,RatingModule,
 
-    AccordionModule,TabViewModule, DialogModule,DynamicDialogModule
+    AccordionModule,TabViewModule, DialogModule,DynamicDialogModule,DropdownModule,RadioButtonModule
 
   ]
 })

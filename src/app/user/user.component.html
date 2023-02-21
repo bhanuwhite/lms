@@ -122,7 +122,7 @@
               <h3>
                 <p>{{ course.price | currency : "INR" }}</p>
               </h3>
-              <button class="btn btn-warning">BuyNow</button>
+              <button class="btn btn-warning" (click)="buyCourse()">BuyNow</button>
             </div>
           </ng-template>
       </p-card>

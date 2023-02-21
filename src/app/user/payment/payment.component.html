@@ -1,0 +1,192 @@
+<div class="fluid-container bg-blue">
+  <div class="billing">
+    <h2><b>Billing address</b></h2>
+
+    <div class="container d-flex mt-5">
+      <div>
+        <div class="country d-flex mr-5" style="gap: 105px">
+          <h6 style="font-size: small"><b>Country</b></h6>
+          <h5>Required</h5>
+        </div>
+        <div class="dropDown">
+          <!-- <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" placeholder="Select a Country" optionLabel="name"  [showClear]="true" ></p-dropdown> -->
+          <select style="width: 200px; height: 30px">
+            <option selected disabled>Select Country..</option>
+            <!-- <option value="india">india</option> -->
+            <option *ngFor="let country of countries" value="country">
+              {{country}}
+            </option>
+
+          </select>
+
+        </div>
+      </div>
+      <div>
+        <div class="states d-flex" style="gap: 30px">
+          <h6 style="font-size: small"><b>State/Union Territory</b></h6>
+          <h5>Required</h5>
+        </div>
+        <div class="dropDown">
+          <select style="width: 200px; height: 30px">
+            <option selected disabled>Select State..</option>
+            <option *ngFor="let country of countries" [value]="country">
+              {{ country }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <pre><h5 class="ml-2">LMS is required by law to collect aplicable transaction taxes for purchases made in
+certain tax jurisdictions.</h5></pre>
+    <div>
+      <div class="d-flex" style="gap: 150px">
+        <h2><b>Payment method</b></h2>
+        <h6 style="font-size: smaller; padding-top: 8px">
+          Secured connections<i class="pi pi-lock ms-2 mt-1"></i>
+        </h6>
+      </div>
+      <div>
+        <div class="field-radiobutton">
+          <p-radioButton
+            name="card"
+            value="Credit/Debit Cards"
+            inputId="card"
+          ></p-radioButton>
+          <label for="card"
+            ><img
+              src="../../../assets/img/card1.jpg"
+              alt="img"
+              width="25px"
+              class="ms-1 mr-2"
+            />
+            Credit/Debit Cards
+            <img
+              src="../../../assets/img/visa.png"
+              alt="img"
+              width="35px"
+              style="margin-left: 90px; padding-left: 5px"
+            />
+            <img
+              src="../../../assets/img/rupay.jpg"
+              alt="img"
+              width="35px"
+              style="padding-left: 5px"
+            />
+            <img
+              src="../../../assets/img/express.jpg"
+              alt="img"
+              width="35px"
+              style="padding-left: 5px"
+            />
+            <img
+              src="../../../assets/img/master.png"
+              alt="img"
+              width="35px"
+              style="padding-left: 5px"
+            />
+          </label>
+        </div>
+        <div class="field-radiobutton">
+          <p-radioButton
+            name="card"
+            value="Credit/Debit Cards"
+            inputId="upi"
+          ></p-radioButton>
+          <label for="upi"
+            ><img
+              src="../../../assets/img/upi.png"
+              alt="img"
+              width="25px"
+              class="ms-1 mr-2"
+            />UPI</label
+          >
+        </div>
+        <div class="field-radiobutton">
+          <p-radioButton
+            name="card"
+            value="Credit/Debit Cards"
+            inputId="netBanking"
+          ></p-radioButton>
+          <label for="netBanking"
+            ><img
+              src="../../../assets/img/netbanking.png"
+              alt="img"
+              width="25px"
+              class="ms-1 mr-2"
+            />Net Banking</label
+          >
+        </div>
+        <div class="field-radiobutton">
+          <p-radioButton
+            name="card"
+            value="Credit/Debit Cards"
+            inputId="mobileWallet"
+          ></p-radioButton>
+          <label for="mobileWallet"
+            ><img
+              src="../../../assets/img/mobile.png"
+              alt="img"
+              width="25px"
+              class="ms-1 mr-2"
+            />Mobile Wallet</label
+          >
+        </div>
+      </div>
+      <div class="mt-5">
+        <h2><b>Order details</b></h2>
+        <h6
+          style="
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman',
+              serif;
+          "
+        >
+          <b
+            ><img
+              src="../../../assets/img/credit.png"
+              alt="img"
+              width="35px"
+              class="ms-1 mr-2"
+            />
+            Raising Capital for Your Bussiness</b
+          >
+        </h6>
+        <p></p>
+      </div>
+    </div>
+  </div>
+  <div class="summary">
+    <h2><b>Summary</b></h2>
+    <div class="d-flex" style="gap: 100px">
+      <h5>Original Price:</h5>
+      <h5>₹10,000</h5>
+    </div>
+    <div class="d-flex" style="gap: 120px">
+      <h5>Discounts:</h5>
+      <h5>₹2000</h5>
+    </div>
+    <hr />
+    <div class="d-flex" style="gap: 145px">
+      <h5><b>Total:</b></h5>
+      <h5><b>₹8000</b></h5>
+    </div>
+
+    <h5 style="text-align: center">
+      By completing your purchase you agree to these
+      <a href="#">Terms of Services</a>
+    </h5>
+    <div
+      clas="card"
+      style="
+        background-color: blueviolet;
+        color: white;
+        width: 70%;
+        margin-left: 70px;
+        text-align: center;
+        padding: 5px;
+      "
+    >
+      <h4 class="mt-2"><b>Complete Checkout</b></h4>
+    </div>
+    <h5 style="text-align: center">30-Day Money-Bank Guarantee</h5>
+  </div>
+</div>

@@ -99,4 +99,10 @@ export class UserComponent implements OnInit {
       console.log(this.courseDetails);
 
   }
+
+  buyCourse(){
+    console.log("hello");
+
+    this.router.navigate(['user/PaymentComponent']);
+  }
 }

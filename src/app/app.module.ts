@@ -60,7 +60,8 @@ let module = [
 @NgModule({
   declarations: [
     AppComponent,
-    EmailDirective
+    EmailDirective,
+
   ],
   imports: [
     ...module,
