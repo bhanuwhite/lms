@@ -10,3 +10,14 @@ span.meeting-tag {
         color: #42474B !important;
     }
 }
+@media only screen and (max-width: 760px) {
+    .meeting-summery  {
+       display: block !important;
+       .auth-details{
+        padding: 5px 0px;
+       }
+       .meeting-tag-div{
+        margin: 10px 0px;
+    }
+    }
+}
