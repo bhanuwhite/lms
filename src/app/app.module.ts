@@ -30,6 +30,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SheredModule } from './component/shered.module';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import {TabMenuModule} from 'primeng/tabmenu';
+import { TabViewModule } from 'primeng/tabview';
 
 
 let module = [
@@ -54,7 +55,7 @@ let module = [
   ButtonModule,
   SheredModule,
   TabMenuModule,
-
+  TabViewModule,
 
 
 ]
@@ -63,7 +64,7 @@ let module = [
   declarations: [
     AppComponent,
     EmailDirective,
-    // SpinnerComponent,
+     // SpinnerComponent,
   ],
   imports: [
     ...module,

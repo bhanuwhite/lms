@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { MenuItem } from 'primeng/api';
 import { dropDown } from 'src/app/interface';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { newObj } from 'src/app/interface';
 @Component({
   selector: 'app-my-library',
   templateUrl: './my-library.component.html',
@@ -12,7 +13,8 @@ export class MyLibraryComponent implements OnInit {
   items!: MenuItem[];
   searchWord: string = '';
   public course_Details: any = [];
-  public course_Details2: any = [];
+  public course_Details2: newObj[] = [];
+  public searchData: newObj[] = [];
   public value: number = 10;
   public progressValue: number = 25;
   faSearch = faSearch;
@@ -25,6 +27,7 @@ export class MyLibraryComponent implements OnInit {
   public selectedProgress: string = '';
   public instructorDropdown: dropDown[] = [];
   public selectedInstructor: string = '';
+
   constructor(private httpClient: HttpClient) {
     this.recentlyAccessDropdown = [
       { name: 'Recently Accessed' },
@@ -52,15 +55,12 @@ export class MyLibraryComponent implements OnInit {
   ngOnInit(): void {
     this.readingJSON();
   }
-  public searchData: any = [];
-  public searchFun() {
-    this.searchData = this.course_Details.filter((each: any) =>
-      each.title.toLowerCase().includes(this.searchWord.toLowerCase())
-    );
-  }
+
   public readingJSON(): void {
     this.httpClient.get(this.courseDetailsJSON).subscribe((data) => {
       try {
+        console.log(data);
+
         this.course_Details = data;
         this.course_Details2 = this.course_Details;
         this.items = [
@@ -75,7 +75,11 @@ export class MyLibraryComponent implements OnInit {
       }
     });
   }
-
+  public searchFun(): void {
+    this.searchData = this.course_Details.filter((each: newObj) =>
+      each.title.toLowerCase().includes(this.searchWord.toLowerCase())
+    );
+  }
   public myCourseDetails(courseDetails: object): void {
     localStorage.setItem('courseDetails', JSON.stringify(courseDetails));
   }
