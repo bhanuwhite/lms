@@ -28,28 +28,29 @@
       <div class="col-12">
         <table class="table table-striped table-hover mt-5">
           <thead class="text-center ">
-            <th class="col-4 p-3" > Item  </th>
-            <th class="col-1 p-3" > Ordered </th>
-            <th class="col-1 p-3" > Coupon Codes </th>
-            <th class="col-1 p-3" > Quantity </th>
-            <th class="col-1 p-3" >Price  </th>
+            <th class="col-4 p-3"> Item </th>
+            <th class="col-1 p-3"> Ordered </th>
+            <th class="col-1 p-3"> Coupon Codes </th>
+            <th class="col-1 p-3"> Quantity </th>
+            <th class="col-1 p-3">Price </th>
             <th class="col-1 p-3"> Amount </th>
           </thead>
-          <tbody  class="text-center me-3">
-            <tr  *ngIf="purchasingCourseDetails">
+          <tbody class="text-center me-3">
+            <tr *ngIf="purchasingCourseDetails">
               <td class=" p-3"> {{purchasingCourseDetails.name}} </td>
-             <td class=" p-3"> {{currentDate | date}} </td>
-             <td class=" p-3"> MYCoupon001# </td>
-             <td class=" p-3">1 </td>
-             <td class=" p-3"> {{purchasingCourseDetails.totalPrice }} </td>
-             <td class=" p-3"> {{  (purchasingCourseDetails.totalPrice) + (purchasingCourseDetails.totalPrice * (18/100))}} </td>
+              <td class=" p-3"> {{currentDate | date}} </td>
+              <td class=" p-3"> MYCoupon001# </td>
+              <td class=" p-3">1 </td>
+              <td class=" p-3"> {{purchasingCourseDetails.totalPrice }} </td>
+              <td class=" p-3"> {{ (purchasingCourseDetails.totalPrice) + (purchasingCourseDetails.totalPrice *
+                (18/100))}} </td>
             </tr>
             <tr *ngIf="purchasingCourseDetails">
               <td class=" p-3"></td>
               <td class=" p-3"></td>
               <td class=" p-3"></td>
               <td class=" p-3"> GST 18% </td>
-              <td class=" p-3">  {{(purchasingCourseDetails.totalPrice * (18/100))}} </td>
+              <td class=" p-3"> {{(purchasingCourseDetails.totalPrice * (18/100))}} </td>
               <td class=" p-3"></td>
             </tr>
             <tr *ngIf="purchasingCourseDetails">
@@ -57,7 +58,8 @@
               <td class=" p-3"></td>
               <td class=" p-3"></td>
               <td class=" p-3"> Grand Total </td>
-              <td class=" p-3">  {{  (purchasingCourseDetails.totalPrice) + (purchasingCourseDetails.totalPrice * (18/100))}} </td>
+              <td class=" p-3"> {{ (purchasingCourseDetails.totalPrice) + (purchasingCourseDetails.totalPrice *
+                (18/100))}} </td>
               <td class=" p-3"></td>
             </tr>
           </tbody>

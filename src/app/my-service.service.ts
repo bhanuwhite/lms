@@ -7,8 +7,22 @@ import { courseDataObj } from './interface';
 export class MyServiceService {
 
   constructor() { }
-  courseObj={}
+  courseObj:courseDataObj={
+    name:"",
+     paymentType:'',
+     totalPrice:0,
+     date:''
+  }
   purchasingCourse(purchaseCourse:courseDataObj){
-    this.courseObj=purchaseCourse
+    this.courseObj=purchaseCourse;
+  }
+  invoiceCourseObj:courseDataObj={
+    name:"",
+     paymentType:'',
+     totalPrice:0,
+     date:''
+  }
+  invoice(invoiceCourse:courseDataObj){
+    this.invoiceCourseObj=invoiceCourse
   }
 }

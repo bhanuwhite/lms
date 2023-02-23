@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { MenuItem } from 'primeng/api';
 import { dropDown } from 'src/app/interface';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { newObj } from 'src/app/interface';
+import { mainCourseData } from 'src/app/interface';
 @Component({
   selector: 'app-my-library',
   templateUrl: './my-library.component.html',
@@ -12,9 +12,9 @@ import { newObj } from 'src/app/interface';
 export class MyLibraryComponent implements OnInit {
   items!: MenuItem[];
   searchWord: string = '';
-  public course_Details: any = [];
-  public course_Details2: newObj[] = [];
-  public searchData: newObj[] = [];
+  public course_Details: mainCourseData[] = [];
+  public course_Details2: mainCourseData[] = [];
+  public searchData: mainCourseData[] = [];
   public value: number = 10;
   public progressValue: number = 25;
   faSearch = faSearch;
@@ -57,11 +57,11 @@ export class MyLibraryComponent implements OnInit {
   }
 
   public readingJSON(): void {
-    this.httpClient.get(this.courseDetailsJSON).subscribe((data) => {
+    this.httpClient.get<mainCourseData[]>(this.courseDetailsJSON).subscribe((data) => {
       try {
-        console.log(data);
-
         this.course_Details = data;
+        console.log(this.course_Details);
+
         this.course_Details2 = this.course_Details;
         this.items = [
           { label: 'All Courses' },
@@ -76,7 +76,7 @@ export class MyLibraryComponent implements OnInit {
     });
   }
   public searchFun(): void {
-    this.searchData = this.course_Details.filter((each: newObj) =>
+    this.searchData = this.course_Details.filter((each: mainCourseData) =>
       each.title.toLowerCase().includes(this.searchWord.toLowerCase())
     );
   }

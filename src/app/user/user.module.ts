@@ -32,9 +32,11 @@ import { TabViewModule } from 'primeng/tabview';
 import { PurchaseComponent } from './purchase/purchase.component';
 import { ReceiptComponent } from './receipt/receipt.component';
 import {SplitterModule} from 'primeng/splitter';
+import {TableModule} from 'primeng/table'
+import { InvoiceComponent } from './invoice/invoice.component';
 
 @NgModule({
-  declarations: [UserComponent, MyLibraryComponent, CourseDetailsComponent,PurchaseComponent, ReceiptComponent],
+  declarations: [UserComponent, MyLibraryComponent, CourseDetailsComponent,PurchaseComponent, ReceiptComponent, InvoiceComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
@@ -64,7 +66,7 @@ import {SplitterModule} from 'primeng/splitter';
     DropdownModule,
     TabViewModule,
     SplitterModule,
-
+    TableModule
   ],
   providers: [],
 })
