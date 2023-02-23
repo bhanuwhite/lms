@@ -100,8 +100,10 @@ export class UserComponent implements OnInit {
 
   }
 
-  buyCourse(){
-    console.log("hello");
+  buyCourse(course:{}){
+    this.courseDetails =JSON.stringify(course)
+    localStorage.setItem('courseDetails',this.courseDetails);
+    console.log(this.courseDetails);
 
     this.router.navigate(['user/PaymentComponent']);
   }

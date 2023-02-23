@@ -29,6 +29,8 @@ import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import { PaymentComponent } from './payment/payment.component';
 import {DropdownModule} from 'primeng/dropdown';
 import {RadioButtonModule} from 'primeng/radiobutton';
+import { FormsModule} from '@angular/forms';
+
 
 // import {DialogModule} from 'primeng/dialog';
 
@@ -52,6 +54,7 @@ import {RadioButtonModule} from 'primeng/radiobutton';
     MessagesModule,
     ProgressSpinnerModule,
     InputTextModule,
+    FormsModule,
 
     AdminRoutingModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule,CardModule,RatingModule,
 
