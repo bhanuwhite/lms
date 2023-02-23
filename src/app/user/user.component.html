@@ -51,14 +51,11 @@
       </div>
     </div> -->
 
-
-
-
-    <!-- <div class="col-lg-4 d-flex justify-content-end"> -->
-      <!-- <span class="material-symbols-outlined cursor-pointer" (click)="menu.toggle($event)">
+<!-- <div class="col-lg-4 d-flex justify-content-end"> -->
+<!-- <span class="material-symbols-outlined cursor-pointer" (click)="menu.toggle($event)">
                 account_circle
             </span> -->
-      <!-- <i
+<!-- <i
         class="pi pi-user ml-1 cursor-pointer"
         (click)="menu.toggle($event)"
       ></i>
@@ -71,102 +68,119 @@
   </div>
 </nav> -->
 
-
-
-
 <app-header></app-header>
 <div class="fluid-container">
-  <div
-    class="fluid-container text-center bg-blue border my-4 justify-content-center d-flex align-items-center"
-  >
-    <img src="../../assets/img/user1.jpg" alt="image" width="100%" />
-  </div>
-  <div class="container text-center bg-blue border">
-    <h1><b>Learning never exhausts the mind</b></h1>
-    <h3>Skills for your present (and your future). Get started with us.</h3>
-  </div>
-</div>
-<div class="fluid-container courses">
-  <div>
-    <h2><b>Courses to get you started</b></h2>
-  </div>
-</div>
-
-<p-tabView>
-  <p-tabPanel header="Most Popular">
-    <div>
-      <div class="courseDetails bg-blue border my-4 d-flex">
-        <p-card *ngFor="let course of courseList">
-          <ng-template pTemplate="header">
-            <div class="courseImage">
-              <a><img
-                 alt="Card"
-                 src="{{ course.courseImage }}"
-                 style="width: 260px; height: 150px; border-radius: 10px 10px 2px 2px" (click)="openCourseDetails(course)"
-               /></a>
-             </div>
-          </ng-template>
-          <div class="courseContent mt-1">
-            <h4>
-              <b>{{ course.courseTitle }}</b>
-            </h4>
-            <p>{{ course.author }}</p>
-            <div class="d-flex">
-                  <p-rating [ngModel]="course.rating" [stars]="5" [cancel]="false" [className]="'custom-star'">
-                  </p-rating>
-              <p>({{ course.rating }})</p>
-            </div>
-          </div>
-          <ng-template pTemplate="footer">
-            <div class="buttons d-flex mt-1">
-              <h3>
-                <p>{{ course.price | currency : "INR" }}</p>
-              </h3>
-              <button class="btn btn-warning" (click)="buyCourse(course)">BuyNow</button>
-            </div>
-          </ng-template>
-      </p-card>
-      </div>
+  <div class="fluid-container flex">
+    <div class="container text-center bg-blue border justify-content-start learningBox">
+      <h1><b>Learning never exhausts the mind</b></h1>
+      <h3>Skills for your present (and your future). Get started with us.</h3>
     </div>
-  </p-tabPanel>
-  <p-tabPanel header="Trending">
+  </div>
+  <div class="courses">
     <div>
-      <div class="courseDetails bg-blue border my-4 d-flex">
-        <p-card *ngFor="let course of courseList">
-          <ng-template pTemplate="header">
-            <div class="courseImage">
-              <a><img
-                 alt="Card"
-                 src="{{ course.courseImage }}"
-                 style="width: 260px; height: 150px; border-radius: 10px 10px 2px 2px" (click)="openCourseDetails(course)"
-               /></a>
-             </div>
-          </ng-template>
-          <div class="courseContent mt-1">
-            <h4>
-              <b>{{ course.courseTitle }}</b>
-            </h4>
-            <p>{{ course.author }}</p>
-            <div class="d-flex">
+      <h2><b>Courses to get you started</b></h2>
+    </div>
+  </div>
 
-              <div>
-                <p-rating [(ngModel)]="course.rating" [cancel]="false" [readonly]="true"></p-rating>
+  <p-tabView>
+    <p-tabPanel header="Most Popular">
+      <div>
+        <div class="courseDetails bg-blue border my-4 d-flex">
+          <p-card *ngFor="let course of courseList">
+            <ng-template pTemplate="header">
+              <div class="courseImage">
+                <a
+                  ><img
+                    alt="Card"
+                    src="{{ course.courseImage }}"
+                    style="
+                      width: 260px;
+                      height: 150px;
+                      border-radius: 10px 10px 2px 2px;
+                    "
+                    (click)="openCourseDetails(course)"
+                /></a>
               </div>
-
-              <p>({{ course.rating }})</p>
+            </ng-template>
+            <div class="courseContent mt-1">
+              <h4>
+                <b>{{ course.courseTitle }}</b>
+              </h4>
+              <p>{{ course.author }}</p>
+              <div class="d-flex">
+                <p-rating
+                  [ngModel]="course.rating"
+                  [stars]="5"
+                  [cancel]="false"
+                  [className]="'custom-star'"
+                >
+                </p-rating>
+                <p>({{ course.rating }})</p>
+              </div>
             </div>
-          </div>
-          <ng-template pTemplate="footer">
-            <div class="buttons d-flex mt-1">
-              <h3>
-                <p>{{ course.price | currency : "INR" }}</p>
-              </h3>
-              <button class="btn btn-warning" (click)="buyCourse(course)">BuyNow</button>
-            </div>
-          </ng-template>
-      </p-card>
+            <ng-template pTemplate="footer">
+              <div class="buttons d-flex mt-1">
+                <h3>
+                  <p>{{ course.price | currency : "INR" }}</p>
+                </h3>
+                <button class="btn btn-warning" (click)="buyCourse(course)">
+                  BuyNow
+                </button>
+              </div>
+            </ng-template>
+          </p-card>
+        </div>
       </div>
-    </div>
-  </p-tabPanel>
+    </p-tabPanel>
+    <p-tabPanel header="Trending">
+      <div>
+        <div class="courseDetails bg-blue border my-4 d-flex">
+          <p-card *ngFor="let course of courseList">
+            <ng-template pTemplate="header">
+              <div class="courseImage">
+                <a
+                  ><img
+                    alt="Card"
+                    src="{{ course.courseImage }}"
+                    style="
+                      width: 260px;
+                      height: 150px;
+                      border-radius: 10px 10px 2px 2px;
+                    "
+                    (click)="openCourseDetails(course)"
+                /></a>
+              </div>
+            </ng-template>
+            <div class="courseContent mt-1">
+              <h4>
+                <b>{{ course.courseTitle }}</b>
+              </h4>
+              <p>{{ course.author }}</p>
+              <div class="d-flex">
+                <div>
+                  <p-rating
+                    [(ngModel)]="course.rating"
+                    [cancel]="false"
+                    [readonly]="true"
+                  ></p-rating>
+                </div>
 
-</p-tabView>
+                <p>({{ course.rating }})</p>
+              </div>
+            </div>
+            <ng-template pTemplate="footer">
+              <div class="buttons d-flex mt-1">
+                <h3>
+                  <p>{{ course.price | currency : "INR" }}</p>
+                </h3>
+                <button class="btn btn-warning" (click)="buyCourse(course)">
+                  BuyNow
+                </button>
+              </div>
+            </ng-template>
+          </p-card>
+        </div>
+      </div>
+    </p-tabPanel>
+  </p-tabView>
+</div>
