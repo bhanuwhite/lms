@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageChatService } from 'src/app/services/message-chat.service';
-import { Messages } from '../../models/messages'
+import { Messages, msgCategories } from '../../models/messages'
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
@@ -8,67 +8,91 @@ import { Messages } from '../../models/messages'
 })
 export class MessageComponent implements OnInit {
   public textMessage: string = '';
+  public userMessage: string = '';
   public userMessages: Messages[] = [];
-  selectedCategory: string = '';
-  composeStatus: boolean = false;
-  viewMessageStatus: boolean = false;
-  selectedUserMessage: Messages = {
+  public messagesCategories: msgCategories[] = [];
+  public UnreadMessageslength: number = 0;
+  public unreadMessages: msgCategories = {
+    id: 0,
+    category: '',
+    items: []
+  }
+  public selectedCategory: msgCategories = {
+    id: 0,
+    category: '',
+    items: []
+  }
+  public composeStatus: boolean = false;
+  public viewMessageStatus: boolean = false;
+  public selectedUserMessage: Messages = {
     name: '',
     message: '',
     date: '',
     image: '',
-    category: ''
-
-  }
+    category: '',
+  };
   constructor(private messageServiceRef: MessageChatService) { }
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.getTextMessages();
-    
+    this.userMessagesCategory();
   }
   //get messages
   public getTextMessages(): void {
     try {
       this.messageServiceRef.getUserMessages().subscribe((data) => {
         this.userMessages = data;
-        console.log('error', data)
-      })
-    } catch (error) {
-      console.log('error', error)
 
+      });
+    } catch (error) {
+      console.log('error', error);
+    }
+  }
+  //get messages categories
+  public userMessagesCategory(): void {
+    try {
+      this.messageServiceRef.getMessagesCategories().subscribe((data) => {
+        this.messagesCategories = data;
+        this.messagesCategories.filter((data) => {
+          if (data.category === 'Unread') {
+            this.unreadMessages = data
+            this.UnreadMessageslength = this.unreadMessages.items.length;
+          }
+        })
+      });
+    } catch (error) {
+      console.log('error', error);
     }
   }
 
   //get messages
   public getMessage(user: Messages): void {
     this.selectedUserMessage = user;
-    console.log(this.selectedUserMessage.name)
   }
   //viewmessage
   public viewMessage(message: Messages): void {
     this.selectedUserMessage = message;
     this.viewMessageStatus = true;
     this.composeStatus = false;
-    console.log(message)
   }
   //showCategory
-  showCategory(category: string) {
-    console.log(category)
-  }
-  //importantMessages
-  importantMessages() {
-    console.log("importnat message")
-
+  public showCategory(): void {
+    this.userMessage = ""
+    this.userMessages = this.selectedCategory.items;
   }
   //compose
-  composeSection() {
+  public composeSection(): void {
     this.composeStatus = true;
-    this.viewMessageStatus = false
+    this.viewMessageStatus = false;
   }
 
   //sendMessage
   public sendMessage(): void {
-    console.log(this.textMessage)
+    if (this.textMessage != "") {
+      this.userMessage = this.textMessage;
+      this.textMessage = ""
+    } else {
+      console.log("error")
+    }
+
   }
-
-
 }

@@ -5,45 +5,90 @@
       <h1 class="text-black pt-5 pb-2" style="font-size: 3rem;padding-left: 125px;font-family: Georgia, 'Times New Roman', Times, serif;font-weight: 600;">My libraries </h1>
     </div>
   </div>
-  <div class="container">
-    <p-tabView>
-      <p-tabPanel header="All Course" style="background-color: #d6e7eb;">
-        <div class=" course_DetailsDiv">
-          <div class="courseDiv" *ngFor="let courseDetails of course_Details">
-            <a [routerLink]="['/user/library',courseDetails.id]" routerLinkActive="routerActive"> <img
-                src={{courseDetails.url}} alt="" class="courseFigure" (click)="myCourseDetails(courseDetails)"> </a>
-            <h2 class="ms-3"> {{courseDetails.title}} </h2>
-            <div>
-              <div class="text-wrap">
-                <p class="ms-3 me-2">{{courseDetails.desc}} </p>
-              </div>
-              <div class="ms-3 me-3">
-                <div class="progress" style="height: 4px;">
-                  <div class="progress-bar bg-primary" role="progressbar" [style.width]="progressValue + '%'"
-                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <p> {{progressValue}} % Complete</p>
-              </div>
-              <div class="mt-2 text-center">
-                <p-rating [stars]=5 [cancel]=false> </p-rating>
-              </div>
+  <div>
+  <p-tabView>
+    <p-tabPanel header="All Course">
+      <b class="ms-5">Sort By</b>
+      <div class="d-flex mt-3">
+        <div class="w-100">
+          <div class="d-flex">
+            <p-dropdown [options]="recentlyAccessDropdown" [(ngModel)]="selectedRecentlyAccess" optionLabel="name"
+              filterBy="name" [showClear]="true" class="ms-5" placeholder="Select Preference "></p-dropdown>
+            <p-dropdown [options]="categoryDropdown" [(ngModel)]="selectedCategory" optionLabel="name" filterBy="name"
+              [showClear]="true" class="ms-3" placeholder="Select Category "></p-dropdown>
+            <p-dropdown [options]="progressDropdown" [(ngModel)]="selectedProgress" optionLabel="name" filterBy="name"
+              [showClear]="true" class="ms-3" placeholder="Select Progress "></p-dropdown>
+            <p-dropdown [options]="instructorDropdown" [(ngModel)]="selectedInstructor" optionLabel="name" filterBy="name"
+              [showClear]="true" class="ms-3" placeholder="Select Instractor "></p-dropdown>
+            <button pButton pRipple type="button" label="Reset"
+              class="p-button-outlined p-button-secondary ms-3"></button>
+            <div class="d-flex ms-3">
+              <input type="search" class="form-control w-75" [(ngModel)]="searchWord" placeholder="Enter something"
+                (ngModelChange)="searchFun()">
+              <button class="btn btn-dark"><i class="pi pi-search"></i></button>
             </div>
           </div>
         </div>
-      </p-tabPanel>
-      <p-tabPanel header="My List">
-        Content 2
-      </p-tabPanel>
-      <p-tabPanel header="Wish List">
-        Content 3
-      </p-tabPanel>
-      <p-tabPanel header="Archives">
-        Content 4
-      </p-tabPanel>
-      <p-tabPanel header="MY Tools">
-        Content 5
-      </p-tabPanel>
-    </p-tabView>
+      </div>
+      <div *ngIf="searchData.length!=0" class="course_DetailsDiv">
+        <div *ngFor="let search of searchData" class="courseDiv">
+          <a [routerLink]="['/user/library',search.id]" routerLinkActive="routerActive"> <img src={{search.url}} alt=""
+              class="courseFigure" (click)="myCourseDetails(search)"> </a>
+          <h2 class="ms-3"> {{search.title}} </h2>
+          <div>
+            <div class="text-wrap">
+              <p class="ms-3 me-2">{{search.desc}} </p>
+            </div>
+            <div class="ms-3 me-3">
+              <div class="progress" style="height: 4px;">
+                <div class="progress-bar bg-primary" role="progressbar" [style.width]="progressValue + '%'"
+                  aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <p> {{progressValue}} % Complete</p>
+            </div>
+            <div class="mt-2 text-center">
+              <p-rating [stars]=5 [cancel]=false> </p-rating>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div *ngIf="searchData.length ==0" class="course_DetailsDiv">
+        <div class="courseDiv" *ngFor="let courseDetails of course_Details">
+          <a [routerLink]="['/user/library',courseDetails.id]" routerLinkActive="routerActive"> <img
+              src={{courseDetails.url}} alt="" class="courseFigure" (click)="myCourseDetails(courseDetails)"> </a>
+          <h2 class="ms-3"> {{courseDetails.title}} </h2>
+          <div>
+            <div class="text-wrap">
+              <p class="ms-3 me-2">{{courseDetails.desc}} </p>
+            </div>
+            <div class="ms-3 me-3">
+              <div class="progress" style="height: 4px;">
+                <div class="progress-bar bg-primary" role="progressbar" [style.width]="progressValue + '%'"
+                  aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <p> {{progressValue}} % Complete</p>
+            </div>
+            <div class="mt-2 text-center">
+              <p-rating [stars]=5 [cancel]=false> </p-rating>
+            </div>
+          </div>
+        </div>
+      </div>
+    </p-tabPanel>
+    <p-tabPanel header="My List">
+      Content 2
+    </p-tabPanel>
+    <p-tabPanel header="Wish List">
+      Content 3
+    </p-tabPanel>
+    <p-tabPanel header="Archives">
+      Content 4
+    </p-tabPanel>
+    <p-tabPanel header="MY Tools">
+      Content 5
+    </p-tabPanel>
+  </p-tabView>
 
 
   </div>
