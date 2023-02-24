@@ -1,4 +1,4 @@
-.fluid-container{
+.container-fluid{
   height: 300px;
   background-color:lightblue;
   color: black;
@@ -40,7 +40,6 @@ a{
 .card{
   min-height: 30vh;
   max-height: 45vh;
-  width: 120vh;
   padding: 5px;
   margin-bottom: 40px;
   border:1px solid lightgrey;
@@ -69,7 +68,6 @@ ul{
   margin-top: -10px;
 }
 .courseIncludes{
-  width: 100vh;
 h5{
   font-size: medium;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -79,7 +77,6 @@ h5{
 
   min-height: 20vh;
   max-height: 37vh;
-  width: 120vh;
   margin-bottom: 40px;
   border:1px solid lightgrey;
   h3{
@@ -95,9 +92,7 @@ h5{
 p-accordion{
   width:5rem;
 }
-.courseContent{
-  width:120vh;
-}
+
 .requirements{
   h1{
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
@@ -121,15 +116,6 @@ li{
 
 }
 }
-.card-container{
-
-  max-width: 45vh;
-  max-height:fit-content;
-  margin-left:420px;
-  // margin-top: 50px;
-  position:absolute;
-
-}
 .headDiv{
   height: 25%;
   width: 300%;
@@ -151,9 +137,11 @@ li{
 }
 aside{
   float: right;
-  width: 40%;
   color: black;
   background-color: white;
   border: 1px solid black;
+  width: 25%;
+  height: fit-content;
+position:static;
 
 }
