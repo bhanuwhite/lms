@@ -3,6 +3,7 @@
   width: 50%;
   // padding: auto;
 }
+
 .sizes {
   .p-inputtext {
     display: block;
@@ -17,11 +18,13 @@
 .p-field * {
   display: block;
 }
+
 input {
   width: 35%;
   border-radius: 30px;
 }
-.courses{
+
+.courses {
   margin-left: 30px;
 }
 
@@ -34,13 +37,19 @@ input {
   max-height: 40vh;
   width: 70vh;
   position: absolute;
+
   h1 {
     padding-top: 20px;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
-   }
-  h3{
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
   }
+
+  h3 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+  }
+}
+
+.custom-star {
+  color: gold;
 }
 
 .courseDetails {
@@ -52,9 +61,10 @@ input {
   margin: 30px;
   height: fit-content;
 }
-.card{
-  width:260px;
-  height:350px;
+
+p-card {
+  width: 260px;
+  height: 350px;
   margin-left: 20px;
   margin-bottom: 50px;
   margin-top: 20px;
@@ -63,17 +73,37 @@ input {
 
 button {
   width: 85px;
-  height:fit-content;
+  height: fit-content;
   margin-left: 50px;
 }
 
-.courseContent{
+.courseContent {
   margin-left: 10px;
-  p{
+
+  p {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   }
 }
-.rating{
+
+ngb-rating {
   margin-bottom: 10px;
+  font-size: 40px;
+  color: gray
 }
 
+a {
+  cursor: pointer;
+}
+
+.defaultStar {
+  position: relative;
+  display: inline-block;
+
+}
+
+.paintStar {
+  position: absolute;
+  display: inline-block;
+  color: gold;
+  overflow: hidden;
+}

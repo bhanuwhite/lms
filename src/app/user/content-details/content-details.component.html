@@ -1,159 +1,289 @@
-<app-user-header></app-user-header>
 <div>
-    <!-- <app-header></app-header> -->
-    <div class="fluid-container bg-blue border">
-        <div class="container">
-            <div class="course d-flex mt-1">
-                <a>
-                    <h3>Development ></h3>
-                </a>
-                <a>
-                    <h3>Software Engineering ></h3>
-                </a>
-                <a>
-                    <h3>{{ contentDetails.category }} ></h3>
-                </a>
-            </div>
-            <div class="courseTitle">
-                <div>
-                    <h1>
-                        <b>{{ contentDetails.courseTitle }}</b>
-                    </h1>
-                    <h2>{{ contentDetails.courseAuthor }}</h2>
+    <app-user-header></app-user-header>
+
+<div class="fluid-container bg-blue border d-flex">
+    <div class="container">
+        <div class="course d-flex mt-1">
+            <a>
+                <h3>Development ></h3>
+            </a>
+            <a>
+                <h3>Software Engineering ></h3>
+            </a>
+            <a>
+                <h3>{{ courseDetails.category }} ></h3>
+            </a>
+        </div>
+        <div class="courseTitle">
+            <div>
+                <h1>
+                    <b>{{ courseDetails.courseTitle }}</b>
+                </h1>
+                <h2>{{ courseDetails.courseAuthor }}</h2>
+                <div class="d-flex ml-1">
+                    <h5 class="border" style="background-color: rgb(23, 22, 16); color: white">
+                        Best Seller
+                    </h5>
                     <div class="d-flex ml-1">
-                        <h5 class="border" style="background-color:rgb(23, 22, 16); color:white">Best Seller</h5>
-                        <div class="d-flex ml-1">
-                            <ngb-rating [max]="5" [readonly]="true" [(rate)]="contentDetails.rating">
-                                <ng-template let-fill="fill">
-                                    <span class="defaultStar" [class.filled]="fill === 100">
-                                        <span class="paintStar" [style.width.%]="fill">&Star;</span>&Star;
-                                    </span>
-                                </ng-template>
-                            </ngb-rating>
-                            <p>({{ contentDetails.rating }})</p>
-                        </div>
+                        <p-rating [ngModel]="courseDetails.rating" [stars]="5" [cancel]="false"
+                            [className]="'custom-star'">
+                        </p-rating>
+                        <p>({{ courseDetails.rating }})</p>
                     </div>
-                    <div class="d-flex mt-3">
-                        <h5 class="mr-3"><i class="pi pi-pencil"></i>Last updated 2/2023</h5>
-                        <h5 class="mr-3"><i class="pi pi-globe"></i>English</h5>
-                        <h5 class="mr-3"><i class="pi pi-print"></i>English</h5>
-                    </div>
+                </div>
+                <div class="d-flex mt-3">
+                    <h5 class="mr-3">
+                        <i class="pi pi-pencil"></i>Last updated 2/2023
+                    </h5>
+                    <h5 class="mr-3"><i class="pi pi-globe"></i>English</h5>
+                    <h5 class="mr-3"><i class="pi pi-print"></i>English</h5>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="card">
-            <div class="header">
-                <h1><b>What you'll learn</b></h1>
-            </div>
-            <ul style="list-style-type: none" class="d-flex">
-                <li style="width: 50%">
-                    <h4>
-                        <i class="pi pi-check"></i>Design and build massively Parallel Java
-                        Applications and Distributed Algorithms at Scale
-                    </h4>
-                </li>
-                <li style="width: 50%">
-                    <h4>
-                        <i class="pi pi-check"></i>Create efficient Cloud-based Software
-                        Systems for Low Latency, Fault Tolerance, High Availability and
-                        Performance
-                    </h4>
-                </li>
-                <li style="width: 50%">
-                    <h4>
-                        <i class="pi pi-check"></i>Master Software Architecture designed for
-                        the modern era of Cloud Computing
-                    </h4>
-                </li>
-                <li style="width: 50%">
-                    <h4>
-                        <i class="pi pi-check"></i>Globally deploy Distributed Programs on
-                        the Cloud serving millions of users, billions of requests, &
-                        petabytes of data
-                    </h4>
-                </li>
-            </ul>
-        </div>
-        <div class="courseIncludes">
-            <h2><b>This course includes:</b></h2>
-            <ul style="list-style-type: none" class="d-flex">
-                <li style="width: 50%">
-                    <h5><i class="pi pi-video"></i>7.5 hours on-demand vedio</h5>
-                </li>
-                <li style="width: 50%">
-                    <h5><i class="pi pi-download"></i>20 downloadable resources</h5>
-                </li>
-                <li style="width: 50%">
-                    <h5><i class="pi pi-file-o"></i>6 Articles</h5>
-                </li>
-                <li style="width: 50%">
-                    <h5><i class="pi pi-mobile"></i>Access on mobile and TV</h5>
-                </li>
-                <li style="width: 50%">
-                    <h5><i class="pi pi-star-fill"></i>Certification of completion</h5>
-                </li>
-            </ul>
-        </div>
-        <div class="companies-offer">
-            <h3><b>Top companies offer this course to their employees</b></h3>
-            <h3>
-                This course was selected for our collection of top-rated courses trusted
-                by businesses worldwide. <a href="#">Learn more</a>
-            </h3>
+    <div class="card-container">
+        <div class="headDiv">
             <div>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAUkex8Z3tCG_SghdnK9AL0oKxrHKkihfoWQ&usqp=CAU"
-                    alt="" />
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr7mtcZKT_5KjInVDoVELl9VWb-FUsgvB1Kg&usqp=CAU"
-                    alt="" />
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAb1BMVEU6VZ////82Up4zUJ1UbKx4ibswTpyMmsQ5V6EtTJupss8nSJnN0+WVosgqSpo4U56eqcyDksDj5vBwgbb3+PxFXqNabqt9jb3S2OhidbC9xdy3v9l0hLjZ3etLY6bq7fTEyt4dQpdJYqekrs2uttK97JEgAAADFUlEQVR4nO3c2XLiMBBAUUZmM3IsFsNgSIAk/P83TsLzjCNbI3c3de9rqlw+BV7VZDIhIiIiIiIiIiIiIiIiIlJeCM4VxbzsrJDey8G50s/3h91ss3jp7LdJYii8262rbfPr545eem/753y9qWJwjypzwqJuT7E6i0JX7459fOaEvn3r5zMmLPy5r8+W0L9Gn15MCkO9GuAzJHSh9xFoS1hcrsOAVoTzdsghaEhYTAcDbQjdfjjQhDAshx6DRoShrhKAFoR+nQI0ICzaJKABYZlyEFoQ1p9pQPVCd0m4UJgQ+lsiULvQXVKB2oW+1ysZg8KwTAYqF5ZpF3sDQr99cqFLvJ3RL0y+2usXDnw1Y0YYUh58TQiL3X8Aql57Kvschs3xdF/9pftC8fphj3vSalZ6X5tbA/axJ5rtzhdBem+HVEeeaKq55s+po1DHAW/vJj+/yfdifdxX1OYX9LuwjxIejH5Fv3LTGOBJ8eXup+KEH056P4cXJby+S+9mQlHCUy29mwlFCddz6d1MKEq4sXsmjRTOEGoOIUL9IUSoP4QI9YcQof4QItQfQoT6Q4hQR27+78qYucRX37GFR7Jrb65ddBQz1Hbv2sCjpSixvEcgEitlhcN+cNenRnZxagThm+wK6ghC4TXiEYSr8tmFwstvIwhb2XX+EYR72St+fmEj6htDuBW+a8svPArPauQXnp9e+CI8jZJfKP38mF8ofDnML2wuwsOn2YVX6ena7MKt9PRpduHt6YUr6eHM7MKF9HBmduGr9OvU7MKp9BR4bmEjDcwulJ9zzy2U/+1hbqH0s1N+4afsq8QRhPKT/LmFB+kb7+xC6Tua7ELhdacRhOLPTtmFCv7ZQOY14LP4xWISlh2FqFkM17UF8VPpF7Hjb3HTJl2nSwXAzp5jnqYrhAj1hxCh/hAi1B9ChPpDiFB/CBHqDyFC/SFEqD+ECPWHEKH+ECLUH0KE+kOIUH8IEeoPIUL9IUSoP4QI9YcQof4QItQfQoT6Q4hQfwgR6g8hQv0hRKg/hAj1hxCh/hAi1B9ChD36A+1ASVvVoq0WAAAAAElFTkSuQmCC"
-                    alt="" />
-                <img src="data:image/png;base64,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"
-                    alt="" />
-            </div>
-        </div>
-        <div>
-            <div>
-                <h2><b>Course content</b></h2>
-                <h4>11 sections • 51 lectures • 7h 34m total length</h4>
-            </div>
-            <div>
-                <div class="courseContent">
-                    <p-accordion [multiple]="true">
-                        <p-accordionTab header="Header 1">
-                            Content 1
-                        </p-accordionTab>
-                        <p-accordionTab header="Header 2">
-                            Content 2
-                        </p-accordionTab>
-                        <p-accordionTab header="Header 3">
-                            Content 3
-                        </p-accordionTab>
-                    </p-accordion>
+                <aside>
+                    <ng-container (click)="onClickVideo(courseDetails)">
+                        <img src="{{ courseDetails.courseImage }}" alt="courseImage" width="100%" height="220px" />
+                        <div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3bb7qtbLwSQYT2BnBYY7IqYOKOrjfM8WDLA&usqp=CAU"
+                                alt="Image" title="play" width="50px;height:30px;" style="
+                    margin-left: 150px;
+                    margin-top: -250px;
+                    border-radius: 10px;
+                    cursor: pointer;
+                  " (click)="onClickVideo(courseDetails)" />
+                            <!-- <h3 style="text-align: center"><b>preview this course</b></h3> -->
+                        </div>
+                    </ng-container>
 
-                </div>
-            </div>
-            <div class="requirements">
-                <h1><b>Requirements</b></h1>
-                <ul>
-                    <li>Proficiency in the C</li>
-                    <li>Passion for Software Engineering and Computer Science</li>
-                    <li>C programming: Recommended</li>
-                </ul>
-            </div>
-            <div class="description">
-                <h1><b>Description</b></h1>
-                <p>Have you always wanted to build software that reaches millions of users and impact people's lives?
-                </p>
-                <p> Have you been wondering how modern companies</p>
-                <ul>
-                    <li>Handle massive amount of internet traffic and transactions?</li>
-                    <li>Securely store billions of our photos, videos, and other data?</li>
-                    <li>Provide impeccable user experience and high performance 24/7 all around the globe?</li>
-                </ul>
-            </div>
+                    <p-tabView>
+                        <p-tabPanel header="Personal">
+                            <div class="">
+                                <div class="ms-3 mt-5">
+                                    <b class="mt-5">
+                                        {{ courseDetails.price | currency : "INR" }}</b>
+                                    <div>
+                                        <button class="btn mt-3" style="
+                          background-color: #9c4be9;
+                          color: white;
+                          width: 97%;
+                        ">
+                                            <b>Buy this Course</b>
+                                        </button>
+                                    </div>
+                                    <Div class="text-center" style="font-family: serif">
+                                        <p class="mt-2">30-Day Money-Back Guarantee</p>
+                                        <p>Full Lifetime Access</p>
+                                    </Div>
+                                    <div class="d-flex ml-3" style="color: black">
+                                        <a class="pr-2" style="
+                          font-family: 'Lucida Sans', 'Lucida Sans Regular',
+                            'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+                            Verdana, sans-serif;
+                          color: black;
+                        "><b>Share</b></a>
+                                        <a class="pr-2" style="
+                          font-family: 'Lucida Sans', 'Lucida Sans Regular',
+                            'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+                            Verdana, sans-serif;
+                          color: black;
+                        "><b>Gift This Course</b></a>
+                                        <a class="pr-2" style="
+                          font-family: 'Lucida Sans', 'Lucida Sans Regular',
+                            'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+                            Verdana, sans-serif;
+                          color: black;
+                        "><b>Apply Coupon</b></a>
+                                    </div>
 
+                                    <div class="text-center mt-3">
+                                        <h5><b>OR</b></h5>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-center" style="
+                          font-family: 'Lucida Sans', 'Lucida Sans Regular',
+                            'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+                            Verdana, sans-serif;
+                        ">
+                                            <b>Subscribe to LMS top courses</b>
+                                        </h3>
+                                        <p class="mt-1">
+                                            Get this course plus top-rated picks in Software
+                                            Engineering and other popular topics
+                                            <a href="#">Learn more</a>
+                                        </p>
+                                    </div>
+                                    <div class="text-center">
+                                        <button style="
+                          border: 1px solid black;
+                          background-color: white;
+                          padding: 5px;
+                          width: 70%;
+                        ">
+                                            <b>Start subscription</b>
+                                        </button>
+                                        <h5 class="mt-3">₹ 650.00 per month</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-tabPanel>
+                        <p-tabPanel header="For Team">
+                            <div class="ml-5">
+                                <div class="text-center d-flex">
+                                    <h3><b>LMS</b></h3>
+                                    <h3 style="
+                        color: #9c4be9;
+                        font-family: 'Lucida Sans', 'Lucida Sans Regular',
+                          'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+                          Verdana, sans-serif;
+                      " class="ml-1">
+                                        business
+                                    </h3>
+                                </div>
+                                <p>
+                                    Subscribe to this course and 19,000+ top‑rated Udemy courses
+                                    for your organization
+                                </p>
+                                <button class="btn mb-5" style="background-color: #9c4be9; color: white; width: 90%">
+                                    Try LMS Business
+                                </button>
+                                <div>
+                                    <ul style="list-style: none; margin-left: -20px">
+                                        <li>
+                                            <i class="pi pi-check"></i>For teams of 5 or more users
+                                        </li>
+                                        <li>
+                                            <i class="pi pi-check"></i>10,000+ fresh & in-demand
+                                            courses
+                                        </li>
+                                        <li>
+                                            <i class="pi pi-check"></i>Learning Engagement tools
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </p-tabPanel>
+                    </p-tabView>
+                </aside>
+            </div>
         </div>
     </div>
 </div>
+<div class="container">
+    <div class="card">
+        <div class="header">
+            <h1><b>What you'll learn</b></h1>
+        </div>
+        <ul style="list-style-type: none; padding-top: -12px" class="d-flex">
+            <li style="width: 50%">
+                <h5>
+                    <i class="pi pi-check"></i>Design and build massively Parallel Java
+                    Applications and Distributed Algorithms at Scale
+                </h5>
+            </li>
+            <li style="width: 50%">
+                <h5>
+                    <i class="pi pi-check"></i>Create efficient Cloud-based Software
+                    Systems for Low Latency, Fault Tolerance, High Availability and
+                    Performance
+                </h5>
+            </li>
+            <li style="width: 50%">
+                <h5>
+                    <i class="pi pi-check"></i>Master Software Architecture designed for
+                    the modern era of Cloud Computing
+                </h5>
+            </li>
+            <li style="width: 50%">
+                <h5>
+                    <i class="pi pi-check"></i>Globally deploy Distributed Programs on
+                    the Cloud serving millions of users, billions of requests, &
+                    petabytes of data
+                </h5>
+            </li>
+        </ul>
+    </div>
+    <div class="courseIncludes">
+        <h2><b>This course includes:</b></h2>
+        <ul style="list-style-type: none" class="d-flex">
+            <li style="width: 50%">
+                <h5><i class="pi pi-video"></i>7.5 hours on-demand vedio</h5>
+            </li>
+            <li style="width: 50%">
+                <h5><i class="pi pi-download"></i>20 downloadable resources</h5>
+            </li>
+            <li style="width: 50%">
+                <h5><i class="pi pi-file-o"></i>6 Articles</h5>
+            </li>
+            <li style="width: 50%">
+                <h5><i class="pi pi-mobile"></i>Access on mobile and TV</h5>
+            </li>
+            <li style="width: 50%">
+                <h5><i class="pi pi-star-fill"></i>Certification of completion</h5>
+            </li>
+        </ul>
+    </div>
+    <div class="companies-offer">
+        <h3><b>Top companies offer this course to their employees</b></h3>
+        <h3>
+            This course was selected for our collection of top-rated courses trusted
+            by businesses worldwide. <a href="#">Learn more</a>
+        </h3>
+        <div>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAUkex8Z3tCG_SghdnK9AL0oKxrHKkihfoWQ&usqp=CAU"
+                alt="" />
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr7mtcZKT_5KjInVDoVELl9VWb-FUsgvB1Kg&usqp=CAU"
+                alt="" />
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAb1BMVEU6VZ////82Up4zUJ1UbKx4ibswTpyMmsQ5V6EtTJupss8nSJnN0+WVosgqSpo4U56eqcyDksDj5vBwgbb3+PxFXqNabqt9jb3S2OhidbC9xdy3v9l0hLjZ3etLY6bq7fTEyt4dQpdJYqekrs2uttK97JEgAAADFUlEQVR4nO3c2XLiMBBAUUZmM3IsFsNgSIAk/P83TsLzjCNbI3c3de9rqlw+BV7VZDIhIiIiIiIiIiIiIiIiIlJeCM4VxbzsrJDey8G50s/3h91ss3jp7LdJYii8262rbfPr545eem/753y9qWJwjypzwqJuT7E6i0JX7459fOaEvn3r5zMmLPy5r8+W0L9Gn15MCkO9GuAzJHSh9xFoS1hcrsOAVoTzdsghaEhYTAcDbQjdfjjQhDAshx6DRoShrhKAFoR+nQI0ICzaJKABYZlyEFoQ1p9pQPVCd0m4UJgQ+lsiULvQXVKB2oW+1ysZg8KwTAYqF5ZpF3sDQr99cqFLvJ3RL0y+2usXDnw1Y0YYUh58TQiL3X8Aql57Kvschs3xdF/9pftC8fphj3vSalZ6X5tbA/axJ5rtzhdBem+HVEeeaKq55s+po1DHAW/vJj+/yfdifdxX1OYX9LuwjxIejH5Fv3LTGOBJ8eXup+KEH056P4cXJby+S+9mQlHCUy29mwlFCddz6d1MKEq4sXsmjRTOEGoOIUL9IUSoP4QI9YcQof4QItQfQoT6Q4hQR27+78qYucRX37GFR7Jrb65ddBQz1Hbv2sCjpSixvEcgEitlhcN+cNenRnZxagThm+wK6ghC4TXiEYSr8tmFwstvIwhb2XX+EYR72St+fmEj6htDuBW+a8svPArPauQXnp9e+CI8jZJfKP38mF8ofDnML2wuwsOn2YVX6ena7MKt9PRpduHt6YUr6eHM7MKF9HBmduGr9OvU7MKp9BR4bmEjDcwulJ9zzy2U/+1hbqH0s1N+4afsq8QRhPKT/LmFB+kb7+xC6Tua7ELhdacRhOLPTtmFCv7ZQOY14LP4xWISlh2FqFkM17UF8VPpF7Hjb3HTJl2nSwXAzp5jnqYrhAj1hxCh/hAi1B9ChPpDiFB/CBHqDyFC/SFEqD+ECPWHEKH+ECLUH0KE+kOIUH8IEeoPIUL9IUSoP4QI9YcQof4QItQfQoT6Q4hQfwgR6g8hQv0hRKg/hAj1hxCh/hAi1B9ChD36A+1ASVvVoq0WAAAAAElFTkSuQmCC"
+                alt="" />
+            <img src="data:image/png;base64,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"
+                alt="" />
+        </div>
+    </div>
+    <div>
+        <div>
+            <h2><b>Course content</b></h2>
+            <h4>11 sections • 51 lectures • 7h 34m total length</h4>
+        </div>
+        <div>
+            <div class="courseContent">
+                <p-accordion [multiple]="true">
+                    <p-accordionTab header="Header 1"> Content 1 </p-accordionTab>
+                    <p-accordionTab header="Header 2"> Content 2 </p-accordionTab>
+                    <p-accordionTab header="Header 3"> Content 3 </p-accordionTab>
+                </p-accordion>
+            </div>
+        </div>
+        <div class="requirements">
+            <h1><b>Requirements</b></h1>
+            <ul>
+                <li>Proficiency in the C</li>
+                <li>Passion for Software Engineering and Computer Science</li>
+                <li>C programming: Recommended</li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1><b>Description</b></h1>
+            <p>
+                Have you always wanted to build software that reaches millions of
+                users and impact people's lives?
+            </p>
+            <p>Have you been wondering how modern companies</p>
+            <ul>
+                <li>Handle massive amount of internet traffic and transactions?</li>
+                <li>
+                    Securely store billions of our photos, videos, and other data?
+                </li>
+                <li>
+                    Provide impeccable user experience and high performance 24/7 all
+                    around the globe?
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+<app-user-footer></app-user-footer>

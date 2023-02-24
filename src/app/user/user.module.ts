@@ -1,5 +1,6 @@
-import { CUSTOM_ELEMENTS_SCHEMA, forwardRef, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
 import { MenuModule } from 'primeng/menu';
@@ -17,25 +18,31 @@ import { SheredModule } from '../component/shered.module';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InputTextModule } from 'primeng/inputtext';
 import { MyLibraryComponent } from './my-library/my-library.component';
-import { MenubarModule } from 'primeng/menubar';
-import { TabMenuModule } from 'primeng/tabmenu';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { CourseDetailsComponent } from './course-details/course-details.component';
-
 import { CardModule } from 'primeng/card';
 import { RatingModule } from 'primeng/rating';
-import { MatTabsModule } from '@angular/material/tabs';
-import { AboutComponent } from './about/about.component';
+import { CourseDetailsComponent } from './course-details/course-details.component';
+import { HeaderComponent } from './header/header.component';
+import { AccordionModule } from 'primeng/accordion';
+import { TabView, TabViewModule } from 'primeng/tabview';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { VideoPopupComponent } from './video-popup/video-popup.component';
+import { UserFooterComponent } from './user-footer/user-footer.component';
 import { UserHeaderComponent } from './user-header/user-header.component';
 import { AvatarModule } from 'primeng/avatar';
-import { UserFooterComponent } from './user-footer/user-footer.component';
-import { AccordionModule } from 'primeng/accordion';
-import { CheckboxModule } from 'primeng/checkbox';
-import { ContentDetailsComponent } from './content-details/content-details.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MatTabsModule } from '@angular/material/tabs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DropdownModule } from 'primeng/dropdown';
+import { EditorModule } from 'primeng/editor';
+import { MenubarModule } from 'primeng/menubar';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { TableModule } from 'primeng/table';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { AboutComponent } from './about/about.component';
+import { ContentDetailsComponent } from './content-details/content-details.component';
+import { MessageComponent } from './message/message.component';
 
-
+// import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -43,10 +50,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MyLibraryComponent,
     CourseDetailsComponent,
     AboutComponent,
+    // HeaderComponent,
     UserHeaderComponent,
     UserFooterComponent,
-    ContentDetailsComponent
-
+    ContentDetailsComponent,
+    MessageComponent,
+    VideoPopupComponent
   ],
   imports: [
     CommonModule,
@@ -67,16 +76,27 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MenubarModule,
     TabMenuModule,
     ProgressBarModule,
-    MatProgressBarModule,
-    MatTabsModule,
-    AccordionModule,
-    CheckboxModule,
-    AvatarModule,
-    CardModule,
     RatingModule,
-    NgbModule
+    MatTabsModule,
+    AvatarModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule, CardModule, RatingModule, MatTabsModule,
+    AdminRoutingModule,
+    NgbModule,
+    AccordionModule,
+    MatIconModule,
+    MenuModule,
+    DialogModule,
+    TooltipModule,
+    ButtonModule,
+    CardModule,
+    DropdownModule,
+    AvatarModule,
+    EditorModule,
+    HttpClientModule,
+    TableModule,
+    TabViewModule
+
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
-}
-)
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+
+})
 export class UserModule { }

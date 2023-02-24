@@ -3,12 +3,13 @@
 @import url("https://fonts.googleapis.com/css2? family=IBM+Plex+Sans+Arabic&family=Oswald:wght@300&family=Prata&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic&family=Mukta&family=Oswald:wght@300&family=Prata&family=Roboto:wght@300&display=swap");
 
-* {
-  font-family: "Times New Roman", Times, serif;
-}
 
 .about {
   background-color: #f7f9fa;
+
+  .main-heading-image {
+    width: 100%;
+  }
 }
 
 $font-size: 50px;
@@ -20,10 +21,11 @@ $font-size: 50px;
     font-size: 3.2rem;
     color: #1c1d1f;
     text-align: left;
-    // font-family: "Prata", serif;
     font-family: Suisse Works, Georgia, Times, Times New Roman, serif;
     line-height: 1.17;
     font-weight: 700;
+    width: 100%;
+
   }
 }
 
@@ -46,9 +48,15 @@ $font-size: 50px;
     line-height: 1.2;
     color: #1c1d1f;
     font-family: "IBM Plex Sans Arabic", sans-serif;
-    // font-family: Suisse Works, Georgia, Times, Times New Roman, serif;
     margin: 0 auto 1.6rem;
     text-align: center;
+  }
+}
+
+//media queries for video
+.embed-responsive {
+  video {
+    width: 100%;
   }
 }
 
@@ -141,6 +149,8 @@ $font-size: 50px;
 }
 
 .comment-cards {
+  padding: 10px;
+
   p {
     font-size: 25px;
     color: #1c1d1f;
@@ -153,9 +163,15 @@ $font-size: 50px;
   a {
     text-decoration: none;
   }
+
+  .comments-paragraph {
+    height: 200px;
+  }
 }
 
 .client-comments {
+  margin-top: 10px;
+
   h2 {
     font-family: Suisse Works, Georgia, Times, Times New Roman, serif;
     font-weight: bold;
@@ -172,5 +188,30 @@ $font-size: 50px;
   a {
     text-decoration: none;
     color: #5624d0;
+  }
+}
+
+.footer {
+  font-family: "Mukta", sans-serif;
+
+  .h-line {
+    width: 100%;
+    height: 1px;
+    background-color: #f7f9fa;
+  }
+
+  .footer-lang-btn {
+    margin-right: 100px;
+
+    a {
+      width: 300px;
+      height: 20px;
+      text-decoration: none;
+      border: 2px solid white;
+      padding: 10px;
+      color: white;
+      font-size: 20px;
+      justify-content: end;
+    }
   }
 }

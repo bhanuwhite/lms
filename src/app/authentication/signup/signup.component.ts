@@ -53,11 +53,11 @@ export class SignupComponent {
     console.log(this.formgroup.value)
     this.authSerice.signupUser(this.body).subscribe(res => {
       console.log('sign up data', res)
+      const data = res.user;
+      localStorage.setItem('token', res.jwt);
+      localStorage.setItem('user', JSON.stringify(data));
       try {
         console.log(res);
-        const data = res.user;
-        localStorage.setItem('token', res.jwt);
-        localStorage.setItem('user', JSON.stringify(data));
         localStorage.setItem('role', 'user');
         localStorage.setItem('isAuthenticate', 'true');
         this.router.navigate(['user']);

@@ -31,21 +31,29 @@ export class UserHeaderComponent implements OnInit {
         }
       },
       {
-        label: 'Change Password',
-        icon: 'pi pi-key ',
+        label: 'Messages',
+        icon: 'pi pi-comments ',
         command: () => {
-
+          this.router.navigateByUrl('user/message');
         }
-      }
+        },
+        {
+          label: 'Change Password',
+          icon: 'pi pi-key ',
+          command: () => {
+
+          }
+        }
       ]
     },
 
     ];
   }
 
+  
+
   public onLogout(): void {
     this.router.navigateByUrl('/login');
     localStorage.clear();
-    location.reload();
   }
 }

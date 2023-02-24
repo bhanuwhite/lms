@@ -1,7 +1,17 @@
+<<<<<<< HEAD
 <div class="mt-1 ">
   <div *ngIf="course_Details">
     <video src={{course_Details.videoUrl}} controls class="course_video"></video>
     <aside>
+=======
+<app-user-header></app-user-header>
+<div class="mt-1 ">
+  <div *ngIf="course_Details">
+    <video src="../../../assets/data/javaVideo.mp4" controls class="course_video"></video>
+    <aside>
+      <div class="border border-top-1 pb-2" style="height: 60px;font-weight: 500;font-size: 18px;padding-bottom: 10px;">
+      <p class="m-3">Course content</p></div>
+>>>>>>> dev-release
       <p-accordion>
         <p-accordionTab header="Section-01:Intro">
           <div>
@@ -90,8 +100,8 @@
   </div>
 
   <div class="courseDetailsDiv ">
-    <mat-tab-group>
-      <mat-tab label="Overview">
+    <p-tabView>
+      <p-tabPanel header="Overview">
         <div class="d-flex border border-dark">
           <div class="ms-4 pt-4">
             <i class="pi pi-clock" style="font-size: 2rem;"></i>
@@ -138,48 +148,101 @@
           </div>
           <hr>
         </div>
-      </mat-tab>
-      <mat-tab label="Q&A">
-        <div class="  mb-5  rounded fs-4 text-center">FAQ's</div>
+      </p-tabPanel>
+      <p-tabPanel header="Q&A">
         <div class="mt-4">
-          <b class="ms-4 fs-4 ">What is FAQ?</b>
-          <p class="ms-5 mt-1"> Here user can ask his/her questions on the course. Tutor will help to solve your
-            questions or sometimes students are also help you.
-          </p>
-          <hr>
+          <div class="d-flex ms-5">
+            <input type="search" class="form-control w-75" placeholder="Enter something">
+            <button class="btn btn-dark"><i class="pi pi-search"></i></button>
+          </div>
+          <div class="d-flex mt-3 ms-4">
+            <div>
+              <select style="height: 3rem; width: 10rem; text-align: center; font-size: 1rem; gap: 10px;" class="ms-4">
+                <option class="ms-4">All Lectures</option>
+                <option value="{{lecture.key}}" *ngFor="let lecture of AllLectures" class="ms-5">{{lecture.key}}
+                </option>
+              </select>
+            </div>
+            <div>
+              <select style="height: 3rem; width: 10rem; text-align: center; font-size: 1rem;" class="ms-4">
+                <option value="ALL" class="ms-4">Filter Question</option>
+                <option value="{{question.key}}" *ngFor="let question of filterQuestion" class="mt-4">{{question.key}}
+                </option>
+              </select>
+            </div>
+            <div>
+              <select style="height: 3rem; width: 10rem; text-align: center; font-size: 1rem;" class="ms-4">
+                <option value="ALL" class="ms-4">Sort by Recommends</option>
+                <option value="{{recommends.key}}" *ngFor="let recommends of recommended" class="pt-4">
+                  {{recommends.key}}
+                </option>
+              </select>
+            </div>
+          </div>
         </div>
-        <div class="ms-4 mt-3">
-          <p-accordion>
-            <p-accordionTab header="What should I learn for web development course?">
-              <p>To become a Web Developer, you should have an understanding of HTML, CSS, and JavaScript. It's also
-                recommended to learn about CSS and CSS frameworks. Developing these fundamental web development skills
-                will give you the foundation and logic for communicating with programming languages.</p>
-            </p-accordionTab>
-            <p-accordionTab header="What are the benefits of web development course?">
-              <p>
-                1) You can learn in a short period of time. 2) Limited skills. 3) You can do freelancing projects. 4)
-                Start our own business.</p>
-            </p-accordionTab>
-            <p-accordionTab header="Does web development have a future?">
-              <p>
-                Web Developers Are Always Learning
-                Technology changes quickly, which means Web Developers have to stay on top of any important new
-                programming language, web development software, or trend. Even coding experts with advanced computer
-                science degrees will need to continually upskill in this field to stay ahead.</p>
-            </p-accordionTab>
-          </p-accordion>
+        <div class="ms-4 mt-4">
+          <b class="fs-3">All questions in this Course (1003) </b>
+          <div>
+            <div class="d-flex mt-3">
+              <img src='https://i.pinimg.com/474x/4b/d5/d7/4bd5d78656591dbe5868562168adaef3.jpg' alt="MB"
+                class=" QAprofilePic ms-2">
+              <p class="ms-3"> <b>Jamilia Rodrikz :</b> </p>
+              <p class=" ms-2"> <b>How long will it take to get a new website?</b> </p>
+
+            </div>
+            <p class="ms-5">On average, we shoot for a six to eight week turnaround, but the pace of any project is set
+              by each client.</p>
+            <div class="d-flex  pt-5">
+              <span class="material-icons ms-5 ms-3">forum</span>
+              <span class="material-icons ms-5 ">favorite</span>
+
+            </div>
+          </div>
+          <hr>
+          <div>
+            <div class="d-flex mt-3">
+              <img src='https://i.pinimg.com/474x/4b/d5/d7/4bd5d78656591dbe5868562168adaef3.jpg' alt="MB"
+                class=" QAprofilePic ms-2">
+              <p class="ms-3"> <b>Jamilia Rodrikz :</b> </p>
+              <p class=" ms-2"> <b>How long will it take to get a new website?</b> </p>
+
+            </div>
+            <p class="ms-5">On average, we shoot for a six to eight week turnaround, but the pace of any project is set
+              by each client.</p>
+            <div class="d-flex  pt-5">
+              <span class="material-icons ms-5 ">forum</span>
+              <span class="material-icons ms-5">favorite</span>
+            </div>
+          </div>
+          <hr>
+          <div>
+            <div class="d-flex mt-3">
+              <img src='https://i.pinimg.com/474x/4b/d5/d7/4bd5d78656591dbe5868562168adaef3.jpg' alt="MB"
+                class=" QAprofilePic ms-2">
+              <p class="ms-3"> <b>Jamilia Rodrikz :</b> </p>
+              <p class=" ms-2"> <b>How long will it take to get a new website?</b> </p>
+
+            </div>
+            <p class="ms-5">On average, we shoot for a six to eight week turnaround, but the pace of any project is set
+              by each client.</p>
+            <div class="d-flex pt-5">
+              <span class="material-icons ms-5">forum</span>
+              <span class="material-icons ms-5">favorite</span>
+            </div>
+          </div>
+          <hr>
           <p class="ms-4 mt-2">Feel free to ask any questions here. <button class="btn btn-primary">Ask
               Question</button> </p>
         </div>
         <hr>
-      </mat-tab>
-      <mat-tab label="Notes">
+      </p-tabPanel>
+      <p-tabPanel header="Notes">
         <div class="mt-4 mb-5 bg-body rounded fs-4 text-center"> Writes Notes Here</div>
         <div class="ms-4 mt-2">
           <textarea name="userNotes" cols="100" rows="5" placeholder="Start notes from here" class="mb-4"></textarea>
         </div>
-      </mat-tab>
-      <mat-tab label="Announcements">
+      </p-tabPanel>
+      <p-tabPanel header="Announcements">
         <div class="shadow p-3 mb-5 bg-body rounded fs-4 text-center">
           <div class="ms-4 mt-2 text-center">
             <p>Currently we don't have any Announcements. We will update you.</p> <br>
@@ -187,63 +250,115 @@
           </div>
         </div>
 
-      </mat-tab> -->
-      <mat-tab label="Reviews">
-        <div class="ms-4 mt-2">
-          <b class="pb-3"> Student Reviews</b>
+      </p-tabPanel>
+      <p-tabPanel header="Reviews">
+        <div class="ms-5 mt-2">
+          <b class="pb-3 fs-3"> Student Reviews</b>
           <div class="d-flex">
             <div class="avgRating">
               <b class="fs-2">4.5</b> <br>
-              <!-- <ngb-rating [rate]="5" [max]="5" [readonly]="true" class="filled"> </ngb-rating> -->
+              <p-rating class="avgRate" [iconOnStyle]="{'color':'gold'}"  [(ngModel)]="avgRatingVal" [readonly]="true" [stars]="5" [cancel]="false"></p-rating>
               <p>Course Rating</p>
             </div>
-            <div class="ms-5 RatingprogressBar">
-              <b>To make the label visible you need to set a proper height to the bar.</b>
-              <p-progressBar [value]="63" [style]="{'height': '10px'}"></p-progressBar>
-              <p-progressBar [value]="33" [style]="{'height': '10px'}"></p-progressBar>
-              <p-progressBar [value]="23" [style]="{'height': '10px'}"></p-progressBar>
-              <p-progressBar [value]="13" [style]="{'height': '10px'}"></p-progressBar>
-              <p-progressBar [value]="3" [style]="{'height': '10px'}"></p-progressBar>
+            <div class="mt-3">
+              <div class="ratingGrid">
+                <div class="progress" style="height: 12px;">
+                  <div class="progress-bar bg-warning" role="progressbar" [style.width]="progressBarValue1 + '%'"
+                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="ms-4"> <p-rating [iconOnStyle]="{'color':'gold'}" [(ngModel)]="ratingVal1" [readonly]="true" [stars]="5"
+                    [cancel]="false"></p-rating>
+                </p>
+                <b class="text-warning ms-3">{{progressBarValue1}}%</b>
+              </div>
+              <div class="ratingGrid mt-2">
+                <div class="progress" style="height: 12px;">
+                  <div class="progress-bar bg-warning" role="progressbar" [style.width]="progressBarValue2 + '%'"
+                    aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="ms-4"> <p-rating [iconOnStyle]="{'color':'gold'}" [(ngModel)]="ratingVal2" [readonly]="true" [stars]="5"
+                    [cancel]="false"></p-rating>
+                </p>
+                <b class="text-warning ms-3">{{progressBarValue2}}%</b>
+              </div>
+              <div class="ratingGrid">
+                <div class="progress" style="height: 12px;">
+                  <div class="progress-bar bg-warning" role="progressbar" [style.width]="progressBarValue3 + '%'"
+                    aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="ms-4"> <p-rating [iconOnStyle]="{'color':'gold'}" [(ngModel)]="ratingVal3" [readonly]="true" [stars]="5"
+                    [cancel]="false"></p-rating>
+                </p>
+                <b class="text-warning ms-3">{{progressBarValue3}}%</b>
+              </div>
+              <div class="ratingGrid">
+                <div class="progress" style="height: 12px;">
+                  <div class="progress-bar bg-warning" role="progressbar" [style.width]="progressBarValue4 + '%'"
+                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="ms-4"> <p-rating [iconOnStyle]="{'color':'gold'}" [(ngModel)]="ratingVal4" [readonly]="true" [stars]="5"
+                    [cancel]="false"></p-rating>
+                </p>
+                <b class="text-warning ms-3">{{progressBarValue4}}%</b>
+              </div>
+              <div class="ratingGrid">
+                <div class="progress" style="height: 12px;">
+                  <div class="progress-bar bg-warning" role="progressbar" [style.width]="progressBarValue5 + '%'"
+                    aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="ms-4"><p-rating [iconOnStyle]="{'color':'gold'}" [(ngModel)]="ratingVal5" [readonly]="true" [stars]="5"
+                    [cancel]="false"></p-rating>
+                </p>
+                <b class="text-warning ms-3">{{progressBarValue5}}%</b>
+              </div>
             </div>
-            <!-- <div class="ratingStar">
-              <p class="ms-3 "> <ngb-rating [rate]="5" [max]="5" [readonly]="true" class="filled"> </ngb-rating> <br>
-              </p>
-              <p class="ms-3 mt-3"> <ngb-rating [rate]="3" [max]="5" [readonly]="true" class="filled"> </ngb-rating>
-                <br> </p>
-              <p class="ms-3 mt-3"> <ngb-rating [rate]="3" [max]="5" [readonly]="true" class="filled"> </ngb-rating>
-                <br></p>
-              <p class="ms-3 mt-3"> <ngb-rating [rate]="1" [max]="5" [readonly]="true" class="filled"> </ngb-rating>
-                <br> </p>
-              <p class="ms-3 mt-3"> <ngb-rating [rate]="0" [max]="5" [readonly]="true" class="filled"> </ngb-rating>
-              </p>
-            </div> -->
           </div>
-
+          <div class="d-flex mt-3">
+            <div class="w-75">
+              <h2 class="text-center fs-2">Reviews</h2>
+              <div class="d-flex">
+                <input type="search" class="form-control w-75" placeholder="Enter something">
+                <button class="btn btn-dark"><i class="pi pi-search"></i></button>
+              </div>
+            </div>
+            <div class="w-50 mt-3">
+              <p class="ms-5">Filter by Rating</p>
+              <select style="height: 2rem; width: 9rem; text-align: center; font-size: 1rem;" class="ms-4"
+                (change)="filterByRating($event)">
+                <option value="ALL" class="ms-4">ALL</option>
+                <option value="{{ratingValue.rating}}" *ngFor="let ratingValue of filterRating">{{ratingValue.rating}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <div *ngIf="reviews.length==0">
+              <h1 class="text-center  mt-5 mb-5">No data is avoilable for this rating </h1>
+            </div>
+            <div *ngIf="reviews.length!=0">
+              <div class="ms-4 mt-4" *ngFor="let review of reviews ">
+                <div class="d-flex">
+                  <img src={{review.image}} alt="" class="reviewsImg">
+                  <div>
+                    <a href="#" class="ms-3"> {{review.name}}</a> <br>
+                    <button class="ratingBtn ms-3"> {{review.rating}} <i class="pi pi-star"></i> </button>
+                  </div>
+                </div>
+                <p class="ms-4 pt-3 pb-3"> {{review.review}} </p>
+                <div class="d-flex ">
+                  <button class="btn btn-outline-danger ms-5"> <i class="pi pi-thumbs-up-fill"></i> </button>
+                  <button class="btn btn-outline-warning ms-5"> <i class="pi pi-comments"></i> </button>
+                  <button class="btn btn-outline-info ms-5"> <i class="pi pi-share-alt"></i> </button>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
 
         </div>
+      </p-tabPanel>
 
-
-        <!-- <button class="btn btn-primary float-end">Write Review</button> -->
-        <div class="ms-4 mt-2" *ngFor="let review of reviews">
-          <div class="d-flex">
-            <img src={{review.image}} alt="" class="reviewsImg">
-            <div>
-              <a href="#" class="ms-3"> {{review.name}}</a> <br>
-              <button class="ratingBtn ms-3"> {{review.rating}} </button>
-            </div>
-          </div>
-          <p class="ms-4 pt-3 pb-3"> {{review.review}} </p>
-
-          <div class="d-flex ">
-            <button class="btn btn-outline-danger ms-5">  </button>
-            <button class="btn btn-outline-warning ms-5">  </button>
-            <button class="btn btn-outline-info ms-5">  </button>
-          </div>
-          <hr>
-        </div>
-      </mat-tab>
-
-    </mat-tab-group>
+    </p-tabView>
 
 
   </div>

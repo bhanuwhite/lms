@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ApiService } from '../services/api.service';
@@ -14,7 +15,8 @@ import courseList from '../../assets/data/courseDetails.json';
 })
 export class UserComponent implements OnInit {
   contentData!: any;
-  currentRate:number=2
+  currentRate: number = 2;
+
 
 
   isLoading: boolean = false;
@@ -32,12 +34,14 @@ export class UserComponent implements OnInit {
     private apiService: ApiService,
     private router: Router,
     private messageService: MessageService
-  ) {}
+  ) { }
+
 
   ngOnInit(): void {
     this.iconMenu();
     this.getContent();
-    console.log(courseList);
+
+
   }
 
 
@@ -58,7 +62,7 @@ export class UserComponent implements OnInit {
           {
             label: 'Change Password',
             icon: 'pi pi-key ',
-            command: () => {},
+            command: () => { },
           },
         ],
       },
@@ -86,5 +90,13 @@ export class UserComponent implements OnInit {
         });
       }
     });
+  }
+  public courseDetails!: string
+  openCourseDetails(course: {}) {
+    this.router.navigate(['user/contentDetails']);
+    this.courseDetails = JSON.stringify(course)
+    localStorage.setItem('courseDetails', this.courseDetails);
+    console.log(this.courseDetails);
+
   }
 }

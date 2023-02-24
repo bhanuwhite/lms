@@ -10,7 +10,6 @@
 .lmsLogo {
   border-radius: 10rem;
   height: 50px;
-
 }
 
 aside {
@@ -45,31 +44,25 @@ aside {
   justify-content: center;
   align-items: center;
   gap: 10px;
-}
-
-.filled {
-  color: orange;
-  overflow: hidden;
-  position: absolute;
-  font-size: 1.5rem;
-}
-
-.RatingprogressBar {
-  width: 50%;
-
-  p-progressBar {
-    margin-right: 10px;
-  }
+  
 }
 
 .ratingStar {
-
   ngb-rating {
     margin-right: 1px;
   }
 }
 
-.ntr {
-  display: flex;
+.ratingGrid {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
 
+.QAprofilePic {
+  height: 35px;
+  width: 35px;
+  border-radius: 80%;
+}
+ :ng-deep p-rating {
+  color: gold !important;
 }

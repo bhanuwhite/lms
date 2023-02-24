@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Content } from '../../user/about/interfaces/content';
-import { AboutService } from './services/about.service';
+import { AboutContent } from 'src/app/models/about-content';
+import { Content } from 'src/app/models/content';
+import { AboutService } from '../../services/about.service';
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
@@ -8,16 +9,25 @@ import { AboutService } from './services/about.service';
 })
 export class AboutComponent implements OnInit {
   // for video and content of about page
-  public aboutLmsContent: Content[] = [];
-  public aboutLmsContentResult: Content[] = [];
+  public aboutLmsContent: AboutContent[] = [];
+  public aboutLmsContentResult: AboutContent[] = [];
   public count: number = 0;
-  display: boolean = false;
-  constructor(private aboutServiceRef: AboutService) {}
+  public display: boolean = false;
+  constructor(private aboutServiceRef: AboutService) { }
   public ngOnInit(): void {
-    this.aboutServiceRef.getAboutLmsData().subscribe((data) => {
-      this.aboutLmsContent = data;
-      this.aboutLmsContentResult.push(this.aboutLmsContent[this.count]);
-    });
+    this.getAboutLmsContent()
+  }
+
+  //getbaoutlmscontent
+  getAboutLmsContent() {
+    try {
+      this.aboutServiceRef.getAboutLmsData().subscribe((data) => {
+        this.aboutLmsContent = data;
+        this.aboutLmsContentResult.push(this.aboutLmsContent[this.count]);
+      });
+    } catch (error) {
+      console.log('error', error)
+    }
   }
   //aboutlmscontent(increment)
   public forwardAboutLms(): void {

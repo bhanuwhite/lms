@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import {DialogModule} from 'primeng/dialog';
 import {TooltipModule} from 'primeng/tooltip';
 import {ButtonModule} from 'primeng/button';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,8 +29,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SheredModule } from './component/shered.module';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MenuModule } from 'primeng/menu';
-import { UserModule } from './user/user.module';
+import {MatTabsModule} from '@angular/material/tabs';
+import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserModule } from './user/user.module';
 
 
 let module = [
@@ -53,11 +54,16 @@ let module = [
   SheredModule,
   UserModule,
   forwardRef(() => MatSnackBarModule),
+  MatTabsModule,
 
   
 ]
 
 @NgModule({
+  declarations: [
+    AppComponent,
+    EmailDirective,
+  ],
   imports: [
     ...module,
     BrowserModule,
@@ -67,11 +73,7 @@ let module = [
     NgbModule,
     SheredModule
     ],
-  declarations: [
-    AppComponent,
-    EmailDirective,
-    // SpinnerComponent,
-  ],
+
 
   providers: [
     AuthService,AuthGuard,UserGuard,

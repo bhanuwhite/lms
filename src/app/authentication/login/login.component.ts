@@ -69,18 +69,19 @@ export class LoginComponent {
           localStorage.setItem('isAuthenticate', 'true');
           this.router.navigate(['user']);
           // location.reload();
-        } 
-        // else {
-        //   this.snakeBar.open('Somthing went to wrong !!', 'Login again', {
-        //     horizontalPosition: this.horizontalPosition,
-        //     verticalPosition: this.verticalPosition
-        //   })
-        // }
+        }
+        else {
+          this.snakeBar.open('Somthing went to wrong !!', 'Login again', {
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition
+          })
+        }
       } catch (error) {
         console.log('error',error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail:'Somthing went to wrong !! '})
       }
     });
+    // this.router.navigate(["/user"]);
 
   }
 
