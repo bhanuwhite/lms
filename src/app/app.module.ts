@@ -32,7 +32,6 @@ import { MenuModule } from 'primeng/menu';
 import {MatTabsModule} from '@angular/material/tabs';
 import { AppRoutingModule } from './app-routing.module';
 
-
 let module = [
   MatButtonModule,
   MatCardModule,
