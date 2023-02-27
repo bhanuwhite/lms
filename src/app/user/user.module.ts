@@ -41,6 +41,9 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { AboutComponent } from './about/about.component';
 import { ContentDetailsComponent } from './content-details/content-details.component';
 import { MessageComponent } from './message/message.component';
+import { PurchaseHistoryComponent } from './purchase-history/purchase-history.component';
+import { ReceiptComponent } from './receipt/receipt.component';
+import { InvoiceComponent } from './invoice/invoice.component';
 
 // import {DialogModule} from 'primeng/dialog';
 
@@ -55,7 +58,10 @@ import { MessageComponent } from './message/message.component';
     UserFooterComponent,
     ContentDetailsComponent,
     MessageComponent,
-    VideoPopupComponent
+    VideoPopupComponent,
+    PurchaseHistoryComponent,
+    ReceiptComponent,
+    InvoiceComponent
   ],
   imports: [
     CommonModule,

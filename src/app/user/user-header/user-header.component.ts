@@ -38,6 +38,13 @@ export class UserHeaderComponent implements OnInit {
         }
         },
         {
+          label:'Purchase History',
+          icon:'pi pi-cart-plus',
+          command: () => {
+            this.router.navigateByUrl('/user/purchase-history');
+          }
+        },
+        {
           label: 'Change Password',
           icon: 'pi pi-key ',
           command: () => {
