@@ -29,17 +29,10 @@ input {
 }
 
 .container {
-  margin-top: -320px;
-  margin-left: 30px;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  min-height: 20vh;
-  max-height: 40vh;
-  width: 70vh;
-  position: absolute;
+   
 
   h1 {
-    padding-top: 20px;
+     
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
   }
 
@@ -52,30 +45,34 @@ input {
   color: gold;
 }
 
-.courseDetails {
-  box-sizing: content-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 30px;
-  height: fit-content;
+// .courseDetails {
+//   box-sizing: content-box;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-wrap: wrap;
+//   margin: 30px;
+//   height: fit-content;
+// }
+.all-Courses{
+  p-card {
+    width: 25%;
+    margin: 15px 0px;
+    border-radius: 10px;
+  }
+  .p-card-header img{
+    width: 100%;
+    
+  }
 }
 
-p-card {
-  width: 260px;
-  height: 350px;
-  margin-left: 20px;
-  margin-bottom: 50px;
-  margin-top: 20px;
-  border-radius: 10px;
-}
 
-button {
-  width: 85px;
-  height: fit-content;
-  margin-left: 50px;
-}
+
+// button {
+//   width: 85px;
+//   height: fit-content;
+//   margin-left: 50px;
+// }
 
 .courseContent {
   margin-left: 10px;
@@ -106,4 +103,20 @@ a {
   display: inline-block;
   color: gold;
   overflow: hidden;
+}
+
+.banner-image{
+  background-image: url("../../assets/img/user1.jpg") ;
+  height: 415px;
+  background-repeat: no-repeat;
+  background-size: contain;
+   
+}
+.banner-content.bg-white.border {
+  left: 3.2rem;
+  top: 8.4rem;
+  max-width: 44rem;
+  position: absolute;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 8%);
+  padding: 2.4rem;
 }
