@@ -44,6 +44,7 @@ import { MessageComponent } from './message/message.component';
 import { PurchaseHistoryComponent } from './purchase-history/purchase-history.component';
 import { ReceiptComponent } from './receipt/receipt.component';
 import { InvoiceComponent } from './invoice/invoice.component';
+import { PaymentComponent } from './payment/payment.component';
 
 // import {DialogModule} from 'primeng/dialog';
 
@@ -61,7 +62,8 @@ import { InvoiceComponent } from './invoice/invoice.component';
     VideoPopupComponent,
     PurchaseHistoryComponent,
     ReceiptComponent,
-    InvoiceComponent
+    InvoiceComponent,
+    PaymentComponent
   ],
   imports: [
     CommonModule,

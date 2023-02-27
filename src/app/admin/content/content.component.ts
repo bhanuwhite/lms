@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewChildren, } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewChildren, } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -16,7 +17,7 @@ import { ApiService } from 'src/app/services/api.service';
   `],
   providers: [ConfirmationService, MessageService]
 })
-export class ContentComponent implements OnInit, AfterViewInit {
+export class ContentComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('vid', { read: ElementRef }) tempRef!: ElementRef;
 
   // @ViewChild('v1', { read: ElementRef, static: false }) videoPlayer!: ElementRef;
@@ -34,6 +35,12 @@ export class ContentComponent implements OnInit, AfterViewInit {
   percentage: number = 0;
 
   isProgressFile: boolean = false;
+  contentGetSubsription$!: Subscription;
+  contentPostSubsription$!: Subscription;
+  contentUpdateSubsription$!: Subscription;
+  contentDeleteSubsription$!: Subscription;
+  contentUploadSubsription$!: Subscription;
+  allSubsription$: Subscription[] = []
 
 
 
@@ -135,7 +142,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
   // get content
   public getContent(): void {
     this.loadingSpinner = true;
-    this.apiService.getContent().subscribe((res) => {
+    this.contentGetSubsription$ = this.apiService.getContent().subscribe((res) => {
       try {
         this.contentData = res.data;
         console.log(this.contentData);
@@ -161,7 +168,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
       const formData = new FormData();
       formData.append('files', this.courseGroup.get('img')?.value);
       this.isProgressFile = true;
-      this.apiService.uploadFile(formData).subscribe(res => {
+      this.contentUploadSubsription$ = this.apiService.uploadFile(formData).subscribe(res => {
         try {
           this.isProgressFile = false;
           console.log(res);
@@ -204,7 +211,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
       }
     }
     // Post api call here
-    this.apiService.postContent(this.contentBody).subscribe(res => {
+    this.contentPostSubsription$ = this.apiService.postContent(this.contentBody).subscribe(res => {
       console.log(res);
       try {
         this.display = false;
@@ -266,7 +273,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
     }
 
     // Post api call here
-    this.apiService.updateContent(this._data.id, this.editContentBody).subscribe(res => {
+    this.contentUpdateSubsription$ = this.apiService.updateContent(this._data.id, this.editContentBody).subscribe(res => {
       console.log(res);
       try {
         this.editDisply = false;
@@ -287,7 +294,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.apiService.deleteContent(data.id).subscribe(res => {
+      this.contentDeleteSubsription$ =  this.apiService.deleteContent(data.id).subscribe(res => {
           try {
             this.messageService.add({
               severity: 'error', summary: 'Delete', detail: 'Content deleted successfully !'
@@ -303,5 +310,13 @@ export class ContentComponent implements OnInit, AfterViewInit {
       },
       reject: () => { }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.contentGetSubsription$.unsubscribe();
+    this.contentPostSubsription$.unsubscribe();
+    this.contentUpdateSubsription$.unsubscribe();
+    this.contentUploadSubsription$.unsubscribe();
+    this.contentDeleteSubsription$.unsubscribe();
   }
 }

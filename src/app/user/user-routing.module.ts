@@ -9,6 +9,7 @@ import { ContentDetailsComponent } from './content-details/content-details.compo
 import { PurchaseHistoryComponent } from './purchase-history/purchase-history.component';
 import { ReceiptComponent } from './receipt/receipt.component';
 import { InvoiceComponent } from './invoice/invoice.component';
+import { PaymentComponent } from './payment/payment.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,9 @@ const routes: Routes = [
   {
     path: 'message',
     component: MessageComponent
+  },
+  {
+    path:'payment',component:PaymentComponent
   },
   {
     path: 'purchase-history', component: PurchaseHistoryComponent
