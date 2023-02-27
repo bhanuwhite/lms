@@ -1,3 +1,5 @@
+<!-- <form class="form container" [formGroup]="reactiveForm"> -->
+
 <div class="fluid-container bg-blue">
   <div class="billing">
     <h2><b>Billing address</b></h2>
@@ -8,14 +10,13 @@
           <h6 style="font-size: small"><b>Country</b></h6>
           <h5>Required</h5>
         </div>
-        <div class="dropDown">
-          <p-dropdown
-            [options]="cities"
-            [(ngModel)]="selectedCity1"
-            placeholder="Select a Country.."
-            optionLabel="name"
-            [showClear]="true"
-          ></p-dropdown>
+
+        <div class="dropDown mr-5">
+          <select class="form-control" id="country" #country="ngModel" [(ngModel)]="country.name" (change)="updateStates($event)" >
+            <option value="">--Select a Country--</option>
+            <option *ngFor="let country of countries" [value]="country.name"> {{ country.name }} </option>
+          </select>
+          <small style="color:red" *ngIf="country.touched && country.pristine">*Select Country</small>
         </div>
       </div>
       <div>
@@ -24,16 +25,15 @@
           <h5>Required</h5>
         </div>
         <div class="dropDown">
-          <p-dropdown
-            [options]="cities"
-            [(ngModel)]="selectedCity1"
-            placeholder="Select a States.."
-            optionLabel="name"
-            [showClear]="true"
-          ></p-dropdown>
+          <select class="form-control" id="state" #state1="ngModel" [(ngModel)]="state" >
+            <option value="">--Select a State--</option>
+            <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+          </select>
+          <small  style="color:red" *ngIf="state1.touched && state1.pristine">*Select state</small>
         </div>
       </div>
     </div>
+  <!-- </form> -->
     <pre><h5 class="ml-2">LMS is required by law to collect aplicable transaction taxes for purchases made in
 certain tax jurisdictions.</h5></pre>
     <div>
@@ -167,19 +167,10 @@ certain tax jurisdictions.</h5></pre>
       By completing your purchase you agree to these
       <a href="#">Terms of Services</a>
     </h5>
-    <div
-      clas="card"
-      style="
-        background-color: blueviolet;
-        color: white;
-        width: 70%;
-        margin-left: 70px;
-        text-align: center;
-        padding: 5px;
-      "
-    >
-      <h4 class="mt-2"><b>Complete Checkout</b></h4>
+    <div class="button" style="text-align: center;">
+         <button style="background-color: rgb(165, 83, 241);padding: 10px;" [disabled]="country.untouched" (click)="function()">Complete Checkout</button>
     </div>
     <h5 style="text-align: center">30-Day Money-Bank Guarantee</h5>
   </div>
 </div>
+<!-- </form> -->

@@ -22,3 +22,6 @@
 .card{
   width:50%
 }
+select.ng-pristine.ng-touched{
+  border: 2px solid red;
+}
