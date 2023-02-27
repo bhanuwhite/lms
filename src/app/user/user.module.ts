@@ -29,9 +29,14 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DropdownModule } from 'primeng/dropdown';
 import { TabViewModule } from 'primeng/tabview';
+import { PurchaseComponent } from './purchase/purchase.component';
+import { ReceiptComponent } from './receipt/receipt.component';
+import {SplitterModule} from 'primeng/splitter';
+import {TableModule} from 'primeng/table'
+import { InvoiceComponent } from './invoice/invoice.component';
 
 @NgModule({
-  declarations: [UserComponent, MyLibraryComponent, CourseDetailsComponent],
+  declarations: [UserComponent, MyLibraryComponent, CourseDetailsComponent,PurchaseComponent, ReceiptComponent, InvoiceComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
@@ -60,6 +65,8 @@ import { TabViewModule } from 'primeng/tabview';
     FontAwesomeModule,
     DropdownModule,
     TabViewModule,
+    SplitterModule,
+    TableModule
   ],
   providers: [],
 })

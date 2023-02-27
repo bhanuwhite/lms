@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { MenuItem } from 'primeng/api';
 import { dropDown } from 'src/app/interface';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { mainCourseData } from 'src/app/interface';
 @Component({
   selector: 'app-my-library',
   templateUrl: './my-library.component.html',
@@ -11,8 +12,9 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 export class MyLibraryComponent implements OnInit {
   items!: MenuItem[];
   searchWord: string = '';
-  public course_Details: any = [];
-  public course_Details2: any = [];
+  public course_Details: mainCourseData[] = [];
+  public course_Details2: mainCourseData[] = [];
+  public searchData: mainCourseData[] = [];
   public value: number = 10;
   public progressValue: number = 25;
   faSearch = faSearch;
@@ -25,6 +27,7 @@ export class MyLibraryComponent implements OnInit {
   public selectedProgress: string = '';
   public instructorDropdown: dropDown[] = [];
   public selectedInstructor: string = '';
+
   constructor(private httpClient: HttpClient) {
     this.recentlyAccessDropdown = [
       { name: 'Recently Accessed' },
@@ -52,16 +55,13 @@ export class MyLibraryComponent implements OnInit {
   ngOnInit(): void {
     this.readingJSON();
   }
-  public searchData: any = [];
-  public searchFun() {
-    this.searchData = this.course_Details.filter((each: any) =>
-      each.title.toLowerCase().includes(this.searchWord.toLowerCase())
-    );
-  }
+
   public readingJSON(): void {
-    this.httpClient.get(this.courseDetailsJSON).subscribe((data) => {
+    this.httpClient.get<mainCourseData[]>(this.courseDetailsJSON).subscribe((data) => {
       try {
         this.course_Details = data;
+        console.log(this.course_Details);
+
         this.course_Details2 = this.course_Details;
         this.items = [
           { label: 'All Courses' },
@@ -75,7 +75,11 @@ export class MyLibraryComponent implements OnInit {
       }
     });
   }
-
+  public searchFun(): void {
+    this.searchData = this.course_Details.filter((each: mainCourseData) =>
+      each.title.toLowerCase().includes(this.searchWord.toLowerCase())
+    );
+  }
   public myCourseDetails(courseDetails: object): void {
     localStorage.setItem('courseDetails', JSON.stringify(courseDetails));
   }

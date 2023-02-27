@@ -46,6 +46,13 @@ export class UserComponent implements OnInit {
         command: () => {
 
         }
+      },
+      {
+        label: 'Purchase',
+        icon: 'pi pi-shopping-bag ',
+        command: () => {
+          this.purchase()
+        }
       }
       ]
     },
@@ -70,6 +77,11 @@ export class UserComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Somethinng went to wrong !!' });
       }
     });
+  }
+
+  public purchase():void{
+    this.router.navigate(['user/purchaseHistory'])
+
   }
 
 }
