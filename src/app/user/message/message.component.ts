@@ -33,7 +33,7 @@ export class MessageComponent implements OnInit {
     category: '',
   };
   constructor(private messageServiceRef: MessagesService) {}
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.getTextMessages();
     this.userMessagesCategory();
   }
@@ -42,7 +42,6 @@ export class MessageComponent implements OnInit {
     try {
       this.messageServiceRef.getUserMessages().subscribe((data) => {
         this.userMessages = data;
-
       });
     } catch (error) {
       console.log('error', error);
