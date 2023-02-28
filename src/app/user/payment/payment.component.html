@@ -19,7 +19,7 @@
               id="country"
               (change)="updateStates($event)"
             >
-              <!-- <option value="--Select a Country--" selected >--Select a Country--</option> -->
+              <option value="" disabled selected >--Select a Country--</option>
               <option *ngFor="let country of countries" [value]="country.name">
                 {{ country.name }}
               </option>
@@ -49,7 +49,7 @@
               formControlName="stateDropdown"
               id="state"
             >
-              <option value="">--Select a State--</option>
+              <option value=""  selected >--Select a State--</option>
               <option *ngFor="let state of states" [value]="state">
                 {{ state }}
               </option>

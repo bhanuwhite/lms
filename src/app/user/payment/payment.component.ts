@@ -40,14 +40,6 @@ export class PaymentComponent implements OnInit{
    }
 
   constructor(){
-
-  //   this.myForm = new FormGroup({
-
-  //     countryDropdown: new FormControl(null, Validators.required),
-  //     stateDropdown: new FormControl(null, Validators.required),
-  //     radioButtonOption: new FormControl(null, Validators.required),
-
-  // });
   }
 
 
@@ -58,12 +50,6 @@ export class PaymentComponent implements OnInit{
    this.total = this.courseDetails.price-this.discount
   }
 
-//  countries = [
-//     { name: 'USA', code: 'usa', states: ['New York', 'California'] },
-//     { name: 'Canada', code: 'canada', states: ['Ontario', 'Quebec'] },
-//     { name: 'Mexico', code: 'mexico', states: ['Mexico City'] },
-//     { name: 'India', code: 'India', states: ['Telangana','Andra Pradesh','Kerala','Maharastra','Goa'] }
-//   ];
 
   updateStates(event:any) {
 
