@@ -34,12 +34,12 @@
         <div *ngFor="let search of searchData" class="courseDiv">
           <a [routerLink]="['/user/library',search.id]" routerLinkActive="routerActive"> <img src={{search.url}} alt=""
               class="courseFigure" (click)="myCourseDetails(search)"> </a>
-          <h2 class="ms-3"> {{search.title}} </h2>
+          <h2 class="ms-3 cursor-pointer" style="cursor: pointer;"> {{search.title}} </h2>
           <div>
-            <div class="text-wrap">
-              <p class="ms-3 me-2">{{search.desc}} </p>
+            <div class="text-wrap " [routerLink]="['/user/library',search.id]">
+              <p class="ms-3 me-2 cursor-pointer">{{search.desc}} </p>
             </div>
-            <div class="ms-3 me-3">
+            <div class="ms-3 me-3 cursor-pointer " [routerLink]="['/user/library',search.id]">
               <div class="progress" style="height: 4px;">
                 <div class="progress-bar bg-primary" role="progressbar" [style.width]="progressValue + '%'"
                   aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>

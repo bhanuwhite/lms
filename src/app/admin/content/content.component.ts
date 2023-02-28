@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewChildren, } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewChildren, } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -16,10 +17,17 @@ import { ApiService } from 'src/app/services/api.service';
   `],
   providers: [ConfirmationService, MessageService]
 })
-export class ContentComponent implements OnInit, AfterViewInit {
+export class ContentComponent implements OnInit, OnDestroy {
   @ViewChild('vid', { read: ElementRef }) tempRef!: ElementRef;
 
-  // @ViewChild('v1', { read: ElementRef, static: false }) videoPlayer!: ElementRef;
+  private contentGetSubsription$: Subscription = new Subscription();
+  private contentPostSubsription$: Subscription = new Subscription();
+  private contentUpdateSubsription$: Subscription = new Subscription();
+  private contentDeleteSubsription$: Subscription = new Subscription();
+  private fileUploadForPostSubscription$: Subscription = new Subscription();
+  private fileUploadForUpdateSubscription$: Subscription = new Subscription();
+  private allSubsription$: Subscription[] = []
+
   loadingSpinner: boolean = false;
   contentFileData: string[] = [];
   contentUpdateFileData: string[] = [];
@@ -34,6 +42,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
   percentage: number = 0;
 
   isProgressFile: boolean = false;
+
 
 
 
@@ -66,19 +75,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
     this.courseUpdateValidate();
   }
 
-  ngAfterViewInit(): void {
-    // console.log('afetr init', this.tempRef);
-    // if (this.tempRef) {
-    //   console.log('afetr init', this.tempRef.nativeElement);
-    //   this.tempRef?.nativeElement.addEventListener('timeupdate', (event: any) => {
-    //     this.trackVideoProgress(event);
-    //     console.log(event);
-    //   });
-    // }
 
-
-
-  }
 
   updateProgress(vid: HTMLVideoElement) {
     const progress = (vid.currentTime / vid.duration) * 100;
@@ -135,7 +132,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
   // get content
   public getContent(): void {
     this.loadingSpinner = true;
-    this.apiService.getContent().subscribe((res) => {
+    this.contentGetSubsription$ = this.apiService.getContent().subscribe((res) => {
       try {
         this.contentData = res.data;
         console.log(this.contentData);
@@ -146,6 +143,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
           severity: 'error', summary: 'Error !!', detail: 'Something went wrong !!'
         });
       }
+      this.allSubsription$.push(this.contentGetSubsription$);
     });
   }
 
@@ -161,7 +159,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
       const formData = new FormData();
       formData.append('files', this.courseGroup.get('img')?.value);
       this.isProgressFile = true;
-      this.apiService.uploadFile(formData).subscribe(res => {
+      this.fileUploadForPostSubscription$ = this.apiService.uploadFile(formData).subscribe(res => {
         try {
           this.isProgressFile = false;
           console.log(res);
@@ -169,6 +167,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
         } catch (error) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong !!' });
         }
+        this.allSubsription$.push(this.fileUploadForPostSubscription$);
       });
     }
   }
@@ -180,13 +179,14 @@ export class ContentComponent implements OnInit, AfterViewInit {
       this.courseUpdateGroup.get('img')?.setValue(file);
       //  this.formData = new FormData();
       this.formData.append('files', this.courseUpdateGroup.get('img')?.value);
-      this.apiService.uploadFile(this.formData).subscribe(res => {
+      this.fileUploadForUpdateSubscription$ = this.apiService.uploadFile(this.formData).subscribe(res => {
         try {
           console.log(res);
           this.contentUpdateFileData = res;
         } catch (error) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong !!' });
         }
+        this.allSubsription$.push(this.fileUploadForUpdateSubscription$)
       });
     }
   }
@@ -204,7 +204,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
       }
     }
     // Post api call here
-    this.apiService.postContent(this.contentBody).subscribe(res => {
+    this.contentPostSubsription$ = this.apiService.postContent(this.contentBody).subscribe(res => {
       console.log(res);
       try {
         this.display = false;
@@ -219,6 +219,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
           severity: 'error', summary: 'Error', detail: 'Something went wrong !!'
         });
       }
+      this.allSubsription$.push(this.contentPostSubsription$);
     });
   }
 
@@ -266,7 +267,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
     }
 
     // Post api call here
-    this.apiService.updateContent(this._data.id, this.editContentBody).subscribe(res => {
+    this.contentUpdateSubsription$ = this.apiService.updateContent(this._data.id, this.editContentBody).subscribe(res => {
       console.log(res);
       try {
         this.editDisply = false;
@@ -277,6 +278,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
       } catch (error) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Somthing went to wrong !!' })
       }
+      this.allSubsription$.push(this.contentUpdateSubsription$);
     });
   }
 
@@ -287,7 +289,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.apiService.deleteContent(data.id).subscribe(res => {
+        this.contentDeleteSubsription$ = this.apiService.deleteContent(data.id).subscribe(res => {
           try {
             this.messageService.add({
               severity: 'error', summary: 'Delete', detail: 'Content deleted successfully !'
@@ -298,10 +300,21 @@ export class ContentComponent implements OnInit, AfterViewInit {
               severity: 'error', summary: 'Error', detail: 'Something went to wrong !!'
             });
           }
-
+          this.allSubsription$.push(this.contentDeleteSubsription$);
         });
       },
       reject: () => { }
+    });
+  }
+
+  ngOnDestroy(): void {
+    // this.contentGetSubsription$.unsubscribe();
+    // this.contentPostSubsription$.unsubscribe();
+    // this.contentUpdateSubsription$.unsubscribe();
+    // this.contentUploadSubsription$.unsubscribe();
+    // this.contentDeleteSubsription$.unsubscribe();
+    this.allSubsription$.forEach((subScriptions) => {
+      subScriptions.unsubscribe();
     });
   }
 }

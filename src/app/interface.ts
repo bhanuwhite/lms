@@ -14,3 +14,10 @@ export interface QAcategory {
 export interface dropDown {
   name: string;
 }
+
+export interface courseDataObj {
+  name: string;
+  date?: string;
+  totalPrice: number;
+  paymentType: string;
+}

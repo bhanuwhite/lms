@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -17,7 +18,17 @@ import { ApiService } from 'src/app/services/api.service';
     `],
   providers: [MessageService, ConfirmationService]
 })
-export class CoursesComponent implements OnInit {
+export class CoursesComponent implements OnInit, OnDestroy {
+
+  courseGetSubscription$: Subscription = new Subscription();
+  coursePostSubscription$: Subscription = new Subscription();
+  courseUpdateSubscription$: Subscription = new Subscription();
+  courseDeleteSubscription$: Subscription = new Subscription();
+  courseFileUploadSubscription$: Subscription = new Subscription();
+  courseAssignUploadSubscription$: Subscription = new Subscription();
+  courseUpdateFileUploadSubscription$: Subscription = new Subscription();
+  courseUpdateAssignUploadSubscription$: Subscription = new Subscription();
+  subScription$: Subscription[] = [];
   data!: string | null;
   singleContent: any;
 
@@ -83,7 +94,7 @@ export class CoursesComponent implements OnInit {
       const formData = new FormData();
       formData.append('files', this.addFormGrorup.get('courseFile')?.value);
 
-      this.apiService.uploadFile(formData).subscribe(res => {
+      this.courseFileUploadSubscription$ = this.apiService.uploadFile(formData).subscribe(res => {
         try {
           console.log(res[0].id);
           this.courseFileData = res[0].id;
@@ -91,6 +102,7 @@ export class CoursesComponent implements OnInit {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong !!' })
         }
       })
+      this.subScription$.push(this.courseFileUploadSubscription$);
     }
   }
 
@@ -101,7 +113,7 @@ export class CoursesComponent implements OnInit {
       const formData = new FormData();
       formData.append('files', this.addFormGrorup.get('assignFile')?.value);
 
-      this.apiService.uploadFile(formData).subscribe(res => {
+      this.courseAssignUploadSubscription$ = this.apiService.uploadFile(formData).subscribe(res => {
         try {
           console.log(res[0].id);
           this.assignFileData = res[0].id;
@@ -109,6 +121,7 @@ export class CoursesComponent implements OnInit {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong' });
         }
       });
+      this.subScription$.push(this.courseAssignUploadSubscription$);
     }
   }
 
@@ -119,7 +132,7 @@ export class CoursesComponent implements OnInit {
       this.editFormGroup.get('courseFile')?.setValue(file);
       const formData = new FormData();
       formData.append('files', this.editFormGroup.get('courseFile')?.value);
-      this.apiService.uploadFile(formData).subscribe(res => {
+      this.courseUpdateFileUploadSubscription$ = this.apiService.uploadFile(formData).subscribe(res => {
         try {
           console.log(res[0].id);
           this.updateFileData = res[0].id;
@@ -127,6 +140,7 @@ export class CoursesComponent implements OnInit {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong' });
         }
       });
+      this.subScription$.push(this.courseUpdateFileUploadSubscription$);
     }
   }
 
@@ -136,7 +150,7 @@ export class CoursesComponent implements OnInit {
       this.editFormGroup.get('assignFile')?.setValue(file);
       const formData = new FormData();
       formData.append('files', this.editFormGroup.get('assignFile')?.value);
-      this.apiService.uploadFile(formData).subscribe(res => {
+      this.courseUpdateAssignUploadSubscription$ = this.apiService.uploadFile(formData).subscribe(res => {
         try {
           console.log(res[0].id);
           this.updateAssignFileData = res[0].id;
@@ -144,13 +158,14 @@ export class CoursesComponent implements OnInit {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong' });
         }
       });
+      this.subScription$.push(this.courseUpdateAssignUploadSubscription$);
     }
   }
 
   // Get courses
   public getCourses(): void {
     this.isLoading = true;
-    this.apiService.getCourses().subscribe(res => {
+    this.courseGetSubscription$ = this.apiService.getCourses().subscribe(res => {
       try {
         this.courseData = res.data;
         console.log(this.courseData);
@@ -159,6 +174,8 @@ export class CoursesComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went wrong !!' })
       }
     });
+    this.subScription$.push(this.courseGetSubscription$);
+    
   }
 
   public addDialog(): void {
@@ -183,7 +200,7 @@ export class CoursesComponent implements OnInit {
 
     }
 
-    this.apiService.postCourse(this.courseBody).subscribe(res => {
+    this.coursePostSubscription$ = this.apiService.postCourse(this.courseBody).subscribe(res => {
       console.log(res);
       try {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Course Added successfully !' });
@@ -192,6 +209,8 @@ export class CoursesComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong !!' });
       }
       this.addDialogDisplay = false;
+      this.subScription$.push(this.coursePostSubscription$);
+      
     });
 
   }
@@ -254,7 +273,7 @@ export class CoursesComponent implements OnInit {
         }
       }
     }
-    this.apiService.updateCourse(this.editData.id, this.editCourseBody).subscribe(res => {
+    this.courseUpdateSubscription$ = this.apiService.updateCourse(this.editData.id, this.editCourseBody).subscribe(res => {
       try {
         console.log('updted course', res);
         this.getCourses();
@@ -263,6 +282,7 @@ export class CoursesComponent implements OnInit {
       } catch (error) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong !!' });
       }
+      this.subScription$.push(this.courseUpdateSubscription$);
     });
   }
 
@@ -272,13 +292,15 @@ export class CoursesComponent implements OnInit {
       header: 'Delete confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.apiService.deleteCourse(data.id).subscribe(res => {
+        this.courseDeleteSubscription$ = this.apiService.deleteCourse(data.id).subscribe(res => {
           try {
             this.getCourses();
             this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Deleted successfully !' });
           } catch (error) {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went wrong !!' })
           }
+          this.subScription$.push(this.courseDeleteSubscription$);
+          
         });
       },
       reject: () => { }
@@ -291,5 +313,12 @@ export class CoursesComponent implements OnInit {
     localStorage.setItem('courseData', JSON.stringify(data));
   }
 
+  ngOnDestroy(): void {
+    
+    this.subScription$.forEach((subScribe) => {
+      
+      subScribe.unsubscribe();
+    })
+  }
 
 }

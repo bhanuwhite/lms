@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ApiService } from '../services/api.service';
 import courseList from '../../assets/data/courseDetails.json';
+import { Subscription } from 'rxjs';
 
 
 
@@ -11,15 +11,15 @@ import courseList from '../../assets/data/courseDetails.json';
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
-  providers: [MessageService],
+  providers: [MessageService]
 })
-export class UserComponent implements OnInit {
-  contentData!: any;
-  currentRate: number = 2;
+export class UserComponent implements OnInit, OnDestroy {
 
+  private contentGetSubscriptions$: Subscription = new Subscription();
+  public contentData!: any;
+  public currentRate: number = 2;
 
-
-  isLoading: boolean = false;
+  public isLoading: boolean = false;
   public items: any;
   public courseList: {
     id: number;
@@ -38,46 +38,20 @@ export class UserComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.iconMenu();
     this.getContent();
-
-
   }
 
-
-
-
-  public iconMenu(): void {
-    this.items = [
-      {
-        label: 'Action',
-        items: [
-          {
-            label: 'Logout',
-            icon: 'pi pi-sign-out mt-0 text-danger',
-            command: () => {
-              this.onLogout();
-            },
-          },
-          {
-            label: 'Change Password',
-            icon: 'pi pi-key ',
-            command: () => { },
-          },
-        ],
-      },
-    ];
-  }
-
+  // Logout 
   public onLogout(): void {
     this.router.navigateByUrl('/login');
     localStorage.clear();
     location.reload();
   }
 
+  // Get Content 
   public getContent(): void {
     this.isLoading = true;
-    this.apiService.getContent().subscribe((res) => {
+    this.contentGetSubscriptions$ = this.apiService.getContent().subscribe((res) => {
       try {
         this.contentData = res.data;
         console.log(this.contentData);
@@ -89,14 +63,18 @@ export class UserComponent implements OnInit {
           detail: 'Somethinng went to wrong !!',
         });
       }
+
     });
   }
   public courseDetails!: string
-  openCourseDetails(course: {}) {
+  public openCourseDetails(course: {}): void {
     this.router.navigate(['user/contentDetails']);
     this.courseDetails = JSON.stringify(course)
     localStorage.setItem('courseDetails', this.courseDetails);
     console.log(this.courseDetails);
+  }
 
+  ngOnDestroy(): void {
+    this.contentGetSubscriptions$.unsubscribe();
   }
 }

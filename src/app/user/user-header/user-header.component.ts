@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class UserHeaderComponent implements OnInit {
   public items: any;
 
-  constructor(private router:Router) {
+  constructor(private router: Router) {
 
   }
 
@@ -23,25 +23,33 @@ export class UserHeaderComponent implements OnInit {
   public iconMenu(): void {
     this.items = [{
       label: 'Action',
-      items: [{
-        label: 'Logout',
-        icon: 'pi pi-sign-out mt-0 text-danger',
-        command: () => {
-          this.onLogout();
-        }
-      },
-      {
-        label: 'Messages',
-        icon: 'pi pi-comments ',
-        command: () => {
-          this.router.navigateByUrl('user/message');
-        }
+      items: [
+        {
+          label: 'Messages',
+          icon: 'pi pi-comments ',
+          command: () => {
+            this.router.navigateByUrl('user/message');
+          }
+        },
+        {
+          label: 'Purchase History',
+          icon: 'pi pi-cart-plus',
+          command: () => {
+            this.router.navigateByUrl('/user/purchase-history');
+          }
         },
         {
           label: 'Change Password',
           icon: 'pi pi-key ',
           command: () => {
 
+          }
+        },
+        {
+          label: 'Logout',
+          icon: 'pi pi-sign-out mt-0 text-danger',
+          command: () => {
+            this.onLogout();
           }
         }
       ]
@@ -50,7 +58,7 @@ export class UserHeaderComponent implements OnInit {
     ];
   }
 
-  
+
 
   public onLogout(): void {
     this.router.navigateByUrl('/login');
