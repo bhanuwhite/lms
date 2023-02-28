@@ -1,176 +1,256 @@
 <!-- <form class="form container" [formGroup]="reactiveForm"> -->
+<form [formGroup]="myForm" (ngSubmit)="submit()">
+  <div class="fluid-container bg-blue">
+    <div class="billing">
+      <h2><b>Billing address</b></h2>
 
-<div class="fluid-container bg-blue">
-  <div class="billing">
-    <h2><b>Billing address</b></h2>
+      <div class="container d-flex mt-5">
+        <div>
+          <div class="country d-flex mr-5" style="gap: 105px">
+            <h6 style="font-size: small">
+              <b>Country <span class="text-danger">*</span></b>
+            </h6>
+          </div>
 
-    <div class="container d-flex mt-5">
-      <div>
-        <div class="country d-flex mr-5" style="gap: 105px">
-          <h6 style="font-size: small"><b>Country</b></h6>
-          <h5>Required</h5>
+          <div class="mr-5">
+            <select
+              class="form-control"
+              formControlName="countryDropdown"
+              id="country"
+              (change)="updateStates($event)"
+            >
+              <!-- <option value="--Select a Country--" selected >--Select a Country--</option> -->
+              <option *ngFor="let country of countries" [value]="country.name">
+                {{ country.name }}
+              </option>
+            </select>
+          </div>
+          <div>
+            <small
+              style="color: red"
+              *ngIf="
+                myForm.get('countryDropdown')?.invalid &&
+                myForm.get('countryDropdown')?.touched
+              "
+            >
+              *Select your Country</small
+            >
+          </div>
         </div>
-
-        <div class="dropDown mr-5">
-          <select class="form-control" id="country" #country="ngModel" [(ngModel)]="country.name" (change)="updateStates($event)" >
-            <option value="">--Select a Country--</option>
-            <option *ngFor="let country of countries" [value]="country.name"> {{ country.name }} </option>
-          </select>
-          <small style="color:red" *ngIf="country.touched && country.pristine">*Select Country</small>
+        <div>
+          <div class="states d-flex" style="gap: 30px">
+            <h6 style="font-size: small">
+              <b>State/Union Territory <span class="text-danger">*</span></b>
+            </h6>
+          </div>
+          <div class="dropDown">
+            <select
+              class="form-control"
+              formControlName="stateDropdown"
+              id="state"
+            >
+              <option value="">--Select a State--</option>
+              <option *ngFor="let state of states" [value]="state">
+                {{ state }}
+              </option>
+            </select>
+            <div>
+              <small
+                style="color: red"
+                *ngIf="
+                  myForm.get('stateDropdown')?.invalid &&
+                  myForm.get('stateDropdown')?.touched
+                "
+              >
+                *Select your State
+              </small>
+            </div>
+          </div>
         </div>
       </div>
-      <div>
-        <div class="states d-flex" style="gap: 30px">
-          <h6 style="font-size: small"><b>State/Union Territory</b></h6>
-          <h5>Required</h5>
-        </div>
-        <div class="dropDown">
-          <select class="form-control" id="state" #state1="ngModel" [(ngModel)]="state" >
-            <option value="">--Select a State--</option>
-            <option *ngFor="let state of states" [value]="state">{{ state }}</option>
-          </select>
-          <small  style="color:red" *ngIf="state1.touched && state1.pristine">*Select state</small>
-        </div>
-      </div>
-    </div>
-  <!-- </form> -->
-    <pre><h5 class="ml-2">LMS is required by law to collect aplicable transaction taxes for purchases made in
+
+      <pre><h5 class="ml-2">LMS is required by law to collect aplicable transaction taxes for purchases made in
 certain tax jurisdictions.</h5></pre>
-    <div>
-      <div class="d-flex" style="gap: 150px">
-        <h2><b>Payment method</b></h2>
-        <h6 style="font-size: smaller; padding-top: 8px">
-          Secured connections<i class="pi pi-lock ms-2 mt-1"></i>
-        </h6>
-      </div>
-      <div>
-        <div class="field-radiobutton">
-          <input type="radio" name="card" id="creditCard" />
 
-          <label
-            for="creditCard"
-            class="flex justify-content-space-between flex-wrap"
+      <div>
+        <div>
+          <label class="d-flex" style="gap: 150px"
+            ><h2><b>Payment method</b></h2>
+            <h6 style="font-size: smaller">
+              Secured connections<i class="pi pi-lock ms-2 mt-1"></i>
+            </h6>
+          </label>
+          <div class="form-group">
+            <div class="field-radiobutton">
+              <input
+                type="radio"
+                name="radioButtonOption"
+                id="creditCard"
+                formControlName="radioButtonOption"
+                value="Credit/Debit Cards"
+              />
+              <label
+                for="creditCard"
+                class="flex justify-content-space-between flex-wrap"
+              >
+                <div
+                  class="flex align-items-center justify-content-center mr-5"
+                >
+                  <img
+                    src="../../../assets/img/card1.jpg"
+                    alt="img"
+                    width="25px"
+                    class="ms-1 mr-2"
+                  />
+                  Credit/Debit Cards
+                </div>
+                <div
+                  class="flex align-items-center justify-content-center ms-5"
+                >
+                  <img
+                    src="../../../assets/img/visa.png"
+                    alt="img"
+                    width="35px"
+                    class="p-1"
+                  />
+                  <img
+                    src="../../../assets/img/rupay.jpg"
+                    alt="img"
+                    width="35px"
+                    class="p-1"
+                  />
+
+                  <img
+                    src="../../../assets/img/express.jpg"
+                    alt="img"
+                    width="35px"
+                    class="p-1"
+                  />
+                  <img
+                    src="../../../assets/img/master.png"
+                    alt="img"
+                    width="35px"
+                    class="p-1"
+                  />
+                </div>
+              </label>
+            </div>
+            <div class="field-radiobutton">
+              <input
+                type="radio"
+                name="radioButtonOption"
+                id="upi"
+                value="UPI"
+                formControlName="radioButtonOption"
+              />
+
+              <label for="upi">
+                <img
+                  src="../../../assets/img/upi.png"
+                  alt="img"
+                  width="25px"
+                  class="ms-1 mr-2"
+                />UPI</label
+              >
+            </div>
+            <div class="field-radiobutton">
+              <input
+                type="radio"
+                name="radioButtonOption"
+                id="netBanking"
+                value="Net Banking"
+                formControlName="radioButtonOption"
+              />
+
+              <label for="netBanking"
+                ><img
+                  src="../../../assets/img/netbanking.png"
+                  alt="img"
+                  width="25px"
+                  class="ms-1 mr-2"
+                />Net Banking</label
+              >
+            </div>
+            <div class="field-radiobutton">
+              <input
+                type="radio"
+                name="radioButtonOption"
+                id="mobileWallet"
+                value="Mobile Wallet"
+                formControlName="radioButtonOption"
+              />
+
+              <label for="mobileWallet"
+                ><img
+                  src="../../../assets/img/mobile.png"
+                  alt="img"
+                  width="25px"
+                  class="ms-1 mr-2"
+                />Mobile Wallet</label
+              >
+            </div>
+            <div class="text-danger">
+              <small
+                *ngIf="isSubmitted && radioButtonOption?.invalid"
+                >Select One Option</small
+              >
+            </div>
+          </div>
+        </div>
+        <div class="mt-5">
+          <h2><b>Order details</b></h2>
+          <h6
+            style="
+              font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman',
+                serif;
+            "
           >
-            <div class="flex align-items-center justify-content-center mr-5">
-              <img
-                src="../../../assets/img/card1.jpg"
+            <b
+              ><img
+                src="../../../assets/img/credit.png"
                 alt="img"
-                width="25px"
+                width="35px"
                 class="ms-1 mr-2"
               />
-              Credit/Debit Cards
-            </div>
-            <div class="flex align-items-center justify-content-center ms-5">
-              <img
-                src="../../../assets/img/visa.png"
-                alt="img"
-                width="35px"
-                class="p-1"
-              />
-              <img
-                src="../../../assets/img/rupay.jpg"
-                alt="img"
-                width="35px"
-                class="p-1"
-              />
-              <img
-                src="../../../assets/img/express.jpg"
-                alt="img"
-                width="35px"
-                class="p-1"
-              />
-              <img
-                src="../../../assets/img/master.png"
-                alt="img"
-                width="35px"
-                class="p-1"
-              />
-            </div>
-          </label>
-        </div>
-        <div class="field-radiobutton">
-          <input type="radio" name="card" id="upi" />
-
-          <label for="upi"
-            ><img
-              src="../../../assets/img/upi.png"
-              alt="img"
-              width="25px"
-              class="ms-1 mr-2"
-            />UPI</label
-          >
-        </div>
-        <div class="field-radiobutton">
-          <input type="radio" name="card" id="netBanking" />
-
-          <label for="netBanking"
-            ><img
-              src="../../../assets/img/netbanking.png"
-              alt="img"
-              width="25px"
-              class="ms-1 mr-2"
-            />Net Banking</label
-          >
-        </div>
-        <div class="field-radiobutton">
-          <input type="radio" name="card" id="mobileWallet" />
-
-          <label for="mobileWallet"
-            ><img
-              src="../../../assets/img/mobile.png"
-              alt="img"
-              width="25px"
-              class="ms-1 mr-2"
-            />Mobile Wallet</label
-          >
+              Raising Capital for Your Bussiness</b
+            >
+          </h6>
         </div>
       </div>
-      <div class="mt-5">
-        <h2><b>Order details</b></h2>
-        <h6
-          style="
-            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman',
-              serif;
-          "
+    </div>
+
+    <div class="summary">
+      <h2><b>Summary</b></h2>
+      <div class="d-flex" style="gap: 100px">
+        <h5>Original Price:</h5>
+        <h5>{{ courseDetails.price | currency : "INR" }}</h5>
+      </div>
+      <div class="d-flex" style="gap: 120px">
+        <h5>Discounts:</h5>
+        <h5>{{ discount | currency : "INR" }}</h5>
+      </div>
+      <hr />
+      <div class="d-flex" style="gap: 145px">
+        <h5><b>Total:</b></h5>
+        <h5>
+          <b>{{ total | currency : "INR" }}</b>
+        </h5>
+      </div>
+
+      <h5 style="text-align: center">
+        By completing your purchase you agree to these
+        <a href="#">Terms of Services</a>
+      </h5>
+      <div class="button" style="text-align: center">
+        <button
+          type="submit"
+          style="background-color: rgb(165, 83, 241); padding: 10px"
+          [disabled]="myForm.invalid"
         >
-          <b
-            ><img
-              src="../../../assets/img/credit.png"
-              alt="img"
-              width="35px"
-              class="ms-1 mr-2"
-            />
-            Raising Capital for Your Bussiness</b
-          >
-        </h6>
-        <p></p>
+          Complete Checkout
+        </button>
       </div>
+      <h5 style="text-align: center">30-Day Money-Bank Guarantee</h5>
     </div>
   </div>
-  <div class="summary">
-    <h2><b>Summary</b></h2>
-    <div class="d-flex" style="gap: 100px">
-      <h5>Original Price:</h5>
-      <h5>{{ courseDetails.price | currency : "INR" }}</h5>
-    </div>
-    <div class="d-flex" style="gap: 120px">
-      <h5>Discounts:</h5>
-      <h5>{{discount | currency : 'INR'}}</h5>
-    </div>
-    <hr />
-    <div class="d-flex" style="gap: 145px">
-      <h5><b>Total:</b></h5>
-      <h5><b>{{total | currency: "INR"}}</b></h5>
-    </div>
-
-    <h5 style="text-align: center">
-      By completing your purchase you agree to these
-      <a href="#">Terms of Services</a>
-    </h5>
-    <div class="button" style="text-align: center;">
-         <button style="background-color: rgb(165, 83, 241);padding: 10px;" [disabled]="country.untouched" (click)="function()">Complete Checkout</button>
-    </div>
-    <h5 style="text-align: center">30-Day Money-Bank Guarantee</h5>
-  </div>
-</div>
-<!-- </form> -->
+</form>

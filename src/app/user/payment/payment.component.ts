@@ -14,36 +14,57 @@ export class PaymentComponent implements OnInit{
   selectedCountry :any;
   states:any[] = [];
 
-
-  public reactiveForm!: FormGroup;
-  public country: any;
   public state :string[]=[]
+
+  myForm: FormGroup =  new FormGroup({
+
+    countryDropdown: new FormControl(null, Validators.required),
+    stateDropdown: new FormControl(null, Validators.required),
+    radioButtonOption: new FormControl(null, Validators.required),
+
+});
+ get radioButtonOption(){
+  return this.myForm.get('radioButtonOption')
+ }
+  countries!: { name: string; code: string; states: string[]; }[];
+  isSubmitted = false;
 
   ngOnInit(): void {
     this.getLocalStorageData();
-    this.reactiveForm = new FormGroup({
-
-      country: new FormControl(null, Validators.required),
-      state: new FormControl(null, Validators.required),
-    });
-
+   this.countries = [
+      { name: 'USA', code: 'usa', states: ['New York', 'California'] },
+      { name: 'Canada', code: 'canada', states: ['Ontario', 'Quebec'] },
+      { name: 'Mexico', code: 'mexico', states: ['Mexico City'] },
+      { name: 'India', code: 'India', states: ['Telangana','Andra Pradesh','Kerala','Maharastra','Goa'] }
+    ];
    }
-  constructor(){}
-  getLocalStorageData(){
+
+  constructor(){
+
+  //   this.myForm = new FormGroup({
+
+  //     countryDropdown: new FormControl(null, Validators.required),
+  //     stateDropdown: new FormControl(null, Validators.required),
+  //     radioButtonOption: new FormControl(null, Validators.required),
+
+  // });
+  }
+
+
+    getLocalStorageData(){
     this.courseDetails = JSON.parse(localStorage.getItem('courseDetails') || '{}');
     console.log(this.courseDetails);
     this.discount=(this.courseDetails.price * 20)/100;
    this.total = this.courseDetails.price-this.discount
   }
 
+//  countries = [
+//     { name: 'USA', code: 'usa', states: ['New York', 'California'] },
+//     { name: 'Canada', code: 'canada', states: ['Ontario', 'Quebec'] },
+//     { name: 'Mexico', code: 'mexico', states: ['Mexico City'] },
+//     { name: 'India', code: 'India', states: ['Telangana','Andra Pradesh','Kerala','Maharastra','Goa'] }
+//   ];
 
- countries = [
-    { name: 'USA', code: 'usa', states: ['New York', 'California'] },
-    { name: 'Canada', code: 'canada', states: ['Ontario', 'Quebec'] },
-    { name: 'Mexico', code: 'mexico', states: ['Mexico City'] },
-    { name: 'India', code: 'India', states: ['Telangana','Andra Pradesh','Kerala','Maharastra','Goa'] }
-  ];
-sree:any
   updateStates(event:any) {
 
     console.log(event.target.value);
@@ -63,8 +84,12 @@ sree:any
 //   }
 // }
   }
-  function(){
-    alert("heloo")
+
+  submit(){
+
+    this.isSubmitted = true;
+    console.log(this.myForm);
+
   }
 
 }
