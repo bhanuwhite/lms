@@ -32,20 +32,21 @@ export class AdminComponent implements OnInit {
     public iconMenu(): void {
         this.items = [{
             label: 'Action',
-            items: [{
-                label: 'Logout',
-                icon: 'pi pi-sign-out mt-0 text-danger',
-                command: () => {
-                    this.onLogout();
-                }
-            },
-            {
-                label: 'Change Password',
-                icon: 'pi pi-key ',
-                command: () => {
+            items: [
+                {
+                    label: 'Change Password',
+                    icon: 'pi pi-key ',
+                    command: () => {
 
+                    }
+                },
+                {
+                    label: 'Logout',
+                    icon: 'pi pi-sign-out mt-0 text-danger',
+                    command: () => {
+                        this.onLogout();
+                    }
                 }
-            }
             ]
         },
         ];

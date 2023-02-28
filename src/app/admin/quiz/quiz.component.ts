@@ -38,7 +38,10 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public quizBody!: {};
   public quizUpdateBody!: {};
-  quizSubscription!: Subscription;
+  quizGetSubscription$: Subscription = new Subscription();;
+  quizPostSubscription$: Subscription = new Subscription();
+  quizUpdateSubscription$: Subscription = new Subscription();
+  quizDeleteSubscription$: Subscription = new Subscription();
   percentage: number = 0;
   protected _id!: string;
   total!: number;
@@ -92,7 +95,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   public getQuiz(): void {
     this.isLoading = true;
-    this.quizSubscription = this.apiService.getQuiz().subscribe(res => {
+    this.quizGetSubscription$ = this.apiService.getQuiz().subscribe(res => {
       this.isLoading = false;
       try {
         this.isLoading = false;
@@ -176,7 +179,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
-    this.apiService.postQuiz(this.quizBody).subscribe(res => {
+    this.quizPostSubscription$ = this.apiService.postQuiz(this.quizBody).subscribe(res => {
       try {
         console.log('quiz response', res);
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Question added sucessfully ' });
@@ -261,6 +264,9 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // this.quizSubscription.unsubscribe();
+    this.quizGetSubscription$.unsubscribe();
+    this.quizPostSubscription$.unsubscribe();
+    this.quizUpdateSubscription$.unsubscribe();
+    this.quizDeleteSubscription$.unsubscribe();
   }
 }

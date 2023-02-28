@@ -13,7 +13,6 @@ export class ContentDetailsComponent implements OnInit {
   public displayDialog = false;
 
   ngOnInit(): void {
-
     this.getLocalStorageData()
   }
 

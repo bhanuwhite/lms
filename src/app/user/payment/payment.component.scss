@@ -1,0 +1,28 @@
+.fluid-container {
+    margin: 20px;
+    display: flex;
+
+    .billing {
+        width: 60%;
+        padding: 30px;
+        padding-left: 10%;
+    }
+
+    .summary {
+        width: 40%;
+        background-color: rgb(231, 239, 242);
+        padding: 30px
+    }
+}
+
+.field-radiobutton {
+    border: 1px solid lightgray;
+    width: 77%;
+    padding: 10px;
+    border-radius: 0px;
+    background-color: rgb(241, 243, 244);
+}
+
+.card {
+    width: 50%
+}

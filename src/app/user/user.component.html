@@ -65,11 +65,11 @@
 
 
 
-    <!-- <div class="col-lg-4 d-flex justify-content-end"> -->
-      <!-- <span class="material-symbols-outlined cursor-pointer" (click)="menu.toggle($event)">
+<!-- <div class="col-lg-4 d-flex justify-content-end"> -->
+<!-- <span class="material-symbols-outlined cursor-pointer" (click)="menu.toggle($event)">
                 account_circle
             </span> -->
-      <!-- <i
+<!-- <i
         class="pi pi-user ml-1 cursor-pointer"
         (click)="menu.toggle($event)"
       ></i>
@@ -113,7 +113,7 @@
                   (click)="openCourseDetails(course)" /></a>
             </div>
           </ng-template>
-          <div class="courseContent mt-1">
+          <div class="courseContent mt-1 cursor-pointer" (click)="openCourseDetails(course)">
             <h4>
               <b>{{ course.courseTitle }}</b>
             </h4>
@@ -126,10 +126,10 @@
           </div>
           <ng-template pTemplate="footer">
             <div class="buttons d-flex mt-1">
-              <h3>
+              <h3 class="cursor-pointer" (click)="openCourseDetails(course)">
                 <p>{{ course.price | currency : "INR" }}</p>
               </h3>
-              <button class="btn btn-warning">BuyNow</button>
+              <button class="btn btn-warning" routerLink="/user/payment">BuyNow</button>
             </div>
           </ng-template>
         </p-card>

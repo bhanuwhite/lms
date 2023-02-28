@@ -6,6 +6,10 @@ import { MessageComponent } from './message/message.component';
 import { MyLibraryComponent } from './my-library/my-library.component';
 import { UserComponent } from './user.component';
 import { ContentDetailsComponent } from './content-details/content-details.component';
+import { PurchaseHistoryComponent } from './purchase-history/purchase-history.component';
+import { ReceiptComponent } from './receipt/receipt.component';
+import { InvoiceComponent } from './invoice/invoice.component';
+import { PaymentComponent } from './payment/payment.component';
 
 
 const routes: Routes = [
@@ -29,9 +33,21 @@ const routes: Routes = [
   {
     path: 'library/:id', component: CourseDetailsComponent
   },
-{
-    path:'message',
-    component:MessageComponent
+  {
+    path: 'message',
+    component: MessageComponent
+  },
+  {
+    path:'payment',component:PaymentComponent
+  },
+  {
+    path: 'purchase-history', component: PurchaseHistoryComponent
+  },
+  {
+    path: 'receipt', component: ReceiptComponent
+  },
+  {
+    path: 'invoice', component: InvoiceComponent
   }
 ];
 
@@ -39,4 +55,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UserRoutingModule {}
+export class UserRoutingModule { }
