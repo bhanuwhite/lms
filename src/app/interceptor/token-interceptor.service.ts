@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
@@ -10,15 +10,13 @@ import { retry, catchError } from 'rxjs/operators';
 })
 export class TokenInterceptor implements HttpInterceptor {
   token: any;
-  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
-  constructor(private router: Router, private snackBar: MatSnackBar) { }
+  constructor(private router: Router, private messageService: MessageService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.token = localStorage.getItem("token");
-    console.log('from interceptor',request.url);
+    console.log('from interceptor', request.url);
     if (request.url !== 'api/auth/local' && request.url !== 'api/auth/local/register') {
-      
+
       request = request.clone({
         headers: request.headers.set('Authorization', `Bearer ${this.token}`).set("Access-Control-Allow-Origin", "*"),
       });
@@ -29,23 +27,13 @@ export class TokenInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         let errorMessage = '';
         if (error.status === 401) {
-          this.snackBar.open('Unauthorized request.', 'Login again', {
-            horizontalPosition: this.horizontalPosition,
-            verticalPosition: this.verticalPosition
-          });
-        }
-        else if (error.status === 500) {
-          this.snackBar.open('Internal server error', 'Login again', {
-            horizontalPosition: this.horizontalPosition,
-            verticalPosition: this.verticalPosition
-          });
-        }
-        else {
-          this.snackBar.open('Something went wrong', 'Login again', {
-            duration: 3000,
-            horizontalPosition: this.horizontalPosition,
-            verticalPosition: this.verticalPosition
-          });
+          this.messageService.add({ severity: 'error', summary: 'Bad request', detail: 'Unauthorized request !!' });
+        } else if (error.status === 400) {
+          this.messageService.add({ severity: 'error', summary: 'Bad request', detail:'Invalid username or password !!'})
+        } else if (error.status === 500) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail:'Internal server error !!'});
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail:'Something went wrong !!'});
         }
         localStorage.clear();
         this.router.navigate(['login']);

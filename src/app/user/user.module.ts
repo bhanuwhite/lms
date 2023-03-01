@@ -50,9 +50,9 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { FileUploadModule } from 'primeng/fileupload';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SplitterModule } from 'primeng/splitter';
+import { UserContentComponent } from './user-content/user-content.component';
 
 
-// import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -60,7 +60,6 @@ import { SplitterModule } from 'primeng/splitter';
     MyLibraryComponent,
     CourseDetailsComponent,
     AboutComponent,
-    // HeaderComponent,
     UserHeaderComponent,
     UserFooterComponent,
     ContentDetailsComponent,
@@ -70,7 +69,8 @@ import { SplitterModule } from 'primeng/splitter';
     ReceiptComponent,
     InvoiceComponent,
     PaymentComponent,
-    ProfileComponent
+    ProfileComponent,
+    UserContentComponent
   ],
   imports: [
     CommonModule,
@@ -116,7 +116,7 @@ import { SplitterModule } from 'primeng/splitter';
     MultiSelectModule
 
   ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
 })
 export class UserModule { }

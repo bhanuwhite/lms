@@ -1,0 +1,131 @@
+.progress-spinner {
+    margin: auto;
+    width: 50%;
+    // padding: auto;
+}
+
+.sizes {
+    .p-inputtext {
+        display: block;
+        margin-bottom: 0.5rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.p-field * {
+    display: block;
+}
+
+input {
+    width: 35%;
+    border-radius: 30px;
+}
+
+.courses {
+    margin-left: 30px;
+}
+
+.container {
+
+
+    h1 {
+
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    }
+
+    h3 {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+    }
+}
+
+.custom-star {
+    color: gold;
+}
+
+// .courseDetails {
+//   box-sizing: content-box;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-wrap: wrap;
+//   margin: 30px;
+//   height: fit-content;
+// }
+.all-Courses {
+    p-card {
+        width: 25%;
+        margin: 15px 0px;
+        border-radius: 10px;
+    }
+
+    .p-card-header img {
+        width: 100%;
+
+    }
+}
+
+
+
+// button {
+//   width: 85px;
+//   height: fit-content;
+//   margin-left: 50px;
+// }
+
+.courseContent {
+    margin-left: 10px;
+
+    p {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+}
+
+// ngb-rating {
+//   margin-bottom: 10px;
+//   font-size: 40px;
+//   color: gray
+// }
+
+a {
+    cursor: pointer;
+}
+
+.defaultStar {
+    position: relative;
+    display: inline-block;
+
+}
+
+.paintStar {
+    position: absolute;
+    display: inline-block;
+    color: gold;
+    overflow: hidden;
+}
+
+.banner-image {
+    background-image: url("../../../assets/img/user1.jpg");
+    height: 415px;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+}
+
+.banner-image-1 {
+    background-image: url("../../../assets/img/user2.jpg");
+    height: 415px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.banner-content.bg-white.border {
+    left: 3.2rem;
+    top: 6.4rem;
+    max-width: 44rem;
+    position: absolute;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 8%);
+    padding: 2.4rem;
+}

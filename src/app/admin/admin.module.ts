@@ -9,8 +9,6 @@ import { MenuModule } from 'primeng/menu';
 import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
-// import { HTTP_INTERCEPTORS } from '@angular/common/http';
-// import { TokenInterceptor } from '../interceptor/token-interceptor.service';
 import { ApiService } from '../services/api.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -18,11 +16,9 @@ import { RippleModule } from 'primeng/ripple';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessagesModule } from 'primeng/messages';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
- 
 import { ContentDetailsComponent } from './content-details/content-details.component';
 import { HeaderComponent } from './header/header.component';
 import { QuizComponent } from './quiz/quiz.component';
-import { AssessmentComponent } from './assessment/assessment.component';
 import { PaginatorModule } from 'primeng/paginator';
 import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
@@ -38,13 +34,10 @@ import { CalendarModule } from 'primeng/calendar';
 import {ChartModule} from 'primeng/chart';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {ProgressBarModule} from 'primeng/progressbar';
- 
 import { SpinnerComponent } from '../component/spinner/spinner.component';
 import { ContentComponent } from './content/content.component';
 import { MegaMenuModule } from 'primeng/megamenu';
-
 import {TabViewModule} from 'primeng/tabview';
-import {MenuItem} from 'primeng/api';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import {AccordionModule} from 'primeng/accordion';
@@ -56,16 +49,12 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { SplitterModule } from 'primeng/splitter';
 
 
-
-
-
 @NgModule({
   declarations: [
     AdminComponent,
     ContentDetailsComponent,
     HeaderComponent,
     QuizComponent,
-    AssessmentComponent,
     CoursesComponent,
     DashboardComponent,
     SpinnerComponent,
