@@ -22,6 +22,5 @@ export class InvoiceComponent {
   }
   public invoiceData(): void {
     this.invoiceCourseDetails = this.myService.invoiceCourseObj;
-    console.log(this.invoiceCourseDetails);
   }
 }

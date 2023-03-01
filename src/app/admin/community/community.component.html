@@ -15,7 +15,7 @@
               <span class="material-symbols-outlined"> groups </span>
             </div>
             <div class="mt-1 ms-1 me-3">
-              <p>12412 Instractors</p>
+              <p>24 Instractors</p>
             </div>
           </div>
           <div class="text-center d-flex">
@@ -25,7 +25,7 @@
               </span>
             </div>
             <div class="mt-1 ms-1 me-3">
-              <p>13412 Discussions</p>
+              <p>37 Discussions</p>
             </div>
           </div>
           <div class="text-center d-flex">
@@ -35,7 +35,7 @@
               </span>
             </div>
             <div class="mt-1 ms-1 me-3">
-              <p>412 Online</p>
+              <p>43 Online</p>
             </div>
           </div>
         </div>
@@ -69,10 +69,10 @@
       <div class="">
         <b class="fs-4 pb-3">Featured</b>
         <div class="d-flex mt-3">
-          <div *ngFor="let featured of featuredData">
-            <b class="fs-6 text-primary">{{featured.head}}</b>
-            <p class="mt-2">{{featured.message}}</p>
-            <div class="d-flex">
+          <div *ngFor="let featured of featuredData" class="border ms-2">
+            <b class="fs-6 text-primary ms-2 mt-2">{{featured.head}}</b>
+            <p class="mt-2 ms-2">{{featured.message}}</p>
+            <div class="d-flex ms-2 mb-2">
               <div class="text-center d-flex ">
                 <img src={{featured.img}} alt="" class="userImg">
                 <a href="#" class="mt-1 ms-1"> {{featured.name}}</a>
@@ -87,7 +87,7 @@
                 <span class="material-symbols-outlined">
                   sms
                 </span>
-                <p class="mt-1 ms-1"> 684 </p>
+                <p class="mt-1 ms-1"> 21 </p>
               </div>
             </div>
           </div>
@@ -100,88 +100,56 @@
       <div class="" style="width: 70%;">
         <div>
           <b class="fs-3">All Community Activity</b>
-          <button class="btn btn-secondary float-end">Start Conversation</button>
+          <p-button (click)="showConversationDialog()" label="Start Conversation" class="float-end"></p-button>
+          <p-dialog header="Start Your Conversation" [(visible)]="displayConvesation" [modal]="true"
+            [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
+            <form action="" [formGroup]="conversationForm">
+              <label for="question" class="mt-2"> <b>Write Question here.</b> </label>
+              <input type="text" class="form-control mt-2" placeholder="Enter question .." formControlName="question">
+              <label for="desc" class="mt-2"> <b>Write Description</b> </label>
+              <input type="text" class="form-control mt-2" placeholder="Enter description .."
+                formControlName="description">
+              <input type="file" formControlName="image" class="mt-2" (change)="selectImg($event)">
+            </form>
+            <ng-template pTemplate="footer">
+              <p-button (click)="questionSubmit()" label="Submit" styleClass="p-button-text"></p-button>
+            </ng-template>
+          </p-dialog>
         </div>
+
         <div>
           <p-tabView>
             <p-tabPanel header="Trending">
-              <div>
-                <b class="fs-5 pb-3 pt-3">Dare to ask a question ? </b>
-                <p class="pt-3">No one will get the answer untill they ask. </p>
-                <div class="d-flex">
+              <div *ngFor="let trending of trendingData">
+                <b class="fs-5 pb-3 pt-3"> {{trending.question}} </b>
+                <p class="pt-3">{{trending.description}} </p>
+                <img src={{trending.img}} alt="" style="height: 100px; width: 150px;"
+                  (click)="showDoubtImgDialog(trending)">
+                <p-dialog [(visible)]="displayDoubtImg" [modal]="true" [style]="{width: '50vw'}" *ngIf="imgData">
+                  <img src={{imgData.img}} alt="" style="width: 100%; height: 100%; ">
+                </p-dialog>
+                <div class="d-flex mt-3">
                   <div class="text-center d-flex ">
-                    <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
-                      class="userImg">
-                    <a href="#" class="mt-1 ms-2"> Mahesh </a>
+                    <img src={{trending.img}} alt="" class="userImg">
+                    <a href="#" class="mt-1 ms-2"> {{trending.name}} </a>
                   </div>
                   <div class="text-center d-flex ms-5">
                     <span class="material-symbols-outlined" [style]="{'color':fill_color}" (click)="likeFun()">
                       {{like}}
                     </span>
-                    <p class="mt-1 ms-1"> 5 likes </p>
-                  </div>
-                  <div class="text-center d-flex ms-3">
-                    <span class="material-symbols-outlined" >
-                      sms
-                    </span>
-                    <p class="mt-1 ms-1"> 684 </p>
-                  </div>
-                </div>
-                <hr>
-              </div>
-              <div>
-                <b class="fs-5 pb-3 pt-3"> How this community will help you ? </b>
-                <p class="pt-3">During the time of class you may or may not get some doubt. Sometimes your doubt would
-                  come after some days, then in that case you can post your questions or doubts in this community. You
-                  will definetly get help from tutors or someone, who know about it better. So do not hesitate to ask
-                  any question or doubt, </p>
-                <div class="d-flex">
-                  <div class="text-center d-flex ">
-                    <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
-                      class="userImg">
-                    <a href="#" class="mt-1 ms-2"> TeamLMS </a>
-                  </div>
-                  <div class="text-center d-flex ms-5">
-                    <span class="material-symbols-outlined" [style]="{'color':fill_color}" (click)="likeFun()">
-                      {{like}}
-                    </span>
-                    <p class="mt-1 ms-1"> 555 Likes </p>
+                    <p class="mt-1 ms-1"> 6 likes </p>
                   </div>
                   <div class="text-center d-flex ms-3">
                     <span class="material-symbols-outlined">
                       sms
                     </span>
-                    <p class="mt-1 ms-1"> 684 </p>
-                  </div>
-                </div>
-                <hr>
-              </div>
-              <div>
-                <b class="fs-5 pb-3 pt-3"> Do I definetly get a job by this course ? </b>
-                <p class="pt-3"> Definetly we do not say You would get a job by completing this course. But we will
-                  definetly gives you the confidence to survive in this Tech World. </p>
-                <div class="d-flex">
-                  <div class="text-center d-flex ">
-                    <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
-                      class="userImg">
-                    <a href="#" class="mt-1 ms-2"> TeamLMS </a>
-                  </div>
-                  <div class="text-center d-flex ms-5">
-                    <span class="material-symbols-outlined" [ngStyle]="{ 'color': 'red' }">
-                      thumb_up
-                    </span>
-                    <p class="mt-1 ms-1"> 145 likes </p>
-                  </div>
-                  <div class="text-center d-flex ms-3">
-                    <span class="material-symbols-outlined">
-                      sms
-                    </span>
-                    <p class="mt-1 ms-1">142 </p>
+                    <p class="mt-1 ms-1"> 14 </p>
                   </div>
                 </div>
                 <hr>
               </div>
             </p-tabPanel>
+
             <p-tabPanel header="Latest">
               <div>
                 <b class="fs-5 pb-3 pt-3"> How much knowledge needed to start this course ? </b>
@@ -198,20 +166,23 @@
                     <span class="material-symbols-outlined">
                       thumb_up
                     </span>
-                    <p class="mt-1 ms-1"> 145 likes </p>
+                    <p class="mt-1 ms-1"> 14 likes </p>
                   </div>
                   <div class="text-center d-flex ms-3">
                     <span class="material-symbols-outlined">
                       sms
                     </span>
-                    <p class="mt-1 ms-1"> 124 </p>
+                    <p class="mt-1 ms-1"> 16 </p>
                   </div>
                 </div>
                 <hr>
               </div>
+
               <div>
                 <b class="fs-5 pb-3 pt-3"> How this training session goes ? </b>
-                <p class="pt-3"> In first week you will have some idea, what you are learining and towards which. From the second week you are going to do a daily task session. For this session we assign a guide to do better practice and best performance.
+                <p class="pt-3"> In first week you will have some idea, what you are learining and towards which. From
+                  the second week you are going to do a daily task session. For this session we assign a guide to do
+                  better practice and best performance.
                   Follow the more to know <a href="#"> My Path </a> </p>
                 <div class="d-flex">
                   <div class="text-center d-flex ">
@@ -224,17 +195,18 @@
                     <span class="material-symbols-outlined">
                       thumb_up
                     </span>
-                    <p class="mt-1 ms-1"> 145 likes </p>
+                    <p class="mt-1 ms-1"> 14 likes </p>
                   </div>
                   <div class="text-center d-flex ms-3">
                     <span class="material-symbols-outlined">
                       sms
                     </span>
-                    <p class="mt-1 ms-1"> 124 </p>
+                    <p class="mt-1 ms-1"> 10 </p>
                   </div>
                 </div>
                 <hr>
               </div>
+
               <div>
                 <b class="fs-5 pb-3 pt-3"> How much knowledge needed to start this course ? </b>
                 <p class="pt-3"> Here we starts everything from scrach. So do not require any previous knowledge on
@@ -250,20 +222,23 @@
                     <span class="material-symbols-outlined">
                       thumb_up
                     </span>
-                    <p class="mt-1 ms-1"> 145 likes </p>
+                    <p class="mt-1 ms-1"> 15 likes </p>
                   </div>
                   <div class="text-center d-flex ms-3">
                     <span class="material-symbols-outlined">
                       sms
                     </span>
-                    <p class="mt-1 ms-1"> 124 </p>
+                    <p class="mt-1 ms-1"> 12 </p>
                   </div>
                 </div>
                 <hr>
               </div>
+
               <div>
                 <b class="fs-5 pb-3 pt-3"> How this training session goes ? </b>
-                <p class="pt-3"> In first week you will have some idea, what you are learining and towards which. From the second week you are going to do a daily task session. For this session we assign a guide to do better practice and best performance.
+                <p class="pt-3"> In first week you will have some idea, what you are learining and towards which. From
+                  the second week you are going to do a daily task session. For this session we assign a guide to do
+                  better practice and best performance.
                   Follow the more to know <a href="#"> My Path </a> </p>
                 <div class="d-flex">
                   <div class="text-center d-flex ">
@@ -276,18 +251,17 @@
                     <span class="material-symbols-outlined">
                       thumb_up
                     </span>
-                    <p class="mt-1 ms-1"> 145 likes </p>
+                    <p class="mt-1 ms-1"> 15 likes </p>
                   </div>
                   <div class="text-center d-flex ms-3">
                     <span class="material-symbols-outlined">
                       sms
                     </span>
-                    <p class="mt-1 ms-1"> 124 </p>
+                    <p class="mt-1 ms-1"> 14 </p>
                   </div>
                 </div>
                 <hr>
               </div>
-
             </p-tabPanel>
 
             <p-tabPanel header="Top Liked ">
@@ -306,20 +280,23 @@
                     <span class="material-symbols-outlined">
                       thumb_up
                     </span>
-                    <p class="mt-1 ms-1"> 145 likes </p>
+                    <p class="mt-1 ms-1"> 5 likes </p>
                   </div>
                   <div class="text-center d-flex ms-3">
                     <span class="material-symbols-outlined">
                       sms
                     </span>
-                    <p class="mt-1 ms-1"> 124 </p>
+                    <p class="mt-1 ms-1">4 </p>
                   </div>
                 </div>
                 <hr>
               </div>
+
               <div>
                 <b class="fs-5 pb-3 pt-3"> How this training session goes ? </b>
-                <p class="pt-3"> In first week you will have some idea, what you are learining and towards which. From the second week you are going to do a daily task session. For this session we assign a guide to do better practice and best performance.
+                <p class="pt-3"> In first week you will have some idea, what you are learining and towards which. From
+                  the second week you are going to do a daily task session. For this session we assign a guide to do
+                  better practice and best performance.
                   Follow the more to know <a href="#"> My Path </a> </p>
                 <div class="d-flex">
                   <div class="text-center d-flex ">
@@ -332,19 +309,19 @@
                     <span class="material-symbols-outlined">
                       thumb_up
                     </span>
-                    <p class="mt-1 ms-1"> 145 likes </p>
+                    <p class="mt-1 ms-1"> 25 likes </p>
                   </div>
                   <div class="text-center d-flex ms-3">
                     <span class="material-symbols-outlined">
                       sms
                     </span>
-                    <p class="mt-1 ms-1"> 124 </p>
+                    <p class="mt-1 ms-1"> 24 </p>
                   </div>
                 </div>
                 <hr>
               </div>
-
             </p-tabPanel>
+
             <p-tabPanel header="UnAnswered">
               <div>
                 <div class="ms-2 mt2" *ngFor="let unAnswer of unAnsweredData">
@@ -353,7 +330,7 @@
                   <p> <span class="material-symbols-outlined">
                       person
                     </span> by <a href="#">{{unAnswer.name}} </a> Hyd in <a href="#"> {{unAnswer.artName}} </a> posted
-                    14m ago </p>
+                    145 ago </p>
                   <hr>
                 </div>
               </div>
@@ -382,7 +359,7 @@
                 <p> <span class="material-symbols-outlined">
                     thumb_up
                   </span> </p>
-                <p class="ms-2"> 142 likes</p>
+                <p class="ms-2"> 12 likes</p>
               </div>
             </div>
           </div>
@@ -408,12 +385,11 @@
                 <p> <span class="material-symbols-outlined">
                     thumb_up
                   </span> </p>
-                <p class="ms-2"> 45 likes</p>
+                <p class="ms-2"> 5 likes</p>
               </div>
             </div>
           </div>
         </div>
-
         <div class="card mt-3">
           <h1 class="text-center">Currently Online</h1>
           <div class="d-flex flex-wrap">
@@ -431,13 +407,10 @@
               class="userImg ms-5 mt-2">
             <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
               class="userImg ms-5 mt-2">
-
           </div>
           <b class="text-center"> 07 currently Online </b>
         </div>
-
       </div>
     </div>
-
   </div>
 </div>
