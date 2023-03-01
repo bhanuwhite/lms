@@ -51,6 +51,9 @@ import {AccordionModule} from 'primeng/accordion';
 import { MeetingsComponent } from './meetings/meetings.component';
 import {CheckboxModule} from 'primeng/checkbox';
 import {AvatarGroupModule} from 'primeng/avatargroup';
+import { ProfileComponent } from './profile/profile.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SplitterModule } from 'primeng/splitter';
 
 
 
@@ -68,7 +71,8 @@ import {AvatarGroupModule} from 'primeng/avatargroup';
     SpinnerComponent,
     ContentComponent,
     CourseDetailsComponent,
-    MeetingsComponent
+    MeetingsComponent,
+    ProfileComponent
 
   ],
   imports: [
@@ -105,7 +109,9 @@ import {AvatarGroupModule} from 'primeng/avatargroup';
     AccordionModule,
     ToolbarModule,
     AvatarGroupModule,
-    CheckboxModule
+    CheckboxModule,
+    SplitterModule,
+    MultiSelectModule
   ],
   providers: [
     ApiService

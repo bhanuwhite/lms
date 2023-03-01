@@ -10,6 +10,7 @@ import { PurchaseHistoryComponent } from './purchase-history/purchase-history.co
 import { ReceiptComponent } from './receipt/receipt.component';
 import { InvoiceComponent } from './invoice/invoice.component';
 import { PaymentComponent } from './payment/payment.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
@@ -48,6 +49,9 @@ const routes: Routes = [
   },
   {
     path: 'invoice', component: InvoiceComponent
+  },
+  {
+    path: 'profile', component: ProfileComponent
   }
 ];
 
