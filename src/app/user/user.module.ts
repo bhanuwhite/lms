@@ -51,6 +51,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SplitterModule } from 'primeng/splitter';
 import { UserContentComponent } from './user-content/user-content.component';
+import { DividerModule } from 'primeng/divider';
 
 
 
@@ -113,7 +114,8 @@ import { UserContentComponent } from './user-content/user-content.component';
     FileUploadModule,
     FormsModule,
     SplitterModule,
-    MultiSelectModule
+    MultiSelectModule,
+    DividerModule
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

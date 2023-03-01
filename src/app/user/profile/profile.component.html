@@ -12,9 +12,9 @@
                 <p-tabView>
                     <p-tabPanel header="Lms profile">
                         <form [formGroup]="userProfileForm" (ngSubmit)="onUserProfileSubmit()">
-                            <p-splitter [style]="{ height: 'auto', width: '100%' }">
-                                <ng-template pTemplate>
-                                    <div class="p-fluid" [style]="{ width: '100%', padding: '30px' }">
+                            <div class="card">
+                                <div class="flex">
+                                    <div class="p-fluid" [style]="{'width':'48%','padding':'2%'}">
                                         <div class="p-field mb-3">
                                             <label for="firstname1" class="mb-2">First Name</label>
                                             <input id="firstname1" name="firstname" formControlName="firstname"
@@ -66,7 +66,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="p-field mb-3">
+                                        <div class="p-field mb-3 overflow-hidden">
                                             <label for="lastname1" class="mb-2">Biography</label>
                                             <p-editor [style]="{ width: '100%', height: '80px' }" name="biography"
                                                 formControlName="biography">
@@ -125,9 +125,8 @@
                         }" />
                                         </div>
                                     </div>
-                                </ng-template>
-                                <ng-template pTemplate>
-                                    <div class="p-fluid" [style]="{ width: '100%', padding: '30px' }">
+                                    <p-divider layout="vertical"></p-divider>
+                                    <div class="p-fluid" [style]="{'width':'48%','padding':'2%'}">
                                         <div class="p-field mb-3">
                                             <label for="firstname1" class="mb-2">Website</label>
                                             <input id="firstname1" name="website" formControlName="website" type="text"
@@ -147,7 +146,7 @@
                                         </div>
                                         <div class="p-field mb-3">
                                             <label for="firstname1" class="mb-2">Twitter</label>
-                                            <div class="p-inputgroup">
+                                            <div class="p-inputgroup overflow-hidden">
                                                 <span class="p-inputgroup-addon">http://www.twitter.com/</span>
                                                 <input type="text" name="twitter" formControlName="twitter" pInputText
                                                     placeholder="Username" />
@@ -167,7 +166,7 @@
                                         </div>
                                         <div class="p-field mb-3">
                                             <label for="firstname1" class="mb-2">Facebook</label>
-                                            <div class="p-inputgroup">
+                                            <div class="p-inputgroup overflow-hidden">
                                                 <span class="p-inputgroup-addon">http://www.facebook.com/</span>
                                                 <input type="text" name="facebook" formControlName="facebook" pInputText
                                                     placeholder="Username" />
@@ -187,7 +186,7 @@
                                         </div>
                                         <div class="p-field mb-3">
                                             <label for="firstname1" class="mb-2">LinkedIn</label>
-                                            <div class="p-inputgroup">
+                                            <div class="p-inputgroup overflow-hidden">
                                                 <span class="p-inputgroup-addon">http://www.linkedin.com/</span>
                                                 <input type="text" name="linkedin" formControlName="linkedin" pInputText
                                                     placeholder="Resource ID" />
@@ -207,7 +206,7 @@
                                         </div>
                                         <div class="p-field mb-3">
                                             <label for="firstname1" class="mb-2">Youtube</label>
-                                            <div class="p-inputgroup">
+                                            <div class="p-inputgroup overflow-hidden">
                                                 <span class="p-inputgroup-addon">http://www.youtube.com/</span>
                                                 <input type="text" name="youtube" formControlName="youtube" pInputText
                                                     placeholder="Username" />
@@ -226,21 +225,22 @@
                                             </div>
                                         </div>
                                     </div>
-                                </ng-template>
-                            </p-splitter>
+                                </div>
+                            </div>
                         </form>
                     </p-tabPanel>
                     <p-tabPanel header="Profile picture">
                         <div class="conatiner">
                             <h1 class="text-dark">Image Preview</h1>
-                            <p>Minimun 200*200 pixels ,Maximum 6000*600 pixels</p>
+                            <p class="fs-6 fst-italic"> Minimun 200*200 pixels ,Maximum 6000*6000 pixels</p>
                         </div>
                         <div class="conatiner">
                             <p-card [style]="{ width: '500px', height: '200px' }">
-                                <div *ngIf="imageFileSelected" class="d-flex justify-content-center">
+                                <div *ngIf="imageData" class="d-flex justify-content-center">
                                     <img src="{{ imageData }}" alt="" width="450px" height="150px" />
                                 </div>
                             </p-card>
+
                         </div>
                         <div class="p-field mt-2">
                             <form [formGroup]="userImageForm" (ngSubmit)="saveImage()">

@@ -24,7 +24,6 @@ import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
 import { MenubarModule } from 'primeng/menubar';
 import { AvatarModule } from 'primeng/avatar';
-import { DividerModule } from 'primeng/divider';
 import { EditorModule } from 'primeng/editor';
 import { TableModule } from 'primeng/table';
 import { CoursesComponent } from './courses/courses.component';
@@ -47,6 +46,7 @@ import {AvatarGroupModule} from 'primeng/avatargroup';
 import { ProfileComponent } from './profile/profile.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SplitterModule } from 'primeng/splitter';
+import { DividerModule } from 'primeng/divider';
 
 
 @NgModule({

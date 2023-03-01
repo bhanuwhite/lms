@@ -8,16 +8,16 @@
 <div class="container-fluid">
     <div class="profile-second-section">
         <div class="row">
-            <div class="col-lg-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12">
                 <p-tabView>
                     <p-tabPanel header="Lms profile">
                         <form [formGroup]="userProfileForm" (ngSubmit)="onUserProfileSubmit()">
-                            <p-splitter [style]="{ height: 'auto', width: '100%' }">
-                                <ng-template pTemplate>
-                                    <div class="p-fluid" [style]="{ width: '100%', padding: '30px' }">
+                            <div class="card">
+                                <div class="flex">
+                                    <div class="p-fluid" [style]="{'max-width': '48%', padding: '2%' }">
                                         <div class="p-field mb-3">
-                                            <label for="firstname1" class="mb-2">First Name</label>
-                                            <input id="firstname1" name="firstname" formControlName="firstname"
+                                            <label for="firstname" class="mb-2">First Name</label>
+                                            <input id="firstname" name="firstname" formControlName="firstname"
                                                 type="text" pInputText placeholder="" />
                                             <div *ngIf="
                             firstname &&
@@ -33,8 +33,8 @@
                                             </div>
                                         </div>
                                         <div class="p-field mb-3">
-                                            <label for="lastname1" class="mb-2">Last Name</label>
-                                            <input id="lastname1" name="lastname" formControlName="lastname" type="text"
+                                            <label for="lastname" class="mb-2">Last Name</label>
+                                            <input id="lastname" name="lastname" formControlName="lastname" type="text"
                                                 pInputText />
                                             <div *ngIf="
                             lastname &&
@@ -50,8 +50,8 @@
                                             </div>
                                         </div>
                                         <div class="p-field mb-3">
-                                            <label for="lastname1" class="mb-2">Headline</label>
-                                            <input id="lastname1" name="headline" formControlName="headline" type="text"
+                                            <label for="headline" class="mb-2">Headline</label>
+                                            <input id="headline" name="headline" formControlName="headline" type="text"
                                                 pInputText placeholder="Instructor at LMS(60)" />
                                             <div *ngIf="
                             headline &&
@@ -66,8 +66,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="p-field mb-3">
-                                            <label for="lastname1" class="mb-2">Biography</label>
+                                        <div class="p-field mb-3 overflow-hidden">
+                                            <label for="biography" class="mb-2">Biography</label>
                                             <p-editor [style]="{ width: '100%', height: '80px' }" name="biography"
                                                 formControlName="biography">
                                                 <ng-template pTemplate="header">
@@ -100,7 +100,7 @@
                                             </div>
                                         </div>
                                         <div class="p-field mb-3">
-                                            <label for="lastname1" class="mb-2">Lanquages</label>
+                                            <label for="lanquages" class="mb-2">Lanquages</label>
                                             <p-multiSelect [options]="mainLanquages" name="lanquages"
                                                 formControlName="selectedlanquages" optionLabel="name"></p-multiSelect>
                                             <div *ngIf="
@@ -125,12 +125,12 @@
                           }" />
                                         </div>
                                     </div>
-                                </ng-template>
-                                <ng-template pTemplate>
-                                    <div class="p-fluid" [style]="{ width: '100%', padding: '30px' }">
+                                    <p-divider layout="vertical"></p-divider>
+
+                                    <div class="p-fluid" [style]="{ 'max-width': '48%', padding: '2%' }">
                                         <div class="p-field mb-3">
-                                            <label for="firstname1" class="mb-2">Website</label>
-                                            <input id="firstname1" name="website" formControlName="website" type="text"
+                                            <label for="website" class="mb-2">Website</label>
+                                            <input id="website" name="website" formControlName="website" type="text"
                                                 pInputText placeholder="Url" />
                                             <div *ngIf="
                             website &&
@@ -145,12 +145,13 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="p-field mb-3">
-                                            <label for="firstname1" class="mb-2">Twitter</label>
-                                            <div class="p-inputgroup">
-                                                <span class="p-inputgroup-addon">http://www.twitter.com/</span>
+                                            <label for="twitter" class="mb-2">Twitter</label>
+                                            <div class="p-inputgroup overflow-hidden">
+                                                <span class="p-inputgroup-addon fs-6">http://www.twitter.com/</span>
                                                 <input type="text" name="twitter" formControlName="twitter" pInputText
-                                                    placeholder="Username" />
+                                                    placeholder="Username" class="p-inputtext" />
                                             </div>
                                             <div *ngIf="
                             twitter &&
@@ -166,8 +167,8 @@
                                             </div>
                                         </div>
                                         <div class="p-field mb-3">
-                                            <label for="firstname1" class="mb-2">Facebook</label>
-                                            <div class="p-inputgroup">
+                                            <label for="facebook" class="mb-2">Facebook</label>
+                                            <div class="p-inputgroup overflow-hidden">
                                                 <span class="p-inputgroup-addon">http://www.facebook.com/</span>
                                                 <input type="text" name="facebook" formControlName="facebook" pInputText
                                                     placeholder="Username" />
@@ -186,9 +187,10 @@
                                             </div>
                                         </div>
                                         <div class="p-field mb-3">
-                                            <label for="firstname1" class="mb-2">LinkedIn</label>
+                                            <label for="linkedin" class="mb-2">LinkedIn</label>
                                             <div class="p-inputgroup">
-                                                <span class="p-inputgroup-addon">http://www.linkedin.com/</span>
+                                                <span
+                                                    class="p-inputgroup-addon overflow-hidden">http://www.linkedin.com/</span>
                                                 <input type="text" name="linkedin" formControlName="linkedin" pInputText
                                                     placeholder="Resource ID" />
                                             </div>
@@ -206,9 +208,10 @@
                                             </div>
                                         </div>
                                         <div class="p-field mb-3">
-                                            <label for="firstname1" class="mb-2">Youtube</label>
+                                            <label for="youtube" class="mb-2">Youtube</label>
                                             <div class="p-inputgroup">
-                                                <span class="p-inputgroup-addon">http://www.youtube.com/</span>
+                                                <span
+                                                    class="p-inputgroup-addon overflow-hidden">http://www.youtube.com/</span>
                                                 <input type="text" name="youtube" formControlName="youtube" pInputText
                                                     placeholder="Username" />
                                             </div>
@@ -226,8 +229,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </ng-template>
-                            </p-splitter>
+                                </div>
+                            </div>
                         </form>
                     </p-tabPanel>
                     <p-tabPanel header="Profile picture">
