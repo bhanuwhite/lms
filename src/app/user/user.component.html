@@ -1,9 +1,30 @@
 <app-user-header></app-user-header>
-<div class="banner">
-  <div class="banner-image">
-    <div class=" banner-content  bg-white border">
-      <h1><b>Learning never exhausts the mind</b></h1>
-      <h3>Skills for your present (and your future). Get started with us.</h3>
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="banner-image">
+        <div class=" banner-content  bg-white border">
+          <h1><b>Learning never exhausts the mind</b></h1>
+          <h3>Skills for your present (and your future). Get started with us.</h3>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="banner-image-1">
+        <div class=" banner-content  bg-white border">
+          <h1><b>Keep moving up</b></h1>
+          <h3>Learn the skills you need to take the next step — and every step after. Log in now to save on courses
+            through March 1..</h3>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="banner-image">
+        <div class=" banner-content  bg-white border">
+          <h1><b>Learning never exhausts the mind</b></h1>
+          <h3>Skills for your present (and your future). Get started with us.</h3>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -16,41 +37,40 @@
   <p-tabView>
     <p-tabPanel header="Most Popular">
       <div class="row all-Courses">
-       
-          <p-card *ngFor="let course of courseList">
-            <ng-template pTemplate="header">
-              <div class="courseImage">
-                <a><img alt="Card" src="{{ course.courseImage }}"
-                    style="height: 225px;  border-radius: 10px 10px 2px 2px"
-                    (click)="openCourseDetails(course)" /></a>
+
+        <p-card *ngFor="let course of courseList">
+          <ng-template pTemplate="header">
+            <div class="courseImage">
+              <a><img alt="Card" src="{{ course.courseImage }}" style="height: 225px;  border-radius: 10px 10px 2px 2px"
+                  (click)="openCourseDetails(course)" /></a>
+            </div>
+          </ng-template>
+          <div class="">
+            <h4>
+              <b>{{ course.courseTitle }}</b>
+            </h4>
+            <p>{{ course.author }}</p>
+            <div class="d-flex">
+              <p-rating [ngModel]="course.rating" [stars]="5" [cancel]="false" [className]="'custom-star'">
+              </p-rating>
+              <p>({{ course.rating }})</p>
+            </div>
+          </div>
+          <ng-template pTemplate="footer">
+            <div class="row align-items-center">
+              <div class="col-lg-6">
+                <h3>
+                  <b>{{ course.price | currency : "INR" }} </b>
+                </h3>
               </div>
-            </ng-template>
-            <div class="">
-              <h4>
-                <b>{{ course.courseTitle }}</b>
-              </h4>
-              <p>{{ course.author }}</p>
-              <div class="d-flex">
-                <p-rating [ngModel]="course.rating" [stars]="5" [cancel]="false" [className]="'custom-star'">
-                </p-rating>
-                <p>({{ course.rating }})</p>
+              <div class="col-lg-6 d-flex justify-content-end">
+                <button class="btn btn-warning">BuyNow</button>
               </div>
             </div>
-            <ng-template pTemplate="footer">
-              <div class="row align-items-center">
-                <div class="col-lg-6">
-                  <h3>
-                    <b>{{ course.price | currency : "INR" }} </b> 
-                  </h3>
-                </div>
-                <div class="col-lg-6 d-flex justify-content-end">
-                  <button class="btn btn-warning">BuyNow</button>
-                </div>
-              </div>
-       
-            </ng-template>
-          </p-card>
-      
+
+          </ng-template>
+        </p-card>
+
       </div>
       <div>
       </div>
@@ -60,8 +80,7 @@
         <p-card *ngFor="let course of courseList">
           <ng-template pTemplate="header">
             <div class="courseImage">
-              <a><img alt="Card" src="{{ course.courseImage }}"
-                  style="height: 225px; border-radius: 10px 10px 2px 2px"
+              <a><img alt="Card" src="{{ course.courseImage }}" style="height: 225px; border-radius: 10px 10px 2px 2px"
                   (click)="openCourseDetails(course)" /></a>
             </div>
           </ng-template>
@@ -83,7 +102,7 @@
             <div class="row align-items-center">
               <div class="col-lg-6">
                 <h3>
-                  <b>{{ course.price | currency : "INR" }} </b> 
+                  <b>{{ course.price | currency : "INR" }} </b>
                 </h3>
               </div>
               <div class="col-lg-6 d-flex justify-content-end">
@@ -92,8 +111,8 @@
             </div>
           </ng-template>
         </p-card>
-    </div>
-    
+      </div>
+
     </p-tabPanel>
   </p-tabView>
 </div>

@@ -112,9 +112,15 @@ a {
   background-size: contain;
    
 }
+.banner-image-1{
+  background-image: url("../../assets/img/user2.jpg") ;
+  height: 415px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
 .banner-content.bg-white.border {
   left: 3.2rem;
-  top: 8.4rem;
+  top: 6.4rem;
   max-width: 44rem;
   position: absolute;
   box-shadow: 0 2px 4px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 8%);
