@@ -17,6 +17,7 @@ export class CommunityComponent implements OnInit {
   fill_color: string = 'black';
   displayConvesation!: boolean;
   displayDoubtImg!: boolean;
+
   imgData: conversationObj = {
     description: '',
     img: '',
@@ -160,12 +161,23 @@ export class CommunityComponent implements OnInit {
     };
   }
 
-  conversationObj: any={}
+  conversationObj: {
+    question: string;
+    description: string;
+    img: string;
+    name: string;
+  } = {
+    description: '',
+    img: '',
+    name: '',
+    question: '',
+  };
   public questionSubmit(): void {
     this.conversationObj = {
       question: this.conversationForm.value.question,
       description: this.conversationForm.value.question,
       img: this.localImgUrl,
+      name:""
     };
     this.trendingData.push(this.conversationObj);
     setTimeout(() => {

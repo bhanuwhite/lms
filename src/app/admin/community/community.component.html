@@ -41,6 +41,7 @@
         </div>
       </div>
     </div>
+
     <div class="col-12">
       <div class=" mt-3 mb-3 ms-3 me-3">
         <div class="d-flex">
@@ -75,7 +76,7 @@
             <div class="d-flex ms-2 mb-2">
               <div class="text-center d-flex ">
                 <img src={{featured.img}} alt="" class="userImg">
-                <a href="#" class="mt-1 ms-1"> {{featured.name}}</a>
+                <a href="#" class="mt-1 ms-1"> {{featured.name}} </a>
               </div>
               <div class="text-center d-flex ms-4">
                 <span class="material-symbols-outlined">
@@ -100,9 +101,11 @@
       <div class="" style="width: 70%;">
         <div>
           <b class="fs-3">All Community Activity</b>
+
           <p-button (click)="showConversationDialog()" label="Start Conversation" class="float-end"></p-button>
           <p-dialog header="Start Your Conversation" [(visible)]="displayConvesation" [modal]="true"
             [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
+
             <form action="" [formGroup]="conversationForm">
               <label for="question" class="mt-2"> <b>Write Question here.</b> </label>
               <input type="text" class="form-control mt-2" placeholder="Enter question .." formControlName="question">
@@ -111,15 +114,18 @@
                 formControlName="description">
               <input type="file" formControlName="image" class="mt-2" (change)="selectImg($event)">
             </form>
+
             <ng-template pTemplate="footer">
               <p-button (click)="questionSubmit()" label="Submit" styleClass="p-button-text"></p-button>
             </ng-template>
+
           </p-dialog>
         </div>
 
         <div>
           <p-tabView>
             <p-tabPanel header="Trending">
+
               <div *ngFor="let trending of trendingData">
                 <b class="fs-5 pb-3 pt-3"> {{trending.question}} </b>
                 <p class="pt-3">{{trending.description}} </p>
@@ -147,6 +153,7 @@
                   </div>
                 </div>
                 <hr>
+
               </div>
             </p-tabPanel>
 
