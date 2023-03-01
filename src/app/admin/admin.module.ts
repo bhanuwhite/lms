@@ -45,6 +45,7 @@ import { MegaMenuModule } from 'primeng/megamenu';
 
 import {TabViewModule} from 'primeng/tabview';
 import {MenuItem} from 'primeng/api';
+import { CommunityComponent } from './community/community.component';
 
 
 
@@ -60,7 +61,8 @@ import {MenuItem} from 'primeng/api';
     CoursesComponent,
     DashboardComponent,
     SpinnerComponent,
-    ContentComponent
+    ContentComponent,
+    CommunityComponent
 
   ],
   imports: [

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
+import { CommunityComponent } from './community/community.component';
 import { ContentDetailsComponent } from './content-details/content-details.component';
 import { ContentComponent } from './content/content.component';
 import { CoursesComponent } from './courses/courses.component';
@@ -25,6 +26,9 @@ const routes: Routes = [
       },
       {
         path: 'quiz', component: QuizComponent
+      },
+      {
+        path: 'community', component: CommunityComponent
       }
     ]
   },

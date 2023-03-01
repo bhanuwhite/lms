@@ -1,0 +1,443 @@
+<div>
+  <div class=" col-12">
+    <div class="communityBg col-12">
+      <div class="col-7 ms-3">
+        <div class="text-wrap  mt-5 mb-2">
+          <b class="fs-1 mb-3"> Welcome to Your Community</b>
+          <p class="pt-2">Feel free to connect with our community to explore everything. We love to serve you.</p>
+        </div>
+        <form class="mb-3 mt-2">
+          <input type="search" class="w-75 form-control" placeholder="Search here">
+        </form>
+        <div class="d-flex mt-5">
+          <div class="text-center d-flex">
+            <div>
+              <span class="material-symbols-outlined"> groups </span>
+            </div>
+            <div class="mt-1 ms-1 me-3">
+              <p>12412 Instractors</p>
+            </div>
+          </div>
+          <div class="text-center d-flex">
+            <div>
+              <span class="material-symbols-outlined">
+                sms
+              </span>
+            </div>
+            <div class="mt-1 ms-1 me-3">
+              <p>13412 Discussions</p>
+            </div>
+          </div>
+          <div class="text-center d-flex">
+            <div>
+              <span class="material-symbols-outlined">
+                ecg_heart
+              </span>
+            </div>
+            <div class="mt-1 ms-1 me-3">
+              <p>412 Online</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class=" mt-3 mb-3 ms-3 me-3">
+        <div class="d-flex">
+          <div>
+            <b class="fs-5 text-primary"> Announcements </b>
+            <p class="mt-2">We will make Announcements here for our day to day update.</p>
+          </div>
+          <p-divider layout="vertical"></p-divider>
+          <div>
+            <b class="fs-5 text-primary"> Studio U </b>
+            <p class="mt-2"> Studio U is a space aspring LMS Instractors to enchorage one another and learn from
+              published Instractors.</p>
+          </div>
+          <p-divider layout="vertical"></p-divider>
+          <div>
+            <b class="fs-5 text-primary"> Published Instractors Club </b>
+            <p class="mt-2"> Published Instractors Club is an exclusive space for published LMS Instractors to discuss
+              topics. </p>
+          </div>
+          <p-divider layout="vertical"></p-divider>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="">
+        <b class="fs-4 pb-3">Featured</b>
+        <div class="d-flex mt-3">
+          <div *ngFor="let featured of featuredData">
+            <b class="fs-6 text-primary">{{featured.head}}</b>
+            <p class="mt-2">{{featured.message}}</p>
+            <div class="d-flex">
+              <div class="text-center d-flex ">
+                <img src={{featured.img}} alt="" class="userImg">
+                <a href="#" class="mt-1 ms-1"> {{featured.name}}</a>
+              </div>
+              <div class="text-center d-flex ms-4">
+                <span class="material-symbols-outlined">
+                  thumb_up
+                </span>
+                <p class="mt-1 ms-1"> 5 likes </p>
+              </div>
+              <div class="text-center d-flex ms-3">
+                <span class="material-symbols-outlined">
+                  sms
+                </span>
+                <p class="mt-1 ms-1"> 684 </p>
+              </div>
+            </div>
+          </div>
+          <p-divider layout="vertical"></p-divider>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12  d-flex mt-4" style="width: 100%;">
+      <div class="" style="width: 70%;">
+        <div>
+          <b class="fs-3">All Community Activity</b>
+          <button class="btn btn-secondary float-end">Start Conversation</button>
+        </div>
+        <div>
+          <p-tabView>
+            <p-tabPanel header="Trending">
+              <div>
+                <b class="fs-5 pb-3 pt-3">Dare to ask a question ? </b>
+                <p class="pt-3">No one will get the answer untill they ask. </p>
+                <div class="d-flex">
+                  <div class="text-center d-flex ">
+                    <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
+                      class="userImg">
+                    <a href="#" class="mt-1 ms-2"> Mahesh </a>
+                  </div>
+                  <div class="text-center d-flex ms-5">
+                    <span class="material-symbols-outlined" [style]="{'color':fill_color}" (click)="likeFun()">
+                      {{like}}
+                    </span>
+                    <p class="mt-1 ms-1"> 5 likes </p>
+                  </div>
+                  <div class="text-center d-flex ms-3">
+                    <span class="material-symbols-outlined" >
+                      sms
+                    </span>
+                    <p class="mt-1 ms-1"> 684 </p>
+                  </div>
+                </div>
+                <hr>
+              </div>
+              <div>
+                <b class="fs-5 pb-3 pt-3"> How this community will help you ? </b>
+                <p class="pt-3">During the time of class you may or may not get some doubt. Sometimes your doubt would
+                  come after some days, then in that case you can post your questions or doubts in this community. You
+                  will definetly get help from tutors or someone, who know about it better. So do not hesitate to ask
+                  any question or doubt, </p>
+                <div class="d-flex">
+                  <div class="text-center d-flex ">
+                    <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
+                      class="userImg">
+                    <a href="#" class="mt-1 ms-2"> TeamLMS </a>
+                  </div>
+                  <div class="text-center d-flex ms-5">
+                    <span class="material-symbols-outlined" [style]="{'color':fill_color}" (click)="likeFun()">
+                      {{like}}
+                    </span>
+                    <p class="mt-1 ms-1"> 555 Likes </p>
+                  </div>
+                  <div class="text-center d-flex ms-3">
+                    <span class="material-symbols-outlined">
+                      sms
+                    </span>
+                    <p class="mt-1 ms-1"> 684 </p>
+                  </div>
+                </div>
+                <hr>
+              </div>
+              <div>
+                <b class="fs-5 pb-3 pt-3"> Do I definetly get a job by this course ? </b>
+                <p class="pt-3"> Definetly we do not say You would get a job by completing this course. But we will
+                  definetly gives you the confidence to survive in this Tech World. </p>
+                <div class="d-flex">
+                  <div class="text-center d-flex ">
+                    <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
+                      class="userImg">
+                    <a href="#" class="mt-1 ms-2"> TeamLMS </a>
+                  </div>
+                  <div class="text-center d-flex ms-5">
+                    <span class="material-symbols-outlined" [ngStyle]="{ 'color': 'red' }">
+                      thumb_up
+                    </span>
+                    <p class="mt-1 ms-1"> 145 likes </p>
+                  </div>
+                  <div class="text-center d-flex ms-3">
+                    <span class="material-symbols-outlined">
+                      sms
+                    </span>
+                    <p class="mt-1 ms-1">142 </p>
+                  </div>
+                </div>
+                <hr>
+              </div>
+            </p-tabPanel>
+            <p-tabPanel header="Latest">
+              <div>
+                <b class="fs-5 pb-3 pt-3"> How much knowledge needed to start this course ? </b>
+                <p class="pt-3"> Here we starts everything from scrach. So do not require any previous knowledge on
+                  anything. It would be more plus if you have some stuff. </p>
+                <div class="d-flex">
+                  <div class="text-center d-flex ">
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbpdlfsyBLz7nSCkx0-gLvGtgQzW6peyJWtOp8AuFt-7TXpoRQ-XgkVIhvpfLC3Gq4kcY&usqp=CAU"
+                      alt="" class="userImg">
+                    <a href="#" class="mt-1 ms-2"> Sarausriya Martio </a>
+                  </div>
+                  <div class="text-center d-flex ms-5">
+                    <span class="material-symbols-outlined">
+                      thumb_up
+                    </span>
+                    <p class="mt-1 ms-1"> 145 likes </p>
+                  </div>
+                  <div class="text-center d-flex ms-3">
+                    <span class="material-symbols-outlined">
+                      sms
+                    </span>
+                    <p class="mt-1 ms-1"> 124 </p>
+                  </div>
+                </div>
+                <hr>
+              </div>
+              <div>
+                <b class="fs-5 pb-3 pt-3"> How this training session goes ? </b>
+                <p class="pt-3"> In first week you will have some idea, what you are learining and towards which. From the second week you are going to do a daily task session. For this session we assign a guide to do better practice and best performance.
+                  Follow the more to know <a href="#"> My Path </a> </p>
+                <div class="d-flex">
+                  <div class="text-center d-flex ">
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbpdlfsyBLz7nSCkx0-gLvGtgQzW6peyJWtOp8AuFt-7TXpoRQ-XgkVIhvpfLC3Gq4kcY&usqp=CAU"
+                      alt="" class="userImg">
+                    <a href="#" class="mt-1 ms-2"> Marnica vishyan </a>
+                  </div>
+                  <div class="text-center d-flex ms-5">
+                    <span class="material-symbols-outlined">
+                      thumb_up
+                    </span>
+                    <p class="mt-1 ms-1"> 145 likes </p>
+                  </div>
+                  <div class="text-center d-flex ms-3">
+                    <span class="material-symbols-outlined">
+                      sms
+                    </span>
+                    <p class="mt-1 ms-1"> 124 </p>
+                  </div>
+                </div>
+                <hr>
+              </div>
+              <div>
+                <b class="fs-5 pb-3 pt-3"> How much knowledge needed to start this course ? </b>
+                <p class="pt-3"> Here we starts everything from scrach. So do not require any previous knowledge on
+                  anything. It would be more plus if you have some stuff. </p>
+                <div class="d-flex">
+                  <div class="text-center d-flex ">
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbpdlfsyBLz7nSCkx0-gLvGtgQzW6peyJWtOp8AuFt-7TXpoRQ-XgkVIhvpfLC3Gq4kcY&usqp=CAU"
+                      alt="" class="userImg">
+                    <a href="#" class="mt-1 ms-2"> Sarausriya Martio </a>
+                  </div>
+                  <div class="text-center d-flex ms-5">
+                    <span class="material-symbols-outlined">
+                      thumb_up
+                    </span>
+                    <p class="mt-1 ms-1"> 145 likes </p>
+                  </div>
+                  <div class="text-center d-flex ms-3">
+                    <span class="material-symbols-outlined">
+                      sms
+                    </span>
+                    <p class="mt-1 ms-1"> 124 </p>
+                  </div>
+                </div>
+                <hr>
+              </div>
+              <div>
+                <b class="fs-5 pb-3 pt-3"> How this training session goes ? </b>
+                <p class="pt-3"> In first week you will have some idea, what you are learining and towards which. From the second week you are going to do a daily task session. For this session we assign a guide to do better practice and best performance.
+                  Follow the more to know <a href="#"> My Path </a> </p>
+                <div class="d-flex">
+                  <div class="text-center d-flex ">
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbpdlfsyBLz7nSCkx0-gLvGtgQzW6peyJWtOp8AuFt-7TXpoRQ-XgkVIhvpfLC3Gq4kcY&usqp=CAU"
+                      alt="" class="userImg">
+                    <a href="#" class="mt-1 ms-2"> Marnica vishyan </a>
+                  </div>
+                  <div class="text-center d-flex ms-5">
+                    <span class="material-symbols-outlined">
+                      thumb_up
+                    </span>
+                    <p class="mt-1 ms-1"> 145 likes </p>
+                  </div>
+                  <div class="text-center d-flex ms-3">
+                    <span class="material-symbols-outlined">
+                      sms
+                    </span>
+                    <p class="mt-1 ms-1"> 124 </p>
+                  </div>
+                </div>
+                <hr>
+              </div>
+
+            </p-tabPanel>
+
+            <p-tabPanel header="Top Liked ">
+              <div>
+                <b class="fs-5 pb-3 pt-3"> How much knowledge needed to start this course ? </b>
+                <p class="pt-3"> Here we starts everything from scrach. So do not require any previous knowledge on
+                  anything. It would be more plus if you have some stuff. </p>
+                <div class="d-flex">
+                  <div class="text-center d-flex ">
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbpdlfsyBLz7nSCkx0-gLvGtgQzW6peyJWtOp8AuFt-7TXpoRQ-XgkVIhvpfLC3Gq4kcY&usqp=CAU"
+                      alt="" class="userImg">
+                    <a href="#" class="mt-1 ms-2"> Sarausriya Martio </a>
+                  </div>
+                  <div class="text-center d-flex ms-5">
+                    <span class="material-symbols-outlined">
+                      thumb_up
+                    </span>
+                    <p class="mt-1 ms-1"> 145 likes </p>
+                  </div>
+                  <div class="text-center d-flex ms-3">
+                    <span class="material-symbols-outlined">
+                      sms
+                    </span>
+                    <p class="mt-1 ms-1"> 124 </p>
+                  </div>
+                </div>
+                <hr>
+              </div>
+              <div>
+                <b class="fs-5 pb-3 pt-3"> How this training session goes ? </b>
+                <p class="pt-3"> In first week you will have some idea, what you are learining and towards which. From the second week you are going to do a daily task session. For this session we assign a guide to do better practice and best performance.
+                  Follow the more to know <a href="#"> My Path </a> </p>
+                <div class="d-flex">
+                  <div class="text-center d-flex ">
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbpdlfsyBLz7nSCkx0-gLvGtgQzW6peyJWtOp8AuFt-7TXpoRQ-XgkVIhvpfLC3Gq4kcY&usqp=CAU"
+                      alt="" class="userImg">
+                    <a href="#" class="mt-1 ms-2"> Marnica vishyan </a>
+                  </div>
+                  <div class="text-center d-flex ms-5">
+                    <span class="material-symbols-outlined">
+                      thumb_up
+                    </span>
+                    <p class="mt-1 ms-1"> 145 likes </p>
+                  </div>
+                  <div class="text-center d-flex ms-3">
+                    <span class="material-symbols-outlined">
+                      sms
+                    </span>
+                    <p class="mt-1 ms-1"> 124 </p>
+                  </div>
+                </div>
+                <hr>
+              </div>
+
+            </p-tabPanel>
+            <p-tabPanel header="UnAnswered">
+              <div>
+                <div class="ms-2 mt2" *ngFor="let unAnswer of unAnsweredData">
+                  <b class="fs-5 pb-3 pt-3">{{unAnswer.head}}</b>
+                  <p class="pt-3"> {{unAnswer.message}} </p>
+                  <p> <span class="material-symbols-outlined">
+                      person
+                    </span> by <a href="#">{{unAnswer.name}} </a> Hyd in <a href="#"> {{unAnswer.artName}} </a> posted
+                    14m ago </p>
+                  <hr>
+                </div>
+              </div>
+            </p-tabPanel>
+          </p-tabView>
+        </div>
+      </div>
+
+      <div class="ms-3" style="width: 28%;">
+        <div class="card ">
+          <h2 class=" text-center mt-4"> Community Resources</h2>
+          <a href="" class="ms-5"> Purpose and Values </a>
+          <a href="" class="mt-4 ms-5"> Best Practices </a>
+          <a href="" class="mt-4 ms-5"> Community Guidelines </a>
+          <a href="" class="mt-4 ms-5"> Navigating this Community </a>
+          <a href="" class="mt-4 mb-3 ms-5"> Meet our Community Champions </a>
+        </div>
+        <div class="card mt-3">
+          <h1 class="text-center">Instractors Leaderboard</h1>
+          <div class="d-flex ms-3">
+            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
+              class="userImg ">
+            <div>
+              <a href="" class="ms-3"> Jennifer Casodia</a>
+              <div class="d-flex ms-3 text-center">
+                <p> <span class="material-symbols-outlined">
+                    thumb_up
+                  </span> </p>
+                <p class="ms-2"> 142 likes</p>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex ms-3">
+            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
+              class="userImg ">
+            <div>
+              <a href="" class="ms-3"> Jennifer Casodia</a>
+              <div class="d-flex ms-3 text-center">
+                <p> <span class="material-symbols-outlined">
+                    thumb_up
+                  </span> </p>
+                <p class="ms-2"> 12 likes</p>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex ms-3">
+            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
+              class="userImg ">
+            <div>
+              <a href="" class="ms-3"> Jennifer Casodia</a>
+              <div class="d-flex ms-3 text-center">
+                <p> <span class="material-symbols-outlined">
+                    thumb_up
+                  </span> </p>
+                <p class="ms-2"> 45 likes</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-3">
+          <h1 class="text-center">Currently Online</h1>
+          <div class="d-flex flex-wrap">
+            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
+              class="userImg ms-5 mt-2">
+            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
+              class="userImg ms-5 mt-2">
+            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
+              class="userImg ms-5 mt-2">
+            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
+              class="userImg ms-5 mt-2">
+            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
+              class="userImg ms-5 mt-2">
+            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
+              class="userImg ms-5 mt-2">
+            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
+              class="userImg ms-5 mt-2">
+
+          </div>
+          <b class="text-center"> 07 currently Online </b>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

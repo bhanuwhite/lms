@@ -36,8 +36,8 @@
                     <li class="listbox-item">
                         <i class="pi pi-envelope me-2"></i> <span>Messages</span>
                     </li>
-                    <li class="listbox-item">
-                        <i class="pi pi-users me-2"></i> <span>Groups</span>
+                    <li class="listbox-item" [class.active]="isActive('/admin/community')" routerLink="/admin/community" >
+                        <i class="pi pi-users me-2"></i> <span>Community Forum</span>
                     </li>
                     <hr class="mt-4 mb-2">
 
