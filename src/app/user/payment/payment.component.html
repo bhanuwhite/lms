@@ -13,6 +13,7 @@
           </div>
 
           <div class="mr-5">
+
             <select
               class="form-control"
               formControlName="countryDropdown"
@@ -24,6 +25,7 @@
                 {{ country.name }}
               </option>
             </select>
+
           </div>
           <div>
             <small
@@ -44,6 +46,7 @@
             </h6>
           </div>
           <div class="dropDown">
+
             <select
               class="form-control"
               formControlName="stateDropdown"
@@ -54,6 +57,7 @@
                 {{ state }}
               </option>
             </select>
+
             <div>
               <small
                 style="color: red"
@@ -199,21 +203,18 @@ certain tax jurisdictions.</h5></pre>
         </div>
         <div class="mt-5">
           <h2><b>Order details</b></h2>
+          <div></div>
           <h6
             style="
               font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman',
-                serif;
-            "
-          >
-            <b
-              ><img
+                serif;">
+           <img
                 src="../../../assets/img/credit.png"
                 alt="img"
                 width="35px"
-                class="ms-1 mr-2"
-              />
-              Raising Capital for Your Bussiness</b
-            >
+                class="ms-1 mr-2"/>
+                <b class="mr-5"> Raising Capital for Your Bussiness</b>
+                <small class="ml-5" style="font-size: small;">{{ total | currency : "INR" }}</small>
           </h6>
         </div>
       </div>

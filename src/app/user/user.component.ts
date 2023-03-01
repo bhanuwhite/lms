@@ -105,6 +105,6 @@ export class UserComponent implements OnInit {
     localStorage.setItem('courseDetails',this.courseDetails);
     console.log(this.courseDetails);
 
-    this.router.navigate(['user/PaymentComponent']);
+    this.router.navigate(['user/payment']);
   }
 }

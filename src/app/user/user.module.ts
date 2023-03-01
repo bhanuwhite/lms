@@ -30,6 +30,8 @@ import { PaymentComponent } from './payment/payment.component';
 import {DropdownModule} from 'primeng/dropdown';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import { FormsModule} from '@angular/forms';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import {CheckboxModule} from 'primeng/checkbox';
 
 
 // import {DialogModule} from 'primeng/dialog';
@@ -41,7 +43,8 @@ import { FormsModule} from '@angular/forms';
     CourseDetailsComponent,
     HeaderComponent,
     VideoPopUpComponent,
-    PaymentComponent
+    PaymentComponent,
+    AccountSettingsComponent
   ],
   imports: [
     CommonModule,
@@ -55,6 +58,7 @@ import { FormsModule} from '@angular/forms';
     ProgressSpinnerModule,
     InputTextModule,
     FormsModule,
+    CheckboxModule,
 
     AdminRoutingModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule,CardModule,RatingModule,
 

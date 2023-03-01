@@ -37,8 +37,7 @@ courseDetails:{id:number,category:string,courseImage:string,courseTitle:string,c
   }
 
   onClickVideo(courseDetails:{}){
-    // this.displayDialog = true;
-    // console.log(courseDetails);
+
     const ref = this.dialogService.open(VideoPopUpComponent, {
       header: 'Course Preview',
       width: '50%',
