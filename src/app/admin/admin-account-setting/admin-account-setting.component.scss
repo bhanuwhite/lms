@@ -1,14 +1,8 @@
 .container{
-  margin:40px;
+  margin:20px;
   button{
     background-color: black;
   }
-
- h1{
-   font-family:'Times New Roman', Times, serif;
-   font-size: xx-large;
-   padding-bottom: 20px;
- }
 }
 form{
   button{
@@ -35,14 +29,9 @@ form{
     background-color: rgb(22, 21, 21);
   }
 }
-.Notification{
-  h2{
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  }
-  button{
-    background-color: black;
-  }
-}
+
+
+
 .checkbox{
   border: 1px rgb(37, 34, 34) solid;
   height:fit-content;

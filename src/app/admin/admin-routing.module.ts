@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminAccountSettingComponent } from './admin-account-setting/admin-account-setting.component';
 import { AdminComponent } from './admin.component';
 import { ContentDetailsComponent } from './content-details/content-details.component';
 import { ContentComponent } from './content/content.component';
@@ -25,6 +26,9 @@ const routes: Routes = [
       },
       {
         path: 'quiz', component: QuizComponent
+      },
+      {
+        path: 'account', component: AdminAccountSettingComponent
       }
     ]
   },
