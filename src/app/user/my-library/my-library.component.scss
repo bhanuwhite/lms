@@ -3,8 +3,11 @@
   background-color: #d6e7eb;
 }
 .course-card{
-  min-height: 410px;
+  min-height: 360px;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 10px, rgba(0, 0, 0, 0.23) 0px 2px 2px;
+  .img-header{
+    min-height: 170px;
+  }
   .courseFigure {
     position: relative;
     max-height: 10rem;

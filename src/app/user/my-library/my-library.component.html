@@ -41,12 +41,14 @@
       </div>
       <div class="row mt-4"  *ngIf="searchData.length!=0">
         <div class="col-lg-3 mb-4" *ngFor="let search of searchData" >
-          <div class="card course-card p-3">
-            <a [routerLink]="['/user/library',search.id]" routerLinkActive="routerActive"> <img src={{search.url}} alt=""
-              class="courseFigure" (click)="myCourseDetails(search)"> </a>
-              <hr>
-              <h2 class="cursor-pointer" style="cursor: pointer;"> {{search.title}} </h2>
-              <div>
+          <div class="card course-card">
+            <div class="img-header">
+              <a [routerLink]="['/user/library',search.id]" routerLinkActive="routerActive"> <img src={{search.url}} alt=""
+                class="courseFigure" (click)="myCourseDetails(search)"> </a>
+            </div>
+              <hr class="m-0 p-0">
+              <h2 class="cursor-pointer px-3" style="cursor: pointer;"> {{search.title}} </h2>
+              <div class="px-3">
                 <div class="text-wrap " [routerLink]="['/user/library',search.id]">
                   <p class="cursor-pointer">{{search.desc}} </p>
                 </div>
