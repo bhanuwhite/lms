@@ -422,35 +422,9 @@
         </div>
         <div class="col-lg-4">
             <div class="card sidebar-area">
-                <div class="video-contain">
-                    <!-- <video src="{{courseDetails.video}}" style="width: 100%;"></video> -->
-                    <!-- <ng-container
-                        *ngIf="courseDetails.video != null; then content  else video1"></ng-container> -->
-
-                    <!-- <ng-template #content> -->
-                    <img (click)=" onClickVideo(courseDetails)" style="height: 250px;cursor: pointer;"
-                        src="{{courseDetails.courseImage }}" class="card-img-top" alt="...">
-                    <!-- <i class="pi pi-play" style="font-size: 2rem;
-                    margin-left: 150px;
-                    margin-top: -250px;
-                    border-radius: 10px;
-                    cursor: pointer;"></i> -->
-                    <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3bb7qtbLwSQYT2BnBYY7IqYOKOrjfM8WDLA&usqp=CAU"
-                        alt="Image" title="play" width="50px;height:30px;" style="
-                                                                margin-left: 150px;
-                                                                margin-top: -250px;
-                                                                border-radius: 10px;
-                                                                cursor: pointer;
-                                                              " (click)="onClickVideo(courseDetails)" /> -->
-                    <!-- </ng-template> -->
-                    <!-- <ng-template #video1> -->
-
-                    <!-- <video (click)=" onClickVideo(courseDetails)" #vid class="cursor-pointer" height="100%;" width="100%" controls>
-                            <source src="{{courseDetails.video}}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video> -->
-
-                    <!-- </ng-template> -->
+                <div class="video-contain" (click)=" onClickVideo(courseDetails)">
+                    <img src="{{courseDetails.courseImage}}" class="img-fluid" alt="" style="width: 100%; opacity: 0.4;">
+                  <span class="play-button"> <img src="assets/img/play.png" alt=""> </span>
                 </div>
                 <div class="pricing-detail p-3">
                     <div class="d-flex align-items-center">

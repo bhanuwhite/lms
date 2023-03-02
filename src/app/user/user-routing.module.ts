@@ -12,6 +12,7 @@ import { InvoiceComponent } from './invoice/invoice.component';
 import { PaymentComponent } from './payment/payment.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserContentComponent } from './user-content/user-content.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 const routes: Routes = [
@@ -56,6 +57,9 @@ const routes: Routes = [
       },
       {
         path: 'profile', component: ProfileComponent
+      },
+      {
+        path: 'account-settings', component:AccountSettingsComponent
       }
     ]
   }

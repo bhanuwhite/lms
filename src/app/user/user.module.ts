@@ -52,6 +52,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { SplitterModule } from 'primeng/splitter';
 import { UserContentComponent } from './user-content/user-content.component';
 import { DividerModule } from 'primeng/divider';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 
@@ -71,7 +72,8 @@ import { DividerModule } from 'primeng/divider';
     InvoiceComponent,
     PaymentComponent,
     ProfileComponent,
-    UserContentComponent
+    UserContentComponent,
+    AccountSettingsComponent
   ],
   imports: [
     CommonModule,

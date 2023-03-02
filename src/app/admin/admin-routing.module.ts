@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
+import { CommunityForumComponent } from './community-forum/community-forum.component';
 import { ContentDetailsComponent } from './content-details/content-details.component';
 import { ContentComponent } from './content/content.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
@@ -37,6 +38,9 @@ const routes: Routes = [
       },
       {
         path: 'profile', component: ProfileComponent
+      },
+      {
+        path: 'community-forum', component: CommunityForumComponent
       }
     ]
   },
