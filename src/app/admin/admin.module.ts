@@ -18,7 +18,7 @@ import { RippleModule } from 'primeng/ripple';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessagesModule } from 'primeng/messages';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
- 
+
 import { ContentDetailsComponent } from './content-details/content-details.component';
 import { HeaderComponent } from './header/header.component';
 import { QuizComponent } from './quiz/quiz.component';
@@ -38,13 +38,14 @@ import { CalendarModule } from 'primeng/calendar';
 import {ChartModule} from 'primeng/chart';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {ProgressBarModule} from 'primeng/progressbar';
- 
+
 import { SpinnerComponent } from '../component/spinner/spinner.component';
 import { ContentComponent } from './content/content.component';
 import { MegaMenuModule } from 'primeng/megamenu';
 
 import {TabViewModule} from 'primeng/tabview';
 import {MenuItem} from 'primeng/api';
+import { CommunityComponent } from './community/community.component';
 
 
 
@@ -60,7 +61,8 @@ import {MenuItem} from 'primeng/api';
     CoursesComponent,
     DashboardComponent,
     SpinnerComponent,
-    ContentComponent
+    ContentComponent,
+    CommunityComponent
 
   ],
   imports: [
@@ -94,8 +96,8 @@ import {MenuItem} from 'primeng/api';
     ProgressBarModule,
     MegaMenuModule,
     TabViewModule,
-  
-    
+
+
   ],
   providers: [
     ApiService
