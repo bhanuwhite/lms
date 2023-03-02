@@ -6,6 +6,7 @@ import { ContentDetailsComponent } from './content-details/content-details.compo
 import { ContentComponent } from './content/content.component';
 import { CoursesComponent } from './courses/courses.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { QuestionRepliesComponent } from './question-replies/question-replies.component';
 import { QuizComponent } from './quiz/quiz.component';
 
 const routes: Routes = [
@@ -29,6 +30,9 @@ const routes: Routes = [
       },
       {
         path: 'community', component: CommunityComponent
+      },
+      {
+        path: 'replies', component: QuestionRepliesComponent
       }
     ]
   },

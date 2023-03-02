@@ -32,5 +32,10 @@ export interface conversationObj {
   name?: string | undefined
 }
 
-
+export interface questionSolutionObj {
+  name?:string;
+  img?:string;
+  soluion:string | number;
+  profession?:string
+}
 

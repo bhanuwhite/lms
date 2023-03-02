@@ -127,7 +127,8 @@
             <p-tabPanel header="Trending">
 
               <div *ngFor="let trending of trendingData">
-                <b class="fs-5 pb-3 pt-3"> {{trending.question}} </b>
+                <a routerLink="/admin/replies"> <b class="fs-5 pb-3 pt-3" (click)="questionObj(trending)">
+                    {{trending.question}} </b> </a>
                 <p class="pt-3">{{trending.description}} </p>
                 <img src={{trending.img}} alt="" style="height: 100px; width: 150px;"
                   (click)="showDoubtImgDialog(trending)">
@@ -357,42 +358,16 @@
         </div>
         <div class="card mt-3">
           <h1 class="text-center">Instractors Leaderboard</h1>
-          <div class="d-flex ms-3">
-            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
-              class="userImg ">
+          <div class="d-flex ms-3" *ngFor="let leaderBoard of instractorsLeaderBoard">
+            <img src={{leaderBoard.img}} alt="" class="userImg"
+              (click)="onlineList.toggle($event); showOnlinePersonData(leaderBoard)">
             <div>
-              <a href="" class="ms-3"> Jennifer Casodia</a>
+              <a href="" class="ms-3"> {{leaderBoard.name}}</a>
               <div class="d-flex ms-3 text-center">
                 <p> <span class="material-symbols-outlined">
                     thumb_up
                   </span> </p>
-                <p class="ms-2"> 12 likes</p>
-              </div>
-            </div>
-          </div>
-          <div class="d-flex ms-3">
-            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
-              class="userImg ">
-            <div>
-              <a href="" class="ms-3"> Jennifer Casodia</a>
-              <div class="d-flex ms-3 text-center">
-                <p> <span class="material-symbols-outlined">
-                    thumb_up
-                  </span> </p>
-                <p class="ms-2"> 12 likes</p>
-              </div>
-            </div>
-          </div>
-          <div class="d-flex ms-3">
-            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
-              class="userImg ">
-            <div>
-              <a href="" class="ms-3"> Jennifer Casodia</a>
-              <div class="d-flex ms-3 text-center">
-                <p> <span class="material-symbols-outlined">
-                    thumb_up
-                  </span> </p>
-                <p class="ms-2"> 5 likes</p>
+                <p class="ms-2"> {{leaderBoard.likeCount}} Likes</p>
               </div>
             </div>
           </div>
@@ -400,20 +375,40 @@
         <div class="card mt-3">
           <h1 class="text-center">Currently Online</h1>
           <div class="d-flex flex-wrap">
-            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
-              class="userImg ms-5 mt-2">
-            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
-              class="userImg ms-5 mt-2">
-            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
-              class="userImg ms-5 mt-2">
-            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
-              class="userImg ms-5 mt-2">
-            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
-              class="userImg ms-5 mt-2">
-            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
-              class="userImg ms-5 mt-2">
-            <img src="https://qph.cf2.quoracdn.net/main-qimg-4aa93ebe1b36c01c529863ad32aa8187-lq" alt=""
-              class="userImg ms-5 mt-2">
+            <div *ngFor="let online of onlineStudentList">
+              <img src={{online.img}} alt="" class="userImg ms-5 mt-2"
+                (click)="onlineList.toggle($event); showOnlinePersonData(online)">
+            </div>
+            <p-overlayPanel #onlineList>
+              <ng-template pTemplate *ngIf="showOnlinePerson">
+                <div style="height: 200px; width: 300px;">
+
+
+                  <div class="d-flex">
+                    <img src={{showOnlinePerson.img}} alt="" class="userImg">
+                    <div class="ms-3">
+                      <p >  <b class="fs-5"> {{showOnlinePerson.name}} </b> </p>
+                      <p>  <b> {{showOnlinePerson.field}} </b> </p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="d-flex">
+                    <span class="material-symbols-outlined ms-3"> sms </span>
+                    <span class="material-symbols-outlined ms-3"> comment </span>
+                    <span class="material-symbols-outlined ms-3" style="color:red"> recommend </span> <span>
+                      {{showOnlinePerson.likeCount}} </span>
+                    <span class="material-symbols-outlined ms-3"> thumb_down </span>
+                  </div>
+                  <hr>
+                  <div class="d-flex ms-2">
+                    <p> Posts : 12</p>
+                    <p class="ms-3"> Best Answers: 5 </p>
+                    <p class="ms-3"> Likes : 7 </p>
+                  </div>
+                </div>
+              </ng-template>
+            </p-overlayPanel>
+
           </div>
           <b class="text-center"> 07 currently Online </b>
         </div>
