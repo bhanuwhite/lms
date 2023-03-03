@@ -5,17 +5,18 @@
     <p-tabView>
       <p-tabPanel header="Account security">
         <div class="user-details">
-          <form>
+          <form   [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
             <label for="email"><b>Email:</b></label>
             <div class="col-12 md:col-6">
               <div class="p-inputgroup">
                 <input
                   type="email"
                   id="email"
-                  [(ngModel)]="userCurrentEmail" name="userCurrentEmail"
                   pInputText
+                  formControlName="email"
                   placeholder="Enter your email id"
                 />
+                <!-- [(ngModel)]="userCurrentEmail" name="userCurrentEmail" -->
                 <button
                   type="button"
                   pButton
@@ -33,10 +34,11 @@
                 <input
                   type="password"
                   id="password"
-                  [(ngModel)]="userCurrentPassword" name="userCurrentPassword"
+                  formControlName="password"
                   pInputText
                   placeholder="Enter your password"
                 />
+                <!-- [(ngModel)]="userCurrentPassword" name="userCurrentPassword" -->
                 <button
                   type="button"
                   pButton
@@ -46,6 +48,7 @@
                   <span class="material-symbols-outlined"> edit </span>
                 </button>
               </div>
+              <button type="submit">Submit</button>
             </div>
           </form>
 
@@ -123,7 +126,7 @@
                       <input
                         type="password"
                         id="newpassword"
-                        [(ngModel)]="userNewPassword" name="userNewPassword"
+                        [(ngModel)]="userNewPassword" name="userNewassword"
                         pInputText
                         placeholder="Enter new password"
                       />

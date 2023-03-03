@@ -4,6 +4,7 @@ import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@ang
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ApiService } from 'src/app/services/api.service';
+import { Content, ContentData,ContentResponse,mediaDataObj  } from 'src/app/models/content';
 
 @Component({
   selector: 'app-content',
@@ -25,7 +26,9 @@ export class ContentComponent implements OnInit, AfterViewInit {
   contentUpdateFileData: string[] = [];
   display: boolean = false;
   editDisply: boolean = false;
-  contentData!: any;
+
+  contentData:ContentData;
+
   totalCourse: number = 0;
   public _id!: string;
   public items: any
@@ -33,6 +36,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
   formData = new FormData();
   percentage: number = 0;
 
+content!:ContentData[];
   isProgressFile: boolean = false;
 
 
@@ -137,9 +141,13 @@ export class ContentComponent implements OnInit, AfterViewInit {
     this.loadingSpinner = true;
     this.apiService.getContent().subscribe((res) => {
       try {
-        this.contentData = res.data;
-        console.log(this.contentData);
-        this.totalCourse = this.contentData.length;
+
+        console.log(res.data);
+        console.log(res);
+
+        this.contentData = res;
+        console.log(this.contentData.data);
+        // this.totalCourse = this.contentData.data.length;
         this.loadingSpinner = false;
       } catch (error) {
         this.messageService.add({
@@ -194,6 +202,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
   // On submit content
   public onSubmitContent(): void {
     const author = localStorage.getItem('role')
+
     this.contentBody = {
       "data": {
         "name": this.courseGroup.value.title,
@@ -203,6 +212,8 @@ export class ContentComponent implements OnInit, AfterViewInit {
         "media": this.contentFileData
       }
     }
+    console.log(this.contentBody);
+
     // Post api call here
     this.apiService.postContent(this.contentBody).subscribe(res => {
       console.log(res);

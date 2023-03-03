@@ -96,9 +96,9 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
       this.isLoading = false;
       try {
         this.isLoading = false;
-        console.log(res);
+        console.log(res.data);
         this.quizData = res;
-        console.log(this.quizData);
+        console.log(this.quizData?.data);
       } catch (error) {
         console.log(error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Somrthing went to wrong !!' });
@@ -106,6 +106,8 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
     });
+
+
     // this.isLoading = false;
   }
 

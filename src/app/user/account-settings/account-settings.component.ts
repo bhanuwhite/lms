@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-account-settings',
@@ -7,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./account-settings.component.scss'],
 })
 export class AccountSettingsComponent{
+
   displayPasswordModal!: boolean;
   displayEmailModal!: boolean;
   userCurrentPassword!: string;
@@ -16,13 +18,33 @@ export class AccountSettingsComponent{
   userRePassword!: string;
   userNewPassword!: string;
   selectedCities: string[] = [];
-formData: any;
+
+myForm = new FormGroup({
+  email: new FormControl(),
+  password: new FormControl()
+});
+
+constructor(private http: HttpClient) { }
+
+
+
+onSubmit(myForm:FormGroup){
+  const payload = this.myForm.value;
+  console.log(payload);
+  this.http.post('/api/data', this.myForm).subscribe(response => {
+    console.log(response);
+  });
+
+}
 
 
 
   onEmailEdit() {
     this.displayEmailModal = true;
+
   }
+
+
   changeUserEmail() {
     if (this.userEnteredPassword === this.userCurrentPassword) {
       this.userCurrentEmail = this.userNewEmail;
@@ -67,4 +89,10 @@ formData: any;
   }
 
 
+  // submitForm(formData: any) {
+  //   // Send form data as a payload
+  //   this.http.post('/api/data', formData).subscribe(response => {
+  //     console.log(response);
+  //   });
+  // }
 }

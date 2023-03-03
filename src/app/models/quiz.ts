@@ -43,10 +43,7 @@ export class QuizResponse {
         };
         correct_answer?: string;
     }
-
-
 }
-
 export class QuizData {
     data?: QuizResponse[];
     meta?: {

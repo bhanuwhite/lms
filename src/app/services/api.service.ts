@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { Content } from '../models/content';
+import { Content, ContentData,ContentResponse,mediaDataObj } from '../models/content';
 import { Quiz, QuizData, QuizResponse } from '../models/quiz';
 
 @Injectable({
@@ -14,8 +14,8 @@ export class ApiService {
   ) { }
 
   // Get content
-  public getContent(): Observable<any> {
-    return this.http.get<any>(`/api/content-libraries?populate=*`);
+  public getContent(): Observable<ContentData> {
+    return this.http.get<ContentData>(`/api/content-libraries?populate=*`);
   }
 
   /**
