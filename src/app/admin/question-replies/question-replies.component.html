@@ -29,8 +29,8 @@
             <p class="me-3 d-flex">
 
               <button pButton pRipple type="button" class="p-button-rounded p-button-primary p-button-outlined"
-                (click)="replyToQuestion()">
-                <span class="material-symbols-outlined"> sms </span>
+                (click)="replyToQuestion()" style="font-size: 1rem; height: 2rem;">
+                <span class="material-symbols-outlined"> sms </span> <span class="ms-2">Reply</span>
               </button>
               <p-dialog header="Leave you reply here" [(visible)]="replyBox" [modal]="true" [style]="{width: '50vw'}">
                 <!--Editor to take response from user  -->
@@ -46,7 +46,7 @@
                   </p-editor>
                 </div>
                 <ng-template pTemplate="footer">
-                  <p-button icon="pi pi-check" (click)="messageSubmit()" label="Ok"
+                  <p-button icon="pi pi-check" (click)="messageSubmit()" label="Submit"
                     styleClass="p-button-text"></p-button>
                 </ng-template>
               </p-dialog>
@@ -93,59 +93,9 @@
                   thumb_up
                 </span> <b class="ms-2"> 2 likes</b>
               </div>
-              <div class="d-flex me-3">
-                <span> Reply</span>
-                <button pButton pRipple type="button" class="p-button-rounded p-button-danger p-button-outlined"
-                  (click)="replyToAnsweredQuestion()">
-                  <span class="material-symbols-outlined"> chat </span>
-                </button>
-                <p-dialog header="Leave you reply here" [(visible)]="reReplyingBox" [modal]="true"
-                  [style]="{width: '50vw'}">
-                  <!--Editor to take response from user  -->
-                  <div>
-                    <form action="">
-                      <p-editor [(ngModel)]="editorText" [style]="{'height':'320px'}" #reReplyEditor>
-                        <ng-template pTemplate="header">
-                          <span class="ql-formats">
-                            <button type="button" class="ql-bold" aria-label="Bold"></button>
-                            <button type="button" class="ql-italic" aria-label="Italic"></button>
-                            <button type="button" class="ql-underline" aria-label="Underline"></button>
-                          </span>
-                        </ng-template>
-                      </p-editor>
-                    </form>
-                  </div>
-                  <ng-template pTemplate="footer">
-                    <p-button icon="pi pi-check" (click)="submitReReply()" label="Ok"
-                      styleClass="p-button-text"></p-button>
-                  </ng-template>
-                </p-dialog>
-              </div>
-              <button class="btn btn-outline-primary me-3" (click)="showRereplies()">Replies ( {{repliesLength}} )
-              </button>
+
             </div>
-            <div [hidden]='showReReplies'>
-              <div class="card mt-1 " *ngFor="let reply of reRepliedArr">
-                <div class="d-flex mt-4 ms-4 justify-content-between ">
-                  <div class="d-flex ">
-                    <img src={{reply.img}} alt="" class="userImg">
-                    <div class="ms-2">
-                      <b>{{reply.name}}</b>
-                      <p> {{reply.profession}} </p>
-                    </div>
-                  </div>
-                  <div class="me-3">
-                    <select>
-                      <option value="Select Options">Select Options </option>
-                      <option value="">option01</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="mt-3 ms-4">
-                  <pre> {{reply.solution}} </pre>
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
 

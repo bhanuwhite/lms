@@ -112,7 +112,7 @@
               <label for="desc" class="mt-2"> <b>Write Description</b> </label>
               <input type="text" class="form-control mt-2" placeholder="Enter description .."
                 formControlName="description">
-              <input type="file" formControlName="image" class="mt-2" (change)="selectImg($event)">
+              <input type="file" multiple formControlName="image" class="mt-2" (change)="selectImg($event)">
             </form>
 
             <ng-template pTemplate="footer">
@@ -130,10 +130,16 @@
                 <a routerLink="/admin/replies"> <b class="fs-5 pb-3 pt-3" (click)="questionObj(trending)">
                     {{trending.question}} </b> </a>
                 <p class="pt-3">{{trending.description}} </p>
-                <img src={{trending.img}} alt="" style="height: 100px; width: 150px;"
-                  (click)="showDoubtImgDialog(trending)">
-                <p-dialog [(visible)]="displayDoubtImg" [modal]="true" [style]="{width: '50vw'}" *ngIf="imgData">
-                  <img src={{imgData.img}} alt="" style="width: 100%; height: 100%; ">
+
+                <div class="d-flex flex-wrap">
+                  <div *ngFor="let image of trending.img" class="ms-3 mt-3">
+                    <img src={{image}} alt="" style="height: 100px; width: 150px;" (click)="showDoubtImgDialog(image)">
+                  </div>
+                </div>
+
+
+                <p-dialog [(visible)]="displayDoubtImg" [modal]="true" [style]="{width: '50vw'}" *ngIf="doubtImg">
+                  <img src={{doubtImg}} alt="" style="width: 100%; height: 100%; ">
                 </p-dialog>
                 <div class="d-flex mt-3">
                   <div class="text-center d-flex ">
@@ -381,29 +387,33 @@
             </div>
             <p-overlayPanel #onlineList>
               <ng-template pTemplate *ngIf="showOnlinePerson">
-                <div style="height: 200px; width: 300px;">
-
+                <div style="height: 220px; width: 300px;">
 
                   <div class="d-flex">
                     <img src={{showOnlinePerson.img}} alt="" class="userImg">
                     <div class="ms-3">
-                      <p >  <b class="fs-5"> {{showOnlinePerson.name}} </b> </p>
-                      <p>  <b> {{showOnlinePerson.field}} </b> </p>
+                      <p> <b class=""> {{showOnlinePerson.name}} </b> </p>
+                      <p> {{showOnlinePerson.field}} </p>
                     </div>
                   </div>
                   <hr>
                   <div class="d-flex">
-                    <span class="material-symbols-outlined ms-3"> sms </span>
-                    <span class="material-symbols-outlined ms-3"> comment </span>
-                    <span class="material-symbols-outlined ms-3" style="color:red"> recommend </span> <span>
-                      {{showOnlinePerson.likeCount}} </span>
-                    <span class="material-symbols-outlined ms-3"> thumb_down </span>
+                    <span class="material-symbols-outlined ms-3" pBadge value="12" style="font-size: 2rem;"> sms </span>
+                    <span class="material-symbols-outlined ms-3" pBadge value="6" style="font-size: 2rem;"> comment
+                    </span>
+                    <span class="material-symbols-outlined ms-3" pBadge value="5" style="font-size: 2rem; color:red">
+                      recommend </span>
+                    <span class="material-symbols-outlined ms-3" pBadge value="2" severity="danger"
+                      style="font-size: 2rem; "> thumb_down </span>
                   </div>
                   <hr>
                   <div class="d-flex ms-2">
                     <p> Posts : 12</p>
                     <p class="ms-3"> Best Answers: 5 </p>
                     <p class="ms-3"> Likes : 7 </p>
+                  </div>
+                  <div class="text-center">
+                    <button class="btn btn-outline-primary">View Profile</button>
                   </div>
                 </div>
               </ng-template>

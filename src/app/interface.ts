@@ -25,17 +25,30 @@ export interface courseDataObj {
   paymentType: string;
 }
 
+export interface trendingObj {
+  question: string;
+  description: string;
+  img: string[];
+  name?: string;
+}
+
 export interface conversationObj {
-  question : string;
-  description : string;
-  img : string;
-  name?: string | undefined
+  question: string;
+  description: string;
+  img: string;
+  name?: string | undefined;
 }
 
 export interface questionSolutionObj {
-  name?:string;
-  img?:string;
-  soluion:string | number;
-  profession?:string
+  name?: string;
+  img?: string;
+  solution: string | number;
+  profession?: string;
 }
 
+export interface onlinePersonData {
+  img: string;
+  name: string;
+  field: string;
+  likeCount: number;
+}

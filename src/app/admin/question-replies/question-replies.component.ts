@@ -8,7 +8,23 @@ import { questionSolutionObj } from 'src/app/interface';
   styleUrls: ['./question-replies.component.scss'],
 })
 export class QuestionRepliesComponent implements OnInit {
+  replyBox: boolean = false;
+  showReReplies: boolean = true;
+  repliesLength: number = 0;
+  editorText: number | string = '';
+  mySolution: {
+    img: string;
+    name: string;
+    profession: string;
+    solution: string;
+  } = {
+    img: '',
+    name: '',
+    profession: '',
+    solution: '',
+  };
   questionObj: any;
+
   @ViewChild('myEditor') myEditor!: Editor;
   @ViewChild('reReplyEditor') reReplyEditor!: Editor;
 
@@ -41,19 +57,14 @@ export class QuestionRepliesComponent implements OnInit {
   public questionDetailsObj() {
     this.questionObj = localStorage.getItem('questionDetails');
     this.questionObj = JSON.parse(this.questionObj);
-    console.log(this.questionObj);
   }
 
-  replyBox: boolean = false;
-  editorText: number | string = '';
   public replyToQuestion(): void {
     this.replyBox = true;
   }
 
-  mySolution: any;
   public messageSubmit(): void {
     this.replyBox = false;
-    console.log(this.myEditor.el.nativeElement.innerText);
     this.mySolution = {
       name: 'mahesh',
       img: '',
@@ -61,34 +72,10 @@ export class QuestionRepliesComponent implements OnInit {
       solution: this.myEditor.el.nativeElement.innerText,
     };
     this.solutions.push(this.mySolution);
-    console.log(this.solutions);
-    // this.myEditor.reset()
+    this.editorText = '';
   }
 
-  reReplyingBox: boolean = false;
-  public replyToAnsweredQuestion(): void {
-    this.reReplyingBox = true;
-  }
-
-  reRepliedArr: any = [];
-  reReplyObj: any;
-  repliesLength:number= 0
-  public submitReReply(): void {
-    this.reReplyingBox = false;
-    console.log(this.reReplyEditor.el.nativeElement.innerText);
-    this.reReplyObj = {
-      name: 'mahesh',
-      img: '',
-      profession: '',
-      solution: this.reReplyEditor.el.nativeElement.innerText,
-    };
-    this.reRepliedArr.push(this.reReplyObj);
-    this.repliesLength=this.reRepliedArr.length
-    console.log(this.reRepliedArr);
-  }
-  showReReplies: boolean = true;
   public showRereplies(): void {
     this.showReReplies = !this.showReReplies;
-
   }
 }

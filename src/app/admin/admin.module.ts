@@ -48,6 +48,7 @@ import {MenuItem} from 'primeng/api';
 import { CommunityComponent } from './community/community.component';
 import { QuestionRepliesComponent } from './question-replies/question-replies.component';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {BadgeModule} from 'primeng/badge';
 
 
 
@@ -100,7 +101,7 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
     MegaMenuModule,
     TabViewModule,
     OverlayPanelModule,
-
+    BadgeModule,
   ],
   providers: [
     ApiService
