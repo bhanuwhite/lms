@@ -48,6 +48,13 @@ export class AdminComponent implements OnInit {
                     }
                 },
                 {
+                    label: 'Account settings',
+                    icon: 'pi pi-cog',
+                    command: () => {
+                        this.router.navigateByUrl('/admin/account-settings');
+                    }
+                },
+                {
                     label: 'Logout',
                     icon: 'pi pi-sign-out mt-0 text-danger',
                     command: () => {

@@ -1,6 +1,5 @@
 <div class="container">
-    <h1 class="heading"><b>Account</b></h1>
-
+    <h2 class="text-black pt-2">Account setttings</h2>
     <div class="container-fluid">
         <p-tabView>
             <p-tabPanel header="Account security">
@@ -9,8 +8,8 @@
                         <label for="email"><b>Email:</b></label>
                         <div class="col-12 md:col-6">
                             <div class="p-inputgroup">
-                                <input type="email" id="email" [(ngModel)]="userCurrentEmail" name="userCurrentEmail"
-                                    pInputText placeholder="Enter your email id" />
+                                <input type="email" id="email" pInputText [(ngModel)]="currentEmail" name="email"
+                                    placeholder="Enter your email id" />
                                 <button type="button" pButton class="p-button-secondary" (click)="onEmailEdit()">
                                     <span class="material-symbols-outlined"> edit </span>
                                 </button>
@@ -20,12 +19,13 @@
                         <label for="password"><b>Password:</b></label>
                         <div class="col-12 md:col-6">
                             <div class="p-inputgroup">
-                                <input type="password" id="password" [(ngModel)]="userCurrentPassword"
-                                    name="userCurrentPassword" pInputText placeholder="Enter your password" />
+                                <input type="password" id="password" pInputText [(ngModel)]="currentPassword"
+                                    name="currentPassword" placeholder="Enter your password" />
                                 <button type="button" pButton class="p-button-secondary" (click)="onPasswordEdit()">
                                     <span class="material-symbols-outlined"> edit </span>
                                 </button>
                             </div>
+
                         </div>
                     </form>
 
@@ -34,25 +34,27 @@
                         <form>
                             <div class="col-12 md:col-12">
                                 <span class="p-inputgroup">
-                                    <input type="email" id="inputemail" [(ngModel)]="userNewEmail" name="userNewEmail"
-                                        pInputText placeholder="Enter your email id" />
+                                    <input type="email" id="inputemail" pInputText [(ngModel)]="newEmail"
+                                        name="newEmail" placeholder="Enter your email id" />
                                 </span>
                             </div>
                             <div class="col-12 md:col-12">
                                 <span class="p-inputgroup">
-                                    <input type="password" id="inputpassword" [(ngModel)]="userEnteredPassword"
-                                        name="userEnteredPassword" pInputText placeholder="Enter your password" />
+                                    <input type="password" id="inputpassword" pInputText [(ngModel)]="enteredPassword"
+                                        name="enteredPassword" placeholder="Enter your password" />
                                 </span>
                             </div>
+
+                            <h4>
+                                For your security,if you change your email address your saved
+                                credit card information will be deleted.
+                            </h4>
                         </form>
-                        <h4>
-                            For your security,if you change your email address your saved
-                            credit card information will be deleted.
-                        </h4>
                         <ng-template pTemplate="footer">
                             <button pButton pRipple type="button" label="Save"
-                                class="p-button-raised p-button-secondary" (click)="changeUserEmail()"></button>
+                                class="p-button-raised p-button-secondary" (click)="changeEmail()"></button>
                         </ng-template>
+
                     </p-dialog>
 
                     <p-dialog header="Change Password" [(visible)]="displayPasswordModal" [modal]="true"
@@ -60,30 +62,32 @@
                         <form>
                             <div class="col-12 md:col-12">
                                 <span class="p-inputgroup">
-                                    <input type="password" id="inputemail" [(ngModel)]="userEnteredPassword"
-                                        name="userEnteredPassword" pInputText placeholder="Enter current password" />
+                                    <input type="password" id="inputemail" pInputText [(ngModel)]="enteredPassword"
+                                        name="enteredPassword" placeholder="Enter current password" />
                                 </span>
                             </div>
                             <label for="newpassword"><b>New password:</b></label>
                             <div class="col-12 md:col-12">
                                 <span class="p-inputgroup">
-                                    <input type="password" id="newpassword" [(ngModel)]="userNewPassword"
-                                        name="userNewPassword" pInputText placeholder="Enter new password" />
+                                    <input type="password" id="newpassword" pInputText [(ngModel)]="newpassword"
+                                        name="newpassword" placeholder="Enter new password" />
                                 </span>
                             </div>
                             <label for="Repassword"><b>Confirm new password:</b></label>
                             <div class="col-12 md:col-12">
                                 <span class="p-inputgroup">
-                                    <input type="password" id="Repassword" [(ngModel)]="userRePassword"
-                                        name="userRePassword" pInputText placeholder="Re-type new password" />
+                                    <input type="password" id="Repassword" pInputText [(ngModel)]="Repassword"
+                                        name="Repassword" placeholder="Re-type new password" />
                                 </span>
                             </div>
                         </form>
                         <ng-template pTemplate="footer">
                             <button pButton pRipple type="button" label="Change Password"
-                                class="p-button-raised p-button-secondary" (click)="changeUserPassword()"></button>
+                                class="p-button-raised p-button-secondary" (click)="changePassword()"></button>
                         </ng-template>
+
                     </p-dialog>
+
                 </div>
                 <div class="card">
                     <h3><b>Multi-factor Authentication</b></h3>
@@ -176,8 +180,8 @@
             <p-tabPanel header="Close account">
                 <div class="account">
                     <p>
-                        <b style="color: rgb(233, 154, 50)">Warning:</b>If you close your account, you
-                        will be unsubscribed from all your 8 courses, and will lose access
+                        <b style="color: rgb(245, 136, 12)">Warning: </b>If you close your account, you
+                        will be unsubscribed from all your data, and will lose access
                         forever
                     </p>
 
@@ -190,3 +194,4 @@
         </p-tabView>
     </div>
 </div>
+<p-toast></p-toast>

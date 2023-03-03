@@ -99,7 +99,6 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
       this.isLoading = false;
       try {
         this.isLoading = false;
-        console.log(res);
         this.quizData = res;
         console.log(this.quizData);
       } catch (error) {

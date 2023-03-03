@@ -48,6 +48,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { SplitterModule } from 'primeng/splitter';
 import { DividerModule } from 'primeng/divider';
 import { CommunityForumComponent } from './community-forum/community-forum.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { CommunityForumComponent } from './community-forum/community-forum.compo
     CourseDetailsComponent,
     MeetingsComponent,
     ProfileComponent,
-    CommunityForumComponent
+    CommunityForumComponent,
+    AccountSettingsComponent
 
   ],
   imports: [
