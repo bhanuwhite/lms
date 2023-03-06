@@ -36,8 +36,14 @@
 <div class="container-fluid">
     <p-tabView>
         <p-tabPanel header="Most Popular">
+            <div class="row  justify-content-end">
+                <div class="col-lg-6 d-flex">
+                  <input type="search" class="form-control w-100"   placeholder="Search for courses"
+                 style="line-height: 2;">
+                  <button class="btn btn-dark"><i class="pi pi-search"></i></button>
+                </div>
+              </div>
             <div class="row all-Courses">
-
                 <p-card *ngFor="let course of courseList">
                     <ng-template pTemplate="header">
                         <div class="courseImage">
