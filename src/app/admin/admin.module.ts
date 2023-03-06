@@ -46,6 +46,9 @@ import { MegaMenuModule } from 'primeng/megamenu';
 import {TabViewModule} from 'primeng/tabview';
 import {MenuItem} from 'primeng/api';
 import { CommunityComponent } from './community/community.component';
+import { QuestionRepliesComponent } from './question-replies/question-replies.component';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {BadgeModule} from 'primeng/badge';
 
 
 
@@ -62,7 +65,8 @@ import { CommunityComponent } from './community/community.component';
     DashboardComponent,
     SpinnerComponent,
     ContentComponent,
-    CommunityComponent
+    CommunityComponent,
+    QuestionRepliesComponent
 
   ],
   imports: [
@@ -96,8 +100,8 @@ import { CommunityComponent } from './community/community.component';
     ProgressBarModule,
     MegaMenuModule,
     TabViewModule,
-
-
+    OverlayPanelModule,
+    BadgeModule,
   ],
   providers: [
     ApiService
