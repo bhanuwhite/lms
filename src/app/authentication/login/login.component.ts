@@ -81,7 +81,7 @@ export class LoginComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail:'Somthing went to wrong !! '})
       }
     });
-    // this.router.navigate(["/user"]);
+    this.router.navigate(["/user"]);
 
   }
 

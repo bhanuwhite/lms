@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { AdminComponent } from './admin.component';
 import { CommunityForumComponent } from './community-forum/community-forum.component';
+import { CommunityQuestionsRepliesComponent } from './community-questions-replies/community-questions-replies.component';
 import { ContentDetailsComponent } from './content-details/content-details.component';
 import { ContentComponent } from './content/content.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CoursesComponent } from './courses/courses.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { InstructorsMessagesComponent } from './instructors-messages/instructors-messages.component';
 import { MeetingsComponent } from './meetings/meetings.component';
 import { ProfileComponent } from './profile/profile.component';
 import { QuizComponent } from './quiz/quiz.component';
@@ -44,7 +46,13 @@ const routes: Routes = [
         path: 'community-forum', component: CommunityForumComponent
       },
       {
+        path: 'replies', component: CommunityQuestionsRepliesComponent
+      },
+      {
         path: 'account-settings', component: AccountSettingsComponent
+      },
+      {
+        path: 'messages', component: InstructorsMessagesComponent
       }
     ]
   },

@@ -15,7 +15,7 @@
                         <i class="pi pi-bars site-name1 me-2" style="font-size: 20px"></i> <span> </span>
                     </li>
                     <li class="listbox-item" [class.active]="isActive('/admin')" routerLink="/admin">
-                        <i class="pi pi-palette me-2" ></i> <span> Dashboard</span>  
+                        <i class="pi pi-chart-line me-2" ></i> <span> Dashboard</span>  
                     </li>
                     <li class="listbox-item" routerLink="/admin/content" [class.active]="isActive('/admin/content')">
                         <i class="pi pi-file-edit me-2"></i> <span>Content library</span>
@@ -33,7 +33,7 @@
                         routerLink="/admin/community-forum">
                         <i class="pi pi-users me-2"></i> <span>Community-forum</span>
                     </li>
-                    <li class="listbox-item">
+                    <li class="listbox-item" [class.active]="isActive('/admin/messages')" routerLink="/admin/messages">
                         <i class="pi pi-envelope me-2"></i> <span>Messages</span>
                     </li>
 

@@ -49,6 +49,10 @@ import { SplitterModule } from 'primeng/splitter';
 import { DividerModule } from 'primeng/divider';
 import { CommunityForumComponent } from './community-forum/community-forum.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { BadgeModule } from 'primeng/badge';
+import { CommunityQuestionsRepliesComponent } from './community-questions-replies/community-questions-replies.component';
+import { InstructorsMessagesComponent } from './instructors-messages/instructors-messages.component';
 
 
 @NgModule({
@@ -65,7 +69,9 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
     MeetingsComponent,
     ProfileComponent,
     CommunityForumComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    CommunityQuestionsRepliesComponent,
+    InstructorsMessagesComponent
 
   ],
   imports: [
@@ -104,7 +110,9 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
     AvatarGroupModule,
     CheckboxModule,
     SplitterModule,
-    MultiSelectModule
+    MultiSelectModule,
+    OverlayPanelModule,
+    BadgeModule
   ],
   providers: [
     ApiService

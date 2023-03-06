@@ -1,9 +1,12 @@
-export interface newObj {
+export interface mainCourseData {
   id: number;
   url: string;
   title: string;
   desc: string;
   rating: number;
+  category?: string;
+  videoUrl?: string;
+  coursePreview?: string;
 }
 export interface ratingObj {
   rating: number;
@@ -22,9 +25,30 @@ export interface courseDataObj {
   paymentType: string;
 }
 
+export interface trendingObj {
+  question: string;
+  description: string;
+  img: string[];
+  name?: string;
+}
+
 export interface conversationObj {
   question: string;
   description: string;
   img: string;
-  name?: string | undefined
+  name?: string | undefined;
+}
+
+export interface questionSolutionObj {
+  name?: string;
+  img?: string;
+  solution: string | number;
+  profession?: string;
+}
+
+export interface onlinePersonData {
+  img: string;
+  name: string;
+  field: string;
+  likeCount: number;
 }
