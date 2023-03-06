@@ -1,9 +1,6 @@
 <app-user-header></app-user-header>
 <div class="container-fluid py-4 learningHead">
-  <div class="container">
-    <h1 style="font-size: 2.5rem;">My Libraries</h1>
-  </div>
-  
+  <h1 style="font-size: 2.5rem;">My Libraries</h1>
 </div>
 <div class="container-fluid">
   <p-tabView>
@@ -12,19 +9,19 @@
       <div class="row filter mt-4">
         <div class="col-lg-2 mb-1">
           <p-dropdown [options]="recentlyAccessDropdown" [(ngModel)]="selectedRecentlyAccess" optionLabel="name"
-          filterBy="name" [showClear]="true" class="w-100"   placeholder="Select Preference "></p-dropdown>
+            filterBy="name" [showClear]="true" class="w-100" placeholder="Select Preference "></p-dropdown>
         </div>
         <div class="col-lg-2 mb-1">
           <p-dropdown [options]="categoryDropdown" [(ngModel)]="selectedCategory" optionLabel="name" filterBy="name"
-          [showClear]="true" class="w-100"  placeholder="Select Category "></p-dropdown>
+            [showClear]="true" class="w-100" placeholder="Select Category "></p-dropdown>
         </div>
         <div class="col-lg-2 mb-1">
           <p-dropdown [options]="progressDropdown" [(ngModel)]="selectedProgress" optionLabel="name" filterBy="name"
-          [showClear]="true" class="w-100"  placeholder="Select Progress "></p-dropdown>
+            [showClear]="true" class="w-100" placeholder="Select Progress "></p-dropdown>
         </div>
         <div class="col-lg-2 mb-1">
           <p-dropdown [options]="instructorDropdown" [(ngModel)]="selectedInstructor" optionLabel="name" filterBy="name"
-          [showClear]="true" class="w-100"  placeholder="Select Instractor "></p-dropdown>
+            [showClear]="true" class="w-100" placeholder="Select Instractor "></p-dropdown>
         </div>
         <div class="col-lg-3 mb-1">
           <div class="d-flex">
@@ -34,39 +31,38 @@
           </div>
         </div>
         <div class="col-lg-1 mb-1">
-          <button pButton pRipple type="button" label="Reset"
-          class="p-button-outlined p-button-secondary"></button>
+          <button pButton pRipple type="button" label="Reset" class="p-button-outlined p-button-secondary"></button>
         </div>
-     
+
       </div>
-      <div class="row mt-4"  *ngIf="searchData.length!=0">
-        <div class="col-lg-3 mb-4" *ngFor="let search of searchData" >
+      <div class="row mt-4" *ngIf="searchData.length!=0">
+        <div class="col-lg-3 mb-4" *ngFor="let search of searchData">
           <div class="card course-card">
             <div class="img-header">
-              <a [routerLink]="['/user/library',search.id]" routerLinkActive="routerActive"> <img src={{search.url}} alt=""
-                class="courseFigure" (click)="myCourseDetails(search)"> </a>
+              <a [routerLink]="['/user/library',search.id]" routerLinkActive="routerActive"> <img src={{search.url}}
+                  alt="" class="courseFigure" (click)="myCourseDetails(search)"> </a>
             </div>
-              <hr class="m-0 p-0">
-              <h2 class="cursor-pointer px-3" style="cursor: pointer;"> {{search.title}} </h2>
-              <div class="px-3">
-                <div class="text-wrap " [routerLink]="['/user/library',search.id]">
-                  <p class="cursor-pointer">{{search.desc}} </p>
-                </div>
-                <div class=" cursor-pointer" [routerLink]="['/user/library',search.id]">
-                  <div class="progress mt-4" style="height: 4px;">
-                    <div class="progress-bar bg-primary" role="progressbar" [style.width]="progressValue + '%'"
-                      aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p> {{progressValue}} % Complete</p>
-                </div>
-                <div class="mt-4 ml-auto d-flex justify-content-end">
-                  <p-rating [stars]=5 [cancel]=false> </p-rating>
-                </div>
+            <hr class="m-0 p-0">
+            <h2 class="cursor-pointer px-3" style="cursor: pointer;"> {{search.title}} </h2>
+            <div class="px-3">
+              <div class="text-wrap " [routerLink]="['/user/library',search.id]">
+                <p class="cursor-pointer">{{search.desc}} </p>
               </div>
+              <div class=" cursor-pointer" [routerLink]="['/user/library',search.id]">
+                <div class="progress mt-4" style="height: 4px;">
+                  <div class="progress-bar bg-primary" role="progressbar" [style.width]="progressValue + '%'"
+                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p> {{progressValue}} % Complete</p>
+              </div>
+              <div class="mt-4 ml-auto d-flex justify-content-end">
+                <p-rating [stars]=5 [cancel]=false> </p-rating>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      
+
       <!-- <div *ngIf="searchData.length!=0" class="course_DetailsDiv">
         <div *ngFor="let search of searchData" class="courseDiv">
           <a [routerLink]="['/user/library',search.id]" routerLinkActive="routerActive"> <img src={{search.url}} alt=""
@@ -89,7 +85,7 @@
           </div>
         </div>
       </div> -->
-  
+
       <!-- <div *ngIf="searchData.length ==0" class="course_DetailsDiv">
         <div class="courseDiv" *ngFor="let courseDetails of course_Details">
           <a [routerLink]="['/user/library',courseDetails.id]" routerLinkActive="routerActive"> <img
@@ -127,5 +123,5 @@
     </p-tabPanel>
   </p-tabView>
 </div>
- 
+
 <app-user-footer></app-user-footer>
