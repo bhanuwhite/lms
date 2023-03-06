@@ -62,6 +62,7 @@ export class MyLibraryComponent implements OnInit {
     this.httpClient.get(this.courseDetailsJSON).subscribe((data) => {
       try {
         this.course_Details = data;
+         this.searchData = data;
         this.course_Details2 = this.course_Details;
         this.items = [
           { label: 'All Courses' },

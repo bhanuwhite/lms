@@ -14,31 +14,29 @@
                     <li class="listbox-item" (click)="step=2" *ngIf="step==1">
                         <i class="pi pi-bars site-name1 me-2" style="font-size: 20px"></i> <span> </span>
                     </li>
-                    <li class="listbox-item" [class.active]="isActive('/admin')" routerLink="/admin"
-                       >
-                        <i class="pi pi-palette me-2"></i> <span> Dashboard</span>
+                    <li class="listbox-item" [class.active]="isActive('/admin')" routerLink="/admin">
+                        <i class="pi pi-palette me-2" ></i> <span> Dashboard</span>  
                     </li>
-                    <li class="listbox-item" routerLink="/admin/content" [class.active]="isActive('/admin/content')"
-                       >
+                    <li class="listbox-item" routerLink="/admin/content" [class.active]="isActive('/admin/content')">
                         <i class="pi pi-file-edit me-2"></i> <span>Content library</span>
                     </li>
-                    <li [class.active]="isActive('/admin/courses')" class="listbox-item" routerLink="/admin/courses"
-                       >
+                    <li [class.active]="isActive('/admin/courses')" class="listbox-item" routerLink="/admin/courses">
                         <i class="pi pi-book me-2"></i> <span>Course</span>
                     </li>
-                    <li class="listbox-item" [class.active]="isActive('/admin/quiz')" routerLink="/admin/quiz"
-                       >
+                    <li class="listbox-item" [class.active]="isActive('/admin/quiz')" routerLink="/admin/quiz">
                         <i class="pi pi-stopwatch me-2"></i> <span>Quiz</span>
                     </li>
                     <li class="listbox-item" [class.active]="isActive('/admin/meetings')" routerLink="/admin/meetings">
                         <i class="pi pi-calendar me-2"></i> <span>Meetings</span>
                     </li>
+                    <li class="listbox-item" [class.active]="isActive('/admin/community-forum')"
+                        routerLink="/admin/community-forum">
+                        <i class="pi pi-users me-2"></i> <span>Community-forum</span>
+                    </li>
                     <li class="listbox-item">
                         <i class="pi pi-envelope me-2"></i> <span>Messages</span>
                     </li>
-                    <li class="listbox-item">
-                        <i class="pi pi-users me-2"></i> <span>Groups</span>
-                    </li>
+
                     <hr class="mt-4 mb-2">
 
                 </ul>
@@ -46,6 +44,9 @@
 
         </div>
         <div class="sidebar-footer cursor-pointer" style="overflow-y: auto;">
+            <li class="listbox-item" routerLink="/admin/profile">
+                <i class="pi pi-user me-2"></i> <span>Profile</span>
+            </li>
             <li class="listbox-item" (click)="onLogout()">
                 <i class="pi pi-sign-out me-2"></i> <span>Logout</span>
             </li>
@@ -110,16 +111,13 @@
         <li class="listbox-item" [class.active]="isActive('admin')" routerLink="/admin">
             <span> <i class="pi pi-palette me-2"></i>Dashboard</span>
         </li>
-        <li [class.active]="isActive('admin/content')" class="listbox-item" routerLink="/admin/content"
-           >
+        <li [class.active]="isActive('admin/content')" class="listbox-item" routerLink="/admin/content">
             <span><i class="pi pi-file-edit me-2"></i>Content library</span>
         </li>
-        <li [class.active]="isActive('admin/courses')" class="listbox-item" routerLink="/admin/courses"
-           >
+        <li [class.active]="isActive('admin/courses')" class="listbox-item" routerLink="/admin/courses">
             <span><i class="pi pi-book me-2"></i>Course</span>
         </li>
-        <li class="listbox-item" [class.active]="isActive('admin/quiz')" routerLink="/admin/quiz"
-           >
+        <li class="listbox-item" [class.active]="isActive('admin/quiz')" routerLink="/admin/quiz">
             <span><i class="pi pi-stopwatch me-2"></i>Quiz</span>
         </li>
         <li class="listbox-item">

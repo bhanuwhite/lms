@@ -27,12 +27,12 @@ import { AuthGuard } from 'src/guards/auth.guard';
 import { UserGuard } from 'src/guards/user.guard';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SheredModule } from './component/shered.module';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { MenuModule } from 'primeng/menu';
 import {MatTabsModule} from '@angular/material/tabs';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserModule } from './user/user.module';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 
 let module = [
@@ -55,6 +55,7 @@ let module = [
   UserModule,
   forwardRef(() => MatSnackBarModule),
   MatTabsModule,
+  ToastModule
 
   
 ]
@@ -82,7 +83,8 @@ let module = [
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    MessageService
     
   ],
   bootstrap: [AppComponent]

@@ -8,7 +8,6 @@ const routes: Routes = [
   {
     path: '', redirectTo: 'login', pathMatch: 'full'
   },
-  // { path: 'base', loadChildren: () => import('./base/base.module').then(m => m.BaseModule) },
   { path: 'login', loadChildren: () => import('./authentication/login/login.module').then(m => m.LoginModule) },
   { path: 'signup', loadChildren: () => import('./authentication/signup/signup.module').then(m => m.SignupModule) },
   {
@@ -25,7 +24,6 @@ const routes: Routes = [
       role: 'user'
     }
   },
-
   {
     path: '**',
     redirectTo: 'login'
@@ -33,8 +31,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [    RouterModule.forRoot(routes, { useHash: true }),
-  ],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

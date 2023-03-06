@@ -21,3 +21,10 @@ export interface courseDataObj {
   totalPrice: number;
   paymentType: string;
 }
+
+export interface conversationObj {
+  question: string;
+  description: string;
+  img: string;
+  name?: string | undefined
+}

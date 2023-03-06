@@ -9,8 +9,6 @@ import { MenuModule } from 'primeng/menu';
 import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
-// import { HTTP_INTERCEPTORS } from '@angular/common/http';
-// import { TokenInterceptor } from '../interceptor/token-interceptor.service';
 import { ApiService } from '../services/api.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -18,17 +16,14 @@ import { RippleModule } from 'primeng/ripple';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessagesModule } from 'primeng/messages';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
- 
 import { ContentDetailsComponent } from './content-details/content-details.component';
 import { HeaderComponent } from './header/header.component';
 import { QuizComponent } from './quiz/quiz.component';
-import { AssessmentComponent } from './assessment/assessment.component';
 import { PaginatorModule } from 'primeng/paginator';
 import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
 import { MenubarModule } from 'primeng/menubar';
 import { AvatarModule } from 'primeng/avatar';
-import { DividerModule } from 'primeng/divider';
 import { EditorModule } from 'primeng/editor';
 import { TableModule } from 'primeng/table';
 import { CoursesComponent } from './courses/courses.component';
@@ -38,22 +33,22 @@ import { CalendarModule } from 'primeng/calendar';
 import {ChartModule} from 'primeng/chart';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {ProgressBarModule} from 'primeng/progressbar';
- 
 import { SpinnerComponent } from '../component/spinner/spinner.component';
 import { ContentComponent } from './content/content.component';
 import { MegaMenuModule } from 'primeng/megamenu';
-
 import {TabViewModule} from 'primeng/tabview';
-import {MenuItem} from 'primeng/api';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import {AccordionModule} from 'primeng/accordion';
 import { MeetingsComponent } from './meetings/meetings.component';
 import {CheckboxModule} from 'primeng/checkbox';
 import {AvatarGroupModule} from 'primeng/avatargroup';
-
-
-
+import { ProfileComponent } from './profile/profile.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SplitterModule } from 'primeng/splitter';
+import { DividerModule } from 'primeng/divider';
+import { CommunityForumComponent } from './community-forum/community-forum.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 @NgModule({
@@ -62,13 +57,15 @@ import {AvatarGroupModule} from 'primeng/avatargroup';
     ContentDetailsComponent,
     HeaderComponent,
     QuizComponent,
-    AssessmentComponent,
     CoursesComponent,
     DashboardComponent,
     SpinnerComponent,
     ContentComponent,
     CourseDetailsComponent,
-    MeetingsComponent
+    MeetingsComponent,
+    ProfileComponent,
+    CommunityForumComponent,
+    AccountSettingsComponent
 
   ],
   imports: [
@@ -105,7 +102,9 @@ import {AvatarGroupModule} from 'primeng/avatargroup';
     AccordionModule,
     ToolbarModule,
     AvatarGroupModule,
-    CheckboxModule
+    CheckboxModule,
+    SplitterModule,
+    MultiSelectModule
   ],
   providers: [
     ApiService

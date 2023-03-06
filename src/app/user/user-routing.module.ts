@@ -10,44 +10,58 @@ import { PurchaseHistoryComponent } from './purchase-history/purchase-history.co
 import { ReceiptComponent } from './receipt/receipt.component';
 import { InvoiceComponent } from './invoice/invoice.component';
 import { PaymentComponent } from './payment/payment.component';
+import { ProfileComponent } from './profile/profile.component';
+import { UserContentComponent } from './user-content/user-content.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 const routes: Routes = [
   {
     path: '',
     component: UserComponent,
-  },
-  {
-    path: 'library', component: MyLibraryComponent
-  },
-  {
-    path: 'contentDetails', component: ContentDetailsComponent
-  },
-  {
-    path: 'content/:id', component: ContentDetailsComponent
-  },
-  {
-    path: 'about',
-    component: AboutComponent,
-  },
-  {
-    path: 'library/:id', component: CourseDetailsComponent
-  },
-  {
-    path: 'message',
-    component: MessageComponent
-  },
-  {
-    path:'payment',component:PaymentComponent
-  },
-  {
-    path: 'purchase-history', component: PurchaseHistoryComponent
-  },
-  {
-    path: 'receipt', component: ReceiptComponent
-  },
-  {
-    path: 'invoice', component: InvoiceComponent
+    children: [
+      {
+        path: '', component: UserContentComponent
+      },
+      {
+        path: 'library', component: MyLibraryComponent
+      },
+      {
+        path: 'contentDetails', component: ContentDetailsComponent
+      },
+      {
+        path: 'content/:id', component: ContentDetailsComponent
+      },
+      {
+        path: 'about',
+        component: AboutComponent,
+      },
+      {
+        path: 'library/:id', component: CourseDetailsComponent
+      },
+      {
+        path: 'message',
+        component: MessageComponent
+      },
+      {
+        path: 'payment', component: PaymentComponent
+      },
+      {
+        path: 'purchase-history', component: PurchaseHistoryComponent
+      },
+      {
+        path: 'receipt', component: ReceiptComponent
+      },
+      {
+        path: 'invoice', component: InvoiceComponent
+      },
+      {
+        path: 'profile', component: ProfileComponent
+      },
+      {
+        path: 'account-settings', component:AccountSettingsComponent
+      }
+    ]
   }
 ];
 

@@ -7,7 +7,7 @@ import { MenuModule } from 'primeng/menu';
 import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -45,8 +45,16 @@ import { PurchaseHistoryComponent } from './purchase-history/purchase-history.co
 import { ReceiptComponent } from './receipt/receipt.component';
 import { InvoiceComponent } from './invoice/invoice.component';
 import { PaymentComponent } from './payment/payment.component';
+import { ProfileComponent } from './profile/profile.component';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FileUploadModule } from 'primeng/fileupload';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SplitterModule } from 'primeng/splitter';
+import { UserContentComponent } from './user-content/user-content.component';
+import { DividerModule } from 'primeng/divider';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
-// import {DialogModule} from 'primeng/dialog';
+
 
 @NgModule({
   declarations: [
@@ -54,7 +62,6 @@ import { PaymentComponent } from './payment/payment.component';
     MyLibraryComponent,
     CourseDetailsComponent,
     AboutComponent,
-    // HeaderComponent,
     UserHeaderComponent,
     UserFooterComponent,
     ContentDetailsComponent,
@@ -63,7 +70,10 @@ import { PaymentComponent } from './payment/payment.component';
     PurchaseHistoryComponent,
     ReceiptComponent,
     InvoiceComponent,
-    PaymentComponent
+    PaymentComponent,
+    ProfileComponent,
+    UserContentComponent,
+    AccountSettingsComponent
   ],
   imports: [
     CommonModule,
@@ -101,10 +111,16 @@ import { PaymentComponent } from './payment/payment.component';
     EditorModule,
     HttpClientModule,
     TableModule,
-    TabViewModule
+    TabViewModule,
+    CheckboxModule,
+    FileUploadModule,
+    FormsModule,
+    SplitterModule,
+    MultiSelectModule,
+    DividerModule
 
   ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
 })
 export class UserModule { }

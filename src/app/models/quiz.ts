@@ -49,12 +49,12 @@ export class QuizResponse {
 
 export class QuizData {
     data?: QuizResponse[];
-    meta?: {
-        pagination: {
-            page: number | undefined;
-            pageSize: number | undefined;
-            pageCount: number | undefined;
-            total: number | undefined;
-        }
-    };
+    // meta?: {
+    //     pagination: {
+    //         page: number | undefined;
+    //         pageSize: number | undefined;
+    //         pageCount: number | undefined;
+    //         total: number | undefined;
+    //     }
+    // };
 }
