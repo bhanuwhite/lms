@@ -79,7 +79,7 @@ export class UserComponent implements OnInit {
     this.isLoading = true;
     this.apiService.getContent().subscribe((res) => {
       try {
-        this.contentData = res.data;
+        this.contentData = res;
         console.log(this.contentData);
         this.isLoading = false;
       } catch (error) {

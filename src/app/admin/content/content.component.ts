@@ -27,16 +27,14 @@ export class ContentComponent implements OnInit, AfterViewInit {
   display: boolean = false;
   editDisply: boolean = false;
 
-  contentData:ContentData;
-
-  totalCourse: number = 0;
+  contentData!:ContentData;
+   totalCourse: number = 0;
   public _id!: string;
-  public items: any
-  _data!: any;
+  // public items: any
+  _data!:Content ;
   formData = new FormData();
   percentage: number = 0;
 
-content!:ContentData[];
   isProgressFile: boolean = false;
 
 
@@ -45,8 +43,8 @@ content!:ContentData[];
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   url: string = "";
   updateContent!: {}
-  contentBody!: {};
-  editContentBody!: {};
+  contentBody!: Content;
+  editContentBody!:{};
   bodyData!: {};
   edit!: {}
   cId!: string | null;
@@ -146,7 +144,7 @@ content!:ContentData[];
         console.log(res);
 
         this.contentData = res;
-        console.log(this.contentData.data);
+        console.log(this.contentData);
         // this.totalCourse = this.contentData.data.length;
         this.loadingSpinner = false;
       } catch (error) {
@@ -203,15 +201,23 @@ content!:ContentData[];
   public onSubmitContent(): void {
     const author = localStorage.getItem('role')
 
-    this.contentBody = {
-      "data": {
-        "name": this.courseGroup.value.title,
-        "description": this.courseGroup.value.description,
-        "author": author,
-        "price": this.courseGroup.value.price,
-        "media": this.contentFileData
-      }
-    }
+    // this.contentBody = {
+    //   "data": {
+    //     "name": this.courseGroup.value.title,
+    //     "description": this.courseGroup.value.description,
+    //     "author": author,
+    //     "price": this.courseGroup.value.price,
+    //     "media": this.contentFileData
+    //   }
+    // }
+
+
+    // this.contentBody.data.attributes.name = this.courseGroup.value.title ;
+    // this.contentBody.data.attributes.description = this.courseGroup.value.description,
+    // this.contentBody.data.attributes.author = this.courseGroup.value.author
+    // this.contentBody.data.attributes.price = this.courseGroup.value.price,
+    // this.contentBody.data.attributes.media = this.contentFileData
+
     console.log(this.contentBody);
 
     // Post api call here
@@ -259,25 +265,39 @@ content!:ContentData[];
         "data": {
           "name": this.courseUpdateGroup.value.title,
           "description": this.courseUpdateGroup.value.description,
-          "author": this._data.attributes.author,
+          "author": this._data.data.attributes?.author,
           "price": this.courseUpdateGroup.value.price,
-          "media": this._data.attributes.media.data[0]
+          "media": this._data.data.attributes?.media
         }
       }
+          //  this.editContentBody.data.attributes.name =this.courseUpdateGroup.value.title,
+          //  this.editContentBody.data.attributes.description=this.courseUpdateGroup.value.description,
+          //  this.editContentBody.data.attributes.author=this._data.data.attributes.author,
+          //  this.editContentBody.data.attributes.price=this.courseUpdateGroup.value.price
+          //  this.editContentBody.data.attributes.media= this._data.data.attributes.media
+
+
     } else {
       this.editContentBody = {
         "data": {
           "name": this.courseUpdateGroup.value.title,
           "description": this.courseUpdateGroup.value.description,
-          "author": this._data.attributes.author,
+          "author": this._data.data.attributes.author,
           "price": this.courseUpdateGroup.value.price,
           "media": this.contentUpdateFileData
         }
       }
+      // this.editContentBody.data.attributes.name =this.courseUpdateGroup.value.title,
+      // this.editContentBody.data.attributes.description=this.courseUpdateGroup.value.description,
+      // this.editContentBody.data.attributes.author=this._data.data.attributes.author,
+      // this.editContentBody.data.attributes.price=this.courseUpdateGroup.value.price
+      // this.editContentBody.data.attributes.media=  this.contentUpdateFileData
+
+
     }
 
     // Post api call here
-    this.apiService.updateContent(this._data.id, this.editContentBody).subscribe(res => {
+    this.apiService.updateContent(this._data.data.id, this.editContentBody).subscribe(res => {
       console.log(res);
       try {
         this.editDisply = false;
@@ -292,13 +312,17 @@ content!:ContentData[];
   }
 
   // Delete content
-  public deleteDialog(data: any): void {
+  public deleteDialog(data:ContentResponse): void {
     this.confirmationService.confirm({
-      message: `Do you want to delete - ${data.attributes.name} ?`,
+      message: `Do you want to delete - ${data.attributes?.name} ?`,
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
         this.apiService.deleteContent(data.id).subscribe(res => {
+          console.log(res);
+          console.log(data.id);
+
+
           try {
             this.messageService.add({
               severity: 'error', summary: 'Delete', detail: 'Content deleted successfully !'

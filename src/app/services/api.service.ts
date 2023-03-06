@@ -31,18 +31,18 @@ export class ApiService {
   }
 
   //Post content
-  public postContent(item: any): Observable<Content> {
+  public postContent(item: Content): Observable<Content> {
     return this.http.post<Content>(`api/content-libraries`, item);
   }
 
   // update content
-  public updateContent(id: string, item: any): Observable<any> {
-    return this.http.put<any>(`api/content-libraries/${id}`, item);
+  public updateContent(id: string | undefined, item: {}): Observable<Content> {
+    return this.http.put<Content>(`api/content-libraries/${id}`, item);
   }
 
   // Delete content
-  public deleteContent(id: any): Observable<any> {
-    return this.http.delete<any>(`api/content-libraries/${id}`);
+  public deleteContent(id: string | undefined): Observable<ContentResponse> {
+    return this.http.delete<ContentResponse>(`api/content-libraries/${id}`);
   }
 
   // Post course
