@@ -159,6 +159,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --primary-800: #125386;
     --primary-900: #0d3c61;
 }
+.p-dropdown.p-component.p-dropdown-clearable {
+    width: 100%;
+}
 button,
 input,
 select,
