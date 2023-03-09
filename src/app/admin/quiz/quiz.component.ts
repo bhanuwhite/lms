@@ -27,17 +27,14 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
 
   addQuizGroup!: FormGroup;
   editQuizGroup!: FormGroup;
-
-  qizDataBody: Quiz = new Quiz();
-
-
+  qizDataBody!: Quiz;
   quizData!: QuizData;
 
 
 
 
-  public quizBody!: {};
-  public quizUpdateBody!: {};
+  public quizBody!: Quiz;
+  public quizUpdateBody!: Quiz;
   quizGetSubscription$: Subscription = new Subscription();;
   quizPostSubscription$: Subscription = new Subscription();
   quizUpdateSubscription$: Subscription = new Subscription();
@@ -168,15 +165,13 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
 
-    // this.qizDataBody.data!.all_answer!.A = this.addQuizGroup.value.option1;
-    // this.qizDataBody.data!.all_answer!.B = this.addQuizGroup.value.option2;
-    // this.qizDataBody.data!.all_answer!.C = this.addQuizGroup.value.option3;
-    // this.qizDataBody.data!.all_answer!.D = this.addQuizGroup.value.option4;
-    // this.qizDataBody.data!.syllabus = this.addQuizGroup.value.syllabus;
-    // this.qizDataBody.data!.question = this.addQuizGroup.value.question;
-    // this.qizDataBody.data!.correct_answer = this.addQuizGroup.value.answer;
-
-
+    // this.quizBody.data.all_answer.A = this.addQuizGroup.value.option1;
+    // this.quizBody.data.all_answer.B = this.addQuizGroup.value.option2;
+    // this.quizBody.data.all_answer.C = this.addQuizGroup.value.option3;
+    // this.quizBody.data.all_answer.D = this.addQuizGroup.value.option4;
+    // this.quizBody.data.syllabus = this.addQuizGroup.value.syllabus;
+    // this.quizBody.data.question = this.addQuizGroup.value.question;
+    // this.quizBody.data.correct_answer = this.addQuizGroup.value.answer;
 
     this.quizPostSubscription$ = this.apiService.postQuiz(this.quizBody).subscribe(res => {
       try {

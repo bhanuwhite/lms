@@ -1,6 +1,6 @@
-export class Quiz {
-    data?: {
-        all_answer?: {
+export interface Quiz {
+    data: {
+        all_answer: {
             A: number | string;
             B: number | string;
             C: number | string;
@@ -10,19 +10,6 @@ export class Quiz {
         question?: string;
         correct_answer?: string;
     }
-
-
-    // constructor(data: {
-    //     all_answer: { A: number; B: number; C: number; D: number };
-    //     syllabus: string;
-    //     question: string;
-    //     correct_answer: string;
-    // }) {
-    //     this.all_answer = data.all_answer;
-    //     this.syllabus = data.syllabus;
-    //     this.question = data.question;
-    //     this.correct_answer = data.correct_answer;
-    // }
 }
 
 
@@ -43,8 +30,6 @@ export class QuizResponse {
         };
         correct_answer?: string;
     }
-
-
 }
 
 export class QuizData {

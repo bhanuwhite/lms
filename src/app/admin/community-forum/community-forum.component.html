@@ -370,11 +370,11 @@
             <div class="ms-3" style="width: 28%;">
                 <div class="card ">
                     <h2 class=" text-center mt-4"> Community Resources</h2>
-                    <a href="" class="ms-5"> Purpose and Values </a>
-                    <a href="" class="mt-4 ms-5"> Best Practices </a>
-                    <a href="" class="mt-4 ms-5"> Community Guidelines </a>
-                    <a href="" class="mt-4 ms-5"> Navigating this Community </a>
-                    <a href="" class="mt-4 mb-3 ms-5"> Meet our Community Champions </a>
+                    <a routerLink="/admin" class="ms-5"> Purpose and Values </a>
+                    <a routerLink="/admin" class="mt-4 ms-5"> Best Practices </a>
+                    <a routerLink="/admin" class="mt-4 ms-5"> Community Guidelines </a>
+                    <a routerLink="/admin" class="mt-4 ms-5"> Navigating this Community </a>
+                    <a routerLink="/admin" class="mt-4 mb-3 ms-5"> Meet our Community Champions </a>
                 </div>
                 <div class="card mt-3">
                     <h1 class="text-center">Instractors Leaderboard</h1>
@@ -382,7 +382,7 @@
                         <img src={{leaderBoard.img}} alt="" class="userImg"
                             (click)="onlineList.toggle($event); showOnlinePersonData(leaderBoard)">
                         <div>
-                            <a href="" class="ms-3"> {{leaderBoard.name}}</a>
+                            <a routerLink="/admin" class="ms-3"> {{leaderBoard.name}}</a>
                             <div class="d-flex ms-3 text-center">
                                 <p> <span class="material-symbols-outlined">
                                         thumb_up

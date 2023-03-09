@@ -76,9 +76,9 @@ export class ProfileComponent implements OnInit{
   //onUserProfileSubmition
   public onUserProfileSubmit(): void {
     localStorage.setItem("userProfileForm", JSON.stringify(this.userProfileForm.value));
-    this.userProfileDataFromLocalStorage = JSON.parse(localStorage.getItem("userProfileForm") as string)
+    this.userProfileDataFromLocalStorage = JSON.parse(localStorage.getItem("userProfileForm") as string);
     this.userProfileForm.reset();
-    window.alert("Profile values saved")
+    window.alert("Profile values saved");
   }
   //onImageFilesubmition
   public onImageUpload(event: Event): void {
@@ -98,16 +98,16 @@ export class ProfileComponent implements OnInit{
   }
   //save image
   public saveImage(): void {
-    localStorage.setItem("userImageform", JSON.stringify(this.userImageForm.value.imageControl))
-    this.imageData = ''
-    this.imageData = JSON.parse(localStorage.getItem("userImageform") as string)
-    window.alert("image saved")
+    localStorage.setItem("userImageform", JSON.stringify(this.userImageForm.value.imageControl));
+    this.imageData = '';
+    this.imageData = JSON.parse(localStorage.getItem("userImageform") as string);
+    window.alert("image saved");
   }
   //saveProfileSettingValues
   public savingProfileSettingValues(): void {
     localStorage.setItem("profileSettingValues", JSON.stringify(this.selectedValues));
-    this.userProfileSettings = JSON.parse(localStorage.getItem("profileSettingValues") as string)
-    alert("Setting values saved")
+    this.userProfileSettings = JSON.parse(localStorage.getItem("profileSettingValues") as string);
+    alert("Setting values saved");
   }
 
   //for vaidations profile form
@@ -116,35 +116,35 @@ export class ProfileComponent implements OnInit{
     return this.userProfileForm.get('firstname')
   }
   public get lastname() {
-    return this.userProfileForm.get('lastname')
+    return this.userProfileForm.get('lastname');
   }
   public get headline() {
-    return this.userProfileForm.get('headline')
+    return this.userProfileForm.get('headline');
   }
   public get biography() {
-    return this.userProfileForm.get('biography')
+    return this.userProfileForm.get('biography');
   }
   public get website() {
-    return this.userProfileForm.get('website')
+    return this.userProfileForm.get('website');
   }
   public get twitter() {
-    return this.userProfileForm.get('twitter')
+    return this.userProfileForm.get('twitter');
   }
   public get linkedin() {
-    return this.userProfileForm.get('linkedin')
+    return this.userProfileForm.get('linkedin');
   }
   public get facebook() {
-    return this.userProfileForm.get('facebook')
+    return this.userProfileForm.get('facebook');
   }
   public get youtube() {
-    return this.userProfileForm.get('youtube')
+    return this.userProfileForm.get('youtube');
   }
   public get selectedlanquages() {
-    return this.userProfileForm.get('selectedlanquages')
+    return this.userProfileForm.get('selectedlanquages');
   }
 
   //image validations
   public get imageControl() {
-    return this.userProfileForm.get('imageControl')
+    return this.userProfileForm.get('imageControl');
   }
 }

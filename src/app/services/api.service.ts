@@ -87,15 +87,15 @@ export class ApiService {
   /**
    * updateQuiz
    */
-  public updateQuiz(id: string, item: any): Observable<any> {
-    return this.http.put<any>(`/api/quizzes/${id}`, item);
+  public updateQuiz(id: string, item: Quiz): Observable<Quiz> {
+    return this.http.put<Quiz>(`/api/quizzes/${id}`, item);
   }
 
   /**
    * deleteQuiz
    */
-  public deleteQuiz(id: string): Observable<any> {
-    return this.http.delete<any>(`/api/quizzes/${id}`);
+  public deleteQuiz(id: string): Observable<Quiz> {
+    return this.http.delete<Quiz>(`/api/quizzes/${id}`);
   }
 
 

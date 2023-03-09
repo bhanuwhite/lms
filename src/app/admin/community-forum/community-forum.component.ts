@@ -202,14 +202,19 @@ export class CommunityForumComponent {
   conversationForm!: FormGroup;
 
   constructor(public fb: FormBuilder) {
+
+  }
+
+  ngOnInit(): void {
+    console.log(this.trendingData);
+    this.conversationGroup();
+  }
+  public conversationGroup(): void {
     this.conversationForm = this.fb.group({
       question: new FormControl(''),
       description: new FormControl(''),
       image: new FormControl(''),
     });
-  }
-  ngOnInit(): void {
-    console.log(this.trendingData);
   }
 
   public likeFun(): void {
