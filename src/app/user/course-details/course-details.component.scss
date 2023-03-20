@@ -1,63 +1,8 @@
-.course_video {
-  height: 75vh;
-  width: 75%;
-}
-
-.courseDetailsDiv {
-  max-width: 75%;
-}
-
-.lmsLogo {
-  border-radius: 10rem;
-  height: 50px;
-}
-
-aside {
-  float: right;
-  width: 23%;
-  background-color: white;
-  color: black;
-}
-
-.share {
-  margin-left: 80%;
-}
-
-.reviewsImg {
-  height: 50px;
-  width: 50px;
-  border-radius: 80%;
-}
-
-.ratingBtn {
-  border-radius: 98%;
-  background-color: blue;
-  border-color: blue;
-  color: white;
-}
-
-.avgRating {
-  width: 25%;
-  height: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  
-}
-
 .ratingStar {
   ngb-rating {
     margin-right: 1px;
   }
 }
-
-.ratingGrid {
-  display: grid;
-  grid-template-columns: auto auto auto;
-}
-
 .QAprofilePic {
   height: 35px;
   width: 35px;
@@ -65,4 +10,17 @@ aside {
 }
  :ng-deep p-rating {
   color: gold !important;
+}
+@media only screen and (max-width: 760px) {
+  video.course_video {
+    width: 100%;
+}
+textarea.mb-4 {
+  width: 100% !important;
+}
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  video.course_video {
+    width: 100%;
+}
 }
