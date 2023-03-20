@@ -7,22 +7,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
   basicData: any;
+  overViewMenu: any;
+
 
   visibleSidebar1: boolean = true;
   ngOnInit(): void {
+    this.overViewMenus();
     this.chatData();
   }
 
+  chat: any[] = [65, 59, 80, 81, 56, 80, 80]
   /**
    * chatData
    */
-  public chatData() {
+  public chatData(): void {
     this.basicData = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
         {
           label: 'First Dataset',
-          data: [65, 59, 80, 81, 56, 55, 40],
+          data: this.chat,
           fill: false,
           borderColor: '#42A5F5',
           tension: .4
@@ -38,6 +42,22 @@ export class DashboardComponent implements OnInit {
     };
   }
 
+  public onEvent(data: any) {
+    console.log(data);
+  }
+
+  public overViewMenus(): void {
+    this.overViewMenu = [{
+      items: [
+        {
+          label: 'Monthly',
+        },
+        {
+          label: 'Weekly',
+        }
+      ]
+    }]
+  }
 
 
   public close(): void {

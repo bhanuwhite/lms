@@ -18,7 +18,7 @@
                         <i class="pi pi-chart-line me-2" ></i> <span> Dashboard</span>  
                     </li>
                     <li class="listbox-item" routerLink="/admin/content" [class.active]="isActive('/admin/content')">
-                        <i class="pi pi-file-edit me-2"></i> <span>Content library</span>
+                        <i class="pi pi-file-edit me-2"></i> <span>Content Library</span>
                     </li>
                     <li [class.active]="isActive('/admin/courses')" class="listbox-item" routerLink="/admin/courses">
                         <i class="pi pi-book me-2"></i> <span>Course</span>
@@ -31,7 +31,7 @@
                     </li>
                     <li class="listbox-item" [class.active]="isActive('/admin/community-forum')"
                         routerLink="/admin/community-forum">
-                        <i class="pi pi-users me-2"></i> <span>Community-forum</span>
+                        <i class="pi pi-users me-2"></i> <span>Community Forum</span>
                     </li>
                     <li class="listbox-item" [class.active]="isActive('/admin/messages')" routerLink="/admin/messages">
                         <i class="pi pi-envelope me-2"></i> <span>Messages</span>
@@ -82,8 +82,8 @@
                 <div class="col-lg-6 col-md-6 none d-flex justify-content-end align-items-center">
                     <button pButton pRipple type="button" icon="pi pi-bell"
                         class="p-button-rounded   text-dark  p-button-text"></button>
-                    <p-avatar size="large" class="cursor-pointer" (click)="menu.toggle($event)" icon="pi pi-user"
-                        [style]="{'background-color':'#fff', 'color': '#000'}"></p-avatar>
+                    <p-avatar shape="circle" size="large" class="cursor-pointer" (click)="menu.toggle($event)" icon="pi pi-user"
+                        [style]="{'background-color':'#ffff','border':'0.5px solid', 'color': '#000'}"></p-avatar>
                     <p-menu #menu [popup]="true" [model]="items"></p-menu>
                 </div>
             </div>

@@ -48,7 +48,7 @@ export class AdminComponent implements OnInit {
                     }
                 },
                 {
-                    label: 'Account settings',
+                    label: 'Account Settings',
                     icon: 'pi pi-cog',
                     command: () => {
                         this.router.navigateByUrl('/admin/account-settings');
@@ -65,6 +65,9 @@ export class AdminComponent implements OnInit {
         },
         ];
     }
+
+
+
     // logout
     public onLogout(): void {
         this.router.navigateByUrl('/login');
