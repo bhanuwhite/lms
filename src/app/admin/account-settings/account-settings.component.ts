@@ -44,7 +44,6 @@ constructor(private messageSrvice:MessageService){}
     else {
       this.messageSrvice.add({severity:'error',summary:'Invalid password',detail:'Please enter correct password !!'});
     }
-
   }
   public onPasswordEdit():void {
     this.displayPasswordModal = true;

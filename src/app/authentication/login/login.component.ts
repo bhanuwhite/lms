@@ -61,7 +61,6 @@ export class LoginComponent {
           localStorage.setItem('role', 'admin');
           this.isLoading = false;
           localStorage.setItem('isAuthenticate', 'true');
-
           this.router.navigateByUrl('/admin');
         } else if (data.role_id == "3") {
           localStorage.setItem('role', 'user');

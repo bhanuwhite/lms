@@ -1,90 +1,93 @@
-<div class="container">
-    <h1 class="heading"><b>Account</b></h1>
+<div class="container-fluid px-4 py-4 learningHead">
+    <h1 style="font-size: 1.5rem;"><b>Account</b> </h1>
+</div>
+<div class="container-fluid">
+    <p-tabView>
+        <p-tabPanel header="Account security">
+            <div class="user-details">
+                <form>
 
-    <div class="container-fluid">
-        <p-tabView>
-            <p-tabPanel header="Account security">
-                <div class="user-details">
-                    <form>
-                        <label for="email"><b>Email:</b></label>
-                        <div class="col-12 md:col-6">
-                            <div class="p-inputgroup">
-                                <input type="email" id="email" [(ngModel)]="userCurrentEmail" name="userCurrentEmail"
-                                    pInputText placeholder="Enter your email id" />
-                                <button type="button" pButton class="p-button-secondary" (click)="onEmailEdit()">
-                                    <span class="material-symbols-outlined"> edit </span>
-                                </button>
-                            </div>
-
+                    <div class="col-lg-6 col-md-6 col-sm-12 ">
+                        <label for="email" class="mb-2"><b>Email:</b></label>
+                        <div class="p-inputgroup">
+                            <input type="email" id="email" [(ngModel)]="userCurrentEmail" name="userCurrentEmail"
+                                pInputText placeholder="Enter your email id" />
+                            <button type="button" pButton class="p-button-secondary" (click)="onEmailEdit()">
+                                <span class="material-symbols-outlined"> edit </span>
+                            </button>
                         </div>
-                        <label for="password"><b>Password:</b></label>
-                        <div class="col-12 md:col-6">
-                            <div class="p-inputgroup">
-                                <input type="password" id="password" [(ngModel)]="userCurrentPassword"
-                                    name="userCurrentPassword" pInputText placeholder="Enter your password" />
-                                <button type="button" pButton class="p-button-secondary" (click)="onPasswordEdit()">
-                                    <span class="material-symbols-outlined"> edit </span>
-                                </button>
-                            </div>
+
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="password" class="mb-2"><b>Password:</b></label>
+                        <div class="p-inputgroup">
+                            <input type="password" id="password" [(ngModel)]="userCurrentPassword"
+                                name="userCurrentPassword" pInputText placeholder="Enter your password" />
+                            <button type="button" pButton class="p-button-secondary" (click)="onPasswordEdit()">
+                                <span class="material-symbols-outlined"> edit </span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <p-dialog header="Change your email" [(visible)]="displayEmailModal" [modal]="true"
+                    [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+                    <form>
+                        <div class="col-12 md:col-12">
+                            <span class="p-inputgroup">
+                                <input type="email" id="inputemail" [(ngModel)]="userNewEmail" name="userNewEmail"
+                                    pInputText placeholder="Enter your email id" />
+                            </span>
+                        </div>
+                        <div class="col-12 md:col-12">
+                            <span class="p-inputgroup">
+                                <input type="password" id="inputpassword" [(ngModel)]="userEnteredPassword"
+                                    name="userEnteredPassword" pInputText placeholder="Enter your password" />
+                            </span>
                         </div>
                     </form>
+                    <h4>
+                        For your security,if you change your email address your saved
+                        credit card information will be deleted.
+                    </h4>
+                    <ng-template pTemplate="footer">
+                        <button pButton pRipple type="button" label="Save" class="p-button-raised p-button-secondary"
+                            (click)="changeUserEmail()"></button>
+                    </ng-template>
+                </p-dialog>
 
-                    <p-dialog header="Change your email" [(visible)]="displayEmailModal" [modal]="true"
-                        [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
-                        <form>
-                            <div class="col-12 md:col-12">
-                                <span class="p-inputgroup">
-                                    <input type="email" id="inputemail" [(ngModel)]="userNewEmail" name="userNewEmail"
-                                        pInputText placeholder="Enter your email id" />
-                                </span>
-                            </div>
-                            <div class="col-12 md:col-12">
-                                <span class="p-inputgroup">
-                                    <input type="password" id="inputpassword" [(ngModel)]="userEnteredPassword"
-                                        name="userEnteredPassword" pInputText placeholder="Enter your password" />
-                                </span>
-                            </div>
-                        </form>
-                        <h4>
-                            For your security,if you change your email address your saved
-                            credit card information will be deleted.
-                        </h4>
-                        <ng-template pTemplate="footer">
-                            <button pButton pRipple type="button" label="Save"
-                                class="p-button-raised p-button-secondary" (click)="changeUserEmail()"></button>
-                        </ng-template>
-                    </p-dialog>
-
-                    <p-dialog header="Change Password" [(visible)]="displayPasswordModal" [modal]="true"
-                        [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
-                        <form>
-                            <div class="col-12 md:col-12">
-                                <span class="p-inputgroup">
-                                    <input type="password" id="inputemail" [(ngModel)]="userEnteredPassword"
-                                        name="userEnteredPassword" pInputText placeholder="Enter current password" />
-                                </span>
-                            </div>
-                            <label for="newpassword"><b>New password:</b></label>
-                            <div class="col-12 md:col-12">
-                                <span class="p-inputgroup">
-                                    <input type="password" id="newpassword" [(ngModel)]="userNewPassword"
-                                        name="userNewPassword" pInputText placeholder="Enter new password" />
-                                </span>
-                            </div>
-                            <label for="Repassword"><b>Confirm new password:</b></label>
-                            <div class="col-12 md:col-12">
-                                <span class="p-inputgroup">
-                                    <input type="password" id="Repassword" [(ngModel)]="userRePassword"
-                                        name="userRePassword" pInputText placeholder="Re-type new password" />
-                                </span>
-                            </div>
-                        </form>
-                        <ng-template pTemplate="footer">
-                            <button pButton pRipple type="button" label="Change Password"
-                                class="p-button-raised p-button-secondary" (click)="changeUserPassword()"></button>
-                        </ng-template>
-                    </p-dialog>
-                </div>
+                <p-dialog header="Change Password" [(visible)]="displayPasswordModal" [modal]="true"
+                    [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+                    <form>
+                        <div class="col-12 md:col-12">
+                            <span class="p-inputgroup">
+                                <input type="password" id="inputemail" [(ngModel)]="userEnteredPassword"
+                                    name="userEnteredPassword" pInputText placeholder="Enter current password" />
+                            </span>
+                        </div>
+                        <label for="newpassword"><b>New password:</b></label>
+                        <div class="col-12 md:col-12">
+                            <span class="p-inputgroup">
+                                <input type="password" id="newpassword" [(ngModel)]="userNewPassword"
+                                    name="userNewPassword" pInputText placeholder="Enter new password" />
+                            </span>
+                        </div>
+                        <label for="Repassword"><b>Confirm new password:</b></label>
+                        <div class="col-12 md:col-12">
+                            <span class="p-inputgroup">
+                                <input type="password" id="Repassword" [(ngModel)]="userRePassword"
+                                    name="userRePassword" pInputText placeholder="Re-type new password" />
+                            </span>
+                        </div>
+                    </form>
+                    <ng-template pTemplate="footer">
+                        <button pButton pRipple type="button" label="Change Password"
+                            class="p-button-raised p-button-secondary" (click)="changeUserPassword()"></button>
+                    </ng-template>
+                </p-dialog>
+            </div>
+            <div class="col-md-6">
                 <div class="card">
                     <h3><b>Multi-factor Authentication</b></h3>
                     <p>
@@ -93,100 +96,112 @@
                         multi-factor Authentication works ,refer to our
                         <a href="#">Help Center article.</a>
                     </p>
-                    <div style="text-align: center">
+                    <div style="text-align: end">
                         <button pButton pRipple type="button" label="Enable"
                             class="p-button-raised p-button-secondary"></button>
                     </div>
                 </div>
-                <div></div>
-            </p-tabPanel>
+            </div>
 
-            <p-tabPanel header="Notifications settings">
-                <div class="Notification">
-                    <h2 style="color: black">I want to receive:</h2>
-                    <div>
-                        <div style="margin-bottom: 30px">
-                            <div class="checkbox">
-                                <div class="field-checkbox">
-                                    <p-checkbox name="group1" value="Promotions" [(ngModel)]="selectedCities"
-                                        inputId="Promotions"></p-checkbox>
-                                    <label for="Promotions">
-                                        <b>Promotions,course recommendations, and helpful resources
-                                            from LMS</b>
-                                    </label>
+            <div></div>
+        </p-tabPanel>
+
+        <p-tabPanel header="Notifications settings">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="Notification">
+                        <h2 style="color: black">I want to receive:</h2>
+                        <div>
+                            <div style="margin-bottom: 30px">
+                                <div class="checkbox">
+                                    <div class="field-checkbox">
+                                        <p-checkbox name="group1" value="Promotions" [(ngModel)]="selectedCities"
+                                            inputId="Promotions"></p-checkbox>
+                                        <label for="Promotions">
+                                            <b>Promotions,course recommendations, and helpful resources
+                                                from LMS</b>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="checkbox">
+                                    <div class="field-checkbox">
+                                        <p-checkbox name="group1" value="Announcements" [(ngModel)]="selectedCities"
+                                            inputId="Announcements"></p-checkbox>
+                                        <label for="Announcements">
+                                            <b>Announcements from instructors whose course(s) I'm
+                                                enrolled in.</b>
+                                        </label>
+                                    </div>
+                                    <h5 class="ml-4">
+                                        To adjust this preference by course,leave this box checked and
+                                        go to the course dashboard and click on "Options" to opt in or
+                                        out specific announcements.
+                                    </h5>
                                 </div>
                             </div>
-
                             <div class="checkbox">
                                 <div class="field-checkbox">
-                                    <p-checkbox name="group1" value="Announcements" [(ngModel)]="selectedCities"
-                                        inputId="Announcements"></p-checkbox>
-                                    <label for="Announcements">
-                                        <b>Announcements from instructors whose course(s) I'm
-                                            enrolled in.</b>
+                                    <p-checkbox name="group1" value="email" [(ngModel)]="selectedCities"
+                                        inputId="email"></p-checkbox>
+                                    <label for="email">
+                                        <b>Don't send me any promotional emails.</b>
                                     </label>
                                 </div>
                                 <h5 class="ml-4">
-                                    To adjust this preference by course,leave this box checked and
-                                    go to the course dashboard and click on "Options" to opt in or
-                                    out specific announcements.
+                                    If this box is checked,please note that you will continue to
+                                    receive important transactional emails like purchase receipts.
                                 </h5>
                             </div>
                         </div>
-                        <div class="checkbox">
-                            <div class="field-checkbox">
-                                <p-checkbox name="group1" value="email" [(ngModel)]="selectedCities"
-                                    inputId="email"></p-checkbox>
-                                <label for="email">
-                                    <b>Don't send me any promotional emails.</b>
-                                </label>
-                            </div>
-                            <h5 class="ml-4">
-                                If this box is checked,please note that you will continue to
-                                receive important transactional emails like purchase receipts.
-                            </h5>
+                        <div class="d-flex justify-content-end button mt-5">
+                            <button pButton pRipple type="button" label="Save"
+                                class="p-button-raised p-button-secondary"></button>
                         </div>
                     </div>
-                    <div class="button mt-5">
+                </div>
+            </div>
+
+        </p-tabPanel>
+
+        <p-tabPanel header="Message settings">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="checkbox">
+                        <div class="field-checkbox">
+                            <p-checkbox name="group1" value="message" [(ngModel)]="selectedCities"
+                                inputId="message"></p-checkbox>
+                            <label for="message"><b>Turn off direct messaging </b> </label>
+                        </div>
+                        <h5 class="ml-4">
+                            When you turn off direct messages,you will no longer be able to send
+                            or receive direct messages as an instructor.
+                        </h5>
+                    </div>
+                    <a href="#" style="color: blueviolet"><u>Learn more about the setting</u></a>
+                    <div class="button d-flex justify-content-end mt-5">
                         <button pButton pRipple type="button" label="Save"
                             class="p-button-raised p-button-secondary"></button>
                     </div>
                 </div>
-            </p-tabPanel>
+            </div>
 
-            <p-tabPanel header="Message settings">
-                <div class="checkbox">
-                    <div class="field-checkbox">
-                        <p-checkbox name="group1" value="message" [(ngModel)]="selectedCities"
-                            inputId="message"></p-checkbox>
-                        <label for="message"><b>Turn off direct messaging </b> </label>
-                    </div>
-                    <h5 class="ml-4">
-                        When you turn off direct messages,you will no longer be able to send
-                        or receive direct messages as an instructor.
-                    </h5>
-                </div>
-                <a href="#" style="color: blueviolet"><u>Learn more about the setting</u></a>
+
+        </p-tabPanel>
+
+        <p-tabPanel header="Close account">
+            <div class="account">
+                <p>
+                    <b style="color: rgb(233, 154, 50)">Warning:</b>If you close your account, you
+                    will be unsubscribed from all your 8 courses, and will lose access
+                    forever
+                </p>
+
                 <div class="button mt-5">
-                    <button pButton pRipple type="button" label="Save"
-                        class="p-button-raised p-button-secondary"></button>
+                    <button pButton pRipple type="button" label="Close account"
+                        class="p-button-raised p-button-secondary" style="background-color: black"></button>
                 </div>
-            </p-tabPanel>
-
-            <p-tabPanel header="Close account">
-                <div class="account">
-                    <p>
-                        <b style="color: rgb(233, 154, 50)">Warning:</b>If you close your account, you
-                        will be unsubscribed from all your 8 courses, and will lose access
-                        forever
-                    </p>
-
-                    <div class="button mt-5">
-                        <button pButton pRipple type="button" label="Close account"
-                            class="p-button-raised p-button-secondary" style="background-color: black"></button>
-                    </div>
-                </div>
-            </p-tabPanel>
-        </p-tabView>
-    </div>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
 </div>

@@ -1,20 +1,15 @@
-.container {
-    margin: 40px;
-
-    button {
-        background-color: black;
-    }
-
-    h1 {
-        font-family: 'Times New Roman', Times, serif;
-        font-size: xx-large;
-        padding-bottom: 20px;
-    }
+.learningHead {
+    background-color: lightblue;
 }
+
+button {
+    background-color: black;
+}
+
 
 form {
     button {
-        background-color: rgb(35, 33, 33);
+        background-color: black;
     }
 
     label {
@@ -25,7 +20,7 @@ form {
 .card {
     margin-top: 20px;
     padding: 10px;
-    width: 50%;
+
     height: fit-content;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
@@ -39,7 +34,7 @@ form {
 
     button {
         width: fit-content;
-        background-color: rgb(22, 21, 21);
+        background-color: black;
     }
 }
 
@@ -54,19 +49,12 @@ form {
 }
 
 .checkbox {
-    border: 1px rgb(37, 34, 34) solid;
+    border: 1px rgb(213 213 213) solid;
     height: fit-content;
-    width: 60%;
     padding: 10px;
     margin: 10px;
 
     b {
         color: black
     }
-
-}
-
-.account {
-    width: 50%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

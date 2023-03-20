@@ -19,14 +19,9 @@
     display: block;
 }
 
-input {
-    width: 35%;
-    border-radius: 30px;
-}
-
-.courses {
-    margin-left: 30px;
-}
+// .courses {
+//     margin-left: 30px;
+// }
 
 .container {
 
@@ -128,4 +123,50 @@ a {
     position: absolute;
     box-shadow: 0 2px 4px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 8%);
     padding: 2.4rem;
+}
+@media only screen and (max-width: 760px) {
+    .all-Courses  p-card  {
+        width: 100%;
+    }
+    .banner-image {
+        background-image: url("../../../assets/img/user1.jpg");
+        height: 415px;
+        background-repeat: no-repeat;
+        background-size: contain;
+    
+    }
+    .banner-image-1 {
+        background-image: url("../../../assets/img/user2.jpg");
+        height: 415px;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    .banner-content.bg-white.border {
+        position: absolute;
+       left: 0;     
+    }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+    .all-Courses  p-card  {
+        width: 50%;
+    }
+    .banner-content.bg-white.border {
+        position: absolute;
+        left: 0;  
+        top: 0; 
+        max-width: 20rem; 
+    }
+    .banner-image {
+        background-image: url("../../../assets/img/user1.jpg");
+        height: 15rem;
+        background-repeat: no-repeat;
+        background-size: contain;
+    
+    }
+    .banner-image-1 {
+        background-image: url("../../../assets/img/user2.jpg");
+        height: 15rem;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
 }

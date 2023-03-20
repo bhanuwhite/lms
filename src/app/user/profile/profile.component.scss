@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@700&family=Source+Sans+Pro:wght@600&display=swap");
 
 //for responsiveness
+.learningHead {
+  
+    background-color: lightblue;
+  }
 .profile-first-section{
     margin-top: 30px;
 h1{
@@ -18,4 +22,12 @@ h1{
     position: absolute;
     left: 400px;
     border: 1px solid rgb(200, 197, 197);
+}
+@media only screen and (max-width: 760px) {
+    .form-area{
+        margin: 0 !important;
+    }
+    .divider{
+        display: none !important;
+    }
 }

@@ -1,10 +1,13 @@
-<div class="container-fluid">
+<div class="container-fluid px-4 py-4 learningHead">
+    <h1 style="font-size: 1.5rem;"><b>Profile & Settings</b>  </h1>
+  </div>
+<!-- <div class="container-fluid">
     <div class="profile-first-section">
         <div class="col-lg-12">
             <h1>Profile & settings</h1>
         </div>
     </div>
-</div>
+</div> -->
 <div class="container-fluid">
     <div class="profile-second-section">
         <div class="row">
@@ -12,13 +15,13 @@
                 <p-tabView>
                     <p-tabPanel header="Lms profile">
                         <form [formGroup]="userProfileForm" (ngSubmit)="onUserProfileSubmit()">
-                            <div class="card">
-                                <div class="flex">
-                                    <div class="p-fluid" [style]="{'width':'48%','padding':'2%'}">
-                                        <div class="p-field mb-3">
+                            <div class="card ">
+                                <div class="row my-3">
+                                    <div class="col-lg-5 form-area ms-4 col-sm-12">
+                                        <div class="p-field px-2 mb-3">
                                             <label for="firstname1" class="mb-2">First Name</label>
                                             <input id="firstname1" name="firstname" formControlName="firstname"
-                                                type="text" pInputText placeholder="" />
+                                                type="text" class="w-100" pInputText placeholder="" />
                                             <div *ngIf="
                           firstname &&
                           firstname.invalid &&
@@ -32,9 +35,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="p-field mb-3">
+                                        <div class="p-field my-2 px-2">
                                             <label for="lastname1" class="mb-2">Last Name</label>
-                                            <input id="lastname1" name="lastname" formControlName="lastname" type="text"
+                                            <input id="lastname1" class="w-100" name="lastname" formControlName="lastname" type="text"
                                                 pInputText />
                                             <div *ngIf="
                           lastname &&
@@ -49,10 +52,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="p-field mb-3">
+                                        <div class="p-field my-2 px-2">
                                             <label for="lastname1" class="mb-2">Headline</label>
                                             <input id="lastname1" name="headline" formControlName="headline" type="text"
-                                                pInputText placeholder="Instructor at LMS(60)" />
+                                              class="w-100"  pInputText placeholder="Instructor at LMS(60)" />
                                             <div *ngIf="
                           headline &&
                           headline.invalid &&
@@ -66,7 +69,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="p-field mb-3 overflow-hidden">
+                                        <div class="p-field my-2 px-2 overflow-hidden">
                                             <label for="lastname1" class="mb-2">Biography</label>
                                             <p-editor [style]="{ width: '100%', height: '80px' }" name="biography"
                                                 formControlName="biography">
@@ -99,10 +102,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="p-field mb-3">
+                                        <div class="p-field my-2 px-2">
                                             <label for="lastname1" class="mb-2">Lanquages</label>
                                             <p-multiSelect [options]="mainLanquages" name="lanquages"
-                                                formControlName="selectedlanquages" optionLabel="name"></p-multiSelect>
+                                              class="w-100"  formControlName="selectedlanquages" optionLabel="name"></p-multiSelect>
                                             <div *ngIf="
                           selectedlanquages &&
                           selectedlanquages.invalid &&
@@ -116,20 +119,16 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="p-field">
-                                            <input type="submit" [disabled]="userProfileForm.invalid" pButton
-                                                value="Save" [style]="{
-                          width: '80px',
-                          'background-color': 'black',
-                          color: 'white'
-                        }" />
-                                        </div>
+                             
                                     </div>
-                                    <p-divider layout="vertical"></p-divider>
-                                    <div class="p-fluid" [style]="{'width':'48%','padding':'2%'}">
-                                        <div class="p-field mb-3">
+                                    <div class="col-lg-1 divider">
+                                        <p-divider layout="vertical"></p-divider>
+                                    </div>
+                                    
+                                    <div class="  col-lg-5 col-sm-12">
+                                        <div class="p-field my-2 px-2">
                                             <label for="firstname1" class="mb-2">Website</label>
-                                            <input id="firstname1" name="website" formControlName="website" type="text"
+                                            <input id="firstname1" class="w-100" name="website" formControlName="website" type="text"
                                                 pInputText placeholder="Url" />
                                             <div *ngIf="
                           website &&
@@ -144,7 +143,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="p-field mb-3">
+                                        <div class="p-field my-2 px-2">
                                             <label for="firstname1" class="mb-2">Twitter</label>
                                             <div class="p-inputgroup overflow-hidden">
                                                 <span class="p-inputgroup-addon">http://www.twitter.com/</span>
@@ -164,7 +163,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="p-field mb-3">
+                                        <div class="p-field my-2 px-2">
                                             <label for="firstname1" class="mb-2">Facebook</label>
                                             <div class="p-inputgroup overflow-hidden">
                                                 <span class="p-inputgroup-addon">http://www.facebook.com/</span>
@@ -184,7 +183,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="p-field mb-3">
+                                        <div class="p-field my-2 px-2">
                                             <label for="firstname1" class="mb-2">LinkedIn</label>
                                             <div class="p-inputgroup overflow-hidden">
                                                 <span class="p-inputgroup-addon">http://www.linkedin.com/</span>
@@ -204,7 +203,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="p-field mb-3">
+                                        <div class="p-field my-2 px-2">
                                             <label for="firstname1" class="mb-2">Youtube</label>
                                             <div class="p-inputgroup overflow-hidden">
                                                 <span class="p-inputgroup-addon">http://www.youtube.com/</span>
@@ -223,6 +222,14 @@
                                                     Youtube field must have at least 5 characters
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="p-field d-flex justify-content-end my-2 px-2">
+                                            <input type="submit"  [disabled]="userProfileForm.invalid" pButton
+                                                value="Save" [style]="{
+                          width: '80px',
+                          'background-color': 'black',
+                          color: 'white'
+                        }" />
                                         </div>
                                     </div>
                                 </div>

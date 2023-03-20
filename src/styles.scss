@@ -202,9 +202,7 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
     border-radius: 5px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #20854e;
-}
+
 // sidebar global styles
 @media only screen and (max-width: 760px) {
     .p-sidebar-left {
@@ -235,4 +233,7 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
     .p-dropdown.p-component.p-dropdown-clearable{
       width: 100% !important;
     }
+  }
+  .p-multiselect.p-component {
+    width: 100%;
   }

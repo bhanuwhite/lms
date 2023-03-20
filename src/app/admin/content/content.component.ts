@@ -4,6 +4,7 @@ import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@ang
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
+import { ContentData, Content, ContentResponse } from 'src/app/models/content';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -28,30 +29,27 @@ export class ContentComponent implements OnInit, OnDestroy {
   private fileUploadForUpdateSubscription$: Subscription = new Subscription();
   private allSubsription$: Subscription[] = []
 
-  loadingSpinner: boolean = false;
+
+  // @ViewChild('v1', { read: ElementRef, static: false }) videoPlayer!: ElementRef;
+   loadingSpinner: boolean = false;
   contentFileData: string[] = [];
   contentUpdateFileData: string[] = [];
   display: boolean = false;
   editDisply: boolean = false;
-  contentData!: any;
-  totalCourse: number = 0;
+
+  contentData!:ContentData;
+   totalCourse: number = 0;
   public _id!: string;
-  public items: any
-  _data!: any;
+  // public items: any
+  _data: [] = [] ;
   formData = new FormData();
   percentage: number = 0;
 
   isProgressFile: boolean = false;
 
-
-
-
-  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
-  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   url: string = "";
   updateContent!: {}
-  contentBody!: {};
-  editContentBody!: {};
+  editContentBody!:Content;
   bodyData!: {};
   edit!: {}
   cId!: string | null;
@@ -75,7 +73,19 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.courseUpdateValidate();
   }
 
+  ngAfterViewInit(): void {
+    // console.log('afetr init', this.tempRef);
+    // if (this.tempRef) {
+    //   console.log('afetr init', this.tempRef.nativeElement);
+    //   this.tempRef?.nativeElement.addEventListener('timeupdate', (event: any) => {
+    //     this.trackVideoProgress(event);
+    //     console.log(event);
+    //   });
+    // }
 
+
+
+  }
 
   updateProgress(vid: HTMLVideoElement) {
     const progress = (vid.currentTime / vid.duration) * 100;
@@ -132,18 +142,21 @@ export class ContentComponent implements OnInit, OnDestroy {
   // get content
   public getContent(): void {
     this.loadingSpinner = true;
-    this.contentGetSubsription$ = this.apiService.getContent().subscribe((res) => {
+    this.apiService.getContent().subscribe((res) => {
       try {
-        this.contentData = res.data;
+
+        console.log(res.data);
+        console.log(res);
+
+        this.contentData = res;
         console.log(this.contentData);
-        this.totalCourse = this.contentData.length;
+        // this.totalCourse = this.contentData.data.length;
         this.loadingSpinner = false;
       } catch (error) {
         this.messageService.add({
           severity: 'error', summary: 'Error !!', detail: 'Something went wrong !!'
         });
       }
-      this.allSubsription$.push(this.contentGetSubsription$);
     });
   }
 
@@ -159,7 +172,7 @@ export class ContentComponent implements OnInit, OnDestroy {
       const formData = new FormData();
       formData.append('files', this.courseGroup.get('img')?.value);
       this.isProgressFile = true;
-      this.fileUploadForPostSubscription$ = this.apiService.uploadFile(formData).subscribe(res => {
+      this.apiService.uploadFile(formData).subscribe(res => {
         try {
           this.isProgressFile = false;
           console.log(res);
@@ -167,7 +180,6 @@ export class ContentComponent implements OnInit, OnDestroy {
         } catch (error) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong !!' });
         }
-        this.allSubsription$.push(this.fileUploadForPostSubscription$);
       });
     }
   }
@@ -179,32 +191,37 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.courseUpdateGroup.get('img')?.setValue(file);
       //  this.formData = new FormData();
       this.formData.append('files', this.courseUpdateGroup.get('img')?.value);
-      this.fileUploadForUpdateSubscription$ = this.apiService.uploadFile(this.formData).subscribe(res => {
+      this.apiService.uploadFile(this.formData).subscribe(res => {
         try {
           console.log(res);
           this.contentUpdateFileData = res;
         } catch (error) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong !!' });
         }
-        this.allSubsription$.push(this.fileUploadForUpdateSubscription$)
       });
     }
   }
 
   // On submit content
   public onSubmitContent(): void {
-    const author = localStorage.getItem('role')
-    this.contentBody = {
-      "data": {
-        "name": this.courseGroup.value.title,
-        "description": this.courseGroup.value.description,
-        "author": author,
-        "price": this.courseGroup.value.price,
-        "media": this.contentFileData
+    const author = localStorage.getItem('role');
+
+    const contentBody:Content = {
+      data: {
+        name: this.courseGroup.value.title,
+        description: this.courseGroup.value.description,
+        author: author,
+        price: this.courseGroup.value.price,
+        media: this.contentFileData
       }
     }
+
+
+
+    console.log(contentBody);
+
     // Post api call here
-    this.contentPostSubsription$ = this.apiService.postContent(this.contentBody).subscribe(res => {
+    this.apiService.postContent(contentBody).subscribe(res => {
       console.log(res);
       try {
         this.display = false;
@@ -213,19 +230,19 @@ export class ContentComponent implements OnInit, OnDestroy {
         });
         this.getContent();
 
+        this.courseGroup.reset();
       } catch (error) {
 
         this.messageService.add({
           severity: 'error', summary: 'Error', detail: 'Something went wrong !!'
         });
       }
-      this.allSubsription$.push(this.contentPostSubsription$);
     });
   }
 
   // Edit dialog open
   public editContentDialog(item: any): void {
-    console.log('edit', item.attributes.media.data[0].attributes);
+    console.log('edit', item);
     this._data = item;
     this.courseUpdateGroup = this.fb.group({
       title: new FormControl(item.attributes.name, [Validators.required, Validators.minLength(5), Validators.min(1)]),
@@ -245,51 +262,56 @@ export class ContentComponent implements OnInit, OnDestroy {
   public onUpdateContent(): void {
     this.editDisply = false;
     if (this.contentUpdateFileData?.length == 0) {
-      this.editContentBody = {
-        "data": {
-          "name": this.courseUpdateGroup.value.title,
-          "description": this.courseUpdateGroup.value.description,
-          "author": this._data.attributes.author,
-          "price": this.courseUpdateGroup.value.price,
-          "media": this._data.attributes.media.data[0]
-        }
+     this.editContentBody = {
+      data:{
+         name: this.courseUpdateGroup.value.title,
+         description: this.courseUpdateGroup.value.description,
+        //  author: this._data.data?.author,
+         price: this.courseUpdateGroup.value.price,
+        //  media: this._data.data?.media.data[0]
+
       }
+      }
+
     } else {
-      this.editContentBody = {
-        "data": {
-          "name": this.courseUpdateGroup.value.title,
-          "description": this.courseUpdateGroup.value.description,
-          "author": this._data.attributes.author,
-          "price": this.courseUpdateGroup.value.price,
-          "media": this.contentUpdateFileData
+     this.editContentBody = {
+        data: {
+          name: this.courseUpdateGroup.value.title,
+          description: this.courseUpdateGroup.value.description,
+          // author: this._data.data.author,
+          price: this.courseUpdateGroup.value.price,
+          media: this.contentUpdateFileData
         }
       }
     }
 
     // Post api call here
-    this.contentUpdateSubsription$ = this.apiService.updateContent(this._data.id, this.editContentBody).subscribe(res => {
-      console.log(res);
-      try {
-        this.editDisply = false;
-        this.messageService.add({
-          severity: 'info', summary: 'Update', detail: 'Content updated successfully !!'
-        });
-        this.getContent();
-      } catch (error) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Somthing went to wrong !!' })
-      }
-      this.allSubsription$.push(this.contentUpdateSubsription$);
-    });
+    // this.apiService.updateContent(this._data, this.editContentBody).subscribe(res => {
+    //   console.log(res);
+    //   try {
+    //     this.editDisply = false;
+    //     this.messageService.add({
+    //       severity: 'info', summary: 'Update', detail: 'Content updated successfully !!'
+    //     });
+    //     this.getContent();
+    //   } catch (error) {
+    //     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Somthing went to wrong !!' })
+    //   }
+    // });
   }
 
   // Delete content
-  public deleteDialog(data: any): void {
+  public deleteDialog(data:ContentResponse): void {
     this.confirmationService.confirm({
-      message: `Do you want to delete - ${data.attributes.name} ?`,
+      message: `Do you want to delete - ${data.attributes?.name} ?`,
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.contentDeleteSubsription$ = this.apiService.deleteContent(data.id).subscribe(res => {
+        this.apiService.deleteContent(data.id).subscribe(res => {
+          console.log(res);
+          console.log(data.id);
+
+
           try {
             this.messageService.add({
               severity: 'error', summary: 'Delete', detail: 'Content deleted successfully !'
@@ -300,13 +322,12 @@ export class ContentComponent implements OnInit, OnDestroy {
               severity: 'error', summary: 'Error', detail: 'Something went to wrong !!'
             });
           }
-          this.allSubsription$.push(this.contentDeleteSubsription$);
+
         });
       },
       reject: () => { }
     });
   }
-
   ngOnDestroy(): void {
     // this.contentGetSubsription$.unsubscribe();
     // this.contentPostSubsription$.unsubscribe();
