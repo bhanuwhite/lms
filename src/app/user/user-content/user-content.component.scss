@@ -103,7 +103,7 @@ a {
 
 .banner-image {
     background-image: url("../../../assets/img/user1.jpg");
-    height: 415px;
+    min-height: 500px;
     background-repeat: no-repeat;
     background-size: contain;
 
@@ -111,7 +111,7 @@ a {
 
 .banner-image-1 {
     background-image: url("../../../assets/img/user2.jpg");
-    height: 415px;
+    min-height: 500px;
     background-repeat: no-repeat;
     background-size: contain;
 }
@@ -130,14 +130,14 @@ a {
     }
     .banner-image {
         background-image: url("../../../assets/img/user1.jpg");
-        height: 415px;
+        min-height: 500px;
         background-repeat: no-repeat;
         background-size: contain;
     
     }
     .banner-image-1 {
         background-image: url("../../../assets/img/user2.jpg");
-        height: 415px;
+        min-height: 500px;
         background-repeat: no-repeat;
         background-size: contain;
     }
