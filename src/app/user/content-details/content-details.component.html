@@ -1,49 +1,6 @@
 <div class="container-fluid px-4 py-4">
     <h1 style="font-size: 1.5rem;"> <b>{{ courseDetails.courseTitle }}</b></h1>
-  </div>
-
-<!-- <div class="container-fluid bg-blue content-banner">
-    <div class="container py-4">
-        <div class=" d-flex">
-            <a>
-                <h3>Development ></h3>
-            </a>
-            <a>
-                <h3>Software Engineering ></h3>
-            </a>
-            <a>
-                <h3>{{ courseDetails.category }}</h3>
-            </a>
-        </div>
-        <div class="courseTitle">
-            <div>
-                <h1>
-                    <b>{{ courseDetails.courseTitle }}</b>
-                </h1>
-                <h2>{{ courseDetails.courseAuthor }}</h2>
-                <div class="d-flex align-items-center">
-                    <div class="bestseller-badge">
-                        Bestseller
-                    </div>
-                    <div class="d-flex  ">
-                        <p-rating [ngModel]="courseDetails.rating" [stars]="5" [cancel]="false"
-                            [className]="'custom-star'">
-                        </p-rating>
-                        <p>({{ courseDetails.rating }})</p>
-                    </div>
-                </div>
-                <div class="d-flex mt-3 align-items-center">
-                    <h5 class="mr-3">
-                        <i class="pi pi-pencil me-2"></i>Last updated 2/2023
-                    </h5>
-                    <h5 class="mr-3"><i class="pi pi-globe me-2"></i>English</h5>
-                    <h5 class="mr-3"><i class="pi pi-print me-2"></i>English</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
+</div>
 <div class="container-fluid px-4">
     <div class="row py-4">
         <div class="col-lg-8 ">
@@ -116,7 +73,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row mb-4">
                 <div class="col-lg-12">
                     <div class="course-include">
@@ -163,7 +119,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -204,8 +159,6 @@
                                         Course Introduction
                                     </div>
                                     <span class="ml-auto">8 lectures . <span>45min</span></span>
-
-
                                 </ng-template>
                                 <div class="intro-list">
                                     <ul>
@@ -252,8 +205,6 @@
                                         Course Introduction
                                     </div>
                                     <span class="ml-auto">8 lectures . <span>45min</span></span>
-
-
                                 </ng-template>
                                 <div class="intro-list">
                                     <ul>
@@ -300,8 +251,6 @@
                                         Course Introduction
                                     </div>
                                     <span class="ml-auto">8 lectures . <span>45min</span></span>
-
-
                                 </ng-template>
                                 <div class="intro-list">
                                     <ul>
@@ -343,13 +292,10 @@
                             </p-accordionTab>
                             <p-accordionTab>
                                 <ng-template class="d-flex" pTemplate="header">
-
                                     <div>
                                         Course Introduction
                                     </div>
                                     <span class="ml-auto">8 lectures . <span>45min</span></span>
-
-
                                 </ng-template>
                                 <div class="intro-list">
                                     <ul>
@@ -390,8 +336,6 @@
                                 </div>
                             </p-accordionTab>
                         </p-accordion>
-
-
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -427,8 +371,9 @@
         <div class="col-lg-4">
             <div class="card sidebar-area">
                 <div class="video-contain" (click)=" onClickVideo(courseDetails)">
-                    <img src="{{courseDetails.courseImage}}" class="img-fluid" alt="" style="width: 100%; opacity: 0.4;">
-                  <span class="play-button"> <img src="assets/img/play.png" alt=""> </span>
+                    <img src="{{courseDetails.courseImage}}" class="img-fluid" alt=""
+                        style="width: 100%; opacity: 0.4;">
+                    <span class="play-button"> <img src="assets/img/play.png" alt=""> </span>
                 </div>
                 <div class="pricing-detail p-3">
                     <div class="d-flex align-items-center">
@@ -462,5 +407,4 @@
             </div>
         </div>
     </div>
-
 </div>
