@@ -1,7 +1,6 @@
 .progress-spinner {
     margin: auto;
     width: 50%;
-    // padding: auto;
 }
 
 .sizes {
@@ -19,41 +18,20 @@
     display: block;
 }
 
-// .courses {
-//     margin-left: 30px;
-// }
-
-.container {
-
-
-    h1 {
-
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
-    }
-
-    h3 {
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
-    }
-}
-
 .custom-star {
     color: gold;
 }
 
-// .courseDetails {
-//   box-sizing: content-box;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   flex-wrap: wrap;
-//   margin: 30px;
-//   height: fit-content;
-// }
 .all-Courses {
     p-card {
+        transition: 0.3s all;
         width: 25%;
         margin: 15px 0px;
         border-radius: 10px;
+    }
+
+    .course-card:hover {
+        transform: translateY(-5px);
     }
 
     .p-card-header img {
@@ -62,14 +40,6 @@
     }
 }
 
-
-
-// button {
-//   width: 85px;
-//   height: fit-content;
-//   margin-left: 50px;
-// }
-
 .courseContent {
     margin-left: 10px;
 
@@ -77,12 +47,6 @@
         font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     }
 }
-
-// ngb-rating {
-//   margin-bottom: 10px;
-//   font-size: 40px;
-//   color: gray
-// }
 
 a {
     cursor: pointer;
@@ -124,45 +88,53 @@ a {
     box-shadow: 0 2px 4px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 8%);
     padding: 2.4rem;
 }
+
 @media only screen and (max-width: 760px) {
-    .all-Courses  p-card  {
+    .all-Courses p-card {
         width: 100%;
     }
+
     .banner-image {
         background-image: url("../../../assets/img/user1.jpg");
         min-height: 500px;
         background-repeat: no-repeat;
         background-size: contain;
-    
+
     }
+
     .banner-image-1 {
         background-image: url("../../../assets/img/user2.jpg");
         min-height: 500px;
         background-repeat: no-repeat;
         background-size: contain;
     }
+
     .banner-content.bg-white.border {
         position: absolute;
-       left: 0;     
+        left: 0;
     }
 }
+
 @media (min-width: 768px) and (max-width: 1023px) {
-    .all-Courses  p-card  {
+    .all-Courses p-card {
         width: 50%;
     }
+
     .banner-content.bg-white.border {
         position: absolute;
-        left: 0;  
-        top: 0; 
-        max-width: 20rem; 
+        left: 0;
+        top: 0;
+        max-width: 20rem;
     }
+
     .banner-image {
         background-image: url("../../../assets/img/user1.jpg");
         height: 15rem;
         background-repeat: no-repeat;
         background-size: contain;
-    
+
     }
+
     .banner-image-1 {
         background-image: url("../../../assets/img/user2.jpg");
         height: 15rem;
