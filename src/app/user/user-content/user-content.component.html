@@ -44,7 +44,7 @@
                 </div>
               </div>
             <div class="row all-Courses">
-                <p-card *ngFor="let course of courseList">
+                <p-card class="course-card" *ngFor="let course of courseList">
                     <ng-template pTemplate="header">
                         <div class="courseImage">
                             <a><img alt="Card" src="{{ course.courseImage }}"
