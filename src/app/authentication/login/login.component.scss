@@ -5,6 +5,12 @@
 //     height: auto;
 
 // }
+.surface-ground {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    overflow-y: auto;
+}
 
 body {
     color: #000;
@@ -127,6 +133,7 @@ textarea:focus {
     outline-width: 0;
 }
 
+
 button:focus {
     -moz-box-shadow: none !important;
     -webkit-box-shadow: none !important;
@@ -144,10 +151,11 @@ a {
     width: 150px;
     color: #fff;
     border-radius: 2px;
+    cursor: pointer;
 }
 
 .btn-blue:hover {
-    background-color: #000;
+    background-color: #1d2796;
     cursor: pointer;
 }
 

@@ -51,8 +51,8 @@
 
 
 <!-- <app-spinner *ngIf="isLoading == true"></app-spinner> -->
-<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
-    <div class="card card0 border-0">
+<div class="surface-ground px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+    <div class=" card0 border-0">
         <div class="row d-flex">
             <div class="col-lg-6">
                 <div class="card1 pb-5">
@@ -60,7 +60,7 @@
                         <h1>Welcome to LMS</h1>
                     </div>
                     <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
-                        <img
+                        <img height="400px"
                             src="https://t4.ftcdn.net/jpg/04/12/22/09/360_F_412220949_b05U6ue0CR4AwLykbPZIqithDXKHf5L7.jpg">
                     </div>
                 </div>
@@ -69,17 +69,17 @@
                 <div class="card2 card border-0 px-4 py-5">
                     <form [formGroup]="formgroup">
                         <div class="row mb-4 px-3">
-                            <h1 class="mb-0 mr-4 mt-2">SIGN UP</h1>
+                            <h1 class="mb-0 mr-4 mt-2" style="padding: 10px 12px 0 0 ;">SIGN UP</h1>
 
                         </div>
-                        <div class="row px-3">
+                        <div class="row px-3 pb-3">
                             <label class="mb-1 p-0">
                                 <h6 class="mb-0 text-sm">User Name</h6>
                             </label>
                             <input class="mb-1" type="text" name="name" formControlName="name"
                                 [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
-                                placeholder="Enter a valid user name ">
-                            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback">
+                                placeholder="Enter User Name ">
+                            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback px-0">
                                 <div *ngIf="name.errors?.['required']">
                                     This user name is required.
                                 </div>
@@ -92,15 +92,15 @@
                             </div>
                         </div>
 
-                        <div class="row px-3">
+                        <div class="row px-3 pb-3">
                             <label class="mb-1 p-0">
                                 <h6 class="mb-0 text-sm">Email Address</h6>
                             </label>
                             <input class="mb-1" type="text" name="email" formControlName="email"
                                 [class.is-invalid]="email.invalid && (email.dirty || email.touched)"
-                                placeholder="Enter a valid email address">
+                                placeholder="Enter Email Address">
 
-                            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
+                            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback px-0">
                                 <div *ngIf="email.errors?.['required']">
                                     Email Address is required.
                                 </div>
@@ -117,9 +117,9 @@
                             </label>
                             <input type="password" formControlName="pwd" name="pwd"
                                 [class.is-invalid]="pwd.invalid && (pwd.dirty || pwd.touched)"
-                                placeholder="Enter password">
+                                placeholder="Enter Password">
 
-                            <div *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" class="invalid-feedback">
+                            <div *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" class="invalid-feedback px-0">
                                 <div *ngIf="pwd.errors?.['required']">
                                     Password is required.
                                 </div>
@@ -131,12 +131,15 @@
                         <div class="row px-3 mb-4">
                         </div>
                         <div class="row mb-3 px-3">
-                            <button type="submit" class="btn btn-blue text-center" (click)="onSubmit()"
-                                [disabled]="formgroup.invalid">Sign up</button>
+                            <button pButton pRipple type="submit" class="w-full p-3 text-xl btn-blue"
+                                (click)="onSubmit()" [disabled]="formgroup.invalid">Sign up</button>
                         </div>
+                        <p-divider align="center">
+                            <b>OR</b>
+                        </p-divider>
                         <div class="row mb-4 px-1">
-                            <small class="font-weight-bold">Already a user ? <a routerLink="/login"
-                                    class="text-danger ">Login</a></small>
+                            <small style="font-size: 14px; text-align: center;font-weight: 500;">Already a user ? <a
+                                    routerLink="/login" class="text-info ">Login</a></small>
                         </div>
                     </form>
                 </div>

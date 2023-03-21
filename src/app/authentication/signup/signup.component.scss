@@ -6,6 +6,13 @@
 
 // }
 
+.surface-ground {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    overflow-y: auto;
+}
+
 body {
     color: #000;
     overflow-x: hidden;
@@ -147,7 +154,7 @@ a {
 }
 
 .btn-blue:hover {
-    background-color: #000;
+    background-color: #1d2796;
     cursor: pointer;
 }
 
