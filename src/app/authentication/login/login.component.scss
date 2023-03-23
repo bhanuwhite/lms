@@ -147,21 +147,22 @@ a {
 }
 
 .btn-blue {
-    background-color: #1A237E;
+    background-color: #0d6efd;;
     width: 150px;
+    border: none;
     color: #fff;
     border-radius: 2px;
     cursor: pointer;
 }
 
 .btn-blue:hover {
-    background-color: #1d2796;
+    background-color: #0d6efd;
     cursor: pointer;
 }
 
 .bg-blue {
     color: #fff;
-    background-color: #1A237E;
+    background-color: #0d6efd;
 }
 
 @media screen and (max-width: 991px) {
