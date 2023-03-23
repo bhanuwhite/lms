@@ -1,5 +1,8 @@
 <div class="container heading">
-    <h1>Messages</h1>
+    <h2 class="text-black">
+        Messages
+    </h2>
+ 
 </div>
 <div class="container">
     <div class="grid">
@@ -26,7 +29,7 @@
                     <label for="showmsgs">Show automated messages</label>
                 </div>
                 <div class="p-field-checkbox flex align-items-center justify-content-center m-2">
-                    Sortby:<p-multiSelect [options]="multiSelectMessages" optionLabel="name" defaultLabel="Select"
+                    Sortby: &nbsp;<p-multiSelect [options]="multiSelectMessages" optionLabel="name" defaultLabel="Select"
                         name="multiselectmessages" [(ngModel)]="selectedMultiMsgs"></p-multiSelect>
                 </div>
                 <div class="p-field-checkbox flex align-items-center justify-content-center ml-8">
@@ -173,12 +176,13 @@
                     </div>
                 </div>
                 <div class="lg:col-12">
-                    <textarea rows="5" cols="30" pInputTextarea autoResize="autoResize"
-                        [style]="{ border: 'none', padding: '2' }" placeholder="Type your message here..."
+                    <textarea rows="5" cols="100" pInputTextarea autoResize="autoResize"
+                        [style]="{ border: '1px solid rgb(189 182 182)', padding: '2', width: '98%' }" placeholder="Type your message here..."
                         [(ngModel)]="textMessageFromInstructor" name="textmessage"></textarea>
-                    <div class="position-relative mt-4">
-                        <input type="button" value="Send" (click)="messageFromInstructor()"
-                            class="position-absolute bottom-0 end-0 p-2 w-25" />
+                    <div class="position-relative mt-4 d-flex justify-content-end">
+                        <p-button label="Send" value="Send"  (click)="messageFromInstructor()"></p-button>
+                        <!-- <input type="button" value="Send" (click)="messageFromInstructor()"
+                            class="position-absolute bottom-0 end-0 p-2 w-25" /> -->
                     </div>
                 </div>
             </div>
@@ -210,8 +214,9 @@
             </p-editor>
         </div>
         <div class="position-relative mt-5">
-            <input type="button" value="Send" (click)="messageFromComposer()"
-                class="position-absolute bottom-0 end-0 p-2 w-2" />
+            <p-button label="Submit" value="Send" (click)="messageFromComposer()"></p-button>
+            <!-- <input type="button" value="Send" (click)="messageFromComposer()"
+                class="position-absolute bottom-0 end-0 p-2 w-2" /> -->
         </div>
     </form>
 </p-dialog>
