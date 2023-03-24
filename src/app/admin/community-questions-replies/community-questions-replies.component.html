@@ -1,18 +1,18 @@
 <div class="content-inner surface-ground px-3 py-3">
     <div class="row">
         <div class="col-lg-8" *ngIf=" questionObj">
-            <div class="d-flex justify-content-between">
-                <div class=" d-flex ">
-                    <img src={{questionObj.img}} alt="" class="userImg">
-                    <a href="#" class="mt-1 ms-2"> {{questionObj.name}} </a>
-                </div>
-                <div>
-                    <p-multiSelect defaultLabel="option" optionLabel="name" display="chip"></p-multiSelect>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="bg-white mb-2 p-2 mt-2">
+                    <div class="bg-white mb-2 p-2 mt-1">
+                        <div class="d-flex justify-content-between">
+                            <div class=" d-flex ">
+                                <img src={{questionObj.img}} alt="" class="userImg">
+                                <a href="#" class="mt-1 ms-2"> {{questionObj.name}} </a>
+                            </div>
+                            <div>
+                                <p-multiSelect defaultLabel="option" optionLabel="name" display="chip"></p-multiSelect>
+                            </div>
+                        </div>
                         <span class="mb-2"> 14 days ago </span> <br> <br>
                         <b class="fs-5"> {{questionObj.question}} </b>
                         <p class="mt-2"> {{questionObj.description}} </p>
@@ -23,11 +23,9 @@
                                 style="font-size: 1rem; height: 2rem;">
                                 <span class="material-symbols-outlined"> sms </span> <span class="ms-2">Reply</span>
                             </button>
-
                         </div>
                     </div>
                     <h1 style="font-size: 1.5rem;"><b> Accepted Solutions</b> </h1>
-
                     <div class="card bg-white p-2 mt-2" *ngFor="let data of solutions">
                         <div class="d-flex   justify-content-between ">
                             <div class="d-flex ">
@@ -57,7 +55,6 @@
                         </div>
                         <div class="me-2"><i class="pi pi-thumbs-up me-1"></i>7 Likes</div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -70,7 +67,6 @@
                             search
                         </span> </button>
                 </form>
-
             </div>
             <div class="card p-2 text-center mt-2">
                 <b class="fs-5"> First time Course creation.</b>
@@ -99,7 +95,6 @@
                 <hr>
                 <b class="mt-2 fs-6"> How can i solve my questions </b>
                 <p> Discussion in <a href="#">First-time Course creation </a> </p>
-
             </div>
             <div class=" p-2 mt-4 card">
                 <b class="mt-2 fs-5">Top LIked Authors.</b>
@@ -121,7 +116,6 @@
                     </div>
                     <div class="me-2"><i class="pi pi-thumbs-up me-1"></i>7 Likes</div>
                 </div>
-
             </div>
         </div>
     </div>
