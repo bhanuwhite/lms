@@ -32,6 +32,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MenuModule } from 'primeng/menu';
 import {MatTabsModule} from '@angular/material/tabs';
 
+
 let module = [
   MatButtonModule,
   MatCardModule,
@@ -72,7 +73,7 @@ let module = [
     ConfirmDialogModule,
     MenuModule,
     SheredModule,
-    // SpinnerModule,
+
     TooltipModule, ButtonModule, MatTabsModule
 
   ],

@@ -1,18 +1,27 @@
 import { Attribute } from "@angular/core";
 
-export interface Content {
+// export interface Content {
+//   data: {
+//     id: string ;
+//     attributes: {
+//       name: string;
+//       description: string;
+//       author: string;
+//       price: string;
+//       media:string[]
+//     };
+
+//   }
+// }
+export interface PostContent{
   data: {
-    id: string ;
-    attributes: {
-      name: string;
-      description: string;
-      author: string;
-      price: string;
-      media:string[]
-    };
-
+    id?:number,
+    name: string;
+    description: string;
+    author: string | null;
+    price: string;
+    media?:ImageData[]
   }
-
 }
 
 export interface ContentResponse {
@@ -31,6 +40,14 @@ export interface ContentResponse {
 
   }
 }
+
+export interface UpdateContent{
+  data: ContentResponse[];
+  meta: { };
+}
+
+
+
 
 export interface ContentData{
   data: ContentResponse[];
@@ -55,7 +72,7 @@ export interface mediaDataObj{
       thumbnail:{
         url:string
       }
-    } | null,
+    }
     mime:string,
     size:number,
     alternativeText:string |null,
@@ -68,6 +85,33 @@ export interface mediaDataObj{
     provider_metadata:string | null,
     width:string |null
 
+  }
+
+}
+
+
+export interface ImageData {
+  id?:number;
+  ext:string;
+  has:string;
+  height:number;
+  mime:string;
+  name:string;
+  provider:string;
+  previewUrl: string | null;
+  size:number;
+  url:string;
+  width:number;
+  formats: {
+    thumbnail: {
+      ext:string;
+      hash:string;
+      mime:string;
+      size:number;
+      url:string;
+      widht:number;
+      name:string
+    }
   }
 
 }

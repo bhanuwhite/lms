@@ -4,7 +4,7 @@ import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@ang
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ApiService } from 'src/app/services/api.service';
-import { Content, ContentData,ContentResponse,mediaDataObj  } from 'src/app/models/content';
+import {  ContentData,ContentResponse,mediaDataObj,PostContent, } from 'src/app/models/content';
 
 @Component({
   selector: 'app-content',
@@ -31,7 +31,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
    totalCourse: number = 0;
   public _id!: string;
   // public items: any
-  _data!:Content ;
+  _data!:any;
   formData = new FormData();
   percentage: number = 0;
 
@@ -43,8 +43,8 @@ export class ContentComponent implements OnInit, AfterViewInit {
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   url: string = "";
   updateContent!: {}
-  contentBody!: Content;
-  editContentBody!:{};
+  contentBody!: PostContent;
+  editContentBody!:PostContent;
   bodyData!: {};
   edit!: {}
   cId!: string | null;
@@ -190,6 +190,8 @@ export class ContentComponent implements OnInit, AfterViewInit {
         try {
           console.log(res);
           this.contentUpdateFileData = res;
+          console.log("1st check",this.contentUpdateFileData);
+
         } catch (error) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong !!' });
         }
@@ -200,16 +202,15 @@ export class ContentComponent implements OnInit, AfterViewInit {
   // On submit content
   public onSubmitContent(): void {
     const author = localStorage.getItem('role')
-
-    // this.contentBody = {
-    //   "data": {
-    //     "name": this.courseGroup.value.title,
-    //     "description": this.courseGroup.value.description,
-    //     "author": author,
-    //     "price": this.courseGroup.value.price,
-    //     "media": this.contentFileData
-    //   }
-    // }
+    this.contentBody = {
+      "data": {
+        "name": this.courseGroup.value.title,
+        "description": this.courseGroup.value.description,
+        "author": author,
+        "price": this.courseGroup.value.price,
+        // "media": this.contentFileData
+      }
+    }
 
 
     // this.contentBody.data.attributes.name = this.courseGroup.value.title ;
@@ -249,6 +250,8 @@ export class ContentComponent implements OnInit, AfterViewInit {
       price: new FormControl(item.attributes.price, [Validators.required, Validators.minLength(1)]),
       img: new FormControl('', [Validators.nullValidator])
     });
+    console.log(this._data);
+
     this.editDisply = true;
   }
 
@@ -261,13 +264,14 @@ export class ContentComponent implements OnInit, AfterViewInit {
   public onUpdateContent(): void {
     this.editDisply = false;
     if (this.contentUpdateFileData?.length == 0) {
+
       this.editContentBody = {
         "data": {
           "name": this.courseUpdateGroup.value.title,
           "description": this.courseUpdateGroup.value.description,
-          "author": this._data.data.attributes?.author,
+          "author": this.courseUpdateGroup.value.author,
           "price": this.courseUpdateGroup.value.price,
-          "media": this._data.data.attributes?.media
+          // "media": this.contentUpdateFileData
         }
       }
           //  this.editContentBody.data.attributes.name =this.courseUpdateGroup.value.title,
@@ -282,11 +286,12 @@ export class ContentComponent implements OnInit, AfterViewInit {
         "data": {
           "name": this.courseUpdateGroup.value.title,
           "description": this.courseUpdateGroup.value.description,
-          "author": this._data.data.attributes.author,
+          "author": this.courseUpdateGroup.value.author,
           "price": this.courseUpdateGroup.value.price,
-          "media": this.contentUpdateFileData
+          // "media": this.contentUpdateFileData
         }
       }
+
       // this.editContentBody.data.attributes.name =this.courseUpdateGroup.value.title,
       // this.editContentBody.data.attributes.description=this.courseUpdateGroup.value.description,
       // this.editContentBody.data.attributes.author=this._data.data.attributes.author,
@@ -295,9 +300,11 @@ export class ContentComponent implements OnInit, AfterViewInit {
 
 
     }
+    console.log(this.editContentBody);
+
 
     // Post api call here
-    this.apiService.updateContent(this._data.data.id, this.editContentBody).subscribe(res => {
+    this.apiService.updateContent(this._data.id, this.editContentBody).subscribe(res => {
       console.log(res);
       try {
         this.editDisply = false;

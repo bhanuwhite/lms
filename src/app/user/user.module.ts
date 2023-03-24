@@ -32,6 +32,11 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import { FormsModule} from '@angular/forms';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import {CheckboxModule} from 'primeng/checkbox';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { TreeModule } from 'primeng/tree';
+import { MegaMenuModule } from 'primeng/megamenu';
+
 
 
 // import {DialogModule} from 'primeng/dialog';
@@ -59,7 +64,10 @@ import {CheckboxModule} from 'primeng/checkbox';
     InputTextModule,
     FormsModule,
     CheckboxModule,
-
+    TieredMenuModule,
+    CascadeSelectModule,
+    TreeModule,
+    MegaMenuModule,
     AdminRoutingModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule,CardModule,RatingModule,
 
     AccordionModule,TabViewModule, DialogModule,DynamicDialogModule,DropdownModule,RadioButtonModule

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { Content, ContentData,ContentResponse,mediaDataObj } from '../models/content';
+import {  ContentData,ContentResponse,mediaDataObj ,PostContent,UpdateContent} from '../models/content';
 import { Quiz, QuizData, QuizResponse } from '../models/quiz';
 
 @Injectable({
@@ -31,13 +31,13 @@ export class ApiService {
   }
 
   //Post content
-  public postContent(item: Content): Observable<Content> {
-    return this.http.post<Content>(`api/content-libraries`, item);
+  public postContent(item: PostContent): Observable<PostContent> {
+    return this.http.post<PostContent>(`api/content-libraries`, item);
   }
 
   // update content
-  public updateContent(id: string | undefined, item: {}): Observable<Content> {
-    return this.http.put<Content>(`api/content-libraries/${id}`, item);
+  public updateContent(id: number, item:PostContent): Observable<UpdateContent> {
+    return this.http.put<UpdateContent>(`api/content-libraries/${id}`, item);
   }
 
   // Delete content
