@@ -195,16 +195,17 @@
 <p-dialog [(visible)]="displayDialog" [style]="{ width: '700px' }">
     <div class="container heading">
         <h1>New Message</h1>
+       
     </div>
     <form action="">
-        <div class="d-flex justify-space-between">
-            <h1>To:</h1>
+        <div class="d-flex justify-content-around p-2 align-items-center">
+            <h2 class="me-2">To:</h2>
             <input id="firstname1" type="text" name="searchusers" [(ngModel)]="selectedMessage.name"
-                class="p-2 mb-2 w-full" [style]="{ border: '2px solid black' }" />
+                class="p-2 mb-2 w-100" [style]="{ border: '2px solid #eee' }" />
         </div>
         <div>
             <p-editor [(ngModel)]="messageFromCompose" styleClass="ql-editor" name="ql-editor"
-                [style]="{ height: '150px', border: '2px solid black' }">
+                [style]="{ height: '150px', border: '2px solid #eee' }">
                 <ng-template pTemplate="header">
                     <span class="ql-formats">
                         <button type="button" class="ql-bold" aria-label="Bold"></button>
@@ -215,7 +216,7 @@
                 </ng-template>
             </p-editor>
         </div>
-        <div class="position-relative mt-5">
+        <div class="position-relative d-flex justify-content-end mt-5">
             <p-button label="Submit" value="Send" (click)="messageFromComposer()"></p-button>
             <!-- <input type="button" value="Send" (click)="messageFromComposer()"
                 class="position-absolute bottom-0 end-0 p-2 w-2" /> -->
