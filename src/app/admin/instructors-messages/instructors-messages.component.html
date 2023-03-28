@@ -1,9 +1,9 @@
 <div class="content-inner surface-ground px-3 py-3">
     <div class="container-fluid">
-        <h1 style="font-size: 1.5rem;"><b>Messages</b>  </h1>
-      </div>
-      <div class="container">
-        <div class="grid bg-white mb-3 mt-3" >
+        <h1 style="font-size: 1.5rem;"><b>Messages</b> </h1>
+    </div>
+    <div class="container">
+        <div class="grid bg-white mb-3 mt-3">
             <div class="lg:col-12 md:col-12 sm:col-12 xl:col-12">
                 <div class="flex flex-row flex-wrap justify-content-between card-container blue-container">
                     <div class="p-field-checkbox flex align-items-center justify-content-center m-3">
@@ -27,8 +27,9 @@
                         <label for="showmsgs">Show automated messages</label>
                     </div>
                     <div class="p-field-checkbox flex align-items-center justify-content-center m-2">
-                        Sortby: &nbsp;<p-multiSelect [options]="multiSelectMessages" optionLabel="name" defaultLabel="Select"
-                            name="multiselectmessages" [(ngModel)]="selectedMultiMsgs"></p-multiSelect>
+                        Sortby: &nbsp;<p-multiSelect [options]="multiSelectMessages" optionLabel="name"
+                            defaultLabel="Select" name="multiselectmessages"
+                            [(ngModel)]="selectedMultiMsgs"></p-multiSelect>
                     </div>
                     <div class="p-field-checkbox flex align-items-center justify-content-center">
                         <button pButton type="button" label="Compose" class="p-button-secondary"
@@ -46,57 +47,26 @@
                         <div class="lg:col-12">
                             <span class="p-input-icon-right">
                                 <i class="pi pi-search"></i>
-                                <input type="text" pInputText placeholder="Search by keyword" [style]="{ width: '100%' }"
-                                    (input)="
+                                <input type="text" pInputText placeholder="Search by keyword"
+                                    [style]="{ width: '100%' }" (input)="
                       users.filterGlobal($any($event.target).value, 'contains')
                     " />
                             </span>
                         </div>
-    
+
                         <div class="lg:col-12">
                             <div class="users">
-                                <!-- <ng-container>
-                  <div class="grid mt-2"  *ngFor="let msg of allMessages" (click)="onUserMessageSelect(msg)">
-                    <div class="lg:col-3">
-                      <img
-                        src="{{msg.image}}"
-                        alt=""
-                        width="50px"
-                        height="50px"
-                        class="rounded-circle"
-                      />
-                    </div>
-                    <div class="lg:col-7">
-                        <div>
-                            <p>{{msg.message}}</p>
-                        </div>
-                        <div class="d-flex justify-content-around">
-                         <div><h4>{{msg.name}}</h4></div>
-                         <div>
-                             <p class="ml-3">{{msg.date}}</p>
-                         </div>
-                        </div>
-                    </div>
-                    <div class="lg:col-2">
-                      <input type="radio" name="" id="" /><br />
-                    </div>
-                  </div>
-                  </ng-container> -->
-                                <p-table class="p-table" #users [value]="tempMessageUsers" [globalFilterFields]="['name']">
+                                <p-table class="p-table" #users [value]="tempMessageUsers"
+                                    [globalFilterFields]="['name']">
                                     <ng-template pTemplate="body" let-user>
                                         <tr (click)="onUserMessageSelect(user)">
                                             <td>
                                                 <p-avatar image="{{ user.image }}" shape="circle"></p-avatar><br />
                                             </td>
                                             <td class="messagse">
-                                                <!-- <p>
-                                                    {{ user.message }}
-                                                </p> -->
                                                 <h3>{{ user.name }}</h3>
                                             </td>
                                             <td class="mb-3 w-100">
-                                                <!-- <p-checkbox [(ngModel)]="importnatSelectedMessages" name="importantMessages" value="{{user}}"></p-checkbox> -->
-                                                <!-- <input type="checkbox"  name="" id="" (change)="importantMessage(user,user.ID)"> -->
                                                 <p>
                                                     <small>{{ user.date }}</small>
                                                 </p>
@@ -131,7 +101,7 @@
                                     <img src="{{ selectedMessage.image }}" alt="" width="50px" height="50px"
                                         class="rounded-circle" />
                                 </div>
-    
+
                                 <div class="col:lg-6 p-1">
                                     <h1 class="d-inline p-2">
                                         {{ selectedMessage.name }} with Instructor
@@ -146,7 +116,7 @@
                                         nulla omnis voluptatum magni officiis modi quisquam possimus.
                                         <br />
                                         <br />
-    
+
                                         Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                                         Esse, recusandae.
                                     </p>
@@ -158,7 +128,7 @@
                                         <img src="{{ selectedMessage.image }}" alt="" width="50px" height="50px"
                                             class="rounded-circle" />
                                     </div>
-    
+
                                     <div class="col:lg-9 p-1 mt-3">
                                         <h1 class="d-inline p-2">Instructor</h1>
                                         <p class="d-inline ml-3">6:30 AM</p>
@@ -175,12 +145,11 @@
                     </div>
                     <div class="lg:col-12">
                         <textarea rows="5" cols="100" pInputTextarea autoResize="autoResize"
-                            [style]="{ border: '1px solid rgb(189 182 182)', padding: '2', width: '98%' }" placeholder="Type your message here..."
-                            [(ngModel)]="textMessageFromInstructor" name="textmessage"></textarea>
+                            [style]="{ border: '1px solid rgb(189 182 182)', padding: '2', width: '98%' }"
+                            placeholder="Type your message here..." [(ngModel)]="textMessageFromInstructor"
+                            name="textmessage"></textarea>
                         <div class="position-relative mt-4 d-flex justify-content-end">
-                            <p-button label="Send" value="Send"  (click)="messageFromInstructor()"></p-button>
-                            <!-- <input type="button" value="Send" (click)="messageFromInstructor()"
-                                class="position-absolute bottom-0 end-0 p-2 w-25" /> -->
+                            <p-button label="Send" value="Send" (click)="messageFromInstructor()"></p-button>
                         </div>
                     </div>
                 </div>
@@ -195,7 +164,7 @@
 <p-dialog [(visible)]="displayDialog" [style]="{ width: '700px' }">
     <div class="container heading">
         <h1>New Message</h1>
-       
+
     </div>
     <form action="">
         <div class="d-flex justify-content-around p-2 align-items-center">
@@ -218,8 +187,6 @@
         </div>
         <div class="position-relative d-flex justify-content-end mt-5">
             <p-button label="Submit" value="Send" (click)="messageFromComposer()"></p-button>
-            <!-- <input type="button" value="Send" (click)="messageFromComposer()"
-                class="position-absolute bottom-0 end-0 p-2 w-2" /> -->
         </div>
     </form>
 </p-dialog>
