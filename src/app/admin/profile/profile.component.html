@@ -248,7 +248,7 @@
                                 <form [formGroup]="userImageForm" (ngSubmit)="saveImage()">
                                     <input type="file" class="inputfile" pInputText name="image"
                                         [style]="{ width: '500px', height: '60px' }" (change)="onImageUpload($event)" />
-                                    <br />
+                                    <br /> <br>
                                     <p-button label="Save" styleClass="p-button-raised" value="Save"></p-button>
                                     <!-- <input type="submit" value="Save" pButton class="mt-3"
                                         [style]="{ 'background-color': 'black' }" /> -->
@@ -261,7 +261,7 @@
                                     <p-checkbox name="groupname" value="prfl-setting-val1" [(ngModel)]="selectedValues"
                                         class="mb-2" label="Show your profile to the logged-in users"></p-checkbox><br />
                                     <p-checkbox name="groupname" value="prfl-setting-val2" [(ngModel)]="selectedValues"
-                                        label="Show courses you're taking on your profile page"></p-checkbox><br />
+                                        label="Show courses you're taking on your profile page"></p-checkbox><br /> <br>
                                         <p-button label="Save" styleClass="p-button-raised" [disabled]="selectedValues.length === 0" value="Save"></p-button>
                                     <!-- <input type="button" [disabled]="selectedValues.length === 0" value="Save" pButton
                                         class="mt-3" (click)="savingProfileSettingValues()"
