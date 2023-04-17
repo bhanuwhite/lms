@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "content_libraries",
+  "info": {
+    "singularName": "content-library",
+    "pluralName": "content-libraries",
+    "displayName": "content-library"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    },
+    "author": {
+      "type": "string"
+    },
+    "price": {
+      "type": "biginteger"
+    },
+    "media": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    }
+  }
+}
