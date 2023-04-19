@@ -13,9 +13,7 @@ import { AuthService } from '../../services/auth.service';
   providers: [MessageService]
 })
 export class LoginComponent {
-
   formgroup!: FormGroup;
-
   role: string;
 
   body!: {};
@@ -45,29 +43,26 @@ export class LoginComponent {
   }
 
   public onSubmit(): void {
-    console.log('form values', this.formgroup.value)
-
     this.body = {
-      identifier: this.formgroup.value.name,//'admin@admin.com',//test@test.com
-      password: this.formgroup.value.pwd,//'admin@admin.com',//Password
+      identifier: this.formgroup.value.name,
+      password: this.formgroup.value.pwd,
     }
     this.isLoading = true;
     this.aurhService.loginUser(this.body).subscribe(res => {
+      localStorage.setItem('token', res.jwt);
       try {
         const data = res.user;
-        localStorage.setItem('token', res.jwt);
         localStorage.setItem('user', JSON.stringify(data));
-        if (data.role_id == "1") {
+        if (data.role_id === "1") {
           localStorage.setItem('role', 'admin');
           this.isLoading = false;
           localStorage.setItem('isAuthenticate', 'true');
           this.router.navigateByUrl('/admin');
-        } else if (data.role_id == "3") {
+        } else if (data.role_id === "3") {
           localStorage.setItem('role', 'user');
           this.isLoading = false;
           localStorage.setItem('isAuthenticate', 'true');
           this.router.navigate(['user']);
-          // location.reload();
         }
         else {
           this.snakeBar.open('Somthing went to wrong !!', 'Login again', {
@@ -80,9 +75,7 @@ export class LoginComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail:'Somthing went to wrong !! '})
       }
     });
-    this.router.navigate(["/user"]);
-
-  }
+ }
 
  public get name() {
     return this.formgroup.get('name')!;
