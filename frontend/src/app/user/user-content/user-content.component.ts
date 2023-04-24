@@ -3,71 +3,52 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
-import courseList from '../../../assets/data/courseDetails.json';
-
-
+import { ContentResponse } from 'src/app/models/content';
 @Component({
   selector: 'app-user-content',
   templateUrl: './user-content.component.html',
-  styleUrls: ['./user-content.component.scss']
+  styleUrls: ['./user-content.component.scss'],
 })
 export class UserContentComponent {
-
   private contentGetSubscriptions$: Subscription = new Subscription();
-  public contentData!: any;
   public currentRate: number = 2;
 
   public isLoading: boolean = false;
-  public items: any;
-  public courseList: {
-    id: number;
-    courseImage: string;
-    courseTitle: string;
-    author: string;
-    rating: number;
-    price: number;
-  }[] = courseList;
+
+  public coursesList!: ContentResponse[];
 
   constructor(
     private apiService: ApiService,
     private router: Router,
     private messageService: MessageService
-  ) { }
-
+  ) {}
 
   ngOnInit(): void {
     this.getContent();
   }
 
-  // Logout 
+  // Logout
   public onLogout(): void {
     this.router.navigateByUrl('/login');
     localStorage.clear();
     location.reload();
   }
 
-  // Get Content 
+  // Get Content
   public getContent(): void {
-    this.isLoading = true;
-    this.contentGetSubscriptions$ = this.apiService.getContent().subscribe((res) => {
+    this.apiService.getContent().subscribe((res) => {
       try {
-        this.contentData = res.data;
-        console.log(this.contentData);
-        this.isLoading = false;
+        this.coursesList = res.data;
+        this.isLoading = true;
       } catch (error) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Somethinng went to wrong !!',
-        });
+        console.log(error);
       }
-
     });
   }
-  public courseDetails!: string
+  public courseDetails!: string;
   public openCourseDetails(course: {}): void {
     this.router.navigate(['user/contentDetails']);
-    this.courseDetails = JSON.stringify(course)
+    this.courseDetails = JSON.stringify(course);
     localStorage.setItem('courseDetails', this.courseDetails);
     console.log(this.courseDetails);
   }
