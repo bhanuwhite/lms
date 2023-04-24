@@ -26,6 +26,17 @@ export interface ContentResponse {
 
   }
 }
+export interface SingleContentData {
+  data: ContentResponse;
+  meta: {
+      pagination: {
+          page: number
+          pageSize: number
+          pageCount: number
+          total: number
+      }
+  };
+}
 
 export interface ContentData {
   data: ContentResponse[];
