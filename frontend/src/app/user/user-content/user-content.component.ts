@@ -38,6 +38,8 @@ export class UserContentComponent {
   public getContent(): void {
     this.apiService.getContent().subscribe((res) => {
       try {
+        console.log(res.data);
+
         this.coursesList = res.data;
         this.isLoading = true;
       } catch (error) {
@@ -46,11 +48,13 @@ export class UserContentComponent {
     });
   }
   public courseDetails!: string;
+
   public openCourseDetails(course: {}): void {
-    this.router.navigate(['user/contentDetails']);
+    // this.router.navigate(['user/contentDetails']);
+    console.log("single course ",course);
+
     this.courseDetails = JSON.stringify(course);
     localStorage.setItem('courseDetails', this.courseDetails);
-    console.log(this.courseDetails);
   }
 
   ngOnDestroy(): void {
