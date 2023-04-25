@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_has_courses",
+  "info": {
+    "singularName": "user-has-course",
+    "pluralName": "user-has-courses",
+    "displayName": "user_has_course"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "course": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::content-library.content-library",
+      "inversedBy": "user_has_course"
+    }
+  }
+}
