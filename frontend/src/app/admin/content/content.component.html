@@ -40,9 +40,9 @@
                     fontIcon="person"></mat-icon> {{data.attributes.author}}</span>
               </div>
             </div>
-            <p-progressBar [style]="{height: '8px',width:'150px'}" [class.hide]="true" [showValue]="false"
+            <!-- <p-progressBar [style]="{height: '8px',width:'150px'}" [class.hide]="true" [showValue]="false"
               [value]="percentage"></p-progressBar>
-            <p style="font-size: small;">{{percentage}}% Completed</p>
+            <p style="font-size: small;">{{percentage}}% Completed</p> -->
             <p  [routerLink]="['/admin/content',data.id]"
               class="card-text cursor-pointer">
               {{data.attributes.description}}.</p>
@@ -145,6 +145,7 @@
       </form>
     </p-dialog>
 
+
     <!-- Edit dialog start here -->
     <p-dialog header="Update Courses" [(visible)]="editDisply" [style]="{width: '40vw'}" styleClass="active">
       <hr>
@@ -171,6 +172,16 @@
               *ngIf="courseUpdateGroup.get('description')?.invalid && courseUpdateGroup.get('description')?.dirty">
               Description
               name is required</small>
+          </div>
+          <div class="field mt-2 w-100">
+            <label for="title">Author</label>
+            <span class="p-float-label">
+              <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName='author' pInputText>
+              <small class="p-error block"
+                *ngIf="courseUpdateGroup.get('author')?.invalid && courseUpdateGroup.get('author')?.dirty">
+                Authors
+                name is required</small>
+            </span>
           </div>
           <div class="field mt-1 w-100">
             <label for="title">Price</label>

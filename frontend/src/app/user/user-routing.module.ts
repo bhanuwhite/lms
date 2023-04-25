@@ -33,15 +33,13 @@ const routes: Routes = [
         path: 'user/:id', component: ContentDetailsComponent
       },
       {
-        path: 'about',
-        component: AboutComponent,
+        path: 'about',component: AboutComponent,
       },
       {
         path: 'library/:id', component: CourseDetailsComponent
       },
       {
-        path: 'message',
-        component: MessageComponent
+        path: 'message',component: MessageComponent
       },
       {
         path: 'payment', component: PaymentComponent
