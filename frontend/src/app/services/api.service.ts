@@ -36,8 +36,8 @@ export class ApiService {
   }
 
   // update content
-  public updateContent(id: number | undefined, item: {}): Observable<Content> {
-    return this.http.put<Content>(`api/content-libraries/${id}`, item);
+  public updateContent(id: number, item: {}): Observable<Content> {
+    return this.http.put<Content>(`/api/content-libraries/${id}?populate=*`, item);
   }
 
   // Delete content

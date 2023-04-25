@@ -57,7 +57,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   contentData!: ContentResponse[];
   totalCourse: number = 0;
   public _id!: string;
-  _data: [] = [];
+  _data: any ;
   formData = new FormData();
   percentage: number = 0;
 
@@ -170,6 +170,10 @@ export class ContentComponent implements OnInit, OnDestroy {
         Validators.minLength(2),
       ]),
       img: new FormControl('', [Validators.nullValidator]),
+      author: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
     });
   }
 
@@ -222,11 +226,18 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   // content upload
   public onFileSelectForUpdate(event: any): void {
+    console.log(event.target.files.length);
+
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
+      // console.log(file);
+
       this.courseUpdateGroup.get('img')?.setValue(file);
-      //  this.formData = new FormData();
+       this.formData = new FormData();
+      console.log(this.courseUpdateGroup.get('img')?.value);
+
       this.formData.append('files', this.courseUpdateGroup.get('img')?.value);
+
       this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {
           console.log(res);
@@ -286,6 +297,9 @@ export class ContentComponent implements OnInit, OnDestroy {
   public editContentDialog(item: any): void {
     console.log('edit', item);
     this._data = item;
+    console.log('media',this._data.attributes.media.data[0]);
+
+const media = this._data.attributes.media.data[0]
     this.courseUpdateGroup = this.fb.group({
       title: new FormControl(item.attributes.name, [
         Validators.required,
@@ -300,9 +314,15 @@ export class ContentComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.minLength(1),
       ]),
-      img: new FormControl('', [Validators.nullValidator]),
+      author: new FormControl(item.attributes.author, [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      img: new FormControl(media.attributes.formats.thumbnail.url, [Validators.nullValidator]),
     });
     this.editDisply = true;
+    console.log(this.courseUpdateGroup.value);
+
   }
 
   // close edit dialog
@@ -310,45 +330,54 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.editDisply = false;
   }
 
+
   // update content
   public onUpdateContent(): void {
     this.editDisply = false;
+
     if (this.contentUpdateFileData?.length == 0) {
       this.editContentBody = {
         data: {
           name: this.courseUpdateGroup.value.title,
           description: this.courseUpdateGroup.value.description,
-          //  author: this._data.data?.author,
+           author: this.courseUpdateGroup.value.author,
           price: this.courseUpdateGroup.value.price,
-          //  media: this._data.data?.media.data[0]
+           media: this._data.attributes.media.data[0]
         },
       };
+      console.log(this.editContentBody);
+
     } else {
       this.editContentBody = {
         data: {
           name: this.courseUpdateGroup.value.title,
           description: this.courseUpdateGroup.value.description,
-          // author: this._data.data.author,
+          author: this.courseUpdateGroup.value.author,
           price: this.courseUpdateGroup.value.price,
           media: this.contentUpdateFileData,
         },
       };
+      console.log(this.editContentBody);
+
     }
 
     // Post api call here
-    // this.apiService.updateContent(this._data, this.editContentBody).subscribe(res => {
-    //   console.log(res);
-    //   try {
-    //     this.editDisply = false;
-    //     this.messageService.add({
-    //       severity: 'info', summary: 'Update', detail: 'Content updated successfully !!'
-    //     });
-    //     this.getContent();
-    //   } catch (error) {
-    //     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Somthing went to wrong !!' })
-    //   }
-    // });
+
+    this.apiService.updateContent(this._data.id, this.editContentBody).subscribe(res => {
+      console.log(res);
+      try {
+        this.editDisply = false;
+        this.messageService.add({
+          severity: 'info', summary: 'Update', detail: 'Content updated successfully !!'
+        });
+        this.getContent();
+      } catch (error) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Somthing went to wrong !!' })
+      }
+    });
   }
+
+
 
   // Delete content
   public deleteDialog(data: ContentResponse): void {
