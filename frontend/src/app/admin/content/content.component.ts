@@ -49,8 +49,8 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   // @ViewChild('v1', { read: ElementRef, static: false }) videoPlayer!: ElementRef;
   loadingSpinner: boolean = false;
-  contentFileData: string[] = [];
-  contentUpdateFileData: string[] = [];
+  contentFileData: any;
+  contentUpdateFileData: any;
   display: boolean = false;
   editDisply: boolean = false;
 
