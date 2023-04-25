@@ -26,11 +26,11 @@ const routes: Routes = [
       {
         path: 'library', component: MyLibraryComponent
       },
+      // {
+      //   path: 'user/:id', component: ContentDetailsComponent
+      // },
       {
-        path: 'contentDetails', component: ContentDetailsComponent
-      },
-      {
-        path: 'content/:id', component: ContentDetailsComponent
+        path: 'user/:id', component: ContentDetailsComponent
       },
       {
         path: 'about',
