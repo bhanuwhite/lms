@@ -25,10 +25,11 @@ export class CourseDetailsComponent implements OnInit {
       this.id = res['id'];
       console.log(this.id);
     });
-    let courseDetails: any = localStorage.getItem('courseData');
+    // let courseDetails: any = localStorage.getItem('courseData');
 
-    this.courseData = JSON.parse(courseDetails);
-    console.log(this.courseData);
+    // this.courseData = JSON.parse(courseDetails);
+    // console.log(this.courseData);
+    this.getSingleCourse()
   }
 
   public getSingleCourse(): void {

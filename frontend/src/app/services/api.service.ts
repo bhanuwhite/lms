@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { Content, ContentData, ContentResponse } from '../models/content';
+import { Content,ContentData, ContentResponse,SingleContentData } from '../models/content';
 import { Quiz, QuizData } from '../models/quiz';
 
 @Injectable({
@@ -21,8 +21,8 @@ export class ApiService {
   /**
    * getSingleContent
   */
-  public getSingleContent(id: string): Observable<any> {
-    return this.http.get(`/api/content-libraries/${id}`);
+  public getSingleContent(id: number): Observable<SingleContentData> {
+    return this.http.get<SingleContentData>(`/api/content-libraries/${id}?populate=*`);
   }
 
   // File upload api
@@ -36,12 +36,12 @@ export class ApiService {
   }
 
   // update content
-  public updateContent(id: string | undefined, item: {}): Observable<Content> {
+  public updateContent(id: number | undefined, item: {}): Observable<Content> {
     return this.http.put<Content>(`api/content-libraries/${id}`, item);
   }
 
   // Delete content
-  public deleteContent(id: string | undefined): Observable<ContentResponse> {
+  public deleteContent(id: number | undefined): Observable<ContentResponse> {
     return this.http.delete<ContentResponse>(`api/content-libraries/${id}`);
   }
 
@@ -56,8 +56,8 @@ export class ApiService {
   }
 
   // Get courses
-  public getSingleCourse(id:string): Observable<any> {
-    return this.http.get<any>(`api/courses/${id}`);
+  public getSingleCourse(id:number): Observable<any> {
+    return this.http.get<any>(`api/courses/${id}?populate=*`);
   }
 
   // update courses

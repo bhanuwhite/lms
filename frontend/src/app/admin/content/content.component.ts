@@ -1,6 +1,22 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewChildren, } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators,
+} from '@angular/forms';
+import {
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
@@ -11,12 +27,14 @@ import { ApiService } from 'src/app/services/api.service';
   selector: 'app-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.scss'],
-  styles: [`
-        :host ::ng-deep button {
-            margin-right: .25em;
-        }
-  `],
-  providers: [ConfirmationService, MessageService]
+  styles: [
+    `
+      :host ::ng-deep button {
+        margin-right: 0.25em;
+      }
+    `,
+  ],
+  providers: [ConfirmationService, MessageService],
 })
 export class ContentComponent implements OnInit, OnDestroy {
   @ViewChild('vid', { read: ElementRef }) tempRef!: ElementRef;
@@ -27,31 +45,29 @@ export class ContentComponent implements OnInit, OnDestroy {
   private contentDeleteSubsription$: Subscription = new Subscription();
   private fileUploadForPostSubscription$: Subscription = new Subscription();
   private fileUploadForUpdateSubscription$: Subscription = new Subscription();
-  private allSubsription$: Subscription[] = []
-
+  private allSubsription$: Subscription[] = [];
 
   // @ViewChild('v1', { read: ElementRef, static: false }) videoPlayer!: ElementRef;
-   loadingSpinner: boolean = false;
+  loadingSpinner: boolean = false;
   contentFileData: string[] = [];
   contentUpdateFileData: string[] = [];
   display: boolean = false;
   editDisply: boolean = false;
 
-  contentData!:ContentData;
-   totalCourse: number = 0;
+  contentData!: ContentResponse[];
+  totalCourse: number = 0;
   public _id!: string;
-  // public items: any
-  _data: [] = [] ;
+  _data: [] = [];
   formData = new FormData();
   percentage: number = 0;
 
   isProgressFile: boolean = false;
 
-  url: string = "";
-  updateContent!: {}
-  editContentBody!:Content;
+  url: string = '';
+  updateContent!: {};
+  editContentBody!: Content;
   bodyData!: {};
-  edit!: {}
+  edit!: {};
   cId!: string | null;
 
   courseGroup!: FormGroup;
@@ -63,9 +79,8 @@ export class ContentComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private fb: FormBuilder,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService,
-  ) {
-  }
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.getContent();
@@ -82,16 +97,12 @@ export class ContentComponent implements OnInit, OnDestroy {
     //     console.log(event);
     //   });
     // }
-
-
-
   }
 
   updateProgress(vid: HTMLVideoElement) {
     const progress = (vid.currentTime / vid.duration) * 100;
     this.percentage = Math.round(progress);
     console.log(this.percentage, '%');
-
   }
 
   // onClick(id: string): void {
@@ -112,7 +123,6 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.display = false;
   }
 
-
   public onLogout(): void {
     this.router.navigateByUrl('/login');
     localStorage.clear();
@@ -122,20 +132,44 @@ export class ContentComponent implements OnInit, OnDestroy {
   // form validation
   public courseValidate(): void {
     this.courseGroup = this.fb.group({
-      title: new FormControl('', [Validators.required, Validators.minLength(8), Validators.min(1)]),
-      description: new FormControl('', [Validators.required, Validators.minLength(10)]),
-      price: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      img: new FormControl('', Validators.nullValidator)
+      title: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.min(1),
+      ]),
+      description: new FormControl('', [
+        Validators.required,
+        Validators.minLength(5),
+      ]),
+      price: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
+      img: new FormControl('',[Validators.required]),
+      author: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
     });
   }
 
   // update validations
   public courseUpdateValidate(): void {
     this.courseUpdateGroup = this.fb.group({
-      title: new FormControl('', [Validators.required, Validators.minLength(5), Validators.min(1)]),
-      description: new FormControl("", [Validators.required, Validators.minLength(10)]),
-      price: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      img: new FormControl('', [Validators.nullValidator])
+      title: new FormControl('', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.min(1),
+      ]),
+      description: new FormControl('', [
+        Validators.required,
+        Validators.minLength(10),
+      ]),
+      price: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
+      img: new FormControl('', [Validators.nullValidator]),
     });
   }
 
@@ -144,45 +178,47 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.loadingSpinner = true;
     this.apiService.getContent().subscribe((res) => {
       try {
-
         console.log(res.data);
         console.log(res);
 
-        this.contentData = res;
+        this.contentData = res.data;
         console.log(this.contentData);
         // this.totalCourse = this.contentData.data.length;
         this.loadingSpinner = false;
       } catch (error) {
         this.messageService.add({
-          severity: 'error', summary: 'Error !!', detail: 'Something went wrong !!'
+          severity: 'error',
+          summary: 'Error !!',
+          detail: 'Something went wrong !!',
         });
       }
     });
   }
 
-  public setContentData(data: any): void {
-    localStorage.setItem('contentData', JSON.stringify(data));
-  }
 
   // content upload
-  public onFileSelect(event: any): void {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.courseGroup.get('img')?.setValue(file);
-      const formData = new FormData();
-      formData.append('files', this.courseGroup.get('img')?.value);
-      this.isProgressFile = true;
-      this.apiService.uploadFile(formData).subscribe(res => {
-        try {
-          this.isProgressFile = false;
-          console.log(res);
-          this.contentFileData = res;
-        } catch (error) {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong !!' });
-        }
-      });
-    }
+ // content upload
+ public onFileSelect(event: any): void {
+  console.log(event.target.files);
+
+  if (event.target.files.length > 0) {
+    const file = event.target.files[0];
+    this.courseGroup.get('img')?.setValue(file);
+    const formData = new FormData();
+    formData.append('files', this.courseGroup.get('img')?.value);
+    this.isProgressFile = true;
+
+    this.apiService.uploadFile(formData).subscribe(res => {
+      try {
+        this.isProgressFile = false;
+        console.log(res);
+        this.contentFileData = res;
+      } catch (error) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong !!' });
+      }
+    });
   }
+}
 
   // content upload
   public onFileSelectForUpdate(event: any): void {
@@ -191,12 +227,16 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.courseUpdateGroup.get('img')?.setValue(file);
       //  this.formData = new FormData();
       this.formData.append('files', this.courseUpdateGroup.get('img')?.value);
-      this.apiService.uploadFile(this.formData).subscribe(res => {
+      this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {
           console.log(res);
           this.contentUpdateFileData = res;
         } catch (error) {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong !!' });
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Something went to wrong !!',
+          });
         }
       });
     }
@@ -204,40 +244,42 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   // On submit content
   public onSubmitContent(): void {
-    const author = localStorage.getItem('role');
-
-    const contentBody:Content = {
+    // const author = localStorage.getItem('role');
+    const contentBody: Content = {
       data: {
         name: this.courseGroup.value.title,
         description: this.courseGroup.value.description,
-        author: author,
+        author: this.courseGroup.value.author,
         price: this.courseGroup.value.price,
-        media: this.contentFileData
-      }
-    }
-
-
+        media: this.contentFileData,
+      },
+    };
 
     console.log(contentBody);
 
     // Post api call here
-    this.apiService.postContent(contentBody).subscribe(res => {
+    this.apiService.postContent(contentBody).subscribe((res) => {
       console.log(res);
       try {
         this.display = false;
         this.messageService.add({
-          severity: 'success', summary: 'Success', detail: 'Content added successfully !!'
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Content added successfully !!',
         });
         this.getContent();
 
         this.courseGroup.reset();
       } catch (error) {
-
         this.messageService.add({
-          severity: 'error', summary: 'Error', detail: 'Something went wrong !!'
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Something went wrong !!',
         });
       }
     });
+    this.display = false;
+    this.courseGroup.reset();
   }
 
   // Edit dialog open
@@ -245,10 +287,20 @@ export class ContentComponent implements OnInit, OnDestroy {
     console.log('edit', item);
     this._data = item;
     this.courseUpdateGroup = this.fb.group({
-      title: new FormControl(item.attributes.name, [Validators.required, Validators.minLength(5), Validators.min(1)]),
-      description: new FormControl(item.attributes.description, [Validators.required, Validators.minLength(10)]),
-      price: new FormControl(item.attributes.price, [Validators.required, Validators.minLength(1)]),
-      img: new FormControl('', [Validators.nullValidator])
+      title: new FormControl(item.attributes.name, [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.min(1),
+      ]),
+      description: new FormControl(item.attributes.description, [
+        Validators.required,
+        Validators.minLength(10),
+      ]),
+      price: new FormControl(item.attributes.price, [
+        Validators.required,
+        Validators.minLength(1),
+      ]),
+      img: new FormControl('', [Validators.nullValidator]),
     });
     this.editDisply = true;
   }
@@ -262,27 +314,25 @@ export class ContentComponent implements OnInit, OnDestroy {
   public onUpdateContent(): void {
     this.editDisply = false;
     if (this.contentUpdateFileData?.length == 0) {
-     this.editContentBody = {
-      data:{
-         name: this.courseUpdateGroup.value.title,
-         description: this.courseUpdateGroup.value.description,
-        //  author: this._data.data?.author,
-         price: this.courseUpdateGroup.value.price,
-        //  media: this._data.data?.media.data[0]
-
-      }
-      }
-
+      this.editContentBody = {
+        data: {
+          name: this.courseUpdateGroup.value.title,
+          description: this.courseUpdateGroup.value.description,
+          //  author: this._data.data?.author,
+          price: this.courseUpdateGroup.value.price,
+          //  media: this._data.data?.media.data[0]
+        },
+      };
     } else {
-     this.editContentBody = {
+      this.editContentBody = {
         data: {
           name: this.courseUpdateGroup.value.title,
           description: this.courseUpdateGroup.value.description,
           // author: this._data.data.author,
           price: this.courseUpdateGroup.value.price,
-          media: this.contentUpdateFileData
-        }
-      }
+          media: this.contentUpdateFileData,
+        },
+      };
     }
 
     // Post api call here
@@ -301,31 +351,33 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   // Delete content
-  public deleteDialog(data:ContentResponse): void {
+  public deleteDialog(data: ContentResponse): void {
     this.confirmationService.confirm({
       message: `Do you want to delete - ${data.attributes?.name} ?`,
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.apiService.deleteContent(data.id).subscribe(res => {
+        this.apiService.deleteContent(data.id).subscribe((res) => {
           console.log(res);
           console.log(data.id);
 
-
           try {
             this.messageService.add({
-              severity: 'error', summary: 'Delete', detail: 'Content deleted successfully !'
+              severity: 'error',
+              summary: 'Delete',
+              detail: 'Content deleted successfully !',
             });
             this.getContent();
           } catch (error) {
             this.messageService.add({
-              severity: 'error', summary: 'Error', detail: 'Something went to wrong !!'
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Something went to wrong !!',
             });
           }
-
         });
       },
-      reject: () => { }
+      reject: () => {},
     });
   }
   ngOnDestroy(): void {
