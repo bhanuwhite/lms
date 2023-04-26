@@ -1,5 +1,5 @@
 export interface TotalCoursesData {
-  data: CourseResData;
+  data: CourseResData[];
   meta?: CoursesMetaData;
 }
 export interface CoursesMetaData {
@@ -13,13 +13,13 @@ export interface CoursesMetaData {
 export interface CoursesDataObj {
   id: number;
   attributes: {
-    assignment?: {
+    assignment: {
       data: {
         id: number;
         attributes: CoursesAttributes;
       };
     };
-    courseContent?: {
+    courseContent: {
       data: {
         id: number;
         attributes: CoursesAttributes;

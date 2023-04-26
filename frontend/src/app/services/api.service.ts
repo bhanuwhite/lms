@@ -27,7 +27,7 @@ export class ApiService {
   }
 
   // File upload api
-  public uploadFile(item: any): Observable<CoursesImgUpload[]> {
+  public uploadFile(item: {}): Observable<CoursesImgUpload[]> {
     return this.http.post<CoursesImgUpload[]>(`api/upload`, item);
   }
 
@@ -88,14 +88,14 @@ export class ApiService {
   /**
    * updateQuiz
    */
-  public updateQuiz(id: string, item: Quiz): Observable<Quiz> {
+  public updateQuiz(id: number, item: Quiz): Observable<Quiz> {
     return this.http.put<Quiz>(`/api/quizzes/${id}`, item);
   }
 
   /**
    * deleteQuiz
    */
-  public deleteQuiz(id: string): Observable<Quiz> {
+  public deleteQuiz(id: number): Observable<Quiz> {
     return this.http.delete<Quiz>(`/api/quizzes/${id}`);
   }
 

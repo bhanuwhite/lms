@@ -13,7 +13,8 @@ import {
   CoursesDataObj,
   TotalCoursesData,
   CourseResData,
-  UpdateCourseObj,PostCourseData
+  UpdateCourseObj,
+  PostCourseData,
 } from 'src/app/models/Courses';
 @Component({
   selector: 'app-courses',
@@ -41,28 +42,18 @@ export class CoursesComponent implements OnInit, OnDestroy {
   courseUpdateAssignUploadSubscription$: Subscription = new Subscription();
   subScription$: Subscription[] = [];
   data!: string | null;
-  singleContent: any;
-
-  addFormGrorup!: FormGroup;
+  addFormGroup!: FormGroup;
   editFormGroup!: FormGroup;
-
-  courseFileData: any;
-  assignFileData: any;
-  updateAssignFileData: any;
-  updateFileData: any;
-
-  oldFile: any;
-  oldAssignFile: any;
-
-  courseData: any = [];
-  editData: any;
-
+  courseFileData!: number;
+  assignFileData!: number;
+  updateAssignFileData!: number;
+  updateFileData!: number;
+  courseData: CourseResData[] = [];
+  editData!: CoursesDataObj;
   addDialogDisplay: boolean = false;
   editDialogDisplay: boolean = false;
-
   courseBody!: PostCourseData;
   editCourseBody!: UpdateCourseObj;
-
   isLoading: boolean = false;
 
   constructor(
@@ -80,7 +71,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   public addFormValidation(): void {
-    this.addFormGrorup = this.fb.group({
+    this.addFormGroup = this.fb.group({
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
       courseFile: new FormControl('', Validators.nullValidator),
@@ -101,18 +92,13 @@ export class CoursesComponent implements OnInit, OnDestroy {
     const inputElement = event.target as HTMLInputElement | null;
     if (inputElement?.files?.length) {
       const file = inputElement.files[0];
-      this.addFormGrorup.get('courseFile')?.setValue(file);
+      this.addFormGroup.get('courseFile')?.setValue(file);
       const formData = new FormData();
-      formData.append('files', this.addFormGrorup.get('courseFile')?.value);
-
+      formData.append('files', this.addFormGroup.get('courseFile')?.value);
       this.courseFileUploadSubscription$ = this.apiService
         .uploadFile(formData)
         .subscribe((res) => {
           try {
-            console.log("Upload File res ",res);
-            console.log("Upload File formData ",formData);
-
-            console.log(res[0].id);
             this.courseFileData = res[0].id;
           } catch (error) {
             this.messageService.add({
@@ -130,14 +116,13 @@ export class CoursesComponent implements OnInit, OnDestroy {
     const inputElement = event.target as HTMLInputElement | null;
     if (inputElement?.files?.length) {
       const file = inputElement.files[0];
-      this.addFormGrorup.get('assignFile')?.setValue(file);
+      this.addFormGroup.get('assignFile')?.setValue(file);
       const formData = new FormData();
-      formData.append('files', this.addFormGrorup.get('assignFile')?.value);
+      formData.append('files', this.addFormGroup.get('assignFile')?.value);
       this.courseAssignUploadSubscription$ = this.apiService
         .uploadFile(formData)
         .subscribe((res) => {
           try {
-            console.log(res[0].id);
             this.assignFileData = res[0].id;
           } catch (error) {
             this.messageService.add({
@@ -162,7 +147,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
         .uploadFile(formData)
         .subscribe((res) => {
           try {
-            console.log(res[0].id);
             this.updateFileData = res[0].id;
           } catch (error) {
             this.messageService.add({
@@ -176,7 +160,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
     }
   }
 
-
   public onUpdateAssignFileSelect(event: Event): void {
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length > 0) {
@@ -188,7 +171,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
         .uploadFile(formData)
         .subscribe((res) => {
           try {
-            console.log(res[0].id);
             this.updateAssignFileData = res[0].id;
           } catch (error) {
             this.messageService.add({
@@ -202,7 +184,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
     }
   }
 
-
   // Get courses
   public getCourses(): void {
     this.isLoading = true;
@@ -210,10 +191,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
       .getCourses()
       .subscribe((res) => {
         try {
-          console.log(res);
-
           this.courseData = res.data;
-          console.log(this.courseData);
           this.isLoading = false;
         } catch (error) {
           this.messageService.add({
@@ -235,24 +213,20 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    console.log(this.addFormGrorup.value);
     const assignFile = this.assignFileData;
     const courseFile = this.courseFileData;
     this.courseBody = {
       data: {
         assignment: assignFile,
         courseContent: courseFile,
-        courseDescription: this.addFormGrorup.value.description,
-        title: this.addFormGrorup.value.title,
+        courseDescription: this.addFormGroup.value.description,
+        title: this.addFormGroup.value.title,
       },
     };
 
     this.coursePostSubscription$ = this.apiService
       .postCourse(this.courseBody)
       .subscribe((res) => {
-        console.log(res);
-        console.log("Looking for this",this.courseBody);
-
         try {
           this.messageService.add({
             severity: 'success',
@@ -270,12 +244,10 @@ export class CoursesComponent implements OnInit, OnDestroy {
         this.addDialogDisplay = false;
         this.subScription$.push(this.coursePostSubscription$);
       });
-      this.addFormGrorup.reset()
+    this.addFormGroup.reset();
   }
 
   public editDialog(data: CoursesDataObj): void {
-    console.log(data);
-
     this.editData = data;
     this.editFormGroup = this.fb.group({
       title: new FormControl(data.attributes.title, [Validators.required]),
@@ -293,9 +265,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   public onUpdate(): void {
-    // console.log('update assign data', this.updateAssignFileData);
-    // console.log('file data', this.updateFileData);
-
     if (this.updateFileData == undefined) {
       this.editCourseBody = {
         data: {
@@ -320,7 +289,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
     ) {
       this.editCourseBody = {
         data: {
-          assignment: this.editData.attributes.assessment.data.id,
+          assignment: this.editData.attributes.assignment.data.id,
           courseContent: this.editData.attributes.courseContent.data.id,
           courseDescription: this.editFormGroup.value.description,
           title: this.editFormGroup.value.title,
@@ -360,8 +329,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   public deleteCourse(data: CourseResData): void {
-    // console.log(data);
-
     this.confirmationService.confirm({
       message: `Do you want to delete - ${data.attributes?.title} ?`,
       header: 'Delete confirmation',
@@ -391,10 +358,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
     });
   }
 
-  goDetailPage(data: any) {
+  goDetailPage(data: CourseResData) {
     this.router.navigateByUrl(`/admin/courses/${data.id}`);
-    console.log(data);
-    localStorage.setItem('courseData', JSON.stringify(data));
   }
 
   ngOnDestroy(): void {
