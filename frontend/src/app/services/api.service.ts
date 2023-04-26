@@ -27,7 +27,7 @@ export class ApiService {
   }
 
   // File upload api
-  public uploadFile(item: {}): Observable<CoursesImgUpload[]> {
+  public uploadFile(item:{}): Observable<CoursesImgUpload[]> {
     return this.http.post<CoursesImgUpload[]>(`api/upload`, item);
   }
 
@@ -37,7 +37,7 @@ export class ApiService {
   }
 
   // update content
-  public updateContent(id: number, item: {}): Observable<Content> {
+  public updateContent(id: number, item: Content): Observable<Content> {
     return this.http.put<Content>(`api/content-libraries/${id}`, item);
   }
 

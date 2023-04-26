@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ContentData, Content, ContentResponse } from 'src/app/models/content';
+import { CoursesImgUpload } from 'src/app/models/Courses';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -48,11 +49,13 @@ export class ContentComponent implements OnInit, OnDestroy {
   private allSubsription$: Subscription[] = [];
 
   loadingSpinner: boolean = false;
-  contentFileData: any;
-  contentUpdateFileData: any;
+  contentFileData: CoursesImgUpload[]=[];
+  contentUpdateFileData: CoursesImgUpload[]=[];
   display: boolean = false;
   editDisply: boolean = false;
+  @ViewChild('fileInput') fileInput!: ElementRef;
 
+<<<<<<< HEAD
   contentData!: ContentResponse[];
   totalCourse: number = 0;
   public _id!: string;
@@ -62,14 +65,29 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   isProgressFile: boolean = false;
 
+=======
+  public contentData!: ContentResponse[];
+  public totalCourse: number = 0;
+  public _data!: ContentResponse;
+  public formData = new FormData();
+  public percentage: number = 0;
+  public isProgressFile: boolean = false;
+  public courseGroup!: FormGroup;
+  public courseUpdateGroup!: FormGroup;
+  public editContentBody!: Content;
+>>>>>>> 5558087e6b3ce709c6403bf7f9aa6b5ab423f055
   url: string = '';
-  updateContent!: {};
-  editContentBody!: Content;
-  bodyData!: {};
+  // updateContent!: {};
+  // bodyData!: {};
   edit!: {};
   cId!: string | null;
+<<<<<<< HEAD
   courseGroup!: FormGroup;
   courseUpdateGroup!: FormGroup;
+=======
+
+
+>>>>>>> 5558087e6b3ce709c6403bf7f9aa6b5ab423f055
 
   constructor(
     private router: Router,
@@ -194,6 +212,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   // content upload
+<<<<<<< HEAD
   public onFileSelect(event: any): void {
     console.log(event.target.files);
 
@@ -220,16 +239,77 @@ export class ContentComponent implements OnInit, OnDestroy {
     }
   }
 
+=======
+>>>>>>> 5558087e6b3ce709c6403bf7f9aa6b5ab423f055
   // content upload
-  public onFileSelectForUpdate(event: any): void {
-    console.log(event.target.files.length);
+  public onFileSelect(event: Event): void {
+    console.log(event);
 
-    if (event.target.files.length > 0) {
+    if (event.target instanceof HTMLInputElement && event.target.files?.length) {
       const file = event.target.files[0];
-      // console.log(file);
+      this.courseGroup.get('img')?.setValue(file);
+      const formData = new FormData();
+      formData.append('files', this.courseGroup.get('img')?.value);
+      this.isProgressFile = true;
+
+      this.apiService.uploadFile(formData).subscribe((res) => {
+        try {
+          this.isProgressFile = false;
+          console.log(res);
+          this.contentFileData = res;
+        } catch (error) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Something went to wrong !!',
+          });
+        }
+      });
+    }
+  }
+
+  // public onFileSelect(event: any): void {
+  //   console.log(event);
+
+  //   if (event.target.files.length > 0) {
+  //     const file = event.target.files[0];
+  //     this.courseGroup.get('img')?.setValue(file);
+  //     const formData = new FormData();
+  //     formData.append('files', this.courseGroup.get('img')?.value);
+  //     this.isProgressFile = true;
+
+  //     this.apiService.uploadFile(formData).subscribe((res) => {
+  //       try {
+  //         this.isProgressFile = false;
+  //         console.log(res);
+  //         this.contentFileData = res;
+  //       } catch (error) {
+  //         this.messageService.add({
+  //           severity: 'error',
+  //           summary: 'Error',
+  //           detail: 'Something went to wrong !!',
+  //         });
+  //       }
+  //     });
+  //   }
+  // }
+
+  // content upload
+  public onFileSelectForUpdate(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    console.log(target.files?.length);
+
+    if (target.files?.length) {
+      const file = target.files[0];
+      console.log(file);
 
       this.courseUpdateGroup.get('img')?.setValue(file);
       this.formData = new FormData();
+<<<<<<< HEAD
+=======
+      console.log(this.formData);
+
+>>>>>>> 5558087e6b3ce709c6403bf7f9aa6b5ab423f055
       console.log(this.courseUpdateGroup.get('img')?.value);
 
       this.formData.append('files', this.courseUpdateGroup.get('img')?.value);
@@ -248,6 +328,36 @@ export class ContentComponent implements OnInit, OnDestroy {
       });
     }
   }
+
+  // public onFileSelectForUpdate(event: any): void {
+  //   console.log(event.target.files.length);
+
+  //   if (event.target.files.length > 0) {
+  //     const file = event.target.files[0];
+  //     console.log(file);
+
+  //     this.courseUpdateGroup.get('img')?.setValue(file);
+  //     this.formData = new FormData();
+  //     console.log(this.formData);
+
+  //     console.log(this.courseUpdateGroup.get('img')?.value);
+
+  //     this.formData.append('files', this.courseUpdateGroup.get('img')?.value);
+
+  //     this.apiService.uploadFile(this.formData).subscribe((res) => {
+  //       try {
+  //         console.log(res);
+  //         this.contentUpdateFileData = res;
+  //       } catch (error) {
+  //         this.messageService.add({
+  //           severity: 'error',
+  //           summary: 'Error',
+  //           detail: 'Something went to wrong !!',
+  //         });
+  //       }
+  //     });
+  //   }
+  // }
 
   // On submit content
   public onSubmitContent(): void {
@@ -290,35 +400,51 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   // Edit dialog open
+<<<<<<< HEAD
   public editContentDialog(item: any): void {
     console.log('edit', item);
     this._data = item;
     console.log('media', this._data.attributes.media.data[0]);
 
     const media = this._data.attributes.media.data[0];
+=======
+
+  public editContentDialog(item: ContentResponse): void {
+    this.editDisply = true;
+    console.log(item);
+
+    this.fileInput.nativeElement.value = null;
+    this._data = item;
+    const media = this._data?.attributes?.media?.data[0];
+
+>>>>>>> 5558087e6b3ce709c6403bf7f9aa6b5ab423f055
     this.courseUpdateGroup = this.fb.group({
-      title: new FormControl(item.attributes.name, [
+      title: new FormControl(item.attributes?.name, [
         Validators.required,
         Validators.minLength(5),
         Validators.min(1),
       ]),
-      description: new FormControl(item.attributes.description, [
+      description: new FormControl(item.attributes?.description, [
         Validators.required,
         Validators.minLength(10),
       ]),
-      price: new FormControl(item.attributes.price, [
+      price: new FormControl(item.attributes?.price, [
         Validators.required,
         Validators.minLength(1),
       ]),
-      author: new FormControl(item.attributes.author, [
+      author: new FormControl(item.attributes?.author, [
         Validators.required,
         Validators.minLength(3),
       ]),
+<<<<<<< HEAD
       img: new FormControl(media.attributes.formats.thumbnail.url, [
         Validators.nullValidator,
       ]),
+=======
+      img: new FormControl(media, [Validators.nullValidator]),
+>>>>>>> 5558087e6b3ce709c6403bf7f9aa6b5ab423f055
     });
-    this.editDisply = true;
+
     console.log(this.courseUpdateGroup.value);
   }
 
@@ -338,7 +464,11 @@ export class ContentComponent implements OnInit, OnDestroy {
           description: this.courseUpdateGroup.value.description,
           author: this.courseUpdateGroup.value.author,
           price: this.courseUpdateGroup.value.price,
+<<<<<<< HEAD
           media: this._data.attributes.media.data[0],
+=======
+          media: this._data?.attributes?.media?.data[0],
+>>>>>>> 5558087e6b3ce709c6403bf7f9aa6b5ab423f055
         },
       };
       console.log(this.editContentBody);
@@ -351,7 +481,13 @@ export class ContentComponent implements OnInit, OnDestroy {
           price: this.courseUpdateGroup.value.price,
           media: this.contentUpdateFileData,
         },
+<<<<<<< HEAD
       };
+=======
+
+      };
+      this.contentUpdateFileData= []
+>>>>>>> 5558087e6b3ce709c6403bf7f9aa6b5ab423f055
       console.log(this.editContentBody);
     }
 
