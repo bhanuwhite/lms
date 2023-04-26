@@ -14,19 +14,20 @@ export interface Content {
 export interface ContentResponse {
   id: number;
   attributes: {
-      name: string;
-      price: string | number;
-      author: string;
-      createdAt: string;
-      updatedAt: string;
-      publishedAt: string;
-      description: string;
+      name?: string;
+      price?: string | number;
+      author?: string;
+      createdAt?: string;
+      updatedAt?: string;
+      publishedAt?: string;
+      description?: string;
       media?: {
           data: mediaDataObj[];
       };
 
   }
 }
+
 export interface SingleContentData {
   data: ContentResponse;
   meta: {
