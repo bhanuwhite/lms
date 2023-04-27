@@ -1,25 +1,36 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
-
+import {
+  CoursesDataObj,
+  TotalCoursesData,
+  CourseResData,
+  UpdateCourseObj,PostCourseData
+} from 'src/app/models/Courses';
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss'],
-  styles: [`
-        :host ::ng-deep .p-dialog .product-image {
-            width: 150px;
-            margin: 0 auto 2rem auto;
-            display: block;
-        }
-    `],
-  providers: [MessageService, ConfirmationService]
+  styles: [
+    `
+      :host ::ng-deep .p-dialog .product-image {
+        width: 150px;
+        margin: 0 auto 2rem auto;
+        display: block;
+      }
+    `,
+  ],
+  providers: [MessageService, ConfirmationService],
 })
 export class CoursesComponent implements OnInit, OnDestroy {
-
   courseGetSubscription$: Subscription = new Subscription();
   coursePostSubscription$: Subscription = new Subscription();
   courseUpdateSubscription$: Subscription = new Subscription();
@@ -43,25 +54,24 @@ export class CoursesComponent implements OnInit, OnDestroy {
   oldFile: any;
   oldAssignFile: any;
 
-  courseData: any;
+  courseData: any = [];
   editData: any;
 
   addDialogDisplay: boolean = false;
   editDialogDisplay: boolean = false;
 
-  courseBody!: {};
-  editCourseBody!: {};
+  courseBody!: PostCourseData;
+  editCourseBody!: UpdateCourseObj;
 
   isLoading: boolean = false;
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private apiService: ApiService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router
-  ) {
-
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getCourses();
@@ -74,8 +84,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
       courseFile: new FormControl('', Validators.nullValidator),
-      assignFile: new FormControl('', Validators.nullValidator)
-    })
+      assignFile: new FormControl('', Validators.nullValidator),
+    });
   }
 
   public editFormValidation(): void {
@@ -83,99 +93,137 @@ export class CoursesComponent implements OnInit, OnDestroy {
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
       courseFile: new FormControl('', Validators.nullValidator),
-      assignFile: new FormControl('', Validators.nullValidator)
+      assignFile: new FormControl('', Validators.nullValidator),
     });
   }
 
-  public onFileSelect(event: any): void {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
+  public onFileSelect(event: Event): void {
+    const inputElement = event.target as HTMLInputElement | null;
+    if (inputElement?.files?.length) {
+      const file = inputElement.files[0];
       this.addFormGrorup.get('courseFile')?.setValue(file);
       const formData = new FormData();
       formData.append('files', this.addFormGrorup.get('courseFile')?.value);
 
-      this.courseFileUploadSubscription$ = this.apiService.uploadFile(formData).subscribe(res => {
-        try {
-          console.log(res[0].id);
-          this.courseFileData = res[0].id;
-        } catch (error) {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong !!' })
-        }
-      })
+      this.courseFileUploadSubscription$ = this.apiService
+        .uploadFile(formData)
+        .subscribe((res) => {
+          try {
+            console.log("Upload File res ",res);
+            console.log("Upload File formData ",formData);
+
+            console.log(res[0].id);
+            this.courseFileData = res[0].id;
+          } catch (error) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Something went to wrong !!',
+            });
+          }
+        });
       this.subScription$.push(this.courseFileUploadSubscription$);
     }
   }
 
-  public onAssignFileSelect(event: any): void {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
+  public onAssignFileSelect(event: Event): void {
+    const inputElement = event.target as HTMLInputElement | null;
+    if (inputElement?.files?.length) {
+      const file = inputElement.files[0];
       this.addFormGrorup.get('assignFile')?.setValue(file);
       const formData = new FormData();
       formData.append('files', this.addFormGrorup.get('assignFile')?.value);
-
-      this.courseAssignUploadSubscription$ = this.apiService.uploadFile(formData).subscribe(res => {
-        try {
-          console.log(res[0].id);
-          this.assignFileData = res[0].id;
-        } catch (error) {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong' });
-        }
-      });
+      this.courseAssignUploadSubscription$ = this.apiService
+        .uploadFile(formData)
+        .subscribe((res) => {
+          try {
+            console.log(res[0].id);
+            this.assignFileData = res[0].id;
+          } catch (error) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Something went to wrong',
+            });
+          }
+        });
       this.subScription$.push(this.courseAssignUploadSubscription$);
     }
   }
 
-
-  public onUpdateFileSelect(event: any): void {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
+  public onUpdateFileSelect(event: Event): void {
+    const inputElement = event.target as HTMLInputElement | null;
+    if (inputElement?.files?.length) {
+      const file = inputElement.files[0];
       this.editFormGroup.get('courseFile')?.setValue(file);
       const formData = new FormData();
       formData.append('files', this.editFormGroup.get('courseFile')?.value);
-      this.courseUpdateFileUploadSubscription$ = this.apiService.uploadFile(formData).subscribe(res => {
-        try {
-          console.log(res[0].id);
-          this.updateFileData = res[0].id;
-        } catch (error) {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong' });
-        }
-      });
+      this.courseUpdateFileUploadSubscription$ = this.apiService
+        .uploadFile(formData)
+        .subscribe((res) => {
+          try {
+            console.log(res[0].id);
+            this.updateFileData = res[0].id;
+          } catch (error) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Something went to wrong',
+            });
+          }
+        });
       this.subScription$.push(this.courseUpdateFileUploadSubscription$);
     }
   }
 
-  public onUpdateAssignFileSelect(event: any): void {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
+
+  public onUpdateAssignFileSelect(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+      const file = target.files[0];
       this.editFormGroup.get('assignFile')?.setValue(file);
       const formData = new FormData();
       formData.append('files', this.editFormGroup.get('assignFile')?.value);
-      this.courseUpdateAssignUploadSubscription$ = this.apiService.uploadFile(formData).subscribe(res => {
-        try {
-          console.log(res[0].id);
-          this.updateAssignFileData = res[0].id;
-        } catch (error) {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong' });
-        }
-      });
+      this.courseUpdateAssignUploadSubscription$ = this.apiService
+        .uploadFile(formData)
+        .subscribe((res) => {
+          try {
+            console.log(res[0].id);
+            this.updateAssignFileData = res[0].id;
+          } catch (error) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Something went to wrong',
+            });
+          }
+        });
       this.subScription$.push(this.courseUpdateAssignUploadSubscription$);
     }
   }
 
+
   // Get courses
   public getCourses(): void {
     this.isLoading = true;
-    this.courseGetSubscription$ = this.apiService.getCourses().subscribe(res => {
-      try {
-        this.courseData = res.data;
-        console.log(this.courseData);
-        this.isLoading = false;
-      } catch (error) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went wrong !!' })
-      }
-    });
+    this.courseGetSubscription$ = this.apiService
+      .getCourses()
+      .subscribe((res) => {
+        try {
+          console.log(res);
+
+          this.courseData = res.data;
+          console.log(this.courseData);
+          this.isLoading = false;
+        } catch (error) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Something went wrong !!',
+          });
+        }
+      });
     this.subScription$.push(this.courseGetSubscription$);
-    
   }
 
   public addDialog(): void {
@@ -191,39 +239,52 @@ export class CoursesComponent implements OnInit, OnDestroy {
     const assignFile = this.assignFileData;
     const courseFile = this.courseFileData;
     this.courseBody = {
-      'data': {
-        'assignment': assignFile,
-        'courseContent': courseFile,
-        'courseDescription': this.addFormGrorup.value.description,
-        'title': this.addFormGrorup.value.title,
-      }
+      data: {
+        assignment: assignFile,
+        courseContent: courseFile,
+        courseDescription: this.addFormGrorup.value.description,
+        title: this.addFormGrorup.value.title,
+      },
+    };
 
-    }
+    this.coursePostSubscription$ = this.apiService
+      .postCourse(this.courseBody)
+      .subscribe((res) => {
+        console.log(res);
+        console.log("Looking for this",this.courseBody);
 
-    this.coursePostSubscription$ = this.apiService.postCourse(this.courseBody).subscribe(res => {
-      console.log(res);
-      try {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Course Added successfully !' });
-        this.getCourses();
-      } catch (error) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong !!' });
-      }
-      this.addDialogDisplay = false;
-      this.subScription$.push(this.coursePostSubscription$);
-      
-    });
-
+        try {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Course Added successfully !',
+          });
+          this.getCourses();
+        } catch (error) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Something went to wrong !!',
+          });
+        }
+        this.addDialogDisplay = false;
+        this.subScription$.push(this.coursePostSubscription$);
+      });
+      this.addFormGrorup.reset()
   }
 
-  public editDialog(data: any): void {
+  public editDialog(data: CoursesDataObj): void {
+    console.log(data);
 
     this.editData = data;
     this.editFormGroup = this.fb.group({
       title: new FormControl(data.attributes.title, [Validators.required]),
-      description: new FormControl(data.attributes.courseDescription, [Validators.required]),
+      description: new FormControl(data.attributes.courseDescription, [
+        Validators.required,
+      ]),
       courseFile: new FormControl('', Validators.nullValidator),
-      assignFile: new FormControl('', Validators.nullValidator)
-    })
+      assignFile: new FormControl('', Validators.nullValidator),
+    });
     this.editDialogDisplay = true;
   }
 
@@ -232,79 +293,102 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   public onUpdate(): void {
-
     // console.log('update assign data', this.updateAssignFileData);
     // console.log('file data', this.updateFileData);
 
     if (this.updateFileData == undefined) {
       this.editCourseBody = {
-        'data': {
-          'assignment': this.updateAssignFileData,
-          'courseContent': this.editData.attributes.courseContent.data.id,
-          'courseDescription': this.editFormGroup.value.description,
-          'title': this.editFormGroup.value.title,
-        }
-      }
+        data: {
+          assignment: this.updateAssignFileData,
+          courseContent: this.editData.attributes.courseContent.data.id,
+          courseDescription: this.editFormGroup.value.description,
+          title: this.editFormGroup.value.title,
+        },
+      };
     } else if (this.updateAssignFileData == undefined) {
       this.editCourseBody = {
-        'data': {
-          'assignment': this.editData.attributes.assignment.data.id,
-          'courseContent': this.updateFileData,
-          'courseDescription': this.editFormGroup.value.description,
-          'title': this.editFormGroup.value.title,
-        }
-      }
-    } else if (this.updateFileData == undefined && this.updateAssignFileData == undefined) {
+        data: {
+          assignment: this.editData.attributes.assignment.data.id,
+          courseContent: this.updateFileData,
+          courseDescription: this.editFormGroup.value.description,
+          title: this.editFormGroup.value.title,
+        },
+      };
+    } else if (
+      this.updateFileData == undefined &&
+      this.updateAssignFileData == undefined
+    ) {
       this.editCourseBody = {
-        'data': {
-          'assignment': this.editData.attributes.assessment.data.id,
-          'courseContent': this.editData.attributes.courseContent.data.id,
-          'courseDescription': this.editFormGroup.value.description,
-          'title': this.editFormGroup.value.title,
-        }
-      }
+        data: {
+          assignment: this.editData.attributes.assessment.data.id,
+          courseContent: this.editData.attributes.courseContent.data.id,
+          courseDescription: this.editFormGroup.value.description,
+          title: this.editFormGroup.value.title,
+        },
+      };
     } else {
       this.editCourseBody = {
-        'data': {
-          'assignment': this.updateAssignFileData,
-          'courseContent': this.updateFileData,
-          'courseDescription': this.editFormGroup.value.description,
-          'title': this.editFormGroup.value.title,
-        }
-      }
+        data: {
+          assignment: this.updateAssignFileData,
+          courseContent: this.updateFileData,
+          courseDescription: this.editFormGroup.value.description,
+          title: this.editFormGroup.value.title,
+        },
+      };
     }
-    this.courseUpdateSubscription$ = this.apiService.updateCourse(this.editData.id, this.editCourseBody).subscribe(res => {
-      try {
-        console.log('updted course', res);
-        this.getCourses();
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Course updated successfully !' });
-        location.reload();
-      } catch (error) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong !!' });
-      }
-      this.subScription$.push(this.courseUpdateSubscription$);
-    });
+
+    this.courseUpdateSubscription$ = this.apiService
+      .updateCourse(this.editData.id, this.editCourseBody)
+      .subscribe((res) => {
+        try {
+          this.getCourses();
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Course updated successfully !',
+          });
+          location.reload();
+        } catch (error) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Something went to wrong !!',
+          });
+        }
+        this.subScription$.push(this.courseUpdateSubscription$);
+      });
   }
 
-  public deleteCourse(data: any): void {
+  public deleteCourse(data: CourseResData): void {
+    // console.log(data);
+
     this.confirmationService.confirm({
-      message: `Do you want to delete - ${data.attributes.title} ?`,
+      message: `Do you want to delete - ${data.attributes?.title} ?`,
       header: 'Delete confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.courseDeleteSubscription$ = this.apiService.deleteCourse(data.id).subscribe(res => {
-          try {
-            this.getCourses();
-            this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Deleted successfully !' });
-          } catch (error) {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went wrong !!' })
-          }
-          this.subScription$.push(this.courseDeleteSubscription$);
-          
-        });
+        this.courseDeleteSubscription$ = this.apiService
+          .deleteCourse(data.id)
+          .subscribe((res) => {
+            try {
+              this.getCourses();
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Delete',
+                detail: 'Deleted successfully !',
+              });
+            } catch (error) {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Something went wrong !!',
+              });
+            }
+            this.subScription$.push(this.courseDeleteSubscription$);
+          });
       },
-      reject: () => { }
-    })
+      reject: () => {},
+    });
   }
 
   goDetailPage(data: any) {
@@ -314,11 +398,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    
     this.subScription$.forEach((subScribe) => {
-      
       subScribe.unsubscribe();
-    })
+    });
   }
-
 }
