@@ -35,6 +35,10 @@
     "discount": {
       "type": "decimal",
       "required": true
+    },
+    "expired_at": {
+      "type": "date",
+      "required": true
     }
   }
 }

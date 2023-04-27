@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-04-27T12:10:35.238Z"
+    "x-generation-date": "2023-04-27T12:53:55.611Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -18264,7 +18264,8 @@
               "user_id",
               "course_id",
               "amount",
-              "discount"
+              "discount",
+              "expired_at"
             ],
             "type": "object",
             "properties": {
@@ -18288,6 +18289,10 @@
               "discount": {
                 "type": "number",
                 "format": "float"
+              },
+              "expired_at": {
+                "type": "string",
+                "format": "date"
               }
             }
           }
@@ -18322,6 +18327,10 @@
               "discount": {
                 "type": "number",
                 "format": "float"
+              },
+              "expired_at": {
+                "type": "string",
+                "format": "date"
               },
               "createdAt": {
                 "type": "string",
@@ -18653,6 +18662,10 @@
               "discount": {
                 "type": "number",
                 "format": "float"
+              },
+              "expired_at": {
+                "type": "string",
+                "format": "date"
               },
               "createdAt": {
                 "type": "string",
@@ -19018,6 +19031,10 @@
                 "type": "number",
                 "format": "float"
               },
+              "expired_at": {
+                "type": "string",
+                "format": "date"
+              },
               "createdAt": {
                 "type": "string",
                 "format": "date-time"
@@ -19348,6 +19365,10 @@
               "discount": {
                 "type": "number",
                 "format": "float"
+              },
+              "expired_at": {
+                "type": "string",
+                "format": "date"
               },
               "createdAt": {
                 "type": "string",
