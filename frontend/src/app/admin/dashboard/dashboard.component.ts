@@ -9,7 +9,7 @@ export class DashboardComponent implements OnInit {
   basicData: any;
   overViewMenu: any;
 
-
+  public schedule = [ "Weekly","Monthly", "Quarterly"]
   visibleSidebar1: boolean = true;
   ngOnInit(): void {
     this.overViewMenus();

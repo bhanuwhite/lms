@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { emailValidator } from 'src/app/email.directive';
 import { AuthService } from '../../services/auth.service';
-
+import { Login } from 'src/app/models/authenticate';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -25,7 +25,7 @@ export class LoginComponent {
   formgroup!: FormGroup;
   role: string;
 
-  body!: {};
+  body!: Login;
   isLoading: boolean = false;
 
   isError: boolean = false;
@@ -50,16 +50,18 @@ export class LoginComponent {
   }
 
   public onSubmit(): void {
-    console.log('Submiting');
-
     this.body = {
       identifier: this.formgroup.value.name,
       password: this.formgroup.value.pwd,
     };
+    console.log(this.body);
+
     this.isLoading = true;
     this.aurhService.loginUser(this.body).subscribe((res) => {
       localStorage.setItem('token', res.jwt);
       try {
+        console.log(res);
+
         const data = res.user;
         localStorage.setItem('user', JSON.stringify(data));
         if (data.role_id === '1') {

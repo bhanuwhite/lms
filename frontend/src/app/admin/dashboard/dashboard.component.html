@@ -2,14 +2,15 @@
     <div class="row align-items-center">
         <div class="col-lg-6 col-md-6 d-flex align-items-center">
             <h1 style="font-size: 1.5rem;"><b> Overview</b>  </h1>
-         
+
         </div>
         <div class="col-lg-6 col-md-6 d-flex justify-content-end align-items-center">
             <div class="drop-button">
-                <button pButton pRipple type="button" icon="pi pi-chevron-down" popup="true"
+              <p-dropdown [options]="schedule" >   </p-dropdown>
+                <!-- <button pButton pRipple type="button" icon="pi pi-chevron-down" popup="true"
                     (click)="menu.toggle($event)" label="Weekly" class="p-button-raised p-button-text"></button>
                 <p-menu [style]="{'width': '120px'}" (click)="onEvent($event)" #menu [popup]="true"
-                    [model]="overViewMenu"></p-menu>
+                    [model]="overViewMenu"></p-menu> -->
 
             </div>
         </div>
@@ -90,10 +91,11 @@
                 </div>
                 <div class="col-lg-6 col-md-6 d-flex justify-content-end align-items-center">
                     <div class="drop-button">
-                        <button pButton pRipple (click)="menu1.toggle($event)" type="button" icon="pi pi-chevron-down"
+                      <p-dropdown [options]="schedule" >  </p-dropdown>
+                        <!-- <button pButton pRipple (click)="menu1.toggle($event)" type="button" icon="pi pi-chevron-down"
                             label="Weekly" class="p-button-raised p-button-text"></button>
                         <p-menu [style]="{'width': '120px'}" (click)="onEvent($event)" #menu1 [popup]="true"
-                            [model]="overViewMenu"></p-menu>
+                            [model]="overViewMenu"></p-menu> -->
                     </div>
                 </div>
             </div>
