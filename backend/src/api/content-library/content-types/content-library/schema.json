@@ -32,12 +32,6 @@
       ],
       "type": "media",
       "multiple": true
-    },
-    "user_has_course": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::user-has-course.user-has-course",
-      "mappedBy": "course"
     }
   }
 }
