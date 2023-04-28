@@ -50,8 +50,10 @@ export interface CoursesAttributes {
   };
   hash: string;
   height: number;
+  id?:number;
   mime: string;
   name: string;
+  createdAt?:string;
   provider: string;
   size: number;
   previewUrl: string | null;
@@ -144,7 +146,7 @@ export interface CoursesImgUpload {
 }
 export interface UpdateCourseObj {
   data : {
-    assignment:number,
+    assignment:number | undefined,
     courseContent:number,
     courseDescription:string,
     title:string
@@ -152,8 +154,8 @@ export interface UpdateCourseObj {
 }
 export interface PostCourseData {
   data:{
-    assignment:number,
-    courseContent:number,
+    assignment:number | undefined,
+    courseContent:number | undefined,
     courseDescription:string,
     title:string
   }

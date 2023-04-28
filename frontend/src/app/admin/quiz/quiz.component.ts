@@ -239,24 +239,24 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   public deleteDialog(data: QuizResponse): void {
     console.log(data);
 
-    // this.confirmationService.confirm({
-    //   message: `Do you want to delete - ${data.attributes.question} ?`,
-    //   header: 'Delete Confirmation',
-    //   icon: 'pi pi-info-circle',
-    //   accept: () => {
-    //     this.apiService.deleteQuiz(data.id).subscribe(res => {
-    //       try {
-    //         this.getQuiz();
-    //         this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Deleted sucessfully' });
-    //       } catch (error) {
-    //         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong' });
-    //       }
-    //     })
-    //   },
-    //   reject: () => {
-    //     // this.msgs = [{ severity: 'info', summary: 'Rejected', detail: 'You have rejected' }];
-    //   }
-    // });
+    this.confirmationService.confirm({
+      message: `Do you want to delete - ${data?.attributes?.question} ?`,
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.apiService.deleteQuiz(data.id).subscribe(res => {
+          try {
+            this.getQuiz();
+            this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Deleted sucessfully' });
+          } catch (error) {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong' });
+          }
+        })
+      },
+      reject: () => {
+        // this.msgs = [{ severity: 'info', summary: 'Rejected', detail: 'You have rejected' }];
+      }
+    });
   }
 
   ngOnDestroy(): void {
