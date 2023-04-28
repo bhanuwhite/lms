@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -15,7 +21,9 @@ import {
   CourseResData,
   UpdateCourseObj,
   PostCourseData,
+  CoursesAttributes,
 } from 'src/app/models/Courses';
+import { mediaDataObj } from 'src/app/models/content';
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
@@ -44,9 +52,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
   data!: string | null;
   addFormGroup!: FormGroup;
   editFormGroup!: FormGroup;
-  courseFileData!: number;
-  assignFileData!: number;
-  updateAssignFileData!: number;
+  courseFileData!: number | undefined;
+  assignFileData!: number | undefined;
+  updateAssignFileData!: number ;
   updateFileData!: number;
   courseData: CourseResData[] = [];
   editData!: CoursesDataObj;
@@ -55,6 +63,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
   courseBody!: PostCourseData;
   editCourseBody!: UpdateCourseObj;
   isLoading: boolean = false;
+  @ViewChild('SelectCourseFileData') inputFileData!: ElementRef;
+  @ViewChild('assignmentCourseFile') assignmentCourseFile!: ElementRef;
 
   constructor(
     private fb: FormBuilder,
@@ -95,11 +105,14 @@ export class CoursesComponent implements OnInit, OnDestroy {
       this.addFormGroup.get('courseFile')?.setValue(file);
       const formData = new FormData();
       formData.append('files', this.addFormGroup.get('courseFile')?.value);
+      console.log('form Data', formData);
+
       this.courseFileUploadSubscription$ = this.apiService
         .uploadFile(formData)
         .subscribe((res) => {
           try {
             this.courseFileData = res[0].id;
+            console.log('courseFileData', this.courseFileData);
           } catch (error) {
             this.messageService.add({
               severity: 'error',
@@ -124,6 +137,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
         .subscribe((res) => {
           try {
             this.assignFileData = res[0].id;
+            console.log('assignFileData', this.assignFileData);
           } catch (error) {
             this.messageService.add({
               severity: 'error',
@@ -167,6 +181,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
       this.editFormGroup.get('assignFile')?.setValue(file);
       const formData = new FormData();
       formData.append('files', this.editFormGroup.get('assignFile')?.value);
+
       this.courseUpdateAssignUploadSubscription$ = this.apiService
         .uploadFile(formData)
         .subscribe((res) => {
@@ -194,6 +209,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
           console.log(res.data);
 
           this.courseData = res.data;
+          console.log(this.courseData);
           this.isLoading = false;
         } catch (error) {
           this.messageService.add({
@@ -208,6 +224,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   public addDialog(): void {
     this.addDialogDisplay = true;
+    this.inputFileData.nativeElement.value = null;
+    this.assignmentCourseFile.nativeElement.value = null;
   }
 
   public closeAddDialog(): void {
@@ -215,12 +233,10 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    const assignFile = this.assignFileData;
-    const courseFile = this.courseFileData;
     this.courseBody = {
       data: {
-        assignment: assignFile,
-        courseContent: courseFile,
+        assignment: this.assignFileData,
+        courseContent: this.courseFileData,
         courseDescription: this.addFormGroup.value.description,
         title: this.addFormGroup.value.title,
       },
@@ -247,6 +263,12 @@ console.log(this.courseBody.data);
         this.addDialogDisplay = false;
         this.subScription$.push(this.coursePostSubscription$);
       });
+    // this.addFormGroup.get('courseFile')?.setValue(null);
+    // this.addFormGroup.get('assignFile')?.setValue(null);
+    // this.assignFileData=[]
+    // this.courseFileData=[]
+    this.assignFileData= undefined;
+      this.courseFileData = undefined
     this.addFormGroup.reset();
 
   }
