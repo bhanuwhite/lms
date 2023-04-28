@@ -20,7 +20,7 @@ import {
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { ContentData, Content, ContentResponse } from 'src/app/models/content';
+import { ContentData, Content, ContentResponse ,mediaDataObj} from 'src/app/models/content';
 import { CoursesImgUpload } from 'src/app/models/Courses';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -49,11 +49,12 @@ export class ContentComponent implements OnInit, OnDestroy {
   private allSubsription$: Subscription[] = [];
 
   loadingSpinner: boolean = false;
-  contentFileData: CoursesImgUpload[]=[];
-  contentUpdateFileData: CoursesImgUpload[]=[];
+  contentFileData: mediaDataObj[]=[];
+  contentUpdateFileData: mediaDataObj[]=[];
   display: boolean = false;
   editDisply: boolean = false;
   @ViewChild('fileInput') fileInput!: ElementRef;
+  @ViewChild('imgInput') imgInput!: ElementRef;
 
   public contentData!: ContentResponse[];
   public totalCourse: number = 0;
@@ -116,6 +117,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
   public closeDialog(): void {
     this.display = false;
+    this.courseGroup.reset();
   }
 
   public onLogout(): void {
@@ -200,12 +202,13 @@ export class ContentComponent implements OnInit, OnDestroy {
     console.log(event);
 
     if (event.target instanceof HTMLInputElement && event.target.files?.length) {
+
       const file = event.target.files[0];
+
       this.courseGroup.get('img')?.setValue(file);
       const formData = new FormData();
       formData.append('files', this.courseGroup.get('img')?.value);
       this.isProgressFile = true;
-
       this.apiService.uploadFile(formData).subscribe((res) => {
         try {
           this.isProgressFile = false;
@@ -221,6 +224,7 @@ export class ContentComponent implements OnInit, OnDestroy {
       });
     }
   }
+
 
 
   // content upload
@@ -258,7 +262,6 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   // On submit content
   public onSubmitContent(): void {
-    // const author = localStorage.getItem('role');
     const contentBody: Content = {
       data: {
         name: this.courseGroup.value.title,
@@ -282,7 +285,6 @@ export class ContentComponent implements OnInit, OnDestroy {
           detail: 'Content added successfully !!',
         });
         this.getContent();
-
         this.courseGroup.reset();
       } catch (error) {
         this.messageService.add({
@@ -292,6 +294,8 @@ export class ContentComponent implements OnInit, OnDestroy {
         });
       }
     });
+    this.imgInput.nativeElement.value=null;
+    this.contentFileData=[]
     this.display = false;
     this.courseGroup.reset();
   }
@@ -346,7 +350,7 @@ export class ContentComponent implements OnInit, OnDestroy {
           description: this.courseUpdateGroup.value.description,
           author: this.courseUpdateGroup.value.author,
           price: this.courseUpdateGroup.value.price,
-          media: this._data?.attributes?.media?.data[0],
+          media: this._data.attributes.media?.data,
         },
       };
       console.log(this.editContentBody);

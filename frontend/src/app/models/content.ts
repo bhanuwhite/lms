@@ -5,7 +5,7 @@ export interface Content {
       description?: string;
       author?: string | null;
       price?: string;
-      media?: any
+      media?: mediaDataObj[]
   };
 
 }
@@ -77,5 +77,37 @@ export interface mediaDataObj {
       width: string | null
   }
 
+}
+
+export interface ContentImgUpload {
+  id: number;
+  alternativeText: string | null;
+  caption: string | null;
+  createdAt: string;
+  ext: string;
+  formats: {
+    thubnail: {
+      ext: string;
+      size: number;
+      url: string;
+      width: number;
+      hash: string;
+      height: number;
+      mime: string;
+      name: string;
+      path: string | null;
+    };
+  };
+  hash: string;
+  height: number;
+  mime: string;
+  name: string;
+  previewUrl: string | null;
+  provider: string;
+  provider_metadata: string | null;
+  size: number;
+  updatedAt: string;
+  url: string;
+  width: number;
 }
 

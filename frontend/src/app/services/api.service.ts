@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { Content,ContentData, ContentResponse,SingleContentData } from '../models/content';
+import { Content,ContentData, ContentResponse,SingleContentData,mediaDataObj } from '../models/content';
 import { Quiz, QuizData } from '../models/quiz';
 import { TotalCoursesData,UpdateCourseObj,PostCourseData, CoursesImgUpload } from '../models/Courses';
 
@@ -27,8 +27,8 @@ export class ApiService {
   }
 
   // File upload api
-  public uploadFile(item:{}): Observable<CoursesImgUpload[]> {
-    return this.http.post<CoursesImgUpload[]>(`api/upload`, item);
+  public uploadFile(item:{}): Observable<mediaDataObj[]> {
+    return this.http.post<mediaDataObj[]>(`api/upload`, item);
   }
 
   //Post content

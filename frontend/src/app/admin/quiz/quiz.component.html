@@ -55,7 +55,7 @@
 
 
     <!-- Add dialog start -->
-    <p-dialog header="Add Question" [(visible)]="addDisplay" [style]="{width: '50vw'}" styleClass="active">
+    <p-dialog header="Add Question" [(visible)]="addDisplay" [style]="{width: '50vw'}" styleClass="active" [modal]="true">
 
         <hr>
         <form [formGroup]="addQuizGroup" (ngSubmit)="onSubmitQuestion()">
@@ -160,7 +160,7 @@
 
 
     <!-- Edit dialog start -->
-    <p-dialog header="Edit Questions" [(visible)]="editDisplay" [style]="{width: '50vw'}" styleClass="active">
+    <p-dialog header="Edit Questions" [(visible)]="editDisplay" [style]="{width: '50vw'}" styleClass="active" [modal]="true">
 
         <hr>
         <form [formGroup]="editQuizGroup" (ngSubmit)="onEditQuestion()">

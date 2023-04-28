@@ -191,6 +191,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
       .getCourses()
       .subscribe((res) => {
         try {
+          console.log(res.data);
+
           this.courseData = res.data;
           this.isLoading = false;
         } catch (error) {
@@ -223,6 +225,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
         title: this.addFormGroup.value.title,
       },
     };
+console.log(this.courseBody.data);
 
     this.coursePostSubscription$ = this.apiService
       .postCourse(this.courseBody)
@@ -245,6 +248,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
         this.subScription$.push(this.coursePostSubscription$);
       });
     this.addFormGroup.reset();
+
   }
 
   public editDialog(data: CoursesDataObj): void {
@@ -331,7 +335,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   public deleteCourse(data: CourseResData): void {
     this.confirmationService.confirm({
       message: `Do you want to delete - ${data.attributes?.title} ?`,
-      header: 'Delete confirmation',
+      header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
         this.courseDeleteSubscription$ = this.apiService

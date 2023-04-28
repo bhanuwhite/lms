@@ -8,19 +8,19 @@
     <div class="col-lg-6 d-flex justify-content-end align-items-center">
       <div class="drop-button">
         <button class="btn btn-primary mb-2 " type="button" (click)="showDialog()" icon="pi pi-info-circle"
-          label="Add"><i class="pi pi-plus me-2 cursor-pointer"></i>Add content</button>
+          label="Add"><i class="pi pi-plus me-2 cursor-pointer"></i>Add Content</button>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-lg-4 mb-3" *ngFor="let data of contentData">
       <div *ngFor="let i of data?.attributes?.media?.data">
-        <div class="card" style="height: 420px;">
+        <div class="card" style="height:400px;width: 95%;">
           <ng-container *ngIf="i.attributes?.formats != null; then content  else video1"></ng-container>
 
           <ng-template #content>
             <img  [routerLink]="['/admin/content',data.id]"
-              style="height: 250px;cursor: pointer;" src="{{i.attributes.formats?.thumbnail?.url}}" class="card-img-top"
+              style="height: 230px;cursor: pointer;" src="{{i.attributes.formats?.thumbnail?.url}}" class="card-img-top"
               alt="...">
           </ng-template>
           <ng-template #video1>
@@ -76,9 +76,11 @@
   </div>
   <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
 </div>
+
+<!-- Add Content Form -->
 <div class=" container">
   <div class="d-flex justify-content-end">
-    <p-dialog header="Add Content" [(visible)]="display" [style]="{width: '40vw'}" styleClass="active">
+    <p-dialog header="Add Content" [(visible)]="display" [style]="{width: '40vw'}" styleClass="active" [modal]="true">
       <hr>
       <form [formGroup]="courseGroup" (ngSubmit)="onSubmitContent()">
         <div class="p-fluid grid">
@@ -112,7 +114,7 @@
             </span>
           </div>
           <div class="field mt-2 w-100">
-            <label for="price">Price</label>
+            <label for="price">Price (₹)</label>
             <span class="p-float-label">
               <input type="number"  class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="price"
                 pInputText>
@@ -124,7 +126,7 @@
           <div class="field mt-4 w-100">
             <label for="content">Content</label>
             <span class="p-float-label mb-1">
-              <input type="file" required=""  class="bg-light-grey input-shadow w-100 p-inputtext"
+              <input type="file" required=""  class="bg-light-grey input-shadow w-100 p-inputtext" #imgInput
                 (change)="onFileSelect($event)" pInputText>
             </span>
             <small class="p-error block" *ngIf="courseGroup.get('img')?.touched && courseGroup.get('img')?.invalid">
@@ -137,17 +139,18 @@
           </div>
         </div>
         <div class="d-flex justify-content-end mt-2">
+          <button (click)="closeDialog()" type="button" class="btn btn-dark"><i
+            class="pi pi-delete-left me-2 cursor-pointer"></i>Cancel</button>
+
           <button  type="button" class="btn btn-success me-2"
             (click)="onSubmitContent()"><i class="pi pi-save me-2 cursor-pointer"></i>Save</button>
-          <button (click)="closeDialog()" type="button" class="btn btn-dark"><i
-              class="pi pi-delete-left me-2 cursor-pointer"></i>Cancel</button>
-        </div>
+             </div>
       </form>
     </p-dialog>
 
 
     <!-- Edit dialog start here -->
-    <p-dialog header="Update Courses" [(visible)]="editDisply" [style]="{width: '40vw'}" styleClass="active">
+    <p-dialog header="Update Course" [(visible)]="editDisply" [style]="{width: '40vw'}" styleClass="active" [modal]="true">
       <hr>
       <form [formGroup]="courseUpdateGroup">
         <div class="p-fluid grid">
@@ -184,7 +187,7 @@
             </span>
           </div>
           <div class="field mt-1 w-100">
-            <label for="title">Price</label>
+            <label for="title">Price (₹)</label>
             <span class="p-float-label">
               <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="price"
                 pInputText>
@@ -205,10 +208,11 @@
           </div>
         </div>
         <div class="d-flex justify-content-end mt-2">
-          <button type="button" class="btn btn-success me-2" (click)="onUpdateContent()"><i
-              class="pi pi-save me-2 cursor-pointer"></i>Update</button>
           <button type="button" class="btn btn-dark" (click)="closeEditDialog()"><i class="pi pi-delete-left me-2 cursor-pointer">
           </i>Cancel</button>
+
+          <button type="button" class="btn btn-success me-2" (click)="onUpdateContent()"><i
+            class="pi pi-save me-2 cursor-pointer"></i>Update</button>
         </div>
       </form>
     </p-dialog>
