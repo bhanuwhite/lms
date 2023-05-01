@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-05-01T06:29:24.616Z"
+    "x-generation-date": "2023-05-01T09:16:24.315Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -86,6 +86,12 @@
         ],
         "properties": {
           "data": {
+            "required": [
+              "name",
+              "author",
+              "price",
+              "media"
+            ],
             "type": "object",
             "properties": {
               "name": {
@@ -168,6 +174,12 @@
       },
       "ContentLibrary": {
         "type": "object",
+        "required": [
+          "name",
+          "author",
+          "price",
+          "media"
+        ],
         "properties": {
           "name": {
             "type": "string"
@@ -884,6 +896,11 @@
         ],
         "properties": {
           "data": {
+            "required": [
+              "title",
+              "courseContent",
+              "assignment"
+            ],
             "type": "object",
             "properties": {
               "title": {
@@ -966,6 +983,11 @@
       },
       "Course": {
         "type": "object",
+        "required": [
+          "title",
+          "courseContent",
+          "assignment"
+        ],
         "properties": {
           "title": {
             "type": "string"
