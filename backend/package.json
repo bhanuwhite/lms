@@ -10,12 +10,12 @@
     "strapi": "strapi"
   },
   "dependencies": {
-    "@strapi/plugin-documentation": "^4.10.0",
-    "@strapi/plugin-i18n": "4.10.0",
-    "@strapi/plugin-users-permissions": "4.10.0",
-    "@strapi/strapi": "4.10.0",
+    "@strapi/plugin-documentation": "4.10.1",
+    "@strapi/plugin-i18n": "4.10.1",
+    "@strapi/plugin-users-permissions": "4.10.1",
+    "@strapi/strapi": "4.10.1",
     "multer": "^1.4.5-lts.1",
-    "pg": "^8.8.0",
+    "pg": "^8.10.0",
     "razorpay": "^2.8.6"
   },
   "author": {
