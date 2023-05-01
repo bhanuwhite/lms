@@ -40,7 +40,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   quizUpdateSubscription$: Subscription = new Subscription();
   quizDeleteSubscription$: Subscription = new Subscription();
   percentage: number = 0;
-  protected _id!: string;
+  protected _id!: number  ;
   total!: number;
   pagesize!: number;
 
@@ -186,17 +186,17 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // open edit form and validation
-  public editDialog(item: any): void {
+  public editDialog(item: QuizResponse): void {
     this._id = item.id;
     console.log(item);
     this.editQuizGroup = this.fb.group({
-      syllabus: new FormControl(item.attributes.syllabus, [Validators.required]),
-      question: new FormControl(item.attributes.question, [Validators.required]),
-      answer: new FormControl(item.attributes.correct_answer, [Validators.required]),
-      option1: new FormControl(item.attributes.all_answer.A, Validators.required),
-      option2: new FormControl(item.attributes.all_answer.B, Validators.required),
-      option3: new FormControl(item.attributes.all_answer.C, Validators.required),
-      option4: new FormControl(item.attributes.all_answer.D, Validators.required),
+      syllabus: new FormControl(item.attributes?.syllabus, [Validators.required]),
+      question: new FormControl(item.attributes?.question, [Validators.required]),
+      answer: new FormControl(item.attributes?.correct_answer, [Validators.required]),
+      option1: new FormControl(item.attributes?.all_answer?.A, Validators.required),
+      option2: new FormControl(item.attributes?.all_answer?.B, Validators.required),
+      option3: new FormControl(item.attributes?.all_answer?.C, Validators.required),
+      option4: new FormControl(item.attributes?.all_answer?.D, Validators.required),
     })
     this.editDisplay = true;
   }
@@ -236,9 +236,11 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // open delete dialog
-  public deleteDialog(data: any): void {
+  public deleteDialog(data: QuizResponse): void {
+    console.log(data);
+
     this.confirmationService.confirm({
-      message: `Do you want to delete - ${data.attributes.question} ?`,
+      message: `Do you want to delete - ${data?.attributes?.question} ?`,
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {

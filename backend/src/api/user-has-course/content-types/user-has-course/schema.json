@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_has_courses",
+  "info": {
+    "singularName": "user-has-course",
+    "pluralName": "user-has-courses",
+    "displayName": "user-has-course",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "my_courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::course.course"
+    },
+    "user_id": {
+      "type": "biginteger",
+      "required": true
+    },
+    "course_id": {
+      "required": true,
+      "type": "biginteger"
+    }
+  }
+}

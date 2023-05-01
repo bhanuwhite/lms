@@ -1,27 +1,43 @@
 <div class="content-inner surface-ground px-3 py-3">
   <div class="container-fluid">
-    <h1 style="font-size: 1.5rem;"><b>Profile & Settings</b> </h1>
+    <h1 style="font-size: 1.5rem"><b>Profile & Settings</b></h1>
   </div>
   <div class="container-fluid">
     <div class="profile-second-section">
       <div class="row">
         <div class="col-lg-12">
           <p-tabView>
-            <p-tabPanel header="Lms profile">
-              <form [formGroup]="userProfileForm" (ngSubmit)="onUserProfileSubmit()">
-                <div class="card ">
+            <p-tabPanel header="Profile">
+              <form
+                [formGroup]="userProfileForm"
+                (ngSubmit)="onUserProfileSubmit()"
+              >
+                <div class="card">
                   <div class="row my-3">
                     <div class="col-lg-5 form-area ms-4 col-sm-12">
                       <div class="p-field px-2 mb-3">
                         <label for="firstname1" class="mb-2">First Name</label>
-                        <input id="firstname1" name="firstname" formControlName="firstname" type="text" class="w-100"
-                          pInputText placeholder="" />
-                        <div *ngIf="
-                              firstname &&
-                              firstname.invalid &&
-                              (firstname.touched || firstname.dirty)
-                            " class="text-danger">
-                          <div *ngIf="firstname.errors?.['required']" class="text-danger">
+                        <input
+                          id="firstname1"
+                          name="firstname"
+                          formControlName="firstname"
+                          type="text"
+                          class="w-100"
+                          pInputText
+                          placeholder=""
+                        />
+                        <div
+                          *ngIf="
+                            firstname &&
+                            firstname.invalid &&
+                            (firstname.touched || firstname.dirty)
+                          "
+                          class="text-danger"
+                        >
+                          <div
+                            *ngIf="firstname.errors?.['required']"
+                            class="text-danger"
+                          >
                             Firstname is required
                           </div>
                           <div *ngIf="firstname.errors?.['minlength']">
@@ -31,14 +47,26 @@
                       </div>
                       <div class="p-field my-2 px-2">
                         <label for="lastname1" class="mb-2">Last Name</label>
-                        <input id="lastname1" class="w-100" name="lastname" formControlName="lastname" type="text"
-                          pInputText />
-                        <div *ngIf="
-                              lastname &&
-                              lastname.invalid &&
-                              (lastname.touched || lastname.dirty)
-                            " class="text-danger">
-                          <div *ngIf="lastname.errors?.['required']" class="text-danger">
+                        <input
+                          id="lastname1"
+                          class="w-100"
+                          name="lastname"
+                          formControlName="lastname"
+                          type="text"
+                          pInputText
+                        />
+                        <div
+                          *ngIf="
+                            lastname &&
+                            lastname.invalid &&
+                            (lastname.touched || lastname.dirty)
+                          "
+                          class="text-danger"
+                        >
+                          <div
+                            *ngIf="lastname.errors?.['required']"
+                            class="text-danger"
+                          >
                             Lastname is required
                           </div>
                           <div *ngIf="lastname.errors?.['minlength']">
@@ -48,14 +76,27 @@
                       </div>
                       <div class="p-field my-2 px-2">
                         <label for="lastname1" class="mb-2">Headline</label>
-                        <input id="lastname1" name="headline" formControlName="headline" type="text" class="w-100"
-                          pInputText placeholder="Instructor at LMS(60)" />
-                        <div *ngIf="
-                              headline &&
-                              headline.invalid &&
-                              (headline.touched || headline.dirty)
-                            " class="text-danger">
-                          <div *ngIf="headline.errors?.['required']" class="text-danger">
+                        <input
+                          id="lastname1"
+                          name="headline"
+                          formControlName="headline"
+                          type="text"
+                          class="w-100"
+                          pInputText
+                          placeholder="Instructor at LMS(60)"
+                        />
+                        <div
+                          *ngIf="
+                            headline &&
+                            headline.invalid &&
+                            (headline.touched || headline.dirty)
+                          "
+                          class="text-danger"
+                        >
+                          <div
+                            *ngIf="headline.errors?.['required']"
+                            class="text-danger"
+                          >
                             Headline is required
                           </div>
                           <div *ngIf="headline.errors?.['minlength']">
@@ -65,28 +106,50 @@
                       </div>
                       <div class="p-field my-2 px-2 overflow-hidden">
                         <label for="lastname1" class="mb-2">Biography</label>
-                        <p-editor [style]="{ width: '100%', height: '80px' }" name="biography"
-                          formControlName="biography">
+                        <p-editor
+                          [style]="{ width: '100%', height: '80px' }"
+                          name="biography"
+                          formControlName="biography"
+                        >
                           <ng-template pTemplate="header">
                             <span class="ql-formats">
-                              <button type="button" class="ql-bold" aria-label="Bold"></button>
-                              <button type="button" class="ql-italic" aria-label="Italic"></button>
+                              <button
+                                type="button"
+                                class="ql-bold"
+                                aria-label="Bold"
+                              ></button>
+                              <button
+                                type="button"
+                                class="ql-italic"
+                                aria-label="Italic"
+                              ></button>
                             </span>
                           </ng-template>
                         </p-editor>
-                        <p class="fs-6 lead" [style]="{ width: '100%', 'text-align': 'justify' }">
+                        <p
+                          class="fs-6 lead"
+                          [style]="{ width: '100%', 'text-align': 'justify' }"
+                        >
                           <small>
-                            To help learners learn more about you,your bio should
-                            reflect your Credibility,Empathy,Passion and
+                            To help learners learn more about you,your bio
+                            should reflect your Credibility,Empathy,Passion and
                             Persionality.Your Biography should have at least 50
-                            words,links and coupon codes are not permitted.</small>
+                            words,links and coupon codes are not
+                            permitted.</small
+                          >
                         </p>
-                        <div *ngIf="
-                              biography &&
-                              biography.invalid &&
-                              (biography.touched || biography.dirty)
-                            " class="text-danger">
-                          <div *ngIf="biography.errors?.['required']" class="text-danger">
+                        <div
+                          *ngIf="
+                            biography &&
+                            biography.invalid &&
+                            (biography.touched || biography.dirty)
+                          "
+                          class="text-danger"
+                        >
+                          <div
+                            *ngIf="biography.errors?.['required']"
+                            class="text-danger"
+                          >
                             Biography is required
                           </div>
                           <div *ngIf="biography.errors?.['minlength']">
@@ -96,14 +159,26 @@
                       </div>
                       <div class="p-field my-2 px-2">
                         <label for="lastname1" class="mb-2">Lanquages</label>
-                        <p-multiSelect [options]="mainLanquages" name="lanquages" class="w-100"
-                          formControlName="selectedlanquages" optionLabel="name"></p-multiSelect>
-                        <div *ngIf="
-                              selectedlanquages &&
-                              selectedlanquages.invalid &&
-                              (selectedlanquages.touched || selectedlanquages.dirty)
-                            " class="text-danger">
-                          <div *ngIf="selectedlanquages.errors?.['required']" class="text-danger">
+                        <p-multiSelect
+                          [options]="mainLanquages"
+                          name="lanquages"
+                          class="w-100"
+                          formControlName="selectedlanquages"
+                          optionLabel="name"
+                        ></p-multiSelect>
+                        <div
+                          *ngIf="
+                            selectedlanquages &&
+                            selectedlanquages.invalid &&
+                            (selectedlanquages.touched ||
+                              selectedlanquages.dirty)
+                          "
+                          class="text-danger"
+                        >
+                          <div
+                            *ngIf="selectedlanquages.errors?.['required']"
+                            class="text-danger"
+                          >
                             Lanquages is required
                           </div>
                           <div *ngIf="selectedlanquages.errors?.['minlength']">
@@ -111,23 +186,35 @@
                           </div>
                         </div>
                       </div>
-
                     </div>
                     <div class="col-lg-1 divider">
                       <p-divider layout="vertical"></p-divider>
                     </div>
 
-                    <div class="  col-lg-5 col-sm-12">
+                    <div class="col-lg-5 col-sm-12">
                       <div class="p-field my-2 px-2">
                         <label for="firstname1" class="mb-2">Website</label>
-                        <input id="firstname1" class="w-100" name="website" formControlName="website" type="text"
-                          pInputText placeholder="Url" />
-                        <div *ngIf="
-                              website &&
-                              website.invalid &&
-                              (website.touched || website.dirty)
-                            " class="text-danger">
-                          <div *ngIf="website.errors?.['required']" class="text-danger">
+                        <input
+                          id="firstname1"
+                          class="w-100"
+                          name="website"
+                          formControlName="website"
+                          type="text"
+                          pInputText
+                          placeholder="Url"
+                        />
+                        <div
+                          *ngIf="
+                            website &&
+                            website.invalid &&
+                            (website.touched || website.dirty)
+                          "
+                          class="text-danger"
+                        >
+                          <div
+                            *ngIf="website.errors?.['required']"
+                            class="text-danger"
+                          >
                             website is required
                           </div>
                           <div *ngIf="website.errors?.['minlength']">
@@ -138,16 +225,29 @@
                       <div class="p-field my-2 px-2">
                         <label for="firstname1" class="mb-2">Twitter</label>
                         <div class="p-inputgroup overflow-hidden">
-                          <span class="p-inputgroup-addon">http://www.twitter.com/</span>
-                          <input type="text" name="twitter" formControlName="twitter" pInputText
-                            placeholder="Username" />
+                          <span class="p-inputgroup-addon"
+                            >http://www.twitter.com/</span
+                          >
+                          <input
+                            type="text"
+                            name="twitter"
+                            formControlName="twitter"
+                            pInputText
+                            placeholder="Username"
+                          />
                         </div>
-                        <div *ngIf="
-                              twitter &&
-                              twitter.invalid &&
-                              (twitter.touched || twitter.dirty)
-                            " class="text-danger">
-                          <div *ngIf="twitter.errors?.['required']" class="text-danger">
+                        <div
+                          *ngIf="
+                            twitter &&
+                            twitter.invalid &&
+                            (twitter.touched || twitter.dirty)
+                          "
+                          class="text-danger"
+                        >
+                          <div
+                            *ngIf="twitter.errors?.['required']"
+                            class="text-danger"
+                          >
                             Twitter is required
                           </div>
                           <div *ngIf="twitter.errors?.['minlength']">
@@ -158,16 +258,29 @@
                       <div class="p-field my-2 px-2">
                         <label for="firstname1" class="mb-2">Facebook</label>
                         <div class="p-inputgroup overflow-hidden">
-                          <span class="p-inputgroup-addon">http://www.facebook.com/</span>
-                          <input type="text" name="facebook" formControlName="facebook" pInputText
-                            placeholder="Username" />
+                          <span class="p-inputgroup-addon"
+                            >http://www.facebook.com/</span
+                          >
+                          <input
+                            type="text"
+                            name="facebook"
+                            formControlName="facebook"
+                            pInputText
+                            placeholder="Username"
+                          />
                         </div>
-                        <div *ngIf="
-                              facebook &&
-                              facebook.invalid &&
-                              (facebook.touched || facebook.dirty)
-                            " class="text-danger">
-                          <div *ngIf="facebook.errors?.['required']" class="text-danger">
+                        <div
+                          *ngIf="
+                            facebook &&
+                            facebook.invalid &&
+                            (facebook.touched || facebook.dirty)
+                          "
+                          class="text-danger"
+                        >
+                          <div
+                            *ngIf="facebook.errors?.['required']"
+                            class="text-danger"
+                          >
                             Facebook is required
                           </div>
                           <div *ngIf="facebook.errors?.['minlength']">
@@ -178,16 +291,29 @@
                       <div class="p-field my-2 px-2">
                         <label for="firstname1" class="mb-2">LinkedIn</label>
                         <div class="p-inputgroup overflow-hidden">
-                          <span class="p-inputgroup-addon">http://www.linkedin.com/</span>
-                          <input type="text" name="linkedin" formControlName="linkedin" pInputText
-                            placeholder="Resource ID" />
+                          <span class="p-inputgroup-addon"
+                            >http://www.linkedin.com/</span
+                          >
+                          <input
+                            type="text"
+                            name="linkedin"
+                            formControlName="linkedin"
+                            pInputText
+                            placeholder="Resource ID"
+                          />
                         </div>
-                        <div *ngIf="
-                              linkedin &&
-                              linkedin.invalid &&
-                              (linkedin.touched || linkedin.dirty)
-                            " class="text-danger">
-                          <div *ngIf="linkedin.errors?.['required']" class="text-danger">
+                        <div
+                          *ngIf="
+                            linkedin &&
+                            linkedin.invalid &&
+                            (linkedin.touched || linkedin.dirty)
+                          "
+                          class="text-danger"
+                        >
+                          <div
+                            *ngIf="linkedin.errors?.['required']"
+                            class="text-danger"
+                          >
                             Linkedin is required
                           </div>
                           <div *ngIf="linkedin.errors?.['minlength']">
@@ -198,16 +324,29 @@
                       <div class="p-field my-2 px-2">
                         <label for="firstname1" class="mb-2">Youtube</label>
                         <div class="p-inputgroup overflow-hidden">
-                          <span class="p-inputgroup-addon">http://www.youtube.com/</span>
-                          <input type="text" name="youtube" formControlName="youtube" pInputText
-                            placeholder="Username" />
+                          <span class="p-inputgroup-addon"
+                            >http://www.youtube.com/</span
+                          >
+                          <input
+                            type="text"
+                            name="youtube"
+                            formControlName="youtube"
+                            pInputText
+                            placeholder="Username"
+                          />
                         </div>
-                        <div *ngIf="
-                              youtube &&
-                              youtube.invalid &&
-                              (youtube.touched || youtube.dirty)
-                            " class="text-danger">
-                          <div *ngIf="youtube.errors?.['required']" class="text-danger">
+                        <div
+                          *ngIf="
+                            youtube &&
+                            youtube.invalid &&
+                            (youtube.touched || youtube.dirty)
+                          "
+                          class="text-danger"
+                        >
+                          <div
+                            *ngIf="youtube.errors?.['required']"
+                            class="text-danger"
+                          >
                             Youtube is required
                           </div>
                           <div *ngIf="youtube.errors?.['minlength']">
@@ -216,45 +355,82 @@
                         </div>
                       </div>
                       <div class="p-field d-flex justify-content-end my-2 px-2">
-                        <p-button label="Save" styleClass="p-button-raised" [disabled]="userProfileForm.invalid"
-                          value="Save"></p-button>
+                        <p-button
+                          label="Save"
+                          styleClass="p-button-raised"
+                          [disabled]="userProfileForm.invalid"
+                          value="Save"
+                        ></p-button>
                       </div>
                     </div>
                   </div>
                 </div>
               </form>
             </p-tabPanel>
-            <p-tabPanel header="Profile picture">
+            <p-tabPanel header="Avathar">
               <div class="conatiner">
                 <h1 class="text-dark">Image Preview</h1>
-                <p class="fs-6 fst-italic"> Minimun 200*200 pixels ,Maximum 6000*6000 pixels</p>
+                <p class="fs-6 fst-italic">
+                  Minimun 200*200 pixels ,Maximum 6000*6000 pixels
+                </p>
               </div>
               <div class="conatiner">
                 <p-card [style]="{ width: '500px', height: '200px' }">
                   <div *ngIf="imageData" class="d-flex justify-content-center">
-                    <img src="{{ imageData }}" alt="" width="450px" height="150px" />
+                    <img
+                      src="{{ imageData }}"
+                      alt=""
+                      width="450px"
+                      height="150px"
+                    />
                   </div>
                 </p-card>
-
               </div>
               <div class="p-field mt-2">
                 <form [formGroup]="userImageForm" (ngSubmit)="saveImage()">
-                  <input type="file" class="inputfile" pInputText name="image"
-                    [style]="{ width: '500px', height: '60px' }" (change)="onImageUpload($event)" />
-                  <br /> <br>
-                  <p-button label="Save" styleClass="p-button-raised" value="Save"></p-button>
+                  <input
+                    type="file"
+                    class="inputfile"
+                    pInputText
+                    name="image"
+                    [style]="{ width: '500px', height: '60px' }"
+                    (change)="onImageUpload($event)"
+                  />
+                  <br />
+                  <br />
+                  <p-button
+                    label="Save"
+                    styleClass="p-button-raised"
+                    value="Save"
+                  ></p-button>
                 </form>
               </div>
             </p-tabPanel>
-            <p-tabPanel header="Profile settings">
+            <p-tabPanel header="Settings">
               <div class="container">
                 <form>
-                  <p-checkbox name="groupname" value="prfl-setting-val1" [(ngModel)]="selectedValues" class="mb-2"
-                    label="Show your profile to the logged-in users"></p-checkbox><br />
-                  <p-checkbox name="groupname" value="prfl-setting-val2" [(ngModel)]="selectedValues"
-                    label="Show courses you're taking on your profile page"></p-checkbox><br /> <br>
-                  <p-button label="Save" styleClass="p-button-raised" [disabled]="selectedValues.length === 0"
-                    value="Save"></p-button>>
+                  <p-checkbox
+                    name="groupname"
+                    value="prfl-setting-val1"
+                    [(ngModel)]="selectedValues"
+                    class="mb-2"
+                    label="Show your profile to the logged-in users"
+                  ></p-checkbox
+                  ><br />
+                  <p-checkbox
+                    name="groupname"
+                    value="prfl-setting-val2"
+                    [(ngModel)]="selectedValues"
+                    label="Show courses you're taking on your profile page"
+                  ></p-checkbox
+                  ><br />
+                  <br />
+                  <p-button
+                    label="Save"
+                    styleClass="p-button-raised"
+                    [disabled]="selectedValues.length === 0"
+                    value="Save"
+                  ></p-button>
                 </form>
               </div>
             </p-tabPanel>

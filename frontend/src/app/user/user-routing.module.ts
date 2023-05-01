@@ -26,22 +26,20 @@ const routes: Routes = [
       {
         path: 'library', component: MyLibraryComponent
       },
+      // {
+      //   path: 'user/:id', component: ContentDetailsComponent
+      // },
       {
-        path: 'contentDetails', component: ContentDetailsComponent
+        path: 'course/:id', component: ContentDetailsComponent
       },
       {
-        path: 'content/:id', component: ContentDetailsComponent
-      },
-      {
-        path: 'about',
-        component: AboutComponent,
+        path: 'about',component: AboutComponent,
       },
       {
         path: 'library/:id', component: CourseDetailsComponent
       },
       {
-        path: 'message',
-        component: MessageComponent
+        path: 'message',component: MessageComponent
       },
       {
         path: 'payment', component: PaymentComponent

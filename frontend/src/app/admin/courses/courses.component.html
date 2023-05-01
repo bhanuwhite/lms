@@ -4,183 +4,181 @@
 </div> -->
 <!-- style="background-color: #fff;" -->
 <div class="card">
-    <p-toolbar styleClass="p-mb-4">
-        <ng-template pTemplate="left">
-            <button pButton pRipple label="Create Course" icon="pi pi-plus" (click)="addDialog()"
-                class="p-button-success p-mr-2"></button>
-            <!-- <button pButton pRipple icon="pi pi-trash" class="p-button-danger"></button> -->
-        </ng-template>
-
-    </p-toolbar>
-
-    <p-table #dt [value]="courseData" [rows]="5" [paginator]="true" [rowHover]="true" dataKey="id"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
-        <ng-template pTemplate="caption">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                <h3 style="font-weight: 900;">Manage Courses</h3>
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="text" placeholder="Search..." />
-                </span>
-            </div>
+  <p-toolbar styleClass="p-mb-4">
+    <div class="p-d-flex p-ai-center p-jc-between">
+      <h3 style="font-weight: 900;">Manage Courses</h3>
+    </div>
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input pInputText type="text" placeholder="Search..." />
+    </span>
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="Create Course" icon="pi pi-plus" (click)="addDialog()"
+        class="p-button-success p-mr-2"></button>
+      <!-- <button pButton pRipple icon="pi pi-trash" class="p-button-danger"></button> -->
+    </ng-template>
+  </p-toolbar>
 
 
-        </ng-template>
-        <ng-template pTemplate="header">
-            <tr>
-                <th pSortableColumn="title" class="text-center">Title </th>
-                <!-- <p-sortIcon field="name"></p-sortIcon>-->
-                <th pSortableColumn="description" class="text-center">Description </th>
-                <th pSortableColumn="createdAt" class="text-center">Created time</th>
-                <th pSortableColumn="updatedAt" class="text-center">Updated time</th>
-                <th pSortableColumn="action" class="text-center">Action</th>
-                <th></th>
-            </tr>
-        </ng-template>
-        <ng-template style="width: auto;" pTemplate="body" let-course>
-            <tr>
-                <td (click)="goDetailPage(course)" class="text-center cursor-pointer">{{course.attributes.title}}</td>
-                <td (click)="goDetailPage(course)" class="text-center cursor-pointer">{{course.attributes.courseDescription}}</td>
-                <td (click)="goDetailPage(course)" class="text-center cursor-pointer">{{course.attributes.createdAt| date:'medium'}}</td>
+  <p-table #dt [value]="courseData" [rows]="8" [paginator]="true" [rowHover]="true" dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
 
-                <td (click)="goDetailPage(course)" class="text-center cursor-pointer">{{course.attributes.updatedAt | date:'medium'}}</td>
-                <td class="text-center">
-                    <button pButton pRipple icon="pi pi-pencil" (click)="editDialog(course)"
-                        class="p-button-rounded p-button-success p-mr-2"></button>
-                    <button pButton pRipple icon="pi pi-trash" (click)="deleteCourse(course)"
-                        class="p-button-rounded p-button-warning"></button>
-                </td>
-            </tr>
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="title" class="text-center">Title </th>
+          <!-- <p-sortIcon field="name"></p-sortIcon>-->
+          <th pSortableColumn="description" class="text-center">Description </th>
+          <th pSortableColumn="createdAt" class="text-center">Created Time</th>
+          <th pSortableColumn="updatedAt" class="text-center">Updated Time</th>
+          <th pSortableColumn="action" class="text-center">Action</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template style="width: auto;" pTemplate="body" let-course>
+        <tr>
+          <td (click)="goDetailPage(course)" class="text-center cursor-pointer">{{course.attributes.title}}</td>
+          <td (click)="goDetailPage(course)" class="text-center cursor-pointer">
+            {{course.attributes.courseDescription}}
+          </td>
+          <td (click)="goDetailPage(course)" class="text-center cursor-pointer">{{course.attributes.createdAt|
+            date:'medium'}}</td>
+
+          <td (click)="goDetailPage(course)" class="text-center cursor-pointer">{{course.attributes.updatedAt |
+            date:'medium'}}</td>
+          <td class="text-center">
+            <button pButton pRipple icon="pi pi-pencil" (click)="editDialog(course)"
+              class="p-button-rounded p-button-success p-mr-2"></button>
+            <button pButton pRipple icon="pi pi-trash" (click)="deleteCourse(course)"
+              class="p-button-rounded p-button-warning"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          In total there are {{courseData ? courseData.length : 0 }} Courses
+        </div>
         </ng-template>
-        <ng-template pTemplate="summary">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                In total there are {{courseData ? courseData.length : 0 }} Courses
-            </div>
-        </ng-template>
-    </p-table>
+  </p-table>
 </div>
 
 <!-- confirmation dialog for delete-->
 <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
 
 <!-- Add dialog start -->
-<p-dialog header="Add Course" [(visible)]="addDialogDisplay" [style]="{width: '50vw'}" styleClass="active">
-    <hr>
-    <form [formGroup]="addFormGrorup">
-        <div class="p-fluid grid">
-            <div class="field mt-2 w-100">
-                <label for="title">Course Name</label>
-                <span class="p-float-label">
+<p-dialog header="Add Course" [(visible)]="addDialogDisplay" [style]="{width: '50vw'}" styleClass="active"
+  [modal]="true">
+  <hr>
+  <form [formGroup]="addFormGroup">
+    <div class="p-fluid grid">
+      <div class="field mt-2 w-100">
+        <label for="title">Course Name</label>
+        <span class="p-float-label">
+          <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="title" pInputText
+            placeholder="Course Name">
+          <small class="p-error block" *ngIf="addFormGroup.get('title')?.invalid && addFormGroup.get('title')?.touched">
+            Course name is required
+          </small>
+        </span>
+      </div>
+      <div class="field mt-2 w-100">
+        <label for="title">Description</label>
+        <span class="p-float-label">
+          <textarea inputId="textarea" class="bg-light-grey input-shadow w-100 p-inputtext" rows="3"
+            style="resize: none;" cols="30" formControlName="description" pInputTextarea></textarea>
+        </span>
+        <small class="p-error block"
+          *ngIf="addFormGroup.get('description')?.invalid && addFormGroup.get('description')?.touched">
+          Description name is required
+        </small>
+      </div>
 
-                    <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="title"
-                        pInputText placeholder="Course Name">
-                    <small class="p-error block"
-                        *ngIf="addFormGrorup.get('title')?.invalid && addFormGrorup.get('title')?.dirty">
-                        Course
-                        name is required</small>
-                </span>
+      <div class="field mt-1 w-100">
+        <label for="title">Course Content</label>
+        <span class="p-float-label">
+          <input type="file" #SelectCourseFileData (change)="onFileSelect($event)"
+            class="bg-light-grey input-shadow w-100 p-inputtext" pInputText>
+        </span>
+      </div>
+      <div class="field mt-1 w-100">
+        <label for="title">Assignment Content</label>
+        <span class="p-float-label">
+          <input type="file" #assignmentCourseFile (change)="onAssignFileSelect($event)"
+            class="bg-light-grey input-shadow w-100 p-inputtext" pInputText>
+        </span>
+      </div>
 
-
-            </div>
-            <div class="field mt-2 w-100">
-                <label for="title">Description</label>
-                <span class="p-float-label">
-                    <textarea inputId="textarea" class="bg-light-grey input-shadow w-100 p-inputtext" rows="3"
-                        style="resize: none;" cols="30" formControlName="description" pInputTextarea></textarea>
-                </span>
-                <small class="p-error block"
-                    *ngIf="addFormGrorup.get('description')?.invalid && addFormGrorup.get('description')?.dirty">
-                    Description
-                    name is required</small>
-            </div>
-
-            <div class="field mt-1 w-100">
-                <label for="title">Course content</label>
-                <span class="p-float-label">
-                    <input type="file" (change)="onFileSelect($event)"
-                        class="bg-light-grey input-shadow w-100 p-inputtext" pInputText>
-                </span>
-            </div>
-            <div class="field mt-1 w-100">
-                <label for="title">Assignment content</label>
-                <span class="p-float-label">
-                    <input type="file" (change)="onAssignFileSelect($event)"
-                        class="bg-light-grey input-shadow w-100 p-inputtext" pInputText>
-                </span>
-            </div>
-            <div class="row  mt-1">
-
-            </div>
-
-        </div>
-        <div class="d-flex justify-content-end mt-2">
-            <button [disabled]="addFormGrorup.invalid" type="button" class="btn btn-success me-2"
-                (click)="onSubmit()"><i class="pi pi-save me-2 cursor-pointer"></i>Save</button>
-            <button (click)="closeAddDialog()" type="button" class="btn btn-dark"><i
-                    class="pi pi-delete-left me-2 cursor-pointer"></i>Cancel</button>
-        </div>
-    </form>
+    </div>
+    <div class="d-flex justify-content-between mt-2">
+      <button (click)="closeAddDialog()" type="button" class="btn btn-dark"><i
+          class="pi pi-delete-left me-2 cursor-pointer"></i>Cancel</button>
+      <button [disabled]="addFormGroup.invalid" type="button" class="btn btn-success me-2" (click)="onSubmit()"><i
+          class="pi pi-save me-2 cursor-pointer"></i>Save</button>
+    </div>
+  </form>
 </p-dialog>
 
 <!-- Add dialog ends here-->
 
 
 <!-- Edit dialog start -->
-<p-dialog header="Update Course" [(visible)]="editDialogDisplay" [style]="{width: '50vw'}" styleClass="active">
+<p-dialog header="Update Course" [(visible)]="editDialogDisplay" [style]="{width: '50vw'}" styleClass="active"
+  [modal]="true">
 
-    <hr>
-    <form [formGroup]="editFormGroup">
-        <div class="p-fluid grid">
-            <div class="field mt-2 w-100">
-                <label for="title">Course Name</label>
-                <span class="p-float-label">
+  <hr>
+  <form [formGroup]="editFormGroup">
+    <div class="p-fluid grid">
+      <div class="field mt-2 w-100">
+        <label for="title">Course Name</label>
+        <span class="p-float-label">
 
-                    <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="title"
-                        pInputText placeholder="Course Name">
-                    <small class="p-error block"
-                        *ngIf="editFormGroup.get('title')?.invalid && editFormGroup.get('title')?.dirty">
-                        Course
-                        name is required</small>
-                </span>
+          <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="title" pInputText
+            placeholder="Course Name">
+          <small class="p-error block"
+            *ngIf="editFormGroup.get('title')?.invalid && editFormGroup.get('title')?.touched">
+            Course name is required
+          </small>
+        </span>
 
 
-            </div>
-            <div class="field mt-2 w-100">
-                <label for="title">Description</label>
-                <span class="p-float-label">
-                    <textarea inputId="textarea" class="bg-light-grey input-shadow w-100 p-inputtext" rows="3"
-                        style="resize: none;" cols="30" formControlName="description" pInputTextarea></textarea>
-                </span>
-                <small class="p-error block"
-                    *ngIf="editFormGroup.get('description')?.invalid && editFormGroup.get('description')?.dirty">
-                    Description
-                    name is required</small>
-            </div>
+      </div>
+      <div class="field mt-2 w-100">
+        <label for="title">Description</label>
+        <span class="p-float-label">
+          <textarea inputId="textarea" class="bg-light-grey input-shadow w-100 p-inputtext" rows="3"
+            style="resize: none;" cols="30" formControlName="description" pInputTextarea></textarea>
+        </span>
+        <small class="p-error block"
+          *ngIf="editFormGroup.get('description')?.invalid && editFormGroup.get('description')?.touched">
+          Description name is required
+        </small>
+      </div>
 
-            <div class="field mt-1 w-100">
-                <label for="title">Course content</label>
-                <span class="p-float-label">
-                    <input type="file" (change)="onUpdateFileSelect($event)"
-                        class="bg-light-grey input-shadow w-100 p-inputtext" pInputText>
-                </span>
-            </div>
-            <div class="field mt-1 w-100">
-                <label for="title">Assignment content</label>
-                <span class="p-float-label">
-                    <input type="file" (change)="onUpdateAssignFileSelect($event)"
-                        class="bg-light-grey input-shadow w-100 p-inputtext" pInputText>
-                </span>
-            </div>
-            <div class="row  mt-1">
-            </div>
-        </div>
-        <div class="d-flex justify-content-end mt-2">
-            <button [disabled]="editFormGroup.invalid" type="button" class="btn btn-success me-2"
-                (click)="onUpdate()"><i class="pi pi-save me-2 cursor-pointer"></i>Update</button>
-            <button (click)="closeEditDialog()" type="button" class="btn btn-dark"><i
-                    class="pi pi-delete-left me-2 cursor-pointer"></i>Cancel</button>
-        </div>
-    </form>
+      <div class="field mt-1 w-100">
+        <label for="title">Course Content</label>
+        <span class="p-float-label">
+          <input type="file" (change)="onUpdateFileSelect($event)" class="bg-light-grey input-shadow w-100 p-inputtext"
+            pInputText>
+        </span>
+      </div>
+      <div class="field mt-1 w-100">
+        <label for="title">Assignment Content</label>
+        <span class="p-float-label">
+          <input type="file" (change)="onUpdateAssignFileSelect($event)"
+            class="bg-light-grey input-shadow w-100 p-inputtext" pInputText>
+        </span>
+      </div>
+      <div class="row  mt-1">
+      </div>
+    </div>
+    <div class="d-flex justify-content-between mt-2">
+      <button (click)="closeEditDialog()" type="button" class="btn btn-dark"><i
+          class="pi pi-delete-left me-2 cursor-pointer"></i>Cancel</button>
+
+      <button [disabled]="editFormGroup.invalid" type="button" class="btn btn-success me-2" (click)="onUpdate()"><i
+          class="pi pi-save me-2 cursor-pointer"></i>Update</button>
+    </div>
+  </form>
 </p-dialog>
 
 <!-- Edit dialog ends here-->

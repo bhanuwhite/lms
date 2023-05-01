@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_transactions",
+  "info": {
+    "singularName": "user-transaction",
+    "pluralName": "user-transactions",
+    "displayName": "user-transaction",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Active",
+        "Cancelled"
+      ],
+      "required": true
+    },
+    "user_id": {
+      "type": "integer",
+      "required": true
+    },
+    "course_id": {
+      "type": "integer",
+      "required": true
+    },
+    "amount": {
+      "type": "decimal",
+      "required": true
+    },
+    "discount": {
+      "type": "decimal",
+      "required": true
+    },
+    "expired_at": {
+      "type": "date",
+      "required": true
+    }
+  }
+}

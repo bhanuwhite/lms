@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { Content, ContentData, ContentResponse } from '../models/content';
+import { Content,ContentData, ContentResponse,SingleContentData,mediaDataObj } from '../models/content';
 import { Quiz, QuizData } from '../models/quiz';
+import { TotalCoursesData,UpdateCourseObj,PostCourseData, CoursesImgUpload } from '../models/Courses';
 
 @Injectable({
   providedIn: 'root'
@@ -21,13 +22,13 @@ export class ApiService {
   /**
    * getSingleContent
   */
-  public getSingleContent(id: string): Observable<any> {
-    return this.http.get(`/api/content-libraries/${id}`);
+  public getSingleContent(id: number): Observable<SingleContentData> {
+    return this.http.get<SingleContentData>(`/api/content-libraries/${id}?populate=*`);
   }
 
   // File upload api
-  public uploadFile(item: any): Observable<any> {
-    return this.http.post<any>(`api/upload`, item);
+  public uploadFile(item:{}): Observable<mediaDataObj[]> {
+    return this.http.post<mediaDataObj[]>(`api/upload`, item);
   }
 
   //Post content
@@ -36,38 +37,38 @@ export class ApiService {
   }
 
   // update content
-  public updateContent(id: string | undefined, item: {}): Observable<Content> {
+  public updateContent(id: number, item: Content): Observable<Content> {
     return this.http.put<Content>(`api/content-libraries/${id}`, item);
   }
 
   // Delete content
-  public deleteContent(id: string | undefined): Observable<ContentResponse> {
+  public deleteContent(id: number | undefined): Observable<ContentResponse> {
     return this.http.delete<ContentResponse>(`api/content-libraries/${id}`);
   }
 
   // Post course
-  public postCourse(item: any): Observable<any> {
-    return this.http.post<any>(`api/courses`, item);
+  public postCourse(item: PostCourseData): Observable<TotalCoursesData> {
+    return this.http.post<TotalCoursesData>(`api/courses?populate=*`, item);
   }
 
   // Get courses
-  public getCourses(): Observable<any> {
-    return this.http.get<any>(`api/courses?populate=*`);
+  public getCourses(): Observable<TotalCoursesData> {
+    return this.http.get<TotalCoursesData>(`api/courses?populate=*`);
   }
 
   // Get courses
-  public getSingleCourse(id:string): Observable<any> {
-    return this.http.get<any>(`api/courses/${id}`);
+  public getSingleCourse(id:number): Observable<any> {
+    return this.http.get<any>(`api/courses/${id}?populate=*`);
   }
 
   // update courses
-  public updateCourse(id: any, item: any): Observable<any> {
-    return this.http.put<any>(`api/courses/${id}`, item);
+  public updateCourse(id: number, item: UpdateCourseObj): Observable<TotalCoursesData> {
+    return this.http.put<TotalCoursesData>(`api/courses/${id}?populate=*`, item);
   }
 
   // Delete course
-  public deleteCourse(id: any): Observable<any> {
-    return this.http.delete<any>(`api/courses/${id}`);
+  public deleteCourse(id: number): Observable<TotalCoursesData> {
+    return this.http.delete<TotalCoursesData>(`api/courses/${id}?populate=*`);
   }
 
   /**
@@ -87,14 +88,14 @@ export class ApiService {
   /**
    * updateQuiz
    */
-  public updateQuiz(id: string, item: Quiz): Observable<Quiz> {
+  public updateQuiz(id: number, item: Quiz): Observable<Quiz> {
     return this.http.put<Quiz>(`/api/quizzes/${id}`, item);
   }
 
   /**
    * deleteQuiz
    */
-  public deleteQuiz(id: string): Observable<Quiz> {
+  public deleteQuiz(id: number): Observable<Quiz> {
     return this.http.delete<Quiz>(`/api/quizzes/${id}`);
   }
 
