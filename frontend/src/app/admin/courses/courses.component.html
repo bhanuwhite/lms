@@ -4,27 +4,10 @@
 </div> -->
 <!-- style="background-color: #fff;" -->
 <div class="card">
-<<<<<<< HEAD
-=======
-  <p-toolbar styleClass="p-mb-4">
-      <div class="p-d-flex p-ai-center p-jc-between">
-        <h3 style="font-weight: 900;">Manage Courses</h3>
-      </div>
-      <span class="p-input-icon-left">
-      <i class="pi pi-search"></i>
-      <input pInputText type="text" placeholder="Search..." />
-    </span>
-    <ng-template pTemplate="left">
-      <button pButton pRipple label="Create Course" icon="pi pi-plus" (click)="addDialog()"
-        class="p-button-success p-mr-2"></button>
-      <!-- <button pButton pRipple icon="pi pi-trash" class="p-button-danger"></button> -->
-    </ng-template>
->>>>>>> d24a0a371c573d0a1be750bc908baa597f2b5b41
 
 
   <p-table #dt [value]="courseData" [rows]="8" [paginator]="true" [rowHover]="true" dataKey="id"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
-<<<<<<< HEAD
     <ng-template pTemplate="caption">
       <div class="p-d-flex p-ai-center p-jc-between">
         <p-toolbar styleClass="p-mb-4">
@@ -41,9 +24,7 @@
 
         </p-toolbar>
       </div>
-=======
->>>>>>> d24a0a371c573d0a1be750bc908baa597f2b5b41
-
+    </ng-template>
     <ng-template pTemplate="header">
       <tr>
         <th pSortableColumn="title" class="text-center">Title </th>
@@ -128,20 +109,12 @@
       </div>
 
     </div>
-<<<<<<< HEAD
     <div class="d-flex justify-content-end mt-2">
       <button (click)="closeAddDialog()" type="button" class="btn btn-dark"><i
           class="pi pi-delete-left me-2 cursor-pointer"></i>Cancel</button>
 
       <button [disabled]="addFormGroup.invalid" type="button" class="btn btn-success me-2" (click)="onSubmit()"><i
         class="pi pi-save me-2 cursor-pointer"></i>Save</button>
-=======
-    <div class="d-flex justify-content-between mt-2">
-      <button (click)="closeAddDialog()" type="button" class="btn btn-dark"><i
-          class="pi pi-delete-left me-2 cursor-pointer"></i>Cancel</button>
-          <button [disabled]="addFormGroup.invalid" type="button" class="btn btn-success me-2" (click)="onSubmit()"><i
-            class="pi pi-save me-2 cursor-pointer"></i>Save</button>
->>>>>>> d24a0a371c573d0a1be750bc908baa597f2b5b41
     </div>
   </form>
 </p-dialog>
@@ -198,11 +171,7 @@
       <div class="row  mt-1">
       </div>
     </div>
-<<<<<<< HEAD
     <div class="d-flex justify-content-end mt-2">
-=======
-    <div class="d-flex justify-content-between mt-2">
->>>>>>> d24a0a371c573d0a1be750bc908baa597f2b5b41
       <button (click)="closeEditDialog()" type="button" class="btn btn-dark"><i
           class="pi pi-delete-left me-2 cursor-pointer"></i>Cancel</button>
 
