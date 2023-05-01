@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { emailValidator } from 'src/app/email.directive';
 import { AuthService } from '../../services/auth.service';
-
+import { SignUp } from 'src/app/models/authenticate';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -15,7 +15,7 @@ export class SignupComponent {
 
   formgroup!: FormGroup;
 
-  body: any;
+  body!: SignUp;
   submitted = false;
 
   isLoading: boolean = false;
