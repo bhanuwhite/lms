@@ -15,7 +15,7 @@ export interface Quiz {
 
 export class QuizResponse {
 
-    id?: number;
+    id!: number ;
     attributes?: {
         syllabus?: string;
         question?: string;

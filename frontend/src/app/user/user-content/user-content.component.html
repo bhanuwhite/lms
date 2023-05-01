@@ -47,7 +47,7 @@
           <ng-template pTemplate="header" *ngFor="let courseImg of course.attributes.media?.data">
             <div class="courseImage">
               <a><img alt="Card" src="{{ courseImg.attributes.url }}"
-                  style="height: 225px;  border-radius: 10px 10px 2px 2px" (click)="openCourseDetails(course)" [routerLink]="['user/',course.id]" /></a>
+                  style="height: 225px;  border-radius: 10px 10px 2px 2px" (click)="openCourseDetails(course)" [routerLink]="['course/',course.id]" /></a>
             </div>
           </ng-template>
           <div class="cursor-pointer" (click)="openCourseDetails(course)">
@@ -123,3 +123,4 @@
     </p-tabPanel>
   </p-tabView>
 </div>
+

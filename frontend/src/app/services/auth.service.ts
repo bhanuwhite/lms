@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { Login } from '../models/authenticate';
+import { Login , LoginObjData,SignUp} from '../models/authenticate';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +16,12 @@ export class AuthService {
 
 
   // login
-  loginUser(login: any): Observable<any> {
-    return this.http.post<any>(`api/auth/local`, login);
+  loginUser(login: Login): Observable<LoginObjData> {
+    return this.http.post<LoginObjData>(`api/auth/local`, login);
   }
 
-  signupUser(signup:any) : Observable<any> {
-    return this.http.post<any>(`api/auth/local/register`, signup);
+  signupUser(signup:SignUp) : Observable<LoginObjData> {
+    return this.http.post<LoginObjData>(`api/auth/local/register`, signup);
   }
 
 }

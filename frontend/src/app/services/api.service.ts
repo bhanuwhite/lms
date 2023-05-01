@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { Content,ContentData, ContentResponse,SingleContentData } from '../models/content';
+import { Content,ContentData, ContentResponse,SingleContentData,mediaDataObj } from '../models/content';
 import { Quiz, QuizData } from '../models/quiz';
 import { TotalCoursesData,UpdateCourseObj,PostCourseData, CoursesImgUpload } from '../models/Courses';
 
@@ -27,8 +27,8 @@ export class ApiService {
   }
 
   // File upload api
-  public uploadFile(item: any): Observable<CoursesImgUpload[]> {
-    return this.http.post<CoursesImgUpload[]>(`api/upload`, item);
+  public uploadFile(item:{}): Observable<mediaDataObj[]> {
+    return this.http.post<mediaDataObj[]>(`api/upload`, item);
   }
 
   //Post content
@@ -37,7 +37,7 @@ export class ApiService {
   }
 
   // update content
-  public updateContent(id: number, item: {}): Observable<Content> {
+  public updateContent(id: number, item: Content): Observable<Content> {
     return this.http.put<Content>(`api/content-libraries/${id}`, item);
   }
 
@@ -88,14 +88,14 @@ export class ApiService {
   /**
    * updateQuiz
    */
-  public updateQuiz(id: string, item: Quiz): Observable<Quiz> {
+  public updateQuiz(id: number, item: Quiz): Observable<Quiz> {
     return this.http.put<Quiz>(`/api/quizzes/${id}`, item);
   }
 
   /**
    * deleteQuiz
    */
-  public deleteQuiz(id: string): Observable<Quiz> {
+  public deleteQuiz(id: number): Observable<Quiz> {
     return this.http.delete<Quiz>(`/api/quizzes/${id}`);
   }
 
