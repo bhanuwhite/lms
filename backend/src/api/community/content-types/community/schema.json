@@ -49,15 +49,16 @@
       "type": "richtext"
     },
     "answer_media": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
-    "answer": {
-      "type": "richtext"
+    "all_answers": {
+      "type": "json"
     }
   }
 }
