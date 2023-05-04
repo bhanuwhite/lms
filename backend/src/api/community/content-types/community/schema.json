@@ -59,6 +59,14 @@
     },
     "all_answers": {
       "type": "json"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Active",
+        "Blocked"
+      ],
+      "default": "Active"
     }
   }
 }
