@@ -53,13 +53,8 @@
 <!-- <p-paginator [rows]="pagesize"  [totalRecords]="total" [rowsPerPageOptions]="[10,20,30]"></p-paginator> -->
 
 
-<<<<<<< HEAD
     <!-- Add dialog start -->
     <p-dialog header="Add Question" [(visible)]="addDisplay" [style]="{width: '50vw'}" styleClass="active" [modal]="true">
-=======
-<!-- Add dialog start -->
-<p-dialog header="Add Question" [(visible)]="addDisplay" [style]="{width: '50vw'}" styleClass="active" [modal]="true">
->>>>>>> d24a0a371c573d0a1be750bc908baa597f2b5b41
 
   <hr>
   <form [formGroup]="addQuizGroup" (ngSubmit)="onSubmitQuestion()">
@@ -251,7 +246,6 @@
 
 <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
 
-<<<<<<< HEAD
 
     <!-- Edit dialog start -->
     <p-dialog header="Edit Questions" [(visible)]="editDisplay" [style]="{width: '50vw'}" styleClass="active" [modal]="true">
@@ -357,9 +351,6 @@
     <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
 
     <p-toast position="top-right"></p-toast>
-=======
-<p-toast position="top-right"></p-toast>
->>>>>>> d24a0a371c573d0a1be750bc908baa597f2b5b41
 
 
 <app-spinner *ngIf="isLoading==true"></app-spinner>

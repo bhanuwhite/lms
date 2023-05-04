@@ -4,8 +4,7 @@
   "info": {
     "singularName": "content-library",
     "pluralName": "content-libraries",
-    "displayName": "content-library",
-    "description": ""
+    "displayName": "content-library"
   },
   "options": {
     "draftAndPublish": true
@@ -13,30 +12,26 @@
   "pluginOptions": {},
   "attributes": {
     "name": {
-      "type": "text",
-      "required": true
+      "type": "text"
     },
     "description": {
       "type": "text"
     },
     "author": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "price": {
-      "type": "biginteger",
-      "required": false
+      "type": "biginteger"
     },
     "media": {
-      "type": "media",
-      "multiple": true,
-      "required": true,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ]
+      ],
+      "type": "media",
+      "multiple": true
     }
   }
 }
