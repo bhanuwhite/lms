@@ -12,10 +12,10 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "my_courses": {
+    "content_library": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::course.course"
+      "relation": "oneToOne",
+      "target": "api::content-library.content-library"
     },
     "user_id": {
       "type": "biginteger",

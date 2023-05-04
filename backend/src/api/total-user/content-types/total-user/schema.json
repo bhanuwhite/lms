@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "total_users",
+  "info": {
+    "singularName": "total-user",
+    "pluralName": "total-users",
+    "displayName": "Total User",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "users": {
+      "type": "biginteger",
+      "default": "140000"
+    }
+  }
+}

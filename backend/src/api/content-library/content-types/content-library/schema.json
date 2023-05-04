@@ -25,7 +25,7 @@
     },
     "price": {
       "type": "biginteger",
-      "required": true
+      "required": false
     },
     "media": {
       "type": "media",

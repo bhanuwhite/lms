@@ -1813,7 +1813,7 @@
     reselect "^4.1.7"
     yup "^0.32.9"
 
-"@strapi/plugin-documentation@4.10.1":
+"@strapi/plugin-documentation@^4.10.1":
   version "4.10.1"
   resolved "https://registry.npmjs.org/@strapi/plugin-documentation/-/plugin-documentation-4.10.1.tgz"
   integrity sha512-wBG9Rv6/cF8tB+MjyTfuOeI4JWURhakQ2bkFm6lWXpTLjbxvo3nbICccRJa99QrFeUjNbovVM45+7L3GOTyp5g==
@@ -7524,6 +7524,11 @@ pause@0.0.1:
   version "0.0.1"
   resolved "https://registry.npmjs.org/pause/-/pause-0.0.1.tgz"
   integrity sha512-KG8UEiEVkR3wGEb4m5yZkVCzigAD+cVEJck2CzYZO37ZGJfctvVptVO192MwrtPhzONn6go8ylnOdMhKqi4nfg==
+
+paytmchecksum@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.npmjs.org/paytmchecksum/-/paytmchecksum-1.5.0.tgz"
+  integrity sha512-TQZn/YKEJ6P+OwJGmKXMKkkgUA0VxDISPcQTKre9ZWVLjp7EzVjB+ITGSChnAUpMn23QXCgAXO8JQDVncqcA5w==
 
 performance-now@^2.1.0:
   version "2.1.0"
