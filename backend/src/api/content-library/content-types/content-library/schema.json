@@ -4,7 +4,8 @@
   "info": {
     "singularName": "content-library",
     "pluralName": "content-libraries",
-    "displayName": "content-library"
+    "displayName": "content-library",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -24,14 +25,15 @@
       "type": "biginteger"
     },
     "media": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     }
   }
 }

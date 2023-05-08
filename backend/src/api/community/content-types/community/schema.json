@@ -16,14 +16,6 @@
       "type": "string",
       "required": true
     },
-    "user_id": {
-      "type": "biginteger",
-      "required": true
-    },
-    "community_id": {
-      "type": "biginteger",
-      "required": true
-    },
     "description": {
       "type": "text",
       "required": false,
@@ -45,21 +37,6 @@
         "images"
       ]
     },
-    "question": {
-      "type": "richtext"
-    },
-    "answer_media": {
-      "type": "media",
-      "multiple": true,
-      "required": false,
-      "allowedTypes": [
-        "images",
-        "files"
-      ]
-    },
-    "all_answers": {
-      "type": "json"
-    },
     "status": {
       "type": "enumeration",
       "enum": [
@@ -67,6 +44,15 @@
         "Blocked"
       ],
       "default": "Active"
+    },
+    "answer": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::answer.answer"
+    },
+    "community_id": {
+      "type": "biginteger",
+      "required": true
     }
   }
 }
