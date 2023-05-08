@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MenuItem } from 'primeng/api';
 import { dropDown } from 'src/app/interface';
+import { ApiService } from 'src/app/services/api.service';
+import { each } from 'chart.js/dist/helpers/helpers.core';
+import { getContentLibrary, userLibrary } from 'src/app/models/content';
 
 @Component({
   selector: 'app-my-library',
@@ -11,11 +14,11 @@ import { dropDown } from 'src/app/interface';
 export class MyLibraryComponent implements OnInit {
   items!: MenuItem[];
   searchWord: string = '';
-  public course_Details: any = [];
-  public course_Details2: any = [];
+  // public course_Details: any = [];
+  // public course_Details2: any = [];
   public value: number = 10;
   public progressValue: number = 25;
-  // faSearch = faSearch;
+
   courseDetailsJSON = '../../assets/course_details/courseDetails.json';
   public recentlyAccessDropdown: dropDown[] = [];
   public selectedRecentlyAccess: string = '';
@@ -25,59 +28,66 @@ export class MyLibraryComponent implements OnInit {
   public selectedProgress: string = '';
   public instructorDropdown: dropDown[] = [];
   public selectedInstructor: string = '';
-  constructor(private httpClient: HttpClient) {
-    this.recentlyAccessDropdown = [
-      { name: 'Recently Accessed' },
-      { name: 'Recently Enrolled' },
-      { name: 'Title: A-to-Z' },
-      { name: 'Title: Z-to-A' },
-    ];
-    this.categoryDropdown = [
-      { name: 'Favorites' },
-      { name: 'All categories' },
-      { name: 'Design' },
-      { name: 'Development' },
-      { name: 'IT & Software' },
-      { name: 'Archived' },
-    ];
-    this.progressDropdown = [{ name: 'Not Started' }, { name: 'In Progress' }];
-    this.instructorDropdown = [
-      { name: 'Mahesh' },
-      { name: ' Ravi' },
-      { name: 'Sreeja' },
-      { name: 'Navya' },
-    ];
-  }
+  loadingSpinner: boolean = false;
+
+  constructor(private httpClient: HttpClient, private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.readingJSON();
+    this.getContentLibrary();
   }
-  public searchData: any = [];
-  public searchFun() {
-    this.searchData = this.course_Details.filter((each: any) =>
-      each.title.toLowerCase().includes(this.searchWord.toLowerCase())
-    );
-  }
-  public readingJSON(): void {
-    this.httpClient.get(this.courseDetailsJSON).subscribe((data) => {
+
+  public courseData: any = [];
+
+ public courseDetails:userLibrary[]=[]
+  // public readingJSON(): void {
+  //   this.httpClient.get(this.courseDetailsJSON).subscribe((data) => {
+  //     try {
+  //       this.course_Details = data;
+  //        this.courseDetails = data;
+  //       this.course_Details2 = this.course_Details;
+  //       this.items = [
+  //         { label: 'All Courses' },
+  //         { label: 'My List' },
+  //         { label: 'Wish List' },
+  //         { label: 'Archives' },
+  //         { label: 'My Tools' },
+  //       ];
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   });
+  // }
+
+  public getContentLibrary() {
+
+    this.loadingSpinner = true;
+    this.apiService.getContentLibrary().subscribe((res) => {
+      console.log(res);
+
       try {
-        this.course_Details = data;
-         this.searchData = data;
-        this.course_Details2 = this.course_Details;
-        this.items = [
-          { label: 'All Courses' },
-          { label: 'My List' },
-          { label: 'Wish List' },
-          { label: 'Archives' },
-          { label: 'My Tools' },
-        ];
+        console.log(res.data[0].attributes);
+        this.courseData = res.data;
+        console.log(this.courseDetails);
+    this.loadingSpinner = true;
+
       } catch (error) {
         console.log(error);
       }
     });
+
+  }
+  public searchData !:any;
+
+  public searchFun() {
+    this.searchData = this.courseData.filter((each: any) =>
+      each.title.toLowerCase().includes(this.searchWord.toLowerCase())
+    );
+    console.log(this.searchWord);
+
   }
 
   public myCourseDetails(courseDetails: object): void {
-    localStorage.setItem('courseDetails', JSON.stringify(courseDetails));
+console.log(courseDetails);
+
   }
 }

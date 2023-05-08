@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { Content,ContentData, ContentResponse,SingleContentData,mediaDataObj } from '../models/content';
+import { Content,ContentData, ContentLibrary, ContentResponse,SingleContentData,getContentLibrary,mediaDataObj,userLibrary } from '../models/content';
 import { Quiz, QuizData } from '../models/quiz';
 import { TotalCoursesData,UpdateCourseObj,PostCourseData, CoursesImgUpload } from '../models/Courses';
 
@@ -45,6 +45,10 @@ export class ApiService {
   public deleteContent(id: number | undefined): Observable<ContentResponse> {
     return this.http.delete<ContentResponse>(`api/content-libraries/${id}`);
   }
+
+
+
+
 
   // Post course
   public postCourse(item: PostCourseData): Observable<TotalCoursesData> {
@@ -98,6 +102,23 @@ export class ApiService {
   public deleteQuiz(id: number): Observable<Quiz> {
     return this.http.delete<Quiz>(`/api/quizzes/${id}`);
   }
+
+  //Post Content Library
+  public postContentLibrary(item: ContentLibrary): Observable<userLibrary> {
+    return this.http.post<userLibrary>(`api/user-has-courses?populate=*`, item);
+  }
+   // Get  Content Library
+   public getContentLibrary(): Observable<any> {
+    return this.http.get<any>(`api/user-has-courses?populate=*`);
+  }
+
+  /**
+   * getSingleContentLibrary
+  */
+  public getSingleContentLibrary(id: number): Observable<any> {
+    return this.http.get<any>(`api/user-has-courses?populate=*`);
+  }
+
 
 
 }
