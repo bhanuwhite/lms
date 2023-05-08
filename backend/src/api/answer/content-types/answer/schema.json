@@ -15,7 +15,7 @@
     "aText": {
       "type": "richtext"
     },
-    "answer_media": {
+    "a_media": {
       "type": "media",
       "multiple": true,
       "required": false,

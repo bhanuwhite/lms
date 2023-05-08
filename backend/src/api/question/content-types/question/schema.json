@@ -15,13 +15,14 @@
     "qText": {
       "type": "text"
     },
-    "question_media": {
+    "q_media": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
     "answers": {
       "type": "relation",
