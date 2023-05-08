@@ -376,19 +376,23 @@
               style="width: 100%; opacity: 0.6;">
             <span class="play-button"> <img src="assets/img/play.png" alt=""> </span>
         </div>
-        <div class="pricing-detail p-3">
-          <div class="d-flex align-items-center">
-            <h1 class="m-0"><b>{{ singleCourse.attributes.price | currency : "INR" }}</b></h1> <span class="ms-3">81%
-              off</span>
+        <div class="pricing-detail p-3"  *ngIf="singleCourse.attributes.price != 0">
+
+            <div class="d-flex align-items-center">
+              <h1 class="m-0"><b>{{ singleCourse.attributes.price | currency : "INR" }}</b></h1> <span class="ms-3">81%
+                off</span>
+            </div>
+            <div class="d-flex align-items-center mt-2" style="color: #b32d0f;">
+              <i class="pi pi-clock"></i>
+              <span class="ms-1"><b>1 day</b> left at this price!</span>
+            </div>
+          <div class="buttons m-3" >
+            <div>
+            <!-- <button type="button" class="cart-button" style="width: 100%;">Add to cart</button> -->
+            <button type="button" class="btn btn-primary mt-2" style="width: 95%;">Buy now</button>
+            </div>
           </div>
-          <div class="d-flex align-items-center mt-2" style="color: #b32d0f;">
-            <i class="pi pi-clock"></i>
-            <span class="ms-1"><b>1 day</b> left at this price!</span>
-          </div>
-          <div class="buttons mt-3">
-            <button type="button" class="cart-button" style="width: 100%;">Add to cart</button>
-            <button type="button" class="buy-now-button mt-2" style="width: 100%;">Buy now</button>
-          </div>
+
           <div class="refund-details mb-2">
             <span class="money-back">30-Day Money-Back Guarantee</span>
             <span class="lifetime-acc mt-1">Full Lifetime Access</span>
@@ -399,11 +403,22 @@
             <a href="" class="links">Apply Coupon</a>
           </div>
         </div>
+         <div *ngIf="singleCourse.attributes.price == 0">
+          <div>
+            <div class="d-flex align-items-center">
+              <h2 class="m-3"><b>FREE COURSE</b></h2>
+            </div>
+          </div>
+          <div *ngIf="singleCourse.attributes.price == 0"  class="buttons m-3">
+            <button type="button" class="btn btn-success" style="width: 95%;" (click)="addToLibrary(singleCourse)" >Add To Library</button>
+          </div>
+         </div>
+
         <hr>
         <div class="sidebar-content-area p-3">
           <h2 class="m-0">Training 5 or more people?</h2>
           <p class="mt-1">Get your team access to 19,000+ top Udemy courses anytime, anywhere.</p>
-          <button type="button" class="buy-now-button mt-2" style="width: 100%;">Try LMS Businees</button>
+          <button type="button" class="btn btn-primary mt-2" style="width: 100%;">Try LMS Businees</button>
         </div>
       </div>
     </div>

@@ -124,7 +124,6 @@
           <div class="field mt-4 w-100">
             <label for="content">Content</label>
             <span class="p-float-label mb-1">
-              <input type="file" required class="bg-light-grey input-shadow w-100 p-inputtext">
               <input type="file" required=""  class="bg-light-grey input-shadow w-100 p-inputtext" #imgInput
                 (change)="onFileSelect($event)" pInputText>
             </span>
@@ -146,7 +145,7 @@
 
 
     <!-- Edit dialog start here -->
-    <p-dialog header="Update Courses" [(visible)]="editDisply" [style]="{width: '40vw'}" styleClass="active"
+    <p-dialog header="Update Course" [(visible)]="editDisply" [style]="{width: '40vw'}" styleClass="active"
       [modal]="true">
       <hr>
       <form [formGroup]="courseUpdateGroup">

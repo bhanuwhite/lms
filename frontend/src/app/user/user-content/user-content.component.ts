@@ -45,6 +45,7 @@ export class UserContentComponent {
       } catch (error) {
         console.log(error);
       }
+
     });
   }
   public courseDetails!: string;
@@ -53,8 +54,8 @@ export class UserContentComponent {
     // this.router.navigate(['user/contentDetails']);
     console.log("single course ",course);
 
-    this.courseDetails = JSON.stringify(course);
-    localStorage.setItem('courseDetails', this.courseDetails);
+    // this.courseDetails = JSON.stringify(course);
+    // localStorage.setItem('courseDetails', this.courseDetails);
   }
 
   ngOnDestroy(): void {
