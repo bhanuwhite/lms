@@ -1,21 +1,21 @@
 <div class="content-inner surface-ground px-3 py-3">
-  <div *ngIf="progresSpinner">
+
+  <!-- <div *ngIf="progresSpinner">
     <div class="loader">Loading...</div>
-  </div>
+  </div> -->
 
-  <div *ngIf="showData">
+  <div >
 
-    <div class="" *ngIf="showUserCommunity">
+    <div class="" >
       <b class="text-black" style="font-size: 1.3rem;">
         𝐌𝐲 𝐂𝐨𝐦𝐦𝐮𝐧𝐢𝐭𝐲 𝐀𝐜𝐭𝐢𝐯𝐢𝐭𝐲 </b>
 
       <div class="d-flex">
         <div class="image pt-2 pb-1 ps-3 pe-3" *ngFor="let image of userCommunity">
-          <img *ngIf="image.image != null" [src]='image.image' class="img-fluid user-imgg" alt="">
+          <img *ngIf="image.image != null" [src]='image.image' class="img-fluid user-img" alt="">
           <img *ngIf="image.image == null" src='' class="img-fluid user-imgg" alt="Image">
 
         </div>
-        <!-- <p-toast></p-toast> -->
       </div>
     </div>
 
@@ -36,11 +36,11 @@
             <div class="d-flex align-items-center justify-content-between mt-5 mb-3 card-footer">
               <div class="image">
                 <img *ngIf="community.attributes?.community_profile_media?.data?.attributes.url != null"
-                  [src]='community.attributes.community_profile_media?.data.attributes.url' class="img-fluid user-imgg"
+                  [src]='community.attributes.community_profile_media?.data.attributes.url' class="img-fluid user-img"
                   alt="path mismatch">
 
                 <div *ngIf="community.attributes.community_profile_media.data == null">
-                  <!-- <p-avatar label="img" shape="circle"></p-avatar> -->
+                  <p-avatar label="img" shape="circle"></p-avatar>
                 </div>
               </div>
               <div>
@@ -53,11 +53,14 @@
         </div>
       </div>
     </div>
+    <div>
+      <p-toast></p-toast>
+    </div>
 
 
     <div class="d-flex justify-content-between align-items-center">
 
-      <!-- <div class="me-5">
+    <div class="me-5">
         <p-button (click)="showConversationDialog()" label="Have Question" class="float-end"></p-button>
         <p-dialog header="Start Your Conversation" [(visible)]="displayConvesation" [modal]="true"
           [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
@@ -76,11 +79,11 @@
           </ng-template>
 
         </p-dialog>
-      </div> -->
+      </div>
     </div>
 
 
-    <!-- <div class="row mt-4">
+     <div class="row mt-4">
       <div class="col-lg-8">
         <p-tabView>
           <p-tabPanel header="Trending">
@@ -416,6 +419,5 @@
         </div>
 
       </div>
-    </div> -->
+    </div>
   </div>
-</div>

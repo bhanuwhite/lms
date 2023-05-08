@@ -120,5 +120,14 @@ export class ApiService {
   }
 
 
+  // GET Communtiy
+  public getCommunities():Observable<any> {
+    return this.http.get<any>(`api/communities?populate=*`)
+  }
+
+  // POST Community
+  public postCommunity(item:any):Observable<any> {
+    return this.http.post<any>(`api/communities?populate=*`,item)
+  }
 
 }

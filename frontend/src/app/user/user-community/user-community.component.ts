@@ -150,7 +150,6 @@ export class UserCommunityComponent {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.trendingData);
     this.conversationGroup();
     this.getCommunity();
   }
@@ -227,22 +226,21 @@ export class UserCommunityComponent {
 
   userCommunity: { image: string }[] = [];
   userCommunityImage!: { image: string };
-  showUserCommunity:boolean = false
   communityMsg: { severity: string; summary: string; detail: string }[] = [];
   public JoinCommunity(community: any) {
     const communityImage =
-      community.attributes?.community_profile_media.data?.attributes.url;
+      community.attributes.community_profile_media.data.attributes.url;
     this.userCommunityImage = { image: communityImage };
     const ImgValue = this.userCommunity.some(
       (res) => res.image === this.userCommunityImage.image
     );
+    console.log(ImgValue);
     if (!ImgValue) {
       this.userCommunity.push(this.userCommunityImage);
-      this.showUserCommunity = true;
       this.messageService.add({
         severity: 'success',
         summary: 'Congratulations.',
-        detail: 'You have  Join in this Community',
+        detail:'You have Join in this Community'
       });
     }
     if (ImgValue) {

@@ -13,6 +13,7 @@ import { PaymentComponent } from './payment/payment.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserContentComponent } from './user-content/user-content.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { UserCommunityComponent } from './user-community/user-community.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,9 @@ const routes: Routes = [
       },
       {
         path: 'library', component: MyLibraryComponent
+      },
+      {
+        path:'community', component: UserCommunityComponent
       },
       // {
       //   path: 'user/:id', component: ContentDetailsComponent
