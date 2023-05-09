@@ -12,7 +12,7 @@ import { ContentResponse } from 'src/app/models/content';
 export class UserContentComponent {
   private contentGetSubscriptions$: Subscription = new Subscription();
   public currentRate: number = 2;
-
+  Spinner:boolean = true;
   public isLoading: boolean = false;
 
   public coursesList!: ContentResponse[];
@@ -25,6 +25,20 @@ export class UserContentComponent {
 
   ngOnInit(): void {
     this.getContent();
+    this.getLibraryItems();
+  }
+
+  libData:any;
+  libDataId:number[]=[];
+  showPurchase:boolean = false;
+  public getLibraryItems(){
+    this.apiService.getContentLibrary().subscribe((res)=>{
+      console.log("Getting Library data",res);
+      this.libData = res.data;
+      this.libDataId = this.libData.map((obj:any)=> obj.attributes.content_library.data.id );
+      console.log(this.libDataId);
+
+    })
   }
 
   // Logout
@@ -39,7 +53,7 @@ export class UserContentComponent {
     this.apiService.getContent().subscribe((res) => {
       try {
         console.log(res.data);
-
+        this.Spinner = false
         this.coursesList = res.data;
         this.isLoading = true;
       } catch (error) {

@@ -25,7 +25,7 @@
               <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" class="form-control" required
                 formControlName="community_ID" pInputText placeholder="Enter Community name.">
               <small class="p-error block"
-                *ngIf="communityForm.get('community_ID')?.invalid && (communityForm.get('community_ID')?.dirty || communityForm.get('community_Name')?.touched)">
+                *ngIf="communityForm.get('community_ID')?.invalid && (communityForm.get('community_ID')?.dirty || communityForm.get('community_ID')?.touched)">
                 Communtiy ID is required. </small>
             </span>
           </div>
@@ -74,9 +74,13 @@
         <div class="card p-3" style="height: 250px;">
           <div class=" d-flex justify-content-between card-header">
             <b class="fs-4"> {{community.attributes?.community_name}} </b>
-            <p> <span class="material-icons" [style]="{'color':'red','cursor':'pointer'}" (click)="deleteCommunity(community.id)">
+            <div> <span class="material-icons" [style]="{'color':'red','cursor':'pointer'}" (click)="deleteCommunity(community.id)" pTooltip="Delete" tooltip >
                 delete
-                </span> </p>
+                </span>
+                <span class="material-icons p-2" [style]="{'color':'green','cursor':'pointer'}" (click)="updateCommunity(community,community.id)" pTooltip="Edit" tooltip>
+                  edit
+                  </span>
+              </div>
           </div>
           <div class="mt-4 card-body" style="height: 100px; overflow-y: auto;">
             <b class="fs-6"> {{community.attributes?.description}} </b>
@@ -99,6 +103,63 @@
 
 </div>
 
+</div>
+<div>
+  <p-dialog header="Update Community" [(visible)]="showUpdateCommunityForm" [modal]="true">
+    <form [formGroup]="updateCommunityForm" (ngSubmit)="onSubmitUpdateCommunityForm()">
+      <div class="p-fluid grid">
+        <div class="field mt-2 w-100">
+          <label for="title">Name :</label>
+          <span class="p-float-label">
+            <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" class="form-control" required
+              formControlName="update_Name" pInputText placeholder="Enter Community name.">
+            <small class="p-error block"
+              *ngIf="updateCommunityForm.get('update_Name')?.invalid && (updateCommunityForm.get('update_Name')?.dirty || updateCommunityForm.get('update_Name')?.touched)">
+              Communtiy name is required. </small>
+          </span>
+        </div>
+
+        <div class="field mt-2 w-100">
+          <label for="title">ID :</label>
+          <span class="p-float-label">
+            <input type="number" class="bg-light-grey input-shadow w-100 p-inputtext" class="form-control" required
+              formControlName="update_ID" pInputText placeholder="Enter Community name.">
+
+              <small class="p-error block"
+              *ngIf="updateCommunityForm.get('update_ID')?.invalid && (updateCommunityForm.get('update_ID')?.dirty || updateCommunityForm.get('update_ID')?.touched)">
+              Communtiy ID is required. </small>
+          </span>
+        </div>
+
+        <div class="field mt-2 w-100">
+          <label for="description"> Description :</label>
+          <span class="p-float-label">
+            <textarea inputId="textarea" required class="bg-light-grey input-shadow w-100 p-inputtext" rows="3"
+              style="resize: none;" cols="30" formControlName="update_Desc" pInputTextarea
+              placeholder="Enter Description here."></textarea>
+
+              <small class="p-error block"
+              *ngIf="updateCommunityForm.get('update_Desc')?.invalid && (updateCommunityForm.get('update_Desc')?.dirty || updateCommunityForm.get('update_Desc')?.touched)">
+              Description is required. </small>
+          </span>
+        </div>
+
+        <div class="field mt-4 w-100">
+          <label for="content">Image : </label>
+          <span class="p-float-label mb-1">
+            <input type="file" required class="bg-light-grey input-shadow w-100 p-inputtext"
+              (change)="onFileSelect($event)" pInputText>
+          </span>
+
+        </div>
+      </div>
+      <div class="d-flex justify-content-between mt-2">
+        <button (click)="closeDialog()" type="button" class="btn btn-dark"><i
+            class="pi pi-delete-left me-2 cursor-pointer"></i>Cancel</button>
+        <button class="btn btn-success" type="submit">Submit</button>
+      </div>
+    </form>
+  </p-dialog>
 </div>
 <div class="card">
   <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

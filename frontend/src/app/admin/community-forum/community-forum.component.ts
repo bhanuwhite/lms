@@ -11,14 +11,17 @@ import {
   trendingObj,
 } from 'src/app/interface';
 import { ApiService } from 'src/app/services/api.service';
-import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
-
+import {
+  ConfirmEventType,
+  ConfirmationService,
+  MessageService,
+} from 'primeng/api';
 
 @Component({
   selector: 'app-community-forum',
   templateUrl: './community-forum.component.html',
   styleUrls: ['./community-forum.component.scss'],
-providers: [MessageService,ConfirmationService],
+  providers: [MessageService, ConfirmationService],
 })
 export class CommunityForumComponent {
   like: string = 'thumb_up';
@@ -26,20 +29,23 @@ export class CommunityForumComponent {
   localImgUrl: string[] = [];
   doubtImg: string = '';
   showCommunityForm: boolean = false;
+  showUpdateCommunityForm: boolean = false;
   communityImgFile: any;
-  spinner:boolean = true
+  spinner: boolean = true;
   communityForm!: FormGroup;
+  updateCommunityForm!: FormGroup;
 
   constructor(
     public fb: FormBuilder,
     public apiService: ApiService,
     private messageService: MessageService,
-    public confirmationService:ConfirmationService
+    public confirmationService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
     this.CommunityForm();
-    this.getCommunity()
+    this.UpdateCommunityForm();
+    this.getCommunity();
   }
   // Community Form
   public CommunityForm(): void {
@@ -47,27 +53,29 @@ export class CommunityForumComponent {
       community_Name: new FormControl('', [Validators.required]),
       community_Desc: new FormControl('', [Validators.required]),
       community_Img: new FormControl(''),
-      community_ID: new FormControl('')
+      community_ID: new FormControl('', [Validators.required]),
     });
   }
-  GlobalCommunities:any
-  public getCommunity(){
-    console.log('Getting community');
-
-    this.apiService.getCommunities().subscribe((res)=>{
-      console.log("Communityies",res);
-      this.GlobalCommunities = res.data
+  public UpdateCommunityForm(): void {
+    this.updateCommunityForm = this.fb.group({
+      update_Name: new FormControl('', [Validators.required]),
+      update_Desc: new FormControl('', [Validators.required]),
+      update_Img: new FormControl(''),
+      update_ID: new FormControl('', [Validators.required]),
+    });
+  }
+  GlobalCommunities: any;
+  public getCommunity() {
+    this.apiService.getCommunities().subscribe((res) => {
+      this.GlobalCommunities = res.data;
       this.spinner = false;
-    })
+    });
   }
   public displayCommunityForm() {
     this.showCommunityForm = true;
   }
   public onFileSelect(event: Event): void {
     console.log(event);
-    console.log("File has been selected");
-
-
     if (
       event.target instanceof HTMLInputElement &&
       event.target.files?.length
@@ -77,8 +85,6 @@ export class CommunityForumComponent {
       const formData = new FormData();
       formData.append('files', this.communityForm.get('community_Img')?.value);
       this.apiService.uploadFile(formData).subscribe((res) => {
-        console.log("Api is HItting.");
-
         try {
           console.log(res);
           this.communityImgFile = res;
@@ -99,14 +105,13 @@ export class CommunityForumComponent {
   }
   public onSubmitCommunityForm() {
     const postCommunity = {
-      data:{
+      data: {
         community_profile_media: this.communityImgFile,
         community_name: this.communityForm.value.community_Name,
         description: this.communityForm.value.community_Desc,
-        community_id: this.communityForm.value.community_ID
-
-      }
-    }
+        community_id: this.communityForm.value.community_ID,
+      },
+    };
     console.log(postCommunity);
     this.apiService.postCommunity(postCommunity).subscribe((res) => {
       try {
@@ -115,7 +120,7 @@ export class CommunityForumComponent {
           summary: 'Congratualations.',
           detail: 'Successfully Community added.',
         });
-        this.getCommunity()
+        this.getCommunity();
       } catch (error) {
         this.messageService.add({
           severity: 'error',
@@ -126,7 +131,6 @@ export class CommunityForumComponent {
     });
     this.showCommunityForm = false;
     this.communityForm.reset();
-
   }
 
   public showDoubtImgDialog(image: string): void {
@@ -146,31 +150,93 @@ export class CommunityForumComponent {
     }
   }
 
-  public deleteCommunity(id:number){
+  public deleteCommunity(id: number) {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to delete this Community?',
       header: 'Delete Confirmation?',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          this.messageService.add({ severity: 'success', detail: 'Community has been deleted.' });
-          this.apiService.deleteCommunity(id).subscribe((res)=>{
-            console.log(res);
-            this.getCommunity();
-          })
-        },
-      reject: (type:any) => {
-          switch (type) {
-              case ConfirmEventType.REJECT:
-                  this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
-                  break;
-              case ConfirmEventType.CANCEL:
-                  this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
-                  break;
-          }
-      }
-  });
-
-
+        this.messageService.add({
+          severity: 'success',
+          detail: 'Community has been deleted.',
+        });
+        this.apiService.deleteCommunity(id).subscribe((res) => {
+          console.log(res);
+          this.getCommunity();
+        });
+      },
+      reject: (type: any) => {
+        switch (type) {
+          case ConfirmEventType.REJECT:
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Rejected',
+              detail: 'You have rejected',
+            });
+            break;
+          case ConfirmEventType.CANCEL:
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Cancelled',
+              detail: 'You have cancelled',
+            });
+            break;
+        }
+      },
+    });
   }
 
+  updateCommunityId!: number;
+  public updateCommunity(item: any, id: number) {
+    console.log(item);
+    this.updateCommunityId = id;
+    this.showUpdateCommunityForm = true;
+    this.updateCommunityForm = this.fb.group({
+      update_Name: new FormControl(item.attributes.community_name, [
+        Validators.required,
+      ]),
+      update_Desc: new FormControl(item.attributes.description, [
+        Validators.required,
+      ]),
+      update_Img: new FormControl(''),
+      update_ID: new FormControl(item.attributes.community_id, [
+        Validators.required,
+      ]),
+    });
+  }
+
+  public onSubmitUpdateCommunityForm() {
+    console.log(this.updateCommunityForm.value);
+    const postCommunity = {
+      data: {
+        community_profile_media: this.communityImgFile,
+        community_name: this.updateCommunityForm.value.update_Name,
+        description: this.updateCommunityForm.value.update_Desc,
+        community_id: this.updateCommunityForm.value.update_ID,
+      },
+    };
+    console.log(postCommunity);
+    console.log(this.updateCommunityId);
+
+    this.apiService
+      .updateCommunity(this.updateCommunityId, postCommunity)
+      .subscribe((res) => {
+        try {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Successfully..',
+            detail: 'Community updated.',
+          });
+          this.getCommunity();
+        } catch (error) {
+          this.messageService.add({
+            severity: 'error',
+            detail: 'Update failed',
+          });
+        }
+        console.log(res);
+      });
+    this.showUpdateCommunityForm = false;
+    this.updateCommunityForm.reset();
+  }
 }
