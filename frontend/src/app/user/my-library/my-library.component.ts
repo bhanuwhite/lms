@@ -1,19 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ConfirmationService, MenuItem } from 'primeng/api';
+import {  MenuItem } from 'primeng/api';
 import { dropDown } from 'src/app/interface';
 import { ApiService } from 'src/app/services/api.service';
 import { each } from 'chart.js/dist/helpers/helpers.core';
 import { getContentLibrary, userLibrary } from 'src/app/models/content';
-
+import {
+  ConfirmationService,
+  MessageService,
+  ConfirmEventType,
+} from 'primeng/api';
 @Component({
   selector: 'app-my-library',
   templateUrl: './my-library.component.html',
   styleUrls: ['./my-library.component.scss'],
-  providers:[ConfirmationService]
+  providers: [ConfirmationService, MessageService],
 })
 export class MyLibraryComponent implements OnInit {
   items!: MenuItem[];
+  Spinner:boolean = true
   searchWord: string = '';
   // public course_Details: any = [];
   // public course_Details2: any = [];
@@ -32,7 +37,12 @@ export class MyLibraryComponent implements OnInit {
   loadingSpinner: boolean = false;
 
 
-    constructor(private httpClient: HttpClient, private apiService: ApiService,   private confirmationService: ConfirmationService,) {}
+    constructor(
+    private httpClient: HttpClient,
+    private apiService: ApiService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.getContentLibrary();
@@ -40,11 +50,11 @@ export class MyLibraryComponent implements OnInit {
 
   public courseData: any = [];
 
- public courseDetails:userLibrary[]=[]
+  public courseDetails: userLibrary[] = [];
+
 
 
   public getContentLibrary() {
-
     this.loadingSpinner = true;
     this.apiService.getContentLibrary().subscribe((res) => {
       console.log(res);
@@ -52,50 +62,88 @@ export class MyLibraryComponent implements OnInit {
       try {
         console.log(res.data[0].attributes);
         this.courseData = res.data;
+        console.log(this.courseDetails);
+        this.Spinner = false
+        this.loadingSpinner = true;
     this.loadingSpinner = true;
 
       } catch (error) {
         console.log(error);
       }
     });
-
   }
-  public searchData !:any;
+  public searchData!: any;
 
   public searchFun() {
     this.searchData = this.courseData.filter((each: any) =>
       each.title.toLowerCase().includes(this.searchWord.toLowerCase())
     );
     console.log(this.searchWord);
-
   }
 
   public myCourseDetails(courseDetails: object): void {
-// console.log(courseDetails);
-
+console.log(courseDetails);
   }
 
-  deleteUserCourseLibrary(course:any){
-
+  public removeCourse(id: number) {
     this.confirmationService.confirm({
-      message: `Do you want to delete - ${course.attributes?.name} ?`,
+      message: 'Do you want to delete this record?',
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
-    this.apiService.deleteContentLibrary(course.id).subscribe((res) => {
-      console.log(res);
-
-      try {
-      this.loadingSpinner = true;
-      } catch (error) {
-        console.log(error);
-      }
+        this.apiService.removeLibraryCourse(id).subscribe((res) => {
+          console.log(res);
+          this.getContentLibrary();
+        });
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successfully',
+          detail: 'Course removed',
+        });
+      },
+      reject: (type: any) => {
+        switch (type) {
+          case ConfirmEventType.REJECT:
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Rejected',
+              detail: 'You have rejected',
+            });
+            break;
+          case ConfirmEventType.CANCEL:
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Cancelled',
+              detail: 'You have cancelled',
+            });
+            break;
+        }
+      },
     });
   }
-  });
-  this.getContentLibrary();
 }
-  }
+
+//   deleteUserCourseLibrary(course:any){
+
+//     this.confirmationService.confirm({
+//       message: `Do you want to delete - ${course.attributes?.name} ?`,
+//       header: 'Delete Confirmation',
+//       icon: 'pi pi-info-circle',
+//       accept: () => {
+//     this.apiService.deleteContentLibrary(course.id).subscribe((res) => {
+//       console.log(res);
+
+//       try {
+//       this.loadingSpinner = true;
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     });
+//   }
+//   });
+//   this.getContentLibrary();
+// }
+
 
   // public deleteDialog(data: ContentResponse): void {
   //   this.confirmationService.confirm({

@@ -6,7 +6,7 @@ import { UserComponent } from './user.component';
 import { MenuModule } from 'primeng/menu';
 import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
-import { ButtonModule } from 'primeng/button';
+import { Button, ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -53,8 +53,8 @@ import { SplitterModule } from 'primeng/splitter';
 import { UserContentComponent } from './user-content/user-content.component';
 import { DividerModule } from 'primeng/divider';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-
-
+import { ToastModule } from 'primeng/toast';
+import { UserCommunityComponent } from './user-community/user-community.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +65,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
     UserHeaderComponent,
     UserFooterComponent,
     ContentDetailsComponent,
+    UserCommunityComponent,
     MessageComponent,
     VideoPopupComponent,
     PurchaseHistoryComponent,
@@ -96,7 +97,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
     ProgressBarModule,
     RatingModule,
     MatTabsModule,
-    AvatarModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule, CardModule, RatingModule, MatTabsModule,
+    AvatarModule, MatIconModule, MenuModule, DialogModule, TooltipModule, CardModule, RatingModule, MatTabsModule,
     AdminRoutingModule,
     NgbModule,
     AccordionModule,
@@ -117,7 +118,9 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
     FormsModule,
     SplitterModule,
     MultiSelectModule,
-    DividerModule
+    DividerModule,
+ToastModule
+
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

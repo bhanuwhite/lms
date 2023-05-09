@@ -28,7 +28,11 @@
     </div>
   </div>
 </div>
-<div class="container-fluid">
+
+<div *ngIf="Spinner">
+  <div class="loader">Loading...</div>
+</div>
+<div class="container-fluid" *ngIf="!Spinner">
   <div class="text-center">
     <h2><b>Courses to get you Started</b></h2>
   </div>
@@ -48,7 +52,7 @@
         <p-card class="course-card" *ngFor="let course of coursesList">
           <ng-template pTemplate="header" *ngFor="let courseImg of course.attributes.media?.data">
             <div class="courseImage">
-              <a><img alt="Card" src="{{ courseImg.attributes.url }}"
+              <a><img alt="Card" src="{{ courseImg.attributes.url }}" pTooltip="Click to see Course details." tooltip
                   style="height: 225px;  border-radius: 10px 10px 2px 2px" (click)="openCourseDetails(course)"
                   [routerLink]="['course/',course.id]" /></a>
             </div>
@@ -75,15 +79,15 @@
               </div>
 
               <div class="col-lg-6 d-flex justify-content-end">
-
-                  <button class="btn btn-warning"
-                    *ngIf="course.attributes.price != 0 && !courseId.includes(course.id)" routerLink="/user/payment">BuyNow</button>
-                    <button class="btn btn-primary"
-                    *ngIf="course.attributes.price == 0 && !courseId.includes(course.id) ">Free</button>
-
-                    <button class="btn btn-success" *ngIf="courseId.includes(course.id)">purchased </button>
-
-
+                <button class="btn btn-warning" *ngIf="course.attributes.price != 0"
+                  routerLink="/user/payment">BuyNow</button>
+                <!-- <button class="btn btn-success" *ngIf="course.attributes.price == 0">Free</button> -->
+                <div *ngIf="libDataId && course.id && libDataId.includes(course.id)">
+                  <button class="btn btn-success"> Subscribed </button>
+                </div>
+                <div *ngIf=" course.attributes.price == 0 && libDataId && course.id && !libDataId.includes(course.id)">
+                  <button class="btn btn-danger"> Free </button>
+                </div>
 
               </div>
             </div>
