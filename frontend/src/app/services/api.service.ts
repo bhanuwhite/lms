@@ -127,7 +127,12 @@ export class ApiService {
 
   // POST Community
   public postCommunity(item:any):Observable<any> {
-    return this.http.post<any>(`api/communities?populate=*`,item)
+    return this.http.post<any>(`api/communities`,item)
+  }
+
+  // DELETE Community
+  public deleteCommunity(id:number):Observable<any>{
+    return this.http.delete<any>(`api/communities/${id}`)
   }
 
 }

@@ -1,9 +1,9 @@
-<div class="content-inner surface-ground px-3 py-3">
+<div class="content-inner surface-ground surface-ground-wrappers px-3 py-3">
   <div class="d-flex justify-content-between">
     <p class="fs-4">𝐀𝐥𝐥 𝐂𝐨𝐦𝐦𝐮𝐧𝐢𝐭𝐲</p>
     <button class="btn btn-primary" (click)="displayCommunityForm()">Create Community</button>
-
   </div>
+
   <div>
     <p-dialog header="Create Community" [(visible)]="showCommunityForm" [modal]="true">
       <form [formGroup]="communityForm" (ngSubmit)="onSubmitCommunityForm()">
@@ -18,6 +18,18 @@
                 Communtiy name is required. </small>
             </span>
           </div>
+
+          <div class="field mt-2 w-100">
+            <label for="title">ID :</label>
+            <span class="p-float-label">
+              <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" class="form-control" required
+                formControlName="community_ID" pInputText placeholder="Enter Community name.">
+              <small class="p-error block"
+                *ngIf="communityForm.get('community_ID')?.invalid && (communityForm.get('community_ID')?.dirty || communityForm.get('community_Name')?.touched)">
+                Communtiy ID is required. </small>
+            </span>
+          </div>
+
           <div class="field mt-2 w-100">
             <label for="description"> Description :</label>
             <span class="p-float-label">
@@ -50,7 +62,45 @@
       </form>
     </p-dialog>
   </div>
+
+  <div *ngIf="spinner">
+    <div class="loader">Loading...</div>
+  </div>
+
+<div  *ngIf="!spinner">
+  <div class="d-flex flex-wrap col-lg-12 col-md-12">
+    <div *ngFor="let community of GlobalCommunities" class="col-4">
+      <div class="card">
+        <div class="card p-3" style="height: 250px;">
+          <div class=" d-flex justify-content-between card-header">
+            <b class="fs-4"> {{community.attributes?.community_name}} </b>
+            <p> <span class="material-icons" [style]="{'color':'red','cursor':'pointer'}" (click)="deleteCommunity(community.id)">
+                delete
+                </span> </p>
+          </div>
+          <div class="mt-4 card-body" style="height: 100px; overflow-y: auto;">
+            <b class="fs-6"> {{community.attributes?.description}} </b>
+          </div>
+          <div class="d-flex align-items-center justify-content-between mt-5 mb-3 card-footer">
+            <div class="image">
+              <img *ngIf="community.attributes?.community_profile_media?.data?.attributes.url != null"
+                [src]='community.attributes.community_profile_media?.data.attributes.url' class="img-fluid user-img"
+                alt="path mismatch">
+
+              <div *ngIf="community.attributes.community_profile_media.data == null">
+                <p-avatar label="img" shape="circle"></p-avatar>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 </div>
 <div class="card">
+  <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
   <p-toast></p-toast>
 </div>

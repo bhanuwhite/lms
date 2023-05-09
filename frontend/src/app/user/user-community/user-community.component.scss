@@ -5,11 +5,17 @@
 }
 
 
-
-
+.content-inner{
+  height: auto;
+}
+.userImg{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
 
 .loader {
-  color: #ffffff;
+  color: #260afb;
   font-size: 20px;
   margin: 100px auto;
   width: 1em;
