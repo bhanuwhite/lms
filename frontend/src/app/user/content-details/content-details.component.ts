@@ -21,7 +21,7 @@ export class ContentDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSingleCourseObj();
-    console.log('hello');
+    this.getUserLibrary()
   }
 
   constructor(
@@ -32,7 +32,6 @@ export class ContentDetailsComponent implements OnInit {
   ) {}
 
   public getSingleCourseObj() {
-    console.log('hello');
 
     this.activeParams.params.subscribe((res) => {
       this.courseId = res['id'];
@@ -45,6 +44,7 @@ export class ContentDetailsComponent implements OnInit {
   addToLibrary(course: ContentResponse) {
     console.log('hello');
     console.log(course);
+
     const courseDetails: ContentLibrary = {
       data:
         {
@@ -72,6 +72,21 @@ export class ContentDetailsComponent implements OnInit {
         });
       }
     });
+  }
+  public coursesId: number[]=[];
+  // libraryContent:any
+
+  public getUserLibrary() {
+
+    this.apiService.getContentLibrary().subscribe((res) => {
+      const libraryContent = res.data
+      libraryContent.some((obj:any) =>{
+        this.coursesId.push(obj.attributes.content_library.data.id);
+        console.log(this.coursesId);
+      })
+
+    })
+
   }
 
   onClickVideo(courseDetails: {}) {

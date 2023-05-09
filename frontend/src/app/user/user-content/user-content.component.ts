@@ -21,10 +21,11 @@ export class UserContentComponent {
     private apiService: ApiService,
     private router: Router,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getContent();
+    this.getUserLibrary();
   }
 
   // Logout
@@ -34,28 +35,43 @@ export class UserContentComponent {
     location.reload();
   }
 
+  public libraryContent: any
+
   // Get Content
   public getContent(): void {
     this.apiService.getContent().subscribe((res) => {
       try {
         console.log(res.data);
-
         this.coursesList = res.data;
         this.isLoading = true;
+
       } catch (error) {
         console.log(error);
       }
 
     });
   }
-  public courseDetails!: string;
+
+
+
 
   public openCourseDetails(course: {}): void {
-    // this.router.navigate(['user/contentDetails']);
-    console.log("single course ",course);
+    console.log("single course ", course);
+  }
+  public courseId: number[]=[];
 
-    // this.courseDetails = JSON.stringify(course);
-    // localStorage.setItem('courseDetails', this.courseDetails);
+  public getUserLibrary() {
+
+    this.apiService.getContentLibrary().subscribe((res) => {
+      this.libraryContent = res.data
+
+      this.libraryContent.some((obj:any) =>{
+        this.courseId.push(obj.attributes.content_library.data.id);
+        console.log(this.courseId);
+      })
+
+    })
+
   }
 
   ngOnDestroy(): void {

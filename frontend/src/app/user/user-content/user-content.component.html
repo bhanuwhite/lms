@@ -49,7 +49,8 @@
           <ng-template pTemplate="header" *ngFor="let courseImg of course.attributes.media?.data">
             <div class="courseImage">
               <a><img alt="Card" src="{{ courseImg.attributes.url }}"
-                  style="height: 225px;  border-radius: 10px 10px 2px 2px" (click)="openCourseDetails(course)" [routerLink]="['course/',course.id]" /></a>
+                  style="height: 225px;  border-radius: 10px 10px 2px 2px" (click)="openCourseDetails(course)"
+                  [routerLink]="['course/',course.id]" /></a>
             </div>
           </ng-template>
           <div class="cursor-pointer" (click)="openCourseDetails(course)">
@@ -72,9 +73,18 @@
                   <b>{{ course.attributes.price | currency : "INR" }} </b>
                 </h3>
               </div>
+
               <div class="col-lg-6 d-flex justify-content-end">
-                <button class="btn btn-warning" *ngIf="course.attributes.price != 0" routerLink="/user/payment">BuyNow</button>
-                <button class="btn btn-success"  *ngIf="course.attributes.price == 0">Free</button>
+
+                  <button class="btn btn-warning"
+                    *ngIf="course.attributes.price != 0 && !courseId.includes(course.id)" routerLink="/user/payment">BuyNow</button>
+                    <button class="btn btn-primary"
+                    *ngIf="course.attributes.price == 0 && !courseId.includes(course.id) ">Free</button>
+
+                    <button class="btn btn-success" *ngIf="courseId.includes(course.id)">purchased </button>
+
+
+
               </div>
             </div>
 
@@ -126,4 +136,3 @@
     </p-tabPanel>
   </p-tabView>
 </div>
-

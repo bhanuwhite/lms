@@ -19,9 +19,9 @@ export class AccountSettingsComponent {
 
 
 
-  public onEmailEdit(): void {
-    this.displayEmailModal = true;
-  }
+  // public onEmailEdit(): void {
+  //   this.displayEmailModal = true;
+  // }
   public changeUserEmail(): void {
     if (this.userEnteredPassword === this.userCurrentPassword) {
       this.userCurrentEmail = this.userNewEmail;

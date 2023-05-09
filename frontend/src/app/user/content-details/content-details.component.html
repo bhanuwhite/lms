@@ -376,7 +376,7 @@
               style="width: 100%; opacity: 0.6;">
             <span class="play-button"> <img src="assets/img/play.png" alt=""> </span>
         </div>
-        <div class="pricing-detail p-3"  *ngIf="singleCourse.attributes.price != 0">
+        <div class="pricing-detail p-3"  *ngIf="singleCourse.attributes.price != 0 && !coursesId.includes(singleCourse.id)">
 
             <div class="d-flex align-items-center">
               <h1 class="m-0"><b>{{ singleCourse.attributes.price | currency : "INR" }}</b></h1> <span class="ms-3">81%
@@ -403,14 +403,19 @@
             <a href="" class="links">Apply Coupon</a>
           </div>
         </div>
-         <div *ngIf="singleCourse.attributes.price == 0">
+         <div *ngIf="singleCourse.attributes.price == 0 && !coursesId.includes(singleCourse.id)">
           <div>
             <div class="d-flex align-items-center">
               <h2 class="m-3"><b>FREE COURSE</b></h2>
             </div>
           </div>
-          <div *ngIf="singleCourse.attributes.price == 0"  class="buttons m-3">
+          <div *ngIf="singleCourse.attributes.price == 0 "  class="buttons m-3">
             <button type="button" class="btn btn-success" style="width: 95%;" (click)="addToLibrary(singleCourse)" >Add To Library</button>
+          </div>
+         </div>
+         <div>
+          <div *ngIf="coursesId.includes(singleCourse.id)"  class="buttons m-3">
+            <button type="button" class="btn btn-primary" style="width: 95%;" >Added To Library</button>
           </div>
          </div>
 

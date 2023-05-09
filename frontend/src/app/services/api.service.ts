@@ -109,7 +109,11 @@ export class ApiService {
   }
    // Get  Content Library
    public getContentLibrary(): Observable<any> {
-    return this.http.get<any>(`api/user-has-courses?populate=*`);
+    return this.http.get<any>(`api/user-has-courses?populate=content_library.media`);
+  }
+  // Delete content
+  public deleteContentLibrary(id: number | undefined): Observable<any> {
+    return this.http.delete<any>(`api/user-has-courses/${id}?populate=*`);
   }
 
   /**

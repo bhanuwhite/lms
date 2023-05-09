@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem } from 'primeng/api';
 import { dropDown } from 'src/app/interface';
 import { ApiService } from 'src/app/services/api.service';
 import { each } from 'chart.js/dist/helpers/helpers.core';
@@ -10,6 +10,7 @@ import { getContentLibrary, userLibrary } from 'src/app/models/content';
   selector: 'app-my-library',
   templateUrl: './my-library.component.html',
   styleUrls: ['./my-library.component.scss'],
+  providers:[ConfirmationService]
 })
 export class MyLibraryComponent implements OnInit {
   items!: MenuItem[];
@@ -30,7 +31,8 @@ export class MyLibraryComponent implements OnInit {
   public selectedInstructor: string = '';
   loadingSpinner: boolean = false;
 
-  constructor(private httpClient: HttpClient, private apiService: ApiService) {}
+
+    constructor(private httpClient: HttpClient, private apiService: ApiService,   private confirmationService: ConfirmationService,) {}
 
   ngOnInit(): void {
     this.getContentLibrary();
@@ -39,24 +41,7 @@ export class MyLibraryComponent implements OnInit {
   public courseData: any = [];
 
  public courseDetails:userLibrary[]=[]
-  // public readingJSON(): void {
-  //   this.httpClient.get(this.courseDetailsJSON).subscribe((data) => {
-  //     try {
-  //       this.course_Details = data;
-  //        this.courseDetails = data;
-  //       this.course_Details2 = this.course_Details;
-  //       this.items = [
-  //         { label: 'All Courses' },
-  //         { label: 'My List' },
-  //         { label: 'Wish List' },
-  //         { label: 'Archives' },
-  //         { label: 'My Tools' },
-  //       ];
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   });
-  // }
+
 
   public getContentLibrary() {
 
@@ -67,7 +52,6 @@ export class MyLibraryComponent implements OnInit {
       try {
         console.log(res.data[0].attributes);
         this.courseData = res.data;
-        console.log(this.courseDetails);
     this.loadingSpinner = true;
 
       } catch (error) {
@@ -87,7 +71,59 @@ export class MyLibraryComponent implements OnInit {
   }
 
   public myCourseDetails(courseDetails: object): void {
-console.log(courseDetails);
+// console.log(courseDetails);
 
   }
+
+  deleteUserCourseLibrary(course:any){
+
+    this.confirmationService.confirm({
+      message: `Do you want to delete - ${course.attributes?.name} ?`,
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+    this.apiService.deleteContentLibrary(course.id).subscribe((res) => {
+      console.log(res);
+
+      try {
+      this.loadingSpinner = true;
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  }
+  });
+  this.getContentLibrary();
 }
+  }
+
+  // public deleteDialog(data: ContentResponse): void {
+  //   this.confirmationService.confirm({
+  //     message: `Do you want to delete - ${data.attributes?.name} ?`,
+  //     header: 'Delete Confirmation',
+  //     icon: 'pi pi-info-circle',
+  //     accept: () => {
+  //       this.apiService.deleteContent(data.id).subscribe((res) => {
+  //         console.log(res);
+  //         console.log(data.id);
+
+  //         try {
+  //           this.messageService.add({
+  //             severity: 'error',
+  //             summary: 'Delete',
+  //             detail: 'Content deleted successfully !',
+  //           });
+  //           this.getContent();
+  //         } catch (error) {
+  //           this.messageService.add({
+  //             severity: 'error',
+  //             summary: 'Error',
+  //             detail: 'Something went to wrong !!',
+  //           });
+  //         }
+  //       });
+  //     },
+  //     reject: () => {},
+  //   });
+  // }
+// }
