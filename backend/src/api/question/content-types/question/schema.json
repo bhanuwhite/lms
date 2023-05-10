@@ -29,6 +29,11 @@
       "relation": "oneToMany",
       "target": "api::answer.answer",
       "mappedBy": "question"
+    },
+    "community": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::community.community"
     }
   }
 }

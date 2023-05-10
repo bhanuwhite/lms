@@ -34,6 +34,11 @@
         "videos",
         "audios"
       ]
+    },
+    "paid": {
+      "type": "string",
+      "required": true,
+      "default": "buy"
     }
   }
 }

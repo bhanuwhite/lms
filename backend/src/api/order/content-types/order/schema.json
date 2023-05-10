@@ -12,10 +12,27 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Orders": {
-      "type": "integer",
-      "required": false,
-      "default": 14000
+    "orderId": {
+      "type": "uid",
+      "required": true
+    },
+    "paymentInfo": {
+      "type": "json"
+    },
+    "product": {
+      "type": "json",
+      "required": true
+    },
+    "transactionId": {
+      "type": "uid"
+    },
+    "amount": {
+      "type": "biginteger",
+      "required": true
+    },
+    "status": {
+      "type": "string",
+      "required": true
     }
   }
 }
