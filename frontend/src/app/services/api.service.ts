@@ -166,4 +166,5 @@ export class ApiService {
   public deleteCommunity(id: number): Observable<any> {
     return this.http.delete<any>(`api/communities/${id}`);
   }
+
 }
