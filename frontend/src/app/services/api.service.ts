@@ -75,15 +75,9 @@ export class ApiService {
   }
 
   // update courses
-  public updateCourse(
-    id: number,
-    item: UpdateCourseObj
-  ): Observable<TotalCoursesData> {
+  public updateCourse( id: number,item: UpdateCourseObj): Observable<TotalCoursesData> {
     return this.http.put<TotalCoursesData>(
-      `api/courses/${id}?populate=*`,
-      item
-    );
-  }
+      `api/courses/${id}?populate=*`,item);}
 
   // Delete course
   public deleteCourse(id: number): Observable<TotalCoursesData> {

@@ -62,6 +62,7 @@ export class MyLibraryComponent implements OnInit {
       try {
         console.log(res.data[0].attributes);
         this.courseData = res.data;
+        this.searchData =res.data;
         console.log(this.courseDetails);
         this.Spinner = false
         this.loadingSpinner = true;
@@ -72,12 +73,10 @@ export class MyLibraryComponent implements OnInit {
       }
     });
   }
-  public searchData!: any;
+  public searchData!: any[];
 
   public searchFun() {
-    this.searchData = this.courseData.filter((each: any) =>
-      each.title.toLowerCase().includes(this.searchWord.toLowerCase())
-    );
+    this.courseData = this.searchData.filter((course:any) => course.attributes.content_library.data.attributes.name.toLowerCase().includes(this.searchWord.toLowerCase()) || course.attributes.content_library.data.attributes.author.toLowerCase().includes(this.searchWord.toLowerCase()));
     console.log(this.searchWord);
   }
 

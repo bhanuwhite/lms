@@ -5,14 +5,14 @@ import { VideoPopupComponent } from '../video-popup/video-popup.component';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 // import { ContentResponse } from 'src/app/models/content';
-import { MessageService } from 'primeng/api';
+import { MessageService,ConfirmationService,ConfirmEventType } from 'primeng/api';
 import { Content,ContentData, ContentLibrary, ContentResponse,SingleContentData,mediaDataObj,userLibrary } from 'src/app/models/content';
 
 @Component({
   selector: 'app-content-details',
   templateUrl: './content-details.component.html',
   styleUrls: ['./content-details.component.scss'],
-  providers: [DialogService],
+  providers: [DialogService,MessageService,ConfirmationService],
 })
 export class ContentDetailsComponent implements OnInit {
   public displayDialog = false;
@@ -28,7 +28,9 @@ export class ContentDetailsComponent implements OnInit {
     public dialogService: DialogService,
     private activeParams: ActivatedRoute,
     private apiService: ApiService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
+
   ) {}
 
   public getSingleCourseObj() {
@@ -42,37 +44,54 @@ export class ContentDetailsComponent implements OnInit {
   }
 
   addToLibrary(course: ContentResponse) {
-    console.log('hello');
-    console.log(course);
+    this.confirmationService.confirm({
+      message: 'Do you want to add this course to Library?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        const courseDetails: ContentLibrary = {
+          data:
+            {
+                course_id: 1,
+                user_id: 2,
+                content_library : course.id
+              },
+        };
 
-    const courseDetails: ContentLibrary = {
-      data:
-        {
-            course_id: 1,
-            user_id: 2,
-            content_library : course.id
-          },
+        this.apiService.postContentLibrary(courseDetails).subscribe((res) => {
+              console.log(res);
+              this.getUserLibrary()
 
-    };
-
-    this.apiService.postContentLibrary(courseDetails).subscribe((res) => {
-      console.log(res);
-      try {
-        alert("success")
+        })
         this.messageService.add({
           severity: 'success',
-          summary: 'Success',
-          detail: 'Content added successfully !!',
+          summary: 'Successfully',
+          detail: 'Course added to library',
         });
-      } catch (error) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Something went wrong !!',
-        });
-      }
-    });
+      },
+      reject: (type: any) => {
+        switch (type) {
+          case ConfirmEventType.REJECT:
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Rejected',
+              detail: 'You have rejected',
+            });
+            break;
+          case ConfirmEventType.CANCEL:
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Cancelled',
+              detail: 'You have cancelled',
+            });
+            break;
+        }
+      },
+            })
   }
+
+
+
   public coursesId: number[]=[];
   // libraryContent:any
 

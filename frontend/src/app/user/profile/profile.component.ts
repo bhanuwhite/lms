@@ -94,7 +94,7 @@ export class ProfileComponent {
         this.imageFileSelected = true
         this.imageData = this.userImageForm.value.imageControl;
       }
-      alert("Image for preview")
+
     }
   }
   //save image

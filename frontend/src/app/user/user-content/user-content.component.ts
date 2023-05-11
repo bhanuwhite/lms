@@ -15,7 +15,9 @@ export class UserContentComponent {
   Spinner:boolean = true;
   public isLoading: boolean = false;
 
-  public coursesList!: ContentResponse[];
+  public coursesList: ContentResponse[] =[];
+  public  items: ContentResponse[]= [];
+  public searchQuery !: string;
 
   constructor(
     private apiService: ApiService,
@@ -57,6 +59,7 @@ export class UserContentComponent {
         console.log(res.data);
         this.Spinner = false
         this.coursesList = res.data;
+        this.items =res.data
         this.isLoading = true;
 
       } catch (error) {
@@ -86,6 +89,11 @@ export class UserContentComponent {
 
     })
 
+  }
+
+
+  public  searchByName() {
+    this.coursesList = this.items.filter((course:any) => course.attributes.name.toLowerCase().includes(this.searchQuery.toLowerCase()) || course.attributes.author.toLowerCase().includes(this.searchQuery.toLowerCase()) || course.attributes.price.includes(this.searchQuery));
   }
 
   ngOnDestroy(): void {

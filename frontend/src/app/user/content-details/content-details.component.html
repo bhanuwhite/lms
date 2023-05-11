@@ -409,7 +409,7 @@
               <h2 class="m-3"><b>FREE COURSE</b></h2>
             </div>
           </div>
-          <div *ngIf="singleCourse.attributes.price == 0 "  class="buttons m-3">
+          <div *ngIf="singleCourse.attributes.price == 0 && !coursesId.includes(singleCourse.id) "  class="buttons m-3">
             <button type="button" class="btn btn-success" style="width: 95%;" (click)="addToLibrary(singleCourse)" >Add To Library</button>
           </div>
          </div>
@@ -428,4 +428,8 @@
       </div>
     </div>
   </div>
+</div>
+<div class="card flex justify-content-center gap-2">
+  <p-toast></p-toast>
+  <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
 </div>
