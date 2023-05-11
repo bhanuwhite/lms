@@ -209,6 +209,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
           console.log(res.data);
 
           this.courseData = res.data;
+          this.searchData = res.data;
           console.log(this.courseData);
           this.isLoading = false;
         } catch (error) {
@@ -386,6 +387,13 @@ console.log(this.courseBody.data);
 
   goDetailPage(data: CourseResData) {
     this.router.navigateByUrl(`/admin/courses/${data.id}`);
+  }
+
+  public searchData!: any[];
+  searchWord: string = '';
+  public searchFun() {
+    this.courseData = this.searchData.filter((course:any) => course.attributes.title.toLowerCase().includes(this.searchWord.toLowerCase()));
+    console.log(this.searchWord);
   }
 
   ngOnDestroy(): void {

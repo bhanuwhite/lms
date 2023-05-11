@@ -46,7 +46,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="p-field my-2 px-2">
+                      <!-- <div class="p-field my-2 px-2">
                         <label for="lastname1" class="mb-2">Headline :</label>
                         <input id="lastname1" name="headline" formControlName="headline" type="text" class="w-100"
                           pInputText placeholder="Instructor at LMS(60)" />
@@ -62,7 +62,7 @@
                             Headline must have at least 10 characters.
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                       <div class="p-field my-2 px-2 overflow-hidden">
                         <label for="lastname1" class="mb-2">Biography :</label>
                         <p-editor [style]="{ width: '100%', height: '80px' }" name="biography"
@@ -95,6 +95,14 @@
                           </div>
                         </div>
                       </div>
+
+                    </div>
+                    <div class="col-lg-1 divider">
+                      <p-divider layout="vertical"></p-divider>
+                    </div>
+
+                    <div class="col-lg-5 col-sm-12">
+
                       <div class="p-field my-2 px-2">
                         <label for="lastname1" class="mb-2">Lanquages</label>
                         <p-multiSelect [options]="mainLanquages" name="lanquages" class="w-100"
@@ -113,13 +121,6 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-lg-1 divider">
-                      <p-divider layout="vertical"></p-divider>
-                    </div>
-
-                    <div class="col-lg-5 col-sm-12">
-
 
                       <div class="p-field my-2 px-2">
                         <label for="firstname1" class="mb-2">LinkedIn</label>

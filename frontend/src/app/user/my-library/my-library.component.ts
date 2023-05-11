@@ -20,8 +20,6 @@ export class MyLibraryComponent implements OnInit {
   items!: MenuItem[];
   Spinner:boolean = true
   searchWord: string = '';
-  // public course_Details: any = [];
-  // public course_Details2: any = [];
   public value: number = 10;
   public progressValue: number = 25;
 
