@@ -44,11 +44,11 @@
       <!-- <div class="loader">Loading...</div> -->
       <div class="row  justify-content-end">
         <div class="col-lg-6 d-flex">
-          <input type="search" class="form-control w-100" placeholder="Search for courses" style="line-height: 2;">
+          <input type="search" class="form-control w-100"  [(ngModel)]="searchQuery" (input)="searchByName()" placeholder="Search for courses" style="line-height: 2;">
           <button class="btn btn-dark"><i class="pi pi-search"></i></button>
         </div>
       </div>
-      <div class="row all-Courses">
+      <div class="row all-Courses" *ngIf="coursesList.length != 0">
         <p-card class="course-card" *ngFor="let course of coursesList">
           <ng-template pTemplate="header" *ngFor="let courseImg of course.attributes.media?.data">
             <div class="courseImage">
@@ -77,19 +77,20 @@
                   <b>{{ course.attributes.price | currency : "INR" }} </b>
                 </h3>
               </div>
+
               <div class="col-lg-6 d-flex justify-content-end">
-                <!-- <button class="btn btn-warning" *ngIf="course.attributes.price != 0"
-                  routerLink="/user/payment">BuyNow</button> -->
-                  <button class="btn btn-warning" *ngIf="course.attributes.price != 0"  data-id="1" data-email="userEmail" data-url="http://206.189.140.51:1337"> BuyNow </button>
+                <button class="btn btn-warning" *ngIf="course.attributes.price != 0"
+                  routerLink="/user/payment">BuyNow</button>
+                  </div>
                 <!-- <button class="btn btn-success" *ngIf="course.attributes.price == 0">Free</button> -->
-                <div *ngIf="libDataId && course.id && libDataId.includes(course.id)">
+                <div  *ngIf="libDataId && course.id && libDataId.includes(course.id)">
                   <button class="btn btn-success"> Subscribed </button>
                 </div>
                 <div *ngIf=" course.attributes.price == 0 && libDataId && course.id && !libDataId.includes(course.id)">
-                  <button class="btn btn-danger"> Free </button>
+                  <button class="btn btn-primary"> Free </button>
                 </div>
 
-              </div>
+
             </div>
 
           </ng-template>

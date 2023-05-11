@@ -15,13 +15,15 @@ export class UserContentComponent {
   Spinner:boolean = true;
   public isLoading: boolean = false;
 
-  public coursesList!: ContentResponse[];
+  public coursesList: ContentResponse[] =[];
+  public  items: ContentResponse[]= [];
+  public searchQuery !: string;
 
   constructor(
     private apiService: ApiService,
     private router: Router,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getContent();
@@ -48,6 +50,8 @@ export class UserContentComponent {
     location.reload();
   }
 
+  public libraryContent: any
+
   // Get Content
   public getContent(): void {
     this.apiService.getContent().subscribe((res) => {
@@ -55,21 +59,41 @@ export class UserContentComponent {
         console.log(res.data);
         this.Spinner = false
         this.coursesList = res.data;
+        this.items =res.data
         this.isLoading = true;
+
       } catch (error) {
         console.log(error);
       }
 
     });
   }
-  public courseDetails!: string;
+
+
+
 
   public openCourseDetails(course: {}): void {
-    // this.router.navigate(['user/contentDetails']);
-    console.log("single course ",course);
+    console.log("single course ", course);
+  }
+  public courseId: number[]=[];
 
-    // this.courseDetails = JSON.stringify(course);
-    // localStorage.setItem('courseDetails', this.courseDetails);
+  public getUserLibrary() {
+
+    this.apiService.getContentLibrary().subscribe((res) => {
+      this.libraryContent = res.data
+
+      this.libraryContent.some((obj:any) =>{
+        this.courseId.push(obj.attributes.content_library.data.id);
+        console.log(this.courseId);
+      })
+
+    })
+
+  }
+
+
+  public  searchByName() {
+    this.coursesList = this.items.filter((course:any) => course.attributes.name.toLowerCase().includes(this.searchQuery.toLowerCase()) || course.attributes.author.toLowerCase().includes(this.searchQuery.toLowerCase()) || course.attributes.price.includes(this.searchQuery));
   }
 
   ngOnDestroy(): void {

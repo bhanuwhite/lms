@@ -21,7 +21,7 @@
                     <div class="p-field px-2 mb-3">
                       <label for="firstname1" class="mb-2">First Name</label>
                       <input id="firstname1" name="firstname" formControlName="firstname" type="text" class="w-100"
-                        pInputText placeholder="" />
+                        pInputText placeholder="Enter your FirstName" />
                       <div *ngIf="
                           firstname &&
                           firstname.invalid &&
@@ -38,7 +38,7 @@
                     <div class="p-field my-2 px-2">
                       <label for="lastname1" class="mb-2">Last Name</label>
                       <input id="lastname1" class="w-100" name="lastname" formControlName="lastname" type="text"
-                        pInputText />
+                        pInputText  placeholder="Enter your LastName" />
                       <div *ngIf="
                           lastname &&
                           lastname.invalid &&
@@ -49,23 +49,6 @@
                         </div>
                         <div *ngIf="lastname.errors?.['minlength']">
                           Lastname must have at least 8 characters
-                        </div>
-                      </div>
-                    </div>
-                    <div class="p-field my-2 px-2">
-                      <label for="lastname1" class="mb-2">Headline</label>
-                      <input id="lastname1" name="headline" formControlName="headline" type="text" class="w-100"
-                        pInputText placeholder="Instructor at LMS(60)" />
-                      <div *ngIf="
-                          headline &&
-                          headline.invalid &&
-                          (headline.touched || headline.dirty)
-                        " class="text-danger">
-                        <div *ngIf="headline.errors?.['required']" class="text-danger">
-                          Headline is required
-                        </div>
-                        <div *ngIf="headline.errors?.['minlength']">
-                          Headline must have at least 10 characters
                         </div>
                       </div>
                     </div>
@@ -100,9 +83,17 @@
                         </div>
                       </div>
                     </div>
+
+
+                  </div>
+                  <div class="col-lg-1 divider">
+                    <p-divider layout="vertical"></p-divider>
+                  </div>
+
+                  <div class="  col-lg-5 col-sm-12">
                     <div class="p-field my-2 px-2">
-                      <label for="lastname1" class="mb-2">Lanquages</label>
-                      <p-multiSelect [options]="mainLanquages" name="lanquages" class="w-100"
+                      <label for="lastname1" class="mb-2">Languages</label>
+                      <p-multiSelect [options]="mainLanguages" name="lanquages" class="w-100"
                         formControlName="selectedlanquages" optionLabel="name"></p-multiSelect>
                       <div *ngIf="
                           selectedlanquages &&
@@ -118,12 +109,6 @@
                       </div>
                     </div>
 
-                  </div>
-                  <div class="col-lg-1 divider">
-                    <p-divider layout="vertical"></p-divider>
-                  </div>
-
-                  <div class="  col-lg-5 col-sm-12">
                     <div class="p-field my-2 px-2">
                       <label for="firstname1" class="mb-2">Website</label>
                       <input id="firstname1" class="w-100" name="website" formControlName="website" type="text"
@@ -141,45 +126,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="p-field my-2 px-2">
-                      <label for="firstname1" class="mb-2">Twitter</label>
-                      <div class="p-inputgroup overflow-hidden">
-                        <span class="p-inputgroup-addon">http://www.twitter.com/</span>
-                        <input type="text" name="twitter" formControlName="twitter" pInputText placeholder="Username" />
-                      </div>
-                      <div *ngIf="
-                          twitter &&
-                          twitter.invalid &&
-                          (twitter.touched || twitter.dirty)
-                        " class="text-danger">
-                        <div *ngIf="twitter.errors?.['required']" class="text-danger">
-                          Twitter is required
-                        </div>
-                        <div *ngIf="twitter.errors?.['minlength']">
-                          Twitter field must have at least 5 characters
-                        </div>
-                      </div>
-                    </div>
-                    <div class="p-field my-2 px-2">
-                      <label for="firstname1" class="mb-2">Facebook</label>
-                      <div class="p-inputgroup overflow-hidden">
-                        <span class="p-inputgroup-addon">http://www.facebook.com/</span>
-                        <input type="text" name="facebook" formControlName="facebook" pInputText
-                          placeholder="Username" />
-                      </div>
-                      <div *ngIf="
-                          facebook &&
-                          facebook.invalid &&
-                          (facebook.touched || facebook.dirty)
-                        " class="text-danger">
-                        <div *ngIf="facebook.errors?.['required']" class="text-danger">
-                          Facebook is required
-                        </div>
-                        <div *ngIf="facebook.errors?.['minlength']">
-                          Facebook field must have at least 5 characters
-                        </div>
-                      </div>
-                    </div>
+
                     <div class="p-field my-2 px-2">
                       <label for="firstname1" class="mb-2">LinkedIn</label>
                       <div class="p-inputgroup overflow-hidden">
@@ -200,25 +147,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="p-field my-2 px-2">
-                      <label for="firstname1" class="mb-2">Youtube</label>
-                      <div class="p-inputgroup overflow-hidden">
-                        <span class="p-inputgroup-addon">http://www.youtube.com/</span>
-                        <input type="text" name="youtube" formControlName="youtube" pInputText placeholder="Username" />
-                      </div>
-                      <div *ngIf="
-                          youtube &&
-                          youtube.invalid &&
-                          (youtube.touched || youtube.dirty)
-                        " class="text-danger">
-                        <div *ngIf="youtube.errors?.['required']" class="text-danger">
-                          Youtube is required
-                        </div>
-                        <div *ngIf="youtube.errors?.['minlength']">
-                          Youtube field must have at least 5 characters
-                        </div>
-                      </div>
-                    </div>
+
                     <div class="p-field d-flex justify-content-end my-2 px-2">
                       <input type="submit" [disabled]="userProfileForm.invalid" pButton value="Save" [style]="{
                           width: '80px',

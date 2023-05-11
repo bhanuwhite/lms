@@ -12,7 +12,7 @@ interface Lanquages {
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
-  public mainLanquages: Lanquages[] = []
+  public mainLanguages: Lanquages[] = []
   public selectedLangauges: Lanquages[] = []
   public selectedValues: string[] = [];
   public userProfileForm!: FormGroup;
@@ -41,7 +41,7 @@ export class ProfileComponent {
   }
   //get tabmenu items
   public getLanguages(): void {
-    this.mainLanquages = [
+    this.mainLanguages = [
       {
         name: 'English',
       },
@@ -68,7 +68,7 @@ export class ProfileComponent {
       selectedlanquages: new FormControl('', [Validators.required, Validators.minLength(2)])
     })
   }
-  //ImageForm 
+  //ImageForm
   public userImage(): void {
     this.userImageForm = this.fb.group({
       imageControl: ['', Validators.required]
@@ -94,7 +94,7 @@ export class ProfileComponent {
         this.imageFileSelected = true
         this.imageData = this.userImageForm.value.imageControl;
       }
-      alert("Image for preview")
+
     }
   }
   //save image
