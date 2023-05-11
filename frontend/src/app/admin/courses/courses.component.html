@@ -10,7 +10,9 @@
       </div>
       <span class="p-input-icon-left">
       <i class="pi pi-search"></i>
-      <input pInputText type="text" placeholder="Search..." />
+      <input pInputText type="text" placeholder="Search..."  [(ngModel)]="searchWord"
+      (ngModelChange)="searchFun()"/>
+
     </span>
     <ng-template pTemplate="left">
       <button pButton pRipple label="Create Course" icon="pi pi-plus" (click)="addDialog()"
@@ -33,7 +35,7 @@
         <th></th>
       </tr>
     </ng-template>
-    <ng-template style="width: auto;" pTemplate="body" let-course>
+    <ng-template style="width: auto;" pTemplate="body" let-course >
       <tr>
         <td (click)="goDetailPage(course)" class="text-center cursor-pointer">{{course.attributes.title}}</td>
         <td (click)="goDetailPage(course)" class="text-center cursor-pointer">{{course.attributes.courseDescription}}
