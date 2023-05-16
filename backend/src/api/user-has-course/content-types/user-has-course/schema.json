@@ -12,7 +12,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "content_library": {
+    "courses": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::content-library.content-library"

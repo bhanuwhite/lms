@@ -29,15 +29,6 @@
     "linkedIn": {
       "type": "string"
     },
-    "language": {
-      "type": "enumeration",
-      "enum": [
-        "English",
-        "Hindi",
-        "Telugu"
-      ],
-      "required": true
-    },
     "avatar": {
       "type": "media",
       "multiple": false,
@@ -45,6 +36,16 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "email": {
+      "type": "email"
+    },
+    "mobile": {
+      "type": "biginteger",
+      "max": "9999999999"
+    },
+    "username": {
+      "type": "string"
     }
   }
 }

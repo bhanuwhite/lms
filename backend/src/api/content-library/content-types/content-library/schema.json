@@ -4,7 +4,7 @@
   "info": {
     "singularName": "content-library",
     "pluralName": "content-libraries",
-    "displayName": "content-library",
+    "displayName": "course",
     "description": ""
   },
   "options": {
@@ -16,29 +16,58 @@
       "type": "text"
     },
     "description": {
-      "type": "text"
-    },
-    "author": {
-      "type": "string"
+      "type": "text",
+      "maxLength": 500
     },
     "price": {
       "type": "biginteger"
     },
-    "media": {
+    "content": {
       "type": "media",
       "multiple": true,
       "required": false,
       "allowedTypes": [
         "images",
-        "files",
-        "videos",
-        "audios"
+        "videos"
       ]
     },
-    "paid": {
-      "type": "string",
-      "required": true,
-      "default": "buy"
+    "link": {
+      "type": "text"
+    },
+    "placeholder_img": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "Technology": {
+      "type": "enumeration",
+      "enum": [
+        "Angular",
+        "DotNet",
+        "Java",
+        "Javascript",
+        "MySQL",
+        "MongoDB",
+        "Node JS",
+        "Postgresql",
+        "Python",
+        "React JS",
+        "TypeScript",
+        "UI/UX"
+      ]
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Active",
+        "Block"
+      ]
+    },
+    "user_id": {
+      "type": "biginteger"
     }
   }
 }
