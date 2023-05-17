@@ -1,0 +1,67 @@
+{
+  "kind": "collectionType",
+  "collectionName": "course_contents",
+  "info": {
+    "singularName": "course-content",
+    "pluralName": "course-contents",
+    "displayName": "course_content"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "price": {
+      "type": "biginteger"
+    },
+    "content": {
+      "allowedTypes": [
+        "images",
+        "videos"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "link": {
+      "type": "text"
+    },
+    "placeholder_img": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "technology": {
+      "type": "enumeration",
+      "enum": [
+        "Angular",
+        "DotNet",
+        "Java",
+        "Javascript",
+        "MongoDB",
+        "MySQL",
+        "Node JS",
+        "Postgresql",
+        "Python",
+        "React JS"
+      ]
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "active",
+        "block"
+      ]
+    },
+    "user_id": {
+      "type": "biginteger"
+    }
+  }
+}

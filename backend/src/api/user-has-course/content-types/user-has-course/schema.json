@@ -11,11 +11,5 @@
     "draftAndPublish": true
   },
   "pluginOptions": {},
-  "attributes": {
-    "courses": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::content-library.content-library"
-    }
-  }
+  "attributes": {}
 }

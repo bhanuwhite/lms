@@ -12,11 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "course": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::content-library.content-library"
-    },
     "level": {
       "type": "enumeration",
       "enum": [
@@ -29,8 +24,11 @@
     "question": {
       "type": "text"
     },
-    "answer": {
+    "q_options": {
       "type": "json"
+    },
+    "answer": {
+      "type": "text"
     }
   }
 }
