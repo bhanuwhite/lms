@@ -24,24 +24,24 @@
         <div class="card">
           <div class="card p-3" style="height: 250px;">
             <div class=" d-flex justify-content-center card-header">
-              <b class="fs-4"> {{community.attributes?.community_name}} </b>
+              <b class="fs-4"> {{community.attributes?.name}} </b>
             </div>
             <div class="mt-4 card-body">
               <b class="fs-6"> {{community.attributes?.description}} </b>
             </div>
             <div class="d-flex align-items-center justify-content-between mt-5 mb-3 card-footer">
               <div class="image">
-                <img *ngIf="community.attributes?.community_profile_media?.data?.attributes.url != null"
-                  [src]='community.attributes.community_profile_media?.data.attributes.url' class="img-fluid user-img"
+                <img *ngIf="community.attributes?.profile_media?.data?.attributes.url != null"
+                  [src]='community.attributes.profile_media?.data.attributes.url' class="img-fluid user-img"
                   alt="path mismatch">
 
-                <div *ngIf="community.attributes.community_profile_media.data == null">
+                <div *ngIf="community.attributes.profile_media?.data == null">
                   <p-avatar label="img" shape="circle"></p-avatar>
                 </div>
               </div>
               <div>
                 <button class="btn btn-primary" style="width: 8rem; font-size:18px"
-                  (click)="JoinCommunity(community)">Join</button>
+                  (click)="JoinCommunity(community)"> Join </button>
                   <p-toast></p-toast>
               </div>
 

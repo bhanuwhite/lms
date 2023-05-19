@@ -55,6 +55,7 @@ import { DividerModule } from 'primeng/divider';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { ToastModule } from 'primeng/toast';
 import { UserCommunityComponent } from './user-community/user-community.component';
+import { AssessmentComponent } from './assessment/assessment.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { UserCommunityComponent } from './user-community/user-community.componen
     PaymentComponent,
     ProfileComponent,
     UserContentComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    AssessmentComponent
   ],
   imports: [
     CommonModule,

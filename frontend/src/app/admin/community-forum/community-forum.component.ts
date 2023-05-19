@@ -53,7 +53,6 @@ export class CommunityForumComponent {
       community_Name: new FormControl('', [Validators.required]),
       community_Desc: new FormControl('', [Validators.required]),
       community_Img: new FormControl(''),
-      community_ID: new FormControl('', [Validators.required]),
     });
   }
   public UpdateCommunityForm(): void {
@@ -61,7 +60,6 @@ export class CommunityForumComponent {
       update_Name: new FormControl('', [Validators.required]),
       update_Desc: new FormControl('', [Validators.required]),
       update_Img: new FormControl(''),
-      update_ID: new FormControl('', [Validators.required]),
     });
   }
   GlobalCommunities: any;
@@ -69,6 +67,8 @@ export class CommunityForumComponent {
     this.apiService.getCommunities().subscribe((res) => {
       this.GlobalCommunities = res.data;
       this.spinner = false;
+      console.log("Communites", this.GlobalCommunities);
+
     });
   }
   public displayCommunityForm() {
@@ -106,10 +106,9 @@ export class CommunityForumComponent {
   public onSubmitCommunityForm() {
     const postCommunity = {
       data: {
-        community_profile_media: this.communityImgFile,
-        community_name: this.communityForm.value.community_Name,
+        profile_media: this.communityImgFile,
+        name: this.communityForm.value.community_Name,
         description: this.communityForm.value.community_Desc,
-        community_id: this.communityForm.value.community_ID,
       },
     };
     console.log(postCommunity);
@@ -192,16 +191,14 @@ export class CommunityForumComponent {
     this.updateCommunityId = id;
     this.showUpdateCommunityForm = true;
     this.updateCommunityForm = this.fb.group({
-      update_Name: new FormControl(item.attributes.community_name, [
+      update_Name: new FormControl(item.attributes.name, [
         Validators.required,
       ]),
       update_Desc: new FormControl(item.attributes.description, [
         Validators.required,
       ]),
       update_Img: new FormControl(''),
-      update_ID: new FormControl(item.attributes.community_id, [
-        Validators.required,
-      ]),
+
     });
   }
 
@@ -209,10 +206,9 @@ export class CommunityForumComponent {
     console.log(this.updateCommunityForm.value);
     const postCommunity = {
       data: {
-        community_profile_media: this.communityImgFile,
-        community_name: this.updateCommunityForm.value.update_Name,
+        profile_media: this.communityImgFile,
+        name: this.updateCommunityForm.value.update_Name,
         description: this.updateCommunityForm.value.update_Desc,
-        community_id: this.updateCommunityForm.value.update_ID,
       },
     };
     console.log(postCommunity);

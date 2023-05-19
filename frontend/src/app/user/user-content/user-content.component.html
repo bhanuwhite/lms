@@ -50,9 +50,10 @@
       </div>
       <div class="row all-Courses" *ngIf="coursesList.length != 0">
         <p-card class="course-card" *ngFor="let course of coursesList">
-          <ng-template pTemplate="header" *ngFor="let courseImg of course.attributes.media?.data">
+          <ng-template pTemplate="header" >
             <div class="courseImage">
-              <a><img alt="Card" src="{{ courseImg.attributes.url }}" pTooltip="Click to see Course details." tooltip
+
+              <a><img alt="Card" src="{{course.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url }}" pTooltip="Click to see Course details." tooltip
                   style="height: 225px;  border-radius: 10px 10px 2px 2px" (click)="openCourseDetails(course)"
                   [routerLink]="['course/',course.id]" /></a>
             </div>
@@ -61,7 +62,6 @@
             <h4>
               <b>{{ course.attributes.name}}</b>
             </h4>
-            <p>{{ course.attributes.author }}</p>
             <div class="d-flex">
               <!-- <p-rating [ngModel]="course.rating" [stars]="5" [cancel]="false"
                                 [className]="'custom-star'">
@@ -72,21 +72,21 @@
           </div>
           <ng-template pTemplate="footer">
             <div class="row align-items-center">
-              <div class="col-lg-6 cursor-pointer" *ngIf="course.attributes.price != 0">
+              <div class="col-lg-6 cursor-pointer" *ngIf="parsePrice(course.attributes.price) != 0">
                 <h3 (click)="openCourseDetails(course)">
                   <b>{{ course.attributes.price | currency : "INR" }} </b>
                 </h3>
               </div>
 
               <div class="col-lg-6 d-flex justify-content-end">
-                <button class="btn btn-warning" *ngIf="course.attributes.price != 0"
+                <button class="btn btn-warning" *ngIf="parsePrice(course.attributes.price) != 0"
                   routerLink="/user/payment">BuyNow</button>
                   </div>
                 <!-- <button class="btn btn-success" *ngIf="course.attributes.price == 0">Free</button> -->
                 <div  *ngIf="libDataId && course.id && libDataId.includes(course.id)">
                   <button class="btn btn-success"> Subscribed </button>
                 </div>
-                <div *ngIf=" course.attributes.price == 0 && libDataId && course.id && !libDataId.includes(course.id)">
+                <div *ngIf=" parsePrice(course.attributes.price) == 0 && libDataId && course.id && !libDataId.includes(course.id)">
                   <button class="btn btn-primary"> Free </button>
                 </div>
 

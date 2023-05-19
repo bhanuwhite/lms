@@ -1,4 +1,4 @@
-<div class="surface-ground surface-ground-wrappers px-4 p-4">
+<div class="surface-ground surface-ground-wrappers content-inner px-4 p-4">
   <div class="row">
     <div class="col-lg-6 d-flex align-items-center">
       <h2 class="text-black">
@@ -7,62 +7,45 @@
     </div>
     <div class="col-lg-6 d-flex justify-content-end align-items-center">
       <div class="drop-button">
-        <button class="btn btn-primary mb-2 " type="button" (click)="showDialog()" icon="pi pi-info-circle"
-          label="Add"><i class="pi pi-plus me-2 cursor-pointer"></i>Add Content</button>
+        <button class="btn btn-warning mb-2" (click)="showCourseDialog()"> <i
+            class="pi pi-plus me-2 cursor-pointer"></i> Add Course</button>
       </div>
     </div>
   </div>
+
   <div class="row">
     <div class="col-lg-4 mb-3" *ngFor="let data of contentData">
-      <div *ngFor="let i of data?.attributes?.media?.data">
-        <div class="card" style="height: 400px; width: 95%;">
-          <ng-container *ngIf="i.attributes?.formats != null; then content  else video1"></ng-container>
-          <ng-template #content>
-            <img [routerLink]="['/admin/content',data.id]" style="height: 230px;cursor: pointer;"
-              src="{{i.attributes.formats?.thumbnail?.url}}" class="card-img-top" alt="...">
-          </ng-template>
-          <ng-template #video1>
-
-            <video #vid class="cursor-pointer" height="250px;" (timeupdate)="updateProgress(vid)" controls>
-              <source src="{{i.attributes.url}}" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </ng-template>
-          <div class="card-body">
-            <div class="row cursor-pointer" [routerLink]="['/admin/content',data.id]">
-              <div class="col-lg-6">
-                <h3 class="card-title mb-2" style="font-weight: bold;">{{data.attributes.name}}</h3>
-              </div>
-              <div class="col-lg-6 d-flex justify-content-end">
-                <span class="d-flex mb-2 align-items-center"> <mat-icon style="font-size: 20px;"
-                    fontIcon="person"></mat-icon> {{data.attributes.author}}</span>
-              </div>
+      <div class="card" style="height: 400px; width: 95%;">
+        <img [routerLink]="['/admin/content',data.id]" style="height: 230px;cursor: pointer;"
+          src="{{data.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url}}" class="card-img-top"
+          alt="...">
+        <div class="card-body">
+          <div class="row cursor-pointer" [routerLink]="['/admin/content',data.id]">
+            <div class="col-lg-6">
+              <h3 class="card-title mb-2" style="font-weight: bold;">{{data.attributes.name}}</h3>
             </div>
-            <!-- <p-progressBar [style]="{height: '8px',width:'150px'}" [class.hide]="true" [showValue]="false"
-              [value]="percentage"></p-progressBar>
-            <p style="font-size: small;">{{percentage}}% Completed</p> -->
-            <p [routerLink]="['/admin/content',data.id]" class="card-text cursor-pointer">
-              {{data.attributes.description}}.</p>
-            <div class="row align-items-center cursor-pointer">
-              <div class="col-lg-4">
-                <span class="d-flex align-items-center" [routerLink]="['/admin/content',data.id]">
-                  <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="visibility"></mat-icon><span
-                    class="ms-1">14</span>
-                </span>
-              </div>
-              <div class="col-lg-4"><button type="button" class="btn" [routerLink]="['/admin/content',data.id]">
-                  {{data.attributes.price | currency : 'INR'}}</button>
-              </div>
-              <div class="col-lg-4 d-flex justify-content-end">
-                <div class="d-flex justify-content-end mt-2">
-                  <button pButton pRipple type="button" pTooltip="Edit Course" icon="pi pi-pencil"
-                    class="p-button-rounded p-button-outlined" (click)="editContentDialog(data)"
-                    style="height: 2rem; width: 2rem;"></button>
 
-                  <button pButton pRipple type="button" pTooltip="Delete Course" icon="pi pi-times"
-                    class="p-button-rounded ms-1 p-button-danger p-button-outlined" style="height: 2rem; width: 2rem;"
-                    (click)="deleteDialog(data)"></button>
-                </div>
+          </div>
+          <p [routerLink]="['/admin/content',data.id]" class="card-text cursor-pointer">
+            {{data.attributes.description}}.</p>
+          <div class="row align-items-center cursor-pointer">
+            <div class="col-lg-4">
+              <span class="d-flex align-items-center" [routerLink]="['/admin/content',data.id]">
+                <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="visibility"></mat-icon><span
+                  class="ms-1">14</span>
+              </span>
+            </div>
+            <div class="col-lg-4"><button type="button" class="btn" [routerLink]="['/admin/content',data.id]">
+                {{data.attributes.price | currency : 'INR'}}</button>
+            </div>
+            <div class="col-lg-4 d-flex justify-content-end">
+              <div class="d-flex justify-content-end mt-2">
+                <button pButton pRipple type="button" pTooltip="Edit Course" icon="pi pi-pencil"
+                  class="p-button-rounded p-button-outlined" (click)="editContentDialog(data)"
+                  style="height: 2rem; width: 2rem;"></button>
+                <button pButton pRipple type="button" pTooltip="Delete Course" icon="pi pi-times"
+                  class="p-button-rounded ms-1 p-button-danger p-button-outlined" style="height: 2rem; width: 2rem;"
+                  (click)="deleteDialog(data)"></button>
               </div>
             </div>
           </div>
@@ -73,147 +56,240 @@
   <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
 </div>
 
-<!-- Add Content Form -->
+<!-- New Course adding -->
+<p-dialog header="Add New Course" [(visible)]="courseDialog" [modal]="true" [style]="{'width':'50vw'}">
+  <form action="" [formGroup]="addCourse" (ngSubmit)="courseFormSubmit(videoInput, imgInput)">
+    <div class="p-fluid grid">
+      <div class="field mt-2 w-100">
+        <label for="name">Name :</label>
+
+        <span class="p-float-label">
+          <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="name" pInputText
+            placeholder="Course Name">
+          <small class="p-error block" *ngIf="addCourse.get('name')?.invalid && addCourse.get('name')?.touched">
+            Course name is required.
+          </small>
+        </span>
+      </div>
+
+      <div class="field mt-2 w-100">
+        <label for="description">Description :</label>
+        <span class="p-float-label">
+
+          <textarea rows="5" formControlName="description" pInputTextarea (input)="checkWordCount()"
+            [style]="{'width':'100%'}" placeholder="Enter description" [readOnly]="remainingWords == 0"></textarea>
+          <div class="d-flex justify-content-end">
+            <p>{{ remainingWords }} Words remaining</p>
+          </div>
+        </span>
+      </div>
+
+      <div class="field mt-2 w-100">
+        <label for="Img"> Content video :</label>
+        <span class="p-float-label">
+          <input type="file" #videoInput accept="video/*" class="bg-light-grey input-shadow w-100 p-inputtext" pInputText
+            (change)="courseFileSelect($event)">
+            <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="videoUploadProgress" ></p-progressBar>
+
+        </span>
+      </div>
+
+      <div class="field mt-2 w-100">
+        <label for="imgage"> Image :</label>
+        <span class="p-float-label">
+          <input type="file" #imgInput accept="image/*" class="bg-light-grey input-shadow w-100 p-inputtext" pInputText
+            (change)="courseFileSelected2($event)">
+            <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="imgUploadProgress" ></p-progressBar>
+
+        </span>
+      </div>
+
+      <div class="field mt-2 w-100">
+        <label for="technology">Technology :</label>
+        <p-dropdown [options]="Technologies" optionLabel="tech" placeholder="Select Technology"
+          formControlName="technology" (onChange)="techSelected($event)"></p-dropdown>
+        <span class="p-float-label">
+
+          <small class="p-error block"
+            *ngIf="addCourse.get('technology')?.invalid && addCourse.get('technology')?.touched">
+            Technology name is required.
+          </small>
+        </span>
+      </div>
+
+      <div class="field mt-2 w-100">
+        <label for="status">Status :</label>
+        <p-dropdown formControlName="status" [options]="courseStatus" optionLabel="status" placeholder="Select Status"
+          (onChange)="statusSelected($event)"></p-dropdown>
+        <span class="p-float-label">
+          <small class="p-error block" *ngIf="addCourse.get('status')?.invalid && addCourse.get('status')?.touched">
+            Status is required.
+          </small>
+        </span>
+      </div>
+
+
+      <div class="field mt-2 w-100">
+        <label for="price">Price :</label>
+        <span class="p-float-label">
+          <input type="number" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="price" pInputText
+            placeholder="Enter price">
+        </span>
+      </div>
+
+      <div class="field mt-2 w-100">
+        <label for="link">Link :</label>
+        <span class="p-float-label">
+          <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="link" pInputText
+            placeholder="Enter link here.">
+        </span>
+        <small class="p-error block" *ngIf="addCourse.get('link')?.invalid && addCourse.get('link')?.touched">
+          Please enter valid http address.
+        </small>
+      </div>
+      <div class="field mt-2 w-100">
+        <label for="admin_id">Admin_id :</label>
+        <span class="p-float-label">
+          <input type="number" [(ngModel)]="Admin_id" class="bg-light-grey input-shadow w-100 p-inputtext"
+            formControlName="admin_id" pInputText readonly>
+        </span>
+      </div>
+
+    </div>
+    <div class=" d-flex justify-content-between">
+      <button class="btn btn-secondary" type="reset" (click)="closeCourseDialog()">Cancel</button>
+      <button class="btn btn-success" type="submit" [disabled]="addCourse.invalid">Submit</button>
+    </div>
+  </form>
+
+</p-dialog>
+<div>
+  <p-toast> </p-toast>
+</div>
+
+
+
+<!-- Update Content Form -->
 <div class=" container surface-ground-wrappers">
   <div class="d-flex justify-content-end">
-    <p-dialog header="Add Content" [(visible)]="display" [style]="{width: '40vw'}" styleClass="active" [modal]="true">
-      <hr>
-      <form [formGroup]="courseGroup" (ngSubmit)="onSubmitContent()">
-        <div class="p-fluid grid">
-          <div class="field mt-2 w-100">
-            <label for="title">Content Name</label>
-            <span class="p-float-label">
-              <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="title" class="form-control"
-                required formControlName="title" pInputText placeholder="Content Name">
-              <small class="p-error block"
-                *ngIf="courseGroup.get('title')?.invalid && (courseGroup.get('title')?.dirty || courseGroup.get('title')?.touched)">
-                Content name is required. </small>
-            </span>
-          </div>
-          <div class="field mt-2 w-100">
-            <label for="description"> Description </label>
-            <span class="p-float-label">
-              <textarea inputId="textarea" required class="bg-light-grey input-shadow w-100 p-inputtext" rows="3"
-                style="resize: none;" cols="30" formControlName="description" pInputTextarea></textarea>
-              <small class="p-error block"
-                *ngIf="courseGroup.get('description')?.invalid && (courseGroup.get('description')?.dirty || courseGroup.get('description')?.touched)">
-                Description name is required</small>
-            </span>
-          </div>
-          <div class="field mt-2 w-100">
-            <label for="author">Author</label>
-            <span class="p-float-label">
-              <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="author"
-                pInputText>
-              <small class="p-error block"
-                *ngIf="courseGroup.get('author')?.touched && courseGroup.get('author')?.invalid">
-                Author name Required.
-              </small>
-            </span>
-          </div>
-          <div class="field mt-2 w-100">
-            <label for="price"> Price (&#x20b9;) </label>
-            <span class="p-float-label">
-              <input type="number" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="price"
-                pInputText>
-              <small class="p-error block"
-                *ngIf="courseGroup.get('price')?.invalid && (courseGroup.get('price')?.dirty || courseGroup.get('price')?.touched)">
-                Price name is required</small>
-            </span>
-          </div>
-          <div class="field mt-4 w-100">
-            <label for="content">Content</label>
-            <span class="p-float-label mb-1">
-              <input type="file" required=""  class="bg-light-grey input-shadow w-100 p-inputtext" #imgInput
-                (change)="onFileSelect($event)" pInputText>
-            </span>
-            <small class="p-error block" *ngIf="courseGroup.get('img')?.touched && courseGroup.get('img')?.invalid">
-              Please select a image
-            </small>
-            <p-progressBar *ngIf="isProgressFile== true" mode="indeterminate"
-              [style]="{'height': '6px'}"></p-progressBar>
-          </div>
-        </div>
-        <div class="d-flex justify-content-between mt-2">
-          <button (click)="closeDialog()" type="button" class="btn btn-dark"><i
-              class="pi pi-delete-left me-2 cursor-pointer"></i>Cancel</button>
-          <button type="button" class="btn btn-success me-2" (click)="onSubmitContent()"><i
-              class="pi pi-save me-2 cursor-pointer"></i>Save</button>
-        </div>
-      </form>
-    </p-dialog>
 
-
-    <!-- Edit dialog start here -->
     <p-dialog header="Update Course" [(visible)]="editDisply" [style]="{width: '40vw'}" styleClass="active"
       [modal]="true">
       <hr>
       <form [formGroup]="courseUpdateGroup">
         <div class="p-fluid grid">
           <div class="field mt-2 w-100">
-            <label for="title">Course Name</label>
+            <label for="name"> Name :</label>
             <span class="p-float-label">
-              <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="title" pInputText
+              <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="name" pInputText
                 placeholder="Course Name">
               <small class="p-error block"
-                *ngIf="courseUpdateGroup.get('title')?.invalid && courseUpdateGroup.get('title')?.touched">
+                *ngIf="courseUpdateGroup.get('name')?.invalid && courseUpdateGroup.get('name')?.touched">
                 Course name is required.
               </small>
             </span>
           </div>
           <div class="field mt-2 w-100">
-            <label for="title">Description</label>
+            <label for="description">Description :</label>
             <span class="p-float-label">
-              <textarea inputId="textarea" class="bg-light-grey input-shadow w-100 p-inputtext" rows="3"
-                style="resize: none;" cols="30" formControlName="description" pInputTextarea></textarea>
+
+              <textarea rows="5" formControlName="description" pInputTextarea (input)="checkWordCount()"
+                [style]="{'width':'100%'}" placeholder="Enter description" [readOnly]="remainingWords == 0"></textarea>
+              <div class="d-flex justify-content-end">
+                <p>{{ remainingWords }} Words remaining</p>
+              </div>
+            </span>
+          </div>
+
+          <div class="field mt-2 w-100">
+            <label for="Img"> Content Video :</label>
+            <span class="p-float-label">
+              <input type="file" accept="video/*" class="bg-light-grey input-shadow w-100 p-inputtext" pInputText
+                (change)="courseFileSelect($event)"  >
+            <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="videoUploadProgress" ></p-progressBar>
+
+              </span>
+          </div>
+
+          <div class="field mt-2 w-100">
+            <label for="imgage"> Image :</label>
+            <span class="p-float-label">
+              <input type="file" accept="image/*" class="bg-light-grey input-shadow w-100 p-inputtext" pInputText
+                (change)="courseFileSelected2($event)" >
+            <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="imgUploadProgress" ></p-progressBar>
+
+              </span>
+          </div>
+
+          <div class="field mt-2 w-100">
+            <label for="name">Technology :</label>
+            <p-dropdown formControlName="technology" [options]="Technologies" optionLabel="tech"
+             placeholder="Select Technology" (onChange)="techSelected($event)"
+              ></p-dropdown>
+            <span class="p-float-label">
+
+              <small class="p-error block"
+                *ngIf="courseUpdateGroup.get('technology')?.invalid && courseUpdateGroup.get('technology')?.touched">
+                Technology name is required.
+              </small>
+            </span>
+          </div>
+
+          <div class="field mt-2 w-100">
+            <label for="status">Status :</label>
+            <p-dropdown formControlName="status" [options]="courseStatus" optionLabel="status"
+              placeholder="Select Status" (onChange)="statusSelected2($event)"></p-dropdown>
+            <span class="p-float-label">
+              <small class="p-error block"
+                *ngIf="courseUpdateGroup.get('status')?.invalid && courseUpdateGroup.get('status')?.touched">
+                Status is required.
+              </small>
+            </span>
+          </div>
+
+
+          <div class="field mt-2 w-100">
+            <label for="price">Price :</label>
+            <span class="p-float-label">
+              <input type="number" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="price"
+                pInputText placeholder="Enter price">
+            </span>
+          </div>
+
+
+          <div class="field mt-2 w-100">
+            <label for="link">Link :</label>
+            <span class="p-float-label">
+              <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="link" pInputText
+                placeholder="Enter link here.">
             </span>
             <small class="p-error block"
-              *ngIf="courseUpdateGroup.get('description')?.invalid && courseUpdateGroup.get('description')?.touched">
-              Description name is required.
+              *ngIf="courseUpdateGroup.get('link')?.invalid && courseUpdateGroup.get('link')?.touched">
+              Please enter valid http address.
             </small>
           </div>
+
           <div class="field mt-2 w-100">
-            <label for="title">Author</label>
+            <label for="admin_id">Admin_id :</label>
             <span class="p-float-label">
-              <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName='author'
-                pInputText>
-              <small class="p-error block"
-                *ngIf="courseUpdateGroup.get('author')?.invalid && courseUpdateGroup.get('author')?.touched">
-                Authors name is required.
-              </small>
+              <input type="number" [(ngModel)]="Admin_id" class="bg-light-grey input-shadow w-100 p-inputtext"
+                formControlName="admin_id" pInputText readonly>
             </span>
           </div>
-          <div class="field mt-1 w-100">
-            <label for="title">Price (&#x20b9;)</label>
-            <span class="p-float-label">
-              <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="price"
-                pInputText>
-              <small class="p-error block"
-                *ngIf="courseUpdateGroup.get('price')?.invalid && courseUpdateGroup.get('price')?.touched">
-                Price name is required.
-              </small>
-            </span>
-          </div>
-          <div class="field mt-4 w-100">
-            <label for="title">Content</label>
-            <span class="p-float-label">
-              <input type="file" class="bg-light-grey input-shadow w-100 p-inputtext" #fileInput
-                (change)="onFileSelectForUpdate($event)" pInputText>
-            </span>
-          </div>
-          <div class="row  mt-1">
-          </div>
+
         </div>
         <div class="d-flex justify-content-end mt-2">
           <button type="button" class="btn btn-success me-2" (click)="onUpdateContent()"><i
               class="pi pi-save me-2 cursor-pointer"></i>Update</button>
-          <button type="button" class="btn btn-dark" (click)="closeEditDialog()"><i class="pi pi-delete-left me-2 cursor-pointer">
-          </i>Cancel</button>
+          <button type="button" class="btn btn-dark" (click)="closeEditDialog()"><i
+              class="pi pi-delete-left me-2 cursor-pointer">
+            </i>Cancel</button>
         </div>
       </form>
     </p-dialog>
-    <!-- Edit dialog ends here-->
   </div>
   <p-toast position="top-right"></p-toast>
   <app-spinner *ngIf="loadingSpinner==true"></app-spinner>
 </div>
+
+

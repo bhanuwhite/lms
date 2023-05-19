@@ -166,7 +166,7 @@ export class UserCommunityComponent {
     this.apiService.getCommunities().subscribe((res) => {
       this.progresSpinner = false;
       this.showData = true;
-      console.log('COmmunities', res.data);
+      console.log('Communities', res.data);
       this.GlobalCommunities = res.data;
     });
   }
@@ -229,7 +229,7 @@ export class UserCommunityComponent {
   communityMsg: { severity: string; summary: string; detail: string }[] = [];
   public JoinCommunity(community: any) {
     const communityImage =
-      community.attributes.community_profile_media.data.attributes.url;
+      community.attributes.profile_media.data.attributes.url;
     this.userCommunityImage = { image: communityImage };
     const ImgValue = this.userCommunity.some(
       (res) => res.image === this.userCommunityImage.image

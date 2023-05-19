@@ -20,17 +20,6 @@
           </div>
 
           <div class="field mt-2 w-100">
-            <label for="title">ID :</label>
-            <span class="p-float-label">
-              <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" class="form-control" required
-                formControlName="community_ID" pInputText placeholder="Enter Community name.">
-              <small class="p-error block"
-                *ngIf="communityForm.get('community_ID')?.invalid && (communityForm.get('community_ID')?.dirty || communityForm.get('community_ID')?.touched)">
-                Communtiy ID is required. </small>
-            </span>
-          </div>
-
-          <div class="field mt-2 w-100">
             <label for="description"> Description :</label>
             <span class="p-float-label">
               <textarea inputId="textarea" required class="bg-light-grey input-shadow w-100 p-inputtext" rows="3"
@@ -73,7 +62,7 @@
       <div class="card">
         <div class="card p-3" style="height: 250px;">
           <div class=" d-flex justify-content-between card-header">
-            <b class="fs-4"> {{community.attributes?.community_name}} </b>
+            <b class="fs-4"> {{community.attributes?.name}} </b>
             <div> <span class="material-icons" [style]="{'color':'red','cursor':'pointer'}" (click)="deleteCommunity(community.id)" pTooltip="Delete" tooltip >
                 delete
                 </span>
@@ -87,11 +76,11 @@
           </div>
           <div class="d-flex align-items-center justify-content-between mt-5 mb-3 card-footer">
             <div class="image">
-              <img *ngIf="community.attributes?.community_profile_media?.data?.attributes.url != null"
-                [src]='community.attributes.community_profile_media?.data.attributes.url' class="img-fluid user-img"
+              <img *ngIf="community.attributes?.profile_media?.data?.attributes.url != null"
+                [src]='community.attributes.profile_media?.data.attributes.url' class="img-fluid user-img"
                 alt="path mismatch">
 
-              <div *ngIf="community.attributes.community_profile_media.data == null">
+              <div *ngIf="community.attributes.profile_media.data == null">
                 <p-avatar label="img" shape="circle"></p-avatar>
               </div>
             </div>
@@ -119,17 +108,6 @@
           </span>
         </div>
 
-        <div class="field mt-2 w-100">
-          <label for="title">ID :</label>
-          <span class="p-float-label">
-            <input type="number" class="bg-light-grey input-shadow w-100 p-inputtext" class="form-control" required
-              formControlName="update_ID" pInputText placeholder="Enter Community name.">
-
-              <small class="p-error block"
-              *ngIf="updateCommunityForm.get('update_ID')?.invalid && (updateCommunityForm.get('update_ID')?.dirty || updateCommunityForm.get('update_ID')?.touched)">
-              Communtiy ID is required. </small>
-          </span>
-        </div>
 
         <div class="field mt-2 w-100">
           <label for="description"> Description :</label>

@@ -2,12 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import {
-  Content,
-  ContentData,
+
+  AllCourseContent,
+  AllCoursePostData,
   ContentLibrary,
-  ContentResponse,
-  SingleContentData,
-  getContentLibrary,
   mediaDataObj,
   userLibrary,
 } from '../models/content';
@@ -25,38 +23,38 @@ import {
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  // Get content
-  public getContent(): Observable<ContentData> {
-    return this.http.get<ContentData>(`/api/content-libraries?populate=*`);
+  // Get COURSE CONTENT
+  public getContent(): Observable<AllCourseContent> {
+    return this.http.get<AllCourseContent>(`/api/course-contents?populate=*`);
   }
 
   /**
-   * getSingleContent
+   * getSingleCourseContent
    */
-  public getSingleContent(id: number): Observable<SingleContentData> {
-    return this.http.get<SingleContentData>(
-      `/api/content-libraries/${id}?populate=*`
+  public getSingleContent(id: number): Observable<any> {
+    return this.http.get<any>(
+      `/api/course-contents/${id}?populate=*`
     );
   }
 
   // File upload api
-  public uploadFile(item: {}): Observable<mediaDataObj[]> {
-    return this.http.post<mediaDataObj[]>(`api/upload`, item);
+  public uploadFile(item: {}): Observable<any> {
+    return this.http.post<any>(`api/upload`, item);
   }
 
-  //Post content
-  public postContent(item: Content): Observable<Content> {
-    return this.http.post<Content>(`api/content-libraries`, item);
+  //Post COURSE CONTENT
+  public postContent(item: AllCoursePostData): Observable<AllCourseContent> {
+    return this.http.post<AllCourseContent>(`api/course-contents`, item);
   }
 
-  // update content
-  public updateContent(id: number, item: Content): Observable<Content> {
-    return this.http.put<Content>(`api/content-libraries/${id}`, item);
+  // update COURSE CONTENT
+  public updateContent(id: number, item: AllCoursePostData): Observable<AllCourseContent> {
+    return this.http.put<AllCourseContent>(`api/course-contents/${id}`, item);
   }
 
-  // Delete content
-  public deleteContent(id: number | undefined): Observable<ContentResponse> {
-    return this.http.delete<ContentResponse>(`api/content-libraries/${id}`);
+  // Delete COURSE CONTENT
+  public deleteContent(id: number | undefined): Observable<AllCourseContent> {
+    return this.http.delete<AllCourseContent>(`api/course-contents/${id}`);
   }
 
   // Post course

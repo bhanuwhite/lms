@@ -57,7 +57,7 @@ let module = [
   MatTabsModule,
   ToastModule
 
-  
+
 ]
 
 @NgModule({
@@ -78,14 +78,14 @@ let module = [
 
   providers: [
     AuthService,AuthGuard,UserGuard,
-    
+
       {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
     },
     MessageService
-    
+
   ],
   bootstrap: [AppComponent]
 })

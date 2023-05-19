@@ -34,7 +34,7 @@ const routes: Routes = [
         path: 'courses/:id', component: CourseDetailsComponent
       },
       {
-        path: 'quiz', component: QuizComponent
+        path: 'assessment', component: QuizComponent
       },
       {
         path: 'meetings',component: MeetingsComponent

@@ -55,9 +55,9 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
   ngAfterViewInit(): void {
-    this.videoPlayer.nativeElement.addEventListener('timeupdate', (event: any) => {
-      this.trackVideoProgress(event);
-    });
+    // this.videoPlayer.nativeElement.addEventListener('timeupdate', (event: any) => {
+    //   this.trackVideoProgress(event);
+    // });
   }
   trackVideoProgress(event: any) {
     const video = event.target;

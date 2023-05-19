@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
-import { ContentResponse } from 'src/app/models/content';
+import { AllCourseContentData, ContentResponse } from 'src/app/models/content';
 @Component({
   selector: 'app-user-content',
   templateUrl: './user-content.component.html',
@@ -15,7 +15,7 @@ export class UserContentComponent {
   Spinner:boolean = true;
   public isLoading: boolean = false;
 
-  public coursesList: ContentResponse[] =[];
+  public coursesList: AllCourseContentData[] =[];
   public  items: ContentResponse[]= [];
   public searchQuery !: string;
 
@@ -30,6 +30,10 @@ export class UserContentComponent {
     this.getLibraryItems();
   }
 
+  parsePrice(price: string): number {
+    return parseInt(price, 10);
+  }
+
   libData:any;
   libDataId:number[]=[];
   showPurchase:boolean = false;
@@ -37,7 +41,7 @@ export class UserContentComponent {
     this.apiService.getContentLibrary().subscribe((res)=>{
       console.log("Getting Library data",res);
       this.libData = res.data;
-      this.libDataId = this.libData.map((obj:any)=> obj.attributes.content_library.data.id );
+      this.libDataId = this.libData.map((obj:any)=> obj.attributes.content_library?.data.id );
       console.log(this.libDataId);
 
     })
@@ -93,7 +97,7 @@ export class UserContentComponent {
 
 
   public  searchByName() {
-    this.coursesList = this.items.filter((course:any) => course.attributes.name.toLowerCase().includes(this.searchQuery.toLowerCase()) || course.attributes.author.toLowerCase().includes(this.searchQuery.toLowerCase()) || course.attributes.price.includes(this.searchQuery));
+    // this.coursesList = this.items.filter((course:any) => course.attributes.name.toLowerCase().includes(this.searchQuery.toLowerCase()) || course.attributes.author.toLowerCase().includes(this.searchQuery.toLowerCase()) || course.attributes.price.includes(this.searchQuery));
   }
 
   ngOnDestroy(): void {
