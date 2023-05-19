@@ -1,14 +1,30 @@
 export interface userProfile {
+    id:number,
+    username:string,
     biography: string,
     firstname: string,
     lastname: string,
-    mobileNo:number,
+    mobile:number,
     email:string,
-    linkedin: string,
-    selectedlanguages: selectedLanguages[],
+    linkedIn: string,
     website: string,
+    role_id:number
 }
 
 export interface selectedLanguages {
     name: string
 }
+
+export interface userUpdateProfile {
+
+  username: string;
+    firstname: string;
+    lastname: string;
+    email: string;
+    mobile:number;
+    biography: string;
+    linkedIn: string;
+
+}
+
+

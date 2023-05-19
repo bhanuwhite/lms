@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit{
   public imageData: string = 'https://static.vecteezy.com/system/resources/previews/000/376/355/original/user-management-vector-icon.jpg'
   public reader!: FileReader;
   public userProfileSettings: string[] = [];
-  userProfileDataFromLocalStorage: userProfile = {
+  userProfileDataFromLocalStorage: any = {
     biography: '',
     firstname: '',
     lastname: '',

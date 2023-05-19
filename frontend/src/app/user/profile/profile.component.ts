@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { userProfile } from 'src/app/models/profile';
+import { userProfile,userUpdateProfile } from 'src/app/models/profile';
 import { ApiService } from 'src/app/services/api.service';
 import { Message, MessageService } from 'primeng/api';
 
@@ -23,7 +23,7 @@ export class ProfileComponent {
   public imageFileSelected = false
   public reader!: FileReader;
   public userProfileSettings: string[] = [];
-
+ public userDetails !:userUpdateProfile;
 
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private messageService: MessageService) {
@@ -64,7 +64,7 @@ export class ProfileComponent {
  userLastName!:string;
  mobileNo!:number;
  linkedin!:string
-
+ biograpy!:string;
 
   //login Details
   public getLocalStorage() {
@@ -74,14 +74,15 @@ export class ProfileComponent {
 
 
     this.apiService.getProfileDetails().subscribe((res) => {
+             console.log(res);
 
 
       const allUserDetails = res;
-      allUserDetails.filter((res: any) => {
+      allUserDetails.filter((res:userProfile) => {
 
 
         if (userLoginData.id == res.id) {
-console.log(res);
+
 
           this.userLoginEmail = res.email;
           this.userId = res.id;
@@ -90,6 +91,7 @@ console.log(res);
            this.userLastName=res.lastname;
            this.mobileNo=res.mobile;
            this.linkedin =res.linkedIn;
+           this.biograpy =res.biography;
           console.log(this.userLoginEmail);
           console.log(this.loginUserName);
 
@@ -118,7 +120,7 @@ console.log(res);
       lastname: new FormControl(this.userLastName, [Validators.required]),
       email: new FormControl(this.userLoginEmail),
       mobileNo: new FormControl(this.mobileNo),
-      biography: new FormControl(''),
+      biography: new FormControl(this.biograpy),
       linkedin: new FormControl(this.linkedin),
     })
     console.log(this.userProfileForm);
@@ -137,7 +139,7 @@ console.log(res);
 
     console.log(this.userProfileForm.value)
 
-    const userDetails: any = {
+    this.userDetails = {
 
 
       "username": this.userProfileForm.value.username,
@@ -151,7 +153,7 @@ console.log(res);
 
     }
 
-    this.apiService.updateProfileDetails(this.userId, userDetails).subscribe((res) => {
+    this.apiService.updateProfileDetails(this.userId, this.userDetails).subscribe((res) => {
       console.log(res);
       this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Profile details updated' });
     })
