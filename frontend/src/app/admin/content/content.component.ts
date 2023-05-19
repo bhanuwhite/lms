@@ -113,15 +113,10 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    // console.log('afetr init', this.tempRef);
-    // if (this.tempRef) {
-    //   console.log('afetr init', this.tempRef.nativeElement);
-    //   this.tempRef?.nativeElement.addEventListener('timeupdate', (event: any) => {
-    //     this.trackVideoProgress(event);
-    //     console.log(event);
-    //   });
-    // }
+
   }
+
+
 
   public getLocalData() {
     const localData = JSON.parse(localStorage.getItem('user')!);

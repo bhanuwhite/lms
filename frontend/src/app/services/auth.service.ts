@@ -20,6 +20,7 @@ export class AuthService {
     return this.http.post<LoginObjData>(`api/auth/local`, login);
   }
 
+
   signupUser(signup:SignUp) : Observable<LoginObjData> {
     return this.http.post<LoginObjData>(`api/auth/local/register`, signup);
   }

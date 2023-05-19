@@ -16,12 +16,14 @@ import {
   PostCourseData,
   CoursesImgUpload,
 } from '../models/Courses';
+import { userProfile,userUpdateProfile } from 'src/app/models/profile';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Get COURSE CONTENT
   public getContent(): Observable<AllCourseContent> {
@@ -73,9 +75,10 @@ export class ApiService {
   }
 
   // update courses
-  public updateCourse( id: number,item: UpdateCourseObj): Observable<TotalCoursesData> {
+  public updateCourse(id: number, item: UpdateCourseObj): Observable<TotalCoursesData> {
     return this.http.put<TotalCoursesData>(
-      `api/courses/${id}?populate=*`,item);}
+      `api/courses/${id}?populate=*`, item);
+  }
 
   // Delete course
   public deleteCourse(id: number): Observable<TotalCoursesData> {
@@ -159,4 +162,25 @@ export class ApiService {
     return this.http.delete<any>(`api/communities/${id}`);
   }
 
+  // GET profile
+  public getProfileDetails(): Observable<userProfile[]> {
+    return this.http.get<userProfile[]>(`api/users`);
+  }
+
+
+  // POST profile
+  public updateProfileDetails(id: number, item: userUpdateProfile): Observable<userProfile> {
+    return this.http.put<userProfile>(`api/users/${id}`, item);
+  }
+
+  public getProfileAvatarDetails(): Observable<any> {
+    return this.http.get<any>(`api/users?populate=*`);
+  }
+
+  public updateProfileAvatarDetails(id: number, item: any): Observable<any> {
+    return this.http.put<any>(`api/users?populate=*/${id}`, item);
+  }
+
 }
+
+
