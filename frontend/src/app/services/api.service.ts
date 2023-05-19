@@ -181,3 +181,5 @@ public updateProfileAvatarDetails(id:number,item: any): Observable<any> {
 }
 
 }
+
+
