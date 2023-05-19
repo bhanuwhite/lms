@@ -104,20 +104,20 @@
                     <div class="col-lg-5 col-sm-12">
 
                       <div class="p-field my-2 px-2">
-                        <label for="lastname1" class="mb-2">Lanquages</label>
-                        <p-multiSelect [options]="mainLanquages" name="lanquages" class="w-100"
-                          formControlName="selectedlanquages" optionLabel="name"></p-multiSelect>
+                        <label for="lastname1" class="mb-2">Languages</label>
+                        <p-multiSelect [options]="mainLanguages" name="languages" class="w-100"
+                          formControlName="selectedlanguages" optionLabel="name"></p-multiSelect>
                         <div *ngIf="
-                            selectedlanquages &&
-                            selectedlanquages.invalid &&
-                            (selectedlanquages.touched ||
-                              selectedlanquages.dirty)
+                            selectedlanguages &&
+                            selectedlanguages.invalid &&
+                            (selectedlanguages.touched ||
+                              selectedlanguages.dirty)
                           " class="text-danger">
-                          <div *ngIf="selectedlanquages.errors?.['required']" class="text-danger">
-                            Lanquages is required
+                          <div *ngIf="selectedlanguages.errors?.['required']" class="text-danger">
+                            Languages is required
                           </div>
-                          <div *ngIf="selectedlanquages.errors?.['minlength']">
-                            Lanquages field must have at least 2 vlaues
+                          <div *ngIf="selectedlanguages.errors?.['minlength']">
+                            Languages field must have at least 2 vlaues
                           </div>
                         </div>
                       </div>

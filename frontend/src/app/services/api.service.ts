@@ -160,4 +160,24 @@ export class ApiService {
   public deleteCommunity(id: number): Observable<any> {
     return this.http.delete<any>(`api/communities/${id}`);
   }
+
+  // GET profile
+  public getProfileDetails(): Observable<any> {
+    return this.http.get<any>(`api/users`);
+  }
+
+
+// POST profile
+public updateProfileDetails(id:number,item: any): Observable<any> {
+  return this.http.put<any>(`api/users/${id}`, item);
+}
+
+public getProfileAvatarDetails(): Observable<any> {
+  return this.http.get<any>(`api/users?populate=*`);
+}
+
+public updateProfileAvatarDetails(id:number,item: any): Observable<any> {
+  return this.http.put<any>(`api/users?populate=*/${id}`, item);
+}
+
 }

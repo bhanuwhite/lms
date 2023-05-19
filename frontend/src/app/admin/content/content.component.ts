@@ -88,14 +88,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    // console.log('afetr init', this.tempRef);
-    // if (this.tempRef) {
-    //   console.log('afetr init', this.tempRef.nativeElement);
-    //   this.tempRef?.nativeElement.addEventListener('timeupdate', (event: any) => {
-    //     this.trackVideoProgress(event);
-    //     console.log(event);
-    //   });
-    // }
+
   }
 
   updateProgress(vid: HTMLVideoElement) {
@@ -243,6 +236,7 @@ export class ContentComponent implements OnInit, OnDestroy {
       console.log(this.courseUpdateGroup.get('img')?.value);
 
       this.formData.append('files', this.courseUpdateGroup.get('img')?.value);
+            console.log(this.formData);
 
       this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {

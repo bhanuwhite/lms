@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { userProfile } from 'src/app/models/profile';
 
-interface Lanquages {
+interface Languages {
   name: string
 }
 
@@ -12,8 +12,8 @@ interface Lanquages {
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit{
-  public mainLanquages: Lanquages[] = []
-  public selectedLangauges: Lanquages[] = []
+  public mainLanguages: Languages[] = []
+  public selectedLangauges: Languages[] = []
   public selectedValues: string[] = [];
   public userProfileForm!: FormGroup;
   public userImageForm!: FormGroup;
@@ -22,15 +22,13 @@ export class ProfileComponent implements OnInit{
   public userProfileSettings: string[] = [];
   userProfileDataFromLocalStorage: userProfile = {
     biography: '',
-    facebook: '',
     firstname: '',
-    headline: '',
     lastname: '',
     linkedin: '',
-    selectedlanquages: [],
-    twitter: '',
-    website: '',
-    youtube: ''
+    mobileNo:0,
+    email:'',
+    selectedlanguages: [],
+    website: ''
   }
   constructor(private fb: FormBuilder) { }
   ngOnInit(): void {
@@ -40,7 +38,7 @@ export class ProfileComponent implements OnInit{
   }
   //get Langquages in multiselect items
   public getLanguages(): void {
-    this.mainLanquages = [
+    this.mainLanguages = [
       {
         name: 'English',
       },
@@ -64,10 +62,10 @@ export class ProfileComponent implements OnInit{
       linkedin: new FormControl('', [Validators.required, Validators.minLength(5)]),
       facebook: new FormControl('', [Validators.required, Validators.minLength(5)]),
       youtube: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      selectedlanquages: new FormControl('', [Validators.required, Validators.minLength(2)])
+      selectedlanguages: new FormControl('', [Validators.required, Validators.minLength(2)])
     })
   }
-  //ImageForm 
+  //ImageForm
   public userImage(): void {
     this.userImageForm = this.fb.group({
       imageControl: ['', Validators.required]
@@ -139,8 +137,8 @@ export class ProfileComponent implements OnInit{
   public get youtube() {
     return this.userProfileForm.get('youtube');
   }
-  public get selectedlanquages() {
-    return this.userProfileForm.get('selectedlanquages');
+  public get selectedlanguages() {
+    return this.userProfileForm.get('selectedlanguages');
   }
 
   //image validations
