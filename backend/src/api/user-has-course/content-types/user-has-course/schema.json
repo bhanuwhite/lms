@@ -11,5 +11,11 @@
     "draftAndPublish": true
   },
   "pluginOptions": {},
-  "attributes": {}
+  "attributes": {
+    "course_contents": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::course-content.course-content"
+    }
+  }
 }
