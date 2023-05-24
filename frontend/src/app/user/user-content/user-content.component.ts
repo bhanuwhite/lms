@@ -16,7 +16,7 @@ export class UserContentComponent {
   public isLoading: boolean = false;
 
   public coursesList: AllCourseContentData[] =[];
-  public  items: ContentResponse[]= [];
+  public  items: AllCourseContentData[]= [];
   public searchQuery !: string;
 
   constructor(
@@ -97,7 +97,8 @@ export class UserContentComponent {
 
 
   public  searchByName() {
-    // this.coursesList = this.items.filter((course:any) => course.attributes.name.toLowerCase().includes(this.searchQuery.toLowerCase()) || course.attributes.author.toLowerCase().includes(this.searchQuery.toLowerCase()) || course.attributes.price.includes(this.searchQuery));
+
+    this.coursesList = this.items.filter((course:any) => course.attributes.name.toLowerCase().includes(this.searchQuery.toLowerCase())  || course.attributes.price.includes(this.searchQuery));
   }
 
   ngOnDestroy(): void {

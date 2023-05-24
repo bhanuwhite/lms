@@ -8,63 +8,70 @@
         <div class="col-lg-12">
           <p-tabView>
             <p-tabPanel header="Profile">
-              <form [formGroup]="userProfileForm" (ngSubmit)="onUserProfileSubmit()">
-                <div class="card">
+              <form [formGroup]="userProfileForm" (ngSubmit)="onUserProfileSubmit()" >
+                <div class="card ">
                   <div class="row my-3">
                     <div class="col-lg-5 form-area ms-4 col-sm-12">
                       <div class="p-field px-2 mb-3">
-                        <label for="firstname1" class="mb-2">First Name :</label>
-                        <input id="firstname1" name="firstname" formControlName="firstname" type="text" class="w-100"
-                          pInputText placeholder="" />
-                        <div *ngIf="
-                            firstname &&
-                            firstname.invalid &&
-                            (firstname.touched || firstname.dirty)
-                          " class="text-danger">
-                          <div *ngIf="firstname.errors?.['required']" class="text-danger">
-                            Firstname is required.
-                          </div>
-                          <div *ngIf="firstname.errors?.['minlength']">
-                            Firstname must have at least 8 characters.
-                          </div>
-                        </div>
-                      </div>
-                      <div class="p-field my-2 px-2">
-                        <label for="lastname1" class="mb-2">Last Name :</label>
-                        <input id="lastname1" class="w-100" name="lastname" formControlName="lastname" type="text"
+                        <label for="username" class="mb-2">UserName</label>
+                        <input  formControlName="username"  type="text" class="w-100" placeholder="enter User Name"
                           pInputText />
-                        <div *ngIf="
-                            lastname &&
-                            lastname.invalid &&
-                            (lastname.touched || lastname.dirty)
-                          " class="text-danger">
-                          <div *ngIf="lastname.errors?.['required']" class="text-danger">
-                            Lastname is required.
-                          </div>
-                          <div *ngIf="lastname.errors?.['minlength']">
-                            Lastname must have at least 8 characters.
-                          </div>
+                        <div *ngIf=" (userProfileForm.get('username')?.invalid && userProfileForm.get('username')?.touched)"
+                          class="text-danger">
+                            UserName is required
                         </div>
                       </div>
-                      <!-- <div class="p-field my-2 px-2">
-                        <label for="lastname1" class="mb-2">Headline :</label>
-                        <input id="lastname1" name="headline" formControlName="headline" type="text" class="w-100"
-                          pInputText placeholder="Instructor at LMS(60)" />
-                        <div *ngIf="
-                            headline &&
-                            headline.invalid &&
-                            (headline.touched || headline.dirty)
-                          " class="text-danger">
-                          <div *ngIf="headline.errors?.['required']" class="text-danger">
-                            Headline is required.
-                          </div>
-                          <div *ngIf="headline.errors?.['minlength']">
-                            Headline must have at least 10 characters.
-                          </div>
+                      <div class="p-field px-2 mb-3">
+                        <label for="firstname1" class="mb-2">First Name</label>
+                        <input id="firstname1" name="firstname" formControlName="firstname" type="text" class="w-100"
+                          pInputText placeholder="Enter your FirstName" />
+                        <div *ngIf=" (userProfileForm.get('firstname')?.invalid && userProfileForm.get('firstname')?.touched)" class="text-danger">
+                            Firstname is required
                         </div>
-                      </div> -->
+                      </div>
+
+                      <div class="p-field my-2 px-2">
+                        <label for="lastname1" class="mb-2">Last Name</label>
+                        <input id="lastname1" class="w-100" name="lastname" formControlName="lastname" type="text"
+                          pInputText  placeholder="Enter your LastName" />
+                        <div *ngIf=" (userProfileForm.get('lastname')?.invalid && userProfileForm.get('lastname')?.touched )"   class="text-danger">
+                            Lastname is required
+                        </div>
+                      </div>
+
+                      <div class="p-field my-2 px-2">
+                        <label for="email" class="mb-2">Email Id:</label>
+                        <input id="email" class="w-100" name="email" formControlName="email" type="email"
+                          pInputText  readonly/>
+
+                          <div *ngIf=" (userProfileForm.get('email')?.invalid && userProfileForm.get('email')?.touched)"
+                          class="text-danger">
+                            Email is required
+                        </div>
+                      </div>
+
+
+
+                    </div>
+                    <div class="col-lg-1 divider">
+                      <p-divider layout="vertical"></p-divider>
+                    </div>
+
+                    <div class="  col-lg-5 col-sm-12">
+
+                      <div class="p-field my-2 px-2 mt-3">
+                        <label for="number" class="mb-2">Mobile No.:</label>
+                        <input id="number" class="w-100" name="number" formControlName="mobileNo" type="number"
+                          pInputText  placeholder="Enter your phoneNumber" />
+
+                          <div *ngIf=" (userProfileForm.get('number')?.invalid && userProfileForm.get('number')?.touched)"
+                          class="text-danger">
+                            Mobile number is required
+                        </div>
+                      </div>
+
                       <div class="p-field my-2 px-2 overflow-hidden">
-                        <label for="lastname1" class="mb-2">Biography :</label>
+                        <label for="lastname1" class="mb-2">Biography</label>
                         <p-editor [style]="{ width: '100%', height: '80px' }" name="biography"
                           formControlName="biography">
                           <ng-template pTemplate="header">
@@ -76,51 +83,14 @@
                         </p-editor>
                         <p class="fs-6 lead" [style]="{ width: '100%', 'text-align': 'justify' }">
                           <small>
-                            To help learners learn more about you,your bio
-                            should reflect your Credibility,Empathy,Passion and
+                            To help learners learn more about you,your bio should
+                            reflect your Credibility,Empathy,Passion and
                             Persionality.Your Biography should have at least 50
-                            words,links and coupon codes are not
-                            permitted.</small>
+                            words,links and coupon codes are not permitted.</small>
                         </p>
-                        <div *ngIf="
-                            biography &&
-                            biography.invalid &&
-                            (biography.touched || biography.dirty)
-                          " class="text-danger">
-                          <div *ngIf="biography.errors?.['required']" class="text-danger">
-                            Biography is required.
-                          </div>
-                          <div *ngIf="biography.errors?.['minlength']">
-                            Biography must have at least 10 characters.
-                          </div>
-                        </div>
                       </div>
 
-                    </div>
-                    <div class="col-lg-1 divider">
-                      <p-divider layout="vertical"></p-divider>
-                    </div>
 
-                    <div class="col-lg-5 col-sm-12">
-
-                      <div class="p-field my-2 px-2">
-                        <label for="lastname1" class="mb-2">Languages</label>
-                        <p-multiSelect [options]="mainLanguages" name="languages" class="w-100"
-                          formControlName="selectedlanguages" optionLabel="name"></p-multiSelect>
-                        <div *ngIf="
-                            selectedlanguages &&
-                            selectedlanguages.invalid &&
-                            (selectedlanguages.touched ||
-                              selectedlanguages.dirty)
-                          " class="text-danger">
-                          <div *ngIf="selectedlanguages.errors?.['required']" class="text-danger">
-                            Languages is required
-                          </div>
-                          <div *ngIf="selectedlanguages.errors?.['minlength']">
-                            Languages field must have at least 2 vlaues
-                          </div>
-                        </div>
-                      </div>
 
                       <div class="p-field my-2 px-2">
                         <label for="firstname1" class="mb-2">LinkedIn</label>
@@ -129,28 +99,22 @@
                           <input type="text" name="linkedin" formControlName="linkedin" pInputText
                             placeholder="Resource ID" />
                         </div>
-                        <div *ngIf="
-                            linkedin &&
-                            linkedin.invalid &&
-                            (linkedin.touched || linkedin.dirty)
-                          " class="text-danger">
-                          <div *ngIf="linkedin.errors?.['required']" class="text-danger">
-                            Linkedin is required
-                          </div>
-                          <div *ngIf="linkedin.errors?.['minlength']">
-                            Linkedin field must have at least 5 characters
-                          </div>
-                        </div>
                       </div>
+
                       <div class="p-field d-flex justify-content-end my-2 px-2">
-                        <p-button label="Save" styleClass="p-button-raised" [disabled]="userProfileForm.invalid"
-                          value="Save"></p-button>
+                        <button [disabled]="userProfileForm.invalid" class="btn btn-secondary">Save</button>
                       </div>
+                      <div >
+                        <p-toast></p-toast>
+                    </div>
                     </div>
                   </div>
                 </div>
               </form>
+
             </p-tabPanel>
+
+
             <p-tabPanel header="Avatar">
               <div class="conatiner">
                 <h1 class="text-dark">Image Preview</h1>

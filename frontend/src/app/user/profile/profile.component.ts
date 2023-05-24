@@ -111,8 +111,8 @@ export class ProfileComponent {
   //userProfileForm
   public userProfile(): void {
 
-    console.log(this.userLoginEmail);
-    console.log(this.loginUserName);
+    // console.log(this.userLoginEmail);
+    // console.log(this.loginUserName);
 
     this.userProfileForm = this.fb.group({
       username: new FormControl(this.loginUserName),

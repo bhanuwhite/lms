@@ -25,6 +25,7 @@ import { userProfile,userUpdateProfile } from 'src/app/models/profile';
 export class ApiService {
   constructor(private http: HttpClient) { }
 
+
   // Get COURSE CONTENT
   public getContent(): Observable<AllCourseContent> {
     return this.http.get<AllCourseContent>(`/api/course-contents?populate=*`);
@@ -89,28 +90,28 @@ export class ApiService {
    * getQuiz
    */
   public getQuiz(): Observable<QuizData> {
-    return this.http.get<QuizData>(`api/quizzes`);
+    return this.http.get<QuizData>(`/api/assessments`);
   }
 
   /**
    * postQuiz
    */
   public postQuiz(item: Quiz): Observable<Quiz> {
-    return this.http.post<Quiz>(`/api/quizzes`, item);
+    return this.http.post<Quiz>(`/api/assessments`, item);
   }
 
   /**
    * updateQuiz
    */
   public updateQuiz(id: number, item: Quiz): Observable<Quiz> {
-    return this.http.put<Quiz>(`/api/quizzes/${id}`, item);
+    return this.http.put<Quiz>(`/api/assessments/${id}`, item);
   }
 
   /**
    * deleteQuiz
    */
   public deleteQuiz(id: number): Observable<Quiz> {
-    return this.http.delete<Quiz>(`/api/quizzes/${id}`);
+    return this.http.delete<Quiz>(`/api/assessments/${id}`);
   }
 
   //Post Content Library

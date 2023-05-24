@@ -13,6 +13,8 @@ import { InstructorsMessagesComponent } from './instructors-messages/instructors
 import { MeetingsComponent } from './meetings/meetings.component';
 import { ProfileComponent } from './profile/profile.component';
 import { QuizComponent } from './quiz/quiz.component';
+import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
+
 
 const routes: Routes = [
   {
@@ -53,7 +55,11 @@ const routes: Routes = [
       },
       {
         path: 'messages', component: InstructorsMessagesComponent
-      }
+      },
+      {
+        path: 'assessment/:course', component: QuizDetailsComponent
+      },
+
     ]
   },
 

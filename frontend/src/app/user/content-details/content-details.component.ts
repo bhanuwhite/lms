@@ -98,10 +98,14 @@ export class ContentDetailsComponent implements OnInit {
   public getUserLibrary() {
 
     this.apiService.getContentLibrary().subscribe((res) => {
-      const libraryContent = res.data
+      const libraryContent = res.data;
+      console.log(res.data);
+
       libraryContent.some((obj:any) =>{
         this.coursesId.push(obj.attributes.content_library.data.id);
         console.log(this.coursesId);
+
+
       })
 
     })
