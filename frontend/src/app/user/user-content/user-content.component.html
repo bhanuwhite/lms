@@ -54,11 +54,11 @@
             <div class="courseImage">
 
               <a><img alt="Card" src="{{course.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url }}" pTooltip="Click to see Course details." tooltip
-                  style="height: 225px;  border-radius: 10px 10px 2px 2px" (click)="openCourseDetails(course)"
+                  style="height: 225px;  border-radius: 10px 10px 2px 2px"
                   [routerLink]="['course/',course.id]" /></a>
             </div>
           </ng-template>
-          <div class="cursor-pointer" (click)="openCourseDetails(course)">
+          <div class="cursor-pointer" >
             <h4>
               <b>{{ course.attributes.name}}</b>
             </h4>
@@ -73,7 +73,7 @@
           <ng-template pTemplate="footer">
             <div class="row align-items-center">
               <div class="col-lg-6 cursor-pointer" *ngIf="parsePrice(course.attributes.price) != 0">
-                <h3 (click)="openCourseDetails(course)">
+                <h3>
                   <b>{{ course.attributes.price | currency : "INR" }} </b>
                 </h3>
               </div>

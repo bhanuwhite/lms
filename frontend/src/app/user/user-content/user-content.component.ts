@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { AllCourseContentData, ContentResponse } from 'src/app/models/content';
+import { LibraryObjectData, UserLibraryGetResponseData } from 'src/app/models/user-library';
 @Component({
   selector: 'app-user-content',
   templateUrl: './user-content.component.html',
@@ -12,18 +13,18 @@ import { AllCourseContentData, ContentResponse } from 'src/app/models/content';
 export class UserContentComponent {
   private contentGetSubscriptions$: Subscription = new Subscription();
   public currentRate: number = 2;
-  Spinner:boolean = true;
+  Spinner: boolean = true;
   public isLoading: boolean = false;
-
-  public coursesList: AllCourseContentData[] =[];
-  public  items: ContentResponse[]= [];
-  public searchQuery !: string;
-
+  public coursesList: AllCourseContentData[] = [];
+  public items: ContentResponse[] = [];
+  public searchQuery!: string;
+  public libDataId: number[] = [];
+   public showPurchase: boolean = false;
   constructor(
     private apiService: ApiService,
     private router: Router,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getContent();
@@ -34,17 +35,12 @@ export class UserContentComponent {
     return parseInt(price, 10);
   }
 
-  libData:any;
-  libDataId:number[]=[];
-  showPurchase:boolean = false;
-  public getLibraryItems(){
-    this.apiService.getContentLibrary().subscribe((res)=>{
-      console.log("Getting Library data",res);
-      this.libData = res.data;
-      this.libDataId = this.libData.map((obj:any)=> obj.attributes.content_library?.data.id );
-      console.log(this.libDataId);
-
-    })
+  public getLibraryItems() {
+    this.apiService.getContentLibrary().subscribe((res) => {
+      this.libDataId = res.data.map(
+        (obj: UserLibraryGetResponseData) => obj.attributes?.course_content?.data.id
+      );
+    });
   }
 
   // Logout
@@ -54,49 +50,21 @@ export class UserContentComponent {
     location.reload();
   }
 
-  public libraryContent: any
-
   // Get Content
   public getContent(): void {
     this.apiService.getContent().subscribe((res) => {
       try {
-        console.log(res.data);
-        this.Spinner = false
+        this.Spinner = false;
         this.coursesList = res.data;
-        this.items =res.data
+        this.items = res.data;
         this.isLoading = true;
-
       } catch (error) {
         console.log(error);
       }
-
     });
   }
 
-
-
-
-  public openCourseDetails(course: {}): void {
-    console.log("single course ", course);
-  }
-  public courseId: number[]=[];
-
-  public getUserLibrary() {
-
-    this.apiService.getContentLibrary().subscribe((res) => {
-      this.libraryContent = res.data
-
-      this.libraryContent.some((obj:any) =>{
-        this.courseId.push(obj.attributes.content_library.data.id);
-        console.log(this.courseId);
-      })
-
-    })
-
-  }
-
-
-  public  searchByName() {
+  public searchByName() {
     // this.coursesList = this.items.filter((course:any) => course.attributes.name.toLowerCase().includes(this.searchQuery.toLowerCase()) || course.attributes.author.toLowerCase().includes(this.searchQuery.toLowerCase()) || course.attributes.price.includes(this.searchQuery));
   }
 

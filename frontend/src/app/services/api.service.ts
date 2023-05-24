@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import {
 
   AllCourseContent,
+  AllCourseContentData,
   AllCoursePostData,
   ContentLibrary,
   mediaDataObj,
@@ -17,6 +18,7 @@ import {
   CoursesImgUpload,
 } from '../models/Courses';
 import { userProfile,userUpdateProfile } from 'src/app/models/profile';
+import { LibraryGetResponse, RemoveLibraryData, UserLibraryGetResponse } from '../models/user-library';
 
 
 @Injectable({
@@ -33,8 +35,8 @@ export class ApiService {
   /**
    * getSingleCourseContent
    */
-  public getSingleContent(id: number): Observable<any> {
-    return this.http.get<any>(
+  public getSingleContent(id: number): Observable<AllCourseContentData> {
+    return this.http.get<AllCourseContentData>(
       `/api/course-contents/${id}?populate=*`
     );
   }
@@ -114,31 +116,29 @@ export class ApiService {
   }
 
   //Post Content Library
-  public postContentLibrary(item: ContentLibrary): Observable<userLibrary> {
-    return this.http.post<userLibrary>(
-      `api/user-has-courses?populate=content_library.media`,
-      item
+  public postContentLibrary(item: {data:{course_content:number}}): Observable<LibraryGetResponse> {
+    return this.http.post<LibraryGetResponse>(
+      `/api/user-has-courses?populate=course_content.content&populate=course_content.placeholder_img`,item
     );
   }
   // Get  Content Library
-  public getContentLibrary(): Observable<any> {
-    return this.http.get<any>(
-      `api/user-has-courses?populate=content_library.media`
+  public getContentLibrary(): Observable<UserLibraryGetResponse> {
+    return this.http.get<UserLibraryGetResponse>(
+      `/api/user-has-courses?populate=course_content.content&populate=course_content.placeholder_img`
     );
   }
 
   // Delete Library Course
-  public removeLibraryCourse(id: number): Observable<any> {
-    return this.http.delete<any>(`api/user-has-courses/${id}`);
+  public removeLibraryCourse(id: number): Observable<RemoveLibraryData> {
+    return this.http.delete<RemoveLibraryData>(`api/user-has-courses/${id}`);
   }
 
   /**
    * getSingleContentLibrary
    */
-  public getSingleContentLibrary(id: number): Observable<any> {
+  public getSingleContentLibrary(id: number): Observable<UserLibraryGetResponse> {
     return this.http
-      .get<any>(`api/user-has-courses?populate=content_library.media
-    `);
+      .get<UserLibraryGetResponse>(`api/user-has-courses/${id}?populate=course_content.content&populate=course_content.placeholder_img`);
   }
 
   // GET Communtiy

@@ -80,7 +80,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   imgUploadProgress: boolean = false;
   videoContent!: AllCourseContentVideo;
   imageContent!: AllCourseContentPlaceholder_Img;
-  courseContentVideo!: CourseContentVideoData;
+  courseContentVideo: CourseContentVideoData[] = [];
   courseContentImage: any;
 
   Technologies = [
@@ -111,12 +111,6 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.newCourse();
     this.getLocalData();
   }
-
-  ngAfterViewInit(): void {
-
-  }
-
-
 
   public getLocalData() {
     const localData = JSON.parse(localStorage.getItem('user')!);
@@ -176,7 +170,6 @@ export class ContentComponent implements OnInit, OnDestroy {
     });
   }
 
-
   // New Course adding details.
 
   public newCourse() {
@@ -200,16 +193,13 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.courseDialog = false;
   }
 
-  public techSelected(event: any) {
+  public techSelected(event: { value: { tech: string } }) {
     this.selectedTech = event.value.tech;
-    console.log(this.selectedTech);
   }
-  public statusSelected(event: any) {
+  public statusSelected(event: { value: { status: string } }) {
     this.selectedStatus = event.value.status;
   }
-  public statusSelected2(event: any) {
-    console.log(event);
-
+  public statusSelected2(event: { value: { status: string } }) {
     this.updatedStatus = event.value.status;
   }
 
@@ -227,33 +217,60 @@ export class ContentComponent implements OnInit, OnDestroy {
     }
   }
 
-
   public courseFileSelect(event: Event): void {
     const target = event.target as HTMLInputElement;
     this.videoUploadProgress = true;
-    if (target.files?.length) {
-      const file = target.files[0];
+
+    const uploadPromises: Promise<any>[] = [];
+
+    for (let i = 0; i < target.files!.length; i++) {
+      const file = target.files![i];
+
       this.addCourse.get('imgVideo')?.setValue(file);
       this.formData = new FormData();
       this.formData.append('files', this.addCourse.value.imgVideo);
-      this.apiService.uploadFile(this.formData).subscribe((res) => {
-        try {
-          console.log("upload response",res);
-          this.courseContentVideo = res;
-          // console.log("couseContentVideo", this.courseContentVideo );
 
-          this.videoUploadProgress = false;
-          // console.log('Video Uploaded', this.courseContentVideo);
-        } catch (error) {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Something went to wrong !!',
-          });
-        }
+      const uploadPromise = new Promise<void>((resolve, reject) => {
+        this.apiService.uploadFile(this.formData).subscribe(
+          (res) => {
+            try {
+              console.log('upload response', res[0]);
+              this.courseContentVideo[i] = res[0]; // Assign video to corresponding index
+              console.log(i, 'courseContentVideo ', this.courseContentVideo[i]);
+              resolve(); // Resolve the promise when upload is successful
+            } catch (error) {
+              reject(error); // Reject the promise if there is an error
+            }
+          },
+          (error) => {
+            reject(error); // Reject the promise if there is an error
+          }
+        );
       });
+
+      uploadPromises.push(uploadPromise); // Store the upload promise in the array
     }
+
+    // Wait for all upload promises to resolve
+    Promise.all(uploadPromises)
+      .then(() => {
+        this.videoUploadProgress = false; // Set progress flag to false when all uploads are completed
+        console.log('courseContentVideo', this.courseContentVideo);
+      })
+      .catch((error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Something went wrong!',
+        });
+        console.error(error);
+      });
+
+    console.log('courseContentVideo', this.courseContentVideo);
   }
+
+
+
 
   public courseFileSelected2(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -265,7 +282,6 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.formData.append('files', this.addCourse.value.imgVideo);
       this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {
-
           this.courseContentImage = res;
           console.log('Img Uploaded', this.courseContentImage);
           this.imgUploadProgress = false;
@@ -280,8 +296,10 @@ export class ContentComponent implements OnInit, OnDestroy {
     }
   }
 
-  public courseFormSubmit(videoInput: any, imgInput: any) {
-    console.log(this.addCourse);
+  public courseFormSubmit(videoInput: HTMLInputElement, imgInput: HTMLInputElement) {
+    console.log("videoinput ",videoInput);
+    console.log("Imginput ",imgInput);
+
     console.log(this.addCourse.value);
     this.courseDialog = false;
     const courseData = {
@@ -335,11 +353,9 @@ export class ContentComponent implements OnInit, OnDestroy {
   public editContentDialog(item: AllCourseContentData): void {
     this.editDisply = true;
     this._data = item;
-    console.log("_data item", item);
+    console.log('_data item', item);
     console.log(item.attributes?.placeholder_img);
     console.log(item.attributes?.content);
-
-
 
     this.techString = item.attributes?.technology;
     this.statusString = item.attributes?.status;
@@ -357,7 +373,6 @@ export class ContentComponent implements OnInit, OnDestroy {
       image: new FormControl(this.imageContent),
       imgVideo: new FormControl(this.videoContent),
     });
-
   }
 
   // close edit dialog
@@ -441,5 +456,4 @@ export class ContentComponent implements OnInit, OnDestroy {
       subScriptions.unsubscribe();
     });
   }
-
 }
