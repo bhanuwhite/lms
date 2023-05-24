@@ -118,15 +118,8 @@
               required formControlName="answer" pInputText placeholder="Answer">
 
 
-            <div class=" flex">
-              <div class="flex flex-column gap-2">
-                  <div *ngFor="let category of categories" class="field-checkbox">
-                      <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
-                      <label [for]="category.key">{{ category.name }}</label>
-                  </div>
-              </div>
-          </div>
-              <small class="p-error block"
+
+                          <small class="p-error block"
               *ngIf="addQuizGroup.get('answer')?.invalid && (addQuizGroup.get('answer')?.dirty && addQuizGroup.get('answer')?.touched)">
               Answer is required
             </small>

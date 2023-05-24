@@ -1,116 +1,44 @@
-<div class="container-fluid" *ngIf="course_Details">
+<div *ngIf="Spinner">
+  <div class="loader">Loading...</div>
+</div>
+
+<div class="container-fluid" *ngIf="userCourseData && !Spinner">
   <div class="row">
     <div class="col-lg-8">
-      <div class="py-3">
-        <video src="../../../assets/data/javaVideo.mp4" controls class="course_video"></video>
+
+      <div class="py-3" *ngIf="streamVideo">
+        <video [src]="streamVideo.url" controls class="course_video"  #Course_video (timeupdate)="getWatchedTime($event)" ></video>
+        <p> <b>{{streamVideo.name}}</b></p>
       </div>
+
     </div>
+
     <div class="col-lg-4">
       <div class="py-3">
         <div class="border px-2 py-2 border-top-1">
           <b>Course Content</b>
         </div>
-        <p-accordion>
-          <p-accordionTab header="Section-01: Introduction">
-            <div class="d-flex justify-content-between mb-2">
-              <p-checkbox name="groupName" value="val"></p-checkbox>
-              <b class="">What is Web Developement</b>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 15min
-              </div>
+        <div
+          *ngFor="let courseVideo of userCourseData?.attributes?.course_content?.data?.attributes?.content?.data; let i=index">
+          <p-accordion>
+            <p-accordionTab [header]="courseVideo.attributes.name">
 
-            </div>
-            <div class="d-flex justify-content-between mb-2">
-              <p-checkbox name="groupName" value="val"></p-checkbox>
-              <b class="">What you became</b>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 10min
-              </div>
-            </div>
-            <div class="d-flex justify-content-between">
+                <video [src]="courseVideo.attributes.url" type="video/mp4" alt="" style="height: 200px; width: 100%;"
+                  (click)="playVideo(i)" #video (loadedmetadata)="onMetadata(video)" ></video>
 
-              <p-checkbox name="groupName" value="val"></p-checkbox>
-              <b class=""> Job Opportunities</b>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 08min
-              </div>
+              </p-accordionTab>
+          </p-accordion>
 
-            </div>
-          </p-accordionTab>
-          <p-accordionTab header="Section-02: PreRequisites & Info">
-            <div class="d-flex justify-content-between mb-2">
-
-              <p-checkbox name="groupname" value="val2"></p-checkbox>
-              <b>PreRequisites</b> <br>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 05min
-              </div>
-
-            </div>
-          </p-accordionTab>
-          <p-accordionTab header="Section-03: Program Setup">
-            <div class="d-flex justify-content-between mb-2">
-
-              <p-checkbox name="groupname" value="val2"></p-checkbox>
-              <b class="ms">Installations</b>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 06min
-              </div>
-
-            </div>
-            <div class="d-flex justify-content-between mb-2">
-
-              <p-checkbox name="groupname" value="val2"></p-checkbox>
-              <b class="ms">Others</b>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 06min
-              </div>
-
-            </div>
-          </p-accordionTab>
-          <p-accordionTab header="Section-04: Starting 1st Lesson">
-            <div class="d-flex justify-content-between mb-2">
-              <p-checkbox name="groupname" value="val2"></p-checkbox>
-              <b> Lesson 001</b>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 06min
-              </div>
-            </div>
-            <div class="d-flex justify-content-between mb-2">
-              <p-checkbox name="groupName" value="val"></p-checkbox>
-              <b> Lesson 002</b>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 06min
-              </div>
-            </div>
-            <div class="d-flex justify-content-between mb-2">
-              <p-checkbox name="groupName" value="val"></p-checkbox>
-              <b> Lesson 003</b>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 06min
-              </div>
-            </div>
-            <div class="d-flex justify-content-between mb-2">
-              <p-checkbox name="groupName" value="val"></p-checkbox>
-              <b> Lesson 004</b>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 06min
-              </div>
-            </div>
-          </p-accordionTab>
-          <p-accordionTab header="Section-05: 2nd Lesson">
-            <p>Currently no data avoilable</p>
-
-          </p-accordionTab>
-        </p-accordion>
+        </div>
       </div>
+
 
     </div>
   </div>
 </div>
 <div class="container-fluid col-lg-12">
   <p-tabView>
-    <p-tabPanel header="Overview">
+    <!-- <p-tabPanel header="Overview">
       <div class="row py-2 border">
         <div class="col-lg-1">
           <i class="pi pi-clock" style="font-size: 2rem;"></i>
@@ -271,7 +199,7 @@
       </div>
 
 
-    </p-tabPanel>
+    </p-tabPanel> -->
     <!-- <p-tabPanel header="Reviews">
       <div class="row">
         <b class="pb-3 fs-3"> Student Reviews</b>

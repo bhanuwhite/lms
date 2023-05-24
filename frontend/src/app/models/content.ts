@@ -11,6 +11,7 @@ export interface AllCourseContent {
   };
 }
 export interface AllCourseContentData {
+  data: AllCourseContentData;
   id: number;
   attributes: {
     content: AllCourseContentVideo;
@@ -29,7 +30,7 @@ export interface AllCourseContentData {
 
 export interface AllCoursePostData {
   data : {
-    content: CourseContentVideoData;
+    content: CourseContentVideoData[];
     createdAt?: string;
     description: string;
     link: string;

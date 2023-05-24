@@ -369,27 +369,33 @@
       </div>
     </div>
     <div class="col-lg-4">
-      <div class="card sidebar-area"  *ngIf="singleCourse" >
-        <div class="video-contain" (click)=" onClickVideo(singleCourse)"
-          *ngFor="let media of singleCourse?.attributes?.media?.data">
-            <img src="{{media.attributes.formats?.thumbnail?.url}}" class="img-fluid" alt=""
-              style="width: 100%; opacity: 0.6;">
-            <span class="play-button"> <img src="assets/img/play.png" alt=""> </span>
-        </div>
-        <div class="pricing-detail p-3"  *ngIf="singleCourse.attributes.price != 0 && !coursesId.includes(singleCourse.id)">
+      <div class="card sidebar-area" *ngIf="singleCourse">
 
-            <div class="d-flex align-items-center">
-              <h1 class="m-0"><b>{{ singleCourse.attributes.price | currency : "INR" }}</b></h1> <span class="ms-3">81%
-                off</span>
+        <div class="pricing-detail p-3"
+          *ngIf="parsePrice(singleCourse.attributes.price) != 0 && !coursesId.includes(singleCourse.id)">
+
+          <div class="video-container" [class.playing]="isPlaying">
+
+            <video [src]='singleCourse.attributes.content.data[0].attributes.url' controls #courseVideoElmt
+              (click)="playCourse()">
+            </video>
+            <div class="overlay">
+              <span *ngIf="!isPlaying" class="play-icon material-icons" (click)="playVideo()"> play_circle </span>
             </div>
-            <div class="d-flex align-items-center mt-2" style="color: #b32d0f;">
-              <i class="pi pi-clock"></i>
-              <span class="ms-1"><b>1 day</b> left at this price!</span>
-            </div>
-          <div class="buttons m-3" >
+
+          </div>
+
+          <div class="d-flex align-items-center">
+            <h1 class="m-0"><b>{{ singleCourse.attributes.price | currency : "INR" }}</b></h1> <span class="ms-3">81%
+              off</span>
+          </div>
+          <div class="d-flex align-items-center mt-2" style="color: #b32d0f;">
+            <i class="pi pi-clock"></i>
+            <span class="ms-1"><b>1 day</b> left at this price!</span>
+          </div>
+          <div class="buttons m-3">
             <div>
-            <!-- <button type="button" class="cart-button" style="width: 100%;">Add to cart</button> -->
-            <button type="button" class="btn btn-primary mt-2" style="width: 95%;">Buy now</button>
+              <button type="button" class="btn btn-primary mt-2" style="width: 95%;">Buy now</button>
             </div>
           </div>
 
@@ -403,21 +409,41 @@
             <a href="" class="links">Apply Coupon</a>
           </div>
         </div>
-         <div *ngIf="singleCourse.attributes.price == 0 && !coursesId.includes(singleCourse.id)">
+        <div *ngIf="parsePrice(singleCourse.attributes.price )== 0 && !coursesId.includes(singleCourse.id)">
           <div>
             <div class="d-flex align-items-center">
               <h2 class="m-3"><b>FREE COURSE</b></h2>
             </div>
           </div>
-          <div *ngIf="singleCourse.attributes.price == 0 && !coursesId.includes(singleCourse.id) "  class="buttons m-3">
-            <button type="button" class="btn btn-success" style="width: 95%;" (click)="addToLibrary(singleCourse)" >Add To Library</button>
+          <div *ngIf="parsePrice(singleCourse.attributes.price) == 0 && !coursesId.includes(singleCourse.id) "
+            class="buttons m-3">
+
+            <div class="video-container" [class.playing]="isPlaying">
+
+              <video [src]='singleCourse.attributes.content.data[0].attributes.url' controls #courseVideoElmt
+                (click)="playCourse()">
+              </video>
+              <div class="overlay">
+                <span *ngIf="!isPlaying" class="play-icon material-icons" (click)="playVideo()"> play_circle </span>
+              </div>
+
+            </div>
+
+            <div class="mt-2">
+              <button type="button" *ngIf="!LibCourseId.includes(singleCourse.id)"   class="btn btn-success mt-3" style="width: 95%;"
+              (click)="addToLibrary(singleCourse)">Add
+              To Library</button>
+
+            <button type="button" *ngIf="LibCourseId.includes(singleCourse.id)"   class="btn btn-primary" style="width: 95%;">Already Added To Library</button>
+
+            </div>
           </div>
-         </div>
-         <div>
-          <div *ngIf="coursesId.includes(singleCourse.id)"  class="buttons m-3">
-            <button type="button" class="btn btn-primary" style="width: 95%;" >Added To Library</button>
+        </div>
+        <div>
+          <div *ngIf="coursesId.includes(singleCourse.id)" class="buttons m-3">
+            <button type="button" class="btn btn-primary" style="width: 95%;">Added To Library</button>
           </div>
-         </div>
+        </div>
 
         <hr>
         <div class="sidebar-content-area p-3">

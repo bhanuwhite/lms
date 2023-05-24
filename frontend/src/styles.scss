@@ -242,3 +242,11 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
   .p-multiselect.p-component {
     width: 100%;
   }
+
+  .textOverflow{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+
