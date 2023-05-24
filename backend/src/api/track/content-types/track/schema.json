@@ -12,22 +12,19 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "tracking_id": {
+      "type": "biginteger"
+    },
     "user_id": {
       "type": "biginteger"
     },
-    "username": {
-      "type": "string"
+    "course_id": {
+      "type": "biginteger"
     },
-    "per_completed": {
-      "type": "decimal"
+    "total_duration": {
+      "type": "biginteger"
     },
-    "total_hour": {
-      "type": "decimal"
-    },
-    "hours_completed": {
-      "type": "decimal"
-    },
-    "Inprogress": {
+    "time_consumed": {
       "type": "biginteger"
     }
   }
