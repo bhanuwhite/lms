@@ -38,7 +38,7 @@ export class UserContentComponent {
   public getLibraryItems() {
     this.apiService.getContentLibrary().subscribe((res) => {
       this.libDataId = res.data.map(
-        (obj: UserLibraryGetResponseData) => obj.attributes?.course_content?.data.id
+        (obj: UserLibraryGetResponseData) => obj.attributes.course_content.data?.id
       );
     });
   }
@@ -56,6 +56,8 @@ export class UserContentComponent {
       try {
         this.Spinner = false;
         this.coursesList = res.data;
+        console.log("User Content",this.coursesList);
+
         this.items = res.data;
         this.isLoading = true;
       } catch (error) {

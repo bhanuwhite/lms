@@ -65,7 +65,7 @@ export class ContentDetailsComponent implements OnInit {
   addToLibrary(course: AllCourseContentData) {
 
     this.confirmationService.confirm({
-      message: 'Do you want to add this course to Library?',
+      message: `Do you want to add this ${course?.attributes.name} to Library?`,
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -118,7 +118,7 @@ export class ContentDetailsComponent implements OnInit {
       const libraryContent = res.data;
       console.log("LIB DATA",libraryContent);
       res.data.map((res:any)=>{
-        this.LibCourseId.push(res.attributes.course_content.data.id)
+        return this.LibCourseId.push(res.attributes.course_content.data?.id);
       })
       console.log(this.LibCourseId);
 
