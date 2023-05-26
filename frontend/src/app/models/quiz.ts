@@ -1,45 +1,41 @@
 export interface Quiz {
     data: {
-        all_answer: {
-            A: number | string;
-            B: number | string;
-            C: number | string;
-            D: number | string;
-        };
-        syllabus?: string;
-        question?: string;
-        correct_answer?: string;
+      level: string;
+      question: string;
+      answer: string;
+      q_options: {
+        a: number | string;
+        b: number | string;
+        c:number | string;
+        d: number | string;
+      },
+      course_name: string;
     }
 }
 
 
-export class QuizResponse {
+export interface QuizResponse {
 
-    id!: number ;
-    attributes?: {
-        syllabus?: string;
-        question?: string;
-        createdAt?: string;
-        updatedAt?: string;
-        publishedAt?: string;
-        all_answer?: {
-            A: number | string;
-            B: number | string;
-            C: number | string;
-            D: number | string;
+    id: number ;
+    attributes: {
+      course_name: string;
+        question: string;
+        level:string;
+        createdAt: string;
+        updatedAt: string;
+        publishedAt: string;
+        q_options: {
+            a: number | string;
+            b: number | string;
+            c: number | string;
+            d: number | string;
         };
-        correct_answer?: string;
+        answer: string;
     }
 }
 
-export class QuizData {
-    data?: QuizResponse[];
-    // meta?: {
-    //     pagination: {
-    //         page: number | undefined;
-    //         pageSize: number | undefined;
-    //         pageCount: number | undefined;
-    //         total: number | undefined;
-    //     }
-    // };
+
+export interface QuizData {
+    data: QuizResponse[];
+
 }

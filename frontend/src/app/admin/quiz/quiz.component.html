@@ -1,57 +1,159 @@
-
 <div class="surface-ground px-4 py-3">
 
-<div class="surface-ground px-4 py-5 md:px-6 lg:px-8">
-  <div class="grid">
-      <div class="col-12 md:col-6 lg:col-3">
-          <div class="surface-card shadow-2 p-3 border-round">
-              <div class="flex justify-content-between mb-3">
-                  <div>
-                      <span class="block text-500 font-medium mb-3"></span>
-                      <div class="text-900 font-medium text-xl">Angular</div>
-                  </div>
-                  <div class="flex align-items-center justify-content-center bg-blue-100 border-round" style="width:2.5rem;height:2.5rem">
-                      <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
-                  </div>
-              </div>
-              <span class="text-green-500 font-medium"> </span>
-              <span class="text-500"></span>
+  <div class="surface-ground px-4 py-5 md:px-6 lg:px-8">
+    <div class="grid">
+      <div class="col-12 md:col-6 lg:col-3" style="cursor: pointer;" *ngFor="let course of allCourses">
+        <div class="surface-card shadow-2 p-3 border-round" >
+          <div class="flex justify-content-between mb-3" (click)="showQuizQuestions(course.attributes.name)">
+            <div>
+              <span class="block text-500 font-medium mb-3"></span>
+              <div class="text-900 font-medium text-xl">{{ course.attributes.name}}</div>
+            </div>
           </div>
-      </div>
-      <div class="col-12 md:col-6 lg:col-3">
-          <div class="surface-card shadow-2 p-3 border-round">
-              <div class="flex justify-content-between mb-3">
-                  <div>
-                      <span class="block text-500 font-medium mb-3"></span>
-                      <div class="text-900 font-medium text-xl">NodeJS</div>
-                  </div>
-                  <div class="flex align-items-center justify-content-center bg-orange-100 border-round" style="width:2.5rem;height:2.5rem">
-                      <i class="pi pi-map-marker text-orange-500 text-xl"></i>
-                  </div>
-              </div>
-              <span class="text-green-500 font-medium"></span>
-              <span class="text-500"></span>
+          <div class=" d-flex text-align-centre justify-content-centre">
+            <p-button label="Add" styleClass="p-button-outlined " class="ms-5 ps-5"
+              (click)="showDialog(course)"></p-button>
           </div>
-      </div>
-      <div class="col-12 md:col-6 lg:col-3">
-          <div class="surface-card shadow-2 p-3 border-round">
-              <div class="flex justify-content-between mb-3">
-                  <div>
-                      <span class="block text-500 font-medium mb-3"></span>
-                      <div class="text-900 font-medium text-xl">React</div>
-                  </div>
-                  <div class="flex align-items-center justify-content-center bg-cyan-100 border-round" style="width:2.5rem;height:2.5rem">
-                      <i class="pi pi-inbox text-cyan-500 text-xl"></i>
-                  </div>
-              </div>
-              <span class="text-green-500 font-medium"> </span>
-              <span class="text-500"></span>
-          </div>
-      </div>
 
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 
+
+
+  <!-- Add dialog start -->
+  <p-dialog header="Add Question" [(visible)]="visible" [style]="{width: '50vw'}" styleClass="active" [modal]="true">
+
+    <hr>
+
+    <form [formGroup]="addQuizGroup" (ngSubmit)="onSubmitQuestionDetails()">
+      <div class="p-fluid grid">
+
+        <div class="field mt-4 w-100">
+          <label for="title">Course_Name:</label>
+          <span>
+            <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="Course_Name"
+              class="form-control" required formControlName="Course_Name" pInputText placeholder="Course_Name">
+            <small class="p-error block"
+              *ngIf="addQuizGroup.get('Course_Name')?.invalid && (addQuizGroup.get('Course_Name')?.dirty && addQuizGroup.get('Course_Name')?.touched)">
+              Course_Name is required
+            </small>
+          </span>
+        </div>
+
+
+        <div class="field mt-4 w-100">
+          <label for="title">Level</label>
+
+          <p-dropdown [options]="level" optionLabel="level_name"
+            formControlName="level" placeholder="Select level"></p-dropdown>
+
+          <!-- <small class="p-error block"
+            *ngIf="addQuizGroup.get('level')?.invalid && (addQuizGroup.get('level')?.dirty && addQuizGroup.get('level')?.touched)">
+            level is required
+          </small> -->
+
+        </div>
+
+        <div class="field mt-4 w-100">
+          <label for="title">Question</label>
+          <span>
+
+            <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="question" class="form-control"
+              required formControlName="question" pInputText placeholder="Question">
+            <small class="p-error block"
+              *ngIf="addQuizGroup.get('question')?.invalid && (addQuizGroup.get('question')?.dirty && addQuizGroup.get('question')?.touched)">
+              Question is required
+            </small>
+          </span>
+
+        </div>
+        <div class="field mt-4 w-50">
+          <label for="title">Option(A)</label>
+          <span>
+            <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" style="resize: none;"
+              cols="30" formControlName="option1" pInputText>
+            <small class="p-error block"
+              *ngIf="addQuizGroup.get('option1')?.invalid && (addQuizGroup.get('option1')?.dirty && addQuizGroup.get('option1')?.touched)">
+              Option(A) name is required
+            </small>
+          </span>
+        </div>
+
+        <div class="field mt-4 w-50">
+          <label for="title">Option(B)</label>
+          <span>
+            <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option2"
+              pInputText>
+            <small class="p-error block"
+              *ngIf="addQuizGroup.get('option2')?.invalid && (addQuizGroup.get('option2')?.dirty && addQuizGroup.get('option2')?.touched)">
+              Option(B) is required</small>
+          </span>
+        </div>
+        <div class="field mt-4 w-50">
+          <label for="title">Option(C)</label>
+          <span>
+            <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option3"
+              pInputText>
+            <small class="p-error block"
+              *ngIf="addQuizGroup.get('option3')?.invalid && (addQuizGroup.get('option3')?.dirty && addQuizGroup.get('option3')?.touched)">
+              Option(C) is required</small>
+          </span>
+        </div>
+        <div class="field mt-4 w-50">
+          <label for="title">Option(D)</label>
+          <span>
+            <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option4"
+              pInputText>
+            <small class="p-error block"
+              *ngIf="addQuizGroup.get('option4')?.invalid && (addQuizGroup.get('option4')?.dirty && addQuizGroup.get('option4')?.touched)">
+              Option(D) is required</small>
+          </span>
+        </div>
+        <div class="field mt-4 w-100">
+          <label for="title">Answer:</label>
+          <span>
+            <!-- <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="answer" class="form-control"
+              required formControlName="answer" pInputText placeholder="Answer"> -->
+
+              <!-- <div class="flex">
+                <div class="flex flex-column gap-2">
+                    <div *ngFor="let category of categories" class="field-checkbox">
+                        <p-checkbox name="answer" [value]="category" [inputId]="category.key"
+                         formControlName="answer" ></p-checkbox>
+                        <label [for]="category.key">{{ category.name }}</label>
+                    </div>
+                </div>
+            </div> -->
+            <div *ngFor="let data of categories">
+              <label>
+                <input type="checkbox" (change)="onChange(data.name,$event.target)">
+                {{ data.name }}
+              </label>
+            </div>
+
+
+                          <small class="p-error block"
+              *ngIf="addQuizGroup.get('answer')?.invalid && (addQuizGroup.get('answer')?.dirty && addQuizGroup.get('answer')?.touched)">
+              Answer is required
+            </small>
+          </span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between mt-2">
+        <button (click)="addCancel()" type="button" class="btn btn-dark"><i
+            class="pi pi-delete-left me-2 cursor-pointer"></i>Cancel</button>
+        <button [disabled]="addQuizGroup.invalid" type="button" class="btn btn-success me-2"
+          (click)="onSubmitQuestionDetails()"><i class="pi pi-save me-2 cursor-pointer"></i>Save</button>
+      </div>
+    </form>
+
+  </p-dialog>
+
+
+  <!-- Add dialog end -->
+  <p-toast position="top-right"></p-toast>
 
 </div>
 
@@ -111,7 +213,7 @@
 
       <div class="field mt-4 w-100">
         <label for="title">Syllabus</label>
-        <span class="p-float-label">
+        <span>
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="syllabus" class="form-control"
             required formControlName="syllabus" pInputText placeholder="Syllabus">
           <small class="p-error block"
@@ -123,7 +225,7 @@
 
       <div class="field mt-4 w-100">
         <label for="title">Question</label>
-        <span class="p-float-label">
+        <span>
 
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="question" class="form-control"
             required formControlName="question" pInputText placeholder="Question">
@@ -136,7 +238,7 @@
       </div>
       <div class="field mt-4 w-50">
         <label for="title">Option(A)</label>
-        <span class="p-float-label">
+        <span>
           <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" style="resize: none;"
             cols="30" formControlName="option1" pInputText>
           <small class="p-error block"
@@ -148,7 +250,7 @@
 
       <div class="field mt-4 w-50">
         <label for="title">Option(B)</label>
-        <span class="p-float-label">
+        <span>
           <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option2"
             pInputText>
           <small class="p-error block"
@@ -158,7 +260,7 @@
       </div>
       <div class="field mt-4 w-50">
         <label for="title">Option(C)</label>
-        <span class="p-float-label">
+        <span>
           <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option3"
             pInputText>
           <small class="p-error block"
@@ -168,7 +270,7 @@
       </div>
       <div class="field mt-4 w-50">
         <label for="title">Option(D)</label>
-        <span class="p-float-label">
+        <span>
           <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option4"
             pInputText>
           <small class="p-error block"
@@ -178,7 +280,7 @@
       </div>
       <div class="field mt-4 w-100">
         <label for="title">Answer</label>
-        <span class="p-float-label">
+        <span>
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="answer" class="form-control"
             required formControlName="answer" pInputText placeholder="Answer">
           <small class="p-error block"
@@ -207,7 +309,7 @@
     <div class="p-fluid grid">
       <div class="field mt-4 w-100">
         <label for="title">Syllabus</label>
-        <span class="p-float-label">
+        <span>
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="syllabus" class="form-control"
             required formControlName="syllabus" pInputText placeholder="Syllabus">
           <small class="p-error block"
@@ -218,7 +320,7 @@
       </div>
       <div class="field mt-4 w-100">
         <label for="title">Question</label>
-        <span class="p-float-label">
+        <span>
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="question" class="form-control"
             required formControlName="question" pInputText placeholder="Question">
           <small class="p-error block"
@@ -229,7 +331,7 @@
       </div>
       <div class="field mt-4 w-50">
         <label for="title">Option1</label>
-        <span class="p-float-label">
+        <span>
           <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" style="resize: none;"
             cols="30" formControlName="option1" pInputText>
           <small class="p-error block"
@@ -241,7 +343,7 @@
 
       <div class="field mt-4 w-50">
         <label for="title">Option2</label>
-        <span class="p-float-label">
+        <span>
           <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option2"
             pInputText>
           <small class="p-error block"
@@ -251,7 +353,7 @@
       </div>
       <div class="field mt-4 w-50">
         <label for="title">Option3</label>
-        <span class="p-float-label">
+        <span>
           <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option3"
             pInputText>
           <small class="p-error block"
@@ -261,7 +363,7 @@
       </div>
       <div class="field mt-4 w-50">
         <label for="title">Option4</label>
-        <span class="p-float-label">
+        <span>
           <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option4"
             pInputText>
           <small class="p-error block"
@@ -271,7 +373,7 @@
       </div>
       <div class="field mt-4 w-100">
         <label for="title">Answer</label>
-        <span class="p-float-label">
+        <span>
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="answer" class="form-control"
             required formControlName="answer" pInputText placeholder="Answer">
           <small class="p-error block"
@@ -305,7 +407,7 @@
     <div class="p-fluid grid">
       <div class="field mt-4 w-100">
         <label for="title">Syllabus</label>
-        <span class="p-float-label">
+        <span>
 
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="syllabus" class="form-control"
             required formControlName="syllabus" pInputText placeholder="Syllabus">
@@ -318,7 +420,7 @@
       </div>
       <div class="field mt-4 w-100">
         <label for="title">Question</label>
-        <span class="p-float-label">
+        <span>
 
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="question" class="form-control"
             required formControlName="question" pInputText placeholder="Question">
@@ -331,7 +433,7 @@
       </div>
       <div class="field mt-4 w-50">
         <label for="title">Option1</label>
-        <span class="p-float-label">
+        <span>
           <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" style="resize: none;"
             cols="30" formControlName="option1" pInputText>
           <small class="p-error block"
@@ -343,7 +445,7 @@
 
       <div class="field mt-4 w-50">
         <label for="title">Option2</label>
-        <span class="p-float-label">
+        <span>
           <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option2"
             pInputText>
           <small class="p-error block"
@@ -353,7 +455,7 @@
       </div>
       <div class="field mt-4 w-50">
         <label for="title">Option3</label>
-        <span class="p-float-label">
+        <span>
           <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option3"
             pInputText>
           <small class="p-error block"
@@ -363,7 +465,7 @@
       </div>
       <div class="field mt-4 w-50">
         <label for="title">Option4</label>
-        <span class="p-float-label">
+        <span>
           <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option4"
             pInputText>
           <small class="p-error block"
@@ -373,7 +475,7 @@
       </div>
       <div class="field mt-4 w-100">
         <label for="title">Answer</label>
-        <span class="p-float-label">
+        <span>
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="answer" class="form-control"
             required formControlName="answer" pInputText placeholder="Answer">
           <small class="p-error block"
