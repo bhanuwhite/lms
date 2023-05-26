@@ -46,7 +46,7 @@
         <div class="field mt-4 w-100">
           <label for="title">Level</label>
 
-          <p-dropdown [options]="level" optionLabel="level_name"  class="form-control"
+          <p-dropdown [options]="level" optionLabel="level_name"
             formControlName="level" placeholder="Select level"></p-dropdown>
 
           <!-- <small class="p-error block"
@@ -114,9 +114,24 @@
         <div class="field mt-4 w-100">
           <label for="title">Answer:</label>
           <span>
-            <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="answer" class="form-control"
-              required formControlName="answer" pInputText placeholder="Answer">
+            <!-- <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="answer" class="form-control"
+              required formControlName="answer" pInputText placeholder="Answer"> -->
 
+              <!-- <div class="flex">
+                <div class="flex flex-column gap-2">
+                    <div *ngFor="let category of categories" class="field-checkbox">
+                        <p-checkbox name="answer" [value]="category" [inputId]="category.key"
+                         formControlName="answer" ></p-checkbox>
+                        <label [for]="category.key">{{ category.name }}</label>
+                    </div>
+                </div>
+            </div> -->
+            <div *ngFor="let data of categories">
+              <label>
+                <input type="checkbox" (change)="onChange(data.name,$event.target)">
+                {{ data.name }}
+              </label>
+            </div>
 
 
                           <small class="p-error block"

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfirmationService, Message, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
@@ -52,10 +52,10 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedCategories: any[] = [];
 
     categories: any[] = [
-        { name: 'Accounting', key: 'A' },
-        { name: 'Marketing', key: 'M' },
-        { name: 'Production', key: 'P' },
-        { name: 'Research', key: 'R' }
+        { name: 'A', key: 'a', checked: false},
+        { name: 'B', key: 'b' ,checked: false},
+        { name: 'C', key: 'c' ,checked: false},
+        { name: 'D', key: 'd' ,checked: false}
     ];
 
 
@@ -89,13 +89,30 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
       Course_Name: new FormControl(this.course_Name, [Validators.required]),
       level: new FormControl('', [Validators.required]),
       question: new FormControl('', [Validators.required]),
-      answer: new FormControl('', [Validators.required]),
       option1: new FormControl('', Validators.required),
       option2: new FormControl('', Validators.required),
       option3: new FormControl('', Validators.required),
       option4: new FormControl('', Validators.required),
+      checkArray: this.fb.array([])
     })
   }
+
+
+    onChange(name:string, isChecked: any) {
+      console.log(isChecked.checked);
+
+      const emailFormArray = <FormArray>this.addQuizGroup.controls['checkArray'];
+
+      if(isChecked.checked) {
+        emailFormArray.push(new FormControl(name));
+      console.log(emailFormArray);
+
+      } else {
+        let index = emailFormArray.controls.findIndex(x => x.value == name)
+        emailFormArray.removeAt(index);
+      }
+
+    }
 
 
 
@@ -122,6 +139,8 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
     this.course_Name = course.attributes.name;
     this.loadForm();
   }
+
+
 
 
   onSubmitQuestionDetails() {

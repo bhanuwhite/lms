@@ -8,7 +8,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class AssessmentComponent implements OnInit {
 
-
+public allCourses:any;
 
 
   ngOnInit(): void {
@@ -22,8 +22,8 @@ export class AssessmentComponent implements OnInit {
   }
 public getAllCourseDetais(){
   this.apiService.getContent().subscribe((res)=>{
-    console.log(res);
-
+    this.allCourses= res.data;
+  console.log(res.data);
   })
 }
 
@@ -31,9 +31,10 @@ public getAllCourseDetais(){
   public getAllQuizDetails(){
 
     this.apiService.getQuiz().subscribe((res)=>{
-      console.log(res);
-
     })
+  }
+  public openQuiz(){
+    console.log("hello");
 
   }
 
