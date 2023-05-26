@@ -4,7 +4,8 @@
   "info": {
     "singularName": "course-content",
     "pluralName": "course-contents",
-    "displayName": "course_content"
+    "displayName": "course_content",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -21,22 +22,24 @@
       "type": "biginteger"
     },
     "content": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "videos"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
     "link": {
       "type": "text"
     },
     "placeholder_img": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "technology": {
       "type": "enumeration",
@@ -62,6 +65,16 @@
     },
     "user_id": {
       "type": "biginteger"
+    },
+    "rating": {
+      "type": "enumeration",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ]
     }
   }
 }

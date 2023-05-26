@@ -27,11 +27,18 @@
     "q_options": {
       "type": "json"
     },
-    "answer": {
-      "type": "text"
-    },
     "course_name": {
       "type": "string"
+    },
+    "answer": {
+      "type": "json"
+    },
+    "quiz_type": {
+      "type": "enumeration",
+      "enum": [
+        "exam",
+        "certification"
+      ]
     }
   }
 }

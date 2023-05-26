@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-05-25T12:51:37.187Z"
+    "x-generation-date": "2023-05-26T11:17:06.281Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -100,11 +100,16 @@
                 "type": "string"
               },
               "q_options": {},
-              "answer": {
-                "type": "string"
-              },
               "course_name": {
                 "type": "string"
+              },
+              "answer": {},
+              "quiz_type": {
+                "type": "string",
+                "enum": [
+                  "exam",
+                  "certification"
+                ]
               }
             }
           }
@@ -171,11 +176,16 @@
             "type": "string"
           },
           "q_options": {},
-          "answer": {
-            "type": "string"
-          },
           "course_name": {
             "type": "string"
+          },
+          "answer": {},
+          "quiz_type": {
+            "type": "string",
+            "enum": [
+              "exam",
+              "certification"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -572,6 +582,16 @@
                 "type": "string",
                 "pattern": "^\\d*$",
                 "example": "123456789"
+              },
+              "rating": {
+                "type": "string",
+                "enum": [
+                  "A",
+                  "B",
+                  "C",
+                  "D",
+                  "E"
+                ]
               }
             }
           }
@@ -1429,6 +1449,16 @@
             "type": "string",
             "pattern": "^\\d*$",
             "example": "123456789"
+          },
+          "rating": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D",
+              "E"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -6006,6 +6036,16 @@
                         "type": "string",
                         "pattern": "^\\d*$",
                         "example": "123456789"
+                      },
+                      "rating": {
+                        "type": "string",
+                        "enum": [
+                          "A",
+                          "B",
+                          "C",
+                          "D",
+                          "E"
+                        ]
                       },
                       "createdAt": {
                         "type": "string",

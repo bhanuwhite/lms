@@ -1142,7 +1142,7 @@
   resolved "https://registry.npmjs.org/@emotion/memoize/-/memoize-0.7.4.tgz"
   integrity sha512-Ja/Vfqe3HpuzRsG1oBtWTHk2PGZ7GR+2Vz5iYGelAw8dx32K0y7PjVuxK6z1nMpZOqAFsRUPCkK1YjJ56qJlgw==
 
-"@emotion/react@^11.8.1":
+"@emotion/react@^11.1.1", "@emotion/react@^11.8.1":
   version "11.10.8"
   resolved "https://registry.npmjs.org/@emotion/react/-/react-11.10.8.tgz"
   integrity sha512-ZfGfiABtJ1P1OXqOBsW08EgCDp5fK6C5I8hUJauc/VcJBGSzqAirMnFslhFWnZJ/w5HxPI36XbvMV0l4KZHl+w==
@@ -2075,7 +2075,7 @@
     plop "2.7.6"
     pluralize "8.0.0"
 
-"@strapi/helper-plugin@4.10.1":
+"@strapi/helper-plugin@^4.0.0", "@strapi/helper-plugin@4.10.1":
   version "4.10.1"
   resolved "https://registry.npmjs.org/@strapi/helper-plugin/-/helper-plugin-4.10.1.tgz"
   integrity sha512-BY6mnvPPzSRYzWepIfdoTo3PRHhQ40g4ublQBVkrtoc8gPh4VUQvzDbASMpt6i0GzzCbYZXxIfhjW/gI+esejw==
@@ -2386,9 +2386,9 @@
     typescript "5.0.4"
 
 "@strapi/ui-primitives@^1.7.7":
-  version "1.7.7"
-  resolved "https://registry.npmjs.org/@strapi/ui-primitives/-/ui-primitives-1.7.7.tgz"
-  integrity sha512-4FasM1P53SDOhN3MqMsKCSLv6NRUgKdk7rKyPr9+UUpMzOBE43xHB23LI/l3Cz23xfB+NeOR3i8CYW7egvjuSw==
+  version "1.7.8"
+  resolved "https://registry.npmjs.org/@strapi/ui-primitives/-/ui-primitives-1.7.8.tgz"
+  integrity sha512-IhGNwkMSRYBqI0suqXNw76LTArwSnareKfQXtBsuU4a8lBRihlqWwGpMPVOAm0+in1ouRf5oRJQOsrDZIKCV2w==
   dependencies:
     "@radix-ui/number" "^1.0.0"
     "@radix-ui/primitive" "^1.0.0"
@@ -4393,7 +4393,7 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-date-fns@^2.19.0, date-fns@2.29.3:
+date-fns@^2.19.0, date-fns@^2.28.0, date-fns@2.29.3:
   version "2.29.3"
   resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.29.3.tgz"
   integrity sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==
@@ -6025,7 +6025,7 @@ ignore@^5.1.1:
   resolved "https://registry.npmjs.org/ignore/-/ignore-5.2.4.tgz"
   integrity sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==
 
-immer@9.0.19:
+immer@^9.0.6, immer@9.0.19:
   version "9.0.19"
   resolved "https://registry.npmjs.org/immer/-/immer-9.0.19.tgz"
   integrity sha512-eY+Y0qcsB4TZKwgQzLaE/lqYMlKhv5J9dyd2RhhtGhNo2njPXDqU9XPfcNfa3MIDsdtZt5KlkIsirlo4dHsWdQ==
@@ -7203,6 +7203,11 @@ memfs@^3.4.1, memfs@^3.4.3:
   dependencies:
     fs-monkey "^1.0.3"
 
+memoize-one@^5.0.0:
+  version "5.2.1"
+  resolved "https://registry.npmjs.org/memoize-one/-/memoize-one-5.2.1.tgz"
+  integrity sha512-zYiwtZUcYyXKo/np96AGZAckk+FWWsUdJ3cHGGmld7+AhvcWmQyGCYUh1hc4Q/pkOhb65dQR/pqCyK0cOaHz4Q==
+
 memoize-one@^6.0.0:
   version "6.0.0"
   resolved "https://registry.npmjs.org/memoize-one/-/memoize-one-6.0.0.tgz"
@@ -8290,7 +8295,7 @@ promise@^8.1.0:
   dependencies:
     asap "~2.0.6"
 
-prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -8346,7 +8351,7 @@ purest@4.0.2:
     request-multipart "^1.0.0"
     request-oauth "^1.0.1"
 
-qs@^6.10.2, qs@^6.10.3, qs@^6.4.0, qs@^6.9.6, qs@6.11.1:
+qs@^6.10.1, qs@^6.10.2, qs@^6.10.3, qs@^6.4.0, qs@^6.9.6, qs@6.11.1:
   version "6.11.1"
   resolved "https://registry.npmjs.org/qs/-/qs-6.11.1.tgz"
   integrity sha512-0wsrzgTz/kAVIeuxSjnpGC56rzYtr6JT/2BwEvMaPhFIoYa1aGO8LbzuU1R0uUYQkLpWBTOj0l/CLAJB64J6nQ==
@@ -8425,6 +8430,15 @@ rc@^1.2.7, rc@^1.2.8, rc@1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-awesome-stars-rating@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.npmjs.org/react-awesome-stars-rating/-/react-awesome-stars-rating-0.6.0.tgz"
+  integrity sha512-hPkOvG8caLr/m6SdyRMou4jesv8ciDVpWDtd8M8/SvHE9nppGdw3JlGa+2D8zzk0YoCHDGR8ucjk2tIr+O9Fkg==
+  dependencies:
+    prop-types "^15.7.2"
+    react "^17.0.2"
+    react-dom "^17.0.2"
+
 react-copy-to-clipboard@^5.1.0:
   version "5.1.0"
   resolved "https://registry.npmjs.org/react-copy-to-clipboard/-/react-copy-to-clipboard-5.1.0.tgz"
@@ -8451,7 +8465,7 @@ react-dnd@15.1.2:
     fast-deep-equal "^3.1.3"
     hoist-non-react-statics "^3.3.2"
 
-"react-dom@^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0", "react-dom@^16.8 || ^17.0 || ^18.0", "react-dom@^16.8.0 || ^17.0.0 || ^18.0.0", "react-dom@^17.0.0 || ^18.0.0", react-dom@^17.0.1, react-dom@^17.0.2, "react-dom@>= 16.8.0", react-dom@>=16.6.0, react-dom@>=16.8.0:
+"react-dom@^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0", "react-dom@^16.8 || ^17.0 || ^18.0", "react-dom@^16.8.0 || ^17.0.0", "react-dom@^16.8.0 || ^17.0.0 || ^18.0.0", "react-dom@^17.0.0 || ^18.0.0", react-dom@^17.0.1, react-dom@^17.0.2, "react-dom@>= 16.8.0", react-dom@>=16.6.0, react-dom@>=16.8.0:
   version "17.0.2"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-17.0.2.tgz"
   integrity sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==
@@ -8491,6 +8505,13 @@ react-helmet@^6.1.0:
     prop-types "^15.7.2"
     react-fast-compare "^3.1.1"
     react-side-effect "^2.1.0"
+
+react-input-autosize@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/react-input-autosize/-/react-input-autosize-3.0.0.tgz"
+  integrity sha512-nL9uS7jEs/zu8sqwFE5MAPx6pPkNAriACQ2rGLlqmKr2sPGtN7TXTyDdQt4lbNXVx7Uzadb40x8qotIuru6Rhg==
+  dependencies:
+    prop-types "^15.5.8"
 
 react-intl@6.3.2:
   version "6.3.2"
@@ -8628,6 +8649,19 @@ react-router@5.3.4:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
+react-select@^4.0.2:
+  version "4.3.1"
+  resolved "https://registry.npmjs.org/react-select/-/react-select-4.3.1.tgz"
+  integrity sha512-HBBd0dYwkF5aZk1zP81Wx5UsLIIT2lSvAY2JiJo199LjoLHoivjn9//KsmvQMEFGNhe58xyuOITjfxKCcGc62Q==
+  dependencies:
+    "@babel/runtime" "^7.12.0"
+    "@emotion/cache" "^11.4.0"
+    "@emotion/react" "^11.1.1"
+    memoize-one "^5.0.0"
+    prop-types "^15.6.0"
+    react-input-autosize "^3.0.0"
+    react-transition-group "^4.3.0"
+
 react-select@5.7.0:
   version "5.7.0"
   resolved "https://registry.npmjs.org/react-select/-/react-select-5.7.0.tgz"
@@ -8675,7 +8709,7 @@ react-window@1.8.8:
     "@babel/runtime" "^7.0.0"
     memoize-one ">=3.1.1 <6"
 
-"react@^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0", "react@^15.3.0 || 16 || 17 || 18", "react@^16.3.0 || ^17.0.0 || ^18.0.0", "react@^16.6.0 || 17 || 18", "react@^16.8 || ^17.0 || ^18.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.0 || ^18.0.0", react@^17.0.1, react@^17.0.2, "react@>= 16.14", "react@>= 16.8.0", react@>=15, react@>=16.13.1, react@>=16.3.0, react@>=16.6.0, react@>=16.8.0, "react@0.14 || 15 || 16 || 17 || 18", react@17.0.2:
+"react@^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0", "react@^15.3.0 || 16 || 17 || 18", "react@^16.3.0 || ^17.0.0", "react@^16.3.0 || ^17.0.0 || ^18.0.0", "react@^16.6.0 || 17 || 18", "react@^16.8 || ^17.0 || ^18.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.0 || ^18.0.0", react@^17.0.1, react@^17.0.2, "react@>= 16.14", "react@>= 16.8.0", react@>=15, react@>=16.13.1, react@>=16.3.0, react@>=16.6.0, react@>=16.8.0, "react@0.14 || 15 || 16 || 17 || 18", react@17.0.2:
   version "17.0.2"
   resolved "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==
@@ -9625,6 +9659,19 @@ stealthy-require@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/stealthy-require/-/stealthy-require-1.1.1.tgz"
   integrity sha512-ZnWpYnYugiOVEY5GkcuJK1io5V8QmNYChG62gSit9pQVGErXtrKuPC55ITaVSukmMta5qpMU7vqLt2Lnni4f/g==
+
+strapi-plugin-ratings@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.npmjs.org/strapi-plugin-ratings/-/strapi-plugin-ratings-1.1.9.tgz"
+  integrity sha512-/PEukEKY5V0LGDT0afrakE0qWeJ3ivhhfx3M0yO5ceFjb4kJzEtmzZtJP85aUrxGEMS+8Mxi7lmjV29OR6wnCA==
+  dependencies:
+    "@babel/core" "^7.0.0"
+    "@strapi/helper-plugin" "^4.0.0"
+    date-fns "^2.28.0"
+    immer "^9.0.6"
+    qs "^6.10.1"
+    react-awesome-stars-rating "^0.6.0"
+    react-select "^4.0.2"
 
 strapi-plugin-timezone-select@^1.0.0:
   version "1.0.0"

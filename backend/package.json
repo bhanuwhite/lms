@@ -19,7 +19,7 @@
     "paytmchecksum": "^1.5.0",
     "pg": "^8.10.0",
     "razorpay": "^2.8.6",
-    "strapi-plugin-timezone-select": "^1.0.0",
+    "strapi-plugin-ratings": "^1.1.9",
     "strapi-stripe": "^3.3.0",
     "strapi-utils": "^3.6.11"
   },
