@@ -1,0 +1,131 @@
+
+<div class="card">
+  <h2 class="m-3">{{courseName}}</h2>
+  <p-tabView>
+      <p-tabPanel header="Beginner">
+          <div>
+           <div class="card"  *ngFor="let question of quizBeginerDetails">
+
+              <div class="row m-3" style="gap: 8px;" >
+                <div class="col-lg-6 col-md-12 col-sm-12 bg-white question-box">
+                  <div class="question-type my-2  d-flex align-items-center justify-content-between">
+                    <h2>Q: {{question.attributes.question}}</h2>
+
+                  </div>
+                  <div class="answer">
+                    A) {{question.attributes.q_options.a}}
+                  </div>
+                  <div class="answer">
+                    B) {{question.attributes.q_options.b}}
+                  </div>
+                  <div class="answer">
+                    C) {{question.attributes.q_options.c}}
+                  </div>
+                  <div class="answer">
+                    D) {{question.attributes.q_options.d}}
+                  </div>
+                  <!-- <h3>Correct Answer: {{question.attributes.answer}}</h3> -->
+                </div>
+              </div>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Intermediate">
+        <div>
+          <div class="card"  *ngFor="let question of quizintermidiateDetails">
+
+             <div class="row m-3" style="gap: 8px;" >
+               <div class="col-lg-6 col-md-12 col-sm-12 bg-white question-box">
+                 <div class="question-type my-2  d-flex align-items-center justify-content-between">
+                   <h2>Q: {{question.attributes.question}}</h2>
+
+                 </div>
+                 <div class="answer">
+                   A) {{question.attributes.q_options.a}}
+                 </div>
+                 <div class="answer">
+                   B) {{question.attributes.q_options.b}}
+                 </div>
+                 <div class="answer">
+                   C) {{question.attributes.q_options.c}}
+                 </div>
+                 <div class="answer">
+                   D) {{question.attributes.q_options.d}}
+                 </div>
+                 <!-- <h3>Correct Answer: {{question.attributes.answer}}</h3> -->
+               </div>
+             </div>
+         </div>
+       </div>
+      </p-tabPanel>
+      <p-tabPanel header="Advanced">
+        <div>
+          <div class="card"  *ngFor="let question of quizAdvancedDetails">
+
+             <div class="row m-3" style="gap: 8px;" >
+               <div class="col-lg-6 col-md-12 col-sm-12 bg-white question-box">
+                 <div class="question-type my-2  d-flex align-items-center justify-content-between">
+                   <h2>Q: {{question.attributes.question}}</h2>
+
+                 </div>
+                 <div class="answer">
+                   A) {{question.attributes.q_options.a}}
+                 </div>
+                 <div class="answer">
+                   B) {{question.attributes.q_options.b}}
+                 </div>
+                 <div class="answer">
+                   C) {{question.attributes.q_options.c}}
+                 </div>
+                 <div class="answer">
+                   D) {{question.attributes.q_options.d}}
+                 </div>
+                 <!-- <h3>Correct Answer: {{question.attributes.answer}}</h3> -->
+               </div>
+             </div>
+         </div>
+       </div>
+      </p-tabPanel>
+  </p-tabView>
+
+
+<!-- <div class="card"  *ngFor="let question of quizDetails">
+
+  <div class="row m-3" style="gap: 8px;">
+    <div class="col-lg-6 col-md-12 col-sm-12 bg-white question-box">
+      <div class="question-type my-2  d-flex align-items-center justify-content-between">
+        <h2>Q: {{question.attributes.question}}</h2>
+
+      </div>
+
+      <div class="answer">
+        A) {{question.attributes.q_options.a}}
+      </div>
+      <div class="answer">
+        B) {{question.attributes.q_options.b}}
+      </div>
+      <div class="answer">
+        C) {{question.attributes.q_options.c}}
+      </div>
+      <div class="answer">
+        D) {{question.attributes.q_options.d}}
+      </div>
+      <h3>Correct Answer: {{question.attributes.answer}}</h3>
+    </div>
+  </div> -->
+</div>
+
+
+
+
+
+<!--
+
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
+<p-toast position="top-right"></p-toast> -->
+
+<!-- </div> -->
+
+
+
+

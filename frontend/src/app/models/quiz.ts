@@ -2,7 +2,7 @@ export interface Quiz {
     data: {
       level: string;
       question: string;
-      answer: string;
+      answers: string;
       q_options: {
         a: number | string;
         b: number | string;

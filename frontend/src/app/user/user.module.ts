@@ -56,6 +56,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { ToastModule } from 'primeng/toast';
 import { UserCommunityComponent } from './user-community/user-community.component';
 import { AssessmentComponent } from './assessment/assessment.component';
+import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { AssessmentComponent } from './assessment/assessment.component';
     ProfileComponent,
     UserContentComponent,
     AccountSettingsComponent,
-    AssessmentComponent
+    AssessmentComponent,
+    QuizDetailsComponent
   ],
   imports: [
     CommonModule,
