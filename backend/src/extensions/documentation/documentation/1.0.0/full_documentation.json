@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-05-29T09:14:31.406Z"
+    "x-generation-date": "2023-05-29T10:30:54.254Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -103,13 +103,15 @@
               "course_name": {
                 "type": "string"
               },
-              "answer": {},
               "quiz_type": {
                 "type": "string",
                 "enum": [
                   "exam",
                   "certification"
                 ]
+              },
+              "answers": {
+                "type": "string"
               }
             }
           }
@@ -179,13 +181,15 @@
           "course_name": {
             "type": "string"
           },
-          "answer": {},
           "quiz_type": {
             "type": "string",
             "enum": [
               "exam",
               "certification"
             ]
+          },
+          "answers": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
