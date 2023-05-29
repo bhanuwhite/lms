@@ -60,6 +60,7 @@ export interface UserLibraryGetResponseData {
         };
       };
     };
+    progress_percentage:number
   };
 }
 

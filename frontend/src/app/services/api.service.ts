@@ -22,6 +22,7 @@ import {
   RemoveLibraryData,
   UserLibraryGetResponse,
 } from '../models/user-library';
+import { TrackPost, TrackPut, TrackResponse } from '../models/track';
 
 @Injectable({
   providedIn: 'root',
@@ -126,7 +127,16 @@ export class ApiService {
     return this.http.delete<Quiz>(`/api/assessments/${id}`);
   }
 
-  //Post Content Library
+  // ------------Library API-------------
+
+// GET
+public getContentLibrary(): Observable<UserLibraryGetResponse> {
+  return this.http.get<UserLibraryGetResponse>(
+    `/api/user-has-courses?populate=course_content.content&populate=course_content.placeholder_img`
+  );
+}
+
+  //POST
   public postContentLibrary(item: {
     data: { course_content: number };
   }): Observable<LibraryGetResponse> {
@@ -135,14 +145,14 @@ export class ApiService {
       item
     );
   }
-  // Get  Content Library
-  public getContentLibrary(): Observable<UserLibraryGetResponse> {
-    return this.http.get<UserLibraryGetResponse>(
-      `/api/user-has-courses?populate=course_content.content&populate=course_content.placeholder_img`
-    );
+
+  // PUT
+  public putLibraryData(id:number,item:any):Observable<any> {
+    return this.http.put<any>(`/api/user-has-courses/${id}?populate=course_content.content&populate=course_content.placeholder_img`, item  )
   }
 
-  // Delete Library Course
+
+  // DELETE.
   public removeLibraryCourse(id: number): Observable<RemoveLibraryData> {
     return this.http.delete<RemoveLibraryData>(`api/user-has-courses/${id}`);
   }
@@ -203,22 +213,22 @@ export class ApiService {
   // -------- TRACK API --------------------
 
   // GET
-  public getTrack(): Observable<any> {
-    return this.http.get<any>(`api/tracks`);
+  public getTrack(): Observable<TrackResponse> {
+    return this.http.get<TrackResponse>(`api/tracks`);
   }
 
   // POST
-  public postTrack(item: any): Observable<any> {
-    return this.http.post<any>(`api/tracks`, item);
+  public postTrack(item: TrackPost): Observable<TrackResponse> {
+    return this.http.post<TrackResponse>(`api/tracks`, item);
   }
 
   // PUT
-  public putTrack(item: any): Observable<any> {
-    return this.http.put<any>(`api/tracks`, item);
+  public putTrack(id:number,item: TrackPut): Observable<TrackResponse> {
+    return this.http.put<TrackResponse>(`api/tracks/${id}`, item);
   }
 
   // DELETE
-  public deleteTrack(id: number): Observable<any> {
-    return this.http.delete<any>(`api/tracks/${id}`);
+  public deleteTrack(id: number): Observable<TrackResponse> {
+    return this.http.delete<TrackResponse>(`api/tracks/${id}`);
   }
 }

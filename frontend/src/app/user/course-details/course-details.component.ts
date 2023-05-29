@@ -1,4 +1,10 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ratingObj, QAcategory } from '../../interface';
 import { ApiService } from 'src/app/services/api.service';
@@ -6,18 +12,24 @@ import { ActivatedRoute } from '@angular/router';
 import { UserLibraryGetResponseData } from 'src/app/models/user-library';
 import { MessageService } from 'primeng/api';
 import { resolve } from 'chart.js/dist/helpers/helpers.options';
+import { TrackResponseData } from 'src/app/models/track';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-course-details',
   templateUrl: './course-details.component.html',
   styleUrls: ['./course-details.component.scss'],
 })
-export class CourseDetailsComponent implements OnInit {
+export class CourseDetailsComponent implements OnInit, OnDestroy {
   streamVideo!: { url: string; name: string };
   public userCourseData: any;
   public Spinner: boolean = true;
   activeParamId!: number;
-  trackResponse: any[] = [];
+  trackResponse: TrackResponseData[] = [];
   trackCourseIds: number[] = [];
+
+  LibraryContent$: Subscription = new Subscription();
+  PostMethodTrack$: Subscription = new Subscription();
+  TrackPutMethod$: Subscription = new Subscription();
 
   public globalUserId!: number;
   public courseId!: number;
@@ -25,6 +37,10 @@ export class CourseDetailsComponent implements OnInit {
   public totalDurationVideo: number = 0;
   userWatchedTime: number = 1;
   timeConsumedByUser: number = 0;
+  watchedDurations: { name: string; duration: number }[] = [];
+  timeArray: number[] = [];
+  putId!: number;
+
   @ViewChild('Course_video') Course_video: any;
 
   constructor(
@@ -32,11 +48,10 @@ export class CourseDetailsComponent implements OnInit {
     public activeParam: ActivatedRoute,
     public messageService: MessageService
   ) {}
-
   ngOnInit() {
     this.activeParams();
     this.getLocalStoredData();
-    // Below seconda function will execute after the 1st get completed.
+    // Below secound function will execute after the 1st get completed.
     this.getLibraryData()
       .then(() => this.gettingTrack())
       .then(() => this.postTrackMethod())
@@ -46,6 +61,7 @@ export class CourseDetailsComponent implements OnInit {
   }
 
   // Editing with API data
+
   public activeParams() {
     this.activeParam.params.subscribe((res) => {
       this.activeParamId = res['id'];
@@ -57,13 +73,17 @@ export class CourseDetailsComponent implements OnInit {
     this.globalUserId = localStoredData.id;
   }
 
+  putLibId!: number;
   public getLibraryData(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.apiService
         .getSingleContentLibrary(this.activeParamId)
         .subscribe((res) => {
+          console.log(res);
           this.Spinner = false;
           this.userCourseData = res.data;
+          this.putLibId = this.userCourseData.id;
+
           this.courseId = this.userCourseData.attributes.course_content.data.id;
           this.defaultVideo();
           resolve();
@@ -78,6 +98,7 @@ export class CourseDetailsComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.apiService.getTrack().subscribe((res) => {
         this.trackResponse = res.data;
+
         this.trackResponse.map((res: any) => {
           this.timeConsumedByUser = Math.trunc(res.attributes.time_consumed);
           this.trackCourseIds?.push(Number(res.attributes.course_id));
@@ -102,28 +123,32 @@ export class CourseDetailsComponent implements OnInit {
           },
         };
         if (!this.trackCourseIds.includes(this.courseId)) {
-          this.apiService.postTrack(postData).subscribe((res) => {
-            try {
-              this.messageService.add({
-                severity: 'success',
-                summary: 'success',
-                detail: 'Data posted on Tracking',
-              });
-            } catch (error) {
-              console.log(error);
-              this.messageService.add({
-                severity: 'error',
-                summary: 'Failed',
-                detail: 'Post failed',
-              });
-            }
-          });
+          this.PostMethodTrack$ = this.apiService
+            .postTrack(postData)
+            .subscribe((res) => {
+              try {
+
+                this.trackResponse.map((res: any) => {
+                  if (res.attributes.course_id == this.courseId) {
+                    this.putId = res.id;
+                  }
+                });
+              } catch (error) {
+                console.log(error);
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Failed',
+                  detail: 'Post failed',
+                });
+              }
+            });
           resolve();
         } else {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Alert',
-            detail: 'This course already in TRACK API',
+
+          this.trackResponse.map((res: any) => {
+            if (res.attributes.course_id == this.courseId) {
+              this.putId = res.id;
+            }
           });
         }
       } else {
@@ -132,9 +157,9 @@ export class CourseDetailsComponent implements OnInit {
           detail: 'course Id is null check',
         });
       }
-      (error:any)=>{
-        reject(error)
-      }
+      (error: any) => {
+        reject(error);
+      };
     });
   }
 
@@ -142,34 +167,74 @@ export class CourseDetailsComponent implements OnInit {
   onMetadata(video: any) {
     this.totalDurationVideo = this.totalDurationVideo + video.duration;
   }
+
   // get running time of video.
   getWatchedTime(videoData: any) {
-    this.userWatchedTime = this.Course_video.nativeElement.currentTime;
-    console.log('time duration', this.userWatchedTime);
+    console.log(this.courseId);
 
+    this.userWatchedTime = this.Course_video.nativeElement.currentTime;
+    const videoIndex = this.watchedDurations.findIndex(
+      (video: { name: string }) => video.name === this.streamVideo.name
+    );
+    if (videoIndex === -1) {
+      // Video duration not found in the array, add a new entry
+      this.watchedDurations.push({
+        name: this.streamVideo.name,
+        duration: Math.trunc(this.userWatchedTime),
+      });
+    } else {
+      // Video duration found in the array, update the existing entry
+      this.watchedDurations[videoIndex].duration = Math.trunc(
+        this.userWatchedTime
+      );
+    }
+    this.timeArray = this.watchedDurations.map((resObj) => resObj.duration);
+    const totalConsumedTime = this.timeArray.reduce(
+      (val1, val2) => val1 + val2
+    );
+    // update with the following data
     const putTrackData = {
       data: {
         total_duration: Math.trunc(this.totalDurationVideo),
-        time_consumed:
-          Math.trunc(this.userWatchedTime) + this.timeConsumedByUser,
+        time_consumed: Math.trunc(totalConsumedTime),
       },
     };
-    console.log(putTrackData);
 
-    setTimeout(() => {
-      this.apiService.putTrack(putTrackData).subscribe((res) => {
-        console.log('Updated Track API', res);
+    if (this.putId) {
+      this.TrackPutMethod$ = this.apiService
+        .putTrack(this.putId, putTrackData)
+        .subscribe((res) => {
+
+        });
+
+      const putLibData = {
+        data: {
+          progress_percentage: Math.trunc(
+            (totalConsumedTime / this.totalDurationVideo) * 100
+          ),
+        },
+      };
+
+      this.LibraryContent$ = this.apiService
+        .putLibraryData(this.putLibId, putLibData)
+        .subscribe((res) => {
+          console.log(res);
+        });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        detail: 'Please refresh the page once',
       });
-    }, 5000);
+    }
   }
 
   // Displaying Default video 1st
   public defaultVideo() {
     this.streamVideo = {
       url: this.userCourseData?.attributes?.course_content.data?.attributes
-        .content.data[0].attributes?.url,
+        .content.data[0]?.attributes?.url,
       name: this.userCourseData?.attributes?.course_content.data?.attributes
-        .content.data[0].attributes?.name,
+        .content.data[0]?.attributes?.name,
     };
   }
 
@@ -179,6 +244,12 @@ export class CourseDetailsComponent implements OnInit {
       this.userCourseData?.attributes?.course_content.data?.attributes.content.data[
         index
       ].attributes;
+  }
+
+  ngOnDestroy(): void {
+    this.LibraryContent$.unsubscribe();
+    this.PostMethodTrack$.unsubscribe();
+    this.TrackPutMethod$.unsubscribe();
   }
 
   // End
