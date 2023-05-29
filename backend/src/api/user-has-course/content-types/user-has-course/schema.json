@@ -16,6 +16,9 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::course-content.course-content"
+    },
+    "progress_percentage": {
+      "type": "biginteger"
     }
   }
 }
