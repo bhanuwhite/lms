@@ -25,17 +25,17 @@
               <a [routerLink]="['/user/library',course.id]" routerLinkActive="routerActive">
                 <div>
                   <img
-                    src={{course.attributes.course_content.data.attributes.placeholder_img.data.attributes.formats.thumbnail.url}}
+                    src={{course?.attributes?.course_content?.data?.attributes?.placeholder_img?.data?.attributes?.formats?.thumbnail?.url}}
                     alt="" class="courseFigure">
                 </div>
               </a>
             </div>
             <hr class="m-0 p-0">
             <h2 class="cursor-pointer px-3 textOverflow" style="cursor: pointer;">
-              {{course.attributes.course_content.data.attributes.name}}</h2>
+              {{course?.attributes?.course_content?.data?.attributes?.name}}</h2>
             <div class="px-3"  >
               <div class="text-wrap course-disc" [routerLink]="['/user/library',course.id]"   >
-                <p class="cursor-pointer textOverflow ">{{course.attributes.course_content.data.attributes.description}}
+                <p class="cursor-pointer textOverflow ">{{course?.attributes?.course_content?.data?.attributes?.description}}
                 </p>
               </div>
               <div class=" cursor-pointer" [routerLink]="['/user/library',course.id]">

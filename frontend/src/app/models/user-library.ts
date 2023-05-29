@@ -19,7 +19,7 @@ export interface UserLibraryGetResponse {
   };
 }
 export interface UserLibraryGetResponseData {
-  map(arg0: (obj: UserLibraryGetResponseData) => number): number[];
+  // map(arg0: (obj: UserLibraryGetResponseData) => number): number[];
   id: number;
   attributes: {
     course_content: {
@@ -62,6 +62,8 @@ export interface UserLibraryGetResponseData {
     };
   };
 }
+
+
 export interface LibraryGetResponse {
   data: LibraryObjectData[];
   meta: {

@@ -219,42 +219,46 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   public courseFileSelect(event: Event): void {
     const target = event.target as HTMLInputElement;
+    const selectedFiles = Array.from(target.files || []);
+    console.log("Selected files",selectedFiles);
+
     this.videoUploadProgress = true;
+    this.courseContentVideo = [];
 
     const uploadPromises: Promise<any>[] = [];
+    let currentUploadIndex = 0;
 
-    for (let i = 0; i < target.files!.length; i++) {
-      const file = target.files![i];
-
-      this.addCourse.get('imgVideo')?.setValue(file);
-      this.formData = new FormData();
-      this.formData.append('files', this.addCourse.value.imgVideo);
-
+    selectedFiles.forEach((file) => {
       const uploadPromise = new Promise<void>((resolve, reject) => {
+        this.addCourse.get('imgVideo')?.setValue(file);
+        this.formData = new FormData();
+        this.formData.append('files', this.addCourse.value.imgVideo);
+
         this.apiService.uploadFile(this.formData).subscribe(
           (res) => {
             try {
-              console.log('upload response', res[0]);
-              this.courseContentVideo[i] = res[0]; // Assign video to corresponding index
-              console.log(i, 'courseContentVideo ', this.courseContentVideo[i]);
-              resolve(); // Resolve the promise when upload is successful
+              // console.log('upload response', res[0]);
+              this.courseContentVideo[currentUploadIndex] = res[0];
+              console.log(currentUploadIndex, 'courseContentVideo', this.courseContentVideo[currentUploadIndex]);
+              currentUploadIndex++;
+              resolve();
             } catch (error) {
-              reject(error); // Reject the promise if there is an error
+              reject(error);
             }
           },
           (error) => {
-            reject(error); // Reject the promise if there is an error
+            reject(error);
           }
         );
       });
 
-      uploadPromises.push(uploadPromise); // Store the upload promise in the array
-    }
+      uploadPromises.push(uploadPromise);
+    });
 
-    // Wait for all upload promises to resolve
+
     Promise.all(uploadPromises)
       .then(() => {
-        this.videoUploadProgress = false; // Set progress flag to false when all uploads are completed
+        this.videoUploadProgress = false;
         console.log('courseContentVideo', this.courseContentVideo);
       })
       .catch((error) => {
