@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunklms=self.webpackChunklms||[]).push([[5936],{85936:e=>{e.exports=JSON.parse('{"timezone-select.label":"Fuseau horaire","timezone-select.description":"Selectionnez un fuseau horaire"}')}}]);
