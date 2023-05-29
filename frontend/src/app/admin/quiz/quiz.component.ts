@@ -151,7 +151,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
       "data": {
         "level": this.addQuizGroup.value.level.level_name,
         "question": this.addQuizGroup.value.question,
-        "answer": this.addQuizGroup.value.answer,
+        "answers": this.addQuizGroup.value.checkArray,
         "q_options": {
           "a": this.addQuizGroup.value.option1,
           "b": this.addQuizGroup.value.option2,
@@ -184,7 +184,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
 
   showQuizQuestions(course: string) {
 
-    this.route.navigate(['/assessment/', course])
+    this.route.navigate(['/quiz/', course])
     localStorage.setItem('CourseName', course)
   }
 

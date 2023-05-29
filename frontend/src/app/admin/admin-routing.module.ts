@@ -36,7 +36,7 @@ const routes: Routes = [
         path: 'courses/:id', component: CourseDetailsComponent
       },
       {
-        path: 'assessment', component: QuizComponent
+        path: 'quiz', component: QuizComponent
       },
       {
         path: 'meetings',component: MeetingsComponent
@@ -57,7 +57,7 @@ const routes: Routes = [
         path: 'messages', component: InstructorsMessagesComponent
       },
       {
-        path: 'assessment/:course', component: QuizDetailsComponent
+        path: 'quiz/:course', component: QuizDetailsComponent
       },
 
     ]

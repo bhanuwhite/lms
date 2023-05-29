@@ -109,7 +109,7 @@ this.questionBody = {
   "data": {
     "level": this.editQuizGroup.value.level.level_name,
       "question":this.editQuizGroup.value.question,
-      "answer": this.editQuizGroup.value.answer,
+      "answers": this.editQuizGroup.value.answer,
     "q_options": {
       "a": this.editQuizGroup.value.option1,
       "b": this.editQuizGroup.value.option2,
