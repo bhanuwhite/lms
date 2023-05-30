@@ -49,14 +49,14 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
     { level_name: 'intermediate' },
     { level_name: 'advanced' }
   ];
-  selectedCategories: any[] = [];
+  // selectedCategories: any[] = [];
 
-    categories: any[] = [
-        { name: 'A', key: 'a', checked: false},
-        { name: 'B', key: 'b' ,checked: false},
-        { name: 'C', key: 'c' ,checked: false},
-        { name: 'D', key: 'd' ,checked: false}
-    ];
+  categories: any[] = [
+    { name: 'A', key: 'a', checked: false },
+    { name: 'B', key: 'b', checked: false },
+    { name: 'C', key: 'c', checked: false },
+    { name: 'D', key: 'd', checked: false }
+  ];
 
 
 
@@ -85,6 +85,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Add Form validation
   public loadForm(): void {
+
     this.addQuizGroup = this.fb.group({
       Course_Name: new FormControl(this.course_Name, [Validators.required]),
       level: new FormControl('', [Validators.required]),
@@ -97,22 +98,75 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
+  public emailFormArray: any[]=[];
 
-    onChange(name:string, isChecked: any) {
-      console.log(isChecked.checked);
+  // this.emailFormArray.push(name);
+  // console.log(this.emailFormArray);
 
-      const emailFormArray = <FormArray>this.addQuizGroup.controls['checkArray'];
+  onChange(name: string, isChecked: any) {
 
-      if(isChecked.checked) {
-        emailFormArray.push(new FormControl(name));
+    console.log(isChecked.checked);
+
+    const emailFormArray = <FormArray>this.addQuizGroup.controls['checkArray'];
+
+    if (isChecked.checked) {
+      emailFormArray.push(new FormControl(name));
       console.log(emailFormArray);
 
-      } else {
-        let index = emailFormArray.controls.findIndex(x => x.value == name)
-        emailFormArray.removeAt(index);
-      }
-
+    } else {
+      let index = emailFormArray.controls.findIndex((x) => x.value == name)
+      emailFormArray.removeAt(index);
     }
+
+
+  }
+
+
+  public elements = document.getElementsByTagName('input');
+
+  onSubmitQuestionDetails() {
+
+    this.visible = false;
+    console.log(this.addQuizGroup.value);
+
+    const answers1 = this.addQuizGroup.value.checkArray;
+    const myString: string = JSON.stringify(answers1.join(' '));
+    console.log(myString);
+
+
+    this.quizBody = {
+      "data": {
+        "level": this.addQuizGroup.value.level.level_name,
+        "question": this.addQuizGroup.value.question,
+        "answers": myString,
+        "q_options": {
+          "a": this.addQuizGroup.value.option1,
+          "b": this.addQuizGroup.value.option2,
+          "c": this.addQuizGroup.value.option3,
+          "d": this.addQuizGroup.value.option4
+        },
+        "course_name": this.addQuizGroup.value.Course_Name
+      }
+    }
+    console.log(this.quizBody);
+
+    this.apiService.postQuiz(this.quizBody).subscribe((res) => {
+      console.log(res);
+      try {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Question Added' });
+      } catch (error) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong' });
+      }
+    })
+
+    for (let i = 0; i < this.elements.length; i++) {
+      if (this.elements[i].type == 'checkbox') {
+        this.elements[i].checked = false;
+      }
+    }
+    this.emailFormArray=[]
+  }
+
 
 
 
@@ -143,37 +197,6 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
-  onSubmitQuestionDetails() {
-    this.visible = false;
-    console.log(this.addQuizGroup.value);
-
-    this.quizBody = {
-      "data": {
-        "level": this.addQuizGroup.value.level.level_name,
-        "question": this.addQuizGroup.value.question,
-        "answers": this.addQuizGroup.value.checkArray,
-        "q_options": {
-          "a": this.addQuizGroup.value.option1,
-          "b": this.addQuizGroup.value.option2,
-          "c": this.addQuizGroup.value.option3,
-          "d": this.addQuizGroup.value.option4
-        },
-        "course_name": this.addQuizGroup.value.Course_Name
-      }
-    }
-    console.log(this.quizBody);
-
-    this.apiService.postQuiz(this.quizBody).subscribe((res) => {
-      console.log(res);
-      try {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Question Added' });
-   } catch (error) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong' });
-      }
-    })
-
-
-  }
 
 
 

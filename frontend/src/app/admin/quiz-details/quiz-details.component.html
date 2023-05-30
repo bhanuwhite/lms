@@ -46,7 +46,7 @@ begginer
       <div class="answer">
         D) {{question.attributes.q_options.d}}
       </div>
-      <h3>Correct Answer: {{question.attributes.answer}}</h3>
+      <h3>Correct Answer: {{question.attributes.answers}}</h3>
     </div>
   </div>
 </div>
@@ -143,16 +143,18 @@ begginer
         </span>
       </div>
       <div class="field mt-4 w-100">
-        <label for="title">Answer</label>
+        <label for="title">Answer:</label>
         <span>
-          <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="answer" class="form-control"
-            required formControlName="answer" pInputText placeholder="Answer">
-          <small class="p-error block"
-            *ngIf="editQuizGroup.get('answer')?.invalid && (editQuizGroup.get('answer')?.dirty && editQuizGroup.get('answer')?.touched)">
-            Answer is required
-          </small>
+          <div *ngFor="let data of categories">
+            <label>
+              <input type="checkbox" (change)="onChange(data.name,$event.target)" [checked]="data.checked">
+              {{ data.name }}
+            </label>
+          </div>
+
         </span>
       </div>
+
     </div>
     <div class="d-flex justify-content-between mt-2">
       <button (click)="editCancel()" type="button" class="btn btn-dark"><i
