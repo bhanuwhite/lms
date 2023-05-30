@@ -49,6 +49,7 @@ export class MyLibraryComponent implements OnInit {
 
   ngOnInit(): void {
     this.getContentLibrary();
+    this.getTrackAPI();
   }
 
   public getContentLibrary() {
@@ -66,6 +67,16 @@ export class MyLibraryComponent implements OnInit {
       }
     });
   }
+
+  public getTrackAPI(){
+    this.apiService.getTrack().subscribe((res)=>{
+      console.log("track response",res);
+
+    })
+  }
+
+
+
   public searchFun() {
     this.courseData = this.searchData.filter((course: any) =>
       course.attributes?.content_library?.data.attributes.name
