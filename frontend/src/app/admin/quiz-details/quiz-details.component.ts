@@ -29,6 +29,13 @@ public level: level[] = [
 ];
   public _id!: number;
 
+ public categories: any[] = [
+    { name: 'A', key: 'a', checked: false },
+    { name: 'B', key: 'b', checked: false },
+    { name: 'C', key: 'c', checked: false },
+    { name: 'D', key: 'd', checked: false }
+  ];
+
 
   ngOnInit(): void {
    this.getCourseName();
@@ -68,19 +75,37 @@ public quizData :QuizResponse[]=[]
 
     this.apiService.getQuiz().subscribe((res)=>{
       this.quizData = res.data;
+
       this.quizData.map((res:QuizResponse)=>{
         if(this.courseName == res.attributes.course_name){
            this.quizDetails.push(res);
-           console.log(this.quizDetails);
         }
 
       })
-
+      console.log(this.quizDetails);
     })
   }
   visible : boolean =false;
 
   showDialog(question:QuizResponse) {
+
+   const checkAnswers = JSON.parse(question.attributes.answers);
+   const result = checkAnswers.trim().split(" ");
+
+
+   this.categories.filter(res =>{
+    res.checked =false;
+   })
+
+    result.filter((res:string) =>{
+      for (let i = 0; i < this.categories.length; i++) {
+        if(res == this.categories[i].name)
+     this.categories[i].checked = true;
+      }
+
+    })
+
+
 
    const levelName=question.attributes.level;
     this._id = question.id;
@@ -90,14 +115,36 @@ public quizData :QuizResponse[]=[]
       Course_Name: new FormControl( question.attributes.course_name, [Validators.required]),
       level: new FormControl(  { level_name: levelName}, [Validators.required]),
       question: new FormControl( question.attributes.question, [Validators.required]),
-      answer: new FormControl(question.attributes.answer , [Validators.required]),
+      answers:this.fb.array([]),
       option1: new FormControl(question.attributes?.q_options?.a, Validators.required),
       option2: new FormControl(question.attributes?.q_options?.b , Validators.required),
       option3: new FormControl(question.attributes?.q_options?.c, Validators.required),
       option4: new FormControl( question.attributes?.q_options?.d, Validators.required),
-    })
+    });
+
     console.log(this.editQuizGroup.value);
     this.visible = true;
+}
+
+
+public emailFormArray: any[]=[];
+
+onChange(name: string, isChecked: any) {
+
+  console.log(isChecked.checked);
+
+
+
+  if (isChecked.checked) {
+    this.emailFormArray.push(name);
+    console.log(this.emailFormArray);
+
+
+  } else {
+    // let index = checkboxes.controls.findIndex((x) => x.value == name)
+    // checkboxes.removeAt(index);
+  }
+
 }
 
 onEditQuestion(){

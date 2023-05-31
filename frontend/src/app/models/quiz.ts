@@ -30,7 +30,7 @@ export interface QuizResponse {
             c: number | string;
             d: number | string;
         };
-        answer: string;
+        answers: string;
     }
 }
 
