@@ -32,7 +32,7 @@
                     </div> -->
                         <div class="row px-3 mb-2">
                             <label class="mb-1 px-0">
-                                <h6 class="mb-0 text-sm">Email Address</h6>
+                                <h6 class="mb-0 text-sm">Email : <span class="text-danger"> * </span></h6>
                             </label>
                             <input class="mb-0" type="text" name="name" formControlName="name"
                                 [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
@@ -42,7 +42,7 @@
                                 required</span> -->
                             <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback px-0">
                                 <div *ngIf="name.errors?.['required']">
-                                    Email Address is required.
+                                    Email  is required.
                                 </div>
                                 <div *ngIf="!name.errors?.['required'] &&  name.errors?.['emailValidator']">
                                     Invalid email format.
@@ -54,7 +54,7 @@
 
                         <div class="row px-3 pt-2">
                             <label class="mb-0 px-0">
-                                <h6 class="mb-0 text-sm">Password</h6>
+                                <h6 class="mb-0 text-sm">Password : <span class="text-danger"> * </span></h6>
                             </label>
                             <input type="password" formControlName="pwd" name="pwd"
                                 [class.is-invalid]="pwd.invalid && (pwd.dirty || pwd.touched)"

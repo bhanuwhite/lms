@@ -1,13 +1,13 @@
 <div class="surface-ground surface-ground-wrappers content-inner px-4 p-4">
   <div class="row">
-    <div class="col-lg-6 d-flex align-items-center">
-      <h2 class="text-black">
-        Content
-      </h2>
-      <div class="ms-2">
-        <input type="search" class="form-control w-100" [style]="{'height':'40px'}" [(ngModel)]="searchWord"
-          placeholder="Search Course...." (ngModelChange)="filterCourse()" style="line-height: 2;">
-
+    <h1 style="font-size: 1.5rem;"><b> Content</b> </h1>
+    <div class="col-lg-6 my-2 d-flex align-items-center">
+      <div>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input type="text" pInputText [(ngModel)]="searchWord" (ngModelChange)="filterCourse()"
+            placeholder="Search Course...." />
+        </span>
       </div>
     </div>
     <div class="col-lg-6 d-flex justify-content-end align-items-center">
@@ -29,10 +29,7 @@
             <div class="col-lg-6">
               <h3 class="card-title mb-2 textOverflow" style="font-weight: bold;">{{data.attributes.name}}</h3>
             </div>
-
           </div>
-          <!-- <p [routerLink]="['/admin/content',data.id]" class="card-text cursor-pointer textOverflow">
-            {{data.attributes.description}}.</p> -->
           <div class="d-flex align-items-center justify-content-between">
             <div>
               <span class="d-flex align-items-center" [routerLink]="['/admin/content',data.id]">
@@ -48,14 +45,8 @@
               <div class="d-flex justify-content-end edit-buttons">
                 <p-button icon="pi pi-pencil" pTooltip="Edit Course" styleClass="p-button-rounded"
                   (click)="editContentDialog(data)"></p-button>
-                <!-- <button pButton pRipple type="button" pTooltip="Edit Course" icon="pi pi-pencil"
-                  class="p-button-rounded p-button-outlined" (click)="editContentDialog(data)"
-                  style="height: 30px; width: 30px;"></button> -->
                 <p-button icon="pi pi-times" class="ms-1" pTooltip="Delete Course"
                   styleClass="p-button-rounded p-button-danger" (click)="deleteDialog(data)"></p-button>
-                <!-- <button pButton pRipple type="button" pTooltip="Delete Course" icon="pi pi-times"
-                  class="p-button-rounded ms-1 p-button-danger p-button-outlined" style="height: 30px; width: 30px;"
-                  (click)="deleteDialog(data)"></button> -->
               </div>
             </div>
           </div>
