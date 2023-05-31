@@ -30,7 +30,6 @@ import { TrackPost, TrackPut, TrackResponse } from '../models/track';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-
   // Get COURSE CONTENT
   public getContent(): Observable<AllCourseContent> {
     return this.http.get<AllCourseContent>(`/api/course-contents?populate=*`);

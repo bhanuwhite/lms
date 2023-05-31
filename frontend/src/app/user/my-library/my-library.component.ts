@@ -20,21 +20,9 @@ import {
   providers: [ConfirmationService, MessageService],
 })
 export class MyLibraryComponent implements OnInit {
-  // items!: MenuItem[];
   Spinner: boolean = true;
   searchWord: string = '';
-  public value: number = 10;
-  public progressValue: number = 0;
 
-  courseDetailsJSON = '../../assets/course_details/courseDetails.json';
-  public recentlyAccessDropdown: dropDown[] = [];
-  public selectedRecentlyAccess: string = '';
-  public categoryDropdown: dropDown[] = [];
-  public selectedCategory: string = '';
-  public progressDropdown: dropDown[] = [];
-  public selectedProgress: string = '';
-  public instructorDropdown: dropDown[] = [];
-  public selectedInstructor: string = '';
   loadingSpinner: boolean = false;
   public searchData:any;
   public courseData: UserLibraryGetResponseData[] = [];
@@ -52,7 +40,7 @@ export class MyLibraryComponent implements OnInit {
     this.getTrackAPI();
   }
 
-  public getContentLibrary() {
+  public getContentLibrary():void {
     this.loadingSpinner = true;
     this.apiService.getContentLibrary().subscribe((res) => {
       try {
@@ -68,7 +56,7 @@ export class MyLibraryComponent implements OnInit {
     });
   }
 
-  public getTrackAPI(){
+  public getTrackAPI():void{
     this.apiService.getTrack().subscribe((res)=>{
       console.log("track response",res);
 
@@ -77,17 +65,22 @@ export class MyLibraryComponent implements OnInit {
 
 
 
-  public searchFun() {
-    this.courseData = this.searchData.filter((course: any) =>
-      course.attributes?.content_library?.data.attributes.name
-        .toLowerCase()
-        .includes(this.searchWord.toLowerCase())
-    );
-    console.log(this.courseData);
+  filterCourseData(): void {
+    if (this.searchWord) {
+      this.courseData = this.searchData.filter((course:any) =>
+      // console.log(course)
 
+        course.attributes.course_content.data.attributes.name.toLowerCase().includes(this.searchWord.toLowerCase()) ||
+        course.attributes.course_content.data.attributes.description.toLowerCase().includes(this.searchWord.toLowerCase())
+
+      );
+    } else {
+      // If search term is empty, reset the courseData array to show all data
+      this.courseData = this.searchData;
+    }
   }
 
-  public removeCourse(id: number) {
+  public removeCourse(id: number):void {
     this.confirmationService.confirm({
       message: 'Do you want to delete this course from your Library?',
       header: 'Delete Confirmation',

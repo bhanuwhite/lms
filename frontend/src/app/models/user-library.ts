@@ -19,7 +19,6 @@ export interface UserLibraryGetResponse {
   };
 }
 export interface UserLibraryGetResponseData {
-  // map(arg0: (obj: UserLibraryGetResponseData) => number): number[];
   id: number;
   attributes: {
     course_content: {
@@ -60,7 +59,7 @@ export interface UserLibraryGetResponseData {
         };
       };
     };
-    progress_percentage:number
+    progress_percentage?:number
   };
 }
 

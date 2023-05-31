@@ -56,6 +56,7 @@ import { InstructorsMessagesComponent } from './instructors-messages/instructors
 import { ScrollerModule } from 'primeng/scroller';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
+import { TrackuserComponent } from './trackuser/trackuser.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
     AccountSettingsComponent,
     CommunityQuestionsRepliesComponent,
     InstructorsMessagesComponent,
-    QuizDetailsComponent
+    QuizDetailsComponent,
+    TrackuserComponent
 
   ],
   imports: [
