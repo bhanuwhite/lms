@@ -16,8 +16,9 @@ export class UserContentComponent {
   Spinner: boolean = true;
   public isLoading: boolean = false;
   public coursesList: AllCourseContentData[] = [];
+  public courseList2:AllCourseContentData[] =[];
   public items: ContentResponse[] = [];
-  public searchQuery!: string;
+  public searchWord: string = "";
   public libDataId: number[] = [];
    public showPurchase: boolean = false;
   constructor(
@@ -56,6 +57,7 @@ export class UserContentComponent {
       try {
         this.Spinner = false;
         this.coursesList = res.data;
+        this.courseList2 = res.data
         console.log("User Content",this.coursesList);
 
         this.items = res.data;
@@ -66,7 +68,19 @@ export class UserContentComponent {
     });
   }
 
-  public searchByName() {
+  public searchFunction() {
+    if(this.searchWord){
+      this.coursesList = this.courseList2.filter((course:any)=>
+
+        course.attributes.name.toLowerCase().includes(this.searchWord.toLowerCase()) ||
+        course.attributes.price.toLowerCase().includes(this.searchWord.toLowerCase())
+
+
+      )
+    }
+    else {
+      this.coursesList = this.courseList2
+    }
     // this.coursesList = this.items.filter((course:any) => course.attributes.name.toLowerCase().includes(this.searchQuery.toLowerCase()) || course.attributes.author.toLowerCase().includes(this.searchQuery.toLowerCase()) || course.attributes.price.includes(this.searchQuery));
   }
 

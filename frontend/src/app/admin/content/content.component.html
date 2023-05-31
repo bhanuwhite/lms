@@ -4,6 +4,11 @@
       <h2 class="text-black">
         Content
       </h2>
+      <div class="ms-2">
+        <input type="search" class="form-control w-100" [style]="{'height':'40px'}" [(ngModel)]="searchWord"
+          placeholder="Search Course...." (ngModelChange)="filterCourse()" style="line-height: 2;">
+
+      </div>
     </div>
     <div class="col-lg-6 d-flex justify-content-end align-items-center">
       <div class="drop-button">
@@ -61,7 +66,7 @@
   <form action="" [formGroup]="addCourse" (ngSubmit)="courseFormSubmit(videoInput, imgInput)">
     <div class="p-fluid grid">
       <div class="field mt-2 w-100">
-        <label for="name">Name :</label>
+        <label for="name">Name :<span class="text-danger fs-5"> * </span> </label>
 
         <span class="p-float-label">
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="name" pInputText
@@ -85,11 +90,11 @@
       </div>
 
       <div class="field mt-2 w-100">
-        <label for="Img"> Content video :</label>
+        <label for="Img"> Content video (mp4) : <span class="text-danger fs-5"> * </span> </label>
         <span class="p-float-label">
-          <input type="file" #videoInput accept="video/*" multiple class="bg-light-grey input-shadow w-100 p-inputtext" pInputText
-            (change)="courseFileSelect($event)">
-            <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="videoUploadProgress" ></p-progressBar>
+          <input type="file" #videoInput accept="video/*" multiple class="bg-light-grey input-shadow w-100 p-inputtext"
+            pInputText (change)="courseFileSelect($event)">
+          <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="videoUploadProgress"></p-progressBar>
 
         </span>
       </div>
@@ -99,13 +104,13 @@
         <span class="p-float-label">
           <input type="file" #imgInput accept="image/*" class="bg-light-grey input-shadow w-100 p-inputtext" pInputText
             (change)="courseFileSelected2($event)">
-            <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="imgUploadProgress" ></p-progressBar>
+          <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="imgUploadProgress"></p-progressBar>
 
         </span>
       </div>
 
       <div class="field mt-2 w-100">
-        <label for="technology">Technology :</label>
+        <label for="technology">Technology : <span class="text-danger fs-5"> * </span> </label>
         <p-dropdown [options]="Technologies" optionLabel="tech" placeholder="Select Technology"
           formControlName="technology" (onChange)="techSelected($event)"></p-dropdown>
         <span class="p-float-label">
@@ -116,18 +121,6 @@
           </small>
         </span>
       </div>
-
-      <div class="field mt-2 w-100">
-        <label for="status">Status :</label>
-        <p-dropdown formControlName="status" [options]="courseStatus" optionLabel="status" placeholder="Select Status"
-          (onChange)="statusSelected($event)"></p-dropdown>
-        <span class="p-float-label">
-          <small class="p-error block" *ngIf="addCourse.get('status')?.invalid && addCourse.get('status')?.touched">
-            Status is required.
-          </small>
-        </span>
-      </div>
-
 
       <div class="field mt-2 w-100">
         <label for="price">Price :</label>
@@ -146,13 +139,6 @@
         <small class="p-error block" *ngIf="addCourse.get('link')?.invalid && addCourse.get('link')?.touched">
           Please enter valid http address.
         </small>
-      </div>
-      <div class="field mt-2 w-100">
-        <label for="admin_id">Admin_id :</label>
-        <span class="p-float-label">
-          <input type="number" [(ngModel)]="Admin_id" class="bg-light-grey input-shadow w-100 p-inputtext"
-            formControlName="admin_id" pInputText readonly>
-        </span>
       </div>
 
     </div>
@@ -179,7 +165,7 @@
       <form [formGroup]="courseUpdateGroup">
         <div class="p-fluid grid">
           <div class="field mt-2 w-100">
-            <label for="name"> Name :</label>
+            <label for="name"> Name :<span class="text-danger fs-5"> * </span> </label>
             <span class="p-float-label">
               <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="name" pInputText
                 placeholder="Course Name">
@@ -202,30 +188,30 @@
           </div>
 
           <div class="field mt-2 w-100">
-            <label for="Img"> Content Video :</label>
+            <label for="Img"> Content Video (mp4) : <span class="text-danger fs-5"> * </span> </label>
             <span class="p-float-label">
-              <input type="file" accept="video/*" class="bg-light-grey input-shadow w-100 p-inputtext" pInputText
-                (change)="courseFileSelect($event)"  >
-            <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="videoUploadProgress" ></p-progressBar>
+              <input type="file" accept="video/*" multiple class="bg-light-grey input-shadow w-100 p-inputtext"
+                pInputText (change)="courseFileSelect($event)">
+              <p-progressBar mode="indeterminate" [style]="{ height: '4px' }"
+                *ngIf="videoUploadProgress"></p-progressBar>
 
-              </span>
+            </span>
           </div>
 
           <div class="field mt-2 w-100">
             <label for="imgage"> Image :</label>
             <span class="p-float-label">
               <input type="file" accept="image/*" class="bg-light-grey input-shadow w-100 p-inputtext" pInputText
-                (change)="courseFileSelected2($event)" >
-            <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="imgUploadProgress" ></p-progressBar>
+                (change)="courseFileSelected2($event)">
+              <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="imgUploadProgress"></p-progressBar>
 
-              </span>
+            </span>
           </div>
 
           <div class="field mt-2 w-100">
-            <label for="name">Technology :</label>
+            <label for="name">Technology : <span class="text-danger fs-5"> * </span> </label>
             <p-dropdown formControlName="technology" [options]="Technologies" optionLabel="tech"
-             placeholder="Select Technology" (onChange)="techSelected($event)"
-              ></p-dropdown>
+              placeholder="Select Technology" (onChange)="techSelected($event)"></p-dropdown>
             <span class="p-float-label">
 
               <small class="p-error block"
@@ -234,19 +220,6 @@
               </small>
             </span>
           </div>
-
-          <div class="field mt-2 w-100">
-            <label for="status">Status :</label>
-            <p-dropdown formControlName="status" [options]="courseStatus" optionLabel="status"
-              placeholder="Select Status" (onChange)="statusSelected2($event)"></p-dropdown>
-            <span class="p-float-label">
-              <small class="p-error block"
-                *ngIf="courseUpdateGroup.get('status')?.invalid && courseUpdateGroup.get('status')?.touched">
-                Status is required.
-              </small>
-            </span>
-          </div>
-
 
           <div class="field mt-2 w-100">
             <label for="price">Price :</label>
@@ -269,14 +242,6 @@
             </small>
           </div>
 
-          <div class="field mt-2 w-100">
-            <label for="admin_id">Admin_id :</label>
-            <span class="p-float-label">
-              <input type="number" [(ngModel)]="Admin_id" class="bg-light-grey input-shadow w-100 p-inputtext"
-                formControlName="admin_id" pInputText readonly>
-            </span>
-          </div>
-
         </div>
         <div class="d-flex justify-content-end mt-2">
           <button type="button" class="btn btn-success me-2" (click)="onUpdateContent()"><i
@@ -291,5 +256,3 @@
   <p-toast position="top-right"></p-toast>
   <app-spinner *ngIf="loadingSpinner==true"></app-spinner>
 </div>
-
-

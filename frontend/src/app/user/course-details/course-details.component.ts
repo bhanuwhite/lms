@@ -1,5 +1,6 @@
 import {
   Component,
+  ElementRef,
   OnDestroy,
   OnInit,
   TemplateRef,
@@ -26,7 +27,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   activeParamId!: number;
   trackResponse: TrackResponseData[] = [];
   trackCourseIds: number[] = [];
-
+  SingleContentLib$: Subscription = new Subscription();
   LibraryContent$: Subscription = new Subscription();
   PostMethodTrack$: Subscription = new Subscription();
   TrackPutMethod$: Subscription = new Subscription();
@@ -40,8 +41,9 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   watchedDurations: { name: string; duration: number }[] = [];
   timeArray: number[] = [];
   putId!: number;
+  accordianTabIndex:number = -1;
 
-  @ViewChild('Course_video') Course_video: any;
+  @ViewChild('Course_video') Course_video!: ElementRef;
 
   constructor(
     public apiService: ApiService,
@@ -76,18 +78,20 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   putLibId!: number;
   public getLibraryData(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.apiService
+      (this.SingleContentLib$ = this.apiService
         .getSingleContentLibrary(this.activeParamId)
         .subscribe((res) => {
           console.log(res);
           this.Spinner = false;
           this.userCourseData = res.data;
+          console.log(this.userCourseData);
+
           this.putLibId = this.userCourseData.id;
 
           this.courseId = this.userCourseData.attributes.course_content.data.id;
           this.defaultVideo();
           resolve();
-        }),
+        })),
         (error: any) => {
           reject(error);
         };
@@ -99,7 +103,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
       this.apiService.getTrack().subscribe((res) => {
         this.trackResponse = res.data;
 
-        this.trackResponse.map((res: any) => {
+        this.trackResponse.map((res: TrackResponseData) => {
           this.timeConsumedByUser = Math.trunc(res.attributes.time_consumed);
           this.trackCourseIds?.push(Number(res.attributes.course_id));
         });
@@ -118,8 +122,8 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
           data: {
             user_id: this.globalUserId,
             course_id: this.courseId,
-            total_duration: 0,
             time_consumed: 0,
+            total_duration: 0,
           },
         };
         if (!this.trackCourseIds.includes(this.courseId)) {
@@ -127,8 +131,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
             .postTrack(postData)
             .subscribe((res) => {
               try {
-
-                this.trackResponse.map((res: any) => {
+                this.trackResponse.map((res: TrackResponseData) => {
                   if (res.attributes.course_id == this.courseId) {
                     this.putId = res.id;
                   }
@@ -144,8 +147,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
             });
           resolve();
         } else {
-
-          this.trackResponse.map((res: any) => {
+          this.trackResponse.map((res: TrackResponseData) => {
             if (res.attributes.course_id == this.courseId) {
               this.putId = res.id;
             }
@@ -164,26 +166,22 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   }
 
   // getting Video Duration
-  onMetadata(video: any) {
+  onMetadata(video: HTMLVideoElement) {
     this.totalDurationVideo = this.totalDurationVideo + video.duration;
   }
 
   // get running time of video.
-  getWatchedTime(videoData: any) {
-    console.log(this.courseId);
-
+  getWatchedTime() {
     this.userWatchedTime = this.Course_video.nativeElement.currentTime;
     const videoIndex = this.watchedDurations.findIndex(
       (video: { name: string }) => video.name === this.streamVideo.name
     );
     if (videoIndex === -1) {
-      // Video duration not found in the array, add a new entry
       this.watchedDurations.push({
         name: this.streamVideo.name,
         duration: Math.trunc(this.userWatchedTime),
       });
     } else {
-      // Video duration found in the array, update the existing entry
       this.watchedDurations[videoIndex].duration = Math.trunc(
         this.userWatchedTime
       );
@@ -203,9 +201,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     if (this.putId) {
       this.TrackPutMethod$ = this.apiService
         .putTrack(this.putId, putTrackData)
-        .subscribe((res) => {
-
-        });
+        .subscribe((res) => {});
 
       const putLibData = {
         data: {
@@ -244,12 +240,25 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
       this.userCourseData?.attributes?.course_content.data?.attributes.content.data[
         index
       ].attributes;
+
+      window.scrollTo(0,0)
+  }
+
+  public toggleAccordian(index:number):void{
+    if(this.accordianTabIndex === index){
+      this.accordianTabIndex = -1;
+    }
+    else {
+      this.accordianTabIndex = index
+    }
+
   }
 
   ngOnDestroy(): void {
     this.LibraryContent$.unsubscribe();
     this.PostMethodTrack$.unsubscribe();
     this.TrackPutMethod$.unsubscribe();
+    this.SingleContentLib$.unsubscribe();
   }
 
   // End

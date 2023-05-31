@@ -7,29 +7,29 @@
     <div class="col-lg-8">
 
       <div class="py-3" *ngIf="streamVideo">
-        <video [src]="streamVideo.url" controls class="course_video"  #Course_video (timeupdate)="getWatchedTime($event)" ></video>
-        <p> <b>{{streamVideo.name}}</b></p>
+        <video [src]="streamVideo.url" controls class="course_video" #Course_video
+          (timeupdate)="getWatchedTime()"></video>
+        <p> <b class="fs-6">{{streamVideo.name}}</b></p>
       </div>
 
     </div>
 
-    <div class="col-lg-4">
+    <div class="col-lg-4 h-100">
       <div class="py-3">
-        <div class="border px-2 py-2 border-top-1">
-          <b>Course Content</b>
+        <div class="border px-2 py-2 border-top-1 d-flex justify-content-center">
+          <b class="fs-5">Course Content</b>
         </div>
-        <div
-          *ngFor="let courseVideo of userCourseData?.attributes?.course_content?.data?.attributes?.content?.data; let i=index">
-          <p-accordion>
-            <p-accordionTab [header]="courseVideo.attributes.name">
+        <!-- <div
+          *ngFor="let courseVideo of userCourseData?.attributes?.course_content?.data?.attributes?.content?.data; let i=index"> -->
+          <p-accordion  *ngFor="let courseVideo of userCourseData?.attributes?.course_content?.data?.attributes?.content?.data; let i=index">
 
-                <video [src]="courseVideo.attributes.url" type="video/mp4" alt="" style="height: 200px; width: 100%;"
-                  (click)="playVideo(i)" #video (loadedmetadata)="onMetadata(video)" ></video>
-
-              </p-accordionTab>
+            <p-accordionTab [header]="courseVideo.attributes.name"  [selected]=" i === accordianTabIndex" (click)="toggleAccordian(i)" >
+              <video [src]="courseVideo.attributes.url" type="video/mp4" alt="" style="height: 200px; width: 100%;"
+                (click)="playVideo(i)" #video (loadedmetadata)="onMetadata(video)"></video>
+            </p-accordionTab>
           </p-accordion>
 
-        </div>
+        <!-- </div> -->
       </div>
 
       <p-toast></p-toast>
