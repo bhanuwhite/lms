@@ -7,15 +7,15 @@
     </div>
     <div class="col-lg-6 d-flex justify-content-end align-items-center">
       <div class="drop-button">
-        <button class="btn btn-warning mb-2" (click)="showCourseDialog()"> <i
-            class="pi pi-plus me-2 cursor-pointer"></i> Add Course</button>
+        <button class="btn btn-primary mb-2" (click)="showCourseDialog()"> Add Course <i
+            class="pi pi-plus ms-2 cursor-pointer"></i></button>
       </div>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-lg-4 mb-3" *ngFor="let data of contentData">
-      <div class="card" style="height: 400px; width: 95%;">
+    <div class="col-lg-3  mb-3" *ngFor="let data of contentData">
+      <div class="card" style="max-height: 380px; width: 100%;">
         <img [routerLink]="['/admin/content',data.id]" style="height: 230px;cursor: pointer;"
           src="{{data.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url}}" class="card-img-top"
           alt="...">
@@ -28,24 +28,29 @@
           </div>
           <p [routerLink]="['/admin/content',data.id]" class="card-text cursor-pointer textOverflow">
             {{data.attributes.description}}.</p>
-          <div class="row align-items-center cursor-pointer">
-            <div class="col-lg-4">
+          <div class="d-flex align-items-center justify-content-between">
+            <div>
               <span class="d-flex align-items-center" [routerLink]="['/admin/content',data.id]">
                 <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="visibility"></mat-icon><span
                   class="ms-1">14</span>
               </span>
             </div>
-            <div class="col-lg-4"><button type="button" class="btn" [routerLink]="['/admin/content',data.id]">
+            <div>
+              <button type="button" class="btn" [routerLink]="['/admin/content',data.id]">
                 {{data.attributes.price | currency : 'INR'}}</button>
             </div>
-            <div class="col-lg-4 d-flex justify-content-end">
-              <div class="d-flex justify-content-end mt-2">
-                <button pButton pRipple type="button" pTooltip="Edit Course" icon="pi pi-pencil"
+            <div>
+              <div class="d-flex justify-content-end edit-buttons">
+                <p-button icon="pi pi-pencil" pTooltip="Edit Course" styleClass="p-button-rounded"
+                  (click)="editContentDialog(data)"></p-button>
+                <!-- <button pButton pRipple type="button" pTooltip="Edit Course" icon="pi pi-pencil"
                   class="p-button-rounded p-button-outlined" (click)="editContentDialog(data)"
-                  style="height: 2rem; width: 2rem;"></button>
-                <button pButton pRipple type="button" pTooltip="Delete Course" icon="pi pi-times"
-                  class="p-button-rounded ms-1 p-button-danger p-button-outlined" style="height: 2rem; width: 2rem;"
-                  (click)="deleteDialog(data)"></button>
+                  style="height: 30px; width: 30px;"></button> -->
+                <p-button icon="pi pi-times" class="ms-1" pTooltip="Delete Course" styleClass="p-button-rounded p-button-danger"
+                   (click)="deleteDialog(data)"></p-button>
+                <!-- <button pButton pRipple type="button" pTooltip="Delete Course" icon="pi pi-times"
+                  class="p-button-rounded ms-1 p-button-danger p-button-outlined" style="height: 30px; width: 30px;"
+                  (click)="deleteDialog(data)"></button> -->
               </div>
             </div>
           </div>
@@ -87,9 +92,9 @@
       <div class="field mt-2 w-100">
         <label for="Img"> Content video :</label>
         <span class="p-float-label">
-          <input type="file" #videoInput accept="video/*" multiple class="bg-light-grey input-shadow w-100 p-inputtext" pInputText
-            (change)="courseFileSelect($event)">
-            <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="videoUploadProgress" ></p-progressBar>
+          <input type="file" #videoInput accept="video/*" multiple class="bg-light-grey input-shadow w-100 p-inputtext"
+            pInputText (change)="courseFileSelect($event)">
+          <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="videoUploadProgress"></p-progressBar>
 
         </span>
       </div>
@@ -99,7 +104,7 @@
         <span class="p-float-label">
           <input type="file" #imgInput accept="image/*" class="bg-light-grey input-shadow w-100 p-inputtext" pInputText
             (change)="courseFileSelected2($event)">
-            <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="imgUploadProgress" ></p-progressBar>
+          <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="imgUploadProgress"></p-progressBar>
 
         </span>
       </div>
@@ -205,27 +210,27 @@
             <label for="Img"> Content Video :</label>
             <span class="p-float-label">
               <input type="file" accept="video/*" class="bg-light-grey input-shadow w-100 p-inputtext" pInputText
-                (change)="courseFileSelect($event)"  >
-            <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="videoUploadProgress" ></p-progressBar>
+                (change)="courseFileSelect($event)">
+              <p-progressBar mode="indeterminate" [style]="{ height: '4px' }"
+                *ngIf="videoUploadProgress"></p-progressBar>
 
-              </span>
+            </span>
           </div>
 
           <div class="field mt-2 w-100">
             <label for="imgage"> Image :</label>
             <span class="p-float-label">
               <input type="file" accept="image/*" class="bg-light-grey input-shadow w-100 p-inputtext" pInputText
-                (change)="courseFileSelected2($event)" >
-            <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="imgUploadProgress" ></p-progressBar>
+                (change)="courseFileSelected2($event)">
+              <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="imgUploadProgress"></p-progressBar>
 
-              </span>
+            </span>
           </div>
 
           <div class="field mt-2 w-100">
             <label for="name">Technology :</label>
             <p-dropdown formControlName="technology" [options]="Technologies" optionLabel="tech"
-             placeholder="Select Technology" (onChange)="techSelected($event)"
-              ></p-dropdown>
+              placeholder="Select Technology" (onChange)="techSelected($event)"></p-dropdown>
             <span class="p-float-label">
 
               <small class="p-error block"
@@ -291,5 +296,3 @@
   <p-toast position="top-right"></p-toast>
   <app-spinner *ngIf="loadingSpinner==true"></app-spinner>
 </div>
-
-

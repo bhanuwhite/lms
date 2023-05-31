@@ -189,6 +189,7 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
 
 .content-inner {
   height: 100vh;
+  background-color: #eff3f8;
   overflow-x: hidden !important;
 }
 
@@ -224,6 +225,12 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
 ::-webkit-scrollbar-thumb {
   background: #c7c7c7;
   border-radius: 5px;
+}
+.edit-buttons{
+  button.p-ripple.p-element.p-button-rounded.p-button.p-component.p-button-icon-only {
+      height: 30px !important;
+      width: 30px !important;
+  }
 }
 
 
