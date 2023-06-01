@@ -1,1 +1,26 @@
-<p>trackuser works!</p>
+<div class="surface-ground px-3 py-3">
+  <h1 style="font-size: 1.5rem;"><b> All Users</b> </h1>
+
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="card p-2 shadow-2">
+        <div class="card-header  d-flex justify-content-centre align-items-center">
+          <span class="material-symbols-outlined ps-5" style="font-size: 3rem;"> account_circle </span>
+        </div>
+        <div class="card-body">
+          <div class="ms-5" *ngFor="let users of trackResponse; let i=index">
+            <ng-container *ngIf="!UseridRepeated(i)">
+              <h1>Name</h1>
+              <h2> {{users.attributes.user_id}} </h2>
+              <h3>Email</h3>
+            </ng-container>
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
