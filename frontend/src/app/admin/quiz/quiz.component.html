@@ -1,27 +1,28 @@
 <div class="surface-ground px-4 py-3">
-  <div class="row">
-    <div class="col-lg-3">
-      <div class="card p-2 shadow-2">
+  <div class="row d-flex ">
+    <div class="col-lg-3 " *ngFor="let course of allCourses">
+    <div >
+      <div class="card p-2 shadow-2 m-2" >
         <h4 class="mb-2 p-0">
           Exam
         </h4>
         <!-- <hr class="m-0 p-0"> -->
-        <div class="card-body p-0">
-          <h4 class="p-0 m-0" style="color: #0d6efd;">Javascript Exam PL-600: Javascript bascic</h4>
-          <div class="d-flex justify-content-between py-2 align-items-center" style="height: 80px;">
-           <p class="m-0">Dyanamic 365 . Developer .</p>
-            <div>
-              <img src="assets\img\java-script.png" style="width: 40px;" alt="">
-            </div>
-          </div>
+        <div class="card-body p-0 m-2 cursor-pointer d-flex justify-content-between"  (click)="showQuizQuestions(course.attributes.name)">
+          <h4 class="p-0 m-0 textOverflow" style="color: #0d6efd;">{{ course.attributes.name}}</h4>
+          <img src={{course.attributes.placeholder_img.data.attributes.url}} style="width: 40px;" alt="">
+
+          <!-- <div class="d-flex justify-content-between py-2 align-items-center" style="height: 80px;">
+            <p class="m-0 " style="text-overflow: hidden;">{{ course.attributes.description}}</p>
+          </div> -->
 
         </div>
         <hr class="m-0 p-0">
         <div class="d-flex justify-content-end align-items-center pt-2">
           <button class="btn p-0" style="color:#0d6efd ;"> <i
-            class="pi pi-plus cursor-pointer"></i> Add </button>
+            class="pi pi-plus cursor-pointer"  (click)="showDialog(course)"></i> Add </button>
         </div>
       </div>
+    </div>
     </div>
   </div>
   <!-- <div class="grid">
