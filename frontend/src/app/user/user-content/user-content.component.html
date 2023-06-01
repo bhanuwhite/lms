@@ -114,9 +114,11 @@
       <!-- <div class="loader">Loading...</div> -->
       <div class="row  justify-content-end">
         <div class="col-lg-6 d-flex">
-          <input type="search" class="form-control w-100" [(ngModel)]="searchWord" (ngModelChange)="searchFunction()"
-            placeholder="Search for courses" style="line-height: 2;">
-          <button class="btn btn-dark"><i class="pi pi-search"></i></button>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input type="text" pInputText [(ngModel)]="searchWord" (ngModelChange)="searchFunction()"
+              placeholder="Search Course...." />
+          </span>
         </div>
       </div>
       <div class="row all-Courses" *ngIf="coursesList.length != 0">
