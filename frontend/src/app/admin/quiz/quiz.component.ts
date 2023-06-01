@@ -174,6 +174,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   public getCourseContentDetails() {
     this.apiService.getContent().subscribe((res) => {
       this.allCourses = res.data;
+      console.log(res.data);
 
     })
   }

@@ -62,7 +62,7 @@ begginer
     <div class="p-fluid grid">
 
       <div class="field mt-4 w-100">
-        <label for="title">Course_Name:</label>
+        <label for="title">Coursename :</label>
         <span>
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="Course_Name"
             class="form-control" required formControlName="Course_Name" pInputText placeholder="Course_Name">
@@ -75,7 +75,7 @@ begginer
 
 
       <div class="field mt-4 w-100">
-        <label for="title">Level</label>
+        <label for="title">Level :</label>
 
         <p-dropdown [options]="level" optionLabel="level_name"  class="form-control"
           formControlName="level" placeholder="Select level"></p-dropdown>
@@ -88,7 +88,7 @@ begginer
       </div>
 
       <div class="field mt-4 w-100">
-        <label for="title">Question</label>
+        <label for="title">Question :</label>
         <span>
 
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="question" class="form-control"
@@ -101,7 +101,7 @@ begginer
 
       </div>
       <div class="field mt-4 w-50">
-        <label for="title">Option(A)</label>
+        <label for="title">Option (A)</label>
         <span>
           <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" style="resize: none;"
             cols="30" formControlName="option1" pInputText>
@@ -113,7 +113,7 @@ begginer
       </div>
 
       <div class="field mt-4 w-50">
-        <label for="title">Option(B)</label>
+        <label for="title">Option (B)</label>
         <span>
           <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option2"
             pInputText>
@@ -123,7 +123,7 @@ begginer
         </span>
       </div>
       <div class="field mt-4 w-50">
-        <label for="title">Option(C)</label>
+        <label for="title">Option (C)</label>
         <span>
           <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option3"
             pInputText>
@@ -133,7 +133,7 @@ begginer
         </span>
       </div>
       <div class="field mt-4 w-50">
-        <label for="title">Option(D)</label>
+        <label for="title">Option (D)</label>
         <span>
           <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option4"
             pInputText>
@@ -143,9 +143,9 @@ begginer
         </span>
       </div>
       <div class="field mt-4 w-100">
-        <label for="title">Answer:</label>
-        <span>
-          <div *ngFor="let data of categories">
+        <label for="title">Answer :</label>
+        <span class="d-flex">
+          <div *ngFor="let data of categories" class="p-2">
             <label>
               <input type="checkbox" (change)="onChange(data.name,$event.target)" [checked]="data.checked">
               {{ data.name }}
