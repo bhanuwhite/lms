@@ -96,6 +96,21 @@
     },
     "progress_percentage": {
       "type": "biginteger"
+    },
+    "tracking_id": {
+      "type": "biginteger"
+    },
+    "course_id": {
+      "type": "biginteger"
+    },
+    "total_duration": {
+      "type": "biginteger"
+    },
+    "time_consumed": {
+      "type": "biginteger"
+    },
+    "course_name": {
+      "type": "string"
     }
   }
 }
