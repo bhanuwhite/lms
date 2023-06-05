@@ -75,6 +75,21 @@
         "D",
         "E"
       ]
+    },
+    "course_duration": {
+      "type": "decimal"
+    },
+    "level": {
+      "type": "enumeration",
+      "enum": [
+        "Beginner",
+        "Intermediate",
+        "Advanced"
+      ]
+    },
+    "no_of_purchases": {
+      "type": "biginteger",
+      "default": "0"
     }
   }
 }

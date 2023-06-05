@@ -26,6 +26,9 @@
     },
     "time_consumed": {
       "type": "biginteger"
+    },
+    "course_name": {
+      "type": "string"
     }
   }
 }

@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-06-04T16:15:11.126Z"
+    "x-generation-date": "2023-06-05T05:09:21.690Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -596,6 +596,23 @@
                   "D",
                   "E"
                 ]
+              },
+              "course_duration": {
+                "type": "number",
+                "format": "float"
+              },
+              "level": {
+                "type": "string",
+                "enum": [
+                  "Beginner",
+                  "Intermediate",
+                  "Advanced"
+                ]
+              },
+              "no_of_purchases": {
+                "type": "string",
+                "pattern": "^\\d*$",
+                "example": "123456789"
               }
             }
           }
@@ -1463,6 +1480,23 @@
               "D",
               "E"
             ]
+          },
+          "course_duration": {
+            "type": "number",
+            "format": "float"
+          },
+          "level": {
+            "type": "string",
+            "enum": [
+              "Beginner",
+              "Intermediate",
+              "Advanced"
+            ]
+          },
+          "no_of_purchases": {
+            "type": "string",
+            "pattern": "^\\d*$",
+            "example": "123456789"
           },
           "createdAt": {
             "type": "string",
@@ -4752,6 +4786,9 @@
                 "type": "string",
                 "pattern": "^\\d*$",
                 "example": "123456789"
+              },
+              "course_name": {
+                "type": "string"
               }
             }
           }
@@ -4830,6 +4867,9 @@
             "type": "string",
             "pattern": "^\\d*$",
             "example": "123456789"
+          },
+          "course_name": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -6055,6 +6095,23 @@
                           "D",
                           "E"
                         ]
+                      },
+                      "course_duration": {
+                        "type": "number",
+                        "format": "float"
+                      },
+                      "level": {
+                        "type": "string",
+                        "enum": [
+                          "Beginner",
+                          "Intermediate",
+                          "Advanced"
+                        ]
+                      },
+                      "no_of_purchases": {
+                        "type": "string",
+                        "pattern": "^\\d*$",
+                        "example": "123456789"
                       },
                       "createdAt": {
                         "type": "string",
