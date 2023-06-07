@@ -1,6 +1,5 @@
 <div class="surface-ground surface-ground-wrappers content-inner px-4 p-4">
   <div class="row">
-    <!-- <h1 style="font-size: 1.5rem;"><b> Content</b> </h1> -->
     <div class="mb-2 d-flex align-items-center justify-content-between">
       <h1 class="m-0" style="font-size: 1.5rem;"><b> Content</b> </h1>
 
@@ -16,19 +15,14 @@
       </div>
 
     </div>
-    <!-- <div class="col-lg-6 d-flex justify-content-end align-items-center">
-      <div class="drop-button">
-        <button class="btn btn-primary mb-2" (click)="showCourseDialog()"> Add Course <i
-            class="pi pi-plus ms-2 cursor-pointer"></i></button>
-      </div>
-    </div> -->
+
   </div>
 
   <div class="row">
     <div class="col-lg-3  mb-3" *ngFor="let data of contentData">
       <div class="card" style="max-height: 380px; width: 100%;">
         <img [routerLink]="['/admin/content',data.id]" style="height: 230px;cursor: pointer;"
-          src="{{data.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url}}" class="card-img-top"
+          src="{{data.attributes?.placeholder_img?.data?.attributes?.formats?.thumbnail?.url}}" class="card-img-top"
           alt="...">
         <div class="card-body">
           <div class="row cursor-pointer" [routerLink]="['/admin/content',data.id]">
@@ -69,7 +63,6 @@
     <div class="p-fluid grid">
       <div class="field mt-2 w-100">
         <label for="name">Name :<span class="text-danger fs-5"> * </span> </label>
-
         <span class="p-float-label">
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="name" pInputText
             placeholder="Course Name">
@@ -82,7 +75,6 @@
       <div class="field mt-2 w-100">
         <label for="description">Description :</label>
         <span class="p-float-label">
-
           <textarea rows="5" formControlName="description" pInputTextarea (input)="checkWordCount()"
             [style]="{'width':'100%'}" placeholder="Enter description" [readOnly]="remainingWords == 0"></textarea>
           <div class="d-flex justify-content-end">
@@ -116,10 +108,21 @@
         <p-dropdown [options]="Technologies" optionLabel="tech" placeholder="Select Technology"
           formControlName="technology" (onChange)="techSelected($event)"></p-dropdown>
         <span class="p-float-label">
-
           <small class="p-error block"
             *ngIf="addCourse.get('technology')?.invalid && addCourse.get('technology')?.touched">
             Technology name is required.
+          </small>
+        </span>
+      </div>
+
+      <div class="field mt-2 w-100">
+        <label for="technology">Level : <span class="text-danger fs-5"> * </span> </label>
+        <p-dropdown [options]="levels" optionLabel="level" placeholder="Select Level"
+          formControlName="level" (onChange)="levelSelected($event)"></p-dropdown>
+        <span class="p-float-label">
+          <small class="p-error block"
+            *ngIf="addCourse.get('level')?.invalid && addCourse.get('level')?.touched">
+            Technology Level is required.
           </small>
         </span>
       </div>
@@ -180,7 +183,6 @@
           <div class="field mt-2 w-100">
             <label for="description">Description :</label>
             <span class="p-float-label">
-
               <textarea rows="5" formControlName="description" pInputTextarea (input)="checkWordCount()"
                 [style]="{'width':'100%'}" placeholder="Enter description" [readOnly]="remainingWords == 0"></textarea>
               <div class="d-flex justify-content-end">
@@ -196,7 +198,6 @@
                 pInputText (change)="courseFileSelect($event)">
               <p-progressBar mode="indeterminate" [style]="{ height: '4px' }"
                 *ngIf="videoUploadProgress"></p-progressBar>
-
             </span>
           </div>
 
@@ -215,10 +216,21 @@
             <p-dropdown formControlName="technology" [options]="Technologies" optionLabel="tech"
               placeholder="Select Technology" (onChange)="techSelected($event)"></p-dropdown>
             <span class="p-float-label">
-
               <small class="p-error block"
                 *ngIf="courseUpdateGroup.get('technology')?.invalid && courseUpdateGroup.get('technology')?.touched">
                 Technology name is required.
+              </small>
+            </span>
+          </div>
+
+          <div class="field mt-2 w-100">
+            <label for="technology">Level : <span class="text-danger fs-5"> * </span> </label>
+            <p-dropdown [options]="levels" optionLabel="level" placeholder="Select Level"
+              formControlName="level" (onChange)="levelSelected($event)"></p-dropdown>
+            <span class="p-float-label">
+              <small class="p-error block"
+                *ngIf="courseUpdateGroup.get('level')?.invalid && courseUpdateGroup.get('level')?.touched">
+                Technology Level is required.
               </small>
             </span>
           </div>

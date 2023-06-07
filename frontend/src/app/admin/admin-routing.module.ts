@@ -15,6 +15,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
 import { TrackuserComponent } from './trackuser/trackuser.component';
+import { TrackDetailsComponent } from './track-details/track-details.component';
 
 
 const routes: Routes = [
@@ -41,6 +42,9 @@ const routes: Routes = [
       },
       {
         path: 'trackuser',component: TrackuserComponent
+      },
+      {
+        path:'trackuser/:id',component: TrackDetailsComponent
       },
       {
         path: 'profile', component: ProfileComponent

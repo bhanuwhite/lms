@@ -123,10 +123,10 @@ export interface AddedCourseDataLib {
   };
 }
 
-export interface RemoveLibraryData {
-  data: {
-    id: number;
-    attributes: {};
-  };
-  meta: {};
-}
+// export interface RemoveLibraryData {
+//   data: {
+//     id: number;
+//     attributes: {};
+//   };
+//   meta: {};
+// }

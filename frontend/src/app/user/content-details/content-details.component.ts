@@ -37,12 +37,9 @@ import {
 export class ContentDetailsComponent implements OnInit {
   public displayDialog = false;
   public courseId!: number;
+  public userID!:number;
   public singleCourse!: AllCourseContentData;
-
-  ngOnInit(): void {
-    this.getSingleCourseObj();
-    this.getUserLibrary();
-  }
+  UserCourseArr: any[]= []
 
   constructor(
     public dialogService: DialogService,
@@ -52,6 +49,20 @@ export class ContentDetailsComponent implements OnInit {
     private confirmationService: ConfirmationService
   ) {}
 
+  ngOnInit(): void {
+    this.getLocal();
+    this.getSingleCourseObj();
+    // this.getUserLibrary();
+    this.getUsers();
+  }
+
+ public getLocal():void {
+  const getLocalData = JSON.parse(localStorage.getItem('user')!)
+  console.log(getLocalData);
+  this.userID = getLocalData.id
+  console.log(this.userID);
+
+}
   public getSingleCourseObj() {
     this.activeParams.params.subscribe((res) => {
       this.courseId = res['id'];
@@ -62,7 +73,19 @@ export class ContentDetailsComponent implements OnInit {
     });
   }
 
-  addToLibrary(course: AllCourseContentData) {
+  public getUsers():void {
+    this.apiService.getContentLibrary().subscribe((res)=>{
+      console.log("users",res);
+    })
+  }
+
+
+  addToLibrary(course: any) {
+    console.log(course);
+    console.log(this.UserCourseArr);
+
+    this.UserCourseArr.push(course)
+    console.log("checking ", this.UserCourseArr);
 
     this.confirmationService.confirm({
       message: `Do you want to add this ${course?.attributes.name} to Library?`,
@@ -70,19 +93,23 @@ export class ContentDetailsComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         const courseDetails = {
-          data: {
-            course_content : course.id
-          },
+
+            course_contents : course.id
+
         };
+        console.log(courseDetails);
 
-        this.apiService.postContentLibrary(courseDetails).subscribe((res) => {
 
-          this.getUserLibrary();
-        });
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successfully',
-          detail: 'Course added to library',
+        this.apiService.putLibraryData(this.userID,courseDetails).subscribe((res) => {
+
+          // this.getUserLibrary();
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Successfully',
+            detail: 'Course added to library',
+          });
+          this.getUsers()
+
         });
       },
       reject: (type: any) => {
@@ -105,7 +132,6 @@ export class ContentDetailsComponent implements OnInit {
       },
     });
 
-    this.getUserLibrary()
 
   }
 
@@ -113,17 +139,17 @@ export class ContentDetailsComponent implements OnInit {
 
   public LibCourseId:number[] = [];
 
-  public getUserLibrary() {
-    this.apiService.getContentLibrary().subscribe((res) => {
-      const libraryContent = res.data;
-      console.log("LIB DATA",libraryContent);
-      res.data.map((res:any)=>{
-        return this.LibCourseId.push(res.attributes.course_content.data?.id);
-      })
-      console.log(this.LibCourseId);
+  // public getUserLibrary() {
+  //   this.apiService.getContentLibrary().subscribe((res) => {
+  //     const libraryContent = res.data;
+  //     console.log("LIB DATA",libraryContent);
+  //     res.data.map((res:any)=>{
+  //       return this.LibCourseId.push(res.attributes.course_content.data?.id);
+  //     })
+  //     console.log(this.LibCourseId);
 
-    });
-  }
+  //   });
+  // }
 
   onClickVideo(courseDetails: {}) {
     // this.displayDialog = true;

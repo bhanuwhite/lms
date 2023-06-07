@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { Router } from '@angular/router';
 import { ConfirmationService, Message, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { AllCourseContent, AllCourseContentData } from 'src/app/models/content';
+import {  AllCourseContentData } from 'src/app/models/content';
 import { Quiz, QuizData, QuizResponse } from 'src/app/models/quiz';
 import { ApiService } from 'src/app/services/api.service';
 

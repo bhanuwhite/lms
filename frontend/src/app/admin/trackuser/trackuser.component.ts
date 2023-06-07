@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { resolve } from 'chart.js/dist/helpers/helpers.options';
 import { Subscription } from 'rxjs';
 import { TrackResponseData } from 'src/app/models/track';
@@ -13,7 +14,7 @@ export class TrackuserComponent implements OnInit, OnDestroy {
   public trackResponse: TrackResponseData[] = [];
   private TrackRes$: Subscription = new Subscription();
 
-  constructor(private apiservivce: ApiService) {}
+  constructor(private apiservivce: ApiService, public router:Router) {}
 
   ngOnInit(): void {
     this.getTrackApi();
@@ -34,6 +35,10 @@ export class TrackuserComponent implements OnInit, OnDestroy {
       }
     }
     return false;
+  }
+
+  public showTrackDetails(id:number): void{
+    this.router.navigate(['trackuser/',id])
   }
 
   ngOnDestroy(): void {

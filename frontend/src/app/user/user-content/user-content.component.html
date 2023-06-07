@@ -1,33 +1,3 @@
-<!-- <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <div class="banner-image">
-        <div class=" banner-content  bg-white border">
-          <h1><b>Learning never exhausts the mind</b></h1>
-          <h3>Skills for your present (and your future). Get started with us.</h3>
-        </div>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <div class="banner-image-1">
-        <div class=" banner-content  bg-white border">
-          <h1><b>Keep moving up</b></h1>
-          <h3>Learn the skills you need to take the next step — and every step after. Log in now to save on
-            courses
-            through March 1..</h3>
-        </div>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <div class="banner-image">
-        <div class=" banner-content  bg-white border">
-          <h1><b>Learning never exhausts the mind</b></h1>
-          <h3>Skills for your present (and your future). Get started with us.</h3>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
 <div class="container-fluid mb-2">
   <div class="row mt-1">
     <div class="col-lg-3 col-md-6 mb-1 md:col-6 lg:col-3">
@@ -40,11 +10,8 @@
           <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
             style="width:2.5rem;height:2.5rem">
             <i class="pi pi-book text-blue-500 text-xl"></i>
-             
           </div>
         </div>
-        <!-- <span class="text-green-500 font-medium">24 new </span>
-                <span class="text-500">since last visit</span> -->
       </div>
     </div>
     <div class="col-lg-3 mb-1 col-md-6 md:col-6 lg:col-3">
@@ -59,8 +26,6 @@
             <i class="pi pi-wallet text-orange-500 text-xl"></i>
           </div>
         </div>
-        <!-- <span class="text-green-500 font-medium">%52+ </span>
-                <span class="text-500">since last week</span> -->
       </div>
     </div>
     <div class="col-lg-3 mb-1 col-md-6 md:col-6 lg:col-3">
@@ -75,8 +40,6 @@
             <i class="pi pi-money-bill text-cyan-500 text-xl"></i>
           </div>
         </div>
-        <!-- <span class="text-green-500 font-medium">520 </span>
-                <span class="text-500">newly registered</span> -->
       </div>
     </div>
     <div class="col-lg-3 mb-1 col-md-6 md:col-6 lg:col-3">
@@ -91,8 +54,6 @@
             <i class="pi pi-pencil text-purple-500 text-xl"></i>
           </div>
         </div>
-        <!-- <span class="text-green-500 font-medium">85 </span>
-                <span class="text-500">responded</span> -->
       </div>
     </div>
   </div>
@@ -106,113 +67,83 @@
   <div class="text-center">
     <h2><b>Courses to get you Started</b></h2>
   </div>
+  <hr>
 </div>
 <div class="container-fluid">
-  <p-tabView>
-    <p-tabPanel header="Most Popular">
 
-      <!-- <div class="loader">Loading...</div> -->
-      <div class="row  justify-content-end">
-        <div class="col-lg-3 d-flex justify-content-end align-items-center">
-          <span class="p-input-icon-left w-100">
-            <i class="pi pi-search"></i>
-            <input type="text" class="w-100" pInputText [(ngModel)]="searchWord" (ngModelChange)="searchFunction()"
-              placeholder="Search Course...." />
-          </span>
+  <div class="row  justify-content-end">
+    <div class="col-lg-3 d-flex justify-content-end align-items-center">
+      <span class="p-input-icon-left w-100">
+        <i class="pi pi-search"></i>
+        <input type="text" class="w-100" pInputText [(ngModel)]="searchWord" (ngModelChange)="searchFunction()"
+          placeholder="Search Course...." />
+      </span>
+    </div>
+  </div>
+  <div class="row all-Courses" *ngIf="coursesList.length != 0">
+    <p-card class="course-card" *ngFor="let course of coursesList">
+      <ng-template pTemplate="header">
+        <div class="courseImage">
+
+          <a><img alt="Card" src="{{course?.attributes?.placeholder_img?.data?.attributes?.formats?.thumbnail?.url }}"
+              pTooltip="Click to see Course details." tooltip style="height: 225px;  border-radius: 10px 10px 2px 2px"
+              [routerLink]="['course/',course.id]" /></a>
+        </div>
+      </ng-template>
+      <div class="cursor-pointer">
+        <div class="d-flex justify-content-between col-12">
+          <h4 class="col-6 textOverflow">
+            <b>{{ course.attributes.name}}</b>
+          </h4>
+          <p class="d-flex justify-content-center col-5"><span class="material-icons pe-1"> schedule </span>
+            {{((course.attributes.course_duration)/3600).toFixed(1)}}hrs </p>
+        </div>
+        <div class="d-flex justify-content-between">
+          <b> {{course.attributes.level}} Level </b>
+          <p> Lectures : <b>{{course.attributes.content.data.length }}</b> </p>
+        </div>
+        <div class="col-7 textOverflow" pTooltip="{{course.attributes.description}}" tooltip>
+          <p>{{course.attributes.description}}</p>
+        </div>
+
+
+
+
+        <div class="d-flex">
+          <p-rating value="4" [stars]="5" [cancel]="false"></p-rating>
+
         </div>
       </div>
-      <div class="row all-Courses" *ngIf="coursesList.length != 0">
-        <p-card class="course-card" *ngFor="let course of coursesList">
-          <ng-template pTemplate="header">
-            <div class="courseImage">
-
-              <a><img alt="Card"
-                  src="{{course?.attributes?.placeholder_img?.data?.attributes?.formats?.thumbnail?.url }}"
-                  pTooltip="Click to see Course details." tooltip
-                  style="height: 225px;  border-radius: 10px 10px 2px 2px" [routerLink]="['course/',course.id]" /></a>
-            </div>
-          </ng-template>
-          <div class="cursor-pointer">
-            <h4>
-              <b>{{ course.attributes.name}}</b>
-            </h4>
-            <div class="d-flex">
-              <!-- <p-rating [ngModel]="course.rating" [stars]="5" [cancel]="false"
-                                [className]="'custom-star'">
-                            </p-rating>
-                            <p>({{ course.rating }})</p> -->
-              <p> Rating will show here </p>
-            </div>
+      <ng-template pTemplate="footer">
+        <div class="row align-items-center">
+          <div class="col-lg-6 cursor-pointer" *ngIf="parsePrice(course.attributes.price) != 0">
+            <h3>
+              <b>{{ course.attributes.price | currency : "INR" }} </b>
+            </h3>
           </div>
-          <ng-template pTemplate="footer">
-            <div class="row align-items-center">
-              <div class="col-lg-6 cursor-pointer" *ngIf="parsePrice(course.attributes.price) != 0">
-                <h3>
-                  <b>{{ course.attributes.price | currency : "INR" }} </b>
-                </h3>
-              </div>
 
-              <div class="col-lg-6 d-flex justify-content-end">
-                <button class="btn btn-warning" *ngIf="parsePrice(course.attributes.price) != 0"
-                  routerLink="/user/payment">BuyNow</button>
-              </div>
-              <!-- <button class="btn btn-success" *ngIf="course.attributes.price == 0">Free</button> -->
-              <div class="d-flex justify-content-end" *ngIf="libDataId && course.id && libDataId.includes(course.id)">
-                <button class="btn btn-success"> Subscribed </button>
-              </div>
-              <div class="d-flex justify-content-end"
-                *ngIf=" parsePrice(course.attributes.price) == 0 && libDataId && course.id && !libDataId.includes(course.id)">
-                <button class="btn btn-primary"> Free </button>
-              </div>
-
-
-            </div>
-
-          </ng-template>
-        </p-card>
-
-      </div>
-      <div>
-      </div>
-    </p-tabPanel>
-    <p-tabPanel header="Trending">
-      <!-- <div class="row all-Courses">
-        <p-card *ngFor="let course of courseList">
-          <ng-template pTemplate="header">
-            <div class="courseImage">
-              <a><img alt="Card" src="{{ course.courseImage }}" style="height: 225px; border-radius: 10px 10px 2px 2px"
-                  (click)="openCourseDetails(course)" /></a>
-            </div>
-          </ng-template>
-          <div class="courseContent mt-1">
-            <h4>
-              <b>{{ course.courseTitle }}</b>
-            </h4>
-            <p>{{ course.author }}</p>
-            <div class="d-flex">
-
-              <div>
-                <p-rating [ngModel]="course.rating" [cancel]="false" [readonly]="true"></p-rating>
-              </div>
-
-              <p>({{ course.rating }})</p>
-            </div>
+          <div class="col-lg-6 d-flex justify-content-end">
+            <button class="btn btn-warning" *ngIf="parsePrice(course.attributes.price) != 0"
+              routerLink="/user/payment">BuyNow</button>
           </div>
-          <ng-template pTemplate="footer">
-            <div class="row align-items-center">
-              <div class="col-lg-6">
-                <h3>
-                  <b>{{ course.price | currency : "INR" }} </b>
-                </h3>
-              </div>
-              <div class="col-lg-6 d-flex justify-content-end">
-                <button class="btn btn-warning">BuyNow</button>
-              </div>
-            </div>
-          </ng-template>
-        </p-card>
-      </div> -->
-      <b> Trending Courses will come here.</b>
-    </p-tabPanel>
-  </p-tabView>
+          <div class="d-flex justify-content-end" *ngIf="libDataId && course.id && libDataId.includes(course.id)">
+            <button class="btn btn-success"> Subscribed </button>
+          </div>
+          <div class="d-flex justify-content-end"
+            *ngIf=" parsePrice(course.attributes.price) == 0 && libDataId && course.id && !libDataId.includes(course.id)">
+            <button class="btn btn-primary"> Free </button>
+          </div>
+
+
+        </div>
+
+      </ng-template>
+    </p-card>
+
+  </div>
+
+
+
+
+
 </div>
