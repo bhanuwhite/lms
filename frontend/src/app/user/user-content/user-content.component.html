@@ -58,8 +58,6 @@
     </div>
   </div>
 </div>
-
-
 <div *ngIf="Spinner">
   <div class="loader">Loading...</div>
 </div>
@@ -70,7 +68,6 @@
   <hr>
 </div>
 <div class="container-fluid">
-
   <div class="row  justify-content-end">
     <div class="col-lg-3 d-flex justify-content-end align-items-center">
       <span class="p-input-icon-left w-100">
@@ -91,27 +88,30 @@
         </div>
       </ng-template>
       <div class="cursor-pointer">
-        <div class="d-flex justify-content-between col-12">
-          <h4 class="col-6 textOverflow">
-            <b>{{ course.attributes.name}}</b>
-          </h4>
-          <p class="d-flex justify-content-center col-5"><span class="material-icons pe-1"> schedule </span>
-            {{((course.attributes.course_duration)/3600).toFixed(1)}}hrs </p>
+        <div class="row">
+          <div class="col-lg-6">
+            <h4 class=" textOverflow">
+             <h4 class="m-0"><b>{{ course.attributes.name}}</b></h4> 
+            </h4>
+          </div>
+          <div class="col-lg-6 d-flex justify-content-end">
+            <p class="m-0 p-0 d-flex justify-content-center"><span class="material-icons pe-1"> schedule </span>
+              {{((course.attributes.course_duration)/3600).toFixed(1)}}hrs </p>
+          </div>
         </div>
-        <div class="d-flex justify-content-between">
-          <b> {{course.attributes.level}} Level </b>
-          <p> Lectures : <b>{{course.attributes.content.data.length }}</b> </p>
+        <div class="row mb-3">
+          <div class="col-lg-7">
+           <h4 class="m-0"><b> {{course.attributes.level}} Level </b></h4> 
+          </div>
+          <div class="col-lg-5 d-flex justify-content-end">
+            <p class="m-0 p-0"> Lectures : <b>{{course.attributes.content.data.length }}</b> </p>
+          </div>
         </div>
-        <div class="col-7 textOverflow" pTooltip="{{course.attributes.description}}" tooltip>
+        <div class="col-lg-10 textOverflow" pTooltip="{{course.attributes.description}}" tooltip>
           <p>{{course.attributes.description}}</p>
         </div>
-
-
-
-
         <div class="d-flex">
           <p-rating value="4" [stars]="5" [cancel]="false"></p-rating>
-
         </div>
       </div>
       <ng-template pTemplate="footer">
@@ -121,7 +121,6 @@
               <b>{{ course.attributes.price | currency : "INR" }} </b>
             </h3>
           </div>
-
           <div class="col-lg-6 d-flex justify-content-end">
             <button class="btn btn-warning" *ngIf="parsePrice(course.attributes.price) != 0"
               routerLink="/user/payment">BuyNow</button>
@@ -133,17 +132,8 @@
             *ngIf=" parsePrice(course.attributes.price) == 0 && libDataId && course.id && !libDataId.includes(course.id)">
             <button class="btn btn-primary"> Free </button>
           </div>
-
-
         </div>
-
       </ng-template>
     </p-card>
-
   </div>
-
-
-
-
-
 </div>
