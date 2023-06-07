@@ -102,7 +102,6 @@ export class ContentDetailsComponent implements OnInit {
 
         this.apiService.putLibraryData(this.userID,courseDetails).subscribe((res) => {
 
-          // this.getUserLibrary();
           this.messageService.add({
             severity: 'success',
             summary: 'Successfully',
