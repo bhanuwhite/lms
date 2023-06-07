@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-06-05T05:25:09.710Z"
+    "x-generation-date": "2023-06-07T05:09:06.096Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -601,6 +601,11 @@
                 "type": "number",
                 "format": "float"
               },
+              "no_of_purchases": {
+                "type": "string",
+                "pattern": "^\\d*$",
+                "example": "123456789"
+              },
               "level": {
                 "type": "string",
                 "enum": [
@@ -608,11 +613,6 @@
                   "Intermediate",
                   "Advanced"
                 ]
-              },
-              "no_of_purchases": {
-                "type": "string",
-                "pattern": "^\\d*$",
-                "example": "123456789"
               }
             }
           }
@@ -1485,6 +1485,11 @@
             "type": "number",
             "format": "float"
           },
+          "no_of_purchases": {
+            "type": "string",
+            "pattern": "^\\d*$",
+            "example": "123456789"
+          },
           "level": {
             "type": "string",
             "enum": [
@@ -1492,11 +1497,6 @@
               "Intermediate",
               "Advanced"
             ]
-          },
-          "no_of_purchases": {
-            "type": "string",
-            "pattern": "^\\d*$",
-            "example": "123456789"
           },
           "createdAt": {
             "type": "string",
@@ -6100,6 +6100,11 @@
                         "type": "number",
                         "format": "float"
                       },
+                      "no_of_purchases": {
+                        "type": "string",
+                        "pattern": "^\\d*$",
+                        "example": "123456789"
+                      },
                       "level": {
                         "type": "string",
                         "enum": [
@@ -6107,11 +6112,6 @@
                           "Intermediate",
                           "Advanced"
                         ]
-                      },
-                      "no_of_purchases": {
-                        "type": "string",
-                        "pattern": "^\\d*$",
-                        "example": "123456789"
                       },
                       "createdAt": {
                         "type": "string",

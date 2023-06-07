@@ -89,9 +89,9 @@
     "mobile": {
       "type": "biginteger"
     },
-    "course_content": {
+    "course_contents": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "oneToMany",
       "target": "api::course-content.course-content"
     },
     "progress_percentage": {

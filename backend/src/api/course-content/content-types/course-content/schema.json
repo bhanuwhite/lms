@@ -79,6 +79,10 @@
     "course_duration": {
       "type": "decimal"
     },
+    "no_of_purchases": {
+      "type": "biginteger",
+      "default": "0"
+    },
     "level": {
       "type": "enumeration",
       "enum": [
@@ -86,10 +90,6 @@
         "Intermediate",
         "Advanced"
       ]
-    },
-    "no_of_purchases": {
-      "type": "biginteger",
-      "default": "0"
     }
   }
 }
