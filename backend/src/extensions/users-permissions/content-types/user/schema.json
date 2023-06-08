@@ -89,28 +89,10 @@
     "mobile": {
       "type": "biginteger"
     },
-    "course_contents": {
+    "courses": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::course-content.course-content"
-    },
-    "progress_percentage": {
-      "type": "biginteger"
-    },
-    "tracking_id": {
-      "type": "biginteger"
-    },
-    "course_id": {
-      "type": "biginteger"
-    },
-    "total_duration": {
-      "type": "biginteger"
-    },
-    "time_consumed": {
-      "type": "biginteger"
-    },
-    "course_name": {
-      "type": "string"
+      "relation": "oneToOne",
+      "target": "api::user-has-course.user-has-course"
     }
   }
 }

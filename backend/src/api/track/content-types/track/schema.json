@@ -15,20 +15,21 @@
     "tracking_id": {
       "type": "biginteger"
     },
-    "user_id": {
-      "type": "biginteger"
-    },
-    "course_id": {
-      "type": "biginteger"
-    },
     "total_duration": {
       "type": "biginteger"
     },
     "time_consumed": {
       "type": "biginteger"
     },
-    "course_name": {
-      "type": "string"
+    "user_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "course_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::course-content.course-content"
     }
   }
 }

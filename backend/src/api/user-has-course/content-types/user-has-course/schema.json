@@ -12,13 +12,18 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "course_content": {
+    "course_ids": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "oneToMany",
       "target": "api::course-content.course-content"
     },
     "progress_percentage": {
       "type": "biginteger"
+    },
+    "user_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }
