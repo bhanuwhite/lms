@@ -57,6 +57,7 @@ import { ToastModule } from 'primeng/toast';
 import { UserCommunityComponent } from './user-community/user-community.component';
 import { AssessmentComponent } from './assessment/assessment.component';
 import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
+import { BackgroundDirective } from './background.directive';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
     UserContentComponent,
     AccountSettingsComponent,
     AssessmentComponent,
-    QuizDetailsComponent
+    QuizDetailsComponent,
+    BackgroundDirective
   ],
   imports: [
     CommonModule,

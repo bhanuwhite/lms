@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Quiz, QuizData, QuizResponse } from 'src/app/models/quiz';
+import { Quiz, QuizData, QuizResponse,answers,level } from 'src/app/models/quiz';
 import { ApiService } from 'src/app/services/api.service';
-import { QuizComponent } from '../quiz/quiz.component';
+// import { QuizComponent } from '../quiz/quiz.component';
 
 
-interface level {
-  level_name: string;
-}
+// interface level {
+//   level_name: string;
+// }
 
 @Component({
   selector: 'app-quiz-details',
@@ -29,11 +29,11 @@ export class QuizDetailsComponent implements OnInit {
   ];
   public _id!: number;
 
-  public categories: any[] = [
-    { name: 'A', key: 'a', checked: false },
-    { name: 'B', key: 'b', checked: false },
-    { name: 'C', key: 'c', checked: false },
-    { name: 'D', key: 'd', checked: false }
+  public categories: answers[] = [
+    { name: 'A', checked: false },
+    { name: 'B', checked: false },
+    { name: 'C', checked: false },
+    { name: 'D', checked: false }
   ];
 
 
@@ -47,13 +47,16 @@ export class QuizDetailsComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService) { }
 
+  public answersFormArray: FormArray = this.fb.array([]);
+
+
   // Edit Form validation
   public loadEditForm(): void {
     this.editQuizGroup = this.fb.group({
       Course_Name: new FormControl('', [Validators.required]),
       level: new FormControl('', [Validators.required]),
       question: new FormControl('', [Validators.required]),
-      answer: new FormControl('', [Validators.required]),
+      answer: this.fb.array([]),
       option1: new FormControl('', Validators.required),
       option2: new FormControl('', Validators.required),
       option3: new FormControl('', Validators.required),
@@ -82,97 +85,111 @@ export class QuizDetailsComponent implements OnInit {
         }
 
       })
-      console.log(this.quizDetails);
+      // console.log(this.quizDetails);
     })
   }
+
   visible: boolean = false;
+  result: string[] = [];
+
+  // public answerArray: any[] = [];
 
   showDialog(question: QuizResponse) {
+    this.visible = true;
+    this.result = [];
 
     const checkAnswers = JSON.parse(question.attributes.answers);
-    const result = checkAnswers.trim().split(" ");
-    console.log(result);
+    this.result = checkAnswers.trim().split(" ");
 
 
-    this.categories.filter(res => {
-      res.checked = false;
-    })
-
-    result.filter((res: string) => {
-      for (let i = 0; i < this.categories.length; i++) {
-        if (res == this.categories[i].name)
-          this.categories[i].checked = true;
-      }
-
-    })
+        this.categories.map(res=>{
+          res.checked =false;
+    // this.answerArray.push(res);
+        })
 
 
+    this.result.forEach((value) => {
 
-    this.emailFormArray=[]
+      const category = this.categories.find((c) => c.name === value);
+
+        if (category) {
+          category.checked = true;
+
+        }
+    });
+
+
+
+
+
 
     const levelName = question.attributes.level;
     this._id = question.id;
-    console.log(question);
+    // console.log(question);
 
     this.editQuizGroup = this.fb.group({
-      Course_Name: new FormControl(question.attributes.course_name, [Validators.required]),
-      level: new FormControl({ level_name: levelName }, [Validators.required]),
-      question: new FormControl(question.attributes.question, [Validators.required]),
-      answers: this.fb.array(this.categories),
-      option1: new FormControl(question.attributes?.q_options?.a, Validators.required),
-      option2: new FormControl(question.attributes?.q_options?.b, Validators.required),
-      option3: new FormControl(question.attributes?.q_options?.c, Validators.required),
-      option4: new FormControl(question.attributes?.q_options?.d, Validators.required),
+      Course_Name: new FormControl(question.attributes.course_name),
+      level: new FormControl({ level_name: levelName }),
+      question: new FormControl(question.attributes.question),
+      option1: new FormControl(question.attributes?.q_options?.a),
+      option2: new FormControl(question.attributes?.q_options?.b),
+      option3: new FormControl(question.attributes?.q_options?.c),
+      option4: new FormControl(question.attributes?.q_options?.d),
+      answers: this.fb.array(
+        this.categories
+          .filter((category) => category.checked)
+          .map((category) => new FormControl(category.name))
+      )
     });
 
-    console.log(this.editQuizGroup.value);
-    this.visible = true;
-    // console.log(this.categories);
+
 
   }
 
 
-  public answerArray: any[]=[];
-public emailFormArray:any
-  onChange(name: string, isChecked: any) {
-
-  //   // console.log(isChecked.checked);
-
-  //  this.emailFormArray = <FormArray>this.editQuizGroup.controls['answers'];
-
-  //   console.log(this.editQuizGroup.value);
-
-  //   if (isChecked.checked) {
-  //     this.emailFormArray.push(new FormControl(name));
-  //     // console.log(this.emailFormArray);
-
-  //   } else {
-  //     let index = this.emailFormArray.controls.findIndex((x:any) => x.value == name)
-  //     this.emailFormArray.removeAt(index);
-  //     // console.log(this.emailFormArray.value);
-
-  //   }
-
-    console.log(this.emailFormArray.value);
-
-    // console.log(this.categories);
+  public emailFormArray!: FormArray
 
 
+  onChange(name: string, selectedOption: EventTarget | null) {
 
+    // console.log(isChecked.checked);
+
+    if (selectedOption instanceof HTMLInputElement && selectedOption.checked !== undefined) {
+      const checked = selectedOption.checked;
+
+
+     this.emailFormArray = this.editQuizGroup.controls['answers'] as FormArray;
+    console.log(this.emailFormArray);
+
+    if (checked) {
+      this.emailFormArray.push(new FormControl(name));
+
+
+    } else {
+      let index = this.emailFormArray.controls.findIndex((x) => x.value == name)
+      this.emailFormArray.removeAt(index);
+
+    }
+this.emailFormArray.clear();
+
+  }
   }
 
 
 
   onEditQuestion() {
-    console.log("update functionlity....");
+
     this.visible = false;
-    console.log(this.editQuizGroup.value);
+
+
+    const answers1 = this.editQuizGroup.value.answers
+    let myString: string = JSON.stringify(answers1.join(' '));
 
     this.questionBody = {
       "data": {
         "level": this.editQuizGroup.value.level.level_name,
         "question": this.editQuizGroup.value.question,
-        "answers": this.editQuizGroup.value.answers,
+        "answers": myString,
         "q_options": {
           "a": this.editQuizGroup.value.option1,
           "b": this.editQuizGroup.value.option2,
@@ -185,16 +202,19 @@ public emailFormArray:any
     console.log(this.questionBody);
 
     this.apiService.updateQuiz(this._id, this.questionBody).subscribe((res) => {
-      console.log(res);
+
 
       try {
         this.getQuizData();
+           this.editQuizGroup.reset();
+           myString = '';
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'data Edited...' });
+
+        location.reload()
       } catch (error) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong' });
       }
     })
-this.emailFormArray=[]
 
   }
 

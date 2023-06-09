@@ -25,12 +25,12 @@
               <h4 style="font-family: 'Courier New', Courier, monospace;">Exam</h4>
             </div>
             <div class=" card-body d-flex justify-content-between" style="height: 100px; overflow: hidden ;">
-              <h4 style="color: rgb(64, 64, 247);">{{course.attributes.name}}</h4>
+              <h4 style="color: rgb(64, 64, 247);">{{course}}</h4>
               <img src="../../../assets/img/exam1.jpg" alt="" height="50px" width="50px">
             </div>
           </div>
 
-          <div class="card-footer" style="text-align: center;cursor: pointer;" (click)="openQuiz(course.attributes.name)">
+          <div class="card-footer" style="text-align: center;cursor: pointer;" (click)="openQuiz(course)">
             Start Quiz
           </div>
         </div>

@@ -13,6 +13,14 @@ export interface Quiz {
     }
 }
 
+export interface answers{
+
+  name:string;
+  checked:boolean
+}
+export interface level {
+  level_name: string;
+}
 
 export interface QuizResponse {
 
@@ -37,5 +45,31 @@ export interface QuizResponse {
 
 export interface QuizData {
     data: QuizResponse[];
+   }
+
+export interface QuizDetails{
+
+  id: number ;
+  attributes: {
+    course_name: string;
+      question: string;
+      level:string;
+      createdAt: string;
+      updatedAt: string;
+      publishedAt: string;
+      q_options: {
+          a: number | string;
+          b: number | string;
+          c: number | string;
+          d: number | string;
+      };
+      answers: string;
+  }
+  questionStates:{
+    isCorrect:boolean;
+    correctAnswer:string | null;
+    visible:boolean;
+    selectedOption:string | null;
+  }
 
 }

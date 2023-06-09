@@ -1,179 +1,162 @@
-
 <div class="card">
   <h2 class="m-3">{{courseName}}</h2>
-  <!-- <p-tabView>
-      <p-tabPanel header="Beginner">
-          <div>
-begginer
-          </div>
-      </p-tabPanel>
-      <p-tabPanel header="Intermediate">
-          <p>
-            Intermediate  </p>
-      </p-tabPanel>
-      <p-tabPanel header="Advanced">
-          <p>
-            Advanced    </p>
-      </p-tabPanel>
-  </p-tabView> -->
-<hr>
-
-<div class="card"  *ngFor="let question of quizDetails">
-
-  <div class="row m-3" style="gap: 8px;">
-    <div class="col-lg-6 col-md-12 col-sm-12 bg-white question-box">
-      <div class="question-type my-2  d-flex align-items-center justify-content-between">
-        <h2>Q: {{question.attributes.question}}</h2>
-        <div class="">
-          <button pButton pRipple type="button"  icon="pi pi-pencil" class="p-button-rounded "
-           style="height: 2rem; width: 2rem;" (click)="showDialog(question)"></button>
-
-          <button pButton pRipple type="button" icon="pi pi-times"
-            class="p-button-rounded ms-1 p-button-danger "
-            style="height: 2rem; width: 2rem;" (click)="deleteQuestion(question)"></button>
-        </div>
-      </div>
-
-      <div class="answer">
-        A) {{question.attributes.q_options.a}}
-      </div>
-      <div class="answer">
-        B) {{question.attributes.q_options.b}}
-      </div>
-      <div class="answer">
-        C) {{question.attributes.q_options.c}}
-      </div>
-      <div class="answer">
-        D) {{question.attributes.q_options.d}}
-      </div>
-      <h3>Correct Answer: {{question.attributes.answers}}</h3>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- Edit dialog start -->
-<p-dialog header="Add Question" [(visible)]="visible" [style]="{width: '50vw'}" styleClass="active" [modal]="true">
 
   <hr>
 
-  <form [formGroup]="editQuizGroup" >
-    <div class="p-fluid grid">
+  <div class="card" *ngFor="let question of quizDetails">
 
-      <div class="field mt-4 w-100">
-        <label for="title">Coursename :</label>
-        <span>
-          <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="Course_Name"
-            class="form-control" required formControlName="Course_Name" pInputText placeholder="Course_Name">
-          <small class="p-error block"
-            *ngIf="editQuizGroup.get('Course_Name')?.invalid && (editQuizGroup.get('Course_Name')?.dirty && editQuizGroup.get('Course_Name')?.touched)">
-            Course_Name is required
-          </small>
-        </span>
-      </div>
+    <div class="row m-3" style="gap: 8px;">
+      <div class="col-lg-6 col-md-12 col-sm-12 bg-white question-box">
+        <div class="question-type my-2  d-flex align-items-center justify-content-between">
+          <h2>Q: {{question.attributes.question}}</h2>
+          <div class="">
+            <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded "
+              style="height: 2rem; width: 2rem;" (click)="showDialog(question)"></button>
 
-
-      <div class="field mt-4 w-100">
-        <label for="title">Level :</label>
-
-        <p-dropdown [options]="level" optionLabel="level_name"  class="form-control"
-          formControlName="level" placeholder="Select level"></p-dropdown>
-
-        <!-- <small class="p-error block"
-          *ngIf="editQuizGroup.get('level')?.invalid && (editQuizGroup.get('level')?.dirty && editQuizGroup.get('level')?.touched)">
-          level is required
-        </small> -->
-
-      </div>
-
-      <div class="field mt-4 w-100">
-        <label for="title">Question :</label>
-        <span>
-
-          <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="question" class="form-control"
-            required formControlName="question" pInputText placeholder="Question">
-          <small class="p-error block"
-            *ngIf="editQuizGroup.get('question')?.invalid && (editQuizGroup.get('question')?.dirty && editQuizGroup.get('question')?.touched)">
-            Question is required
-          </small>
-        </span>
-
-      </div>
-      <div class="field mt-4 w-50">
-        <label for="title">Option (A)</label>
-        <span>
-          <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" style="resize: none;"
-            cols="30" formControlName="option1" pInputText>
-          <small class="p-error block"
-            *ngIf="editQuizGroup.get('option1')?.invalid && (editQuizGroup.get('option1')?.dirty && editQuizGroup.get('option1')?.touched)">
-            Option(A) name is required
-          </small>
-        </span>
-      </div>
-
-      <div class="field mt-4 w-50">
-        <label for="title">Option (B)</label>
-        <span>
-          <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option2"
-            pInputText>
-          <small class="p-error block"
-            *ngIf="editQuizGroup.get('option2')?.invalid && (editQuizGroup.get('option2')?.dirty && editQuizGroup.get('option2')?.touched)">
-            Option(B) is required</small>
-        </span>
-      </div>
-      <div class="field mt-4 w-50">
-        <label for="title">Option (C)</label>
-        <span>
-          <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option3"
-            pInputText>
-          <small class="p-error block"
-            *ngIf="editQuizGroup.get('option3')?.invalid && (editQuizGroup.get('option3')?.dirty && editQuizGroup.get('option3')?.touched)">
-            Option(C) is required</small>
-        </span>
-      </div>
-      <div class="field mt-4 w-50">
-        <label for="title">Option (D)</label>
-        <span>
-          <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option4"
-            pInputText>
-          <small class="p-error block"
-            *ngIf="editQuizGroup.get('option4')?.invalid && (editQuizGroup.get('option4')?.dirty && editQuizGroup.get('option4')?.touched)">
-            Option(D) is required</small>
-        </span>
-      </div>
-      <div class="field mt-4 w-100">
-        <label for="title">Answer :</label>
-        <span class="d-flex">
-          <div *ngFor="let data of categories" class="p-2">
-            <label>
-              <input type="checkbox" (change)="onChange(data.name,$event.target)" [checked]="data.checked">
-              {{ data.name }}
-            </label>
+            <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded ms-1 p-button-danger "
+              style="height: 2rem; width: 2rem;" (click)="deleteQuestion(question)"></button>
           </div>
+        </div>
 
-        </span>
+        <div class="answer">
+          A) {{question.attributes.q_options.a}}
+        </div>
+        <div class="answer">
+          B) {{question.attributes.q_options.b}}
+        </div>
+        <div class="answer">
+          C) {{question.attributes.q_options.c}}
+        </div>
+        <div class="answer">
+          D) {{question.attributes.q_options.d}}
+        </div>
+        <h3>Correct Answer: {{question.attributes.answers}}</h3>
       </div>
-
     </div>
-    <div class="d-flex justify-content-between mt-2">
-      <button (click)="editCancel()" type="button" class="btn btn-dark"><i
-          class="pi pi-delete-left me-2 cursor-pointer"></i>Cancel</button>
-      <button [disabled]="editQuizGroup.invalid" type="button" class="btn btn-info me-2" (click)="onEditQuestion()"><i
-          class="pi pi-save me-2 cursor-pointer"></i>Update</button>
-    </div>
-  </form>
-
-</p-dialog>
+  </div>
 
 
 
-<!-- Edit dialog end -->
-<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
-<p-toast position="top-right"></p-toast>
+  <!-- Edit dialog start -->
+  <p-dialog header="Edit Question" [(visible)]="visible" [style]="{width: '50vw'}" styleClass="active" [modal]="true">
+
+    <hr>
+
+    <form [formGroup]="editQuizGroup">
+      <div class="p-fluid grid">
+
+        <div class="field mt-2 w-100">
+          <label for="title">Coursename :</label>
+          <span>
+            <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="Course_Name"
+              class="form-control" required formControlName="Course_Name" pInputText placeholder="Course_Name">
+            <small class="p-error block"
+              *ngIf="editQuizGroup.get('Course_Name')?.invalid && (editQuizGroup.get('Course_Name')?.dirty && editQuizGroup.get('Course_Name')?.touched)">
+              Course_Name is required
+            </small>
+          </span>
+        </div>
+
+
+
+        <div class="field mt-2 w-100">
+          <label for="title">Level :</label>
+
+          <p-dropdown [options]="level" optionLabel="level_name" formControlName="level"
+            placeholder="Select level"></p-dropdown>
+
+          <small class="p-error block"
+            *ngIf="editQuizGroup.get('level')?.invalid && (editQuizGroup.get('level')?.dirty && editQuizGroup.get('level')?.touched)">
+            level is required
+          </small>
+
+        </div>
+
+        <div class="field mt-2 w-100">
+          <label for="title">Question :</label>
+          <span>
+
+            <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="question" class="form-control"
+              required formControlName="question" pInputText placeholder="Question">
+            <small class="p-error block"
+              *ngIf="editQuizGroup.get('question')?.invalid && (editQuizGroup.get('question')?.dirty && editQuizGroup.get('question')?.touched)">
+              Question is required
+            </small>
+          </span>
+
+        </div>
+        <div class="field mt-2 w-35 m-1">
+          <label for="title">Option (A)</label>
+          <span>
+            <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" style="resize: none;"
+              cols="30" formControlName="option1" pInputText>
+            <small class="p-error block"
+              *ngIf="editQuizGroup.get('option1')?.invalid && (editQuizGroup.get('option1')?.dirty && editQuizGroup.get('option1')?.touched)">
+              Option(A) name is required
+            </small>
+          </span>
+        </div>
+
+        <div class="field mt-2 w-35 m-1">
+          <label for="title">Option (B)</label>
+          <span>
+            <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option2"
+              pInputText>
+            <small class="p-error block"
+              *ngIf="editQuizGroup.get('option2')?.invalid && (editQuizGroup.get('option2')?.dirty && editQuizGroup.get('option2')?.touched)">
+              Option(B) is required</small>
+          </span>
+        </div>
+        <div class="field mt-2 w-35 m-1">
+          <label for="title">Option (C)</label>
+          <span>
+            <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option3"
+              pInputText>
+            <small class="p-error block"
+              *ngIf="editQuizGroup.get('option3')?.invalid && (editQuizGroup.get('option3')?.dirty && editQuizGroup.get('option3')?.touched)">
+              Option(C) is required</small>
+          </span>
+        </div>
+        <div class="field mt-2 w-35 m-1">
+          <label for="title">Option (D)</label>
+          <span>
+            <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option4"
+              pInputText>
+            <small class="p-error block"
+              *ngIf="editQuizGroup.get('option4')?.invalid && (editQuizGroup.get('option4')?.dirty && editQuizGroup.get('option4')?.touched)">
+              Option(D) is required</small>
+          </span>
+        </div>
+        <div class="field mt-2 w-100">
+          <label for="title">Answer :</label>
+          <span class="d-flex">
+            <div *ngFor="let data of categories" class="p-2">
+              <label>
+                <input type="checkbox" value="{{data.name}}" (change)="onChange(data.name,$event.target)"
+                  [checked]="data.checked">
+                {{ data.name }}
+              </label>
+
+            </div>
+
+          </span>
+        </div>
+
+      </div>
+      <div class="d-flex justify-content-between mt-2">
+        <button (click)="editCancel()" type="button" class="btn btn-dark"><i
+            class="pi pi-delete-left me-2 cursor-pointer"></i>Cancel</button>
+        <button [disabled]="editQuizGroup.invalid" type="button" class="btn btn-info me-2" (click)="onEditQuestion()"><i
+            class="pi pi-save me-2 cursor-pointer"></i>Update</button>
+      </div>
+    </form>
+
+  </p-dialog>
+
+
+
+  <!-- Edit dialog end -->
+  <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
+  <p-toast position="top-right"></p-toast>
 
 </div>
-
-
-
-
