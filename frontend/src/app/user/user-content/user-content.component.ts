@@ -30,6 +30,7 @@ export class UserContentComponent {
   ngOnInit(): void {
     this.getContent();
     this.getLibraryItems();
+
   }
 
   parsePrice(price: string): number {
@@ -38,6 +39,10 @@ export class UserContentComponent {
 
   public getLibraryItems() {
     this.apiService.getContentLibrary().subscribe((res) => {
+      console.log(res);
+      console.log(res.data);
+
+
       this.libDataId = res.data.map(
         (obj: UserLibraryGetResponseData) => obj.attributes.course_content.data?.id
       );

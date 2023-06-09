@@ -24,7 +24,10 @@ export interface AllCourseContentData {
     publishedAt?: string;
     status: string;
     technology: string;
-    user_id: string | number;
+    level:string,
+    no_of_purchases : number,
+    course_duration : any,
+    user_id: string | number
   };
 }
 
@@ -165,7 +168,7 @@ export interface Content {
     description?: string;
     author?: string | null;
     price?: string;
-    media?: mediaDataObj[];
+  media?: mediaDataObj[];
   };
 }
 

@@ -19,7 +19,6 @@ import {
 import { userProfile, userUpdateProfile } from 'src/app/models/profile';
 import {
   LibraryGetResponse,
-  RemoveLibraryData,
   UserLibraryGetResponse,
 } from '../models/user-library';
 import { TrackPost, TrackPut, TrackResponse } from '../models/track';
@@ -50,8 +49,8 @@ export class ApiService {
   }
 
   //Post COURSE CONTENT
-  public postContent(item: AllCoursePostData): Observable<AllCourseContent> {
-    return this.http.post<AllCourseContent>(`api/course-contents`, item);
+  public postContent(item: any): Observable<any> {
+    return this.http.post<any>(`api/course-contents`, item);
   }
 
   // update COURSE CONTENT
@@ -129,9 +128,9 @@ export class ApiService {
   // ------------Library API-------------
 
 // GET
-public getContentLibrary(): Observable<UserLibraryGetResponse> {
-  return this.http.get<UserLibraryGetResponse>(
-    `/api/user-has-courses?populate=course_content.content&populate=course_content.placeholder_img`
+public getContentLibrary(): Observable<any> {
+  return this.http.get<any>(
+    `/api/users?populate=course_contents.content&populate=course_contents.placeholder_img`
   );
 }
 
@@ -140,20 +139,20 @@ public getContentLibrary(): Observable<UserLibraryGetResponse> {
     data: { course_content: number };
   }): Observable<LibraryGetResponse> {
     return this.http.post<LibraryGetResponse>(
-      `/api/user-has-courses?populate=course_content.content&populate=course_content.placeholder_img`,
+      `/api/users?populate=course_content.content&populate=course_content.placeholder_img`,
       item
     );
   }
 
   // PUT
   public putLibraryData(id:number,item:any):Observable<any> {
-    return this.http.put<any>(`/api/user-has-courses/${id}?populate=course_content.content&populate=course_content.placeholder_img`, item  )
+    return this.http.put<any>(`/api/users/${id}?populate=course_contents.content&populate=course_contents.placeholder_img`, item  )
   }
 
 
   // DELETE.
-  public removeLibraryCourse(id: number): Observable<RemoveLibraryData> {
-    return this.http.delete<RemoveLibraryData>(`api/user-has-courses/${id}`);
+  public removeLibraryCourse(id: number): Observable<any> {
+    return this.http.delete<any>(`api/users/${id}`);
   }
 
   /**
@@ -214,6 +213,11 @@ public getContentLibrary(): Observable<UserLibraryGetResponse> {
   // GET
   public getTrack(): Observable<TrackResponse> {
     return this.http.get<TrackResponse>(`api/tracks`);
+  }
+
+  // GT by id
+  public getTrackbyId(id:number):Observable<any> {
+    return this.http.get<any>(`api/tracks/${id}`)
   }
 
   // POST

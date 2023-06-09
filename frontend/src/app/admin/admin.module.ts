@@ -57,6 +57,7 @@ import { ScrollerModule } from 'primeng/scroller';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
 import { TrackuserComponent } from './trackuser/trackuser.component';
+import { TrackDetailsComponent } from './track-details/track-details.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { TrackuserComponent } from './trackuser/trackuser.component';
     CommunityQuestionsRepliesComponent,
     InstructorsMessagesComponent,
     QuizDetailsComponent,
-    TrackuserComponent
+    TrackuserComponent,
+    TrackDetailsComponent
 
   ],
   imports: [

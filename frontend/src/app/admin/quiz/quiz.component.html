@@ -3,12 +3,17 @@
     <div class="col-lg-3 " *ngFor="let course of allCourses">
     <div >
       <div class="card p-2 shadow-2 m-2" >
-        <h4 class="mb-2 p-0" style="font-family: 'Courier New', Courier, monospace;">Exam</h4>
-
-
-        <div class="card-body p-0 m-2 cursor-pointer d-flex justify-content-between"  (click)="showQuizQuestions(course)">
-          <h4 class="p-0 m-0 textOverflow" style="color: #0d6efd;">{{ course}}</h4>
+        <div class="d-flex justify-content-between align-items-center">
+          <h4 class="mb-2 p-0">
+            Exam
+          </h4>
           <!-- <img src={{course.attributes.placeholder_img.data.attributes.url}} style="width: 40px;" alt=""> -->
+        </div>
+
+        <hr class="m-0 p-0">
+        <div class="card-body p-0 m-2 cursor-pointer align-items-center d-flex justify-content-between"  (click)="showQuizQuestions(course)">
+          <h4 class="p-0 m-0 textOverflow" style="color: #0d6efd;">{{ course}}</h4>
+
 
 
         </div>

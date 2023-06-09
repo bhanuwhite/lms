@@ -24,7 +24,6 @@ import {
   ContentData,
   ContentResponse,
   mediaDataObj,
-  AllCourseContent,
   AllCourseContentData,
   ContentImgUpload,
   AllCourseContentVideo,
@@ -60,8 +59,8 @@ export class ContentComponent implements OnInit, OnDestroy {
   public searchWord: string = '';
   loadingSpinner: boolean = false;
   editDisply: boolean = false;
-  public contentData!: AllCourseContentData[];
-  public contentData2!: AllCourseContentData[];
+  public contentData: any[] = [];
+  public contentData2: any[] = [];
 
   public _data!: AllCourseContentData;
   public formData = new FormData();
@@ -74,16 +73,18 @@ export class ContentComponent implements OnInit, OnDestroy {
   remWord: number = 100;
   Admin_id!: number;
   techString!: string;
+  levelString!: string;
   statusString!: string;
   courseDialog: boolean = false;
   selectedTech!: string;
+  selectedLevel: any;
   selectedStatus!: string;
   updatedStatus!: string;
   videoUploadProgress: boolean = false;
   imgUploadProgress: boolean = false;
   videoContent!: AllCourseContentVideo;
   imageContent!: AllCourseContentPlaceholder_Img;
-  courseContentVideo: CourseContentVideoData[] = [];
+  courseContentVideo: any[] = [];
   courseContentImage: any;
 
   Technologies = [
@@ -97,6 +98,12 @@ export class ContentComponent implements OnInit, OnDestroy {
     { tech: 'Postgresql' },
     { tech: 'Python' },
     { tech: 'React JS' },
+  ];
+
+  levels = [
+    { level: 'Beginner' },
+    { level: 'Intermediate' },
+    { level: 'Advanced' },
   ];
   courseStatus = [{ status: 'active' }, { status: 'block' }];
 
@@ -138,6 +145,24 @@ export class ContentComponent implements OnInit, OnDestroy {
     location.reload();
   }
 
+  // New Course adding details.
+
+  public newCourse() {
+    this.addCourse = this.fb.group({
+      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      description: new FormControl(''),
+      imgVideo: new FormControl(''),
+      technology: new FormControl('', [Validators.required]),
+      status: new FormControl({ status: 'active' }),
+      admin_id: new FormControl(this.Admin_id),
+      price: new FormControl(''),
+      image: new FormControl(''),
+      course_duration: new FormControl(),
+      level: new FormControl(''),
+      link: ['', [Validators.pattern('^https?://.+')]],
+    });
+  }
+
   // update validations
   public courseUpdateValidate(): void {
     this.courseUpdateGroup = this.fb.group({
@@ -146,17 +171,19 @@ export class ContentComponent implements OnInit, OnDestroy {
       price: new FormControl(''),
       imgVideo: new FormControl(''),
       technology: new FormControl('', [Validators.required]),
+      level: new FormControl(''),
       status: new FormControl('', [Validators.required]),
       link: new FormControl(''),
       admin_id: new FormControl(''),
       image: new FormControl(),
+      course_duration: new FormControl(),
     });
   }
 
   // get content
   public getContent(): void {
     this.loadingSpinner = true;
-    this.apiService.getContent().subscribe((res: AllCourseContent) => {
+    this.apiService.getContent().subscribe((res: any) => {
       try {
         console.log(res);
 
@@ -190,21 +217,6 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.contentData = this.contentData2;
     }
   }
-  // New Course adding details.
-
-  public newCourse() {
-    this.addCourse = this.fb.group({
-      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      description: new FormControl(''),
-      imgVideo: new FormControl(''),
-      technology: new FormControl(''),
-      status: new FormControl({ status: 'active' }),
-      admin_id: new FormControl(this.Admin_id),
-      price: new FormControl(''),
-      image: new FormControl(''),
-      link: ['', [Validators.pattern('^https?://.+')]],
-    });
-  }
 
   public showCourseDialog() {
     this.courseDialog = true;
@@ -212,15 +224,24 @@ export class ContentComponent implements OnInit, OnDestroy {
   public closeCourseDialog() {
     this.courseDialog = false;
     this.addCourse.controls['name'].reset();
-          this.addCourse.controls['description'].reset();
-          this.addCourse.controls['technology'].reset();
-          this.addCourse.controls['price'].reset();
-          this.addCourse.controls['link'].reset();
+    this.addCourse.controls['description'].reset();
+    this.addCourse.controls['technology'].reset();
+    this.addCourse.controls['price'].reset();
+    this.addCourse.controls['link'].reset();
+    this.addCourse.controls['level'].reset();
   }
 
   public techSelected(event: { value: { tech: string } }) {
     this.selectedTech = event.value.tech;
   }
+
+  public levelSelected(event: any) {
+    console.log(event);
+
+    this.selectedLevel = event.value.level;
+    console.log('selected Level', this.selectedLevel);
+  }
+
   public statusSelected(event: { value: { status: string } }) {
     this.selectedStatus = event.value.status;
   }
@@ -242,35 +263,51 @@ export class ContentComponent implements OnInit, OnDestroy {
     }
   }
 
-  public courseFileSelect(event: Event): void {
+  allVideosDuration: number = 0;
+
+  public async courseFileSelect(event: Event): Promise<void> {
     const target = event.target as HTMLInputElement;
     const selectedFiles = Array.from(target.files || []);
     console.log('Selected files', selectedFiles);
-
     this.videoUploadProgress = true;
     this.courseContentVideo = [];
-
     const uploadPromises: Promise<any>[] = [];
     let currentUploadIndex = 0;
-
     selectedFiles.forEach((file) => {
       const uploadPromise = new Promise<void>((resolve, reject) => {
         this.addCourse.get('imgVideo')?.setValue(file);
         this.formData = new FormData();
         this.formData.append('files', this.addCourse.value.imgVideo);
-
         this.apiService.uploadFile(this.formData).subscribe(
           (res) => {
             try {
-              // console.log('upload response', res[0]);
-              this.courseContentVideo[currentUploadIndex] = res[0];
-              console.log(
-                currentUploadIndex,
-                'courseContentVideo',
-                this.courseContentVideo[currentUploadIndex]
-              );
-              currentUploadIndex++;
-              resolve();
+              this.getVideoDuration(file).then((duration) => {
+                console.log("Duration",duration);
+                this.allVideosDuration = this.allVideosDuration + duration
+                this.courseContentVideo[currentUploadIndex] = res[0];
+                console.log(
+                  currentUploadIndex,
+                  'courseContentVideo',
+                  this.courseContentVideo[currentUploadIndex]
+                );
+                currentUploadIndex++;
+
+                // const videoObj = {
+                //   id: currentUploadIndex + 100,
+                //   attributes: { duration: duration, file: res[0] },
+                // };
+
+                // this.allVideosDuration =
+                //   this.allVideosDuration + videoObj.attributes.duration;
+                // console.log('Videos duration', this.allVideosDuration);
+
+                // console.log(currentUploadIndex, 'courseContentVideo', videoObj);
+                // this.courseContentVideo.push(videoObj);
+                // console.log(this.courseContentVideo);
+
+                // currentUploadIndex++;
+                resolve();
+              });
             } catch (error) {
               reject(error);
             }
@@ -284,21 +321,36 @@ export class ContentComponent implements OnInit, OnDestroy {
       uploadPromises.push(uploadPromise);
     });
 
-    Promise.all(uploadPromises)
-      .then(() => {
-        this.videoUploadProgress = false;
-        console.log('courseContentVideo', this.courseContentVideo);
-      })
-      .catch((error) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Something went wrong!',
-        });
-        console.error(error);
+    try {
+      await Promise.all(uploadPromises);
+      this.videoUploadProgress = false;
+    } catch (error) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Something went wrong!',
       });
+      console.error(error);
+    }
+  }
 
-    console.log('courseContentVideo', this.courseContentVideo);
+  private getVideoDuration(file: File): Promise<number> {
+    return new Promise<number>((resolve, reject) => {
+      const video = document.createElement('video');
+      video.preload = 'metadata';
+      video.onloadedmetadata = () => {
+        const duration = video.duration;
+        document.body.removeChild(video);
+        resolve(duration);
+      };
+      video.onerror = (error) => {
+        document.body.removeChild(video);
+        reject(error);
+      };
+      video.src = URL.createObjectURL(file);
+
+      document.body.appendChild(video);
+    });
   }
 
   public courseFileSelected2(event: Event) {
@@ -330,6 +382,8 @@ export class ContentComponent implements OnInit, OnDestroy {
     imgInput: HTMLInputElement
   ) {
     console.log(this.addCourse.value);
+    console.log(this.courseContentVideo);
+
     this.courseDialog = false;
     const courseData = {
       data: {
@@ -338,10 +392,12 @@ export class ContentComponent implements OnInit, OnDestroy {
         description: this.addCourse.value.description,
         link: this.addCourse.value.link,
         name: this.addCourse.value.name,
-        placeholder_img: this.courseContentImage,
+        placeholder_img: this.courseContentImage[0],
         price: this.addCourse.value.price,
         user_id: this.Admin_id,
-        status: "active",
+        status: 'active',
+        level: this.selectedLevel,
+        course_duration: this.allVideosDuration.toFixed(0),
       },
     };
     console.log(this.courseContentVideo);
@@ -351,7 +407,6 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.apiService.postContent(courseData).subscribe((res) => {
         try {
           console.log(res);
-
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -362,9 +417,11 @@ export class ContentComponent implements OnInit, OnDestroy {
           this.addCourse.controls['technology'].reset();
           this.addCourse.controls['price'].reset();
           this.addCourse.controls['link'].reset();
+          this.addCourse.controls['level'].reset();
+
           videoInput.value = '';
           imgInput.value = '';
-
+          this.allVideosDuration = 0 ;
           this.getContent();
         } catch (error) {
           this.messageService.add({
@@ -381,8 +438,6 @@ export class ContentComponent implements OnInit, OnDestroy {
         detail: 'Please upload content.  !!',
       });
     }
-
-
   }
 
   // Edit dialog open
@@ -393,6 +448,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     console.log('_data item', item);
 
     this.techString = item.attributes?.technology;
+    this.levelString = item.attributes?.level;
     this.statusString = item.attributes?.status;
     this.videoContent = item.attributes?.content;
     this.imageContent = item.attributes?.placeholder_img;
@@ -402,8 +458,9 @@ export class ContentComponent implements OnInit, OnDestroy {
       description: new FormControl(item.attributes?.description),
       price: new FormControl(item.attributes?.price),
       technology: [{ tech: this.techString }],
+      level: [{ level: this.levelString }],
       link: new FormControl(item.attributes?.link),
-      status: "active",
+      status: 'active',
       user_id: new FormControl(this.Admin_id),
       image: new FormControl(this.imageContent),
       imgVideo: new FormControl(this.videoContent),
@@ -425,6 +482,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     const updateCourseData = {
       data: {
         technology: this.selectedTech,
+        level: this.selectedLevel,
         content: this.courseContentVideo,
         description: this.courseUpdateGroup.value.description,
         link: this.courseUpdateGroup.value.link,
@@ -438,7 +496,6 @@ export class ContentComponent implements OnInit, OnDestroy {
     console.log(updateCourseData);
 
     // Post api call here
-
     if (this.courseContentVideo.length != 0) {
       this.apiService
         .updateContent(this._data.id, updateCourseData)
