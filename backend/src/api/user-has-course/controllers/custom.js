@@ -1,30 +1,46 @@
 
-const { createCoreController } = require('@strapi/strapi').factories;
+const { createCoreController } = require("@strapi/strapi").factories;
 
-module.exports = createCoreController('api::user-has-course.user-has-course', ({ strapi }) =>  ({
-  // Method 1: Creating an entirely custom action
-  async exampleAction(ctx) {
-    try {
-        // console.log(ctx.request.query);
+module.exports = createCoreController(
+  "api::user-has-course.user-has-course",
+  ({ strapi }) => ({
+    async exampleAction(ctx) {
+      try {
+        const { user_id } = ctx.request.query;
+        if (!user_id) {
+          throw new Error("user_id is missing in the request query.");
+        }
 
-        let a = await strapi.db.query('api::user-has-course.user-has-course').findMany({populate:true});
-        // console.log(a);
-        // let b = a['data'].filter((res)=>{
-        //     return res.user_id.data.id === ctx.request.query
-        // })
-        // console.log(a);
-        let b = a.filter((res)=>{
-            try{
-                return res.user_id.id === parseInt(ctx.request.query.user_id)
-                // console.log(typeof(res.user_id.id), ctx.request.query.user_id);
+        const userHasCourses = await strapi
+          .query("api::user-has-course.user-has-course")
+          .findMany(
+            {
+              populate: [
+                "user_id",
+                "course_ids.content",
+                "course_ids.placeholder_img",
+              ],
+            },
+            {
+              user_id: parseInt(user_id),
+            }
+          );
+        // console.log(JSON.stringify(userHasCourses));
 
-                // console.log(res);
-            }catch(e){}
-        })
-        // console.log(b);
-      ctx.body = b;
-    } catch (err) {
-      ctx.body = err;
-    }
-  }
-}));
+        let usersCourse = userHasCourses.filter((res) => {
+          try {
+            return res.user_id.id === parseInt(ctx.request.query.user_id);
+            // console.log(typeof(res.user_id.id), ctx.request.query.user_id);
+
+            // console.log(res);
+          } catch (e) {}
+        });
+
+        ctx.body = usersCourse;
+      } catch (err) {
+        ctx.status = 400; // Bad Request
+        ctx.body = { error: err.message };
+      }
+    },
+  })
+);
