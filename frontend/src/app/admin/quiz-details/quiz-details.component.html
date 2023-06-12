@@ -3,13 +3,13 @@
 
   <hr>
 
-  <div class="card" *ngFor="let question of quizDetails">
+  <div class="card" *ngFor="let question of quizDetails;let i =index">
 
     <div class="row m-3" style="gap: 8px;">
       <div class="col-lg-6 col-md-12 col-sm-12 bg-white question-box">
         <div class="question-type my-2  d-flex align-items-center justify-content-between">
-          <h2>Q: {{question.attributes.question}}</h2>
-          <div class="">
+          <h2>{{i+1}}. {{question.attributes.question}}</h2>
+          <div class="button ms-5 d-flex">
             <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded "
               style="height: 2rem; width: 2rem;" (click)="showDialog(question)"></button>
 

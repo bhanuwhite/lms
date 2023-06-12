@@ -23,20 +23,24 @@ export class QuizDetailsComponent implements OnInit {
 
   public isCorrect: boolean = false;
 
+public selectedIndex =-1;
   ngOnInit(): void {
     window.scrollTo(0,0)
     this.courseName = localStorage.getItem('CourseName')!;
     this.getQuizDetails();
+
   }
 
-  constructor(private apiService: ApiService, private fb: FormBuilder) {}
+  constructor(private apiService: ApiService, private fb: FormBuilder) {
 
-  // questionStates: { visible: boolean, isCorrect: boolean, correctAnswer: string }[] = [];
+  }
+
+
+
 
   public getQuizDetails() {
     this.apiService.getQuiz().subscribe((res) => {
       res.data.filter((result:any) => {
-        // console.log(result);
 
         if (result.attributes.course_name == this.courseName) {
           //Begginer Level
@@ -49,6 +53,8 @@ export class QuizDetailsComponent implements OnInit {
                 correctAnswer: null,
                 visible: false,
                 selectedOption: null,
+                selectedIndex:-1
+
               };
             });
           }
@@ -62,6 +68,8 @@ export class QuizDetailsComponent implements OnInit {
                 correctAnswer: null,
                 visible: false,
                 selectedOption: null,
+                selectedIndex:-1
+
               };
             });
           }
@@ -75,6 +83,8 @@ export class QuizDetailsComponent implements OnInit {
                 correctAnswer: null,
                 visible: false,
                 selectedOption: null,
+                selectedIndex:-1
+
               };
             });
           }
@@ -84,10 +94,15 @@ export class QuizDetailsComponent implements OnInit {
 
   }
 
-  onChange(question: QuizDetails, option: string) {
+  onChange(question: QuizDetails, option: string,cardIndex:number) {
+
+console.log(question);
+question.questionStates.selectedIndex = cardIndex;
     question.questionStates.correctAnswer = JSON.parse(
       question.attributes.answers
     );
+
+
         this.isCorrect=true;
     question.questionStates.selectedOption = option;
 
@@ -99,7 +114,7 @@ export class QuizDetailsComponent implements OnInit {
   }
 
   checkAnswer(question: QuizDetails) {
-    console.log(question);
+
 
     question.questionStates.visible = true;
     question.questionStates.correctAnswer = JSON.parse(
