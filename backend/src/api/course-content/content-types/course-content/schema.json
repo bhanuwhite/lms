@@ -76,9 +76,6 @@
         "E"
       ]
     },
-    "course_duration": {
-      "type": "biginteger"
-    },
     "no_of_purchases": {
       "type": "biginteger",
       "default": "0"
@@ -90,10 +87,6 @@
         "Intermediate",
         "Advanced"
       ]
-    },
-    "time_consumed": {
-      "type": "biginteger",
-      "default": "0"
     }
   }
 }
