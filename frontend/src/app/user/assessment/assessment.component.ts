@@ -5,46 +5,48 @@ import { ApiService } from 'src/app/services/api.service';
 @Component({
   selector: 'app-assessment',
   templateUrl: './assessment.component.html',
-  styleUrls: ['./assessment.component.scss']
+  styleUrls: ['./assessment.component.scss'],
 })
 export class AssessmentComponent implements OnInit {
+  public allCourses: string[] = [];
+  public searchQuery: string = '';
+  public items: string[] = [];
 
-public allCourses:any;
-public searchQuery:string='';
-public items:any;
   ngOnInit(): void {
-
     this.getAllQuizDetails();
-    this.getAllCourseDetais()
+    this.getAllCourseDetais();
   }
 
-  constructor(private apiService :ApiService,private route :Router){
+  constructor(private apiService: ApiService, private route: Router) {}
 
-  }
-public getAllCourseDetais(){
-  this.apiService.getContent().subscribe((res)=>{
-    this.allCourses= res.data;
-    this.items = res.data;
-  console.log(res.data);
-  })
-}
+  public getAllCourseDetais() {
+    this.apiService.getContent().subscribe((res) => {
+      const courses = res.data;
 
+      const uniqueTechnology = new Set<string>();
 
-  public getAllQuizDetails(){
-    this.apiService.getQuiz().subscribe((res)=>{
-    })
-  }
+      courses.forEach((item) => {
+        uniqueTechnology.add(item.attributes.technology);
+      });
 
-  public openQuiz(course:any){
-    console.log("hello");
-    this.route.navigate(['/assessment/', course])
-    localStorage.setItem('CourseName', course)
+      this.allCourses = Array.from(uniqueTechnology);
+      this.items = this.allCourses;
+    });
   }
 
-  onSearchDetails(){
-    this.allCourses = this.items.filter((course:any) => course.attributes.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
-
+  public getAllQuizDetails() {
+    this.apiService.getQuiz().subscribe((res) => {});
   }
 
+  public openQuiz(course: string) {
+    console.log('hello');
+    this.route.navigate(['/assessment/', course]);
+    localStorage.setItem('CourseName', course);
+  }
 
+  onSearchDetails() {
+    this.allCourses = this.items.filter((course: string) =>
+      course.toLowerCase().includes(this.searchQuery.toLowerCase())
+    );
+  }
 }

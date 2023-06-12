@@ -60,6 +60,8 @@ import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
 import { MycartComponent } from './mycart/mycart.component';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { BadgeModule } from 'primeng/badge';
+import { BackgroundDirective } from './background.directive';
+
 @NgModule({
   declarations: [
     UserComponent,
