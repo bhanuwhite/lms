@@ -239,19 +239,7 @@ export interface mediaDataObj {
 
 
 
-export interface userLibrary {
-  data: {
-    id?: string;
-    attributes?: {
-      content_library: ContentResponse;
-      course_id: number;
-      createdAt: string;
-      publishedAt: string;
-      updatedAt: string;
-      user_id: number;
-    };
-  };
-}
+
 
 export interface ContentLibrary {
   data: {

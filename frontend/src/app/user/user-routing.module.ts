@@ -16,6 +16,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { UserCommunityComponent } from './user-community/user-community.component';
 import { AssessmentComponent } from './assessment/assessment.component';
 import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
+import { MycartComponent } from './mycart/mycart.component';
 
 
 const routes: Routes = [
@@ -64,6 +65,9 @@ const routes: Routes = [
       },
       {
         path: 'account-settings', component:AccountSettingsComponent
+      },
+      {
+        path:'mycart', component:MycartComponent
       }
     ]
   }

@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { MenuItem } from 'primeng/api';
 import { dropDown } from 'src/app/interface';
 import { ApiService } from 'src/app/services/api.service';
-import { userLibrary } from 'src/app/models/content';
 import {
   ConfirmationService,
   MessageService,
@@ -19,10 +18,8 @@ export class MyLibraryComponent implements OnInit {
   public Spinner: boolean = true;
   public searchWord: string = '';
   public userID!: number;
-  public loadingSpinner: boolean = false;
   public searchData: any;
-  public courseData: any;
-  public courseDetails: userLibrary[] = [];
+  courseData:any;
 
   constructor(
     private httpClient: HttpClient,
@@ -33,58 +30,34 @@ export class MyLibraryComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLocalData();
-    this.getContentLibrary();
-    this.getTrackAPI();
+    this.gettingUserHasCourse();
   }
 
   public getLocalData(): void {
     const getLocalData = JSON.parse(localStorage.getItem('user')!);
-    console.log(getLocalData);
     this.userID = getLocalData.id;
-    console.log(this.userID);
   }
-
-  libraryObjData:any
-  public getContentLibrary(): void {
-    this.loadingSpinner = true;
-    this.apiService.getContentLibrary().subscribe((res) => {
-      try {
-        console.log(res);
-        this.libraryObjData = res.find((objData:any)=> objData.id == this.userID )
-        console.log("Library data", this.libraryObjData);
-
-        // this.courseData = res.data;
-        // console.log(this.courseData);
-        // this.searchData = res.data;
-        this.Spinner = false;
-        this.loadingSpinner = true;
-      } catch (error) {
-        console.log(error);
-      }
-    });
-  }
-
-  public getTrackAPI(): void {
-    this.apiService.getTrack().subscribe((res) => {
-      console.log('track response', res);
-    });
-  }
-
+  public gettingUserHasCourse():void {
+    this.apiService.getUserCourse(this.userID).subscribe((res)=>{
+      this.courseData = res;
+      this.searchData = res;
+      this.Spinner= false
+    })
+}
   // get rating
-  public userRating(event: any) {
-    console.log('user rating', event.target);
+  public userRating(rating_value: any) {
+    console.log(rating_value);
+
   }
 
   filterCourseData(): void {
     if (this.searchWord) {
       this.courseData = this.searchData.filter(
         (course: any) =>
-          // console.log(course)
-
-          course.attributes.course_content.data.attributes.name
+          course?.course_ids[0]?.name
             .toLowerCase()
             .includes(this.searchWord.toLowerCase()) ||
-          course.attributes.course_content.data.attributes.description
+            course?.course_ids[0]?.description
             .toLowerCase()
             .includes(this.searchWord.toLowerCase())
       );
@@ -95,14 +68,15 @@ export class MyLibraryComponent implements OnInit {
   }
 
   public removeCourse(id: number): void {
+
     this.confirmationService.confirm({
       message: 'Do you want to delete this course from your Library?',
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.apiService.removeLibraryCourse(id).subscribe((res) => {
+        this.apiService.deleteUserHasCourse(id).subscribe((res) => {
           console.log(res);
-          this.getContentLibrary();
+          this.gettingUserHasCourse();
         });
         this.messageService.add({
           severity: 'success',

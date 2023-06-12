@@ -56,9 +56,9 @@ export class ApiService {
   // update COURSE CONTENT
   public updateContent(
     id: number,
-    item: AllCoursePostData
-  ): Observable<AllCourseContent> {
-    return this.http.put<AllCourseContent>(`api/course-contents/${id}`, item);
+    item: any
+  ): Observable<any> {
+    return this.http.put<any>(`api/course-contents/${id}`, item);
   }
 
   // Delete COURSE CONTENT
@@ -127,12 +127,12 @@ export class ApiService {
 
   // ------------Library API-------------
 
-// GET
-public getContentLibrary(): Observable<any> {
-  return this.http.get<any>(
-    `/api/users?populate=course_contents.content&populate=course_contents.placeholder_img`
-  );
-}
+  // GET
+  public getContentLibrary(): Observable<any> {
+    return this.http.get<any>(
+      `/api/users?populate=course_contents.content&populate=course_contents.placeholder_img`
+    );
+  }
 
   //POST
   public postContentLibrary(item: {
@@ -145,10 +145,12 @@ public getContentLibrary(): Observable<any> {
   }
 
   // PUT
-  public putLibraryData(id:number,item:any):Observable<any> {
-    return this.http.put<any>(`/api/users/${id}?populate=course_contents.content&populate=course_contents.placeholder_img`, item  )
+  public putLibraryData(id: number, item: any): Observable<any> {
+    return this.http.put<any>(
+      `/api/users/${id}?populate=course_contents.content&populate=course_contents.placeholder_img`,
+      item
+    );
   }
-
 
   // DELETE.
   public removeLibraryCourse(id: number): Observable<any> {
@@ -216,8 +218,8 @@ public getContentLibrary(): Observable<any> {
   }
 
   // GT by id
-  public getTrackbyId(id:number):Observable<any> {
-    return this.http.get<any>(`api/tracks/${id}`)
+  public getTrackbyId(id: number): Observable<any> {
+    return this.http.get<any>(`api/tracks/${id}`);
   }
 
   // POST
@@ -226,7 +228,7 @@ public getContentLibrary(): Observable<any> {
   }
 
   // PUT
-  public putTrack(id:number,item: TrackPut): Observable<TrackResponse> {
+  public putTrack(id: number, item: TrackPut): Observable<TrackResponse> {
     return this.http.put<TrackResponse>(`api/tracks/${id}`, item);
   }
 
@@ -234,4 +236,60 @@ public getContentLibrary(): Observable<any> {
   public deleteTrack(id: number): Observable<TrackResponse> {
     return this.http.delete<TrackResponse>(`api/tracks/${id}`);
   }
+
+  //  --------- USER-HAS-COURSE API----------
+  // GET Courses by passing UserID
+  public getUserCourse(id: number): Observable<any> {
+    return this.http.get<any>(`api/users-course?user_id=${id}`);
+  }
+
+  //  public getUserHasCourse(): Observable<any> {
+  //     return this.http.get<any>(`api/user-has-courses?populate=course_ids.content&populate=course_ids.placeholder_img`);
+  //   }
+  // GET by ID
+  public getUserHasCourseById(id: number): Observable<any> {
+    return this.http.get<any>(
+      `api/user-has-courses/${id}?populate=course_ids.content&populate=course_ids.placeholder_img`
+    );
+  }
+
+  // POST
+  public postUserHasCourse(item: any): Observable<any> {
+    return this.http.post<any>(`api/user-has-courses`, item);
+  }
+
+  // PUT
+  public putUserHasCourse(id: number, item: any): Observable<any> {
+    return this.http.put<any>(`api/user-has-courses/${id}`, item);
+  }
+
+  // DELETE
+  public deleteUserHasCourse(id: number): Observable<any> {
+    return this.http.delete<any>(`api/user-has-courses/${id}`);
+  }
+
+  //  ------- CART API  --------------
+// GET specific users
+public getUserCart(id:number):Observable<any> {
+  return this.http.get<any> (`api/users-cart?user_id=${id}`)
+}
+
+  // GET
+  public getCart():Observable<any> {
+    return this.http.get<any> (`api/carts`)
+  }
+  // POST
+  public postCart(item:any):Observable<any> {
+    return this.http.post<any> (`api/carts`,item)
+  }
+  // PUT
+  public putCart(id:number,item:any):Observable<any> {
+    return this.http.put<any> (`api/carts/${id}`,item)
+  }
+  // DELETE
+  public deleteCartItem(id:number):Observable<any> {
+    return this.http.delete<any>(`api/carts/${id}`)
+  }
+
+
 }
