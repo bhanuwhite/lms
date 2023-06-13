@@ -1,12 +1,16 @@
-.correct {
-  background-color: green;
-}
+// .correct {
+//   background-color: green;
+// }
 
-.wrong {
-  background-color: rgb(34, 86, 243);
-  // border: ;
-}
+// .wrong {
+//   background-color: rgb(34, 86, 243);
+//   // border: ;
+// }
 
-.correct-answer {
+// .correct-answer {
+//   font-weight: bold;
+// }
+.selected-card {
+  border-color: blue;
   font-weight: bold;
 }

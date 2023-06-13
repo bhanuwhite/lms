@@ -69,6 +69,7 @@ export interface QuizDetails{
     isCorrect:boolean;
     correctAnswer:string | null;
     visible:boolean;
+    selectedIndex:number;
     selectedOption:string | null;
   }
 

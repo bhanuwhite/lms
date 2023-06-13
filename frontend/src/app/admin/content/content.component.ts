@@ -97,6 +97,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     { level: 'Intermediate' },
     { level: 'Advanced' },
   ];
+  
   courseStatus = [{ status: 'active' }, { status: 'block' }];
 
   constructor(

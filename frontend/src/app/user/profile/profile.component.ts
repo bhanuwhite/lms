@@ -155,7 +155,7 @@ export class ProfileComponent {
 
     this.apiService.updateProfileDetails(this.userId, this.userDetails).subscribe((res) => {
       console.log(res);
-      this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Profile details updated' });
+      this.messageService.add({ severity: 'info', summary: 'information', detail: 'Profile details updated' });
     })
 
 

@@ -39,7 +39,7 @@ export class AssessmentComponent implements OnInit {
   }
 
   public openQuiz(course: string) {
-    console.log('hello');
+
     this.route.navigate(['/assessment/', course]);
     localStorage.setItem('CourseName', course);
   }
