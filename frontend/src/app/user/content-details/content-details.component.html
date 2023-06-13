@@ -399,7 +399,7 @@
               style="width: 95%;" (click)="addToCart(singleCourse)">Add To Cart</button>
 
               <button type="button"  class="btn btn-primary mt-3" *ngIf="userCourseID.includes(singleCourse.id)"
-              style="width: 95%;">Added To Cart</button>
+              style="width: 95%;" (click)="GotoCart()" >Go To Cart</button>
             </div>
           </div>
 
@@ -437,7 +437,7 @@
               style="width: 95%;" (click)="addToCart(singleCourse)">Add To Cart</button>
 
               <button type="button"  class="btn btn-primary mt-3" *ngIf="userCourseID.includes(singleCourse.id)"
-              style="width: 95%;">Added To Cart</button>
+              style="width: 95%;" (click)="GotoCart()" >Go To Cart</button>
 
             </div>
           </div>

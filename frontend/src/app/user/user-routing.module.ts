@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CourseDetailsComponent } from './course-details/course-details.component';
-import { AboutComponent } from './about/about.component';
 import { MessageComponent } from './message/message.component';
 import { MyLibraryComponent } from './my-library/my-library.component';
 import { UserComponent } from './user.component';
@@ -38,9 +37,6 @@ const routes: Routes = [
       },
       {
         path: 'course/:id', component: ContentDetailsComponent
-      },
-      {
-        path: 'about',component: AboutComponent,
       },
       {
         path: 'library/:id', component: CourseDetailsComponent

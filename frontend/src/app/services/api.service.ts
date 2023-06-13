@@ -4,17 +4,14 @@ import { Observable } from 'rxjs/internal/Observable';
 import {
   AllCourseContent,
   AllCourseContentData,
-  AllCoursePostData,
-  ContentLibrary,
-  mediaDataObj,
-  userLibrary,
+  postCourseContentData,
+
 } from '../models/content';
 import { Quiz, QuizData } from '../models/quiz';
 import {
   TotalCoursesData,
   UpdateCourseObj,
   PostCourseData,
-  CoursesImgUpload,
 } from '../models/Courses';
 import { userProfile, userUpdateProfile } from 'src/app/models/profile';
 import {
@@ -22,6 +19,7 @@ import {
   UserLibraryGetResponse,
 } from '../models/user-library';
 import { TrackPost, TrackPut, TrackResponse } from '../models/track';
+import { CartGetRes, CartPostBody, CartPostRes, CartResponse } from '../models/cart';
 
 @Injectable({
   providedIn: 'root',
@@ -49,16 +47,16 @@ export class ApiService {
   }
 
   //Post COURSE CONTENT
-  public postContent(item: any): Observable<any> {
-    return this.http.post<any>(`api/course-contents`, item);
+  public postContent(item: postCourseContentData): Observable<AllCourseContentData> {
+    return this.http.post<AllCourseContentData>(`api/course-contents`, item);
   }
 
   // update COURSE CONTENT
   public updateContent(
     id: number,
-    item: any
-  ): Observable<any> {
-    return this.http.put<any>(`api/course-contents/${id}`, item);
+    item: postCourseContentData
+  ): Observable<AllCourseContentData> {
+    return this.http.put<AllCourseContentData>(`api/course-contents/${id}`, item);
   }
 
   // Delete COURSE CONTENT
@@ -128,8 +126,8 @@ export class ApiService {
   // ------------Library API-------------
 
   // GET
-  public getContentLibrary(): Observable<any> {
-    return this.http.get<any>(
+  public getContentLibrary(): Observable<LibraryGetResponse> {
+    return this.http.get<LibraryGetResponse>(
       `/api/users?populate=course_contents.content&populate=course_contents.placeholder_img`
     );
   }
@@ -145,16 +143,16 @@ export class ApiService {
   }
 
   // PUT
-  public putLibraryData(id: number, item: any): Observable<any> {
-    return this.http.put<any>(
+  public putLibraryData(id: number, item: any): Observable<LibraryGetResponse> {
+    return this.http.put<LibraryGetResponse>(
       `/api/users/${id}?populate=course_contents.content&populate=course_contents.placeholder_img`,
       item
     );
   }
 
   // DELETE.
-  public removeLibraryCourse(id: number): Observable<any> {
-    return this.http.delete<any>(`api/users/${id}`);
+  public removeLibraryCourse(id: number): Observable<LibraryGetResponse> {
+    return this.http.delete<LibraryGetResponse>(`api/users/${id}`);
   }
 
   /**
@@ -270,25 +268,25 @@ export class ApiService {
 
   //  ------- CART API  --------------
 // GET specific users
-public getUserCart(id:number):Observable<any> {
-  return this.http.get<any> (`api/users-cart?user_id=${id}`)
+public getUserCart(id:number):Observable<CartResponse[]> {
+  return this.http.get<CartResponse[]> (`api/users-cart?user_id=${id}`)
 }
 
   // GET
-  public getCart():Observable<any> {
-    return this.http.get<any> (`api/carts`)
+  public getCart():Observable<CartGetRes> {
+    return this.http.get<CartGetRes> (`api/carts`)
   }
   // POST
-  public postCart(item:any):Observable<any> {
-    return this.http.post<any> (`api/carts`,item)
+  public postCart(item:CartPostBody):Observable<CartGetRes> {
+    return this.http.post<CartGetRes> (`api/carts`,item)
   }
   // PUT
   public putCart(id:number,item:any):Observable<any> {
     return this.http.put<any> (`api/carts/${id}`,item)
   }
   // DELETE
-  public deleteCartItem(id:number):Observable<any> {
-    return this.http.delete<any>(`api/carts/${id}`)
+  public deleteCartItem(id:number):Observable<CartPostRes> {
+    return this.http.delete<CartPostRes>(`api/carts/${id}`)
   }
 
 

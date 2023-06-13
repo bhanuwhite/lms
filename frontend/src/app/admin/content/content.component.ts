@@ -5,7 +5,6 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewChildren,
 } from '@angular/core';
 import {
   FormGroup,
@@ -13,22 +12,14 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import {
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import {
-  ContentData,
-  ContentResponse,
-  mediaDataObj,
   AllCourseContentData,
-  ContentImgUpload,
   AllCourseContentVideo,
   AllCourseContentPlaceholder_Img,
-  CourseContentVideoData,
+  AllCourseContent,
 } from 'src/app/models/content';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -59,8 +50,8 @@ export class ContentComponent implements OnInit, OnDestroy {
   public searchWord: string = '';
   loadingSpinner: boolean = false;
   editDisply: boolean = false;
-  public contentData: any[] = [];
-  public contentData2: any[] = [];
+  public contentData: AllCourseContentData[] = [];
+  public contentData2: AllCourseContentData[] = [];
 
   public _data!: AllCourseContentData;
   public formData = new FormData();
@@ -77,7 +68,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   statusString!: string;
   courseDialog: boolean = false;
   selectedTech!: string;
-  selectedLevel: any;
+  selectedLevel!: string;
   selectedStatus!: string;
   updatedStatus!: string;
   videoUploadProgress: boolean = false;
@@ -86,6 +77,8 @@ export class ContentComponent implements OnInit, OnDestroy {
   imageContent!: AllCourseContentPlaceholder_Img;
   courseContentVideo: any[] = [];
   courseContentImage: any;
+  allVideosDuration: number = 0;
+
   Technologies = [
     { tech: 'Angular' },
     { tech: 'DotNet' },
@@ -129,13 +122,6 @@ export class ContentComponent implements OnInit, OnDestroy {
   updateProgress(vid: HTMLVideoElement) {
     const progress = (vid.currentTime / vid.duration) * 100;
     this.percentage = Math.round(progress);
-  }
-
-  trackVideoProgress(event: any) {
-    const video = event.target;
-    const duartionPercentage = (video.currentTime / video.duration) * 100;
-    this.percentage = Math.ceil(duartionPercentage);
-    console.log(`Video progress: ${this.percentage}%`);
   }
 
   public onLogout(): void {
@@ -182,13 +168,10 @@ export class ContentComponent implements OnInit, OnDestroy {
   // get content
   public getContent(): void {
     this.loadingSpinner = true;
-    this.apiService.getContent().subscribe((res: any) => {
+    this.apiService.getContent().subscribe((res: AllCourseContent) => {
       try {
-        console.log(res);
-
         this.contentData = res.data;
         this.contentData2 = res.data;
-        console.log('Getting content', this.contentData);
         this.loadingSpinner = false;
       } catch (error) {
         this.messageService.add({
@@ -208,9 +191,7 @@ export class ContentComponent implements OnInit, OnDestroy {
           content.attributes.name
             .toLowerCase()
             .includes(this.searchWord.toLowerCase()) ||
-          content.attributes.price
-            .toLowerCase()
-            .includes(this.searchWord.toLowerCase())
+          content.attributes.price.includes(this.searchWord.toLowerCase())
       );
     } else {
       this.contentData = this.contentData2;
@@ -234,11 +215,8 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.selectedTech = event.value.tech;
   }
 
-  public levelSelected(event: any) {
-    console.log(event);
-
+  public levelSelected(event: { value: { level: string } }) {
     this.selectedLevel = event.value.level;
-    console.log('selected Level', this.selectedLevel);
   }
 
   public statusSelected(event: { value: { status: string } }) {
@@ -262,12 +240,9 @@ export class ContentComponent implements OnInit, OnDestroy {
     }
   }
 
-  allVideosDuration: number = 0;
-
   public async courseFileSelect(event: Event): Promise<void> {
     const target = event.target as HTMLInputElement;
     const selectedFiles = Array.from(target.files || []);
-    console.log('Selected files', selectedFiles);
     this.videoUploadProgress = true;
     this.courseContentVideo = [];
     const uploadPromises: Promise<any>[] = [];
@@ -281,30 +256,9 @@ export class ContentComponent implements OnInit, OnDestroy {
           (res) => {
             try {
               this.getVideoDuration(file).then((duration) => {
-                console.log('Duration', duration);
                 this.allVideosDuration = this.allVideosDuration + duration;
                 this.courseContentVideo[currentUploadIndex] = res[0];
-                console.log(
-                  currentUploadIndex,
-                  'courseContentVideo',
-                  this.courseContentVideo[currentUploadIndex]
-                );
                 currentUploadIndex++;
-
-                // const videoObj = {
-                //   id: currentUploadIndex + 100,
-                //   attributes: { duration: duration, file: res[0] },
-                // };
-
-                // this.allVideosDuration =
-                //   this.allVideosDuration + videoObj.attributes.duration;
-                // console.log('Videos duration', this.allVideosDuration);
-
-                // console.log(currentUploadIndex, 'courseContentVideo', videoObj);
-                // this.courseContentVideo.push(videoObj);
-                // console.log(this.courseContentVideo);
-
-                // currentUploadIndex++;
                 resolve();
               });
             } catch (error) {
@@ -316,7 +270,6 @@ export class ContentComponent implements OnInit, OnDestroy {
           }
         );
       });
-
       uploadPromises.push(uploadPromise);
     });
 
@@ -347,7 +300,6 @@ export class ContentComponent implements OnInit, OnDestroy {
         reject(error);
       };
       video.src = URL.createObjectURL(file);
-
       document.body.appendChild(video);
     });
   }
@@ -363,7 +315,6 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {
           this.courseContentImage = res;
-          console.log('Img Uploaded', this.courseContentImage);
           this.imgUploadProgress = false;
         } catch (error) {
           this.messageService.add({
@@ -380,9 +331,6 @@ export class ContentComponent implements OnInit, OnDestroy {
     videoInput: HTMLInputElement,
     imgInput: HTMLInputElement
   ) {
-    console.log(this.addCourse.value);
-    console.log(this.courseContentVideo);
-
     this.courseDialog = false;
     const courseData = {
       data: {
@@ -399,13 +347,10 @@ export class ContentComponent implements OnInit, OnDestroy {
         course_duration: this.allVideosDuration.toFixed(0),
       },
     };
-    console.log(this.courseContentVideo);
 
-    console.log(courseData);
     if (this.courseContentVideo.length != 0) {
       this.apiService.postContent(courseData).subscribe((res) => {
         try {
-          console.log(res);
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -444,7 +389,6 @@ export class ContentComponent implements OnInit, OnDestroy {
   public editContentDialog(item: AllCourseContentData): void {
     this.editDisply = true;
     this._data = item;
-    console.log('_data item', item);
 
     this.techString = item.attributes?.technology;
     this.levelString = item.attributes?.level;
@@ -475,9 +419,6 @@ export class ContentComponent implements OnInit, OnDestroy {
   public onUpdateContent(): void {
     this.editDisply = false;
 
-    console.log(this.courseContentVideo);
-    console.log(this.courseContentImage);
-
     const updateCourseData = {
       data: {
         technology: this.selectedTech,
@@ -492,7 +433,6 @@ export class ContentComponent implements OnInit, OnDestroy {
         status: this.selectedStatus,
       },
     };
-    console.log(updateCourseData);
 
     // Post api call here
     if (this.courseContentVideo.length != 0) {
@@ -551,11 +491,6 @@ export class ContentComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy(): void {
-    // this.contentGetSubsription$.unsubscribe();
-    // this.contentPostSubsription$.unsubscribe();
-    // this.contentUpdateSubsription$.unsubscribe();
-    // this.contentUploadSubsription$.unsubscribe();
-    // this.contentDeleteSubsription$.unsubscribe();
     this.allSubsription$.forEach((subScriptions) => {
       subScriptions.unsubscribe();
     });

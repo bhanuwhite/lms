@@ -25,7 +25,6 @@ import { HeaderComponent } from './header/header.component';
 import { AccordionModule } from 'primeng/accordion';
 import { TabView, TabViewModule } from 'primeng/tabview';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
-import { VideoPopupComponent } from './video-popup/video-popup.component';
 import { UserFooterComponent } from './user-footer/user-footer.component';
 import { UserHeaderComponent } from './user-header/user-header.component';
 import { AvatarModule } from 'primeng/avatar';
@@ -38,7 +37,6 @@ import { MenubarModule } from 'primeng/menubar';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { AboutComponent } from './about/about.component';
 import { ContentDetailsComponent } from './content-details/content-details.component';
 import { MessageComponent } from './message/message.component';
 import { PurchaseHistoryComponent } from './purchase-history/purchase-history.component';
@@ -67,13 +65,11 @@ import { BackgroundDirective } from './background.directive';
     UserComponent,
     MyLibraryComponent,
     CourseDetailsComponent,
-    AboutComponent,
     UserHeaderComponent,
     UserFooterComponent,
     ContentDetailsComponent,
     UserCommunityComponent,
     MessageComponent,
-    VideoPopupComponent,
     PurchaseHistoryComponent,
     ReceiptComponent,
     InvoiceComponent,

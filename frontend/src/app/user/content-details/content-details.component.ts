@@ -8,8 +8,7 @@ import {
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DialogService } from 'primeng/dynamicdialog';
-import { VideoPopupComponent } from '../video-popup/video-popup.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 // import { ContentResponse } from 'src/app/models/content';
 import {
@@ -17,7 +16,9 @@ import {
   ConfirmationService,
   ConfirmEventType,
 } from 'primeng/api';
-import { AllCourseContentData } from 'src/app/models/content';
+import { AllCourseContentData, SingleCourseData } from 'src/app/models/content';
+import { AboutService } from 'src/app/services/about.service';
+import { CartResponse } from 'src/app/models/cart';
 
 @Component({
   selector: 'app-content-details',
@@ -30,7 +31,7 @@ export class ContentDetailsComponent implements OnInit {
   public courseId!: number;
   public userID!: number;
   public singleCourse!: AllCourseContentData;
-  userCourses: any;
+  userCourses: AllCourseContentData[]=[];
   userCourseID: number[] = [];
   @ViewChild('courseVideoElmt') courseVideoElmt!: ElementRef;
   isPlaying = false;
@@ -41,7 +42,9 @@ export class ContentDetailsComponent implements OnInit {
     private activeParams: ActivatedRoute,
     private apiService: ApiService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private router: Router,
+    private aboutService:AboutService
   ) {}
 
   ngOnInit(): void {
@@ -87,10 +90,13 @@ export class ContentDetailsComponent implements OnInit {
   public getCartCourses(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.apiService.getUserCart(this.userID).subscribe((res) => {
-        res.map((resObj: any) => {
+        console.log(res);
+
+        res.map((resObj: CartResponse) => {
           this.userCourseID.push(resObj.course_ids[0].id);
         });
         this.userCourseID = [...new Set(this.userCourseID)];
+        this.aboutService.userCartLength(res.length)
       });
       resolve();
       (error: any) => {
@@ -99,9 +105,11 @@ export class ContentDetailsComponent implements OnInit {
     });
   }
 
-  public addToCart(item: any): void {
+  public addToCart(item: SingleCourseData): void {
+    console.log(item);
+
     this.confirmationService.confirm({
-      message: `Do you want to add this ${item?.attributes.name} to Library?`,
+      message: `Do you want to add this ${item?.attributes.name} to Cart?`,
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -111,8 +119,11 @@ export class ContentDetailsComponent implements OnInit {
             course_ids: item.id,
           },
         };
+        console.log(postCartbody);
 
         this.apiService.postCart(postCartbody).subscribe((res) => {
+          console.log(res);
+
           this.messageService.add({
             severity: 'success',
             summary: 'Successfully',
@@ -141,14 +152,17 @@ export class ContentDetailsComponent implements OnInit {
       },
     });
   }
-
-  onClickVideo(courseDetails: {}) {
-    const ref = this.dialogService.open(VideoPopupComponent, {
-      header: 'Course Preview',
-      width: '50%',
-      data: { name: 'John' },
-    });
+  public GotoCart():void {
+    this.router.navigate(['mycart'])
   }
+
+  // onClickVideo(courseDetails: {}) {
+  //   const ref = this.dialogService.open(VideoPopupComponent, {
+  //     header: 'Course Preview',
+  //     width: '50%',
+  //     data: { name: 'John' },
+  //   });
+  // }
   onClose() {
     this.displayDialog = false;
   }

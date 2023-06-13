@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { AllCourseContentData, ContentResponse } from 'src/app/models/content';
 import { UserLibraryGetResponseData } from 'src/app/models/user-library';
+import { AboutService } from 'src/app/services/about.service';
 @Component({
   selector: 'app-user-content',
   templateUrl: './user-content.component.html',
@@ -28,7 +29,8 @@ export class UserContentComponent {
   constructor(
     private apiService: ApiService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private aboutService:AboutService
   ) {}
 
   ngOnInit(): void {
@@ -47,6 +49,9 @@ export class UserContentComponent {
       console.log('User Lib Data ', res);
       this.subscribedCourses = res.length;
     });
+    this.apiService.getUserCart(this.userID).subscribe((res)=>{
+      this.aboutService.userCartLength(res.length)
+    })
   }
 
   parsePrice(price: string): number {
