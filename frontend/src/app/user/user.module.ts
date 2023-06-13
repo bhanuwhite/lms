@@ -37,7 +37,6 @@ import { MenubarModule } from 'primeng/menubar';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { AboutComponent } from './about/about.component';
 import { ContentDetailsComponent } from './content-details/content-details.component';
 import { MessageComponent } from './message/message.component';
 import { PurchaseHistoryComponent } from './purchase-history/purchase-history.component';
@@ -65,7 +64,6 @@ import { BadgeModule } from 'primeng/badge';
     UserComponent,
     MyLibraryComponent,
     CourseDetailsComponent,
-    AboutComponent,
     UserHeaderComponent,
     UserFooterComponent,
     ContentDetailsComponent,

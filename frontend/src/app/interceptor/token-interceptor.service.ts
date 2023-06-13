@@ -21,7 +21,6 @@ export class TokenInterceptor implements HttpInterceptor {
         headers: request.headers.set('Authorization', `Bearer ${this.token}`).set("Access-Control-Allow-Origin", "*"),
       });
     }
-    console.log(next);
 
 
 

@@ -7,6 +7,7 @@ import {
   ConfirmEventType,
 } from 'primeng/api';
 import { ApiService } from 'src/app/services/api.service';
+import { AboutService } from 'src/app/services/about.service';
 
 @Component({
   selector: 'app-mycart',
@@ -24,12 +25,14 @@ export class MycartComponent implements OnInit {
     private router: Router,
     private apiservice: ApiService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private aboutService:AboutService
   ) {}
   ngOnInit(): void {
     this.getLocalStoredData();
     this.getCartCourse();
     this.gettingUserHasCourse();
+
   }
   public getLocalStoredData() {
     const localStoredData = JSON.parse(localStorage.getItem('user')!);
@@ -39,8 +42,8 @@ export class MycartComponent implements OnInit {
   public getCartCourse(): void {
     this.apiservice.getUserCart(this.userID).subscribe((res) => {
       this.courseData = res;
-
-
+      console.log("Cart Items",this.courseData);
+      this.aboutService.userCartLength(res.length)
     });
   }
 
@@ -120,6 +123,8 @@ export class MycartComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.apiservice.deleteCartItem(id).subscribe((res)=>{
+          console.log(res);
+
           this.messageService.add({
             severity: 'success',
             summary: 'Course has been removed from Cart',
