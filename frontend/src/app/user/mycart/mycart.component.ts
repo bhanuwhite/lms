@@ -39,7 +39,7 @@ export class MycartComponent implements OnInit {
   public getCartCourse(): void {
     this.apiservice.getUserCart(this.userID).subscribe((res) => {
       this.courseData = res;
-      console.log("Cart Items",this.courseData);
+
 
     });
   }
@@ -163,12 +163,12 @@ public totalAmount :number=0
       res.map((course:any) =>{
        if (course.course_ids[0].price != 0) {
              this.paidCourses.push(course);
-             console.log(course.course_ids[0].name);
+
           this.totalAmount =this.totalAmount +  JSON.parse(course.course_ids[0].price);
        }
 
       })
-      console.log(this.totalAmount);
+
     });
   }
 

@@ -27,7 +27,6 @@ export class QuizDetailsComponent implements OnInit {
     this.courseName = localStorage.getItem('CourseName')!;
     this.getQuizDetails();
   }
-
   constructor(private apiService: ApiService, private fb: FormBuilder) {}
 
   public getQuizDetails() {
