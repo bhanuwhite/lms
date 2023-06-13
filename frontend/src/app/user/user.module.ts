@@ -25,7 +25,6 @@ import { HeaderComponent } from './header/header.component';
 import { AccordionModule } from 'primeng/accordion';
 import { TabView, TabViewModule } from 'primeng/tabview';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
-import { VideoPopupComponent } from './video-popup/video-popup.component';
 import { UserFooterComponent } from './user-footer/user-footer.component';
 import { UserHeaderComponent } from './user-header/user-header.component';
 import { AvatarModule } from 'primeng/avatar';
@@ -60,7 +59,6 @@ import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
 import { MycartComponent } from './mycart/mycart.component';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { BadgeModule } from 'primeng/badge';
-import { BackgroundDirective } from './background.directive';
 
 @NgModule({
   declarations: [
@@ -73,7 +71,6 @@ import { BackgroundDirective } from './background.directive';
     ContentDetailsComponent,
     UserCommunityComponent,
     MessageComponent,
-    VideoPopupComponent,
     PurchaseHistoryComponent,
     ReceiptComponent,
     InvoiceComponent,

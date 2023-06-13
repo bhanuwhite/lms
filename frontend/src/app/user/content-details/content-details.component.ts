@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DialogService } from 'primeng/dynamicdialog';
-import { VideoPopupComponent } from '../video-popup/video-popup.component';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 // import { ContentResponse } from 'src/app/models/content';
@@ -142,13 +141,13 @@ export class ContentDetailsComponent implements OnInit {
     });
   }
 
-  onClickVideo(courseDetails: {}) {
-    const ref = this.dialogService.open(VideoPopupComponent, {
-      header: 'Course Preview',
-      width: '50%',
-      data: { name: 'John' },
-    });
-  }
+  // onClickVideo(courseDetails: {}) {
+  //   const ref = this.dialogService.open(VideoPopupComponent, {
+  //     header: 'Course Preview',
+  //     width: '50%',
+  //     data: { name: 'John' },
+  //   });
+  // }
   onClose() {
     this.displayDialog = false;
   }
