@@ -86,7 +86,6 @@ export class ContentComponent implements OnInit, OnDestroy {
   imageContent!: AllCourseContentPlaceholder_Img;
   courseContentVideo: any[] = [];
   courseContentImage: any;
-
   Technologies = [
     { tech: 'Angular' },
     { tech: 'DotNet' },
@@ -282,8 +281,8 @@ export class ContentComponent implements OnInit, OnDestroy {
           (res) => {
             try {
               this.getVideoDuration(file).then((duration) => {
-                console.log("Duration",duration);
-                this.allVideosDuration = this.allVideosDuration + duration
+                console.log('Duration', duration);
+                this.allVideosDuration = this.allVideosDuration + duration;
                 this.courseContentVideo[currentUploadIndex] = res[0];
                 console.log(
                   currentUploadIndex,
@@ -421,7 +420,7 @@ export class ContentComponent implements OnInit, OnDestroy {
 
           videoInput.value = '';
           imgInput.value = '';
-          this.allVideosDuration = 0 ;
+          this.allVideosDuration = 0;
           this.getContent();
         } catch (error) {
           this.messageService.add({

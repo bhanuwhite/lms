@@ -25,6 +25,13 @@ export class UserHeaderComponent implements OnInit {
       label: 'Action',
       items: [
         {
+          label: 'My Cart',
+          icon: 'pi pi-shopping-cart ',
+          command: () => {
+            this.router.navigateByUrl('user/mycart');
+          }
+        },
+        {
           label: 'Messages',
           icon: 'pi pi-comments ',
           command: () => {

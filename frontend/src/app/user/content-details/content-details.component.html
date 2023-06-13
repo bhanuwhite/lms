@@ -372,7 +372,7 @@
       <div class="card sidebar-area" *ngIf="singleCourse">
 
         <div class="pricing-detail p-3"
-          *ngIf="parsePrice(singleCourse.attributes.price) != 0 && !coursesId.includes(singleCourse.id)">
+          *ngIf="parsePrice(singleCourse.attributes.price) != 0">
 
           <div class="video-container" [class.playing]="isPlaying">
 
@@ -395,7 +395,11 @@
           </div>
           <div class="buttons m-3">
             <div>
-              <button type="button" class="btn btn-primary mt-2" style="width: 95%;">Buy now</button>
+              <button type="button"  class="btn btn-success mt-3" *ngIf="!userCourseID.includes(singleCourse.id)"
+              style="width: 95%;" (click)="addToCart(singleCourse)">Add To Cart</button>
+
+              <button type="button"  class="btn btn-primary mt-3" *ngIf="userCourseID.includes(singleCourse.id)"
+              style="width: 95%;">Added To Cart</button>
             </div>
           </div>
 
@@ -409,13 +413,13 @@
             <a href="" class="links">Apply Coupon</a>
           </div>
         </div>
-        <div *ngIf="parsePrice(singleCourse.attributes.price )== 0 && !coursesId.includes(singleCourse.id)">
+        <div *ngIf="parsePrice(singleCourse.attributes.price )== 0 ">
           <div>
             <div class="d-flex align-items-center">
               <h2 class="m-3"><b>FREE COURSE</b></h2>
             </div>
           </div>
-          <div *ngIf="parsePrice(singleCourse.attributes.price) == 0 && !coursesId.includes(singleCourse.id) "
+          <div *ngIf="parsePrice(singleCourse.attributes.price) == 0  "
             class="buttons m-3">
 
             <div class="video-container" [class.playing]="isPlaying">
@@ -426,22 +430,16 @@
               <div class="overlay">
                 <span *ngIf="!isPlaying" class="play-icon material-icons" (click)="playVideo()"> play_circle </span>
               </div>
-
             </div>
 
             <div class="mt-2">
-              <button type="button" *ngIf="!LibCourseId.includes(singleCourse.id)"   class="btn btn-success mt-3" style="width: 95%;"
-              (click)="addToLibrary(singleCourse)">Add
-              To Library</button>
+              <button type="button"  class="btn btn-success mt-3" *ngIf="!userCourseID.includes(singleCourse.id)"
+              style="width: 95%;" (click)="addToCart(singleCourse)">Add To Cart</button>
 
-            <button type="button" *ngIf="LibCourseId.includes(singleCourse.id)"   class="btn btn-primary" style="width: 95%;">Already Added To Library</button>
+              <button type="button"  class="btn btn-primary mt-3" *ngIf="userCourseID.includes(singleCourse.id)"
+              style="width: 95%;">Added To Cart</button>
 
             </div>
-          </div>
-        </div>
-        <div>
-          <div *ngIf="coursesId.includes(singleCourse.id)" class="buttons m-3">
-            <button type="button" class="btn btn-primary" style="width: 95%;">Added To Library</button>
           </div>
         </div>
 

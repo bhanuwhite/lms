@@ -57,6 +57,9 @@ import { ToastModule } from 'primeng/toast';
 import { UserCommunityComponent } from './user-community/user-community.component';
 import { AssessmentComponent } from './assessment/assessment.component';
 import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
+import { MycartComponent } from './mycart/mycart.component';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { BadgeModule } from 'primeng/badge';
 import { BackgroundDirective } from './background.directive';
 
 @NgModule({
@@ -80,7 +83,7 @@ import { BackgroundDirective } from './background.directive';
     AccountSettingsComponent,
     AssessmentComponent,
     QuizDetailsComponent,
-    BackgroundDirective
+    MycartComponent,
   ],
   imports: [
     CommonModule,
@@ -103,7 +106,14 @@ import { BackgroundDirective } from './background.directive';
     ProgressBarModule,
     RatingModule,
     MatTabsModule,
-    AvatarModule, MatIconModule, MenuModule, DialogModule, TooltipModule, CardModule, RatingModule, MatTabsModule,
+    AvatarModule,
+    MatIconModule,
+    MenuModule,
+    DialogModule,
+    TooltipModule,
+    CardModule,
+    RatingModule,
+    MatTabsModule,
     AdminRoutingModule,
     NgbModule,
     AccordionModule,
@@ -125,11 +135,10 @@ import { BackgroundDirective } from './background.directive';
     SplitterModule,
     MultiSelectModule,
     DividerModule,
-ToastModule
-
-
+    ToastModule,
+    ConfirmPopupModule,
+    BadgeModule,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
-
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class UserModule { }
+export class UserModule {}

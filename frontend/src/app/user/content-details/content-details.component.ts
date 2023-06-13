@@ -17,16 +17,7 @@ import {
   ConfirmationService,
   ConfirmEventType,
 } from 'primeng/api';
-import {
-  AllCourseContentData,
-  Content,
-  ContentData,
-  ContentLibrary,
-  ContentResponse,
-  SingleContentData,
-  mediaDataObj,
-  userLibrary,
-} from 'src/app/models/content';
+import { AllCourseContentData } from 'src/app/models/content';
 
 @Component({
   selector: 'app-content-details',
@@ -37,9 +28,13 @@ import {
 export class ContentDetailsComponent implements OnInit {
   public displayDialog = false;
   public courseId!: number;
-  public userID!:number;
+  public userID!: number;
   public singleCourse!: AllCourseContentData;
-  UserCourseArr: any[]= []
+  userCourses: any;
+  userCourseID: number[] = [];
+  @ViewChild('courseVideoElmt') courseVideoElmt!: ElementRef;
+  isPlaying = false;
+  private videoElement!: HTMLVideoElement;
 
   constructor(
     public dialogService: DialogService,
@@ -50,65 +45,80 @@ export class ContentDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getLocal();
-    this.getSingleCourseObj();
-    // this.getUserLibrary();
-    this.getUsers();
+    this.getCourses();
+    this.getLocalData()
+      .then(() => this.getSingleCourseObj())
+      .then(() => this.getCartCourses());
   }
 
- public getLocal():void {
-  const getLocalData = JSON.parse(localStorage.getItem('user')!)
-  console.log(getLocalData);
-  this.userID = getLocalData.id
-  console.log(this.userID);
-
-}
-  public getSingleCourseObj() {
-    this.activeParams.params.subscribe((res) => {
-      this.courseId = res['id'];
-    });
-    this.apiService.getSingleContent(this.courseId).subscribe((res) => {
-      this.singleCourse = res['data'];
-      console.log('hii',this.singleCourse);
+  public getLocalData(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      const getLocalData = JSON.parse(localStorage.getItem('user')!);
+      this.userID = getLocalData.id;
+      resolve();
+      (error: any) => {
+        reject(error);
+      };
     });
   }
 
-  public getUsers():void {
-    this.apiService.getContentLibrary().subscribe((res)=>{
-      console.log("users",res);
-    })
+  public getCourses(): void {
+    this.apiService.getContent().subscribe((res) => {
+      this.userCourses = res.data;
+    });
   }
 
+  public getSingleCourseObj(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.activeParams.params.subscribe((res) => {
+        this.courseId = res['id'];
+      });
+      this.apiService.getSingleContent(this.courseId).subscribe((res) => {
+        this.singleCourse = res['data'];
+      });
+      resolve();
+      (error: any) => {
+        reject(error);
+      };
+    });
+  }
 
-  addToLibrary(course: any) {
-    console.log(course);
-    console.log(this.UserCourseArr);
+  // Getting Cart courses
+  public getCartCourses(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.apiService.getUserCart(this.userID).subscribe((res) => {
+        res.map((resObj: any) => {
+          this.userCourseID.push(resObj.course_ids[0].id);
+        });
+        this.userCourseID = [...new Set(this.userCourseID)];
+      });
+      resolve();
+      (error: any) => {
+        reject(error);
+      };
+    });
+  }
 
-    this.UserCourseArr.push(course)
-    console.log("checking ", this.UserCourseArr);
-
+  public addToCart(item: any): void {
     this.confirmationService.confirm({
-      message: `Do you want to add this ${course?.attributes.name} to Library?`,
+      message: `Do you want to add this ${item?.attributes.name} to Library?`,
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        const courseDetails = {
-
-            course_contents : course.id
-
+        const postCartbody = {
+          data: {
+            user_id: this.userID,
+            course_ids: item.id,
+          },
         };
-        console.log(courseDetails);
 
-
-        this.apiService.putLibraryData(this.userID,courseDetails).subscribe((res) => {
-
+        this.apiService.postCart(postCartbody).subscribe((res) => {
           this.messageService.add({
             severity: 'success',
             summary: 'Successfully',
-            detail: 'Course added to library',
+            detail: 'Course added to Cart',
           });
-          this.getUsers()
-
+          this.getCartCourses();
         });
       },
       reject: (type: any) => {
@@ -130,29 +140,9 @@ export class ContentDetailsComponent implements OnInit {
         }
       },
     });
-
-
   }
 
-  public coursesId: number[] = [];
-
-  public LibCourseId:number[] = [];
-
-  // public getUserLibrary() {
-  //   this.apiService.getContentLibrary().subscribe((res) => {
-  //     const libraryContent = res.data;
-  //     console.log("LIB DATA",libraryContent);
-  //     res.data.map((res:any)=>{
-  //       return this.LibCourseId.push(res.attributes.course_content.data?.id);
-  //     })
-  //     console.log(this.LibCourseId);
-
-  //   });
-  // }
-
   onClickVideo(courseDetails: {}) {
-    // this.displayDialog = true;
-    console.log(courseDetails);
     const ref = this.dialogService.open(VideoPopupComponent, {
       header: 'Course Preview',
       width: '50%',
@@ -163,15 +153,9 @@ export class ContentDetailsComponent implements OnInit {
     this.displayDialog = false;
   }
 
-  // My edits
-
   parsePrice(price: string): number {
     return parseInt(price, 10);
   }
-
-  @ViewChild('courseVideoElmt') courseVideoElmt!: ElementRef;
-  isPlaying = false;
-  private videoElement!: HTMLVideoElement;
 
   playCourse() {
     if (this.videoElement) {
@@ -182,26 +166,22 @@ export class ContentDetailsComponent implements OnInit {
     this.videoElement.addEventListener('pause', this.onVideoPaused);
   }
 
-  private onVideoPlaying = () => {
-    console.log('Video is playing');
-  }
+  private onVideoPlaying = () => {};
 
   private onVideoPaused = () => {
-    console.log('Video is paused');
     this.isPlaying = !this.isPlaying;
-  }
+  };
 
   private removeEventListeners() {
     this.videoElement.removeEventListener('playing', this.onVideoPlaying);
     this.videoElement.removeEventListener('pause', this.onVideoPaused);
   }
 
-  public playVideo(){
+  public playVideo() {
     this.courseVideoElmt.nativeElement.play();
-    this.onVideoPlaying
+    this.onVideoPlaying;
     this.isPlaying = !this.isPlaying;
   }
-
 
   ngOnDestroy() {
     if (this.videoElement) {
