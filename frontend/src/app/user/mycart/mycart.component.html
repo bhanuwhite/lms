@@ -1,56 +1,55 @@
-<div class="surface-ground surface-ground-wrappers ">
-
-  <div class="d-flex flex-column justify-content-center align-items-center pt-5" *ngIf="courseData.length==0">
-    <img src="../../../assets/img/myCart.PNG" alt="" style="height: 250px;width: 450px;">
-    <div class="mt-4">
-      <button class="btn btn-primary btn-md m-4" routerLink="">Add Course</button>
-    </div>
-  </div>
-
-  <div class="row ms-4" *ngIf="courseData.length !=0">
-    <div class="flex  py-3 justify-content-between">
-      <p class="fw-bold fs-3"> Cart Items</p>
-      <div class="me-5">
-        <button class="btn btn-primary" (click)="showDialog()">CheckOut </button>
+<div class="container-fluid " >
+  <div class="row">
+    <div class="d-flex flex-column justify-content-center align-items-center pt-5" *ngIf="courseData.length==0">
+      <img src="../../../assets/img/myCart.PNG" alt="" style="height: 250px;width: 450px;">
+      <div class="mt-4">
+        <button class="btn btn-primary btn-md m-4" routerLink="">Add Course</button>
       </div>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-3 mb-2 " *ngFor="let course of courseData">
-
+  </div>
+  <div class="row my-5" *ngIf="courseData.length !=0">
+    <div class="col-lg-6">
+      <p class="fw-bold fs-3"> Cart Items</p>
+    </div>
+    <div class="col-lg-6 d-flex justify-content-end">
+      <button class="btn btn-primary" (click)="showDialog()">CheckOut </button>
+    </div>
+    <div class="col-lg-3" *ngFor="let course of courseData">
       <div class="card shadow-1  " style="width: 100%; height: auto;">
         <img src={{course.course_ids[0].placeholder_img.formats.thumbnail.url}} alt="course Img"
           style="height:200px ; width: 100%;">
 
-        <div>
-          <div class="row mt-3 ms-1 cursor-pointer" (click)="courseDetails(course.id)">
-            <div class="col-lg-5 text-truncate">
+        <div class="px-2">
+          <div class="row mt-3 cursor-pointer" (click)="courseDetails(course.id)">
+            <div class="col-lg-6 text-truncate">
               <b class="textOverflow"> {{course.course_ids[0].name}} </b>
             </div>
             <div class="col-lg-6 d-flex justify-content-end">
-              <p class="m-0 p-0 d-flex justify-content-center"><span class="material-icons pe-1"> schedule </span>
+              <p class="m-0 p-0 d-flex align-items-center justify-content-center"><span class="material-icons pe-1"> schedule </span>
                 {{((course.course_ids[0].course_duration)/3600).toFixed(1)}}hrs </p>
             </div>
           </div>
-          <div class="row my-2 ms-1">
-            <div class="col-lg-5">
+          <div class="row align-items-center my-2">
+            <div class="col-lg-6">
               <button class="btn btn-warning btn-sm"> {{course.course_ids[0].level}} </button>
             </div>
-            <div class="col-lg-6 d-flex justify-content-end">
+            <div class="col-lg-6 align-items-center d-flex justify-content-end">
               <p class="m-0 p-0"> Lectures : <b>{{course.course_ids[0].content.length }}</b> </p>
             </div>
           </div>
           <div class="d-flex justify-content-between">
-            <div class="col-lg-7 text-truncate ms-2" pTooltip="{{course.course_ids[0].description}}" tooltip>
+            <div class="col-lg-7 text-truncate" pTooltip="{{course.course_ids[0].description}}" tooltip>
               <p class="textOverflow">{{course.course_ids[0].description}}</p>
             </div>
 
-            <div *ngIf="course.course_ids[0].no_of_purchases >= 3" class="col-lg-5">
+            <div *ngIf="course.course_ids[0].no_of_purchases >= 3" class="col-lg-5 justify-content-end">
               <button class="btn btn-outline-success btn-sm"> Best Seller </button>
             </div>
           </div>
-          <div class="d-flex ms-2">
+          <div class="d-flex">
             <p-rating value="4" [stars]="5" [cancel]="false"></p-rating>
           </div>
-          <div class="ms-2 my-3 flex justify-content-evenly">
+          <div class="my-3 flex align-items-center justify-content-between">
 
             <button class="btn btn-primary " *ngIf="course.course_ids[0].price != 0"> Pay Now</button>
 
@@ -73,28 +72,46 @@
   </div>
   <p-dialog header="Payment Details" [(visible)]="visible" [style]="{width: '50vw'}" styleClass="active" [modal]="true">
 
-   <div class="d-flex justify-content-between" *ngFor="let course of paidCourses">
-            <h3>{{course.course_ids[0].name}}</h3>
-            <h3><b>₹ {{course.course_ids[0].price}}</b></h3>
+    <div class="d-flex justify-content-between" *ngFor="let course of paidCourses">
+             <h3>{{course.course_ids[0].name}}</h3>
+             <h3><b>₹ {{course.course_ids[0].price}}</b></h3>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between">
+     <h4>Total Amount</h4>
+      <h4>₹ {{totalAmount}}</h4>
+    </div>
+    <div class="d-flex justify-content-between">
+     <h4>GST</h4>
+      <h4 style="color: rgb(67, 67, 243);">+ ₹ {{(0.18 * totalAmount).toFixed(2)}}</h4>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between">
+     <h2>Grand Total</h2>
+      <h2>₹ {{totalAmount + (0.18 * totalAmount)}}</h2>
+    </div>
+ 
+   </p-dialog>
+ 
+   <div class=" flex justify-content-center">
+     <p-toast></p-toast>
+     <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
    </div>
-   <hr>
-   <div class="d-flex justify-content-between">
-    <h4>Total Amount</h4>
-     <h4>₹ {{totalAmount}}</h4>
-   </div>
-   <div class="d-flex justify-content-between">
-    <h4>GST</h4>
-     <h4 style="color: rgb(67, 67, 243);">+ ₹ {{(0.18 * totalAmount).toFixed(2)}}</h4>
-   </div>
-   <hr>
-   <div class="d-flex justify-content-between">
-    <h2>Grand Total</h2>
-     <h2>₹ {{totalAmount + (0.18 * totalAmount)}}</h2>
-   </div>
+</div>
+<!-- <div class="surface-ground surface-ground-wrappers ">
 
-  </p-dialog>
+ 
 
-  <div class="card flex justify-content-center">
-    <p-toast></p-toast>
-    <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
-  </div>
+  <div class="row ms-4" >
+    <div class="flex  py-3 justify-content-between">
+      
+      <div class="me-5">
+       
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3 mb-2 " >
+
+    
+    </div>
+  </div> -->
+
