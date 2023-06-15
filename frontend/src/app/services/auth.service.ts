@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Login , LoginObjData,SignUp} from '../models/authenticate';
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +21,18 @@ export class AuthService {
     return this.http.post<LoginObjData>(`api/auth/local`, login);
   }
 
-
   signupUser(signup:SignUp) : Observable<LoginObjData> {
     return this.http.post<LoginObjData>(`api/auth/local/register`, signup);
   }
+
+  forgotPassword(item:any):Observable<any> {
+    return this.http.post<any>(`api/auth/forgot-password`,item)
+  }
+
+  // Reset Password
+  resetPassword(item:any):Observable<any> {
+    return this.http.post<any>(`api/auth/change-password`,item)
+  }
+
 
 }
