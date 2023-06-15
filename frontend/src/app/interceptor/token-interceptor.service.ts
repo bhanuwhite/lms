@@ -11,6 +11,7 @@ import { retry, catchError } from 'rxjs/operators';
 export class TokenInterceptor implements HttpInterceptor {
   token: any;
   errorMsg!:string
+  errorMessage!:HttpErrorResponse;
 
   constructor(private router: Router, private messageService: MessageService) { }
 
@@ -31,6 +32,7 @@ export class TokenInterceptor implements HttpInterceptor {
       retry(1),
       catchError((error: HttpErrorResponse) => {
       console.log(error);
+        this.errorMessage = error
 
         this.errorMsg = error.error.error.message;
         let errorMessage = '';

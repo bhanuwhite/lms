@@ -28,10 +28,11 @@ import {  GoogleSigninButtonModule,GoogleSigninButtonDirective } from '@abacritt
 })
 export class LoginComponent {
   formgroup!: FormGroup;
-  role: string;
-
+  forgotForm!:FormGroup;
+ public role: string;
+public forgotPwd:boolean = false;
   body!: Login;
-  isLoading: boolean = false;
+  public isLoading: boolean = false;
 
   isError: boolean = false;
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
@@ -40,7 +41,7 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private aurhService: AuthService,
+    private authService: AuthService,
     private snakeBar: MatSnackBar,
     private messageService: MessageService,
     private authService: SocialAuthService
@@ -56,6 +57,7 @@ export class LoginComponent {
       pwd: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
 
+<<<<<<< HEAD
     this.authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
@@ -76,6 +78,11 @@ export class LoginComponent {
       }
 
 })
+=======
+    this.forgotForm = this.fb.group({
+      email:new FormControl('',[Validators.required, emailValidator()])
+    })
+>>>>>>> 65e2979afb622eab2d493a4b67591358d778773e
   }
 
   public onSubmit(): void {
@@ -86,7 +93,7 @@ export class LoginComponent {
     console.log(this.body);
 
     this.isLoading = true;
-    this.aurhService.loginUser(this.body).subscribe((res) => {
+    this.authService.loginUser(this.body).subscribe((res) => {
       localStorage.setItem('token', res.jwt);
       try {
         console.log(res);
@@ -152,4 +159,40 @@ export class LoginComponent {
   public get pwd() {
     return this.formgroup.get('pwd')!;
   }
+  public showForgotForm(){
+    this.forgotPwd = !this.forgotPwd
+  }
+
+  public cancelForm(){
+    this.forgotPwd = !this.forgotPwd
+  }
+
+  public get email() {
+    return this.forgotForm.get('email')
+  }
+public forgotFormSubmit():void {
+  console.log(this.forgotForm.getRawValue());
+  const forgotBody = {
+    email: this.forgotForm.value.email
+  }
+
+this.authService.forgotPassword(forgotBody).subscribe((res)=>{
+  console.log("forgor res",res);
+})
+
+  this.messageService.add({
+    severity:'success',
+    summary:"Check your Email",
+    detail:"Reset link sent to your Email.",
+    life:5000
+  })
+  this.forgotForm.reset();
+  this.forgotPwd = !this.forgotPwd
+
+}
+
+
+
+
+
 }

@@ -52,6 +52,7 @@ export class ContentDetailsComponent implements OnInit {
     this.getLocalData()
       .then(() => this.getSingleCourseObj())
       .then(() => this.getCartCourses());
+      window.scrollTo(0,0)
   }
 
   public getLocalData(): Promise<void> {
@@ -130,7 +131,12 @@ export class ContentDetailsComponent implements OnInit {
             detail: 'Course added to Cart',
           });
           this.getCartCourses();
-        });
+        },
+        (error:any)=>{
+          console.log("Error",error);
+
+        }
+          );
       },
       reject: (type: any) => {
         switch (type) {
