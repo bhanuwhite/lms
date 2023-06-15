@@ -44,7 +44,7 @@ public forgotPwd:boolean = false;
     private authService: AuthService,
     private snakeBar: MatSnackBar,
     private messageService: MessageService,
-    private authService: SocialAuthService
+
   ) {
     this.role = 'user';
   }
@@ -57,32 +57,26 @@ public forgotPwd:boolean = false;
       pwd: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
 
-<<<<<<< HEAD
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = (user != null);
-      console.log(user);
+    // this.authService.authState.subscribe((user) => {
+    //   this.user = user;
+    //   this.loggedIn = (user != null);
+    //   console.log(user);
 
-     try{
-      if (user.idToken) {
-        localStorage.setItem('token', user.idToken);
-      localStorage.setItem('user', JSON.stringify(user));
-      localStorage.setItem('role', 'user');
-      this.isLoading = false;
-      localStorage.setItem('isAuthenticate', 'true');
-      this.router.navigate(['/user']);
-      }
-     }
-     catch (error) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong !!' });
-      }
+    //  try{
+    //   if (user.idToken) {
+    //     localStorage.setItem('token', user.idToken);
+    //   localStorage.setItem('user', JSON.stringify(user));
+    //   localStorage.setItem('role', 'user');
+    //   this.isLoading = false;
+    //   localStorage.setItem('isAuthenticate', 'true');
+    //   this.router.navigate(['/user']);
+    //   }
+    //  }
+    //  catch (error) {
+    //     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong !!' });
+    //   }
 
-})
-=======
-    this.forgotForm = this.fb.group({
-      email:new FormControl('',[Validators.required, emailValidator()])
-    })
->>>>>>> 65e2979afb622eab2d493a4b67591358d778773e
+// })
   }
 
   public onSubmit(): void {
