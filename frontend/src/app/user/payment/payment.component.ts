@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-payment',
@@ -6,32 +7,90 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./payment.component.scss']
 })
 export class PaymentComponent implements OnInit{
-  courseDetails!: { price: number };
+  // courseDetails!: { price: number };
   discount!: number;
-  total!: number;
-  cities: { name: string; code: string; }[];
+  totalAmount!: number;
+  cities:any[]=[];
   selectedCity1!: {};
+  countryList: any;
+states:any;
+userID!:number;
+paidCourses:any[]=[];
 
   ngOnInit(): void {
-    this.getLocalStorageData();
+this.getLocalStoredData();
+this.getCartDetails()
 
   }
 
-  constructor() {
+  constructor( private apiservice: ApiService,) {
 
-    this.cities = [
-      { name: 'New York', code: 'NY' },
-      { name: 'Rome', code: 'RM' },
-      { name: 'London', code: 'LDN' },
-      { name: 'Istanbul', code: 'IST' },
-      { name: 'Paris', code: 'PRS' }
-    ];
+    this.countryList = [
+      {
+        name: "India",
+        code: "in",
+        states: [
+          { value: "Andra Pradesh", "sCode": "AP" },
+          { value: "Telangana", "sCode": "TG" },
+          { value: "TamilNadu", "sCode": "TN" },
+          { value: "Maharastra", "sCode": "MH" },
+          { value: "Madya Pradesh", "sCode": "MP" }
+        ]
+      },
+      {
+        name: "China",
+        code: "cn",
+        states: [
+          { value: "Hainan", "sCode": "HN" },
+          { value: "Fujain", "sCode": "FN" },
+          { value: "Sichuan", "sCode": "SN" }
+        ]
+      },
+
+      {
+        name: "USA",
+        code: "us",
+        states: [
+          { value: "Califoria", "sCode": "CF" },
+          { value: "Texas", "sCode": "TX" },
+          { value: "Alaska", "sCode": "AS" }
+        ]
+      }
+    ]
+
   }
-  getLocalStorageData() {
-    this.courseDetails = JSON.parse(localStorage.getItem('courseDetails') || '{}');
-    console.log(this.courseDetails);
-    this.discount = (this.courseDetails.price * 20) / 100;
-    this.total = this.courseDetails.price - this.discount
+
+  public getLocalStoredData() {
+    const localStoredData = JSON.parse(localStorage.getItem('user')!);
+    this.userID = localStoredData.id;
   }
+  public getCartDetails(){
+    this.totalAmount=0;
+    this.paidCourses=[];
+    this.apiservice.getUserCart(this.userID).subscribe( (res:any)=>{
+      res.map((course:any) =>{
+       if (course.course_ids[0].price != 0) {
+             this.paidCourses.push(course);
+
+          this.totalAmount =this.totalAmount +  JSON.parse(course.course_ids[0].price);
+       }
+  console.log(this.paidCourses);
+
+      })
+
+    });
+  }
+  onChange(selectedValue:any) {
+
+    console.log(selectedValue.value);
+    console.log(this.countryList);
+    this.countryList.map((country: any) => {
+      if (country.name === selectedValue.value.name) {
+        this.states = country.states;
+      }
+    });
+
+  }
+
 
 }

@@ -87,8 +87,10 @@
           </div>
         </div>
         <div class="row mb-3">
-          <div class="col-lg-6  m-0 text-center bg-warning rounded-pill" style="text-align: center;">
-            <button class="btn btn-sm btn-warning fw-bold"> {{course.attributes.level}} </button>
+          <div class="col-lg-6  m-0 text-center" style="text-align: center;">
+            <button type="button" class="btn-sm btn btn-outline-info">{{course.attributes.level}}</button>
+
+            <!-- <button class="btn btn-sm btn-warning"> {{course.attributes.level}} </button> -->
           </div>
           <div class="col-lg-6 d-flex justify-content-end">
             <p class="m-0 p-0"> Lectures : <b>{{course.attributes.content.data.length }}</b> </p>
@@ -98,8 +100,8 @@
           <div class="col-lg-6 text-truncate" pTooltip="{{course.attributes.description}}" tooltip>
             <p class="textOverflow">{{course.attributes.description}}</p>
           </div>
-          <div *ngIf="course.attributes.no_of_purchases >= 3" class="col-lg-5">
-            <button class="btn btn-outline-success btn-sm"> Best Seller </button>
+          <div *ngIf="course.attributes.no_of_purchases >= 3" class="col-lg-5" style="margin-left:40px;">
+            <button class="btn btn-sm fw-bold" style="background-color: rgb(213, 240, 158);width: 90%;">Best Seller</button>
           </div>
         </div>
 

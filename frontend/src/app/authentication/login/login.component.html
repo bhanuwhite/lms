@@ -1,102 +1,166 @@
 <!-- <app-spinner *ngIf="isLoading == true"></app-spinner> -->
-<div class="surface-ground pt-5  mx-auto">
-    <div class=" card0  border-0">
-        <div class="row d-flex">
-            <div class="col-lg-6">
-                <div class="card1 pb-5">
-                    <div class="row px-3">
-                        <div class="d-flex align-items-center">
-                            <h1 style="color: #0d6efd;;">Welcome to LMS</h1>
-                            <!-- <img src="https://i.imgur.com/CXQmsmF.png" class="logo"> -->
-                        </div>
-                    </div>
-                    <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
-                        <img height="400px"
-                            src="https://t4.ftcdn.net/jpg/04/12/22/09/360_F_412220949_b05U6ue0CR4AwLykbPZIqithDXKHf5L7.jpg">
-                        <!-- <img src="https://img.freepik.com/premium-vector/girl-sitting-big-networks-web-page-working_126283-506.jpg?size=626&ext=jpg&ga=GA1.2.1094180862.1674452735&semt=ais" alt=""> -->
-                    </div>
-                </div>
+<div class="surface-ground pt-5 mx-auto">
+  <div class="card0 border-0">
+    <div class="row d-flex">
+      <div class="col-lg-6">
+        <div class="card1 pb-5">
+          <div class="row px-3">
+            <div class="d-flex align-items-center">
+              <h1 style="color: #0d6efd">Welcome to LMS</h1>
+              <!-- <img src="https://i.imgur.com/CXQmsmF.png" class="logo"> -->
             </div>
+          </div>
+          <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
+            <img
+              height="400px"
+              src="https://t4.ftcdn.net/jpg/04/12/22/09/360_F_412220949_b05U6ue0CR4AwLykbPZIqithDXKHf5L7.jpg"
+            />
+            <!-- <img src="https://img.freepik.com/premium-vector/girl-sitting-big-networks-web-page-working_126283-506.jpg?size=626&ext=jpg&ga=GA1.2.1094180862.1674452735&semt=ais" alt=""> -->
+          </div>
+        </div>
+      </div>
 
-            <div class="col-lg-6">
-                <div class="card2 card border-0 px-4 py-5">
-                    <form [formGroup]="formgroup">
-                        <div class="row mb-4 px-3">
-                            <h1 class="mb-0 mr-4 mt-2" style="padding: 10px 12px 0 0 ;">LOGIN</h1>
-
-                        </div>
-                        <!-- <div class="row px-3 mb-4">
+      <div class="col-lg-6">
+        <div class="card2 card border-0 px-4 py-5">
+          <form [formGroup]="formgroup">
+            <div class="row mb-4 px-3">
+              <h1 class="mb-0 mr-4 mt-2" style="padding: 10px 12px 0 0">
+                LOGIN
+              </h1>
+            </div>
+            <!-- <div class="row px-3 mb-4">
                         <div class="line"></div>
                         <small class="or text-center">Or</small>
                         <div class="line"></div>
                     </div> -->
-                        <div class="row px-3 mb-2">
-                            <label class="mb-1 px-0">
-                                <h6 class="mb-0 text-sm">Email : <span class="text-danger"> * </span></h6>
-                            </label>
-                            <input class="mb-0" type="text" name="name" formControlName="name"
-                                [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
-                                placeholder="Enter Email Address">
-                            <!-- <span *ngIf="formgroup.get('name')?.invalid && formgroup.get('name')?.touched"
+            <div class="row px-3 mb-2">
+              <label class="mb-1 px-0">
+                <h6 class="mb-0 text-sm">
+                  Email : <span class="text-danger"> * </span>
+                </h6>
+              </label>
+              <input
+                class="mb-0"
+                type="text"
+                name="name"
+                formControlName="name"
+                [class.is-invalid]="
+                  name.invalid && (name.dirty || name.touched)
+                "
+                placeholder="Enter Email Address"
+              />
+              <!-- <span *ngIf="formgroup.get('name')?.invalid && formgroup.get('name')?.touched"
                                 style="color: red;">User name or Email Address is
                                 required</span> -->
-                            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback px-0">
-                                <div *ngIf="name.errors?.['required']">
-                                    Email  is required.
-                                </div>
-                                <div *ngIf="!name.errors?.['required'] &&  name.errors?.['emailValidator']">
-                                    Invalid email format.
-                                </div>
-                            </div>
+              <div
+                *ngIf="name.invalid && (name.dirty || name.touched)"
+                class="invalid-feedback px-0"
+              >
+                <div *ngIf="name.errors?.['required']">Email is required.</div>
+                <div
+                  *ngIf="!name.errors?.['required'] &&  name.errors?.['emailValidator']"
+                >
+                  Invalid email format.
+                </div>
+              </div>
+            </div>
 
+            <div class="row px-3 pt-2">
+              <label class="mb-0 px-0">
+                <h6 class="mb-0 text-sm">
+                  Password : <span class="text-danger"> * </span>
+                </h6>
+              </label>
+              <input
+                type="password"
+                formControlName="pwd"
+                name="pwd"
+                [class.is-invalid]="pwd.invalid && (pwd.dirty || pwd.touched)"
+                placeholder="Enter Password"
+              />
 
-                        </div>
-
-                        <div class="row px-3 pt-2">
-                            <label class="mb-0 px-0">
-                                <h6 class="mb-0 text-sm">Password : <span class="text-danger"> * </span></h6>
-                            </label>
-                            <input type="password" formControlName="pwd" name="pwd"
-                                [class.is-invalid]="pwd.invalid && (pwd.dirty || pwd.touched)"
-                                placeholder="Enter Password">
-
-                            <!-- <span *ngIf="formgroup.get('pwd')?.invalid && formgroup.get('pwd')?.touched"
+              <!-- <span *ngIf="formgroup.get('pwd')?.invalid && formgroup.get('pwd')?.touched"
                                 style="color: red;">Password is
                                 required</span> -->
 
-                            <div *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" class="invalid-feedback px-0">
-                                <div *ngIf="pwd.errors?.['required']">
-                                    Password is required.
-                                </div>
-                                <div *ngIf="pwd.errors?.['minlength']">
-                                    Password must have at least 8 characters.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row px-3 mb-4">
-                            <!-- <div class="custom-control custom-checkbox custom-control-inline">
+              <div
+                *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)"
+                class="invalid-feedback px-0"
+              >
+                <div *ngIf="pwd.errors?.['required']">
+                  Password is required.
+                </div>
+                <div *ngIf="pwd.errors?.['minlength']">
+                  Password must have at least 8 characters.
+                </div>
+              </div>
+            </div>
+            <div class="row px-3 mb-4">
+              <!-- <div class="custom-control custom-checkbox custom-control-inline">
                             <input id="chk1" type="checkbox" name="chk" class="custom-control-input">
                             <label for="chk1" class="custom-control-label text-sm">Remember me</label>
                         </div> -->
-                            <a routerLink="/login" style="text-align: end;" class="ml-auto p-0 mb-0 text-sm">Forgot Password?</a>
-                        </div>
-                        <div class="row mb-3 px-3">
-                            <button pButton pRipple type="submit" class="w-full p-3 text-xl btn-blue"
-                                (click)="onSubmit()" [disabled]="!formgroup.valid">Login</button>
-                        </div>
-
-                        <p-divider align="center" >
-                            <b>OR</b>
-                        </p-divider>
-                        <div class="row mb-4 px-1">
-                            <small class="" style="font-size: 14px; text-align: center;font-weight: 500;">Don't have an account? <a routerLink="/signup"
-                                    class=" " style="color: #0d6efd;;">SignUp</a></small>
-                        </div>
-                    </form>
-                </div>
+              <a
+                routerLink="/login"
+                style="text-align: end"
+                class="ml-auto p-0 mb-0 text-sm"
+                >Forgot Password?</a
+              >
             </div>
+            <div class="row mb-3 px-3">
+              <button
+                pButton
+                pRipple
+                type="submit"
+                class="w-full p-3 text-xl btn-blue"
+                (click)="onSubmit()"
+                [disabled]="!formgroup.valid"
+              >
+                Login
+              </button>
+            </div>
+            <div class="row mb-4 px-1">
+              <small
+                class=""
+                style="font-size: 14px; text-align: center; font-weight: 500"
+                >Don't have an account?
+                <a routerLink="/signup" class=" " style="color: #0d6efd"
+                  >SignUp</a
+                ></small
+              >
+            </div>
+            <p-divider align="center">
+              <b>OR</b>
+            </p-divider>
+
+            <div class="google">
+              <!-- <asl-google-signin-button></asl-google-signin-button> -->
+
+              <div
+                id="g_id_onload"
+                data-client_id="235488694710-e2fe7teii6rsvf755otpk13r4k8t5fph.apps.googleusercontent.com"
+                data-context="signin"
+                data-ux_mode="popup"
+                data-login_uri="http://localhost/4200"
+                data-auto_prompt="false"
+              ></div>
+
+              <div
+                class="g_id_signin"
+                data-type="standard"
+                data-shape="rectangular"
+                data-theme="outline"
+                data-text="signin_with"
+                data-size="large"
+                data-logo_alignment="left"
+              ></div>
+              <!-- <button class="btn btn-primary" >Sign in with Google</button> -->
+            </div>
+          </form>
         </div>
-        <!-- <div class="bg-blue py-4">
+      </div>
+    </div>
+    <!-- <div class="bg-blue py-4">
             <div class="row px-3">
                 <small class="ml-4 ml-sm-5 mb-2">Copyright &copy; 2019. All rights reserved.</small>
                 <div class="social-contact ml-4 ml-sm-auto">
@@ -107,6 +171,6 @@
                 </div>
             </div>
         </div> -->
-    </div>
+  </div>
 </div>
 <!-- <ngx-ui-loader></ngx-ui-loader> -->

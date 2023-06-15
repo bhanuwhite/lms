@@ -1,107 +1,214 @@
-<div class="container-fluid px-4 py-4">
-    <h1 style="font-size: 1.5rem;"><b>Billing address</b> </h1>
-</div>
-<div class="container py-3">
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="d-flex justify-content-between">
-                        <h6 style="font-size: small"><b>Country</b></h6>
-                        <h5>Required</h5>
-                    </div>
-                    <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" placeholder="Select a Country.."
-                        optionLabel="name" [showClear]="true"></p-dropdown>
-                </div>
-                <div class="col-lg-6">
-                    <div class="d-flex justify-content-between">
-                        <h6 style="font-size: small"><b>State/Union Territory</b></h6>
-                        <h5>Required</h5>
-                    </div>
-                    <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" placeholder="Select a States.."
-                        optionLabel="name" [showClear]="true"></p-dropdown>
-                </div>
-                <h5 class="">LMS is required by law to collect aplicable transaction taxes for purchases made in certain
-                    tax jurisdictions.</h5>
-                    <div class="col-lg-12">
-                        <div class="d-flex justify-content-between">
-                            <h2><b>Payment method</b></h2>
-                            <h6 style="font-size: smaller; padding-top: 8px">
-                                Secured connections<i class="pi pi-lock ms-2 mt-1"></i>
-                            </h6>
-                        </div>
-                        <div class="field-radiobutton">
-                            <input type="radio" name="card" id="creditCard" />
-        
-                            <label for="creditCard" class="flex justify-content-space-between flex-wrap">
-                                <div class="flex align-items-center justify-content-center mr-5">
-                                    <img src="../../../assets/img/card1.jpg" alt="img" width="25px" class="ms-1 mr-2" />
-                                    Credit/Debit Cards
-                                </div>
-                                <div class="flex align-items-center justify-content-center ms-5">
-                                    <img src="../../../assets/img/visa.png" alt="img" width="35px" class="p-1" />
-                                    <img src="../../../assets/img/rupay.jpg" alt="img" width="35px" class="p-1" />
-                                    <img src="../../../assets/img/express.jpg" alt="img" width="35px" class="p-1" />
-                                    <img src="../../../assets/img/master.png" alt="img" width="35px" class="p-1" />
-                                </div>
-                            </label>
-                        </div>
-                        <div class="field-radiobutton">
-                            <input type="radio" name="card" id="upi" />
-        
-                            <label for="upi"><img src="../../../assets/img/upi.png" alt="img" width="25px"
-                                    class="ms-1 mr-2" />UPI</label>
-                        </div>
-                        <div class="field-radiobutton">
-                            <input type="radio" name="card" id="netBanking" />
-        
-                            <label for="netBanking"><img src="../../../assets/img/netbanking.png" alt="img" width="25px"
-                                    class="ms-1 mr-2" />Net Banking</label>
-                        </div>
-                        <div class="field-radiobutton">
-                            <input type="radio" name="card" id="mobileWallet" />
-        
-                            <label for="mobileWallet"><img src="../../../assets/img/mobile.png" alt="img" width="25px"
-                                    class="ms-1 mr-2" />Mobile Wallet</label>
-                        </div>
-                    </div>
-            </div>
+<div>
+
+  <div class="container-fluid">
+    <div class="row ml-5">
+
+      <div class="col-lg-7 p-5">
+        <div class=" px-4 py-4 justify-content-between w-60">
+          <h1
+            style="
+              font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+                'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            "
+            class="fs-1"
+          >
+            <b>Checkout</b>
+          </h1>
+
         </div>
-        <div class="col-lg-6">
-            <div class="card p-4">
-                <h2><b>Summary</b></h2>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <h3> <b>Original Price:</b> </h3>
-                    </div>
-                   <div class="col-lg-4">
-                    <h3 class="ms-4">{{ courseDetails.price | currency : "INR" }}</h3>
-                   </div>    
-                </div>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <h3> <b>Discounts Price:</b> </h3>
-                    </div>
-                    <div class="col-lg-4">
-                        <h3 class="ms-4">{{discount | currency : 'INR'}}</h3>
-                    </div> 
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <h3> <b>Total Price:</b> </h3>
-                    </div>
-                    <div class="col-lg-4">
-                        <h3 class="ms-4"> {{total | currency: "INR"}}</h3>
-                    </div>
-                </div>
-                <h5 style="text-align: center">
-                    By completing your purchase you agree to these
-                    <a href="#">Terms of Services</a>
-                </h5>
-                <button pButton pRipple type="button" label="Complete Checkout" class="p-button-success"></button>
-                <h4 style="text-align: center">30-Day Money-Bank Guarantee</h4>
+        <h3
+          style="
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+              sans-serif;
+          "
+          class="fs-4"
+        >
+          Billing Adress
+        </h3>
+
+        <div class="row">
+         <div class="row mb-2">
+          <div class="col-lg-6">
+
+              <h6 style="font-size: small"><b>Country</b></h6>
+
+            <p-dropdown
+              (onChange)="onChange($event)"
+              [options]="countryList"
+              optionLabel="name"
+              placeholder="Select Country"
+            ></p-dropdown>
+          </div>
+          <div class="col-lg-6">
+            <div >
+              <h6 style="font-size: small"><b>State/Union Territory</b></h6>
+
             </div>
+            <div *ngIf="countryList">
+              <p-dropdown
+                [options]="states"
+                optionLabel="value"
+                placeholder="Select state"
+              ></p-dropdown>
+            </div>
+          </div>
+         </div>
+          <h5 class="">
+            LMS is required by law to collect aplicable transaction taxes for
+            purchases made in certain tax jurisdictions.
+          </h5>
+          <div class="col-lg-12">
+            <div class="d-flex justify-content-between">
+              <h2><b>Payment method</b></h2>
+              <h6 style="font-size: smaller; padding-top: 8px">
+                Secured connections<i class="pi pi-lock ms-2 mt-1"></i>
+              </h6>
+            </div>
+            <div class="field-radiobutton">
+              <input type="radio" name="card" id="creditCard" />
+
+              <label
+                for="creditCard"
+                class="flex justify-content-space-between flex-wrap"
+              >
+                <div class="flex align-items-center justify-content-center mr-5">
+                  <img
+                    src="../../../assets/img/card1.jpg"
+                    alt="img"
+                    width="25px"
+                    class="ms-1 mr-2"
+                  />
+                  Credit/Debit Cards
+                </div>
+                <div class="flex align-items-center justify-content-center ms-5">
+                  <img
+                    src="../../../assets/img/visa.png"
+                    alt="img"
+                    width="35px"
+                    class="p-1"
+                  />
+                  <img
+                    src="../../../assets/img/rupay.jpg"
+                    alt="img"
+                    width="35px"
+                    class="p-1"
+                  />
+                  <img
+                    src="../../../assets/img/express.jpg"
+                    alt="img"
+                    width="35px"
+                    class="p-1"
+                  />
+                  <img
+                    src="../../../assets/img/master.png"
+                    alt="img"
+                    width="35px"
+                    class="p-1"
+                  />
+                </div>
+              </label>
+            </div>
+            <div class="field-radiobutton">
+              <input type="radio" name="card" id="upi" />
+
+              <label for="upi"
+                ><img
+                  src="../../../assets/img/upi.png"
+                  alt="img"
+                  width="25px"
+                  class="ms-1 mr-2"
+                />UPI</label
+              >
+            </div>
+            <div class="field-radiobutton">
+              <input type="radio" name="card" id="netBanking" />
+
+              <label for="netBanking"
+                ><img
+                  src="../../../assets/img/netbanking.png"
+                  alt="img"
+                  width="25px"
+                  class="ms-1 mr-2"
+                />Net Banking</label
+              >
+            </div>
+            <div class="field-radiobutton">
+              <input type="radio" name="card" id="mobileWallet" />
+
+              <label for="mobileWallet"
+                ><img
+                  src="../../../assets/img/mobile.png"
+                  alt="img"
+                  width="25px"
+                  class="ms-1 mr-2"
+                />Mobile Wallet</label
+              >
+            </div>
+          </div>
+
+          <div class="mt-2">
+            <h2 style="font-family:Georgia, 'Times New Roman', Times, serif;"><b>Order details</b></h2>
+
+
+         <div class="d-flex justify-content-between" *ngFor="let course of paidCourses">
+         <div class="d-flex">
+          <img src={{course.course_ids[0].placeholder_img.url}} width="50px" height="50px">
+          <h3 class="m-2" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">{{course.course_ids[0].name}}</h3>
+         </div>
+          <h3>₹ {{course.course_ids[0].price}}</h3>
+     </div>
+
+
+          </div>
         </div>
+      </div>
+
+      <div class="col-lg-5 bg-light">
+       <div class="col-lg-10 p-4">
+        <div class="d-flex justify-content-end m-3">
+          <h4
+          class="text-danger cursor-pointer "
+          routerLink="/user/mycart"
+          style="
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+          ">
+          Cancel
+        </h4>
+         </div>
+          <div class=" p-4">
+            <h2><b>Summary</b></h2>
+
+              <div class=" col-lg-12 d-flex justify-content-between">
+                <h3>Original Price:</h3>
+                <h3 class="ms-4"> {{totalAmount| currency : "INR" }}</h3>
+            </div>
+            <div class=" col-lg-12 d-flex justify-content-between">
+              <h3>Discount Price:</h3>
+              <h3 class="ms-4">- {{totalAmount * 0.03 | currency : "INR" }}</h3>
+          </div>
+            <hr />
+            <div class=" col-lg-12 d-flex justify-content-between">
+              <h3>Discount Price:</h3>
+              <h3 class="ms-4"> {{totalAmount - (totalAmount * 0.05) | currency : "INR" }}</h3>
+          </div>
+            <h5 style="text-align: center">
+              By completing your purchase you agree to these
+              <a href="#">Terms of Services</a>
+            </h5>
+            <div class="d-flex justify-content-center">
+              <button
+              pButton
+              pRipple
+              type="button"
+              label="Complete Checkout"
+              class="p-button-success"
+            ></button>
+            </div>
+            <h4 style="text-align: center">30-Day Money-Bank Guarantee</h4>
+          </div>
+       </div>
+      </div>
+
     </div>
+  </div>
 </div>

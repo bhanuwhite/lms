@@ -16,7 +16,10 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.token = localStorage.getItem("token");
-    if (request.url !== 'api/auth/local' && request.url !== 'api/auth/local/register') {
+
+   if (request.url !== 'api/auth/local' && request.url !== 'api/auth/local/register') {
+      console.log(this.token);
+
       request = request.clone({
         headers: request.headers.set('Authorization', `Bearer ${this.token}`).set("Access-Control-Allow-Origin", "*"),
       });
@@ -34,7 +37,10 @@ export class TokenInterceptor implements HttpInterceptor {
         if (error.status === 401) {
           localStorage.clear();
           this.router.navigate(['login']);
-          this.messageService.add({ severity: 'error', summary: 'Bad request', detail: 'Unauthorized request !!' });
+setTimeout(() => {
+  this.messageService.add({ severity: 'error', summary: 'Bad request', detail: 'Unauthorized request !!' });
+
+}, 2000);
         } else if (error.status === 500) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail:'Internal server error !!'});
         }
