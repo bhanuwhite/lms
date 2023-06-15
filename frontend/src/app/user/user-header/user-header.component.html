@@ -11,7 +11,7 @@
     </div>
     <div class="col-lg-8 d-flex justify-content-center">
       <div class="collapse navbar-collapse justify-content-center" id="navbarNav" style="font-size: 24px;">
-        <ul class="navbar-nav   mb-lg-0" style="gap: 35px;">
+        <ul class="navbar-nav align-items-center  mb-lg-0" style="gap: 35px;">
           <li class="nav-item">
             <a class="nav-link nave-menu active" aria-current="page" routerLink="/user" routerLinkActive="active"
               style="font-size: 1.3rem;"> Home</a>
@@ -43,6 +43,39 @@
       <p-menu #menu [popup]="true" [model]="items"></p-menu>
     </div>
   </div>
+  <div class="col-lg-8 d-flex justify-content-center">
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav" style="font-size: 24px;">
+      <ul class="navbar-nav   mb-lg-0" style="gap: 35px;">
+        <li class="nav-item">
+          <a class="nav-link nave-menu active" aria-current="page" routerLink="/user" routerLinkActive="active"
+            style="font-size: 1.3rem;"> Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nave-menu" routerLink="/user/library" routerLinkActive="active"
+            style="font-size: 1.3rem;">My Libraries</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link nave-menu" routerLink="/user/assessment" style="font-size: 1.3rem;">Assessment</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nave-menu" routerLink="/user/mycart" style="font-size: 1.3rem;">
+            <i class="pi pi-shopping-cart mr-1" style="font-size: 1.5rem;">
+              <span pBadge styleClass="font-size:0.4rem" value={{cartLength}}></span>
+            </i>
+            <!-- <p-button label="Emails" badge="8" styleClass="mr-2"></p-button> -->
+            Cart </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+  <div class="col-lg-2 d-flex justify-content-end cursor-pointer">
+    <p-avatar shape="circle" size="large" icon="pi pi-user" (click)="menu.toggle($event)"
+      [style]="{'background-color':'#2188d9', 'color': '#ffffff'}"></p-avatar>
+    <p-menu #menu [popup]="true" [model]="items"></p-menu>
+  </div>
+
 </nav>
 
 <div class="card shadow-2">
@@ -54,7 +87,7 @@
         <div class="field mt-2 w-75">
           <label for="email">Email :</label>
           <span class="p-float-label">
-            <input type="text"  readonly class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="email"
+            <input type="text" readonly class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="email"
               pInputText>
           </span>
         </div>
@@ -62,8 +95,9 @@
         <div class="field mt-2 w-75">
           <label for="oldPassword">Current Password :<span class="text-danger fs-5"> * </span> </label>
           <span class="p-float-label">
-            <input type="text" [class.currentPwdIP]="currentPwdInput"  class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="oldPassword"
-              pInputText placeholder="Enter current password.">
+            <input type="text" [class.currentPwdIP]="currentPwdInput"
+              class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="oldPassword" pInputText
+              placeholder="Enter current password.">
             <small class="p-error block"
               *ngIf="changePassword.get('oldPassword')?.invalid && changePassword.get('oldPassword')?.touched">
               Password is required.
@@ -120,4 +154,4 @@
   </p-dialog>
 </div>
 
-<p-toast position="top-center" ></p-toast>
+<p-toast position="top-center"></p-toast>
