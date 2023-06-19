@@ -43,14 +43,12 @@ export class MycartComponent implements OnInit {
   public getCartCourse(): void {
     this.apiservice.getUserCart(this.userID).subscribe((res) => {
       this.courseData = res;
-      console.log("Cart Items",this.courseData);
+
       this.aboutService.userCartLength(res.length);
 
           this.courseData.map(res=>{
             if(res.course_ids[0].price != 0){
               this.totalAmount= Number(res.course_ids[0].price) + Number(this.totalAmount);
-              console.log(this.totalAmount);
-              // console.log((res.course_ids[0].price),this.totalAmount);
 
 
             }
@@ -72,7 +70,7 @@ export class MycartComponent implements OnInit {
   }
 
   addToLibrary(course: any) {
-    console.log(course);
+
 
     this.purchases = course.course_ids[0].no_of_purchases;
     this.confirmationService.confirm({
@@ -106,7 +104,7 @@ export class MycartComponent implements OnInit {
             .subscribe((res) => {});
         });
         this.apiservice.deleteCartItem(course.id).subscribe((res:any)=>{
-          console.log(res);
+
         })
         location.reload();
       },
@@ -134,7 +132,7 @@ export class MycartComponent implements OnInit {
   // Removing Course form Cart
   public removeCourse(id:number):void {
 
-    console.log("removing course");
+
 
     this.confirmationService.confirm({
       message: `Do you want to remove this Course from Cart?`,
@@ -142,7 +140,6 @@ export class MycartComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.apiservice.deleteCartItem(id).subscribe((res)=>{
-          console.log(res);
 
           this.messageService.add({
             severity: 'success',

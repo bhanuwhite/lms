@@ -97,7 +97,6 @@ this.getCartDetails();
           this.discount = this.totalAmount * 0.05
           this.finalPayment = (this.totalAmount - this.discount)
        }
-        console.log(this.paidCourses);
 
       })
 
@@ -105,8 +104,6 @@ this.getCartDetails();
   }
   onChange(selectedValue:any) {
 
-    console.log(selectedValue.value);
-    console.log(this.countryList);
     this.countryList.map((country: any) => {
       if (country.name === selectedValue.value.name) {
         this.states = country.states;
@@ -149,7 +146,6 @@ this.getCartDetails();
   public pay() {
 
     this.RAZORPAY_OPTIONS.amount = this.finalPayment.toFixed(0) + '00';
-console.log(this.razorPaySuccessHandler.bind(this));
 
     // binding this object to both success and dismiss handler
 
@@ -166,7 +162,7 @@ console.log(this.razorPaySuccessHandler.bind(this));
 
   paymentSuccess:any;
   public razorPaySuccessHandler(response:any) {
-    console.log(response.razorpay_payment_id);
+
     this.razorpayResponse = `Razorpay Response`;
 
     this.showModal = true;
@@ -181,9 +177,7 @@ this.afterPayment(response.razorpay_payment_id)
   }
 
   afterPayment(paymentId:string){
-  console.log(paymentId);
-  console.log(this.paidCourses);
-console.log(this.paidCourses[0].id);
+
 
   this.paidCourses.map((course:any)=>{
 
@@ -195,11 +189,11 @@ console.log(this.paidCourses[0].id);
     };
 
     this.apiservice.postUserHasCourse(courseDetails).subscribe((res) => {
-      // console.log(res);
+
       });
 
 this.apiservice.deleteCartItem(course.id).subscribe((res:any)=>{
-      // console.log(res);
+
     })
   })
   this.route.navigate(['/user/mycart'])
