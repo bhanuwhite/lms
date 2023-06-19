@@ -115,13 +115,21 @@ export class ProfileComponent {
     // console.log(this.loginUserName);
 
     this.userProfileForm = this.fb.group({
-      username: new FormControl(this.loginUserName),
-      firstname: new FormControl(this.userFirstName, [Validators.required]),
-      lastname: new FormControl(this.userLastName, [Validators.required]),
-      email: new FormControl(this.userLoginEmail),
-      mobileNo: new FormControl(this.mobileNo),
-      biography: new FormControl(this.biograpy),
-      linkedin: new FormControl(this.linkedin),
+      username: new FormControl({ value: this.loginUserName, disabled: true }),
+      firstname: new FormControl(this.userFirstName, [
+        Validators.required,
+        Validators.pattern(/^[A-Za-z][^0-9]*$/),
+      ]),
+      lastname: new FormControl(this.userLastName, [
+        Validators.required,
+        Validators.pattern(/^[A-Za-z][^0-9]*$/),
+      ]),
+      email: new FormControl({ value: this.userLoginEmail, disabled: true }),
+      mobileNo: new FormControl(this.mobileNo, [Validators.required,
+        Validators.pattern('[0-9]*'),
+        // Validators.maxLength(10),
+        // Validators.minLength(10)
+      ]),
     })
     console.log(this.userProfileForm);
 

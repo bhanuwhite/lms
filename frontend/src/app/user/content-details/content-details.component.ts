@@ -52,7 +52,9 @@ export class ContentDetailsComponent implements OnInit {
     this.getLocalData()
       .then(() => this.getSingleCourseObj())
       .then(() => this.getCartCourses());
-      window.scrollTo(0,0)
+      window.scrollTo(0,0);
+      this.gettingUserHasCourse();
+
   }
 
   public getLocalData(): Promise<void> {
@@ -86,6 +88,20 @@ export class ContentDetailsComponent implements OnInit {
       };
     });
   }
+ //Getting library details
+  libDataIds: number[] = [];
+
+  public gettingUserHasCourse():void {
+    this.apiService.getUserCourse(this.userID).subscribe((res)=>{
+
+     res.map((resData:any)=>{
+      this.libDataIds.push(resData.course_ids[0].id)
+    })
+    console.log(this.libDataIds);
+
+
+    })
+}
 
   // Getting Cart courses
   public getCartCourses(): Promise<void> {

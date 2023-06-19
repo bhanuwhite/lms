@@ -15,16 +15,11 @@ import { MessageService } from 'primeng/api';
 import { emailValidator } from 'src/app/email.directive';
 import { AuthService } from '../../services/auth.service';
 import { Login } from 'src/app/models/authenticate';
-import { SocialAuthService } from "@abacritt/angularx-social-login";
-import { SocialUser } from "@abacritt/angularx-social-login";
-import {  GoogleSigninButtonModule,GoogleSigninButtonDirective } from '@abacritt/angularx-social-login';
-
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [MessageService,GoogleSigninButtonModule,GoogleSigninButtonDirective],
+  providers: [MessageService],
 })
 export class LoginComponent {
   formgroup!: FormGroup;
@@ -43,13 +38,10 @@ public forgotPwd:boolean = false;
     private router: Router,
     private authService: AuthService,
     private snakeBar: MatSnackBar,
-    private messageService: MessageService,
-
+    private messageService: MessageService
   ) {
     this.role = 'user';
   }
-  user!:SocialUser;
-  loggedIn!:boolean;
 
   ngOnInit(): void {
     this.formgroup = this.fb.group({
@@ -57,26 +49,9 @@ public forgotPwd:boolean = false;
       pwd: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
 
-    // this.authService.authState.subscribe((user) => {
-    //   this.user = user;
-    //   this.loggedIn = (user != null);
-    //   console.log(user);
-
-    //  try{
-    //   if (user.idToken) {
-    //     localStorage.setItem('token', user.idToken);
-    //   localStorage.setItem('user', JSON.stringify(user));
-    //   localStorage.setItem('role', 'user');
-    //   this.isLoading = false;
-    //   localStorage.setItem('isAuthenticate', 'true');
-    //   this.router.navigate(['/user']);
-    //   }
-    //  }
-    //  catch (error) {
-    //     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong !!' });
-    //   }
-
-// })
+    this.forgotForm = this.fb.group({
+      email:new FormControl('',[Validators.required, emailValidator()])
+    })
   }
 
   public onSubmit(): void {
@@ -93,15 +68,13 @@ public forgotPwd:boolean = false;
         console.log(res);
 
         const data = res.user;
-        console.log(data);
-
         localStorage.setItem('user', JSON.stringify(data));
         if (data.role_id === '1') {
           localStorage.setItem('role', 'admin');
           this.isLoading = false;
           localStorage.setItem('isAuthenticate', 'true');
           this.router.navigateByUrl('/admin');
-        } else if (data.role_id === '3' ) {
+        } else if (data.role_id === '3') {
           localStorage.setItem('role', 'user');
           this.isLoading = false;
           localStorage.setItem('isAuthenticate', 'true');
@@ -122,29 +95,6 @@ public forgotPwd:boolean = false;
       }
     });
   }
-
-
-  // loginWithGoogle(): void {
-  //   this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
-  //     .then((user: SocialUser) => {
-  //       // User has signed in successfully
-  //       console.log(user);
-  //     })
-  //     .catch((error: any) => {
-  //       // An error occurred
-  //       console.log(error);
-  //     });
-  // }
-
-
-
-
-
-
-
-
-
-
 
   public get name() {
     return this.formgroup.get('name')!;

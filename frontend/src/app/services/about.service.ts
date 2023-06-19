@@ -3,11 +3,20 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { AboutContent } from '../models/about-content';
 
+
+function _window() : any {
+  // return the global native browser window object
+  return window;
+}
+
 @Injectable({
   providedIn: 'root',
 })
-export class
-AboutService {
+export class AboutService {
+
+  get nativeWindow() : any {
+    return _window();
+ }
   private aboutLms = '../../assets/data/about/aboutlms.json';
   constructor(private httpClientRef: HttpClient) {}
   //get aboutlms data

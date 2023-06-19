@@ -25,13 +25,11 @@
             <a class="nav-link nave-menu" routerLink="/user/assessment" style="font-size: 1.3rem;">Assessment</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link nave-menu" routerLink="/user/mycart" style="font-size: 1.3rem;">
-              <i class="pi pi-shopping-cart mr-1" style="font-size: 1.5rem;">
-                <span pBadge styleClass="font-size:0.4rem" value={{cartLength}}></span>
+            <a class="nav-link nave-menu" style="font-size: 1.3rem;" routerLink="/user/mycart">
+              <i class="pi pi-shopping-cart mr-1" style="font-size: 1.5rem;"  >
+                <span pBadge styleClass="font-size:0.4rem"   value={{cartLength}}></span>
               </i>
-              <!-- <p-button label="Emails" badge="8" styleClass="mr-2"></p-button> -->
-
-              Cart </a>
+              </a>
           </li>
 
         </ul>
@@ -43,38 +41,8 @@
       <p-menu #menu [popup]="true" [model]="items"></p-menu>
     </div>
   </div>
-  <div class="col-lg-8 d-flex justify-content-center">
-    <div class="collapse navbar-collapse justify-content-center" id="navbarNav" style="font-size: 24px;">
-      <ul class="navbar-nav   mb-lg-0" style="gap: 35px;">
-        <li class="nav-item">
-          <a class="nav-link nave-menu active" aria-current="page" routerLink="/user" routerLinkActive="active"
-            style="font-size: 1.3rem;"> Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nave-menu" routerLink="/user/library" routerLinkActive="active"
-            style="font-size: 1.3rem;">My Libraries</a>
-        </li>
 
-        <li class="nav-item">
-          <a class="nav-link nave-menu" routerLink="/user/assessment" style="font-size: 1.3rem;">Assessment</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nave-menu" routerLink="/user/mycart" style="font-size: 1.3rem;">
-            <i class="pi pi-shopping-cart mr-1" style="font-size: 1.5rem;">
-              <span pBadge styleClass="font-size:0.4rem" value={{cartLength}}></span>
-            </i>
-            <!-- <p-button label="Emails" badge="8" styleClass="mr-2"></p-button> -->
-            Cart </a>
-        </li>
 
-      </ul>
-    </div>
-  </div>
-  <div class="col-lg-2 d-flex justify-content-end cursor-pointer">
-    <p-avatar shape="circle" size="large" icon="pi pi-user" (click)="menu.toggle($event)"
-      [style]="{'background-color':'#2188d9', 'color': '#ffffff'}"></p-avatar>
-    <p-menu #menu [popup]="true" [model]="items"></p-menu>
-  </div>
 
 </nav>
 

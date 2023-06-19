@@ -8,6 +8,7 @@ import {
   MessageService,
   ConfirmEventType,
 } from 'primeng/api';
+import { AboutService } from 'src/app/services/about.service';
 @Component({
   selector: 'app-my-library',
   templateUrl: './my-library.component.html',
@@ -25,12 +26,21 @@ export class MyLibraryComponent implements OnInit {
     private httpClient: HttpClient,
     private apiService: ApiService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private aboutService :AboutService
   ) {}
 
   ngOnInit(): void {
     this.getLocalData();
     this.gettingUserHasCourse();
+   this.getCartCourse();
+  }
+
+
+  public getCartCourse(): void {
+    this.apiService.getUserCart(this.userID).subscribe((res) => {
+      this.aboutService.userCartLength(res.length);
+    });
   }
 
   public getLocalData(): void {

@@ -45,6 +45,16 @@
                       </div>
                     </div>
 
+
+
+
+
+                  </div>
+                  <div class="col-lg-1 divider">
+                    <p-divider layout="vertical"></p-divider>
+                  </div>
+
+                  <div class="  col-lg-5 col-sm-12">
                     <div class="p-field my-2 px-2">
                       <label for="email" class="mb-2">Email Id:</label>
                       <input id="email" class="w-100" name="email" formControlName="email" type="email"
@@ -56,27 +66,23 @@
                       </div>
                     </div>
 
-
-
-                  </div>
-                  <div class="col-lg-1 divider">
-                    <p-divider layout="vertical"></p-divider>
-                  </div>
-
-                  <div class="  col-lg-5 col-sm-12">
-
                     <div class="p-field my-2 px-2 mt-3">
                       <label for="number" class="mb-2">Mobile No.:</label>
-                      <input id="number" class="w-100" name="number" formControlName="mobileNo" type="number"
+                      <input id="number" class="w-100" ng-minlength="10" ng-maxlength="10" name="number" formControlName="mobileNo" type="number"
                         pInputText  placeholder="Enter your phoneNumber" />
 
                         <div *ngIf=" (userProfileForm.get('number')?.invalid && userProfileForm.get('number')?.touched)"
                         class="text-danger">
                           Mobile number is required
                       </div>
+                      <div *ngIf="(userProfileForm.get('number')?.invalid && (userProfileForm.get('number')?.dirty || userProfileForm.get('number')?.touched))">
+                        <div *ngIf="userProfileForm.get('number')?.errors?.['pattern']">
+                          Mobile number must be 10 digits long.
+                        </div>
+                      </div>
                     </div>
 
-                    <div class="p-field my-2 px-2 overflow-hidden">
+                    <!-- <div class="p-field my-2 px-2 overflow-hidden">
                       <label for="lastname1" class="mb-2">Biography</label>
                       <p-editor [style]="{ width: '100%', height: '80px' }" name="biography"
                         formControlName="biography">
@@ -105,7 +111,7 @@
                         <input type="text" name="linkedin" formControlName="linkedin" pInputText
                           placeholder="Resource ID" />
                       </div>
-                    </div>
+                    </div> -->
 
                     <div class="p-field d-flex justify-content-end my-2 px-2">
                       <button [disabled]="userProfileForm.invalid" class="btn btn-secondary">Save</button>
