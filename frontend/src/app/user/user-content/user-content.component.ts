@@ -46,7 +46,6 @@ export class UserContentComponent {
   }
   public gettingUserHasCourse(): void {
     this.apiService.getUserCourse(this.userID).subscribe((res) => {
-      console.log('User Lib Data ', res);
       this.subscribedCourses = res.length;
     });
     this.apiService.getUserCart(this.userID).subscribe((res)=>{
