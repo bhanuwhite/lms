@@ -53,8 +53,8 @@ export class ContentDetailsComponent implements OnInit {
       .then(() => this.gettingUserHasCourse())
       .then(() => this.getSingleCourseObj())
       .then(() => this.getCartCourses());
-      window.scrollTo(0,0);
-      this.gettingUserHasCourse();
+    window.scrollTo(0, 0);
+    this.gettingUserHasCourse();
 
     window.scrollTo(0, 0);
   }
@@ -74,11 +74,9 @@ export class ContentDetailsComponent implements OnInit {
   public gettingUserHasCourse(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.apiService.getUserCourse(this.userID).subscribe((res) => {
-        console.log(res);
-        res.map((resData:any)=>{
-          this.libDataIds.push(resData.course_ids[0].id)
-        })
-        console.log(this.libDataIds);
+        res.map((resData: any) => {
+          this.libDataIds.push(resData.course_ids[0]?.id);
+        });
         resolve(),
           (err: any) => {
             reject(err);
@@ -108,13 +106,10 @@ export class ContentDetailsComponent implements OnInit {
     });
   }
 
-
   // Getting Cart courses
   public getCartCourses(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.apiService.getUserCart(this.userID).subscribe((res) => {
-        console.log(res);
-
         res.map((resObj: CartResponse) => {
           this.userCourseID.push(resObj.course_ids[0].id);
         });
@@ -129,8 +124,6 @@ export class ContentDetailsComponent implements OnInit {
   }
 
   public addToCart(item: SingleCourseData): void {
-    console.log(item);
-
     this.confirmationService.confirm({
       message: `Do you want to add this ${item?.attributes.name} to Cart?`,
       header: 'Confirmation',
@@ -142,12 +135,9 @@ export class ContentDetailsComponent implements OnInit {
             course_ids: item.id,
           },
         };
-        console.log(postCartbody);
 
         this.apiService.postCart(postCartbody).subscribe(
           (res) => {
-            console.log(res);
-
             this.messageService.add({
               severity: 'success',
               summary: 'Successfully',

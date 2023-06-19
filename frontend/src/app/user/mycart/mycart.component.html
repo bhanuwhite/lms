@@ -62,7 +62,7 @@
                   {{ course.course_ids[0].description }}
                 </h4>
                 <div class="d-flex">
-                  <div *ngIf="course.course_ids[0].no_of_purchases >= 3">
+                  <div *ngIf="course.course_ids[0]?.no_of_purchases >= 3">
                     <button class="btn btn-outline-success btn-sm">
                       Best Seller
                     </button>
