@@ -69,10 +69,12 @@
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="name" pInputText
             placeholder="Course Name">
           <small class="p-error block" *ngIf="addCourse.get('name')?.invalid && addCourse.get('name')?.touched">
-            Course name is required.
+            <ng-container *ngIf="addCourse.get('name')?.errors?.['required']">Course name is required.</ng-container>
+            <ng-container *ngIf="addCourse.get('name')?.errors?.['pattern']">Numbers or special characters are not allowed.</ng-container>
           </small>
         </span>
       </div>
+
 
       <div class="field mt-2 w-100">
         <label for="description">Description :</label>
@@ -176,9 +178,10 @@
             <span class="p-float-label">
               <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="name" pInputText
                 placeholder="Course Name">
-              <small class="p-error block"
-                *ngIf="courseUpdateGroup.get('name')?.invalid && courseUpdateGroup.get('name')?.touched">
-                Course name is required.
+
+              <small class="p-error block" *ngIf="courseUpdateGroup.get('name')?.invalid && courseUpdateGroup.get('name')?.touched">
+                <ng-container *ngIf="courseUpdateGroup.get('name')?.errors?.['required']">Course name is required.</ng-container>
+                <ng-container *ngIf="courseUpdateGroup.get('name')?.errors?.['pattern']">Numbers or special characters are not allowed.</ng-container>
               </small>
             </span>
           </div>
@@ -259,12 +262,14 @@
           </div>
 
         </div>
-        <div class="d-flex justify-content-end mt-2">
+        <div class="d-flex justify-content-between mt-2">
+          <button type="button" class="btn btn-dark" (click)="closeEditDialog()"><i
+            class="pi pi-delete-left me-2 cursor-pointer">
+          </i>Cancel</button>
+
           <button type="button" class="btn btn-success me-2" (click)="onUpdateContent()"><i
               class="pi pi-save me-2 cursor-pointer"></i>Update</button>
-          <button type="button" class="btn btn-dark" (click)="closeEditDialog()"><i
-              class="pi pi-delete-left me-2 cursor-pointer">
-            </i>Cancel</button>
+
         </div>
       </form>
     </p-dialog>

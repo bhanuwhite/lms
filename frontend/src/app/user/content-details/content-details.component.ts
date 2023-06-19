@@ -31,7 +31,7 @@ export class ContentDetailsComponent implements OnInit {
   public courseId!: number;
   public userID!: number;
   public singleCourse!: AllCourseContentData;
-  userCourses: AllCourseContentData[]=[];
+  userCourses: AllCourseContentData[] = [];
   userCourseID: number[] = [];
   @ViewChild('courseVideoElmt') courseVideoElmt!: ElementRef;
   isPlaying = false;
@@ -44,15 +44,16 @@ export class ContentDetailsComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router,
-    private aboutService:AboutService
+    private aboutService: AboutService
   ) {}
 
   ngOnInit(): void {
     this.getCourses();
     this.getLocalData()
+      .then(() => this.gettingUserHasCourse())
       .then(() => this.getSingleCourseObj())
       .then(() => this.getCartCourses());
-      window.scrollTo(0,0)
+    window.scrollTo(0, 0);
   }
 
   public getLocalData(): Promise<void> {
@@ -63,6 +64,23 @@ export class ContentDetailsComponent implements OnInit {
       (error: any) => {
         reject(error);
       };
+    });
+  }
+
+  libDataIds: number[] = [];
+  public gettingUserHasCourse(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.apiService.getUserCourse(this.userID).subscribe((res) => {
+        console.log(res);
+        res.map((resData:any)=>{
+          this.libDataIds.push(resData.course_ids[0].id)
+        })
+        console.log(this.libDataIds);
+        resolve(),
+          (err: any) => {
+            reject(err);
+          };
+      });
     });
   }
 
@@ -97,7 +115,7 @@ export class ContentDetailsComponent implements OnInit {
           this.userCourseID.push(resObj.course_ids[0].id);
         });
         this.userCourseID = [...new Set(this.userCourseID)];
-        this.aboutService.userCartLength(res.length)
+        this.aboutService.userCartLength(res.length);
       });
       resolve();
       (error: any) => {
@@ -122,21 +140,21 @@ export class ContentDetailsComponent implements OnInit {
         };
         console.log(postCartbody);
 
-        this.apiService.postCart(postCartbody).subscribe((res) => {
-          console.log(res);
+        this.apiService.postCart(postCartbody).subscribe(
+          (res) => {
+            console.log(res);
 
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Successfully',
-            detail: 'Course added to Cart',
-          });
-          this.getCartCourses();
-        },
-        (error:any)=>{
-          console.log("Error",error);
-
-        }
-          );
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successfully',
+              detail: 'Course added to Cart',
+            });
+            this.getCartCourses();
+          },
+          (error: any) => {
+            console.log('Error', error);
+          }
+        );
       },
       reject: (type: any) => {
         switch (type) {
@@ -158,8 +176,8 @@ export class ContentDetailsComponent implements OnInit {
       },
     });
   }
-  public GotoCart():void {
-    this.router.navigate(['mycart'])
+  public GotoCart(): void {
+    this.router.navigate(['mycart']);
   }
 
   // onClickVideo(courseDetails: {}) {

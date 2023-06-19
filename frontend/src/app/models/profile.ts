@@ -22,8 +22,8 @@ export interface userUpdateProfile {
     lastname: string;
     email: string;
     mobile:number;
-    biography: string;
-    linkedIn: string;
+    biography?: string;
+    linkedIn?: string;
 
 }
 

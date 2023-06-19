@@ -97,7 +97,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     { level: 'Intermediate' },
     { level: 'Advanced' },
   ];
-  
+
   courseStatus = [{ status: 'active' }, { status: 'block' }];
 
   constructor(
@@ -135,7 +135,7 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   public newCourse() {
     this.addCourse = this.fb.group({
-      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      name: new FormControl('', [Validators.required, Validators.minLength(3),Validators.pattern('^[a-zA-Z ]+$')]),
       description: new FormControl(''),
       imgVideo: new FormControl(''),
       technology: new FormControl('', [Validators.required]),
@@ -152,7 +152,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   // update validations
   public courseUpdateValidate(): void {
     this.courseUpdateGroup = this.fb.group({
-      name: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z ]+$')]),
       description: new FormControl(''),
       price: new FormControl(''),
       imgVideo: new FormControl(''),
@@ -380,7 +380,7 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.messageService.add({
         severity: 'error',
         summary: 'Course Content is empty',
-        detail: 'Please upload content.  !!',
+        detail: 'Please upload Course Video Content.  !!',
       });
     }
   }
@@ -398,7 +398,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.imageContent = item.attributes?.placeholder_img;
 
     this.courseUpdateGroup = this.fb.group({
-      name: new FormControl(item.attributes?.name, [Validators.required]),
+      name: new FormControl(item.attributes?.name, [Validators.required,Validators.pattern('^[a-zA-Z ]+$')]),
       description: new FormControl(item.attributes?.description),
       price: new FormControl(item.attributes?.price),
       technology: [{ tech: this.techString }],
@@ -452,14 +452,14 @@ export class ContentComponent implements OnInit, OnDestroy {
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
-              detail: 'Somthing went to wrong !!',
+              detail: 'Something went to wrong !!',
             });
           }
         });
     } else {
       this.messageService.add({
         severity: 'error',
-        summary: 'Please upload content',
+        summary: 'Please upload Course Video C ontent',
       });
     }
   }
@@ -467,7 +467,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   // Delete content
   public deleteDialog(data: AllCourseContentData): void {
     this.confirmationService.confirm({
-      message: `Do you want to delete - ${data.attributes?.name} ?`,
+      message: `Do you want to delete - ${data.attributes?.name.slice(0,20)} ?`,
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
@@ -476,7 +476,7 @@ export class ContentComponent implements OnInit, OnDestroy {
             this.messageService.add({
               severity: 'error',
               summary: 'Delete',
-              detail: 'Content deleted successfully !',
+              detail: `${data.attributes?.name.slice(0,20)} deleted successfully !`,
             });
             this.getContent();
           } catch (error) {

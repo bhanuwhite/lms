@@ -20,13 +20,19 @@ export class TrackuserComponent implements OnInit, OnDestroy {
     this.getTrackApi();
   }
 
-  public getTrackApi(): void {
+  public getTrackApi():Promise<void> {
+    return new Promise((resolve,reject)=>{
       this.TrackRes$ = this.apiservivce.getTrack().subscribe((res) => {
         this.trackResponse = res.data;
-        console.log('Track Responce', this.trackResponse);
       });
-
+      resolve();
+      (err:any)=>{
+        reject(err)
+      }
+    })
   }
+
+
   public UseridRepeated(index:number):boolean{
     const currentUserId = this.trackResponse[index].attributes.user_id;
     for(let i=0;i<index;i++){
@@ -38,6 +44,8 @@ export class TrackuserComponent implements OnInit, OnDestroy {
   }
 
   public showTrackDetails(id:number): void{
+    console.log(id);
+
     this.router.navigate(['trackuser/',id])
   }
 

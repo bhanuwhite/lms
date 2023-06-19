@@ -433,11 +433,15 @@
             </div>
 
             <div class="mt-2">
-              <button type="button"  class="btn btn-success mt-3" *ngIf="!userCourseID.includes(singleCourse.id)"
+              <button type="button"  class="btn btn-success mt-3" *ngIf="!userCourseID.includes(singleCourse.id)  && !libDataIds.includes(singleCourse.id) "
               style="width: 95%;" (click)="addToCart(singleCourse)">Add To Cart</button>
 
               <button type="button"  class="btn btn-primary mt-3" *ngIf="userCourseID.includes(singleCourse.id)"
               style="width: 95%;" (click)="GotoCart()" >Go To Cart</button>
+
+              <button type="button"  class="btn btn-success mt-3" *ngIf="!userCourseID.includes(singleCourse.id) && libDataIds.includes(singleCourse.id) "
+              style="width: 95%;" (click)="addToCart(singleCourse)">Go To Library</button>
+
 
             </div>
           </div>
