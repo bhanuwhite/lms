@@ -1,4 +1,4 @@
-import { forwardRef, NgModule } from '@angular/core';
+import { forwardRef, NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {DialogModule} from 'primeng/dialog';
 import {TooltipModule} from 'primeng/tooltip';
@@ -33,7 +33,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserModule } from './user/user.module';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+// import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+// import {GoogleLoginProvider} from '@abacritt/angularx-social-login';
+// import { NgModule } from '@angular/core';
+// import { AslGoogleSigninButtonModule } from '../app/authentication/login/login.component';
+// import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 
+// import {
+//   SocialLoginModule,
+//   SocialAuthServiceConfig,
+//   GoogleLoginProvider,
+//   GoogleSigninButtonDirective,
+//   GoogleSigninButtonModule,
+// } from '@abacritt/angularx-social-login';
 
 let module = [
   MatButtonModule,
@@ -55,8 +67,7 @@ let module = [
   UserModule,
   forwardRef(() => MatSnackBarModule),
   MatTabsModule,
-  ToastModule
-
+  ToastModule,
 
 ]
 
@@ -72,10 +83,13 @@ let module = [
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    SheredModule
+    SheredModule,
+    // SocialLoginModule,
+    // GoogleSigninButtonModule,
+
     ],
 
-
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     AuthService,AuthGuard,UserGuard,
 
@@ -84,6 +98,24 @@ let module = [
       useClass: TokenInterceptor,
       multi: true
     },
+    // {
+    //   provide: 'SocialAuthServiceConfig',
+    //   useValue: {
+    //     autoLogin: false,
+    //     providers: [
+    //       {
+    //         id: GoogleLoginProvider.PROVIDER_ID,
+    //         provider: new GoogleLoginProvider(
+    //           '235488694710-e2fe7teii6rsvf755otpk13r4k8t5fph.apps.googleusercontent.com'
+    //         )
+    //       }
+    //     ],
+    //     onError: (err) => {
+    //       console.error(err);
+    //     }
+    //   } as SocialAuthServiceConfig,
+    // },
+
     MessageService
 
   ],

@@ -93,78 +93,11 @@
                             </span>
                           </ng-template>
                         </p-editor>
-                        <div class="d-flex justify-content-end">
-                          <p>{{ remainingWords }} Words remaining</p>
-                        </div>
-
-
+                        <p class="fs-6 lead" [style]="{ width: '100%', 'text-align': 'justify' }">
+                          <small>
+                            To help learners learn more about you,your bio should
+                            reflect your Credibility,Empathy,Passion and
+                            Persionality.Your Biography should have at least 50
+                            words,links and coupon codes are not permitted.</small>
+                        </p>
                       </div>
-
-
-
-                      <!-- <div class="p-field my-2 px-2">
-                        <label for="firstname1" class="mb-2">LinkedIn : </label>
-                        <div class="p-inputgroup overflow-hidden">
-                          <span class="p-inputgroup-addon">http://www.linkedin.com/</span>
-                          <input type="text" name="linkedin" formControlName="linkedin" pInputText
-                            placeholder="Resource ID" />
-                        </div>
-                      </div> -->
-
-                      <div class="p-field d-flex justify-content-end my-2 px-2">
-                        <button [disabled]="userProfileForm.invalid" class="btn btn-secondary">Save</button>
-                      </div>
-                      <div>
-                        <p-toast></p-toast>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-
-            </p-tabPanel>
-
-
-            <p-tabPanel header="Avatar">
-              <div class="conatiner">
-                <h1 class="text-dark">Image Preview</h1>
-                <p class="fs-6 fst-italic">
-                  Minimun 200*200 pixels ,Maximum 6000*6000 pixels
-                </p>
-              </div>
-              <div class="conatiner">
-                <p-card [style]="{ width: '500px', height: '200px' }">
-                  <div *ngIf="imageData" class="d-flex justify-content-center">
-                    <img src="{{ imageData }}" alt="" width="450px" height="150px" />
-                  </div>
-                </p-card>
-              </div>
-              <div class="p-field mt-2">
-                <form [formGroup]="userImageForm" (ngSubmit)="saveImage()">
-                  <input type="file" accept="image/*" class="inputfile" pInputText name="image"
-                    [style]="{ width: '500px', height: '60px' }" (change)="onImageUpload($event)" />
-                  <br />
-                  <br />
-                  <p-button label="Save" styleClass="p-button-raised" value="Save"></p-button>
-                </form>
-              </div>
-            </p-tabPanel>
-            <p-tabPanel header="Settings">
-              <div class="container">
-                <form>
-                  <p-checkbox name="groupname" value="prfl-setting-val1" [(ngModel)]="selectedValues" class="mb-2"
-                    label="Show your profile to the logged-in users"></p-checkbox><br />
-                  <p-checkbox name="groupname" value="prfl-setting-val2" [(ngModel)]="selectedValues"
-                    label="Show courses you're taking on your profile page"></p-checkbox><br />
-                  <br />
-                  <p-button label="Save" styleClass="p-button-raised" [disabled]="selectedValues.length === 0"
-                    value="Save"></p-button>
-                </form>
-              </div>
-            </p-tabPanel>
-          </p-tabView>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>

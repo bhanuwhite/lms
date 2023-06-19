@@ -394,12 +394,16 @@
             <span class="ms-1"><b>1 day</b> left at this price!</span>
           </div>
           <div class="buttons m-3">
-            <div>
-              <button type="button"  class="btn btn-success mt-3" *ngIf="!userCourseID.includes(singleCourse.id)"
+            <div class="mt-2">
+              <button type="button"  class="btn btn-success mt-3" *ngIf="!userCourseID.includes(singleCourse.id) && !libDataIds.includes(singleCourse.id)"
               style="width: 95%;" (click)="addToCart(singleCourse)">Add To Cart</button>
 
               <button type="button"  class="btn btn-primary mt-3" *ngIf="userCourseID.includes(singleCourse.id)"
               style="width: 95%;" (click)="GotoCart()" >Go To Cart</button>
+
+              <button type="button"  class="btn btn-primary mt-3" *ngIf="libDataIds.includes(singleCourse.id)"
+              style="width: 95%;"  >Go to Library</button>
+
             </div>
           </div>
 
@@ -433,15 +437,14 @@
             </div>
 
             <div class="mt-2">
-              <button type="button"  class="btn btn-success mt-3" *ngIf="!userCourseID.includes(singleCourse.id)  && !libDataIds.includes(singleCourse.id) "
+              <button type="button"  class="btn btn-success mt-3" *ngIf="!userCourseID.includes(singleCourse.id) && !libDataIds.includes(singleCourse.id)"
               style="width: 95%;" (click)="addToCart(singleCourse)">Add To Cart</button>
 
-              <button type="button"  class="btn btn-primary mt-3" *ngIf="userCourseID.includes(singleCourse.id)"
+              <button type="button"  class="btn btn-primary mt-3" *ngIf="userCourseID.includes(singleCourse.id) && !libDataIds.includes(singleCourse.id)"
               style="width: 95%;" (click)="GotoCart()" >Go To Cart</button>
 
-              <button type="button"  class="btn btn-success mt-3" *ngIf="!userCourseID.includes(singleCourse.id) && libDataIds.includes(singleCourse.id) "
-              style="width: 95%;" (click)="addToCart(singleCourse)">Go To Library</button>
-
+              <button type="button"  class="btn btn-primary mt-3" *ngIf="libDataIds.includes(singleCourse.id)"
+              style="width: 95%;" routerLink="/library" >Go to Library</button>
 
             </div>
           </div>

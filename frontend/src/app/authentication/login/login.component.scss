@@ -165,6 +165,14 @@ a {
     background-color: #0d6efd;
 }
 
+.button:hover{
+  background-color: rgb(224, 221, 221);
+}
+.button{
+  width: 70%;
+  color: black;
+  background-color: 1px solid black;
+}
 @media screen and (max-width: 991px) {
     .logo {
         margin-left: 0px;

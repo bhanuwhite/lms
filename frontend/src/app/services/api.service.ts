@@ -289,5 +289,8 @@ public getUserCart(id:number):Observable<CartResponse[]> {
     return this.http.delete<CartPostRes>(`api/carts/${id}`)
   }
 
-
+ // POST
+ public postPayment(item:CartPostBody):Observable<CartGetRes> {
+  return this.http.post<CartGetRes> (`api/carts`,item)
+}
 }

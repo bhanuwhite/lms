@@ -1,115 +1,115 @@
-<div class="surface-ground surface-ground-wrappers ">
-
-  <div class="d-flex flex-column justify-content-center align-items-center pt-5" *ngIf="courseData.length==0">
-    <img src="../../../assets/img/myCart.PNG" alt="" style="height: 250px;width: 450px;">
+<div style="background-color: rgb(247, 243, 243)">
+  <div
+    class="d-flex flex-column justify-content-center align-items-center pt-5"
+    *ngIf="courseData.length == 0"
+  >
+    <img
+      src="../../../assets/img/myCart.PNG"
+      alt=""
+      style="height: 250px; width: 450px"
+    />
     <div class="mt-4">
-      <button class="btn btn-primary btn-md m-4" routerLink="">Add Course</button>
+      <button class="btn btn-primary btn-md m-4" routerLink="">
+        Add Course
+      </button>
     </div>
   </div>
 
-  <div class="row ms-4" *ngIf="courseData.length !=0">
-    <div class="flex  py-3 justify-content-between">
-      <p class="fw-bold fs-3"> Cart Items</p>
-    </div>
-    <div class="col-lg-6 d-flex justify-content-end">
-      <button class="btn btn-primary" (click)="showDialog()">CheckOut </button>
-    </div>
-    <div class="col-lg-3" *ngFor="let course of courseData">
-      <div class="card shadow-1  " style="width: 100%; height: auto;">
-        <img src={{course.course_ids[0].placeholder_img.formats.thumbnail.url}} alt="course Img"
-          style="height:200px ; width: 100%;">
-        <div>
-          <div class="row mt-3 ms-1 cursor-pointer" (click)="courseDetails(course.id)">
-            <div class="col-lg-5 text-truncate">
-              <b class="textOverflow"> {{course.course_ids[0].name}} </b>
-            </div>
-            <div class="col-lg-6 d-flex justify-content-end">
-              <p class="m-0 p-0 d-flex align-items-center justify-content-center"><span class="material-icons pe-1"> schedule </span>
-                {{((course.course_ids[0].course_duration)/3600).toFixed(1)}}hrs </p>
-            </div>
-          </div>
-          <div class="row align-items-center my-2">
-            <div class="col-lg-6">
-              <button class="btn btn-warning btn-sm"> {{course.course_ids[0].level}} </button>
-            </div>
-            <div class="col-lg-6 align-items-center d-flex justify-content-end">
-              <p class="m-0 p-0"> Lectures : <b>{{course.course_ids[0].content.length }}</b> </p>
-            </div>
-          </div>
-          <div class="d-flex justify-content-between">
-            <div class="col-lg-7 text-truncate" pTooltip="{{course.course_ids[0].description}}" tooltip>
-              <p class="textOverflow">{{course.course_ids[0].description}}</p>
-            </div>
+  <div class="row ms-4 p-4" *ngIf="courseData.length != 0">
+    <div class="">
+      <h2
+        class="fw-bold fs-1 pb-5"
+        style="
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+            sans-serif;
+        "
+      >
+        Shoping Cart
+      </h2>
+      <!-- <div class="me-5">
+        <button class="btn btn-primary"  routerLink="/user/payment">CheckOut </button>
+      </div> -->
 
-            <div *ngIf="course.course_ids[0].no_of_purchases >= 3" class="col-lg-5">
-              <button class="btn btn-outline-success btn-sm"> Best Seller </button>
-            </div>
-          </div>
+      <h4>{{ courseData.length }} Courses in Cart</h4>
+    </div>
+
+    <div class="d-flex">
+      <div class="col-lg-9">
+        <div class="col-lg-9" *ngFor="let course of courseData">
+          <p-divider></p-divider>
           <div class="d-flex">
-            <p-rating value="4" [stars]="5" [cancel]="false"></p-rating>
+            <div class="d-flex col-lg-12">
+              <img
+                src="{{ course.course_ids[0].placeholder_img.url }}"
+                alt="img"
+                width="180px"
+                height="150px"
+                class="col-lg-4"
+              />
+              <div class="ms-5 col-lg-7">
+                <div class="col-lg-12 d-flex justify-content-between">
+                  <h3
+                  class="fs-5 "
+                  style="
+                    font-family: 'Gill Sans', 'Gill Sans MT', Calibri,
+                      'Trebuchet MS', sans-serif;
+                  "
+                >
+                  <b>{{ course.course_ids[0].name }}</b>
+                </h3>
+                </div>
+                <h4 class="textOverflow col-lg-8">
+                  {{ course.course_ids[0].description }}
+                </h4>
+                <div class="d-flex">
+                  <div *ngIf="course.course_ids[0].no_of_purchases >= 3">
+                    <button class="btn btn-outline-success btn-sm">
+                      Best Seller
+                    </button>
+                  </div>
+                  <div class="d-flex ps-2">
+
+                    <p-rating
+                      class="pt-1 pe-2"
+                      value="4"
+                      [stars]="5"
+                      [cancel]="false"
+                    ></p-rating>
+                    <h3 >(4.5)</h3>
+                  </div>
+                </div>
+                <div>
+                  <ul class="d-flex" style="gap: 20px">
+                    <li class="mr-2">
+                      {{ course.course_ids[0].content.length }} Lectures
+                    </li>
+                    <li class="mr-2">{{ course.course_ids[0].level }}</li>
+                   <li> <b>₹  {{ course.course_ids[0].price}}</b></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="col-lg-2  align-items-center mt-5">
+
+                <button *ngIf="course.course_ids[0].price == 0" (click)="addToLibrary(course)" class="btn btn-outline-primary mb-2">AddToLibrary</button>
+                <button class="btn btn-outline-danger btn-sm" (click)="removeCourse(course.id)">Remove</button>
+              </div>
+            </div>
           </div>
-          <div class="ms-2 my-3 flex justify-content-evenly">
-
-            <button class="btn btn-primary " *ngIf="course.course_ids[0].price != 0"> Pay Now</button>
-
-            <button class="btn btn-primary btn-sm"
-              *ngIf="!userLibId.includes(course.course_ids[0].id) && course.course_ids[0].price == 0"
-              (click)="addToLibrary(course)">Add to Library </button>
-            <button class="btn btn-danger btn-sm"
-              *ngIf="userLibId.includes(course.course_ids[0].id) && course.course_ids[0].price == 0 ">Added to Library
-            </button>
-            <p-badge value="&#10006;" severity="danger" class="cursor-pointer" (click)="removeCourse(course.id)"
-              pTooltip="Remove Course" tootip></p-badge>
-
-
-          </div>
-
         </div>
+      </div>
 
+      <div class="col-lg-3">
+        <h3 style="font-family: 'Courier New', Courier, monospace;"><b>Total:</b></h3>
+        <h2 class="fs-2" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">₹  {{totalAmount}}</h2>
+   <button  routerLink="/user/payment" class="btn btn-primary w-100 p-2">Checkout</button>
+   <p-divider></p-divider>
       </div>
     </div>
   </div>
-  <p-dialog header="Payment Details" [(visible)]="visible" [style]="{width: '50vw'}" styleClass="active" [modal]="true">
 
-              <div class="d-flex justify-content-between" *ngFor="let course of paidCourses">
-                <h3>{{course.course_ids[0].name}}</h3>
-                <h3><b>₹ {{course.course_ids[0].price}}</b></h3>
-              </div>
-              <hr>
-              <div class="d-flex justify-content-between">
-                <h4>Total Amount</h4>
-                <h4>₹ {{totalAmount}}</h4>
-              </div>
-              <div class="d-flex justify-content-between">
-                <h4>GST</h4>
-                <h4 style="color: rgb(67, 67, 243);">+ ₹ {{(0.18 * totalAmount).toFixed(2)}}</h4>
-              </div>
-              <hr>
-              <div class="d-flex justify-content-between">
-                <h2>Grand Total</h2>
-                <h2>₹ {{totalAmount + (0.18 * totalAmount)}}</h2>
-              </div>
-
-            </p-dialog>
-
-            <div class=" flex justify-content-center">
-              <p-toast></p-toast>
-              <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
-            </div>
-          </div>
-          <!-- <div class="surface-ground surface-ground-wrappers ">
-
-
-
-  <div class="row ms-4" >
-    <div class="flex  py-3 justify-content-between">
-
-      <div class="me-5">
-
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-3 mb-2 " >
-
-
-    </div>
-  </div> -->
+  <div class="card flex justify-content-center">
+    <p-toast></p-toast>
+    <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+  </div>
+</div>

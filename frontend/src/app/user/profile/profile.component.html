@@ -79,6 +79,11 @@
                       <div>
                         <p-toast></p-toast>
                       </div>
+                      <div *ngIf="(userProfileForm.get('number')?.invalid && (userProfileForm.get('number')?.dirty || userProfileForm.get('number')?.touched))">
+                        <div *ngIf="userProfileForm.get('number')?.errors?.['pattern']">
+                          Mobile number must be 10 digits long.
+                        </div>
+                      </div>
                     </div>
 
                     <div class="field mt-2 w-100">

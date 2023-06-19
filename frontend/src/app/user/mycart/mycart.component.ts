@@ -20,6 +20,7 @@ export class MycartComponent implements OnInit {
   userID!: number;
   userLibId: number[] = [];
   purchases!: number;
+  totalAmount:number=0
 
   constructor(
     private router: Router,
@@ -43,7 +44,17 @@ export class MycartComponent implements OnInit {
     this.apiservice.getUserCart(this.userID).subscribe((res) => {
       this.courseData = res;
       console.log("Cart Items",this.courseData);
-      this.aboutService.userCartLength(res.length)
+      this.aboutService.userCartLength(res.length);
+
+          this.courseData.map(res=>{
+            if(res.course_ids[0].price != 0){
+              this.totalAmount= Number(res.course_ids[0].price) + Number(this.totalAmount);
+              console.log(this.totalAmount);
+              // console.log((res.course_ids[0].price),this.totalAmount);
+
+
+            }
+          })
     });
   }
 
@@ -61,6 +72,8 @@ export class MycartComponent implements OnInit {
   }
 
   addToLibrary(course: any) {
+    console.log(course);
+
     this.purchases = course.course_ids[0].no_of_purchases;
     this.confirmationService.confirm({
       message: `Do you want to add this ${course?.course_ids[0].name} to Library?`,
@@ -80,6 +93,7 @@ export class MycartComponent implements OnInit {
             summary: 'Successfully',
             detail: 'Course added to library',
           });
+
           this.gettingUserHasCourse();
 
           const putCourseBody = {
@@ -91,6 +105,10 @@ export class MycartComponent implements OnInit {
             .updateContent(course.course_ids[0].id, putCourseBody)
             .subscribe((res) => {});
         });
+        this.apiservice.deleteCartItem(course.id).subscribe((res:any)=>{
+          console.log(res);
+        })
+        location.reload();
       },
       reject: (type: any) => {
         switch (type) {
@@ -115,6 +133,7 @@ export class MycartComponent implements OnInit {
 
   // Removing Course form Cart
   public removeCourse(id:number):void {
+
     console.log("removing course");
 
     this.confirmationService.confirm({
@@ -129,7 +148,7 @@ export class MycartComponent implements OnInit {
             severity: 'success',
             summary: 'Course has been removed from Cart',
           });
-          this.getCartCourse()
+          this.getCartCourse();
         })
       },
       reject: (type: any) => {
@@ -153,33 +172,12 @@ export class MycartComponent implements OnInit {
     })
 
 
+    }
+
+
   }
 
 
-public visible :boolean= false;
-public paidCourses:any[]=[];
-public totalAmount :number=0
 
-  showDialog() {
-    this.paidCourses=[];
-    this.totalAmount =0;
-    this.visible = true;
-    this.apiservice.getUserCart(this.userID).subscribe( (res:any)=>{
-      res.map((course:any) =>{
-       if (course.course_ids[0].price != 0) {
-             this.paidCourses.push(course);
 
-          this.totalAmount =this.totalAmount +  JSON.parse(course.course_ids[0].price);
-       }
 
-      })
-
-    });
-  }
-
-  // hideDialog(){
-  //   this.visible =false;
-
-  // }
-
-}

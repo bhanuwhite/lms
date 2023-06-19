@@ -53,6 +53,9 @@ export class ContentDetailsComponent implements OnInit {
       .then(() => this.gettingUserHasCourse())
       .then(() => this.getSingleCourseObj())
       .then(() => this.getCartCourses());
+      window.scrollTo(0,0);
+      this.gettingUserHasCourse();
+
     window.scrollTo(0, 0);
   }
 
@@ -104,6 +107,7 @@ export class ContentDetailsComponent implements OnInit {
       };
     });
   }
+
 
   // Getting Cart courses
   public getCartCourses(): Promise<void> {
