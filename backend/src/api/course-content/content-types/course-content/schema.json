@@ -1,0 +1,92 @@
+{
+  "kind": "collectionType",
+  "collectionName": "course_contents",
+  "info": {
+    "singularName": "course-content",
+    "pluralName": "course-contents",
+    "displayName": "course_content",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "price": {
+      "type": "biginteger"
+    },
+    "content": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "videos"
+      ]
+    },
+    "link": {
+      "type": "text"
+    },
+    "placeholder_img": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "technology": {
+      "type": "enumeration",
+      "enum": [
+        "Angular",
+        "DotNet",
+        "Java",
+        "Javascript",
+        "MongoDB",
+        "MySQL",
+        "Node JS",
+        "Postgresql",
+        "Python",
+        "React JS"
+      ]
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "active",
+        "block"
+      ]
+    },
+    "creator_id": {
+      "type": "biginteger"
+    },
+    "rating": {
+      "type": "enumeration",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ]
+    },
+    "no_of_purchases": {
+      "type": "biginteger",
+      "default": "0"
+    },
+    "level": {
+      "type": "enumeration",
+      "enum": [
+        "Beginner",
+        "Intermediate",
+        "Advanced"
+      ]
+    }
+  }
+}

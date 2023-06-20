@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "total_courses",
+  "info": {
+    "singularName": "total-course",
+    "pluralName": "total-courses",
+    "displayName": "Total Course",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "total_course": {
+      "type": "biginteger",
+      "required": false,
+      "default": "588"
+    }
+  }
+}

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunklms=self.webpackChunklms||[]).push([[507],{507:n=>{n.exports=JSON.parse('{"plugin.name":"Ratings","Settings.section-label":"Ratings plugin","Settings.pagination":"Pagination"}')}}]);
