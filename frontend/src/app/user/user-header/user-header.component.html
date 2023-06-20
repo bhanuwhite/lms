@@ -7,7 +7,7 @@
   </div>
   <div class="col-lg-8 d-flex justify-content-center">
     <div class="collapse navbar-collapse justify-content-center" id="navbarNav" style="font-size: 24px;">
-      <ul class="navbar-nav   mb-lg-0" style="gap: 35px;">
+      <ul class="navbar-nav align-items-center b-lg-0" style="gap: 35px;">
         <li class="nav-item">
           <a class="nav-link nave-menu active" aria-current="page" routerLink="/user" routerLinkActive="active"
             style="font-size: 1.3rem;"> Home</a>
@@ -29,7 +29,7 @@
       </ul>
     </div>
   </div>
-  <div class="col-lg-2 d-flex justify-content-end cursor-pointer">
+  <div class="col-lg-2 d-flex justify-content-end cursor-pointer me-3">
     <p-avatar shape="circle" size="large" icon="pi pi-user" (click)="menu.toggle($event)"
       [style]="{'background-color':'#2188d9', 'color': '#ffffff'}"></p-avatar>
     <p-menu #menu [popup]="true" [model]="items"></p-menu>
