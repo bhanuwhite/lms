@@ -10,6 +10,9 @@ import { retry, catchError } from 'rxjs/operators';
 })
 export class TokenInterceptor implements HttpInterceptor {
   token: any;
+  errorMsg!:string
+  errorMessage!:HttpErrorResponse;
+
   constructor(private router: Router, private messageService: MessageService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -20,9 +23,15 @@ export class TokenInterceptor implements HttpInterceptor {
       });
     }
 
+
+
     return next.handle(request).pipe(
       retry(1),
       catchError((error: HttpErrorResponse) => {
+      console.log(error);
+        this.errorMessage = error
+
+        this.errorMsg = error.error.error.message;
         let errorMessage = '';
         if (error.status === 401) {
           localStorage.clear();
@@ -30,8 +39,17 @@ export class TokenInterceptor implements HttpInterceptor {
           this.messageService.add({ severity: 'error', summary: 'Bad request', detail: 'Unauthorized request !!' });
         } else if (error.status === 500) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail:'Internal server error !!'});
-        } else {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail:'Something went wrong !!'});
+        }
+        else if (error.status === 400) {
+          if(error.error.error.message === "Invalid identifier or password"){
+          this.messageService.add({ severity: 'error', summary: 'Invalid', detail:error.error.error.message});
+          }
+          else if(error.error.error.message === "Email or Username are already taken"){
+          this.messageService.add({ severity: 'error', summary: '', detail:error.error.error.message});
+          }
+        }
+        else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail:`${this.errorMsg}`});
         }
         return throwError(errorMessage);
       })

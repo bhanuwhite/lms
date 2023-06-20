@@ -53,7 +53,11 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { BadgeModule } from 'primeng/badge';
 import { CommunityQuestionsRepliesComponent } from './community-questions-replies/community-questions-replies.component';
 import { InstructorsMessagesComponent } from './instructors-messages/instructors-messages.component';
-
+import { ScrollerModule } from 'primeng/scroller';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
+import { TrackuserComponent } from './trackuser/trackuser.component';
+import { TrackDetailsComponent } from './track-details/track-details.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +75,10 @@ import { InstructorsMessagesComponent } from './instructors-messages/instructors
     CommunityForumComponent,
     AccountSettingsComponent,
     CommunityQuestionsRepliesComponent,
-    InstructorsMessagesComponent
+    InstructorsMessagesComponent,
+    QuizDetailsComponent,
+    TrackuserComponent,
+    TrackDetailsComponent
 
   ],
   imports: [
@@ -112,7 +119,9 @@ import { InstructorsMessagesComponent } from './instructors-messages/instructors
     SplitterModule,
     MultiSelectModule,
     OverlayPanelModule,
-    BadgeModule
+    BadgeModule,
+    ScrollPanelModule,
+    ScrollerModule
   ],
   providers: [
     ApiService

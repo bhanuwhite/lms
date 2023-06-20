@@ -50,7 +50,7 @@ export class SignupComponent {
     }
     this.isLoading = true;
 
-    console.log(this.formgroup.value)
+    console.log(this.body)
     this.authSerice.signupUser(this.body).subscribe(res => {
       console.log('sign up data', res)
       const data = res.user;

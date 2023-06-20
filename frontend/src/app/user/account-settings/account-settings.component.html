@@ -9,21 +9,9 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 ">
                         <label for="email" class="mb-2"><b>Email:</b></label>
                         <div class="p-inputgroup">
-                            <input type="email" id="email" [(ngModel)]="userCurrentEmail" name="userCurrentEmail"
-                                pInputText placeholder="Enter your email id" />
-                            <button type="button" pButton class="p-button-secondary" (click)="onEmailEdit()">
-                                <span class="material-symbols-outlined"> edit </span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <label for="password" class="mb-2"><b>Password:</b></label>
-                        <div class="p-inputgroup"> 
-                            <input type="password" id="password" [(ngModel)]="userCurrentPassword"
-                                name="userCurrentPassword" pInputText placeholder="Enter your password" />
-                            <button type="button" pButton class="p-button-secondary" (click)="onPasswordEdit()">
-                                <span class="material-symbols-outlined"> edit </span>
-                            </button>
+                            <input type="email" readonly="true" id="email" [(ngModel)]="userCurrentEmail" name="userCurrentEmail"
+                                pInputText placeholder="dev1@gmail.com" />
+
                         </div>
                     </div>
                 </form>
@@ -170,10 +158,10 @@
                         </h5>
                     </div>
                     <a href="#" style="color: blueviolet"><u>Learn more about the setting</u></a>
-                    <div class="button d-flex justify-content-end mt-5">
-                        <button pButton pRipple type="button" label="Save"
-                            class="p-button-raised p-button-secondary"></button>
-                    </div>
+                    <div class="d-flex justify-content-end button mt-5">
+                      <button pButton pRipple type="button" label="Save"
+                          class="p-button-raised p-button-secondary"></button>
+                  </div>
                 </div>
             </div>
         </p-tabPanel>
@@ -181,7 +169,7 @@
             <div class="account">
                 <p>
                     <b style="color: rgb(233, 154, 50)">Warning:</b>If you close your account, you
-                    will be unsubscribed from all your 8 courses, and will lose access
+                    will be unsubscribed from all your courses, and will lose access
                     forever
                 </p>
                 <div class="button mt-5">
