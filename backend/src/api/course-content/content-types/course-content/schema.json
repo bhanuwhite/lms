@@ -87,6 +87,10 @@
         "Intermediate",
         "Advanced"
       ]
+    },
+    "total_duration": {
+      "type": "biginteger",
+      "default": "0"
     }
   }
 }

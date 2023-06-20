@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-06-12T06:52:28.383Z"
+    "x-generation-date": "2023-06-20T06:11:14.534Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -1819,6 +1819,11 @@
                                                     "Advanced"
                                                   ]
                                                 },
+                                                "total_duration": {
+                                                  "type": "string",
+                                                  "pattern": "^\\d*$",
+                                                  "example": "123456789"
+                                                },
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -2191,6 +2196,11 @@
                   "Intermediate",
                   "Advanced"
                 ]
+              },
+              "total_duration": {
+                "type": "string",
+                "pattern": "^\\d*$",
+                "example": "123456789"
               }
             }
           }
@@ -3072,6 +3082,11 @@
               "Advanced"
             ]
           },
+          "total_duration": {
+            "type": "string",
+            "pattern": "^\\d*$",
+            "example": "123456789"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -3524,21 +3539,18 @@
           }
         }
       },
-      "OrderRequest": {
+      "PaymentRequest": {
         "type": "object",
         "required": [
           "data"
         ],
         "properties": {
           "data": {
-            "required": [
-              "orderId",
-              "product",
-              "amount",
-              "status"
-            ],
             "type": "object",
             "properties": {
+              "name": {
+                "type": "string"
+              },
               "orderId": {
                 "type": "string"
               },
@@ -3551,32 +3563,29 @@
                 "type": "string",
                 "pattern": "^\\d*$",
                 "example": "123456789"
-              },
-              "status": {
-                "type": "string"
               }
             }
           }
         }
       },
-      "OrderListResponseDataItem": {
+      "PaymentListResponseDataItem": {
         "type": "object",
         "properties": {
           "id": {
             "type": "number"
           },
           "attributes": {
-            "$ref": "#/components/schemas/Order"
+            "$ref": "#/components/schemas/Payment"
           }
         }
       },
-      "OrderListResponse": {
+      "PaymentListResponse": {
         "type": "object",
         "properties": {
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/OrderListResponseDataItem"
+              "$ref": "#/components/schemas/PaymentListResponseDataItem"
             }
           },
           "meta": {
@@ -3605,15 +3614,12 @@
           }
         }
       },
-      "Order": {
+      "Payment": {
         "type": "object",
-        "required": [
-          "orderId",
-          "product",
-          "amount",
-          "status"
-        ],
         "properties": {
+          "name": {
+            "type": "string"
+          },
           "orderId": {
             "type": "string"
           },
@@ -3626,9 +3632,6 @@
             "type": "string",
             "pattern": "^\\d*$",
             "example": "123456789"
-          },
-          "status": {
-            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -3929,22 +3932,22 @@
           }
         }
       },
-      "OrderResponseDataObject": {
+      "PaymentResponseDataObject": {
         "type": "object",
         "properties": {
           "id": {
             "type": "number"
           },
           "attributes": {
-            "$ref": "#/components/schemas/Order"
+            "$ref": "#/components/schemas/Payment"
           }
         }
       },
-      "OrderResponse": {
+      "PaymentResponse": {
         "type": "object",
         "properties": {
           "data": {
-            "$ref": "#/components/schemas/OrderResponseDataObject"
+            "$ref": "#/components/schemas/PaymentResponseDataObject"
           },
           "meta": {
             "type": "object"
@@ -5820,6 +5823,11 @@
                                                     "Intermediate",
                                                     "Advanced"
                                                   ]
+                                                },
+                                                "total_duration": {
+                                                  "type": "string",
+                                                  "pattern": "^\\d*$",
+                                                  "example": "123456789"
                                                 },
                                                 "createdAt": {
                                                   "type": "string",
@@ -8585,6 +8593,11 @@
                                                     "Advanced"
                                                   ]
                                                 },
+                                                "total_duration": {
+                                                  "type": "string",
+                                                  "pattern": "^\\d*$",
+                                                  "example": "123456789"
+                                                },
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -9799,6 +9812,11 @@
                             "Intermediate",
                             "Advanced"
                           ]
+                        },
+                        "total_duration": {
+                          "type": "string",
+                          "pattern": "^\\d*$",
+                          "example": "123456789"
                         },
                         "createdAt": {
                           "type": "string",
@@ -13130,7 +13148,7 @@
         "operationId": "delete/interviews/{id}"
       }
     },
-    "/orders": {
+    "/payments": {
       "get": {
         "responses": {
           "200": {
@@ -13138,7 +13156,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrderListResponse"
+                  "$ref": "#/components/schemas/PaymentListResponse"
                 }
               }
             }
@@ -13195,7 +13213,7 @@
           }
         },
         "tags": [
-          "Order"
+          "Payment"
         ],
         "parameters": [
           {
@@ -13300,7 +13318,7 @@
             }
           }
         ],
-        "operationId": "get/orders"
+        "operationId": "get/payments"
       },
       "post": {
         "responses": {
@@ -13309,7 +13327,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrderResponse"
+                  "$ref": "#/components/schemas/PaymentResponse"
                 }
               }
             }
@@ -13366,23 +13384,23 @@
           }
         },
         "tags": [
-          "Order"
+          "Payment"
         ],
         "parameters": [],
-        "operationId": "post/orders",
+        "operationId": "post/payments",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrderRequest"
+                "$ref": "#/components/schemas/PaymentRequest"
               }
             }
           }
         }
       }
     },
-    "/orders/{id}": {
+    "/payments/{id}": {
       "get": {
         "responses": {
           "200": {
@@ -13390,7 +13408,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrderResponse"
+                  "$ref": "#/components/schemas/PaymentResponse"
                 }
               }
             }
@@ -13447,7 +13465,7 @@
           }
         },
         "tags": [
-          "Order"
+          "Payment"
         ],
         "parameters": [
           {
@@ -13461,7 +13479,7 @@
             }
           }
         ],
-        "operationId": "get/orders/{id}"
+        "operationId": "get/payments/{id}"
       },
       "put": {
         "responses": {
@@ -13470,7 +13488,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrderResponse"
+                  "$ref": "#/components/schemas/PaymentResponse"
                 }
               }
             }
@@ -13527,7 +13545,7 @@
           }
         },
         "tags": [
-          "Order"
+          "Payment"
         ],
         "parameters": [
           {
@@ -13541,13 +13559,13 @@
             }
           }
         ],
-        "operationId": "put/orders/{id}",
+        "operationId": "put/payments/{id}",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrderRequest"
+                "$ref": "#/components/schemas/PaymentRequest"
               }
             }
           }
@@ -13618,7 +13636,7 @@
           }
         },
         "tags": [
-          "Order"
+          "Payment"
         ],
         "parameters": [
           {
@@ -13632,7 +13650,7 @@
             }
           }
         ],
-        "operationId": "delete/orders/{id}"
+        "operationId": "delete/payments/{id}"
       }
     },
     "/projects": {
