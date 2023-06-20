@@ -1,7 +1,7 @@
-    // sidebarcode
-    // body{
-    //     background-color:#eeeeee30 !important;
-    // }
+    // // sidebarcode
+    // // body{
+    // //     background-color:#eeeeee30 !important;
+    // // }
     .sidebar{
         float: left;
         background-color: #fff !important;
@@ -93,6 +93,10 @@
         flex: 0 0 auto;
         width: 20% !important;
     }
+    // .content-inner{
+    //   height: fit-content;
+    //   padding-bottom: 20px;
+    // }
 
     .content{
         width:  calc(100% - 15rem) !important;
@@ -119,5 +123,4 @@
         border-left: 5px solid #1FB6E5;
     }
 
-   
-   
+

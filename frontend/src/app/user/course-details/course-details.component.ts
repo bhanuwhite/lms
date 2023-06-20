@@ -1,172 +1,182 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ratingObj, QAcategory } from '../../interface';
-
+import { ApiService } from 'src/app/services/api.service';
+import { ActivatedRoute } from '@angular/router';
+import { UserLibraryGetResponseData } from 'src/app/models/user-library';
+import { MessageService } from 'primeng/api';
+import { resolve } from 'chart.js/dist/helpers/helpers.options';
+import { TrackResponseData } from 'src/app/models/track';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-course-details',
   templateUrl: './course-details.component.html',
   styleUrls: ['./course-details.component.scss'],
 })
-export class CourseDetailsComponent implements OnInit{
+export class CourseDetailsComponent implements OnInit, OnDestroy {
+  streamVideo!: { url: string; name: string };
+  public userCourseData: any;
+  public Spinner: boolean = true;
+  activeParamId!: number;
+  trackResponse: TrackResponseData[] = [];
+  trackCourseIds: number[] = [];
+  SingleContentLib$: Subscription = new Subscription();
+  LibraryContent$: Subscription = new Subscription();
+  // PostMethodTrack$: Subscription = new Subscription();
+  // TrackPutMethod$: Subscription = new Subscription();
+  PutUserHasCourse$: Subscription = new Subscription();
 
-  progressBarValue1 = 75;
-  progressBarValue2 = 55;
-  progressBarValue3 = 30;
-  progressBarValue4 = 25;
-  progressBarValue5 = 10;
-  avgRatingVal: number = 5
-  ratingVal1: number = 5;
-  ratingVal2: number = 4;
-  ratingVal3: number = 3;
-  ratingVal4: number = 2;
-  ratingVal5: number = 1;
-  course_Details: { videoUrl: string } = {
-    videoUrl: '',
-  };
-  jsonCourse_Details: { videoUrl: string } = {
-    videoUrl: '',
-  };
-  // faShare = faShare;
-  // faMessage = faMessage;
-  // faThumbsUp = faThumbsUp;
-  // faStar = faStar;
-  // faSearch = faSearch;
-  myValue = 45
-  reViews: {
-    name: string;
-    image: string;
-    rating: number;
-    date: string;
-    review: string;
-  }[] = [
-      {
-        name: 'Mahesh',
-        image:
-          'https://i.pinimg.com/474x/4b/d5/d7/4bd5d78656591dbe5868562168adaef3.jpg',
-        rating: 5,
-        date: '',
-        review:
-          'I really loved this course n I learned so much knowledge with this course.',
-      },
-      {
-        name: 'Ajay',
-        image:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWXYJHhVG2u98tzNTsjA9DPRJa1dif2CNV0w&usqp=CAU',
-        rating: 3,
-        date: '',
-        review:
-          'Overall its a good course. Need more information for all topics which they provide.',
-      },
-      {
-        name: 'Shekar',
-        image:
-          'https://www.notsoporangi.com/upload/media/entries/2018-06/11/746-3-12fad64ea66aa5787fbfcce858e32cb7.jpg',
-        rating: 2,
-        date: '',
-        review:
-          'Am not impressed with their teaching way. Amount charges are high. Overall Just ok.They did not reach my price pay value.',
-      },
-      {
-        name: 'Mahesh',
-        image:
-          'https://i.pinimg.com/474x/4b/d5/d7/4bd5d78656591dbe5868562168adaef3.jpg',
-        rating: 5,
-        date: '',
-        review:
-          'I really loved this course n I learned so much knowledge with this course.',
-      },
-      {
-        name: 'Ajay',
-        image:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWXYJHhVG2u98tzNTsjA9DPRJa1dif2CNV0w&usqp=CAU',
-        rating: 3,
-        date: '',
-        review:
-          'Overall its a good course. Need more information for all topics which they provide.',
-      },
-      {
-        name: 'Mahesh',
-        image:
-          'https://i.pinimg.com/474x/4b/d5/d7/4bd5d78656591dbe5868562168adaef3.jpg',
-        rating: 5,
-        date: '',
-        review:
-          'I really loved this course n I learned so much knowledge with this course.',
-      },
-      {
-        name: 'Ajay',
-        image:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWXYJHhVG2u98tzNTsjA9DPRJa1dif2CNV0w&usqp=CAU',
-        rating: 3,
-        date: '',
-        review:
-          'Overall its a good course. Need more information for all topics which they provide.',
-      },
-    ];
-  reviews: {
-    name: string;
-    image: string;
-    rating: number;
-    date: string;
-    review: string;
-  }[] = [
-      {
-        name: '',
-        image: '',
-        rating: 5,
-        date: '',
-        review: '',
-      },
-    ];
+  public userID!: number;
+  public courseId!: number;
+  public trackingId: number = 0;
+  public totalDurationVideo: any = 0;
+  userWatchedTime: number = 1;
+  timeConsumedByUser: number = 0;
+  watchedDurations: { name: string; duration: number }[] = [];
+  timeArray: number[] = [];
+  putId!: number;
+  accordianTabIndex: number = -1;
+  putLibId!: number;
+  @ViewChild('Course_video') Course_video!: ElementRef;
 
-  filterRating: ratingObj[];
-  AllLectures: QAcategory[];
-  recommended: QAcategory[];
-  filterQuestion: QAcategory[];
-  constructor() {
-    this.filterRating = [
-      { rating: 5 },
-      { rating: 4 },
-      { rating: 3 },
-      { rating: 2 },
-      { rating: 1 },
-    ];
-    this.AllLectures = [
-      { key: 'Current Lecture ' }
-    ];
-    this.recommended = [
-      { key: 'Most Recent' },
-      { key: 'Most upvoted' }
-    ];
-    this.filterQuestion = [
-      { key: 'Question am Following' },
-      { key: 'I asked questioned' },
-      { key: 'Question without Response' },
-    ];
+  constructor(
+    public apiService: ApiService,
+    public activeParam: ActivatedRoute,
+    public messageService: MessageService
+  ) {}
+  ngOnInit() {
+    this.activeParams();
+    this.getLocalStoredData();
+    this.getLibraryData();
+    this.gettingUserHasCourse()
   }
-  ngOnInit(): void {
-    this.readingLocaltorage();
-    this.reviews = this.reViews;
+
+  public activeParams() {
+    this.activeParam.params.subscribe((res) => {
+      this.activeParamId = res['id'];
+    });
   }
-  public readingLocaltorage(): void {
-    this.jsonCourse_Details = JSON.parse(
-      localStorage.getItem('courseDetails') || '{}'
+
+  public getLocalStoredData() {
+    const localStoredData = JSON.parse(localStorage.getItem('user')!);
+    this.userID = localStoredData.id;
+  }
+
+  public getLibraryData(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      (this.SingleContentLib$ = this.apiService
+        .getUserHasCourseById(this.activeParamId)
+        .subscribe((res) => {
+          this.Spinner = false;
+          this.userCourseData = res.data;
+          this.putId = this.userCourseData.attributes.course_ids.data[0].id;
+          this.courseId = this.userCourseData.id;
+          this.defaultVideo();
+          resolve();
+        })),
+        (error: any) => {
+          reject(error);
+        };
+    });
+  }
+
+  libDataIds: number[] = [];
+  public gettingUserHasCourse(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.apiService.getUserCourse(this.userID).subscribe((res) => {
+        console.log(res);
+        res.map((resData:any)=>{
+          this.libDataIds.push(resData.course_ids[0].id)
+        })
+        console.log(this.libDataIds);
+        resolve(),
+          (err: any) => {
+            reject(err);
+          };
+      });
+    });
+  }
+
+  // getting Video Duration
+  onMetadata(video: HTMLVideoElement) {
+    this.totalDurationVideo = this.totalDurationVideo + video.duration;
+  }
+
+  // get running time of video.
+  getWatchedTime() {
+    this.userWatchedTime = this.Course_video.nativeElement.currentTime;
+    const videoIndex = this.watchedDurations.findIndex(
+      (video: { name: string }) => video.name === this.streamVideo.name
     );
-    this.course_Details = this.jsonCourse_Details;
+    if (videoIndex === -1) {
+      this.watchedDurations.push({
+        name: this.streamVideo.name,
+        duration: Math.trunc(this.userWatchedTime),
+      });
+    } else {
+      this.watchedDurations[videoIndex].duration = Math.trunc(
+        this.userWatchedTime
+      );
+    }
+    this.timeArray = this.watchedDurations.map((resObj) => resObj.duration);
+    const totalConsumedTime = this.timeArray.reduce(
+      (val1, val2) => val1 + val2
+    );
+    const progressPer =
+      (totalConsumedTime / this.totalDurationVideo.toFixed(0)) * 100;
+    const putBody = {
+      data: {
+        time_consumed: totalConsumedTime,
+        total_duration: this.totalDurationVideo.toFixed(0),
+        progress_percentage: progressPer.toFixed(0),
+      },
+    };
+
+    this.PutUserHasCourse$ = this.apiService
+      .putUserHasCourse(this.courseId, putBody)
+      .subscribe((res) => {
+      });
   }
-  public filterByRating(eventValue: any) {
-    try {
-      if (eventValue.target.value === 'ALL') {
-        this.reviews = this.reViews;
-      } else {
-        this.reviews = this.reViews.filter((each) => {
-          return each.rating == eventValue.target.value;
-        });
-      }
-    } catch (error) {
-      console.log(error);
+
+  // Displaying Default video 1st
+  public defaultVideo() {
+    this.streamVideo = {
+      url: this.userCourseData?.attributes?.course_ids.data[0]?.attributes
+        .content.data[0]?.attributes?.url,
+      name: this.userCourseData?.attributes?.course_ids.data[0]?.attributes
+        .content.data[0]?.attributes?.name,
+    };
+  }
+
+  // click to play a specific video in a course
+  public playVideo(index: number) {
+    this.streamVideo =
+      this.userCourseData?.attributes?.course_ids.data[0]?.attributes.content.data[
+        index
+      ].attributes;
+
+    window.scrollTo(0, 0);
+  }
+
+  public toggleAccordian(index: number): void {
+    if (this.accordianTabIndex === index) {
+      this.accordianTabIndex = -1;
+    } else {
+      this.accordianTabIndex = index;
     }
   }
 
+  ngOnDestroy(): void {
+    this.LibraryContent$.unsubscribe();
+    this.SingleContentLib$.unsubscribe();
+  }
 
+  // End
 }

@@ -10,7 +10,9 @@
     </div>
     <span class="p-input-icon-left">
       <i class="pi pi-search"></i>
-      <input pInputText type="text" placeholder="Search..." />
+      <input pInputText type="text" placeholder="Search..."  [(ngModel)]="searchWord"
+      (ngModelChange)="searchFun()"/>
+
     </span>
     <ng-template pTemplate="left">
       <button pButton pRipple label="Create Course" icon="pi pi-plus" (click)="addDialog()"
@@ -19,30 +21,27 @@
     </ng-template>
   </p-toolbar>
 
-
   <p-table #dt [value]="courseData" [rows]="8" [paginator]="true" [rowHover]="true" dataKey="id"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
 
-
-      <ng-template pTemplate="header">
-        <tr>
-          <th pSortableColumn="title" class="text-center">Title </th>
-          <!-- <p-sortIcon field="name"></p-sortIcon>-->
-          <th pSortableColumn="description" class="text-center">Description </th>
-          <th pSortableColumn="createdAt" class="text-center">Created Time</th>
-          <th pSortableColumn="updatedAt" class="text-center">Updated Time</th>
-          <th pSortableColumn="action" class="text-center">Action</th>
-          <th></th>
-        </tr>
-      </ng-template>
-      <ng-template style="width: auto;" pTemplate="body" let-course>
-        <tr>
-          <td (click)="goDetailPage(course)" class="text-center cursor-pointer">{{course.attributes.title}}</td>
-          <td (click)="goDetailPage(course)" class="text-center cursor-pointer">
-            {{course.attributes.courseDescription}}
-          </td>
-          <td (click)="goDetailPage(course)" class="text-center cursor-pointer">{{course.attributes.createdAt|
-            date:'medium'}}</td>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="title" class="text-center">Title </th>
+        <!-- <p-sortIcon field="name"></p-sortIcon>-->
+        <th pSortableColumn="description" class="text-center">Description </th>
+        <th pSortableColumn="createdAt" class="text-center">Created Time</th>
+        <th pSortableColumn="updatedAt" class="text-center">Updated Time</th>
+        <th pSortableColumn="action" class="text-center">Action</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template style="width: auto;" pTemplate="body" let-course >
+      <tr>
+        <td (click)="goDetailPage(course)" class="text-center cursor-pointer">{{course.attributes.title}}</td>
+        <td (click)="goDetailPage(course)" class="text-center cursor-pointer">{{course.attributes.courseDescription}}
+        </td>
+        <td (click)="goDetailPage(course)" class="text-center cursor-pointer">{{course.attributes.createdAt|
+          date:'medium'}}</td>
 
           <td (click)="goDetailPage(course)" class="text-center cursor-pointer">{{course.attributes.updatedAt |
             date:'medium'}}</td>
@@ -60,7 +59,6 @@
         </div>
         </ng-template>
   </p-table>
-</div>
 
 <!-- confirmation dialog for delete-->
 <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
@@ -112,8 +110,8 @@
     <div class="d-flex justify-content-between mt-2">
       <button (click)="closeAddDialog()" type="button" class="btn btn-dark"><i
           class="pi pi-delete-left me-2 cursor-pointer"></i>Cancel</button>
-      <button [disabled]="addFormGroup.invalid" type="button" class="btn btn-success me-2" (click)="onSubmit()"><i
-          class="pi pi-save me-2 cursor-pointer"></i>Save</button>
+          <button [disabled]="addFormGroup.invalid" type="button" class="btn btn-success me-2" (click)="onSubmit()"><i
+            class="pi pi-save me-2 cursor-pointer"></i>Save</button>
     </div>
   </form>
 </p-dialog>

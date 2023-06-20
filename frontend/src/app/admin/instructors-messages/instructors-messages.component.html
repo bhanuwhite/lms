@@ -1,8 +1,8 @@
-<div class="content-inner surface-ground px-3 py-3 container-fluid p-3">
-  <div class="ms-3">
+<div class="content-inner surface-ground px-3 py-3">
+  <div class="container-fluid ms-1">
     <h1 style="font-size: 1.5rem;"><b>Messages</b> </h1>
   </div>
-  <div class="container m-2">
+  <div class="container ms-2 pe-4">
     <div class="grid bg-white mb-3 mt-3">
       <div class="lg:col-12 md:col-12 sm:col-12 xl:col-12">
         <div class="flex flex-row flex-wrap justify-content-between card-container blue-container">
@@ -19,12 +19,12 @@
           <div class="p-field-checkbox flex align-items-center justify-content-center m-2">
             <p-checkbox name="groupname" value="notanswered" inputId="notanswered" class="mr-1"
               (click)="userNotAnsweredMessages('No response')"></p-checkbox>
-            <label for="notanswered">Not answered</label>
+            <label for="notanswered">Not Answered</label>
           </div>
           <div class="p-field-checkbox flex align-items-center justify-content-center m-2">
             <p-checkbox name="groupname" value="showautomatedmessages" inputId="showmsgs" class="mr-1"
               (click)="userAutomatedMessages('automated')"></p-checkbox>
-            <label for="showmsgs">Show automated messages</label>
+            <label for="showmsgs">Show Automated Messages</label>
           </div>
           <div class="p-field-checkbox flex align-items-center justify-content-center m-2">
             Sortby: &nbsp;<p-multiSelect [options]="multiSelectMessages" optionLabel="name" defaultLabel="Select"
@@ -37,16 +37,15 @@
       </div>
     </div>
   </div>
-</div>
-<div class="container">
-  <div class="grid">
-    <div class="lg:col-5 m-0">
-      <div class="card p-5" [style]="{ height: '550px' }">
-        <div class="grid">
-          <div class="lg:col-12">
-            <span class="p-input-icon-right">
-              <i class="pi pi-search"></i>
-              <input type="text" pInputText placeholder="Search by keyword" [style]="{ width: '100%' }" (input)="
+  <div class="container-fluid">
+    <div class="grid">
+      <div class="lg:col-5 m-0">
+        <div class="card p-5" [style]="{ height: '550px' }">
+          <div class="grid">
+            <div class="lg:col-12">
+              <span class="p-input-icon-right">
+                <i class="pi pi-search"></i>
+                <input type="text" pInputText placeholder="Search by keyword" [style]="{ width: '100%' }" (input)="
                       users.filterGlobal($any($event.target).value, 'contains')
                     " />
             </span>
@@ -167,26 +166,21 @@
       <input id="firstname1" type="text" name="searchusers" [(ngModel)]="selectedMessage.name" class="p-2 mb-2 w-100"
         [style]="{ border: '2px solid #eee' }" />
     </div>
-      <div class="d-flex justify-content-around p-2 align-items-center">
-        <h2 class="me-2">To:</h2>
-        <input id="firstname1" type="text" name="searchusers" [(ngModel)]="selectedMessage.name" class="p-2 mb-2 w-100"
-          [style]="{ border: '2px solid #eee' }" />
-      </div>
-      <div>
-        <p-editor [(ngModel)]="messageFromCompose" styleClass="ql-editor" name="ql-editor"
-          [style]="{ height: '150px', border: '2px solid #eee' }">
-          <ng-template pTemplate="header">
-            <span class="ql-formats">
-              <button type="button" class="ql-bold" aria-label="Bold"></button>
-              <button type="button" class="ql-italic" aria-label="Italic"></button>
-              <button type="button" class="ql-underline" aria-label="Underline"></button>
-              <button type="button" class="ql-image" aria-label="Image"></button>
-            </span>
-          </ng-template>
-        </p-editor>
-      </div>
-      <div class="position-relative d-flex justify-content-end mt-5">
-        <p-button label="Submit" value="Send" (click)="messageFromComposer()"></p-button>
-      </div>
-    </form>
+    <div>
+      <p-editor [(ngModel)]="messageFromCompose" styleClass="ql-editor" name="ql-editor"
+        [style]="{ height: '150px', border: '2px solid #eee' }">
+        <ng-template pTemplate="header">
+          <span class="ql-formats">
+            <button type="button" class="ql-bold" aria-label="Bold"></button>
+            <button type="button" class="ql-italic" aria-label="Italic"></button>
+            <button type="button" class="ql-underline" aria-label="Underline"></button>
+            <button type="button" class="ql-image" aria-label="Image"></button>
+          </span>
+        </ng-template>
+      </p-editor>
+    </div>
+    <div class="position-relative d-flex justify-content-end mt-5">
+      <p-button label="Submit" value="Send" (click)="messageFromComposer()"></p-button>
+    </div>
+  </form>
 </p-dialog>

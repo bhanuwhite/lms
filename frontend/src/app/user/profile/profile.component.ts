@@ -1,47 +1,54 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { userProfile } from 'src/app/models/profile';
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators,
+} from '@angular/forms';
+import { userProfile, userUpdateProfile } from 'src/app/models/profile';
+import { ApiService } from 'src/app/services/api.service';
+import { Message, MessageService } from 'primeng/api';
 
-interface Lanquages {
-  name: string
+interface Languages {
+  name: string;
 }
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent {
-  public mainLanquages: Lanquages[] = []
-  public selectedLangauges: Lanquages[] = []
+  public mainLanguages: Languages[] = [];
+  public selectedLangauges: Languages[] = [];
   public selectedValues: string[] = [];
   public userProfileForm!: FormGroup;
   public userImageForm!: FormGroup;
-  public imageData: string = ''
-  public imageFileSelected = false
+  public imageData: string = '';
+  public imageFileSelected = false;
   public reader!: FileReader;
   public userProfileSettings: string[] = [];
-  userProfileDataFromLocalStorage: userProfile = {
-    biography: '',
-    facebook: '',
-    firstname: '',
-    headline: '',
-    lastname: '',
-    linkedin: '',
-    selectedlanquages: [],
-    twitter: '',
-    website: '',
-    youtube: ''
-  }
-  constructor(private fb: FormBuilder) { }
+  public userDetails!: userUpdateProfile;
+  public remainingWords: number = 50;
+
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private messageService: MessageService
+  ) {}
+
   ngOnInit(): void {
+    this.getLocalStorage();
     this.getLanguages();
     this.userProfile();
+    setTimeout(() => {
+      this.userProfile();
+    }, 2000);
     this.userImage();
   }
   //get tabmenu items
   public getLanguages(): void {
-    this.mainLanquages = [
+    this.mainLanguages = [
       {
         name: 'English',
       },
@@ -49,105 +56,146 @@ export class ProfileComponent {
         name: 'Telugu',
       },
       {
-        name: 'Hindhi',
+        name: 'Hindi',
       },
     ];
   }
+
+  public userLoginEmail!: string;
+  userId!: number;
+  loginUserName!: string;
+  userFirstName!: string;
+  userLastName!: string;
+  mobileNo!: number;
+  linkedin!: string;
+  biograpy!: string;
+
+  //login Details
+  public getLocalStorage() {
+    const userLoginData = JSON.parse(localStorage.getItem('user')!);
+    console.log(userLoginData);
+
+    this.apiService.getProfileDetails().subscribe((res) => {
+      console.log(res);
+
+      const allUserDetails = res;
+      allUserDetails.filter((res: userProfile) => {
+        if (userLoginData.id == res.id) {
+          this.userLoginEmail = res.email;
+          this.userId = res.id;
+          this.loginUserName = res.username;
+          this.userFirstName = res.firstname;
+          this.userLastName = res.lastname;
+          this.mobileNo = res.mobile;
+          // this.linkedin = res.linkedIn;
+          this.biograpy = res.biography;
+        }
+      });
+    });
+  }
+
   //userProfileForm
   public userProfile(): void {
     this.userProfileForm = this.fb.group({
-      firstname: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      lastname: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      headline: new FormControl('', [Validators.required, Validators.minLength(10)]),
-      biography: new FormControl('', [Validators.required, Validators.minLength(10)]),
-      website: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      twitter: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      linkedin: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      facebook: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      youtube: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      selectedlanquages: new FormControl('', [Validators.required, Validators.minLength(2)])
-    })
+      username: new FormControl({ value: this.loginUserName, disabled: true }),
+      firstname: new FormControl(this.userFirstName, [
+        Validators.required,
+        Validators.pattern(/^[A-Za-z]*$/),
+      ]),
+      lastname: new FormControl(this.userLastName, [
+        Validators.required,
+        Validators.pattern(/^[A-Za-z]*$/),
+      ]),
+      email: new FormControl({ value: this.userLoginEmail, disabled: true }),
+      mobileNo: new FormControl(this.mobileNo, [
+        Validators.maxLength(10),
+        Validators.minLength(10),
+        Validators.pattern('^[0-9]{10}$'),
+      ]),
+      biography: new FormControl(this.biograpy),
+      // linkedin: new FormControl(this.linkedin),
+    });
   }
-  //ImageForm 
+
+  get mobileNumberControl() {
+    return this.userProfileForm.get('mobileNumber');
+  }
+  get biographyControl() {
+    return this.userProfileForm.get('biograpy');
+  }
+
+  //ImageForm
   public userImage(): void {
     this.userImageForm = this.fb.group({
-      imageControl: ['', Validators.required]
-    })
+      imageControl: ['', Validators.required],
+    });
   }
+
   //onUserProfileSubmition
   public onUserProfileSubmit(): void {
-    console.log(this.userProfileForm.value)
-    localStorage.setItem("userProfileForm", JSON.stringify(this.userProfileForm.value));
-    this.userProfileDataFromLocalStorage = JSON.parse(localStorage.getItem("userProfileForm") as string)
-    this.userProfileForm.reset();
+    console.log(this.userProfileForm.value);
+
+    this.userDetails = {
+      username: this.userProfileForm.value.username,
+      firstname: this.userProfileForm.value.firstname,
+      lastname: this.userProfileForm.value.lastname,
+      email: this.userProfileForm.value.email,
+      mobile: this.userProfileForm.value.mobileNo,
+      biography: this.userProfileForm.value.biography,
+      // linkedIn: this.userProfileForm.value.linkedin,
+    };
+
+    this.apiService
+      .updateProfileDetails(this.userId, this.userDetails)
+      .subscribe((res) => {
+        console.log(res);
+        this.messageService.add({
+          severity: 'info',
+          summary: 'information',
+          detail: 'Profile details updated',
+        });
+      });
   }
+
+  //image validations
+  public get imageControl() {
+    return this.userProfileForm.get('imageControl');
+  }
+
   //onImageFilesubmition
   public onImageUpload(event: any): void {
     this.reader = new FileReader();
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
+
       this.reader.readAsDataURL(file);
       this.reader.onload = () => {
         this.userImageForm.patchValue({
-          imageControl: this.reader.result
-        })
-        this.imageFileSelected = true
+          imageControl: this.reader.result,
+        });
+        this.imageFileSelected = true;
         this.imageData = this.userImageForm.value.imageControl;
-      }
-      alert("Image for preview")
+      };
     }
   }
+
+  checkWordCount() {
+    const textValue = this.userProfileForm.controls['biography'].value;
+    const wordCount = textValue?.trim().split(/\s+/).length;
+    this.remainingWords = 50 - wordCount;
+
+    if (this.remainingWords < 0) {
+      const words = textValue.trim().split(/\s+/);
+      this.userProfileForm.controls['biography'].setValue(
+        words.slice(0, 50).join(' ')
+      );
+      this.remainingWords = 0;
+    }
+  }
+
   //save image
-  public saveImage(): void {
-    localStorage.setItem("userImageform", JSON.stringify(this.userImageForm.value.imageControl))
-    this.imageData = ''
-    this.imageData = JSON.parse(localStorage.getItem("userImageform") as string)
-    window.alert("image saved")
-  }
+  public saveImage(): void {}
+
   //saveProfileSettingValues
-  public savingProfileSettingValues(): void {
-    console.log(this.selectedValues)
-    localStorage.setItem("profileSettingValues", JSON.stringify(this.selectedValues));
-    this.userProfileSettings = JSON.parse(localStorage.getItem("profileSettingValues") as string)
-    alert("Setting values saved")
-  }
-
-  //for vaidations profile form
-
-  public get firstname() {
-    return this.userProfileForm.get('firstname')
-  }
-  public get lastname() {
-    return this.userProfileForm.get('lastname')
-  }
-  public get headline() {
-    return this.userProfileForm.get('headline')
-  }
-  public get biography() {
-    return this.userProfileForm.get('biography')
-  }
-  public get website() {
-    return this.userProfileForm.get('website')
-  }
-  public get twitter() {
-    return this.userProfileForm.get('twitter')
-  }
-  public get linkedin() {
-    return this.userProfileForm.get('linkedin')
-  }
-  public get facebook() {
-    return this.userProfileForm.get('facebook')
-  }
-  public get youtube() {
-    return this.userProfileForm.get('youtube')
-  }
-  public get selectedlanquages() {
-    return this.userProfileForm.get('selectedlanquages')
-  }
-
-  //image validations
-  public get imageControl() {
-    return this.userProfileForm.get('imageControl')
-  }
-
+  public savingProfileSettingValues(): void {}
 }

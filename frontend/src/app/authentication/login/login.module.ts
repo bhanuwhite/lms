@@ -6,8 +6,8 @@ import { LoginComponent } from './login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DividerModule } from "primeng/divider";
-
-
+import { DialogModule } from 'primeng/dialog';
+import { ToastModule } from 'primeng/toast';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -17,7 +17,9 @@ import { DividerModule } from "primeng/divider";
     ReactiveFormsModule,
     ProgressSpinnerModule,
     LoginRoutingModule,
-    DividerModule
+    DividerModule,
+    DialogModule,
+    ToastModule
   ]
 })
 export class LoginModule { }

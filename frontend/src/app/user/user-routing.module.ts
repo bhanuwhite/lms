@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CourseDetailsComponent } from './course-details/course-details.component';
-import { AboutComponent } from './about/about.component';
 import { MessageComponent } from './message/message.component';
 import { MyLibraryComponent } from './my-library/my-library.component';
 import { UserComponent } from './user.component';
@@ -13,6 +12,10 @@ import { PaymentComponent } from './payment/payment.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserContentComponent } from './user-content/user-content.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { UserCommunityComponent } from './user-community/user-community.component';
+import { AssessmentComponent } from './assessment/assessment.component';
+import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
+import { MycartComponent } from './mycart/mycart.component';
 
 
 const routes: Routes = [
@@ -26,14 +29,14 @@ const routes: Routes = [
       {
         path: 'library', component: MyLibraryComponent
       },
-      // {
-      //   path: 'user/:id', component: ContentDetailsComponent
-      // },
       {
-        path: 'course/:id', component: ContentDetailsComponent
+        path:'assessment', component: AssessmentComponent
       },
       {
-        path: 'about',component: AboutComponent,
+        path: 'assessment/:course', component: QuizDetailsComponent
+      },
+      {
+        path: 'course/:id', component: ContentDetailsComponent
       },
       {
         path: 'library/:id', component: CourseDetailsComponent
@@ -58,6 +61,9 @@ const routes: Routes = [
       },
       {
         path: 'account-settings', component:AccountSettingsComponent
+      },
+      {
+        path:'mycart', component:MycartComponent
       }
     ]
   }

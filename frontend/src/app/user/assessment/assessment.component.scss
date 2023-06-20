@@ -1,0 +1,19 @@
+.container{
+  height: 200px;
+}
+
+.banner-image {
+  background-image: url("../../../assets/img/assessment.webp");
+  min-height: 350px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size:cover;
+}
+.quiz-details{
+flex-wrap: wrap;
+.card{
+  margin: 20px;
+  width: 250px;
+height: 180px;
+}
+}

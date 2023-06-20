@@ -369,14 +369,22 @@
       </div>
     </div>
     <div class="col-lg-4">
-      <div class="card sidebar-area"  *ngIf="singleCourse" >
-        <div class="video-contain" (click)=" onClickVideo(singleCourse)"
-          *ngFor="let media of singleCourse?.attributes?.media?.data">
-            <img src="{{media.attributes.formats?.thumbnail?.url}}" class="img-fluid" alt=""
-              style="width: 100%; opacity: 0.6;">
-            <span class="play-button"> <img src="assets/img/play.png" alt=""> </span>
-        </div>
-        <div class="pricing-detail p-3">
+      <div class="card sidebar-area" *ngIf="singleCourse">
+
+        <div class="pricing-detail p-3"
+          *ngIf="parsePrice(singleCourse.attributes.price) != 0">
+
+          <div class="video-container" [class.playing]="isPlaying">
+
+            <video [src]='singleCourse.attributes.content.data[0].attributes.url' controls #courseVideoElmt
+              (click)="playCourse()">
+            </video>
+            <div class="overlay">
+              <span *ngIf="!isPlaying" class="play-icon material-icons" (click)="playVideo()"> play_circle </span>
+            </div>
+
+          </div>
+
           <div class="d-flex align-items-center">
             <h1 class="m-0"><b>{{ singleCourse.attributes.price | currency : "INR" }}</b></h1> <span class="ms-3">81%
               off</span>
@@ -385,10 +393,20 @@
             <i class="pi pi-clock"></i>
             <span class="ms-1"><b>1 day</b> left at this price!</span>
           </div>
-          <div class="buttons mt-3">
-            <button type="button" class="cart-button" style="width: 100%;">Add to cart</button>
-            <button type="button" class="buy-now-button mt-2" style="width: 100%;">Buy now</button>
+          <div class="buttons m-3">
+            <div class="mt-2">
+              <button type="button"  class="btn btn-success mt-3" *ngIf="!userCourseID.includes(singleCourse.id) && !libDataIds.includes(singleCourse.id)"
+              style="width: 95%;" (click)="addToCart(singleCourse)">Add To Cart</button>
+
+              <button type="button"  class="btn btn-primary mt-3" *ngIf="userCourseID.includes(singleCourse.id)"
+              style="width: 95%;" (click)="GotoCart()" >Go To Cart</button>
+
+              <button type="button"  class="btn btn-primary mt-3" *ngIf="libDataIds.includes(singleCourse.id)"
+              style="width: 95%;"  >Go to Library</button>
+
+            </div>
           </div>
+
           <div class="refund-details mb-2">
             <span class="money-back">30-Day Money-Back Guarantee</span>
             <span class="lifetime-acc mt-1">Full Lifetime Access</span>
@@ -399,13 +417,50 @@
             <a href="" class="links">Apply Coupon</a>
           </div>
         </div>
+        <div *ngIf="parsePrice(singleCourse.attributes.price )== 0 ">
+          <div>
+            <div class="d-flex align-items-center">
+              <h2 class="m-3"><b>FREE COURSE</b></h2>
+            </div>
+          </div>
+          <div *ngIf="parsePrice(singleCourse.attributes.price) == 0  "
+            class="buttons m-3">
+
+            <div class="video-container" [class.playing]="isPlaying">
+
+              <video [src]='singleCourse.attributes.content.data[0].attributes.url' controls #courseVideoElmt
+                (click)="playCourse()">
+              </video>
+              <div class="overlay">
+                <span *ngIf="!isPlaying" class="play-icon material-icons" (click)="playVideo()"> play_circle </span>
+              </div>
+            </div>
+
+            <div class="mt-2">
+              <button type="button"  class="btn btn-success mt-3" *ngIf="!userCourseID.includes(singleCourse.id) && !libDataIds.includes(singleCourse.id)"
+              style="width: 95%;" (click)="addToCart(singleCourse)">Add To Cart</button>
+
+              <button type="button"  class="btn btn-primary mt-3" *ngIf="userCourseID.includes(singleCourse.id) && !libDataIds.includes(singleCourse.id)"
+              style="width: 95%;" (click)="GotoCart()" >Go To Cart</button>
+
+              <button type="button"  class="btn btn-primary mt-3" *ngIf="libDataIds.includes(singleCourse.id)"
+              style="width: 95%;" routerLink="/library" >Go to Library</button>
+
+            </div>
+          </div>
+        </div>
+
         <hr>
         <div class="sidebar-content-area p-3">
           <h2 class="m-0">Training 5 or more people?</h2>
           <p class="mt-1">Get your team access to 19,000+ top Udemy courses anytime, anywhere.</p>
-          <button type="button" class="buy-now-button mt-2" style="width: 100%;">Try LMS Businees</button>
+          <button type="button" class="btn btn-primary mt-2" style="width: 100%;">Try LMS Businees</button>
         </div>
       </div>
     </div>
   </div>
+</div>
+<div class="card flex justify-content-center gap-2">
+  <p-toast></p-toast>
+  <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
 </div>

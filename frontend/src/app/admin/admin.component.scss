@@ -192,7 +192,9 @@ input.p-inputtext.p-component.p-element.search-text {
             border: 1px solid #000;
         }
     }
-
+.content-inner{
+  overflow-x: hidden !important;
+}
     // .content {
     //     width: 100% !important;
     //     top: 80px;

@@ -1,516 +1,145 @@
-<div class="content-inner surface-ground px-3 py-3">
-    <h1 style="font-size: 1.5rem;"><b> Featured Community Forum</b>  </h1>
-    <div class="row mb-4">
-        <div class="col-lg-4">
-            <div class="card p-3">
-                <h3>
-                    <b>
-                        *WEBINAR INVITE* Course Quality: The Science, The Stats, and The Structure
-                    </b>
-                </h3>
-                <p>
-                    Hello Instructor Community! We are excited to bring you another webinar that focuses on ...
-                <p>
-                <div class="d-flex align-items-center justify-content-between">
-                    <div class="image">
-                        <img src="../assets/img/user.jpg" class="img-fluid user-imgg" alt="">
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div class="me-2"><i class="pi pi-thumbs-up me-1"></i>7 Likes</div>
-                        <div>
-                            <i class="pi  pi-comments me-1"></i> 3 replies
-                        </div>
-                       
-                    </div>
-                </div>
-            </div>
+<div class="content-inner surface-ground surface-ground-wrappers px-3 py-3">
+  <div class="d-flex justify-content-between">
+    <p class="fs-4">𝐀𝐥𝐥 𝐂𝐨𝐦𝐦𝐮𝐧𝐢𝐭𝐲</p>
+    <button class="btn btn-primary" (click)="displayCommunityForm()">Create Community</button>
+  </div>
+
+  <div>
+    <p-dialog header="Create Community" [(visible)]="showCommunityForm" [modal]="true">
+      <form [formGroup]="communityForm" (ngSubmit)="onSubmitCommunityForm()">
+        <div class="p-fluid grid">
+          <div class="field mt-2 w-100">
+            <label for="title">Name :</label>
+            <span class="p-float-label">
+              <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" class="form-control" required
+                formControlName="community_Name" pInputText placeholder="Enter Community name.">
+              <small class="p-error block"
+                *ngIf="communityForm.get('community_Name')?.invalid && (communityForm.get('community_Name')?.dirty || communityForm.get('community_Name')?.touched)">
+                Communtiy name is required. </small>
+            </span>
+          </div>
+
+          <div class="field mt-2 w-100">
+            <label for="description"> Description :</label>
+            <span class="p-float-label">
+              <textarea inputId="textarea" required class="bg-light-grey input-shadow w-100 p-inputtext" rows="3"
+                style="resize: none;" cols="30" formControlName="community_Desc" pInputTextarea
+                placeholder="Enter Description here."></textarea>
+              <small class="p-error block"
+                *ngIf="communityForm.get('community_Desc')?.invalid && (communityForm.get('community_Desc')?.dirty || communityForm.get('community_Desc')?.touched)">
+                Description name is required.</small>
+            </span>
+          </div>
+
+          <div class="field mt-4 w-100">
+            <label for="content">Image : </label>
+            <span class="p-float-label mb-1">
+              <input type="file" required class="bg-light-grey input-shadow w-100 p-inputtext"
+                (change)="onFileSelect($event)" pInputText>
+            </span>
+            <small class="p-error block"
+              *ngIf="communityForm.get('community_Img')?.touched && communityForm.get('community_Img')?.invalid">
+              Please select a image.
+            </small>
+          </div>
         </div>
-        <div class="col-lg-4">
-            <div class="card p-3">
-                <h3>
-                    <b>
-                        *WEBINAR INVITE* Course Quality: The Science, The Stats, and The Structure
-                    </b>
-                </h3>
-                <p>
-                    Hello Instructor Community! We are excited to bring you another webinar that focuses on ...
-                <p>
-                <div class="d-flex align-items-center justify-content-between">
-                    <div class="image">
-                        <img src="../assets/img/user.jpg" class="img-fluid user-imgg" alt="">
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div class="me-2"><i class="pi pi-thumbs-up me-1"></i>7 Likes</div>
-                        <div>
-                            <i class="pi  pi-comments me-1"></i> 3 replies
-                        </div>
-                       
-                    </div>
-                </div>
-            </div>
+        <div class="d-flex justify-content-between mt-2">
+          <button (click)="closeDialog()" type="button" class="btn btn-dark"><i
+              class="pi pi-delete-left me-2 cursor-pointer"></i>Cancel</button>
+          <button class="btn btn-success" type="submit">Submit</button>
         </div>
-        <div class="col-lg-4">
-            <div class="card p-3">
-                <h3>
-                    <b>
-                        *WEBINAR INVITE* Course Quality: The Science, The Stats, and The Structure
-                    </b>
-                </h3>
-                <p>
-                    Hello Instructor Community! We are excited to bring you another webinar that focuses on ...
-                <p>
-                <div class="d-flex align-items-center justify-content-between">
-                    <div class="image">
-                        <img src="../assets/img/user.jpg" class="img-fluid user-imgg" alt="">
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div class="me-2"><i class="pi pi-thumbs-up me-1"></i>7 Likes</div>
-                        <div>
-                            <i class="pi  pi-comments me-1"></i> 3 replies
-                        </div>
-                       
-                    </div>
-                </div>
+      </form>
+    </p-dialog>
+  </div>
+
+  <div *ngIf="spinner">
+    <div class="loader">Loading...</div>
+  </div>
+
+<div  *ngIf="!spinner">
+  <div class="d-flex flex-wrap col-lg-12 col-md-12">
+    <div *ngFor="let community of GlobalCommunities" class="col-4">
+      <div class="card">
+        <div class="card p-3" style="height: 250px;">
+          <div class=" d-flex justify-content-between card-header">
+            <b class="fs-4"> {{community.attributes?.name}} </b>
+            <div> <span class="material-icons" [style]="{'color':'red','cursor':'pointer'}" (click)="deleteCommunity(community.id)" pTooltip="Delete" tooltip >
+                delete
+                </span>
+                <span class="material-icons p-2" [style]="{'color':'green','cursor':'pointer'}" (click)="updateCommunity(community,community.id)" pTooltip="Edit" tooltip>
+                  edit
+                  </span>
+              </div>
+          </div>
+          <div class="mt-4 card-body" style="height: 100px; overflow-y: auto;">
+            <b class="fs-6"> {{community.attributes?.description}} </b>
+          </div>
+          <div class="d-flex align-items-center justify-content-between mt-5 mb-3 card-footer">
+            <div class="image">
+              <img *ngIf="community.attributes?.profile_media?.data?.attributes.url != null"
+                [src]='community.attributes.profile_media?.data.attributes.url' class="img-fluid user-img"
+                alt="path mismatch">
+
+              <div *ngIf="community.attributes.profile_media.data == null">
+                <p-avatar label="img" shape="circle"></p-avatar>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="d-flex justify-content-between align-items-center">
-        <h2 class="text-black">
-            All Community Activity
-        </h2>
-        <div>
-            <p-button (click)="showConversationDialog()" label="Start Conversation"
-            class="float-end"></p-button>
-        <p-dialog header="Start Your Conversation" [(visible)]="displayConvesation" [modal]="true"
-            [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
+  </div>
 
-            <form action="" [formGroup]="conversationForm">
-                <label for="question" class="mt-2"> <b>Write Question here.</b> </label>
-                <input type="text" class="form-control mt-2" placeholder="Enter question .."
-                    formControlName="question">
-                <label for="desc" class="mt-2"> <b>Write Description</b> </label>
-                <input type="text" class="form-control mt-2" placeholder="Enter description .."
-                    formControlName="description">
-                <input type="file" multiple formControlName="image" class="mt-2"
-                    (change)="selectImg($event)">
-            </form>
+</div>
 
-            <ng-template pTemplate="footer">
-                <p-button (click)="questionSubmit()" label="Submit" styleClass="p-button-text"></p-button>
-            </ng-template>
-
-        </p-dialog>
+</div>
+<div>
+  <p-dialog header="Update Community" [(visible)]="showUpdateCommunityForm" [modal]="true">
+    <form [formGroup]="updateCommunityForm" (ngSubmit)="onSubmitUpdateCommunityForm()">
+      <div class="p-fluid grid">
+        <div class="field mt-2 w-100">
+          <label for="title">Name :</label>
+          <span class="p-float-label">
+            <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" class="form-control" required
+              formControlName="update_Name" pInputText placeholder="Enter Community name.">
+            <small class="p-error block"
+              *ngIf="updateCommunityForm.get('update_Name')?.invalid && (updateCommunityForm.get('update_Name')?.dirty || updateCommunityForm.get('update_Name')?.touched)">
+              Communtiy name is required. </small>
+          </span>
         </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col-lg-8">
-            <p-tabView>
-                <p-tabPanel header="Trending">
-    
-                    <div *ngFor="let trending of trendingData">
-                        <a routerLink="/admin/replies"> <b class=" pb-3 pt-3"
-                                (click)="questionObj(trending)">
-                                {{trending.question}} </b> </a>
-                        <!-- <p class="pt-3"> </p> -->
-                        <h4 class="pt-3">
-                            {{trending.description}}
-                        </h4>
-    
-                        <div class="d-flex flex-wrap">
-                            <div *ngFor="let image of trending.img" class="ms-3 mt-3">
-                                <img src={{image}} alt="" style="height: 100px; width: 150px;"
-                                    (click)="showDoubtImgDialog(image)">
-                            </div>
-                        </div>
-    
-    
-                        <p-dialog [(visible)]="displayDoubtImg" [modal]="true" [style]="{width: '50vw'}"
-                            *ngIf="doubtImg">
-                            <img src={{doubtImg}} alt="" style="width: 100%; height: 100%; ">
-                        </p-dialog>
-                        <div class="d-flex align-items-center mt-3">
-                            <div class="text-center d-flex align-items-center ">
-                                <img src={{trending.img}} alt="" class="userImg">
-                                
-                                <p class="ms-1 mt-2"> {{trending.name}}</p>
-                            </div>
-                            <div class="text-center d-flex align-items-center ms-4">
-                                <i class="pi pi-thumbs-up me-1" (click)="likeFun()"></i>
-                                6 Likes
-                            </div>
-                            <div class="text-center align-items-center d-flex ms-4">
-                                <i class="pi  pi-comments me-1"></i>
-                                14  
-                            </div>
-                        </div>
-                        <hr>
-    
-                    </div>
-                </p-tabPanel>
-    
-                <p-tabPanel header="Latest">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h2>
-                                <b>  How much knowledge needed to start this course ? </b>
-                             </h2>
-                             <h4 class=""> Here we starts everything from scrach. So do not require any previous
-                                 knowledge on
-                                 anything. It would be more plus if you have some stuff. </h4>
-                             <div class="d-flex align-items-center">
-                                 <div class="text-center d-flex align-items-center">
-                                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbpdlfsyBLz7nSCkx0-gLvGtgQzW6peyJWtOp8AuFt-7TXpoRQ-XgkVIhvpfLC3Gq4kcY&usqp=CAU"
-                                         alt="" class="userImg">
-                                     <p class="mt-1 ms-2"> Sarausriya Martio </p>
-                                 </div>
-                                 <div class="text-center d-flex align-items-center ms-4">
-                                    <i class="pi pi-thumbs-up me-1" (click)="likeFun()"></i>
-                                    6 Likes
-                                </div>
-                                <div class="text-center align-items-center d-flex ms-4">
-                                    <i class="pi  pi-comments me-1"></i>
-                                    14  
-                                </div>
-                             </div>
-                             <hr>
-                        </div>
-                       
-                    </div>
-    
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h2>
-                                <b>  How this training session goes ? </b>
-                             </h2>
-                             <h4 class=""> In first week you will have some idea, what you are learining and
-                                towards which. From
-                                the second week you are going to do a daily task session. For this session we assign
-                                a guide to do
-                                better practice and best performance.
-                                Follow the more to know <a href="#"> My Path </a> </h4>
-                                <div class="d-flex align-items-center">
-                                    <div class="text-center d-flex align-items-center">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbpdlfsyBLz7nSCkx0-gLvGtgQzW6peyJWtOp8AuFt-7TXpoRQ-XgkVIhvpfLC3Gq4kcY&usqp=CAU"
-                                            alt="" class="userImg">
-                                        <p class="mt-1 ms-2"> Sarausriya Martio </p>
-                                    </div>
-                                    <div class="text-center d-flex align-items-center ms-4">
-                                        <i class="pi pi-thumbs-up me-1" (click)="likeFun()"></i>
-                                        6 Likes
-                                    </div>
-                                    <div class="text-center align-items-center d-flex ms-4">
-                                        <i class="pi  pi-comments me-1"></i>
-                                        14  
-                                    </div>
-                                </div>
-                            <hr>
-                        </div>
-                       
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h2>
-                                <b>  How much knowledge needed to start this course ? </b>
-                             </h2>
-                             <h4 class=""> Here we starts everything from scrach. So do not require any previous
-                                 knowledge on
-                                 anything. It would be more plus if you have some stuff. </h4>
-                             <div class="d-flex align-items-center">
-                                 <div class="text-center d-flex align-items-center">
-                                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbpdlfsyBLz7nSCkx0-gLvGtgQzW6peyJWtOp8AuFt-7TXpoRQ-XgkVIhvpfLC3Gq4kcY&usqp=CAU"
-                                         alt="" class="userImg">
-                                     <p class="mt-1 ms-2"> Sarausriya Martio </p>
-                                 </div>
-                                 <div class="text-center d-flex align-items-center ms-4">
-                                    <i class="pi pi-thumbs-up me-1" (click)="likeFun()"></i>
-                                    6 Likes
-                                </div>
-                                <div class="text-center align-items-center d-flex ms-4">
-                                    <i class="pi  pi-comments me-1"></i>
-                                    14  
-                                </div>
-                             </div>
-                             <hr>
-                        </div>
-                       
-                    </div>
-    
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h2>
-                                <b>  How this training session goes ? </b>
-                             </h2>
-                             <h4 class=""> In first week you will have some idea, what you are learining and
-                                towards which. From
-                                the second week you are going to do a daily task session. For this session we assign
-                                a guide to do
-                                better practice and best performance.
-                                Follow the more to know <a href="#"> My Path </a> </h4>
-                                <div class="d-flex align-items-center">
-                                    <div class="text-center d-flex align-items-center">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbpdlfsyBLz7nSCkx0-gLvGtgQzW6peyJWtOp8AuFt-7TXpoRQ-XgkVIhvpfLC3Gq4kcY&usqp=CAU"
-                                            alt="" class="userImg">
-                                        <p class="mt-1 ms-2"> Sarausriya Martio </p>
-                                    </div>
-                                    <div class="text-center d-flex align-items-center ms-4">
-                                        <i class="pi pi-thumbs-up me-1" (click)="likeFun()"></i>
-                                        6 Likes
-                                    </div>
-                                    <div class="text-center align-items-center d-flex ms-4">
-                                        <i class="pi  pi-comments me-1"></i>
-                                        14  
-                                    </div>
-                                </div>
-                            <hr>
-                        </div>
-                       
-                    </div>
-                </p-tabPanel>
-    
-                <p-tabPanel header="Top Liked ">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h2>
-                                <b>  How much knowledge needed to start this course ? </b>
-                             </h2>
-                             <h4 class=""> Here we starts everything from scrach. So do not require any previous
-                                 knowledge on
-                                 anything. It would be more plus if you have some stuff. </h4>
-                             <div class="d-flex align-items-center">
-                                 <div class="text-center d-flex align-items-center">
-                                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbpdlfsyBLz7nSCkx0-gLvGtgQzW6peyJWtOp8AuFt-7TXpoRQ-XgkVIhvpfLC3Gq4kcY&usqp=CAU"
-                                         alt="" class="userImg">
-                                     <p class="mt-1 ms-2"> Sarausriya Martio </p>
-                                 </div>
-                                 <div class="text-center d-flex align-items-center ms-4">
-                                    <i class="pi pi-thumbs-up me-1" (click)="likeFun()"></i>
-                                    6 Likes
-                                </div>
-                                <div class="text-center align-items-center d-flex ms-4">
-                                    <i class="pi  pi-comments me-1"></i>
-                                    14  
-                                </div>
-                             </div>
-                             <hr>
-                        </div>
-                       
-                    </div>
-    
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h2>
-                                <b>  How this training session goes ? </b>
-                             </h2>
-                             <h4 class=""> In first week you will have some idea, what you are learining and
-                                towards which. From
-                                the second week you are going to do a daily task session. For this session we assign
-                                a guide to do
-                                better practice and best performance.
-                                Follow the more to know <a href="#"> My Path </a> </h4>
-                                <div class="d-flex align-items-center">
-                                    <div class="text-center d-flex align-items-center">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbpdlfsyBLz7nSCkx0-gLvGtgQzW6peyJWtOp8AuFt-7TXpoRQ-XgkVIhvpfLC3Gq4kcY&usqp=CAU"
-                                            alt="" class="userImg">
-                                        <p class="mt-1 ms-2"> Sarausriya Martio </p>
-                                    </div>
-                                    <div class="text-center d-flex align-items-center ms-4">
-                                        <i class="pi pi-thumbs-up me-1" (click)="likeFun()"></i>
-                                        6 Likes
-                                    </div>
-                                    <div class="text-center align-items-center d-flex ms-4">
-                                        <i class="pi  pi-comments me-1"></i>
-                                        14  
-                                    </div>
-                                </div>
-                            <hr>
-                        </div>
-                       
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h2>
-                                <b>  How much knowledge needed to start this course ? </b>
-                             </h2>
-                             <h4 class=""> Here we starts everything from scrach. So do not require any previous
-                                 knowledge on
-                                 anything. It would be more plus if you have some stuff. </h4>
-                             <div class="d-flex align-items-center">
-                                 <div class="text-center d-flex align-items-center">
-                                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbpdlfsyBLz7nSCkx0-gLvGtgQzW6peyJWtOp8AuFt-7TXpoRQ-XgkVIhvpfLC3Gq4kcY&usqp=CAU"
-                                         alt="" class="userImg">
-                                     <p class="mt-1 ms-2"> Sarausriya Martio </p>
-                                 </div>
-                                 <div class="text-center d-flex align-items-center ms-4">
-                                    <i class="pi pi-thumbs-up me-1" (click)="likeFun()"></i>
-                                    6 Likes
-                                </div>
-                                <div class="text-center align-items-center d-flex ms-4">
-                                    <i class="pi  pi-comments me-1"></i>
-                                    14  
-                                </div>
-                             </div>
-                             <hr>
-                        </div>
-                       
-                    </div>
-    
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h2>
-                                <b>  How this training session goes ? </b>
-                             </h2>
-                             <h4 class=""> In first week you will have some idea, what you are learining and
-                                towards which. From
-                                the second week you are going to do a daily task session. For this session we assign
-                                a guide to do
-                                better practice and best performance.
-                                Follow the more to know <a href="#"> My Path </a> </h4>
-                                <div class="d-flex align-items-center">
-                                    <div class="text-center d-flex align-items-center">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbpdlfsyBLz7nSCkx0-gLvGtgQzW6peyJWtOp8AuFt-7TXpoRQ-XgkVIhvpfLC3Gq4kcY&usqp=CAU"
-                                            alt="" class="userImg">
-                                        <p class=" ms-2"> Sarausriya Martio </p>
-                                    </div>
-                                    <div class="text-center d-flex align-items-center ms-4">
-                                        <i class="pi pi-thumbs-up me-1" (click)="likeFun()"></i>
-                                        6 Likes
-                                    </div>
-                                    <div class="text-center align-items-center d-flex ms-4">
-                                        <i class="pi  pi-comments me-1"></i>
-                                        14  
-                                    </div>
-                                </div>
-                            <hr>
-                        </div>
-                       
-                    </div>
-                </p-tabPanel>
-    
-                <p-tabPanel header="UnAnswered">
-                    <div class="row" *ngFor="let unAnswer of unAnsweredData">
-                        <div class="col-lg-12">
-                            <h2>
-                                <b>  How much knowledge needed to start this course ? </b>
-                             </h2>
-                             <h4>
-                                {{unAnswer.message}}
-                             </h4>
-                             <div class="d-flex align-items-center">
-                                <h4>
-                                    <span class="material-symbols-outlined m-0">
-                                        person
-                                    </span>
-                                    <span class="ms-2"> By</span>
-                                    <strong>
-                                        <a href="#" class="ms-2">
-                                            {{unAnswer.name}} 
-                                        </a>
-                                    </strong>
-                                    <span class="ms-2">
-                                        posted
-                                    145 ago
-                                    </span>
-                                </h4>
-                     
-                             </div>
-                        </div>
-                    </div>
-                </p-tabPanel>
-            </p-tabView>
-        </div>
-        <div class="col-lg-4">
-            <div class="card">
-                <div class="p-3">
-                    <h2> Community Resources</h2>
-                    <ul>
-                        <li href="#" class="mb-2">Purpose and Values</li>
-                        <li class="mb-2">Best Practices</li>
-                        <li class="mb-2">Community Guidelines</li>
-                        <li class="mb-2">Navigating this Community</li>
-                        <li class="mb-2">Meet our Community Champions</li>
-                        
-                    </ul>
-                </div>
-            </div>
-            <div class="card mt-3">
-                <div class="p-3">
-                    <h2>Instructor Leaderboard</h2>
-                    <div class="d-flex" *ngFor="let leaderBoard of instractorsLeaderBoard">
-                        <img src={{leaderBoard.img}} alt="" class="userImg"
-                            (click)="onlineList.toggle($event); showOnlinePersonData(leaderBoard)">
-                        <div>
-                            <a routerLink="/admin" class="ms-3" style="text-decoration: none;"> {{leaderBoard.name}}</a>
-                            <div class="d-flex align-items-center ms-3  text-center">
-                                <p> <span class="material-symbols-outlined">
-                                        thumb_up
-                                    </span> </p>
-                                <p class="ms-1"> {{leaderBoard.likeCount}} Likes</p>
-                            </div>
-                           
-                        </div>
-                        <hr>
-                    </div>
-                    <hr>
 
-                    <a href="" style="text-decoration: none;"> View All</a>
-                  
-                </div>
-            </div>
-            <div class="card mt-3">
-                <div class="p-3">
-                    <h2>Currently Online</h2>
-                    <div class="d-flex flex-wrap">
-                        <div *ngFor="let online of onlineStudentList">
-                            <img src={{online.img}} alt="" class="userImg"
-                                (click)="onlineList.toggle($event); showOnlinePersonData(online)">
-                        </div>
-                        <p-overlayPanel #onlineList>
-                            <ng-template pTemplate *ngIf="showOnlinePerson">
-                                <div style="height: auto; width: 300px;">
-    
-                                    <div class="d-flex">
-                                        <img src={{showOnlinePerson.img}} alt="" class="userImg">
-                                        <div class="ms-3">
-                                            <p> <b class=""> {{showOnlinePerson.name}} </b> </p>
-                                            <p> {{showOnlinePerson.field}} </p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="d-flex">
-                                        <span class="material-symbols-outlined ms-3" pBadge value="12"
-                                            style="font-size: 2rem;"> sms </span>
-                                        <span class="material-symbols-outlined ms-3" pBadge value="6"
-                                            style="font-size: 2rem;"> comment
-                                        </span>
-                                        <span class="material-symbols-outlined ms-3" pBadge value="5"
-                                            style="font-size: 2rem; color:red">
-                                            recommend </span>
-                                        <span class="material-symbols-outlined ms-3" pBadge value="2" severity="danger"
-                                            style="font-size: 2rem; "> thumb_down </span>
-                                    </div>
-                                    <hr>
-                                    <div class="d-flex ms-2">
-                                        <p> Posts : 12</p>
-                                        <p class="ms-3"> Best Answers: 5 </p>
-                                        <p class="ms-3"> Likes : 7 </p>
-                                    </div>
-                                    <div class="text-center">
-                                        <button class="btn btn-outline-primary">View Profile</button>
-                                    </div>
-                                </div>
-                            </ng-template>
-                        </p-overlayPanel>
-    
-                    </div>
-                </div>
-                <div class="text-center mt-2">
-                    <h2>
-                        <b>
-                            52 Currently Online
-                        </b>
-                    </h2>
-                </div>
-            </div>
+
+        <div class="field mt-2 w-100">
+          <label for="description"> Description :</label>
+          <span class="p-float-label">
+            <textarea inputId="textarea" required class="bg-light-grey input-shadow w-100 p-inputtext" rows="3"
+              style="resize: none;" cols="30" formControlName="update_Desc" pInputTextarea
+              placeholder="Enter Description here."></textarea>
+
+              <small class="p-error block"
+              *ngIf="updateCommunityForm.get('update_Desc')?.invalid && (updateCommunityForm.get('update_Desc')?.dirty || updateCommunityForm.get('update_Desc')?.touched)">
+              Description is required. </small>
+          </span>
         </div>
-    </div>
+
+        <div class="field mt-4 w-100">
+          <label for="content">Image : </label>
+          <span class="p-float-label mb-1">
+            <input type="file" required class="bg-light-grey input-shadow w-100 p-inputtext"
+              (change)="onFileSelect($event)" pInputText>
+          </span>
+
+        </div>
+      </div>
+      <div class="d-flex justify-content-between mt-2">
+        <button (click)="closeDialog()" type="button" class="btn btn-dark"><i
+            class="pi pi-delete-left me-2 cursor-pointer"></i>Cancel</button>
+        <button class="btn btn-success" type="submit">Submit</button>
+      </div>
+    </form>
+  </p-dialog>
+</div>
+<div class="card">
+  <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+  <p-toast></p-toast>
 </div>

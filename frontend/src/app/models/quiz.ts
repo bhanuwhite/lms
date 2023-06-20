@@ -1,45 +1,76 @@
 export interface Quiz {
     data: {
-        all_answer: {
-            A: number | string;
-            B: number | string;
-            C: number | string;
-            D: number | string;
+      level: string;
+      question: string;
+      answers: string;
+      q_options: {
+        a: number | string;
+        b: number | string;
+        c:number | string;
+        d: number | string;
+      },
+      course_name: string;
+    }
+}
+
+export interface answers{
+
+  name:string;
+  checked:boolean
+}
+export interface level {
+  level_name: string;
+}
+
+export interface QuizResponse {
+
+    id: number ;
+    attributes: {
+      course_name: string;
+        question: string;
+        level:string;
+        createdAt: string;
+        updatedAt: string;
+        publishedAt: string;
+        q_options: {
+            a: number | string;
+            b: number | string;
+            c: number | string;
+            d: number | string;
         };
-        syllabus?: string;
-        question?: string;
-        correct_answer?: string;
+        answers: string;
     }
 }
 
 
-export class QuizResponse {
+export interface QuizData {
+    data: QuizResponse[];
+   }
 
-    id!: number ;
-    attributes?: {
-        syllabus?: string;
-        question?: string;
-        createdAt?: string;
-        updatedAt?: string;
-        publishedAt?: string;
-        all_answer?: {
-            A: number | string;
-            B: number | string;
-            C: number | string;
-            D: number | string;
-        };
-        correct_answer?: string;
-    }
-}
+export interface QuizDetails{
 
-export class QuizData {
-    data?: QuizResponse[];
-    // meta?: {
-    //     pagination: {
-    //         page: number | undefined;
-    //         pageSize: number | undefined;
-    //         pageCount: number | undefined;
-    //         total: number | undefined;
-    //     }
-    // };
+  id: number ;
+  attributes: {
+    course_name: string;
+      question: string;
+      level:string;
+      createdAt: string;
+      updatedAt: string;
+      publishedAt: string;
+      q_options: {
+          a: number | string;
+          b: number | string;
+          c: number | string;
+          d: number | string;
+      };
+      answers: string;
+  }
+  questionStates:{
+    isCorrect:boolean;
+    correctAnswer:string | null;
+    visible:boolean;
+    selectedIndex:number;
+    selectedOption:string | null;
+  }
+
 }
