@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-06-21T04:15:55.433Z"
+    "x-generation-date": "2023-06-21T05:00:58.385Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -1839,6 +1839,16 @@
                                                 "user_learnings": {
                                                   "type": "string"
                                                 },
+                                                "subject": {
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "Business development",
+                                                    "Database",
+                                                    "Information & cyber security",
+                                                    "Software development",
+                                                    "Web development"
+                                                  ]
+                                                },
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -2231,6 +2241,16 @@
               },
               "user_learnings": {
                 "type": "string"
+              },
+              "subject": {
+                "type": "string",
+                "enum": [
+                  "Business development",
+                  "Database",
+                  "Information & cyber security",
+                  "Software development",
+                  "Web development"
+                ]
               }
             }
           }
@@ -3131,6 +3151,16 @@
           },
           "user_learnings": {
             "type": "string"
+          },
+          "subject": {
+            "type": "string",
+            "enum": [
+              "Business development",
+              "Database",
+              "Information & cyber security",
+              "Software development",
+              "Web development"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -5888,6 +5918,16 @@
                                                 },
                                                 "user_learnings": {
                                                   "type": "string"
+                                                },
+                                                "subject": {
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "Business development",
+                                                    "Database",
+                                                    "Information & cyber security",
+                                                    "Software development",
+                                                    "Web development"
+                                                  ]
                                                 },
                                                 "createdAt": {
                                                   "type": "string",
@@ -8673,6 +8713,16 @@
                                                 "user_learnings": {
                                                   "type": "string"
                                                 },
+                                                "subject": {
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "Business development",
+                                                    "Database",
+                                                    "Information & cyber security",
+                                                    "Software development",
+                                                    "Web development"
+                                                  ]
+                                                },
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -9907,6 +9957,16 @@
                         },
                         "user_learnings": {
                           "type": "string"
+                        },
+                        "subject": {
+                          "type": "string",
+                          "enum": [
+                            "Business development",
+                            "Database",
+                            "Information & cyber security",
+                            "Software development",
+                            "Web development"
+                          ]
                         },
                         "createdAt": {
                           "type": "string",

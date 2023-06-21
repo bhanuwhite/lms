@@ -107,6 +107,16 @@
     },
     "user_learnings": {
       "type": "richtext"
+    },
+    "subject": {
+      "type": "enumeration",
+      "enum": [
+        "Business development",
+        "Database",
+        "Information & cyber security",
+        "Software development",
+        "Web development"
+      ]
     }
   }
 }
