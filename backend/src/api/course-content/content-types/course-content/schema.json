@@ -16,7 +16,8 @@
       "type": "string"
     },
     "description": {
-      "type": "text"
+      "type": "text",
+      "maxLength": 50
     },
     "price": {
       "type": "biginteger"
@@ -91,6 +92,21 @@
     "total_duration": {
       "type": "biginteger",
       "default": "0"
+    },
+    "course_includes": {
+      "type": "richtext"
+    },
+    "pre_learnings": {
+      "type": "richtext"
+    },
+    "video_name": {
+      "type": "string"
+    },
+    "video_description": {
+      "type": "text"
+    },
+    "user_learnings": {
+      "type": "richtext"
     }
   }
 }

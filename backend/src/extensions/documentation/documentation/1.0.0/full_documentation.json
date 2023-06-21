@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-06-20T06:11:14.534Z"
+    "x-generation-date": "2023-06-21T04:15:55.433Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -1824,6 +1824,21 @@
                                                   "pattern": "^\\d*$",
                                                   "example": "123456789"
                                                 },
+                                                "course_includes": {
+                                                  "type": "string"
+                                                },
+                                                "pre_learnings": {
+                                                  "type": "string"
+                                                },
+                                                "video_name": {
+                                                  "type": "string"
+                                                },
+                                                "video_description": {
+                                                  "type": "string"
+                                                },
+                                                "user_learnings": {
+                                                  "type": "string"
+                                                },
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -2201,6 +2216,21 @@
                 "type": "string",
                 "pattern": "^\\d*$",
                 "example": "123456789"
+              },
+              "course_includes": {
+                "type": "string"
+              },
+              "pre_learnings": {
+                "type": "string"
+              },
+              "video_name": {
+                "type": "string"
+              },
+              "video_description": {
+                "type": "string"
+              },
+              "user_learnings": {
+                "type": "string"
               }
             }
           }
@@ -3086,6 +3116,21 @@
             "type": "string",
             "pattern": "^\\d*$",
             "example": "123456789"
+          },
+          "course_includes": {
+            "type": "string"
+          },
+          "pre_learnings": {
+            "type": "string"
+          },
+          "video_name": {
+            "type": "string"
+          },
+          "video_description": {
+            "type": "string"
+          },
+          "user_learnings": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -5828,6 +5873,21 @@
                                                   "type": "string",
                                                   "pattern": "^\\d*$",
                                                   "example": "123456789"
+                                                },
+                                                "course_includes": {
+                                                  "type": "string"
+                                                },
+                                                "pre_learnings": {
+                                                  "type": "string"
+                                                },
+                                                "video_name": {
+                                                  "type": "string"
+                                                },
+                                                "video_description": {
+                                                  "type": "string"
+                                                },
+                                                "user_learnings": {
+                                                  "type": "string"
                                                 },
                                                 "createdAt": {
                                                   "type": "string",
@@ -8598,6 +8658,21 @@
                                                   "pattern": "^\\d*$",
                                                   "example": "123456789"
                                                 },
+                                                "course_includes": {
+                                                  "type": "string"
+                                                },
+                                                "pre_learnings": {
+                                                  "type": "string"
+                                                },
+                                                "video_name": {
+                                                  "type": "string"
+                                                },
+                                                "video_description": {
+                                                  "type": "string"
+                                                },
+                                                "user_learnings": {
+                                                  "type": "string"
+                                                },
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -9817,6 +9892,21 @@
                           "type": "string",
                           "pattern": "^\\d*$",
                           "example": "123456789"
+                        },
+                        "course_includes": {
+                          "type": "string"
+                        },
+                        "pre_learnings": {
+                          "type": "string"
+                        },
+                        "video_name": {
+                          "type": "string"
+                        },
+                        "video_description": {
+                          "type": "string"
+                        },
+                        "user_learnings": {
+                          "type": "string"
                         },
                         "createdAt": {
                           "type": "string",
