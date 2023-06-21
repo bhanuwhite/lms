@@ -28,7 +28,8 @@
       "required": false,
       "allowedTypes": [
         "images",
-        "videos"
+        "videos",
+        "files"
       ]
     },
     "link": {
