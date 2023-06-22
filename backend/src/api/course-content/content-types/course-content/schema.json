@@ -118,6 +118,27 @@
         "Software development",
         "Web development"
       ]
+    },
+    "discount": {
+      "type": "biginteger",
+      "default": "0"
+    },
+    "files": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "pre_learning": {
+      "type": "json"
+    },
+    "course_include": {
+      "type": "json"
+    },
+    "user_learning": {
+      "type": "json"
     }
   }
 }

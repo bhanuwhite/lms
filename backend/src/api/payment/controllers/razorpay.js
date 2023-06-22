@@ -6,7 +6,6 @@ var instance = new Razorpay({
     key_id: process.env.YOUR_KEY_ID,
     key_secret: process.env.YOUR_KEY_SECRET,
   });
-//   var instance = new Razorpay({ key_id: 'YOUR_KEY_ID', key_secret: 'YOUR_SECRET' })
 
 module.exports = createCoreController("api::payment.payment", ({ strapi }) => ({
   // Method 1: Creating an entirely custom action
