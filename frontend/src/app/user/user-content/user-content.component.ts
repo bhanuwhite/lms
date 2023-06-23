@@ -67,6 +67,8 @@ export class UserContentComponent {
   // Get Content
   public getContent(): void {
     this.apiService.getContent().subscribe((res) => {
+      console.log(res);
+
       try {
         this.Spinner = false;
         this.coursesList = res.data;

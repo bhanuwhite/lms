@@ -59,13 +59,11 @@ public forgotPwd:boolean = false;
       identifier: this.formgroup.value.name,
       password: this.formgroup.value.pwd,
     };
-    console.log(this.body);
 
     this.isLoading = true;
     this.authService.loginUser(this.body).subscribe((res) => {
       localStorage.setItem('token', res.jwt);
       try {
-        console.log(res);
 
         const data = res.user;
         localStorage.setItem('user', JSON.stringify(data));
