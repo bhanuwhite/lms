@@ -16,8 +16,7 @@
       "type": "string"
     },
     "description": {
-      "type": "text",
-      "maxLength": 50
+      "type": "text"
     },
     "price": {
       "type": "biginteger"
@@ -68,16 +67,6 @@
     "creator_id": {
       "type": "biginteger"
     },
-    "rating": {
-      "type": "enumeration",
-      "enum": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E"
-      ]
-    },
     "no_of_purchases": {
       "type": "biginteger",
       "default": "0"
@@ -94,20 +83,8 @@
       "type": "biginteger",
       "default": "0"
     },
-    "course_includes": {
-      "type": "richtext"
-    },
-    "pre_learnings": {
-      "type": "richtext"
-    },
     "video_name": {
       "type": "string"
-    },
-    "video_description": {
-      "type": "text"
-    },
-    "user_learnings": {
-      "type": "richtext"
     },
     "subject": {
       "type": "enumeration",
@@ -139,6 +116,11 @@
     },
     "user_learning": {
       "type": "json"
+    },
+    "rating": {
+      "type": "integer",
+      "max": 5,
+      "min": 1
     }
   }
 }

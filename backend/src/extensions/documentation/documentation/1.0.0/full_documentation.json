@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-06-22T04:24:01.510Z"
+    "x-generation-date": "2023-06-23T05:06:20.818Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -1796,16 +1796,6 @@
                                                   "pattern": "^\\d*$",
                                                   "example": "123456789"
                                                 },
-                                                "rating": {
-                                                  "type": "string",
-                                                  "enum": [
-                                                    "A",
-                                                    "B",
-                                                    "C",
-                                                    "D",
-                                                    "E"
-                                                  ]
-                                                },
                                                 "no_of_purchases": {
                                                   "type": "string",
                                                   "pattern": "^\\d*$",
@@ -1824,19 +1814,7 @@
                                                   "pattern": "^\\d*$",
                                                   "example": "123456789"
                                                 },
-                                                "course_includes": {
-                                                  "type": "string"
-                                                },
-                                                "pre_learnings": {
-                                                  "type": "string"
-                                                },
                                                 "video_name": {
-                                                  "type": "string"
-                                                },
-                                                "video_description": {
-                                                  "type": "string"
-                                                },
-                                                "user_learnings": {
                                                   "type": "string"
                                                 },
                                                 "subject": {
@@ -1999,6 +1977,9 @@
                                                 "pre_learning": {},
                                                 "course_include": {},
                                                 "user_learning": {},
+                                                "rating": {
+                                                  "type": "integer"
+                                                },
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -2349,16 +2330,6 @@
                 "pattern": "^\\d*$",
                 "example": "123456789"
               },
-              "rating": {
-                "type": "string",
-                "enum": [
-                  "A",
-                  "B",
-                  "C",
-                  "D",
-                  "E"
-                ]
-              },
               "no_of_purchases": {
                 "type": "string",
                 "pattern": "^\\d*$",
@@ -2377,19 +2348,7 @@
                 "pattern": "^\\d*$",
                 "example": "123456789"
               },
-              "course_includes": {
-                "type": "string"
-              },
-              "pre_learnings": {
-                "type": "string"
-              },
               "video_name": {
-                "type": "string"
-              },
-              "video_description": {
-                "type": "string"
-              },
-              "user_learnings": {
                 "type": "string"
               },
               "subject": {
@@ -2423,7 +2382,10 @@
               },
               "pre_learning": {},
               "course_include": {},
-              "user_learning": {}
+              "user_learning": {},
+              "rating": {
+                "type": "integer"
+              }
             }
           }
         }
@@ -3281,16 +3243,6 @@
             "pattern": "^\\d*$",
             "example": "123456789"
           },
-          "rating": {
-            "type": "string",
-            "enum": [
-              "A",
-              "B",
-              "C",
-              "D",
-              "E"
-            ]
-          },
           "no_of_purchases": {
             "type": "string",
             "pattern": "^\\d*$",
@@ -3309,19 +3261,7 @@
             "pattern": "^\\d*$",
             "example": "123456789"
           },
-          "course_includes": {
-            "type": "string"
-          },
-          "pre_learnings": {
-            "type": "string"
-          },
           "video_name": {
-            "type": "string"
-          },
-          "video_description": {
-            "type": "string"
-          },
-          "user_learnings": {
             "type": "string"
           },
           "subject": {
@@ -3484,6 +3424,9 @@
           "pre_learning": {},
           "course_include": {},
           "user_learning": {},
+          "rating": {
+            "type": "integer"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -6198,16 +6141,6 @@
                                                   "pattern": "^\\d*$",
                                                   "example": "123456789"
                                                 },
-                                                "rating": {
-                                                  "type": "string",
-                                                  "enum": [
-                                                    "A",
-                                                    "B",
-                                                    "C",
-                                                    "D",
-                                                    "E"
-                                                  ]
-                                                },
                                                 "no_of_purchases": {
                                                   "type": "string",
                                                   "pattern": "^\\d*$",
@@ -6226,19 +6159,7 @@
                                                   "pattern": "^\\d*$",
                                                   "example": "123456789"
                                                 },
-                                                "course_includes": {
-                                                  "type": "string"
-                                                },
-                                                "pre_learnings": {
-                                                  "type": "string"
-                                                },
                                                 "video_name": {
-                                                  "type": "string"
-                                                },
-                                                "video_description": {
-                                                  "type": "string"
-                                                },
-                                                "user_learnings": {
                                                   "type": "string"
                                                 },
                                                 "subject": {
@@ -6401,6 +6322,9 @@
                                                 "pre_learning": {},
                                                 "course_include": {},
                                                 "user_learning": {},
+                                                "rating": {
+                                                  "type": "integer"
+                                                },
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -9142,16 +9066,6 @@
                                                   "pattern": "^\\d*$",
                                                   "example": "123456789"
                                                 },
-                                                "rating": {
-                                                  "type": "string",
-                                                  "enum": [
-                                                    "A",
-                                                    "B",
-                                                    "C",
-                                                    "D",
-                                                    "E"
-                                                  ]
-                                                },
                                                 "no_of_purchases": {
                                                   "type": "string",
                                                   "pattern": "^\\d*$",
@@ -9170,19 +9084,7 @@
                                                   "pattern": "^\\d*$",
                                                   "example": "123456789"
                                                 },
-                                                "course_includes": {
-                                                  "type": "string"
-                                                },
-                                                "pre_learnings": {
-                                                  "type": "string"
-                                                },
                                                 "video_name": {
-                                                  "type": "string"
-                                                },
-                                                "video_description": {
-                                                  "type": "string"
-                                                },
-                                                "user_learnings": {
                                                   "type": "string"
                                                 },
                                                 "subject": {
@@ -9345,6 +9247,9 @@
                                                 "pre_learning": {},
                                                 "course_include": {},
                                                 "user_learning": {},
+                                                "rating": {
+                                                  "type": "integer"
+                                                },
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -10537,16 +10442,6 @@
                           "pattern": "^\\d*$",
                           "example": "123456789"
                         },
-                        "rating": {
-                          "type": "string",
-                          "enum": [
-                            "A",
-                            "B",
-                            "C",
-                            "D",
-                            "E"
-                          ]
-                        },
                         "no_of_purchases": {
                           "type": "string",
                           "pattern": "^\\d*$",
@@ -10565,19 +10460,7 @@
                           "pattern": "^\\d*$",
                           "example": "123456789"
                         },
-                        "course_includes": {
-                          "type": "string"
-                        },
-                        "pre_learnings": {
-                          "type": "string"
-                        },
                         "video_name": {
-                          "type": "string"
-                        },
-                        "video_description": {
-                          "type": "string"
-                        },
-                        "user_learnings": {
                           "type": "string"
                         },
                         "subject": {
@@ -10740,6 +10623,9 @@
                         "pre_learning": {},
                         "course_include": {},
                         "user_learning": {},
+                        "rating": {
+                          "type": "integer"
+                        },
                         "createdAt": {
                           "type": "string",
                           "format": "date-time"
