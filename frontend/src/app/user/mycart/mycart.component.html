@@ -40,7 +40,7 @@
           <div class="d-flex">
             <div class="d-flex col-lg-12">
               <img
-                src="{{ course.course_ids[0].placeholder_img.url }}"
+                src="{{ course.course_ids[0]?.placeholder_img?.url }}"
                 alt="img"
                 width="180px"
                 height="150px"
@@ -55,11 +55,11 @@
                       'Trebuchet MS', sans-serif;
                   "
                 >
-                  <b>{{ course.course_ids[0].name }}</b>
+                  <b>{{ course.course_ids[0]?.name }}</b>
                 </h3>
                 </div>
                 <h4 class="textOverflow col-lg-8">
-                  {{ course.course_ids[0].description }}
+                  {{ course.course_ids[0]?.description }}
                 </h4>
                 <div class="d-flex">
                   <div *ngIf="course.course_ids[0]?.no_of_purchases >= 3">
@@ -81,17 +81,17 @@
                 <div>
                   <ul class="d-flex" style="gap: 20px">
                     <li class="mr-2">
-                      {{ course.course_ids[0].content.length }} Lectures
+                      {{ course.course_ids[0]?.content.length }} Lectures
                     </li>
-                    <li class="mr-2">{{ course.course_ids[0].level }}</li>
-                   <li> <b>₹  {{ course.course_ids[0].price}}</b></li>
+                    <li class="mr-2">{{ course.course_ids[0]?.level }}</li>
+                   <li> <b>₹  {{ course.course_ids[0]?.price}}</b></li>
                   </ul>
                 </div>
               </div>
 
               <div class="col-lg-2  align-items-center mt-5">
 
-                <button *ngIf="course.course_ids[0].price == 0" (click)="addToLibrary(course)" class="btn btn-outline-primary mb-2">AddToLibrary</button>
+                <button *ngIf="course.course_ids[0]?.price == 0" (click)="addToLibrary(course)" class="btn btn-outline-primary mb-2">AddToLibrary</button>
                 <button class="btn btn-outline-danger btn-sm" (click)="removeCourse(course.id)">Remove</button>
               </div>
             </div>
