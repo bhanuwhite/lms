@@ -15,7 +15,7 @@
   </div>
 
   <div class="row">
-    <div class="col-lg-3  mb-3" *ngFor="let data of contentData">
+    <div class="col-lg-6 col-xl-3  mb-3" *ngFor="let data of contentData">
       <div class="card" style="max-height: 380px; width: 100%;">
         <img [routerLink]="['/admin/content',data.id]" style="height: 200px;cursor: pointer;"
           src="{{data!.attributes.placeholder_img.data!.attributes.formats?.thumbnail?.url}}" class="card-img-top"

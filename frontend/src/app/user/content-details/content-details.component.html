@@ -1,55 +1,57 @@
 <div class="container-fluid px-4 py-4" *ngIf="singleCourse">
-  <div *ngIf="showSpinner">
-    <div class="loader" >Loading...</div>
-  </div>
-  <div *ngIf="!showSpinner">
-    <div class="col-lg-12 d-flex">
-      <div class="col-lg-7">
-        <h1 style="font-size: 1.5rem">
-          <b>{{ singleCourse.attributes.name }}</b>
-        </h1>
-        <p class="me-5">{{ singleCourse.attributes.description }}</p>
-        <div class="mt-5">
-          <h3><b>Course Includes:</b></h3>
-          <div class="row col-lg-12" style="
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
-              sans-serif;
-          ">
-            <div class="col-lg-12 d-flex">
-              <div class="d-flex py-2">
-                <i class="pi pi-video me-2 mt-1"></i>
-                <h4>
-                  Duration of the Course - {{ ((singleCourse.attributes.total_duration)/3600).toFixed(1) }} hrs
-                </h4>
-              </div>
-              <div class="d-flex py-2 ms-5">
-                <i class="pi pi-video me-2 mt-1"></i>
-                <h4>
-                  Total Lectures - <b> {{ singleCourse.attributes.content.data.length }} </b>
-                </h4>
-              </div>
+  <div class="row">
+    <div class="col-lg-7">
+      <h1 style="font-size: 1.5rem">
+        <b>{{ singleCourse.attributes.name }}</b>
+      </h1>
+      <p class="me-5">{{ singleCourse.attributes.description }}</p>
+      <div class="mt-5">
+        <h3><b>Course Includes:</b></h3>
+        <div class="row " style=" font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+          <div class="col-lg-4">
+            <div class="d-flex align-items-center py-2">
+              <i class="pi pi-video me-2 mt-1"></i>
+              <h4>
+                {{ singleCourse.attributes.total_duration }} hours on -demand
+                video
+              </h4>
             </div>
-
-            <div class="d-flex col-lg-12">
-              <div *ngFor="let course of singleCourse.attributes.course_include">
-                <ng-container *ngIf="course == 'Documents'">
-                  <div class="d-flex col-lg-12 ms-5">
-                    <i class="pi pi-download me-2 mt-1"></i>
-                    <h4>Downloadable Resources</h4>
-                  </div>
-                </ng-container>
-                <ng-container *ngIf="course == 'Certificate'">
-                  <div class="d-flex col-lg-12">
-                    <i class="pi pi-certificate me-2 mt-1"></i>
-                    <h4>Certification of completion</h4>
-                  </div>
-                </ng-container>
-              </div>
+            <div class="d-flex align-items-center py-2">
+              <i class="pi pi-video me-2 mt-1"></i>
+              <h4>
+                {{ singleCourse.attributes.total_duration }} hours on -demand
+                video
+              </h4>
+            </div>
+            <div class="d-flex align-items-center py-2">
+              <i class="pi pi-video me-2 mt-1"></i>
+              <h4>
+                {{ singleCourse.attributes.content.data.length }} Vedios are
+                availble
+              </h4>
             </div>
           </div>
+          <div class="col-lg-6">
+            <div *ngFor="let course of singleCourse.attributes.course_include">
+              <ng-container *ngIf="course == 'Documents'">
+                <div class="d-flex py-2 align-items-center">
+                  <i class="pi pi-download me-2 mt-1"></i>
+                  <h4>Downloadable Resources</h4>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="course == 'Certificate'">
+                <div class="d-flex py-2 align-items-center">
+                  <i class="pi pi-download me-2 mt-1"></i>
+                  <h4>Certification of completion</h4>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
         </div>
       </div>
-
+    </div>
+    <div class="col-lg-5">
       <div class="video-container" [class.playing]="isPlaying">
         <video [src]="singleCourse.attributes.content.data[0].attributes.url" controls #courseVideoElmt
           (click)="playCourse()"></video>
@@ -60,124 +62,139 @@
         </div>
       </div>
     </div>
-
-    <div class="row col-lg-12 mt-4">
-      <div class="col-lg-7 card mr-5">
-        <div class="what-u-learn mb-4 p-4">
+  </div>
+  <div class="row  mt-4">
+    <div class="col-lg-7">
+      <div class="card">
+        <div class="what-u-learn p-4">
           <h1><b>What you'll learn</b></h1>
           <div class="row">
             <div class="col-lg-12">
-              <div class="col-lg-12 d-flex">
-                <div class="row">
-                  <div class="col-lg-6" *ngFor="
-                    let userLearn of singleCourse.attributes.user_learning;
-                    let i = index
-                  ">
-                    <div class="d-flex align-items-center">
-                      <i class="pi pi-check me-2 text-success"></i>
-                      <span style="
-                    font-family: 'Lucida Sans', 'Lucida Sans Regular',
-                      'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
-                      sans-serif;
-                  ">{{ userLearn.u_learn }}</span>
-                    </div>
+              <div class="row">
+                <div class="col-lg-6 mb-3" *ngFor="
+                      let userLearn of singleCourse.attributes.user_learning;
+                      let i = index
+                    ">
+                  <div class="d-flex align-items-center">
+                    <i class="pi pi-check me-2 text-primary"></i>
+                    <span style="
+                      font-family: 'Lucida Sans', 'Lucida Sans Regular',
+                        'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
+                        sans-serif; white-space: nowrap; overflow: hidden;
+                    ">{{ userLearn.u_learn }}...</span>
+                  </div>
+                </div>
+                <div class="col-lg-6 mb-3" *ngFor="let userLearn of singleCourse.attributes.user_learning">
+                  <div class="d-flex align-items-center">
+                    <i class="pi pi-check me-2 text-primary"></i>
+                    <span style="
+                          font-family: 'Lucida Sans', 'Lucida Sans Regular',
+                            'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
+                            sans-serif; white-space: nowrap; overflow: hidden;
+                        ">
+                      {{ userLearn.u_learn }}...
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
       </div>
 
-      <div class="col-lg-4 ml-5">
-        <div class="">
-          <div class="d-flex align-items-center ms-4">
-            <h1 class="m-0" *ngIf="parsePrice(singleCourse.attributes.price) != 0">
-              <b>{{ singleCourse.attributes.price | currency : "INR" }}</b>
-            </h1>
-            <h1 class="m-0" *ngIf="parsePrice(singleCourse.attributes.price) == 0">
-              <b>FREE</b>
-            </h1>
-          </div>
-          <div class="ms-4">
-            <button type="button" class="btn btn-primary mt-3" *ngIf="
+    </div>
+
+    <div class="col-lg-4  justify-content-center">
+      <div class="">
+        <div class="d-flex  align-items-center">
+          <h1 class="m-0" *ngIf="parsePrice(singleCourse.attributes.price) != 0">
+            <b>{{ singleCourse.attributes.price | currency : "INR" }}</b>
+          </h1>
+          <h1 class="m-0" *ngIf="parsePrice(singleCourse.attributes.price) == 0">
+            <b>FREE</b>
+          </h1>
+        </div>
+        <div class=" text-center">
+          <button type="button" class="btn btn-primary mt-3" *ngIf="
               !userCourseID.includes(singleCourse.id) &&
               !libDataIds.includes(singleCourse.id)
             " style="width: 95%" (click)="addToCart(singleCourse)">
-              Add To Cart
-            </button>
+            Add To Cart
+          </button>
 
-            <button type="button" class="btn btn-success mt-3" *ngIf="
+          <button type="button" class="btn btn-success mt-3" *ngIf="
               userCourseID.includes(singleCourse.id) &&
               !libDataIds.includes(singleCourse.id)
             " style="width: 95%" (click)="GotoCart()">
-              Go To Cart
-            </button>
+            Go To Cart
+          </button>
 
-            <button type="button" class="btn btn-success mt-3" *ngIf="libDataIds.includes(singleCourse.id)"
-              style="width: 95%" routerLink="/library">
-              Go to Library
-            </button>
-          </div>
-        </div>
-        <div class="card p-4 mt-4" *ngIf="singleCourse.attributes.pre_learning">
-          <h2><b>Pre-Learning</b></h2>
-          <ul class="p-0 ms-3">
-            <li *ngIf="singleCourse.attributes.pre_learning[1]">
-              {{ singleCourse.attributes.pre_learning[1] }}
-            </li>
-            <li *ngIf="singleCourse.attributes.pre_learning[2]">
-              {{ singleCourse.attributes.pre_learning[2] }}
-            </li>
-            <li *ngIf="singleCourse.attributes.pre_learning[3]">
-              {{ singleCourse.attributes.pre_learning[3] }}
-            </li>
-            <li *ngIf="singleCourse.attributes.pre_learning[4]">
-              {{ singleCourse.attributes.pre_learning[4] }}
-            </li>
-          </ul>
+          <button type="button" class="btn btn-success mt-3" *ngIf="libDataIds.includes(singleCourse.id)"
+            style="width: 95%" routerLink="/library">
+            Go to Library
+          </button>
         </div>
       </div>
+      <div class="card px-3 p-2 mt-4" *ngIf="singleCourse.attributes.pre_learning" style="max-height: 222px;">
+        <h2 class="pb-1 m-0"><b>Pre-Learning</b></h2>
+        <ul class="p-0" style="list-style-type: none;">
+          <li class="py-1" *ngIf="singleCourse.attributes.pre_learning[1]">
+            <img src="assets\img\html.png" class="mr-2" alt="" width="30px" height="30px">
+            {{ singleCourse.attributes.pre_learning[1] }}
+          </li>
+
+          <li class="py-1" *ngIf="singleCourse.attributes.pre_learning[2]">
+            <img src="assets\img\bootstrap.png" class="mr-2" alt="" width="30px" height="30px">
+            {{ singleCourse.attributes.pre_learning[2] }}
+          </li>
+          <li class="py-1" *ngIf="singleCourse.attributes.pre_learning[3]">
+            <img src="assets\img\html.png" class="mr-2" alt="" width="30px" height="30px">
+            {{ singleCourse.attributes.pre_learning[3] }}
+          </li>
+          <li class="py-1" *ngIf="singleCourse.attributes.pre_learning[4]">
+            <img src="assets\img\html.png" class="mr-2" alt="" width="30px" height="30px">
+            {{ singleCourse.attributes.pre_learning[4] }}
+          </li>
+        </ul>
+      </div>
     </div>
-    <div>
-      <div class="row">
-        <div class="col-lg-10 mt-4 ms-5">
-          <div class="surface-section mt-3" style="overflow: auto">
-            <h2><b>Course-Content</b></h2>
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <div class="ud-text-sm" data-purpose="curriculum-stats">
-                <span class="curriculum--content-length--5Nict">
-                  • {{ singleCourse.attributes.content.data.length }} lectures •
-                  <span><span>
-                      {{ (singleCourse.attributes.total_duration / 3600).toFixed(1) }}</span>
-                    hrs</span></span>
-              </div>
-              <button type="button" data-purpose="expand-toggle" aria-expanded="false" class="expend-button">
-                <span>Expand all sections</span>
-              </button>
+  </div>
+  <div>
+    <div class="row justify-content-center">
+      <div class="col-lg-10 mt-4">
+        <div class="surface-section mt-3" style="overflow: auto">
+          <h2><b>Course-Content</b></h2>
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <div class="ud-text-sm" data-purpose="curriculum-stats">
+              <span class="curriculum--content-length--5Nict">
+                • {{ singleCourse.attributes.content.data.length }} lectures •
+                <span><span>
+                    {{ singleCourse.attributes.total_duration / 3600 }}</span>
+                  total length</span></span>
             </div>
-            <p-accordion>
-              <p-accordionTab *ngFor="let content of singleCourse.attributes.content.data">
-                <ng-template class="d-flex" pTemplate="header">
-                  <div>
-                    {{ (content.attributes.name ).slice(0,-4)}}
-                  </div>
-                </ng-template>
-                <div class="intro-list">
-                  <ul>
-                    <li class="d-flex justify-content-between align-items-center">
-                      <div>
-                        <i class="pi pi-circle-fill mr-2"></i>
-                        {{ content.attributes.alternativeText }}
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </p-accordionTab>
-            </p-accordion>
+            <button type="button" data-purpose="expand-toggle" aria-expanded="false" class="expend-button">
+              <span>Expand all sections</span>
+            </button>
           </div>
+          <p-accordion>
+            <p-accordionTab *ngFor="let content of singleCourse.attributes.content.data">
+              <ng-template class="d-flex" pTemplate="header">
+                <div>
+                  {{ content.attributes.name }}
+                </div>
+              </ng-template>
+              <div class="intro-list">
+                <ul>
+                  <li class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <i class="pi pi-circle-fill mr-2"></i>
+                      {{ content.attributes.alternativeText }}
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
         </div>
       </div>
     </div>
