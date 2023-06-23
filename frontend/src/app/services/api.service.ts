@@ -44,6 +44,19 @@ export class ApiService {
   // File upload api
   public uploadFile(item: {}): Observable<any> {
     return this.http.post<any>(`api/upload`, item);
+
+  }
+
+  // single video
+  // api/upload/files/1056
+
+   // For Video Desc-
+   public uploadVideoDescGet(id:number): Observable<any> {
+    return this.http.get<any>(`api/upload/files/${id}`);
+  }
+
+  public uploadVideoDesc(id:number,item:any): Observable<any> {
+    return this.http.post<any>(`/api/upload?id=${id}`,item);
   }
 
   //Post COURSE CONTENT
@@ -290,7 +303,13 @@ public getUserCart(id:number):Observable<CartResponse[]> {
   }
 
  // POST
- public postPayment(item:CartPostBody):Observable<CartGetRes> {
-  return this.http.post<CartGetRes> (`api/carts`,item)
+ public postPayment(item:any):Observable<any> {
+  return this.http.post<any> (`api/create/orderId`,item)
 }
+
+ // POST
+ public postPaymentVerify(item:any):Observable<any> {
+  return this.http.post<any> (`api/payment/verify`,item)
+}
+
 }

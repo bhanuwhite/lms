@@ -34,6 +34,7 @@ export class MycartComponent implements OnInit {
     this.getCartCourse();
     this.gettingUserHasCourse();
   }
+
   public getLocalStoredData() {
     const localStoredData = JSON.parse(localStorage.getItem('user')!);
     this.userID = localStoredData.id;
@@ -45,9 +46,9 @@ export class MycartComponent implements OnInit {
       this.aboutService.userCartLength(res.length);
 
       this.courseData.map((res) => {
-        if (res.course_ids[0].price != 0) {
+        if (res.course_ids[0]?.price != 0) {
           this.totalAmount =
-            Number(res.course_ids[0].price) + Number(this.totalAmount);
+            Number(res.course_ids[0]?.price) + Number(this.totalAmount);
         }
       });
     });
@@ -130,7 +131,6 @@ export class MycartComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.apiservice.deleteCartItem(id).subscribe((res) => {
-          console.log(res);
 
           this.messageService.add({
             severity: 'success',

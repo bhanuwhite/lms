@@ -11,8 +11,10 @@ import {
   FormBuilder,
   FormControl,
   Validators,
+  FormArray,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LogarithmicScale } from 'chart.js';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import {
@@ -66,9 +68,11 @@ export class ContentComponent implements OnInit, OnDestroy {
   techString!: string;
   levelString!: string;
   statusString!: string;
+  subjectString!: string;
   courseDialog: boolean = false;
   selectedTech!: string;
   selectedLevel!: string;
+  selectedSubject!: string;
   selectedStatus!: string;
   updatedStatus!: string;
   videoUploadProgress: boolean = false;
@@ -78,6 +82,8 @@ export class ContentComponent implements OnInit, OnDestroy {
   courseContentVideo: any[] = [];
   courseContentImage: any;
   allVideosDuration: number = 0;
+  showDocuments: boolean = false;
+  courseDocument: any;
 
   Technologies = [
     { tech: 'Angular' },
@@ -96,6 +102,14 @@ export class ContentComponent implements OnInit, OnDestroy {
     { level: 'Beginner' },
     { level: 'Intermediate' },
     { level: 'Advanced' },
+  ];
+
+  subjects = [
+    { industry: 'Business development' },
+    { industry: 'Database' },
+    { industry: 'Information & cyber security' },
+    { industry: 'Software development' },
+    { industry: 'Web development' },
   ];
 
   courseStatus = [{ status: 'active' }, { status: 'block' }];
@@ -132,13 +146,18 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   // New Course adding details.
-
+  userLearnings!: FormArray;
   public newCourse() {
     this.addCourse = this.fb.group({
-      name: new FormControl('', [Validators.required, Validators.minLength(3),Validators.pattern('^[a-zA-Z ]+$')]),
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.pattern('^[a-zA-Z ]+$'),
+      ]),
       description: new FormControl(''),
       imgVideo: new FormControl(''),
       technology: new FormControl('', [Validators.required]),
+      subject: new FormControl('', [Validators.required]),
       status: new FormControl({ status: 'active' }),
       admin_id: new FormControl(this.Admin_id),
       price: new FormControl(''),
@@ -146,23 +165,60 @@ export class ContentComponent implements OnInit, OnDestroy {
       course_duration: new FormControl(),
       level: new FormControl(''),
       link: ['', [Validators.pattern('^https?://.+')]],
+      userLearnings: this.fb.array([this.user_learn()]),
+      courserIncludes: this.fb.array([]),
+      documents: new FormControl(),
+
+      preLearn1: new FormControl(),
+      preLearn2: new FormControl(),
+      preLearn3: new FormControl(),
+      preLearn4: new FormControl(),
     });
+  }
+  get userLearningControls(): FormArray {
+    return this.addCourse.get('userLearnings') as FormArray;
+  }
+
+  user_learn(): FormGroup {
+    return this.fb.group({
+      u_learn: '',
+    });
+  }
+
+  addItem(): void {
+    this.userLearningControls.push(this.user_learn());
+  }
+
+  removeUserLearning(index: number): void {
+    this.userLearningControls.removeAt(index);
   }
 
   // update validations
   public courseUpdateValidate(): void {
     this.courseUpdateGroup = this.fb.group({
-      name: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z ]+$')]),
+      name: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z ]+$'),
+      ]),
       description: new FormControl(''),
       price: new FormControl(''),
       imgVideo: new FormControl(''),
       technology: new FormControl('', [Validators.required]),
+      subject: new FormControl('', [Validators.required]),
       level: new FormControl(''),
       status: new FormControl('', [Validators.required]),
       link: new FormControl(''),
       admin_id: new FormControl(''),
       image: new FormControl(),
       course_duration: new FormControl(),
+      userLearnings: this.fb.array([]),
+      courserIncludes: this.fb.array([]),
+      documents: new FormControl(),
+
+      preLearn1: new FormControl(),
+      preLearn2: new FormControl(),
+      preLearn3: new FormControl(),
+      preLearn4: new FormControl(),
     });
   }
 
@@ -171,6 +227,8 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.loadingSpinner = true;
     this.apiService.getContent().subscribe((res: AllCourseContent) => {
       try {
+        console.log(res);
+
         this.contentData = res.data;
         this.contentData2 = res.data;
         this.loadingSpinner = false;
@@ -210,6 +268,11 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.addCourse.controls['price'].reset();
     this.addCourse.controls['link'].reset();
     this.addCourse.controls['level'].reset();
+    this.addCourse.controls['userLearnings'].reset();
+    this.addCourse.controls['courserIncludes'].reset();
+    this.courseContentVideo = [];
+    this.showDocuments = false;
+    this.addCourse.get('documents')?.removeValidators(Validators.required);
   }
 
   public techSelected(event: { value: { tech: string } }) {
@@ -218,6 +281,9 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   public levelSelected(event: { value: { level: string } }) {
     this.selectedLevel = event.value.level;
+  }
+  public subjectSelected(event: { value: { industry: string } }) {
+    this.selectedSubject = event.value.industry;
   }
 
   public statusSelected(event: { value: { status: string } }) {
@@ -277,6 +343,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     try {
       await Promise.all(uploadPromises);
       this.videoUploadProgress = false;
+      console.log(this.courseContentVideo);
     } catch (error) {
       this.messageService.add({
         severity: 'error',
@@ -313,6 +380,7 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.addCourse.get('imgVideo')?.setValue(file);
       this.formData = new FormData();
       this.formData.append('files', this.addCourse.value.imgVideo);
+
       this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {
           this.courseContentImage = res;
@@ -328,14 +396,81 @@ export class ContentComponent implements OnInit, OnDestroy {
     }
   }
 
+  checkboxValue(event: any, value: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const arrayForm = <FormArray>this.addCourse.get('courserIncludes');
+      if (event?.target?.checked) {
+        arrayForm.push(this.fb.control(value));
+        if (event.target.value.toLowerCase() === 'documents') {
+          this.showDocuments = true;
+          this.addCourse.get('documents')?.setValidators(Validators.required);
+        }
+      } else {
+        const index = arrayForm.controls.findIndex(
+          (control) => control.value === value
+        );
+        if (index !== -1) {
+          arrayForm.removeAt(index);
+
+          if (event.target.value.toLowerCase() === 'documents') {
+            this.showDocuments = false;
+            this.addCourse.get('documents')?.clearValidators();
+          }
+        }
+      }
+      this.addCourse.get('documents')?.updateValueAndValidity();
+      resolve(),
+        (err: any) => {
+          reject(err);
+        };
+    });
+  }
+  public courseDocSelected(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files?.length) {
+      const file = target.files[0];
+      this.addCourse.get('documents')?.setValue(file);
+      this.formData = new FormData();
+      this.formData.append('files', this.addCourse.value.documents);
+
+      this.apiService.uploadFile(this.formData).subscribe((res) => {
+        try {
+          this.courseDocument = res;
+          console.log('PDF', this.courseDocument);
+        } catch (error) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Something went to wrong !!',
+          });
+        }
+      });
+    }
+  }
+
+  public onInputChanged(data: any, videoDescObj: any) {
+    const videoDesc = {
+      fileInfo: {
+        alternativeText: data.value,
+      },
+    };
+
+    this.apiService
+      .uploadVideoDesc(videoDescObj.id, videoDesc)
+      .subscribe((res) => {});
+  }
+
   public courseFormSubmit(
     videoInput: HTMLInputElement,
     imgInput: HTMLInputElement
   ) {
+    console.log(this.addCourse.value);
+
     this.courseDialog = false;
     const courseData = {
       data: {
         technology: this.selectedTech,
+        subject: this.selectedSubject,
         content: this.courseContentVideo,
         description: this.addCourse.value.description,
         link: this.addCourse.value.link,
@@ -345,9 +480,19 @@ export class ContentComponent implements OnInit, OnDestroy {
         user_id: this.Admin_id,
         status: 'active',
         level: this.selectedLevel,
-        course_duration: this.allVideosDuration.toFixed(0),
+        total_duration: this.allVideosDuration.toFixed(0),
+        pre_learning: {
+          1: this.addCourse.value.preLearn1,
+          2: this.addCourse.value.preLearn2,
+          3: this.addCourse.value.preLearn3,
+          4: this.addCourse.value.preLearn4,
+        },
+        user_learning: this.addCourse.value.userLearnings,
+        course_include: this.addCourse.value.courserIncludes,
+        files: this.courseDocument,
       },
     };
+    console.log(courseData);
 
     if (this.courseContentVideo.length != 0) {
       this.apiService.postContent(courseData).subscribe((res) => {
@@ -360,10 +505,17 @@ export class ContentComponent implements OnInit, OnDestroy {
           this.addCourse.controls['name'].reset();
           this.addCourse.controls['description'].reset();
           this.addCourse.controls['technology'].reset();
+          this.addCourse.controls['subject'].reset();
           this.addCourse.controls['price'].reset();
           this.addCourse.controls['link'].reset();
           this.addCourse.controls['level'].reset();
-
+          this.addCourse.controls['userLearnings'].reset();
+          this.addCourse.controls['courserIncludes'].reset();
+          this.courseContentVideo = [];
+          this.showDocuments = false;
+          this.addCourse
+            .get('documents')
+            ?.removeValidators(Validators.required);
           videoInput.value = '';
           imgInput.value = '';
           this.allVideosDuration = 0;
@@ -388,26 +540,38 @@ export class ContentComponent implements OnInit, OnDestroy {
   // Edit dialog open
 
   public editContentDialog(item: AllCourseContentData): void {
+    console.log('edit data', item);
+
     this.editDisply = true;
     this._data = item;
 
     this.techString = item.attributes?.technology;
+    this.subjectString = item.attributes?.subject;
     this.levelString = item.attributes?.level;
     this.statusString = item.attributes?.status;
     this.videoContent = item.attributes?.content;
     this.imageContent = item.attributes?.placeholder_img;
 
     this.courseUpdateGroup = this.fb.group({
-      name: new FormControl(item.attributes?.name, [Validators.required,Validators.pattern('^[a-zA-Z ]+$')]),
+      name: new FormControl(item.attributes?.name, [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z ]+$'),
+      ]),
       description: new FormControl(item.attributes?.description),
       price: new FormControl(item.attributes?.price),
       technology: [{ tech: this.techString }],
+      subject: [{ industry: this.subjectString }],
       level: [{ level: this.levelString }],
       link: new FormControl(item.attributes?.link),
       status: 'active',
       user_id: new FormControl(this.Admin_id),
       image: new FormControl(this.imageContent),
       imgVideo: new FormControl(this.videoContent),
+      preLearn1: item.attributes.pre_learning[1],
+      preLearn2: item.attributes.pre_learning[2],
+      preLearn3: item.attributes.pre_learning[3],
+      preLearn4: item.attributes.pre_learning[4],
+      courserIncludes: this.fb.array(['Documents'])
     });
   }
 
@@ -432,6 +596,9 @@ export class ContentComponent implements OnInit, OnDestroy {
         price: this.courseUpdateGroup.value.price,
         user_id: this.Admin_id,
         status: this.selectedStatus,
+
+        user_learnings: this.courseUpdateGroup.value.userLearnings,
+        course_includes: this.courseUpdateGroup.value.courserIncludes,
       },
     };
 
@@ -467,7 +634,10 @@ export class ContentComponent implements OnInit, OnDestroy {
   // Delete content
   public deleteDialog(data: AllCourseContentData): void {
     this.confirmationService.confirm({
-      message: `Do you want to delete - ${data.attributes?.name.slice(0,20)} ?`,
+      message: `Do you want to delete - ${data.attributes?.name.slice(
+        0,
+        20
+      )} ?`,
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
@@ -476,7 +646,10 @@ export class ContentComponent implements OnInit, OnDestroy {
             this.messageService.add({
               severity: 'error',
               summary: 'Delete',
-              detail: `${data.attributes?.name.slice(0,20)} deleted successfully !`,
+              detail: `${data.attributes?.name.slice(
+                0,
+                20
+              )} deleted successfully !`,
             });
             this.getContent();
           } catch (error) {
