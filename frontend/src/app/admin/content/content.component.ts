@@ -181,7 +181,7 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   user_learn(): FormGroup {
     return this.fb.group({
-      u_learn: '',
+      u_learn: [''],
     });
   }
 
@@ -262,16 +262,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
   public closeCourseDialog() {
     this.courseDialog = false;
-    this.addCourse.controls['name'].reset();
-    this.addCourse.controls['description'].reset();
-    this.addCourse.controls['technology'].reset();
-    this.addCourse.controls['price'].reset();
-    this.addCourse.controls['link'].reset();
-    this.addCourse.controls['level'].reset();
-    this.addCourse.controls['userLearnings'].reset();
-    this.addCourse.controls['courserIncludes'].reset();
-    this.courseContentVideo = [];
-    this.showDocuments = false;
+    this.addCourse.reset();
     this.addCourse.get('documents')?.removeValidators(Validators.required);
   }
 
@@ -502,20 +493,14 @@ export class ContentComponent implements OnInit, OnDestroy {
             summary: 'Success',
             detail: 'Course added successfully !!',
           });
-          this.addCourse.controls['name'].reset();
-          this.addCourse.controls['description'].reset();
-          this.addCourse.controls['technology'].reset();
-          this.addCourse.controls['subject'].reset();
-          this.addCourse.controls['price'].reset();
-          this.addCourse.controls['link'].reset();
-          this.addCourse.controls['level'].reset();
-          this.addCourse.controls['userLearnings'].reset();
-          this.addCourse.controls['courserIncludes'].reset();
+          this.addCourse.reset();
           this.courseContentVideo = [];
           this.showDocuments = false;
           this.addCourse
             .get('documents')
             ?.removeValidators(Validators.required);
+          this.addCourse.controls['userLearnings'].reset();
+
           videoInput.value = '';
           imgInput.value = '';
           this.allVideosDuration = 0;
@@ -538,9 +523,28 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   // Edit dialog open
-
+  updateCertificates: boolean = false;
+  updateDocuments: boolean = false;
+  editUserLearnings: { u_learn: string }[] = [];
   public editContentDialog(item: AllCourseContentData): void {
     console.log('edit data', item);
+    this.editUserLearnings = item.attributes.user_learning;
+    if (item.attributes.course_include != null) {
+      for (let value of item.attributes.course_include) {
+        if (value != null) {
+          if ('certificate' === value.toLocaleLowerCase()) {
+            this.updateCertificates = true;
+          } else if ('documents' === value.toLocaleLowerCase()) {
+            this.updateDocuments = true;
+            this.showDocuments = true;
+          }
+        }
+      }
+    } else {
+      this.updateCertificates = false;
+      this.updateDocuments = false;
+      this.showDocuments = false;
+    }
 
     this.editDisply = true;
     this._data = item;
@@ -568,16 +572,50 @@ export class ContentComponent implements OnInit, OnDestroy {
       image: new FormControl(this.imageContent),
       imgVideo: new FormControl(this.videoContent),
       preLearn1: item.attributes.pre_learning[1],
-      preLearn2: item.attributes.pre_learning[2],
-      preLearn3: item.attributes.pre_learning[3],
-      preLearn4: item.attributes.pre_learning[4],
-      courserIncludes: this.fb.array(['Documents'])
+      preLearn2: item.attributes.pre_learning['2'],
+      preLearn3: item.attributes.pre_learning['3'],
+      preLearn4: item.attributes.pre_learning['4'],
+      courserIncludes: this.fb.array(['Documents']),
     });
   }
 
   // close edit dialog
   public closeEditDialog(): void {
     this.editDisply = false;
+    this.updateCertificates = false;
+    this.updateDocuments = false;
+  }
+
+  editCheckboxValue(event: any, value: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const arrayForm = <FormArray>this.addCourse.get('courserIncludes');
+      if (event?.target?.checked) {
+        arrayForm.push(this.fb.control(value));
+        if (event.target.value.toLowerCase() === 'documents') {
+          this.showDocuments = true;
+          this.courseUpdateGroup
+            .get('documents')
+            ?.setValidators(Validators.required);
+        }
+      } else {
+        const index = arrayForm.controls.findIndex(
+          (control) => control.value === value
+        );
+        if (index !== -1) {
+          arrayForm.removeAt(index);
+
+          if (event.target.value.toLowerCase() === 'documents') {
+            this.showDocuments = false;
+            this.courseUpdateGroup.get('documents')?.clearValidators();
+          }
+        }
+      }
+      this.courseUpdateGroup.get('documents')?.updateValueAndValidity();
+      resolve(),
+        (err: any) => {
+          reject(err);
+        };
+    });
   }
 
   // update content
@@ -614,6 +652,8 @@ export class ContentComponent implements OnInit, OnDestroy {
               summary: 'Update',
               detail: 'Content updated successfully !!',
             });
+            this.updateCertificates = false;
+            this.updateDocuments = false;
             this.getContent();
           } catch (error) {
             this.messageService.add({
