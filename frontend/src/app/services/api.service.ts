@@ -303,7 +303,13 @@ public getUserCart(id:number):Observable<CartResponse[]> {
   }
 
  // POST
- public postPayment(item:CartPostBody):Observable<CartGetRes> {
-  return this.http.post<CartGetRes> (`api/carts`,item)
+ public postPayment(item:any):Observable<any> {
+  return this.http.post<any> (`api/create/orderId`,item)
 }
+
+ // POST
+ public postPaymentVerify(item:any):Observable<any> {
+  return this.http.post<any> (`api/payment/verify`,item)
+}
+
 }

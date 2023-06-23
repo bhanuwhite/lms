@@ -6,7 +6,6 @@ import { CommunityForumComponent } from './community-forum/community-forum.compo
 import { CommunityQuestionsRepliesComponent } from './community-questions-replies/community-questions-replies.component';
 import { ContentDetailsComponent } from './content-details/content-details.component';
 import { ContentComponent } from './content/content.component';
-import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CoursesComponent } from './courses/courses.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { InstructorsMessagesComponent } from './instructors-messages/instructors-messages.component';
@@ -34,9 +33,7 @@ const routes: Routes = [
       {
         path: 'courses', component: CoursesComponent
       },
-      {
-        path: 'courses/:id', component: CourseDetailsComponent
-      },
+
       {
         path: 'quiz', component: QuizComponent
       },
