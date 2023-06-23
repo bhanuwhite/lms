@@ -55,7 +55,7 @@
 </div>
 
 <!-- New Course adding -->
-<p-dialog header="Add New Course" [(visible)]="courseDialog" [modal]="true" [style]="{'width':'50vw'}">
+ <p-dialog header="Add New Course" [(visible)]="courseDialog" [modal]="true" [style]="{'width':'50vw'}">
   <form action="" [formGroup]="addCourse" (ngSubmit)="courseFormSubmit(videoInput, imgInput)">
     <div class="p-fluid grid">
       <div class="field mt-2 w-100">
@@ -200,7 +200,7 @@
         <div class="row">
           <div class="d-flex ms-4">
 
-            <div class="form-check col-lg-6 checkbox-xl">
+            <div class="form-check col-lg-6 me-4 checkbox-xl">
               <input (change)="checkboxValue($event,'Certificate')" value="Certificate" class="form-check-input"
                 type="checkbox" />
               <label class="form-check-label ms-2" for="certificate">
@@ -267,7 +267,7 @@
 
 
 <!-- Update Content Form -->
-<div class=" container surface-ground-wrappers">
+ <div class=" container surface-ground-wrappers">
   <div class="d-flex justify-content-end">
 
     <p-dialog header="Update Course" [(visible)]="editDisply" [style]="{width: '40vw'}" styleClass="active"
@@ -319,6 +319,14 @@
               <p-progressBar mode="indeterminate" [style]="{ height: '4px' }"
                 *ngIf="videoUploadProgress"></p-progressBar>
             </span>
+
+        <ng-container *ngFor="let desc of courseContentVideo; let i=index">
+          <div class="my-2">
+            <label for="videoDescription"> {{desc.name}} <b>Description</b> :</label>
+            <textarea name="desc" id="videoDescription" rows="3" [style]="{'width':'100%'}" class="my-2" pInputText
+              placeholder="Enter description for {{desc.name}}" (blur)="onInputChanged($event.target,desc)"></textarea>
+          </div>
+        </ng-container>
           </div>
 
 
@@ -359,86 +367,87 @@
           </div>
 
 
-         <div class="field mt-2 w-100">
-        <div class="field mt-2 w-100" formArrayName="userLearnings">
-          <div *ngFor="let learn of userLearningControls.controls; let i = index">
-            <div [formGroupName]="i">
-              <label [for]="'u_learns' + i">User Learning {{ i + 1 }}:</label>
-              <div class="p-float-label d-flex align-items-center">
-                <textarea [id]="'u_learns' + i" formControlName="u_learn" rows="3" [style]="{'width':'90%'}"
-                  class="my-2 col-lg-10" placeholder="Enter user learnings.."></textarea>
-                <span class="material-icons col-lg-2 ms-2 text-danger cursor-pointer" (click)="removeUserLearning(i)">
-                  backspace
-                </span>
+
+
+
+
+
+          <div class="field mt-2 w-100">
+            <div class="field mt-2 w-100">
+              <div >
+                <div *ngFor="let uLearn of editUserLearnings; let i=index">
+                  <label [for]="'u_learns'">User Learning {{i+1}}:</label>
+                  <div class="p-float-label d-flex align-items-center">
+                    <textarea [id]="'u_learns'" value="{{uLearn.u_learn}}" rows="3" [style]="{'width':'90%'}"
+                      class="my-2 col-lg-10" placeholder="Enter user learnings.."></textarea>
+                    <span class="material-icons col-lg-2 ms-2 text-danger cursor-pointer" > backspace </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="button" (click)="addItem()">Add Learnings</button>
+          </div>
+
+
+          <div class="field mt-2 w-100">
+            <label for="imgage"> Pre-Learnings :</label>
+            <div class="d-flex">
+              <div class="col-lg-6 ">
+                <input type="text" pInputText class="w-100 my-3" formControlName="preLearn1"
+                  placeholder="Enter 1st pre learning..">
+              </div>
+              <div class="col-lg-6 ms-3">
+                <input type="text" pInputText class="w-100 my-3" formControlName="preLearn2"
+                  placeholder="Enter 2nd pre learning..">
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="col-lg-6">
+                <input type="text" pInputText class="w-100 my-3" formControlName="preLearn3"
+                  placeholder="Enter 3rd pre learning..">
+              </div>
+              <div class="col-lg-6 ms-3">
+                <input type="text" pInputText class="w-100 my-3" formControlName="preLearn4"
+                  placeholder="Enter 4th pre learning..">
+              </div>
+            </div>
+
+          </div>
+
+          <div class="field mt-2 w-100">
+            <label for="imgage">Course Includes :</label>
+            <div class="row">
+              <div class="d-flex ms-4">
+
+                <div class="form-check col-lg-6 checkbox-xl">
+                  <input (change)="editCheckboxValue($event,'Certificate')" [checked]="updateCertificates" value="Certificate" class="form-check-input"
+                    type="checkbox" />
+                  <label class="form-check-label ms-2" for="certificate">
+                    Certificate
+                  </label>
+                </div>
+                <div class="form-check col-lg-6 checkbox-xl">
+                  <input (change)="editCheckboxValue($event,'Documents')" value="Documents" [checked]="updateDocuments" class="form-check-input"
+                    type="checkbox" />
+                  <label class="form-check-label ms-2" for="documents">
+                    Documents
+                  </label>
+                </div>
               </div>
             </div>
           </div>
 
-          <button type="button" class="btn btn-primary btn-sm" (click)="addItem()">Add Learnings</button>
-        </div>
-
-      </div>
-
-
-        <div class="field mt-2 w-100">
-        <label for="imgage"> Pre-Learnings :</label>
-        <div class="d-flex">
-          <div class="col-lg-6 ">
-            <input type="text" pInputText class="w-100 my-3" formControlName="preLearn1"
-              placeholder="Enter 1st pre learning..">
-          </div>
-          <div class="col-lg-6 ms-3">
-            <input type="text" pInputText class="w-100 my-3" formControlName="preLearn2"
-              placeholder="Enter 2nd pre learning..">
-          </div>
-        </div>
-        <div class="d-flex">
-          <div class="col-lg-6">
-            <input type="text" pInputText class="w-100 my-3" formControlName="preLearn3"
-              placeholder="Enter 3rd pre learning..">
-          </div>
-          <div class="col-lg-6 ms-3">
-            <input type="text" pInputText class="w-100 my-3" formControlName="preLearn4"
-              placeholder="Enter 4th pre learning..">
-          </div>
-        </div>
-
-      </div>
-
-          <div class="field mt-2 w-100">
-        <label for="imgage">Course Includes :</label>
-        <div class="row">
-          <div class="d-flex ms-4">
-
-            <div class="form-check col-lg-6 checkbox-xl">
-              <input (change)="checkboxValue($event,'Certificate')" value="Certificate" class="form-check-input"
-                type="checkbox" />
-              <label class="form-check-label ms-2" for="certificate">
-                Certificate
-              </label>
+          <ng-container *ngIf="showDocuments">
+            <div class="field mt-2 w-100">
+              <label for="imgage"> Upload Documents (pdf/csv/excel/zip):</label>
+              <span class="p-float-label">
+                <input type="file" accept=".pdf,.csv,.gif,.xls,.xlsx"
+                  class="bg-light-grey input-shadow w-100 p-inputtext" pInputText (change)="courseDocSelected($event)">
+              </span>
+              <div *ngIf="addCourse.controls['documents'].invalid && ( addCourse.controls['documents'].touched)"
+                class="text-danger">Please select a file.</div>
             </div>
-            <div class="form-check col-lg-6 checkbox-xl">
-              <input (change)="checkboxValue($event,'Documents')" value="Documents" class="form-check-input"
-                type="checkbox" />
-              <label class="form-check-label ms-2" for="documents">
-                Documents
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <ng-container *ngIf="showDocuments">
-        <div class="field mt-2 w-100">
-          <label for="imgage"> Upload Documents (pdf/csv/excel/zip):</label>
-          <span class="p-float-label">
-            <input type="file" accept=".pdf,.csv,.gif,.xls,.xlsx" class="bg-light-grey input-shadow w-100 p-inputtext"
-              pInputText (change)="courseDocSelected($event)">
-          </span>
-          <div *ngIf="addCourse.controls['documents'].invalid && ( addCourse.controls['documents'].touched)"
-            class="text-danger">Please select a file.</div>
-        </div>
-      </ng-container>
+          </ng-container>
           <div class="field mt-2 w-100">
             <label for="price">Price :</label>
             <span class="p-float-label">

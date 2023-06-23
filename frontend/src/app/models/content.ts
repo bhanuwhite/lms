@@ -31,7 +31,7 @@ export interface AllCourseContentData {
     user_id: string | number;
     pre_learning:any,
     user_learning:{u_learn:string}[],
-
+    course_include:string[]
 
   };
 }

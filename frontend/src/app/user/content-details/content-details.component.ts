@@ -28,6 +28,7 @@ import { CartResponse } from 'src/app/models/cart';
 })
 export class ContentDetailsComponent implements OnInit {
   public displayDialog = false;
+   showSpinner:boolean = true;
   public courseId!: number;
   public userID!: number;
   public singleCourse!: any;
@@ -89,7 +90,7 @@ export class ContentDetailsComponent implements OnInit {
     this.apiService.getContent().subscribe((res) => {
       this.userCourses = res.data;
       console.log(res.data);
-
+      this.showSpinner = false;
     });
   }
 
