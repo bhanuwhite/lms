@@ -6,7 +6,7 @@ import { PurchaseService } from 'src/app/services/purchase.service';
 @Component({
   selector: 'app-purchase-history',
   templateUrl: './purchase-history.component.html',
-  styleUrls: ['./purchase-history.component.scss']
+  styleUrls: ['./purchase-history.component.scss'],
 })
 export class PurchaseHistoryComponent {
   purchasingCourses: courseDataObj[] = [
@@ -29,20 +29,20 @@ export class PurchaseHistoryComponent {
       paymentType: 'UPI',
     },
   ];
-  constructor(public router: Router, public purchaseService: PurchaseService) { }
+  constructor(public router: Router, public purchaseService: PurchaseService) {}
 
   public receipt(course: courseDataObj): void {
     this.purchaseService.purchasingCourse(course);
     // this.router.navigate(['user/receipt']);
-    this.router.navigate([]).then(res => {
-      window.open("http://localhost:4200/#/user/receipt",'_blank');
+    this.router.navigate([]).then((res) => {
+      window.open('http://localhost:4200/#/user/receipt', '_blank');
     });
   }
   public invoice(course: courseDataObj): void {
     this.purchaseService.invoice(course);
     // this.router.navigate(['user/invoice']);
-    this.router.navigate([]).then(res => {
-      window.open("http://localhost:4200/#/user/invoice", '_blank');
+    this.router.navigate([]).then((res) => {
+      window.open('http://localhost:4200/#/user/invoice', '_blank');
     });
   }
 }

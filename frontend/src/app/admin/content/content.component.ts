@@ -227,8 +227,6 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.loadingSpinner = true;
     this.apiService.getContent().subscribe((res: AllCourseContent) => {
       try {
-        console.log(res);
-
         this.contentData = res.data;
         this.contentData2 = res.data;
         this.loadingSpinner = false;
@@ -334,7 +332,6 @@ export class ContentComponent implements OnInit, OnDestroy {
     try {
       await Promise.all(uploadPromises);
       this.videoUploadProgress = false;
-      console.log(this.courseContentVideo);
     } catch (error) {
       this.messageService.add({
         severity: 'error',
@@ -427,7 +424,6 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {
           this.courseDocument = res;
-          console.log('PDF', this.courseDocument);
         } catch (error) {
           this.messageService.add({
             severity: 'error',
@@ -455,8 +451,6 @@ export class ContentComponent implements OnInit, OnDestroy {
     videoInput: HTMLInputElement,
     imgInput: HTMLInputElement
   ) {
-    console.log(this.addCourse.value);
-
     this.courseDialog = false;
     const courseData = {
       data: {
@@ -483,7 +477,6 @@ export class ContentComponent implements OnInit, OnDestroy {
         files: this.courseDocument,
       },
     };
-    console.log(courseData);
 
     if (this.courseContentVideo.length != 0) {
       this.apiService.postContent(courseData).subscribe((res) => {
@@ -500,7 +493,15 @@ export class ContentComponent implements OnInit, OnDestroy {
             .get('documents')
             ?.removeValidators(Validators.required);
           this.addCourse.controls['userLearnings'].reset();
+          const arrayForm = <FormArray>this.addCourse.get('courserIncludes');
+          arrayForm.clear();
 
+          const checkboxes = document.querySelectorAll(
+            'input[type="checkbox"]'
+          );
+          checkboxes.forEach((checkbox) => {
+            (checkbox as HTMLInputElement).checked = false;
+          });
           videoInput.value = '';
           imgInput.value = '';
           this.allVideosDuration = 0;
@@ -527,7 +528,6 @@ export class ContentComponent implements OnInit, OnDestroy {
   updateDocuments: boolean = false;
   editUserLearnings: { u_learn: string }[] = [];
   public editContentDialog(item: AllCourseContentData): void {
-    console.log('edit data', item);
     this.editUserLearnings = item.attributes.user_learning;
     if (item.attributes.course_include != null) {
       for (let value of item.attributes.course_include) {

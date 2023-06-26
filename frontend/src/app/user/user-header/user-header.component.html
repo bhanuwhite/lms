@@ -19,20 +19,24 @@
         <li class="nav-item">
           <a class="nav-link nave-menu" routerLink="/user/assessment" style="font-size: 1.3rem;">Assessment</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link nave-menu" routerLink="/user/mycart" style="font-size: 1.3rem;">
-            <i class="pi pi-shopping-cart mr-1" style="font-size: 1.5rem;">
-              <span pBadge styleClass="font-size:0.4rem" value={{cartLength}}></span>
-            </i>
-            Cart </a>
-        </li>
+
       </ul>
     </div>
   </div>
-  <div class="col-lg-2 d-flex justify-content-end cursor-pointer me-3">
+  <div class="col-lg-2 d-flex justify-content-end align-items-center cursor-pointer me-3">
+
+    <div class="me-2">
+      <a class="" routerLink="/user/mycart" style="font-size: 1.3rem;">
+        <i class="pi pi-shopping-cart mr-1" style="font-size: 1.5rem;">
+          <span pBadge styleClass="font-size:0.4rem" value={{cartLength}}></span>
+        </i>
+      </a>
+    </div>
+    <div>
     <p-avatar shape="circle" size="large" icon="pi pi-user" (click)="menu.toggle($event)"
       [style]="{'background-color':'#2188d9', 'color': '#ffffff'}"></p-avatar>
     <p-menu #menu [popup]="true" [model]="items"></p-menu>
+    </div>
   </div>
 </nav>
 

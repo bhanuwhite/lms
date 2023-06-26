@@ -89,7 +89,6 @@ export class ContentDetailsComponent implements OnInit {
   public getCourses(): void {
     this.apiService.getContent().subscribe((res) => {
       this.userCourses = res.data;
-      console.log(res.data);
       this.showSpinner = false;
     });
   }
@@ -101,7 +100,6 @@ export class ContentDetailsComponent implements OnInit {
       });
       this.apiService.getSingleContent(this.courseId).subscribe((res) => {
         this.singleCourse = res['data'];
-        console.log(this.singleCourse);
 
       });
       resolve();

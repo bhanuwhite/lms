@@ -42,9 +42,14 @@ export class MycartComponent implements OnInit {
 
   public getCartCourse(): void {
     this.apiservice.getUserCart(this.userID).subscribe((res) => {
+      res.map((cartRes: any) => {
+        if (cartRes.course_ids.length == 0) {
+          this.apiservice.deleteCartItem(cartRes.id).subscribe();
+        }
+      });
       this.courseData = res;
-      this.aboutService.userCartLength(res.length);
 
+      this.aboutService.userCartLength(res.length);
       this.courseData.map((res) => {
         if (res.course_ids[0]?.price != 0) {
           this.totalAmount =
@@ -131,7 +136,6 @@ export class MycartComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.apiservice.deleteCartItem(id).subscribe((res) => {
-
           this.messageService.add({
             severity: 'success',
             summary: 'Course has been removed from Cart',

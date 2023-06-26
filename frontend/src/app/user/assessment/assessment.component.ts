@@ -36,7 +36,6 @@ export class AssessmentComponent implements OnInit {
   public getAllCourseDetais() {
     this.apiService.getContent().subscribe((res) => {
       const courses = res.data;
-
       const uniqueTechnology = new Set<string>();
 
       courses.forEach((item) => {
@@ -45,6 +44,7 @@ export class AssessmentComponent implements OnInit {
 
       this.allCourses = Array.from(uniqueTechnology);
       this.items = this.allCourses;
+
     });
   }
 

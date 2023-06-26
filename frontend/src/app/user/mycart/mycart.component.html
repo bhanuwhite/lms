@@ -16,42 +16,44 @@
       <div class="col-lg-9">
         <div class="row" *ngFor="let course of courseData">
           <p-divider></p-divider>
-          <div class="col-lg-3">
-            <img src="{{ course.course_ids[0].placeholder_img.url }}" alt="img" width="180px" height="150px">
-          </div>
-          <div class="col-lg-5">
-            <h3 class="fs-5">
-              <b>{{ course.course_ids[0].name }}</b>
-            </h3>
-            <h4 class="textOverflow">
-              {{ course.course_ids[0].description }}
-            </h4>
-            <div class="d-flex">
-              <div *ngIf="course.course_ids[0]?.no_of_purchases >= 3">
-                <button class="btn btn-outline-success btn-sm">
-                  Best Seller
-                </button>
-              </div>
+          <ng-container *ngIf="course.course_ids.length != 0">
+            <div class="col-lg-3">
+              <img src="{{ course.course_ids[0].placeholder_img.url }}" alt="img" width="180px" height="150px">
+            </div>
+            <div class="col-lg-5">
+              <h3 class="fs-5">
+                <b>{{ course.course_ids[0].name }}</b>
+              </h3>
+              <h4 class="textOverflow">
+                {{ course.course_ids[0].description }}
+              </h4>
               <div class="d-flex">
-                <p-rating class="pt-1" value="4" [stars]="5" [cancel]="false"></p-rating>
-                <h3>(4.5)</h3>
+                <div *ngIf="course.course_ids[0]?.no_of_purchases >= 3">
+                  <button class="btn btn-outline-success btn-sm">
+                    Best Seller
+                  </button>
+                </div>
+                <div class="d-flex">
+                  <p-rating class="pt-1" value="4" [stars]="5" [cancel]="false"></p-rating>
+                  <h3>(4.5)</h3>
+                </div>
+              </div>
+              <div>
+                <ul class="d-flex px-3" style="gap: 20px">
+                  <li class="">
+                    {{ course.course_ids[0].content.length }} Lectures
+                  </li>
+                  <li class="mr-2">{{ course.course_ids[0].level }}</li>
+                  <li> <b>₹ {{ course.course_ids[0].price}}</b></li>
+                </ul>
               </div>
             </div>
-            <div>
-              <ul class="d-flex px-3" style="gap: 20px">
-                <li class="">
-                  {{ course.course_ids[0].content.length }} Lectures
-                </li>
-                <li class="mr-2">{{ course.course_ids[0].level }}</li>
-                <li> <b>₹ {{ course.course_ids[0].price}}</b></li>
-              </ul>
+            <div class="col-lg-4" style="gap: 5px;">
+              <button *ngIf="course.course_ids[0].price == 0" (click)="addToLibrary(course)"
+                class="btn btn-outline-primary me-2">AddToLibrary</button>
+              <button class="btn btn-outline-danger" (click)="removeCourse(course.id)">Remove</button>
             </div>
-          </div>
-          <div class="col-lg-4" style="gap: 5px;">
-            <button *ngIf="course.course_ids[0].price == 0" (click)="addToLibrary(course)"
-              class="btn btn-outline-primary me-2">AddToLibrary</button>
-            <button class="btn btn-outline-danger" (click)="removeCourse(course.id)">Remove</button>
-          </div>
+          </ng-container>
         </div>
       </div>
       <div class="col-lg-3">

@@ -3,20 +3,15 @@
     <div class="row mt-1">
       <div class="col-lg-4 col-md-6 mb-1 md:col-6 lg:col-4">
         <div class="surface-card shadow-2 p-2 border-round">
-          <div
-          class="flex justify-content-between mb-3 cursor-pointer"
-          routerLink="library"
-        >
+          <div class="flex justify-content-between mb-3 cursor-pointer" routerLink="library">
             <div>
               <span class="block text-500 font-medium mb-3">My Courses</span>
               <div class="text-900 font-medium text-xl">
-              {{ subscribedCourses }}
+                {{ myCourseLen }}
+              </div>
             </div>
-            </div>
-            <div
-            class="flex align-items-center justify-content-center bg-blue-100 border-round"
-              style="width: 2.5rem; height: 2.5rem"
-          >
+            <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
+              style="width: 2.5rem; height: 2.5rem">
               <i class="pi pi-book text-blue-500 text-xl"></i>
             </div>
           </div>
@@ -27,12 +22,10 @@
           <div class="flex justify-content-between mb-3 cursor-pointer" routerLink="assessment">
             <div>
               <span class="block text-500 font-medium mb-3">Assessment</span>
-              <div class="text-900 font-medium text-xl">05</div>
+              <div class="text-900 font-medium text-xl">{{assessment_Length}}</div>
             </div>
-            <div
-            class="flex align-items-center justify-content-center bg-orange-100 border-round"
-              style="width: 2.5rem; height: 2.5rem"
-          >
+            <div class="flex align-items-center justify-content-center bg-orange-100 border-round"
+              style="width: 2.5rem; height: 2.5rem">
               <i class="pi pi-wallet text-orange-500 text-xl"></i>
             </div>
           </div>
@@ -46,9 +39,8 @@
               <span class="block text-500 font-medium mb-3">My Exams</span>
               <div class="text-900 font-medium text-xl">0</div>
             </div>
-            <div
-            class="flex align-items-center justify-content-center bg-purple-100 border-round"
-              style="width: 2.5rem; height: 2.5rem" >
+            <div class="flex align-items-center justify-content-center bg-purple-100 border-round"
+              style="width: 2.5rem; height: 2.5rem">
               <i class="pi pi-pencil text-purple-500 text-xl"></i>
             </div>
           </div>
@@ -66,32 +58,21 @@
   <div class="container-fluid">
     <div class="row py-3 col-lg-12 ms-1 d-flex justify-content-end">
       <div class="col-lg-2"></div>
-    <div class="col-lg-5 ms-5 d-flex justify-content-end align-items-center">
+      <div class="col-lg-5 ms-5 d-flex justify-content-end align-items-center">
         <span class="p-input-icon-left w-100">
           <i class="pi pi-search"></i>
-          <input
-          type="text"
-          class="w-100"
-          pInputText
-          [(ngModel)]="searchWord"
-          (ngModelChange)="searchFunction()"
-            placeholder="Search Course...."
-        />
+          <input type="text" class="w-100" pInputText [(ngModel)]="searchWord" (ngModelChange)="searchFunction()"
+            placeholder="Search Course...." />
         </span>
       </div>
 
-    <div class="col-lg-4">
-      <form [formGroup]="formGroup">
-        <p-dropdown
-          formControlName="selectedSubject"
-          [options]="subjects"
-          optionLabel="name"
-          placeholder="--Select Category--"
-          (onChange)="onSelectSubject(formGroup)"
-        ></p-dropdown>
-      </form>
+      <div class="col-lg-4">
+        <form [formGroup]="formGroup">
+          <p-dropdown formControlName="selectedSubject" [options]="subjects" optionLabel="name"
+            placeholder="--Select Category--" (onChange)="onSelectSubject(formGroup)"></p-dropdown>
+        </form>
+      </div>
     </div>
-  </div>
     <div *ngIf="Spinner">
       <div class="loader">Loading...</div>
     </div>
@@ -99,19 +80,11 @@
       <p-card class="course-card" *ngFor="let course of coursesList">
         <ng-template pTemplate="header">
           <div class="courseImage">
-            <a
-            ><img
-              alt="Card"
-              src="{{
+            <a><img alt="Card" src="{{
                 course?.attributes?.placeholder_img?.data?.attributes?.formats
                   ?.thumbnail?.url
-              }}"
-                class="img-fluid"
-              pTooltip="Click to see Course details."
-              tooltip
-                style="height: 225px; border-radius: 10px 10px 2px 2px"
-              [routerLink]="['course/', course.id]"
-          /></a>
+              }}" class="img-fluid" pTooltip="Click to see Course details." tooltip
+                style="height: 225px; border-radius: 10px 10px 2px 2px" [routerLink]="['course/', course.id]" /></a>
           </div>
         </ng-template>
         <div class="cursor-pointer">
@@ -128,39 +101,22 @@
           </div>
           <div class="row mb-3">
             <div class="col-lg-4 mt-2 text-center" style="text-align: center">
-              <i
-              class=""
-              pBadge
-              style="font-size: 2rem"
-              value="{{ course.attributes.level }}"
-              severity="warning"
-            ></i>
+              <i class="" pBadge style="font-size: 2rem" value="{{ course.attributes.level }}" severity="warning"></i>
             </div>
             <div class="col-lg-8 d-flex justify-content-end">
               <p class="m-0 p-0">
-              Lectures : <b>{{ course.attributes.content.data.length }}</b>
-            </p>
+                Lectures : <b>{{ course.attributes.content.data.length }}</b>
+              </p>
             </div>
           </div>
           <div class="d-flex justify-content-between">
-            <div
-            class="col-lg-6 text-truncate"
-            pTooltip="{{ course.attributes.description }}"
-            tooltip
-          >
+            <div class="col-lg-6 text-truncate" pTooltip="{{ course.attributes.description }}" tooltip>
               <p class="textOverflow">{{ course.attributes.description }}</p>
             </div>
-            <div
-            *ngIf="course.attributes.no_of_purchases >= 3"
-            class="col-lg-5 mt-2"
-            style="margin-left: 40px"
-          >
-              <button
-              class="btn btn-sm fw-bold"
-              style="background-color: rgb(213, 240, 158); width: 90%"
-            >
-              Best Seller
-            </button>
+            <div *ngIf="course.attributes.no_of_purchases >= 3" class="col-lg-5 mt-2" style="margin-left: 40px">
+              <button class="btn btn-sm fw-bold" style="background-color: rgb(213, 240, 158); width: 90%">
+                Best Seller
+              </button>
             </div>
           </div>
 
@@ -170,40 +126,27 @@
         </div>
         <ng-template pTemplate="footer">
           <div class="row align-items-center">
-            <div
-            class="col-lg-5"
-            *ngIf="parsePrice(course.attributes.price) != 0"
-          >
+            <div class="col-lg-5" *ngIf="parsePrice(course.attributes.price) != 0">
               <h3>
                 <b>{{ course.attributes.price | currency : "INR" }} </b>
               </h3>
             </div>
             <div class="col-lg-7 d-flex justify-content-end">
-              <button
-              class="btn btn-primary"
-              style="width: fit-content"
-              *ngIf="parsePrice(course.attributes.price) != 0"
-                [routerLink]="['course/', course.id]"
-            >
-              Check Details
-            </button>
+              <button class="btn btn-primary" style="width: fit-content"
+                *ngIf="parsePrice(course.attributes.price) != 0" [routerLink]="['course/', course.id]">
+                Check Details
+              </button>
             </div>
 
-            <div
-            class="d-flex justify-content-end ml-2"
-              *ngIf="
+            <div class="d-flex justify-content-end ml-2" *ngIf="
               parsePrice(course.attributes.price) == 0 &&
               libDataId &&
               course.id &&
               !libDataId.includes(course.id)
-            "
-          >
-              <button
-              class="btn btn-primary"
-              [routerLink]="['course/', course.id]"
-            >
-              Free
-            </button>
+            ">
+              <button class="btn btn-primary" [routerLink]="['course/', course.id]">
+                Free
+              </button>
             </div>
           </div>
         </ng-template>
@@ -211,4 +154,3 @@
     </div>
   </div>
 </div>
-

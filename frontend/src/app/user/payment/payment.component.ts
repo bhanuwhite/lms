@@ -4,13 +4,11 @@ import { ExternalLibraryService } from './util';
 import { AboutService } from 'src/app/services/about.service';
 import { Router } from '@angular/router';
 
-
-
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss'],
-  providers: [AboutService]
+  providers: [AboutService],
 })
 export class PaymentComponent implements OnInit {
   // courseDetails!: { price: number };
@@ -86,7 +84,7 @@ export class PaymentComponent implements OnInit {
     this.paidCourses = [];
     this.apiservice.getUserCart(this.userID).subscribe((res: any) => {
       res.map((course: any) => {
-        if (course.course_ids[0].price != 0) {
+        if (course.course_ids.length != 0 && course.course_ids[0].price != 0) {
           this.paidCourses.push(course);
 
           this.totalAmount =
@@ -106,7 +104,7 @@ export class PaymentComponent implements OnInit {
   }
 
   orderId!: number;
-  secretKey:string="q1U3YTaltzE3g7agawBHK3bQ"
+  secretKey: string = 'q1U3YTaltzE3g7agawBHK3bQ';
   // RAZORPAY_OPTIONS = {
   //   key: 'rzp_test_fv78mxq1yb7Yj6',
   //   amount: '',
@@ -135,76 +133,54 @@ export class PaymentComponent implements OnInit {
   // };
 
   paymentBody: any;
-  razorpaySignature:any;
+  razorpaySignature: any;
 
-paymentId:any
+  paymentId: any;
 
+  public pay() {
+    const paymentBody = {
+      amount: this.finalPayment.toFixed(0),
+    };
 
-public pay() {
+    this.apiservice.postPayment(paymentBody).subscribe((res) => {
+      this.orderId = res.orderId;
+    });
 
-  const paymentBody = {
-    amount: this.finalPayment.toFixed(0),
-  };
+    this.payWithRazor(this.orderId);
+  }
 
-  this.apiservice.postPayment(paymentBody).subscribe((res) => {
-    console.log(res);
-    this.orderId = res.orderId;
-  });
+  payWithRazor(val: any) {
+    const options: any = {
+      key: 'rzp_test_fv78mxq1yb7Yj6',
 
-  this.payWithRazor(this.orderId)
+      amount: this.finalPayment.toFixed(0) + '00',
+      currency: 'INR',
+      name: 'LMS PROJECT',
+      description: '',
+      image: './assets/logo.png',
+      order_id: val,
+      modal: {
+        escape: false,
+      },
+      notes: {},
+      theme: {
+        color: '#0c238a',
+      },
+    };
 
-}
+    options.handler = (response: any, error: any) => {
+      options.response = response;
+      this.paymentId = response.razorpay_payment_id;
+    };
 
-payWithRazor(val:any) {
+    options.modal.ondismiss = () => {};
 
-  const options: any = {
+    const rzp = new this.aboutServ.nativeWindow.Razorpay(options);
 
-    key: 'rzp_test_fv78mxq1yb7Yj6',
-
-    amount:  this.finalPayment.toFixed(0) + '00',
-    currency: 'INR',
-    name: 'LMS PROJECT',
-    description: '',
-    image: './assets/logo.png',
-    order_id: val,
-    modal: {
-      escape: false,
-    },
-    notes: {},
-    theme: {
-      color: '#0c238a'
-    }
-  };
-
-  options.handler = ((response:any, error:any) => {
-
-    options.response = response;
-    this.paymentId = response.razorpay_payment_id;
-    console.log(response);
-
-    console.log(options);
-
-    // call your backend api to verify payment signature & capture transaction
-
-  });
-
-  options.modal.ondismiss = (() => {
-
-    // handle the case when user closes the form while transaction is in progress
-
-    console.log('Transaction cancelled.');
-
-  });
-
-  const rzp = new this.aboutServ.nativeWindow.Razorpay(options);
-
-  rzp.open();
-
-}
-
+    rzp.open();
+  }
 
   afterPayment(paymentId: string) {
-
     this.paidCourses.map((course: any) => {
       const courseDetails = {
         data: {
@@ -221,17 +197,13 @@ payWithRazor(val:any) {
   }
 }
 
+// const paymentVerification = {
+//   razorpay_payment_id: response.razorpay_payment_id,
+//   razorpay_order_id: this.orderId,
+//   razorpay_signature:
+//     'fcbaeabdabd2e920f95ce87e7f856d82d1032b5439a85ec24e07180a0fdb615',
+//   amount: this.finalPayment.toFixed(0)
+// };
 
-
-    // const paymentVerification = {
-    //   razorpay_payment_id: response.razorpay_payment_id,
-    //   razorpay_order_id: this.orderId,
-    //   razorpay_signature:
-    //     'fcbaeabdabd2e920f95ce87e7f856d82d1032b5439a85ec24e07180a0fdb615',
-    //   amount: this.finalPayment.toFixed(0)
-    // };
-
-
-
-    // this.apiservice.postPaymentVerify(paymentVerification).subscribe((res) => {
-    //   });
+// this.apiservice.postPaymentVerify(paymentVerification).subscribe((res) => {
+//   });
