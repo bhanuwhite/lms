@@ -1,11 +1,13 @@
+<div class="content_part_wrapper">
 <div style="background-color: rgb(247, 243, 243)">
-  <div class="d-flex flex-column justify-content-center align-items-center pt-5" *ngIf="courseData.length == 0">
+  <div class="d-flex flex-column h-100 justify-content-center align-items-center pt-5" *ngIf="courseData.length == 0">
     <img src="../../../assets/img/myCart.PNG" alt="" style="height: 250px; width: 450px" />
     <div class="mt-4">
       <button class="btn btn-primary btn-md m-4" routerLink="">
         Add Course
       </button>
     </div>
+  </div>
   </div>
   <div class="container-fluid px-4 py-4" *ngIf="courseData.length != 0">
     <h1 class="fw-bold" style="font-size: 1.5rem;">
@@ -67,10 +69,8 @@
       </div>
     </div>
   </div>
-
-
-  <div class="card flex justify-content-center">
+  <!-- <div class="card flex justify-content-center">
     <p-toast></p-toast>
     <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
-  </div>
+  </div> -->
 </div>
