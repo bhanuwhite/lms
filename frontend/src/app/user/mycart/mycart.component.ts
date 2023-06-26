@@ -33,6 +33,7 @@ export class MycartComponent implements OnInit {
     this.getLocalStoredData();
     this.getCartCourse();
     this.gettingUserHasCourse();
+
   }
 
   public getLocalStoredData() {
