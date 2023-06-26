@@ -73,11 +73,8 @@ export class ProfileComponent {
   //login Details
   public getLocalStorage() {
     const userLoginData = JSON.parse(localStorage.getItem('user')!);
-    console.log(userLoginData);
 
     this.apiService.getProfileDetails().subscribe((res) => {
-      console.log(res);
-
       const allUserDetails = res;
       allUserDetails.filter((res: userProfile) => {
         if (userLoginData.id == res.id) {
@@ -133,8 +130,6 @@ export class ProfileComponent {
 
   //onUserProfileSubmition
   public onUserProfileSubmit(): void {
-    console.log(this.userProfileForm.value);
-
     this.userDetails = {
       username: this.userProfileForm.value.username,
       firstname: this.userProfileForm.value.firstname,
@@ -148,7 +143,6 @@ export class ProfileComponent {
     this.apiService
       .updateProfileDetails(this.userId, this.userDetails)
       .subscribe((res) => {
-        console.log(res);
         this.messageService.add({
           severity: 'info',
           summary: 'information',

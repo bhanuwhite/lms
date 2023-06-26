@@ -5,7 +5,14 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import {Quiz,QuizData,QuizDetails,QuizResponse,answers,level,} from 'src/app/models/quiz';
+import {
+  Quiz,
+  QuizData,
+  QuizDetails,
+  QuizResponse,
+  answers,
+  level,
+} from 'src/app/models/quiz';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -14,7 +21,6 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./quiz-details.component.scss'],
 })
 export class QuizDetailsComponent implements OnInit {
-
   public courseName: string = '';
   public quizBeginerDetails: QuizDetails[] = [];
   public quizintermidiateDetails: QuizDetails[] = [];
@@ -33,7 +39,6 @@ export class QuizDetailsComponent implements OnInit {
     this.apiService.getQuiz().subscribe((res) => {
       res.data.filter((result: any) => {
         if (result.attributes.course_name == this.courseName) {
-
           //Begginer Level
           if (result.attributes.level == 'beginner') {
             this.quizBeginerDetails.push(result);
@@ -82,9 +87,10 @@ export class QuizDetailsComponent implements OnInit {
   }
 
   onChange(question: QuizDetails, option: string, cardIndex: number) {
-    // console.log(question);
     question.questionStates.selectedIndex = cardIndex;
-    question.questionStates.correctAnswer = JSON.parse(question.attributes.answers);
+    question.questionStates.correctAnswer = JSON.parse(
+      question.attributes.answers
+    );
     question.questionStates.selectedOption = option;
   }
 

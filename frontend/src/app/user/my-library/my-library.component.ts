@@ -9,6 +9,7 @@ import {
   ConfirmEventType,
 } from 'primeng/api';
 import { AboutService } from 'src/app/services/about.service';
+import { resolve } from 'chart.js/dist/helpers/helpers.options';
 @Component({
   selector: 'app-my-library',
   templateUrl: './my-library.component.html',
@@ -20,22 +21,21 @@ export class MyLibraryComponent implements OnInit {
   public searchWord: string = '';
   public userID!: number;
   public searchData: any;
-  courseData:any;
+  courseData: any[] = [];
 
   constructor(
     private httpClient: HttpClient,
     private apiService: ApiService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private aboutService :AboutService
+    private aboutService: AboutService
   ) {}
 
   ngOnInit(): void {
     this.getLocalData();
     this.gettingUserHasCourse();
-   this.getCartCourse();
+    this.getCartCourse();
   }
-
 
   public getCartCourse(): void {
     this.apiService.getUserCart(this.userID).subscribe((res) => {
@@ -47,18 +47,27 @@ export class MyLibraryComponent implements OnInit {
     const getLocalData = JSON.parse(localStorage.getItem('user')!);
     this.userID = getLocalData.id;
   }
-  public gettingUserHasCourse():void {
-    this.apiService.getUserCourse(this.userID).subscribe((res)=>{
-      this.courseData = res;
-      this.searchData = res;
-      this.Spinner= false
-    })
-}
-  // get rating
-  public userRating(rating_value: any) {
-    console.log(rating_value);
+  public gettingUserHasCourse(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.apiService.getUserCourse(this.userID).subscribe((res) => {
+        if (res.length != 0) {
+          res.map((courseRes: any) => {
+            if (courseRes.course_ids.length != 0) {
+              this.courseData.push(courseRes);
+            }
+          });
+          resolve();
+        } else {
+          this.courseData = res;
+        }
 
+        this.searchData = this.courseData;
+        this.Spinner = false;
+      });
+    });
   }
+  // get rating
+  public userRating(rating_value: any) {}
 
   filterCourseData(): void {
     if (this.searchWord) {
@@ -67,25 +76,22 @@ export class MyLibraryComponent implements OnInit {
           course?.course_ids[0]?.name
             .toLowerCase()
             .includes(this.searchWord.toLowerCase()) ||
-            course?.course_ids[0]?.description
+          course?.course_ids[0]?.description
             .toLowerCase()
             .includes(this.searchWord.toLowerCase())
       );
     } else {
-      // If search term is empty, reset the courseData array to show all data
       this.courseData = this.searchData;
     }
   }
 
   public removeCourse(id: number): void {
-
     this.confirmationService.confirm({
       message: 'Do you want to delete this course from your Library?',
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
         this.apiService.deleteUserHasCourse(id).subscribe((res) => {
-          console.log(res);
           this.gettingUserHasCourse();
         });
         this.messageService.add({

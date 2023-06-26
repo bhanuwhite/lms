@@ -90,7 +90,7 @@ export class PaymentComponent implements OnInit {
     this.paidCourses = [];
     this.apiservice.getUserCart(this.userID).subscribe((res: any) => {
       res.map((course: any) => {
-        if (course.course_ids[0].price != 0) {
+        if (course.course_ids.length != 0 && course.course_ids[0].price != 0) {
           this.paidCourses.push(course);
 
           this.totalAmount =
@@ -110,7 +110,6 @@ export class PaymentComponent implements OnInit {
   }
 
   orderId!: number;
-
 
   createOrderId() {
     const paymentBody = {
