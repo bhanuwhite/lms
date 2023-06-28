@@ -58,6 +58,7 @@ import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
 import { MycartComponent } from './mycart/mycart.component';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { BadgeModule } from 'primeng/badge';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @NgModule({
   declarations: [
@@ -133,6 +134,7 @@ import { BadgeModule } from 'primeng/badge';
     ToastModule,
     ConfirmPopupModule,
     BadgeModule,
+    OverlayPanelModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

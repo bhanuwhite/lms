@@ -86,7 +86,6 @@ export class ContentComponent implements OnInit, OnDestroy {
   updateDocuments: boolean = false;
   editUserLearnings: { u_learn: string }[] = [];
 
-
   Technologies = [
     { tech: 'Angular' },
     { tech: 'DotNet' },
@@ -168,7 +167,7 @@ export class ContentComponent implements OnInit, OnDestroy {
       level: new FormControl(''),
       link: ['', [Validators.pattern('^https?://.+')]],
       userLearnings: this.fb.array([this.user_learn()]),
-      courserIncludes: this.fb.array([]),
+      coursesIncludes: this.fb.array([]),
       documents: new FormControl(),
       preLearn1: new FormControl(),
       preLearn2: new FormControl(),
@@ -248,6 +247,7 @@ export class ContentComponent implements OnInit, OnDestroy {
         this.contentData = res.data;
         this.contentData2 = res.data;
         this.loadingSpinner = false;
+        // console.log(this.contentData);
       } catch (error) {
         this.messageService.add({
           severity: 'error',
@@ -297,7 +297,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.updatedStatus = event.value.status;
   }
 
- public checkWordCount():void {
+  public checkWordCount(): void {
     const textValue = this.addCourse.controls['description'].value;
     const wordCount = textValue?.trim().split(/\s+/).length;
     this.remainingWords = 100 - wordCount;
@@ -401,7 +401,8 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   checkboxValue(event: any, value: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      const arrayForm = <FormArray>this.addCourse.get('courserIncludes');
+      const arrayForm = <FormArray>this.addCourse.get('coursesIncludes');
+
       if (event?.target?.checked) {
         arrayForm.push(this.fb.control(value));
         if (event.target.value.toLowerCase() === 'documents') {
@@ -428,6 +429,7 @@ export class ContentComponent implements OnInit, OnDestroy {
         };
     });
   }
+
   public courseDocSelected(event: Event) {
     const target = event.target as HTMLInputElement;
     if (target.files?.length) {
@@ -461,12 +463,13 @@ export class ContentComponent implements OnInit, OnDestroy {
       .uploadVideoDesc(videoDescObj.id, videoDesc)
       .subscribe((res) => {});
   }
-  public checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+  public elements = document.getElementsByTagName('input');
+
   public courseFormSubmit(
     videoInput: HTMLInputElement,
     imgInput: HTMLInputElement
   ) {
-
     this.courseDialog = false;
     const courseData = {
       data: {
@@ -489,7 +492,7 @@ export class ContentComponent implements OnInit, OnDestroy {
           4: this.addCourse.value.preLearn4,
         },
         user_learning: this.addCourse.value.userLearnings,
-        course_include: this.addCourse.value.courserIncludes,
+        course_include: this.addCourse.value.coursesIncludes,
         files: this.courseDocument,
       },
     };
@@ -514,13 +517,9 @@ export class ContentComponent implements OnInit, OnDestroy {
             .get('documents')
             ?.removeValidators(Validators.required);
           this.addCourse.controls['userLearnings'].reset();
-          this.addCourse.reset();
+          const arrayForm = <FormArray>this.addCourse.get('coursesIncludes');
+          arrayForm.clear();
 
-          for (let i = 0; i < this.checkboxes.length; i++) {
-            if ((this.checkboxes[i] as HTMLInputElement).type == 'checkbox') {
-              (this.checkboxes[i] as HTMLInputElement).checked = false;
-            }
-          }
           videoInput.value = '';
           imgInput.value = '';
           this.allVideosDuration = 0;
@@ -540,30 +539,45 @@ export class ContentComponent implements OnInit, OnDestroy {
         detail: 'Please upload Course Video Content.  !!',
       });
     }
+
+    for (let i = 0; i < this.elements.length; i++) {
+      if (this.elements[i].type == 'checkbox') {
+        this.elements[i].checked = false;
+      }
+    }
   }
 
+  public categories: any = [
+    { name: 'Certificate', checked: false },
+    { name: 'Documents', checked: false },
+  ];
+
   // Edit dialog open
+  checkArray: any[] = [];
   public editContentDialog(item: AllCourseContentData): void {
+    this.checkArray = item.attributes.course_include;
+    this.categories.map((res: any) => {
+      res.checked = false;
+    });
 
-    this.editUserLearnings = item.attributes.user_learning;
+    this.checkArray.forEach((value) => {
+      const category = this.categories.find((c: any) => c.name === value);
+      if (category) {
+        category.checked = true;
 
-
-    if (item.attributes.course_include != null) {
-      for (let value of item.attributes.course_include) {
-        if (value != null) {
-          if ('certificate' === value.toLocaleLowerCase()) {
-            this.updateCertificates = true;
-          } else if ('documents' === value.toLocaleLowerCase()) {
-            this.updateDocuments = true;
-            this.showDocuments = true;
-          }
+        if ('certificate' === category.name.toLocaleLowerCase()) {
+          this.updateCertificates = true;
+        } else if ('documents' === category.name.toLocaleLowerCase()) {
+          this.updateDocuments = true;
+          this.showDocuments = true;
         }
+      } else {
+        this.updateCertificates = false;
+        this.updateDocuments = false;
+        this.showDocuments = false;
       }
-    } else {
-      this.updateCertificates = false;
-      this.updateDocuments = false;
-      this.showDocuments = false;
-    }
+    });
+
     this.editDisply = true;
     this._data = item;
     this.techString = item.attributes?.technology;
@@ -592,20 +606,14 @@ export class ContentComponent implements OnInit, OnDestroy {
       preLearn2: item.attributes.pre_learning['2'],
       preLearn3: item.attributes.pre_learning['3'],
       preLearn4: item.attributes.pre_learning['4'],
-      courserIncludes: this.fb.array([])
+
+      coursesIncludes: this.fb.array(
+        this.categories
+          .filter((category: any) => category.checked)
+          .map((category: any) => new FormControl(category.name))
+      ),
     });
-    this.courseUpdateGroup.setControl('userLearnings', this.userLearns());
   }
-
-  private userLearns(): FormArray {
-    const formArray = this.fb.array([]);
-    this.editUserLearnings.forEach((res) => {
-      formArray.push(this.fb.control(res.u_learn));
-    });
-    return formArray;
-  }
-
-
 
   // close edit dialog
   public closeEditDialog(): void {
@@ -614,36 +622,34 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.updateDocuments = false;
   }
 
-  editCheckboxValue(event: any, value: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const arrayForm = <FormArray>this.addCourse.get('courserIncludes');
-      if (event?.target?.checked) {
-        arrayForm.push(this.fb.control(value));
-        if (event.target.value.toLowerCase() === 'documents') {
-          this.showDocuments = true;
-          this.courseUpdateGroup
-            .get('documents')
-            ?.setValidators(Validators.required);
-        }
+  updateCheckBoxArray!: FormArray;
+
+  editCheckboxValue(event: any, value: string) {
+    console.log(event.checked);
+
+    if (event instanceof HTMLInputElement && event.checked !== undefined) {
+      const checked = event.checked;
+
+      this.updateCheckBoxArray = this.courseUpdateGroup.controls[
+        'coursesIncludes'
+      ] as FormArray;
+      console.log(this.updateCheckBoxArray.value);
+
+      if (checked) {
+        this.updateCheckBoxArray.push(new FormControl(value));
+
+        console.log(this.updateCheckBoxArray.value);
       } else {
-        const index = arrayForm.controls.findIndex(
-          (control) => control.value === value
+        let index = this.updateCheckBoxArray.controls.findIndex(
+          (x) => x.value == value
         );
         if (index !== -1) {
-          arrayForm.removeAt(index);
-
-          if (event.target.value.toLowerCase() === 'documents') {
-            this.showDocuments = false;
-            this.courseUpdateGroup.get('documents')?.clearValidators();
-          }
+          this.updateCheckBoxArray.removeAt(index);
         }
       }
-      this.courseUpdateGroup.get('documents')?.updateValueAndValidity();
-      resolve(),
-        (err: any) => {
-          reject(err);
-        };
-    });
+      console.log(this.updateCheckBoxArray.value);
+    }
+    console.log(this.courseUpdateGroup.value.coursesIncludes);
   }
 
   // update content
@@ -664,7 +670,7 @@ export class ContentComponent implements OnInit, OnDestroy {
         status: this.selectedStatus,
 
         user_learnings: this.courseUpdateGroup.value.userLearnings,
-        course_includes: this.courseUpdateGroup.value.courserIncludes,
+        course_include: this.courseUpdateGroup.value.coursesIncludes,
       },
     };
 
@@ -712,8 +718,8 @@ export class ContentComponent implements OnInit, OnDestroy {
         this.apiService.deleteContent(data.id).subscribe((res) => {
           try {
             this.messageService.add({
-              severity: 'error',
-              summary: 'Delete',
+              severity: 'success',
+              summary: 'Deleted',
               detail: `${data.attributes?.name.slice(
                 0,
                 20

@@ -18,7 +18,7 @@ export class MyLibraryComponent implements OnInit {
   public searchWord: string = '';
   public userID!: number;
   public searchData: any;
-  courseData: any[] = [];
+  public courseData: any[] = [];
 
   constructor(
     private httpClient: HttpClient,
@@ -44,25 +44,39 @@ export class MyLibraryComponent implements OnInit {
     const getLocalData = JSON.parse(localStorage.getItem('user')!);
     this.userID = getLocalData.id;
   }
-  public gettingUserHasCourse(): void {
-    this.apiService.getUserCourse(this.userID).subscribe((res) => {
-      console.log(res);
-      if (res.length != 0) {
-        res.map((courseRes: any) => {
-          if (courseRes.course_ids.length != 0) {
-            this.courseData.push(courseRes);
-          }
-        });
-      } else {
-        this.courseData = res;
-      }
-      console.log(this.courseData);
-      this.Spinner = false;
+
+  public gettingUserHasCourse(): Promise<void> {
+    this.courseData=[]
+    return new Promise((resolve, reject) => {
+      this.apiService.getUserCourse(this.userID).subscribe((res) => {
+        if (res.length != 0) {
+          res.map((courseRes: any) => {
+            if (courseRes.course_ids.length != 0) {
+              this.courseData.push(courseRes);
+              console.log(this.courseData);
+
+            }
+          });
+          resolve();
+        } else {
+          this.courseData = res;
+        }
+
+        this.searchData = this.courseData;
+        this.Spinner = false;
+      });
     });
-    this.searchData = this.courseData;
   }
+
+
   // get rating
-  public userRating(rating_value: any) {}
+
+  public userRating(rating_value: any, course:any) {
+
+    console.log(rating_value);
+    console.log(course.course_ids[0].rating);
+
+  }
 
   filterCourseData(): void {
     if (this.searchWord) {
@@ -80,39 +94,29 @@ export class MyLibraryComponent implements OnInit {
     }
   }
 
-  public removeCourse(id: number): void {
-    this.confirmationService.confirm({
-      message: 'Do you want to delete this course from your Library?',
-      header: 'Delete Confirmation',
-      icon: 'pi pi-info-circle',
-      accept: () => {
-        this.apiService.deleteUserHasCourse(id).subscribe((res) => {
-          this.gettingUserHasCourse();
-        });
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successfully',
-          detail: 'Course removed',
-        });
-      },
-      reject: (type: any) => {
-        switch (type) {
-          case ConfirmEventType.REJECT:
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Rejected',
-              detail: 'You have rejected',
-            });
-            break;
-          case ConfirmEventType.CANCEL:
-            this.messageService.add({
-              severity: 'warn',
-              summary: 'Cancelled',
-              detail: 'You have cancelled',
-            });
-            break;
-        }
-      },
-    });
+
+  public removeCourse(id:number): void{
+
+          this.confirmationService.confirm({
+            message: `Do you want to delete this course from your Library?`,
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+              this.apiService.deleteUserHasCourse(id).subscribe((res) => {
+                try {
+                  this.gettingUserHasCourse();
+                  this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Deleted sucessfully' });
+                } catch (error) {
+                  this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong' });
+                }
+              })
+            },
+            reject: () => {
+              this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
+            }
+
+          })
   }
+
+
 }
