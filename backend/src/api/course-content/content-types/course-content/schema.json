@@ -121,6 +121,14 @@
       "type": "integer",
       "max": 5,
       "min": 1
+    },
+    "pre_learning_img": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }
