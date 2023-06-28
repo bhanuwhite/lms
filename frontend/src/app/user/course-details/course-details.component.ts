@@ -171,6 +171,18 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  public ratingDialog :boolean= false;
+  openRating(){
+    console.log("hello");
+    this.ratingDialog=true;
+  }
+
+  userRating(rating:any){
+
+console.log(rating);
+
+  }
+
   ngOnDestroy(): void {
     this.LibraryContent$.unsubscribe();
     this.SingleContentLib$.unsubscribe();
