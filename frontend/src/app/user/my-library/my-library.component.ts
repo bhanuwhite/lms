@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MenuItem } from 'primeng/api';
-import { dropDown } from 'src/app/interface';
 import { ApiService } from 'src/app/services/api.service';
 import {
   ConfirmationService,
@@ -9,7 +7,6 @@ import {
   ConfirmEventType,
 } from 'primeng/api';
 import { AboutService } from 'src/app/services/about.service';
-import { resolve } from 'chart.js/dist/helpers/helpers.options';
 @Component({
   selector: 'app-my-library',
   templateUrl: './my-library.component.html',
@@ -47,24 +44,22 @@ export class MyLibraryComponent implements OnInit {
     const getLocalData = JSON.parse(localStorage.getItem('user')!);
     this.userID = getLocalData.id;
   }
-  public gettingUserHasCourse(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.apiService.getUserCourse(this.userID).subscribe((res) => {
-        if (res.length != 0) {
-          res.map((courseRes: any) => {
-            if (courseRes.course_ids.length != 0) {
-              this.courseData.push(courseRes);
-            }
-          });
-          resolve();
-        } else {
-          this.courseData = res;
-        }
-
-        this.searchData = this.courseData;
-        this.Spinner = false;
-      });
+  public gettingUserHasCourse(): void {
+    this.apiService.getUserCourse(this.userID).subscribe((res) => {
+      console.log(res);
+      if (res.length != 0) {
+        res.map((courseRes: any) => {
+          if (courseRes.course_ids.length != 0) {
+            this.courseData.push(courseRes);
+          }
+        });
+      } else {
+        this.courseData = res;
+      }
+      console.log(this.courseData);
+      this.Spinner = false;
     });
+    this.searchData = this.courseData;
   }
   // get rating
   public userRating(rating_value: any) {}

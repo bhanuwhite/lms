@@ -179,6 +179,9 @@ export interface postCourseContentData {
 
 // END..
 
+
+
+
 export interface ContentResponse {
   id: number;
   attributes: {

@@ -55,7 +55,7 @@
 </div>
 
 <!-- New Course adding -->
- <p-dialog header="Add New Course" [(visible)]="courseDialog" [modal]="true" [style]="{'width':'50vw'}">
+<p-dialog header="Add New Course" [(visible)]="courseDialog" [modal]="true" [style]="{'width':'50vw'}">
   <form action="" [formGroup]="addCourse" (ngSubmit)="courseFormSubmit(videoInput, imgInput)">
     <div class="p-fluid grid">
       <div class="field mt-2 w-100">
@@ -267,7 +267,7 @@
 
 
 <!-- Update Content Form -->
- <div class=" container surface-ground-wrappers">
+<div class=" container surface-ground-wrappers">
   <div class="d-flex justify-content-end">
 
     <p-dialog header="Update Course" [(visible)]="editDisply" [style]="{width: '40vw'}" styleClass="active"
@@ -320,13 +320,14 @@
                 *ngIf="videoUploadProgress"></p-progressBar>
             </span>
 
-        <ng-container *ngFor="let desc of courseContentVideo; let i=index">
-          <div class="my-2">
-            <label for="videoDescription"> {{desc.name}} <b>Description</b> :</label>
-            <textarea name="desc" id="videoDescription" rows="3" [style]="{'width':'100%'}" class="my-2" pInputText
-              placeholder="Enter description for {{desc.name}}" (blur)="onInputChanged($event.target,desc)"></textarea>
-          </div>
-        </ng-container>
+            <ng-container *ngFor="let desc of courseContentVideo; let i=index">
+              <div class="my-2">
+                <label for="videoDescription"> {{desc.name}} <b>Description</b> :</label>
+                <textarea name="desc" id="videoDescription" rows="3" [style]="{'width':'100%'}" class="my-2" pInputText
+                  placeholder="Enter description for {{desc.name}}"
+                  (blur)="onInputChanged($event.target,desc)"></textarea>
+              </div>
+            </ng-container>
           </div>
 
 
@@ -367,26 +368,23 @@
           </div>
 
 
-
-
-
-
-
           <div class="field mt-2 w-100">
-            <div class="field mt-2 w-100">
-              <div >
-                <div *ngFor="let uLearn of editUserLearnings; let i=index">
-                  <label [for]="'u_learns'">User Learning {{i+1}}:</label>
+            <div formArrayName="userLearnings">
+              <div *ngFor="let learn of updateUserLearnings.controls; let i = index">
+                <ng-container [formGroupName]="i">
+                  <label [for]="'u_learn' + i">User Learning {{ i + 1 }}:</label>
                   <div class="p-float-label d-flex align-items-center">
-                    <textarea [id]="'u_learns'" value="{{uLearn.u_learn}}" rows="3" [style]="{'width':'90%'}"
+                    <textarea [id]="'u_learns' + i"  rows="3" [style]="{'width':'90%'}"
                       class="my-2 col-lg-10" placeholder="Enter user learnings.."></textarea>
-                    <span class="material-icons col-lg-2 ms-2 text-danger cursor-pointer" > backspace </span>
+                    <span class="material-icons col-lg-2 ms-2 text-danger cursor-pointer"
+                      (click)="update_removeUserLearning(i)">backspace</span>
                   </div>
-                </div>
+                </ng-container>
               </div>
+              <button type="button" class="btn btn-primary btn-sm" (click)="update_addItem()">Add Learnings</button>
             </div>
-            <button type="button" (click)="addItem()">Add Learnings</button>
           </div>
+
 
 
           <div class="field mt-2 w-100">
@@ -420,15 +418,15 @@
               <div class="d-flex ms-4">
 
                 <div class="form-check col-lg-6 checkbox-xl">
-                  <input (change)="editCheckboxValue($event,'Certificate')" [checked]="updateCertificates" value="Certificate" class="form-check-input"
-                    type="checkbox" />
+                  <input (change)="editCheckboxValue($event,'Certificate')" [checked]="updateCertificates"
+                    value="Certificate" class="form-check-input" type="checkbox" />
                   <label class="form-check-label ms-2" for="certificate">
                     Certificate
                   </label>
                 </div>
                 <div class="form-check col-lg-6 checkbox-xl">
-                  <input (change)="editCheckboxValue($event,'Documents')" value="Documents" [checked]="updateDocuments" class="form-check-input"
-                    type="checkbox" />
+                  <input (change)="editCheckboxValue($event,'Documents')" value="Documents" [checked]="updateDocuments"
+                    class="form-check-input" type="checkbox" />
                   <label class="form-check-label ms-2" for="documents">
                     Documents
                   </label>

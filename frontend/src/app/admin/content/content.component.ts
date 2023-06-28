@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   OnDestroy,
@@ -14,7 +13,6 @@ import {
   FormArray,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LogarithmicScale } from 'chart.js';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import {
@@ -50,8 +48,8 @@ export class ContentComponent implements OnInit, OnDestroy {
   private allSubsription$: Subscription[] = [];
 
   public searchWord: string = '';
-  loadingSpinner: boolean = false;
-  editDisply: boolean = false;
+  public loadingSpinner: boolean = false;
+  public editDisply: boolean = false;
   public contentData: AllCourseContentData[] = [];
   public contentData2: AllCourseContentData[] = [];
 
@@ -84,6 +82,10 @@ export class ContentComponent implements OnInit, OnDestroy {
   allVideosDuration: number = 0;
   showDocuments: boolean = false;
   courseDocument: any;
+  updateCertificates: boolean = false;
+  updateDocuments: boolean = false;
+  editUserLearnings: { u_learn: string }[] = [];
+
 
   Technologies = [
     { tech: 'Angular' },
@@ -146,13 +148,13 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   // New Course adding details.
-  userLearnings!: FormArray;
+  // userLearnings!: FormArray;
   public newCourse() {
     this.addCourse = this.fb.group({
       name: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
-        Validators.pattern('^[a-zA-Z ]+$'),
+        Validators.pattern('^[a-zA-Z., ]+$'),
       ]),
       description: new FormControl(''),
       imgVideo: new FormControl(''),
@@ -168,7 +170,6 @@ export class ContentComponent implements OnInit, OnDestroy {
       userLearnings: this.fb.array([this.user_learn()]),
       courserIncludes: this.fb.array([]),
       documents: new FormControl(),
-
       preLearn1: new FormControl(),
       preLearn2: new FormControl(),
       preLearn3: new FormControl(),
@@ -198,7 +199,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.courseUpdateGroup = this.fb.group({
       name: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]+$'),
+        Validators.pattern('^[a-zA-Z., ]+$'),
       ]),
       description: new FormControl(''),
       price: new FormControl(''),
@@ -211,15 +212,32 @@ export class ContentComponent implements OnInit, OnDestroy {
       admin_id: new FormControl(''),
       image: new FormControl(),
       course_duration: new FormControl(),
-      userLearnings: this.fb.array([]),
       courserIncludes: this.fb.array([]),
       documents: new FormControl(),
-
       preLearn1: new FormControl(),
       preLearn2: new FormControl(),
       preLearn3: new FormControl(),
       preLearn4: new FormControl(),
+      userLearnings: this.fb.array([]),
     });
+  }
+
+  get updateUserLearnings(): FormArray {
+    return this.courseUpdateGroup.get('userLearnings') as FormArray;
+  }
+
+  public update_user_learn(): FormGroup {
+    return this.fb.group({
+      u_learn: [''],
+    });
+  }
+
+  public update_addItem(): void {
+    this.updateUserLearnings.push(this.update_user_learn());
+  }
+
+  public update_removeUserLearning(index: number): void {
+    this.updateUserLearnings.removeAt(index);
   }
 
   // get content
@@ -263,18 +281,15 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.addCourse.reset();
     this.addCourse.get('documents')?.removeValidators(Validators.required);
   }
-
   public techSelected(event: { value: { tech: string } }) {
     this.selectedTech = event.value.tech;
   }
-
   public levelSelected(event: { value: { level: string } }) {
     this.selectedLevel = event.value.level;
   }
   public subjectSelected(event: { value: { industry: string } }) {
     this.selectedSubject = event.value.industry;
   }
-
   public statusSelected(event: { value: { status: string } }) {
     this.selectedStatus = event.value.status;
   }
@@ -282,7 +297,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.updatedStatus = event.value.status;
   }
 
-  checkWordCount() {
+ public checkWordCount():void {
     const textValue = this.addCourse.controls['description'].value;
     const wordCount = textValue?.trim().split(/\s+/).length;
     this.remainingWords = 100 - wordCount;
@@ -446,11 +461,12 @@ export class ContentComponent implements OnInit, OnDestroy {
       .uploadVideoDesc(videoDescObj.id, videoDesc)
       .subscribe((res) => {});
   }
-
+  public checkboxes = document.querySelectorAll('input[type="checkbox"]');
   public courseFormSubmit(
     videoInput: HTMLInputElement,
     imgInput: HTMLInputElement
   ) {
+
     this.courseDialog = false;
     const courseData = {
       data: {
@@ -478,6 +494,12 @@ export class ContentComponent implements OnInit, OnDestroy {
       },
     };
 
+    const learnings = this.addCourse.get('userLearnings') as FormArray;
+
+    for (let i = learnings.length - 1; i > 0; i--) {
+      this.userLearningControls.removeAt(i);
+    }
+
     if (this.courseContentVideo.length != 0) {
       this.apiService.postContent(courseData).subscribe((res) => {
         try {
@@ -486,22 +508,19 @@ export class ContentComponent implements OnInit, OnDestroy {
             summary: 'Success',
             detail: 'Course added successfully !!',
           });
-          this.addCourse.reset();
           this.courseContentVideo = [];
           this.showDocuments = false;
           this.addCourse
             .get('documents')
             ?.removeValidators(Validators.required);
           this.addCourse.controls['userLearnings'].reset();
-          const arrayForm = <FormArray>this.addCourse.get('courserIncludes');
-          arrayForm.clear();
+          this.addCourse.reset();
 
-          const checkboxes = document.querySelectorAll(
-            'input[type="checkbox"]'
-          );
-          checkboxes.forEach((checkbox) => {
-            (checkbox as HTMLInputElement).checked = false;
-          });
+          for (let i = 0; i < this.checkboxes.length; i++) {
+            if ((this.checkboxes[i] as HTMLInputElement).type == 'checkbox') {
+              (this.checkboxes[i] as HTMLInputElement).checked = false;
+            }
+          }
           videoInput.value = '';
           imgInput.value = '';
           this.allVideosDuration = 0;
@@ -524,11 +543,11 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   // Edit dialog open
-  updateCertificates: boolean = false;
-  updateDocuments: boolean = false;
-  editUserLearnings: { u_learn: string }[] = [];
   public editContentDialog(item: AllCourseContentData): void {
+
     this.editUserLearnings = item.attributes.user_learning;
+
+
     if (item.attributes.course_include != null) {
       for (let value of item.attributes.course_include) {
         if (value != null) {
@@ -545,10 +564,8 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.updateDocuments = false;
       this.showDocuments = false;
     }
-
     this.editDisply = true;
     this._data = item;
-
     this.techString = item.attributes?.technology;
     this.subjectString = item.attributes?.subject;
     this.levelString = item.attributes?.level;
@@ -559,7 +576,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.courseUpdateGroup = this.fb.group({
       name: new FormControl(item.attributes?.name, [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]+$'),
+        Validators.pattern('^[a-zA-Z., ]+$'),
       ]),
       description: new FormControl(item.attributes?.description),
       price: new FormControl(item.attributes?.price),
@@ -575,9 +592,20 @@ export class ContentComponent implements OnInit, OnDestroy {
       preLearn2: item.attributes.pre_learning['2'],
       preLearn3: item.attributes.pre_learning['3'],
       preLearn4: item.attributes.pre_learning['4'],
-      courserIncludes: this.fb.array(['Documents']),
+      courserIncludes: this.fb.array([])
     });
+    this.courseUpdateGroup.setControl('userLearnings', this.userLearns());
   }
+
+  private userLearns(): FormArray {
+    const formArray = this.fb.array([]);
+    this.editUserLearnings.forEach((res) => {
+      formArray.push(this.fb.control(res.u_learn));
+    });
+    return formArray;
+  }
+
+
 
   // close edit dialog
   public closeEditDialog(): void {
