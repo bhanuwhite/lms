@@ -27,14 +27,16 @@ export class ContentDetailsComponent implements OnInit {
   /**
    * getSingleContent
    */
+  userLearnings:{u_learn:string}[]=[]
   public getSingleContent(id:number): void {
     this.isLoading = true;
     this.apiService.getSingleContent(id).subscribe(res => {
       this.singleContent= res.data;
+      this.userLearnings = this.singleContent.attributes.user_learning
       this.isLoading = false;
+
     });
   }
-
 
 
 

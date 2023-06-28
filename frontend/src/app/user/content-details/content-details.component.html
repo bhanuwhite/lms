@@ -173,7 +173,7 @@
               <p-accordionTab *ngFor="let content of singleCourse.attributes.content.data">
                 <ng-template class="d-flex" pTemplate="header">
                   <div>
-                    {{ content.attributes.name }}
+                    {{ (content.attributes.name).slice(0,-4) }}
                   </div>
                 </ng-template>
                 <div class="intro-list">

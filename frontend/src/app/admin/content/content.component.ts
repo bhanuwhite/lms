@@ -524,6 +524,7 @@ export class ContentComponent implements OnInit, OnDestroy {
           imgInput.value = '';
           this.allVideosDuration = 0;
           this.getContent();
+          this.addCourse.reset();
         } catch (error) {
           this.messageService.add({
             severity: 'error',
@@ -613,7 +614,18 @@ export class ContentComponent implements OnInit, OnDestroy {
           .map((category: any) => new FormControl(category.name))
       ),
     });
+    this.courseUpdateGroup.setControl('userLearnings', this.userLearns());
   }
+
+
+  public userLearns(): FormArray {
+    const formArray = this.fb.array([]);
+    this.editUserLearnings.forEach((res) => {
+      formArray.push(this.fb.control(res.u_learn));
+    });
+    return formArray;
+  }
+
 
   // close edit dialog
   public closeEditDialog(): void {

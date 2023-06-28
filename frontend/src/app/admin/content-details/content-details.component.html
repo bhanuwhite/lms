@@ -2,7 +2,7 @@
 
   <div class="surface-ground py-1 px-3">
     <ng-container *ngIf="singleContent">
-      <span class="block fs-3 font-medium mb-3"> {{singleContent.attributes.name}} Details </span>
+      <span class="block fs-2 font-medium mb-3"> {{singleContent.attributes.name}} Details </span>
     </ng-container>
 
     <div class="grid" *ngIf="singleContent">
@@ -46,8 +46,8 @@
         <div class="surface-card shadow-2 p-3 border-round">
           <div class="flex justify-content-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">Revenue</span>
-              <div class="text-900 font-medium text-xl">12,451</div>
+              <span class="block text-500 font-medium mb-3">Reviews</span>
+              <div class="text-900 font-medium text-xl">101</div>
             </div>
             <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
               style="width:2.5rem;height:2.5rem">
@@ -56,44 +56,111 @@
               </span>
             </div>
           </div>
-          <span class="text-green-500 font-medium">%10 increase </span>
+          <span class="text-green-500 font-medium">%5 increase </span>
           <span class="text-500">since last week</span>
         </div>
       </div>
 
     </div>
 
-    <div>
-      <div class="row surface-card shadow-2 p-2 m-1 border-round">
-        <div class="d-flex col-lg-12" *ngIf="singleContent">
-          <div class="col-lg-5 img-fluid">
-            <img [src]="singleContent.attributes.placeholder_img.data.attributes.formats.thumbnail.url" alt="" [style]="{'height':'200px','width':'100%','border-radius':'30px'}">
-          </div>
-          <div class="col-lg-7 ms-3 text-xl">
-            <div class="my-3">
-              <b class="fs-3">{{singleContent.attributes.name}}  </b>
-            </div>
-            <div class=" col-lg-12">
-              <p class="textOverflow">{{singleContent.attributes.description}} PrimeIcons is the default icon library of PrimeNG with over 250 open source icons developed by PrimeTek.</p>
-            </div>
-            <div class="d-flex col-lg-12">
-              <div class="col-lg-6">
-                <span> No.of Lectures  <b>{{singleContent.attributes.content.data.length}} </b>  </span>
-              </div>
-              <div class="col-lg-6 d-flex align-items-center ">
-                <span class="material-icons">
-                  schedule
-                  </span>
-                <span class="ms-2 "> Duration  <b>{{(singleContent.attributes.total_duration/3600).toFixed(2)}} hrs</b> </span>
-              </div>
-            </div>
-            <div class="my-2 d-flex align-items-center">
-              <span class="material-icons">
-                currency_rupee
-                </span>
-              <span>{{(singleContent.attributes.price) }}.00   </span>
-            </div>
 
+    <div class="row surface-card shadow-2 p-2 m-1 border-round">
+      <div class="d-flex col-lg-12" *ngIf="singleContent">
+        <div class="col-lg-5 img-fluid">
+          <img [src]="singleContent.attributes.placeholder_img.data.attributes.formats.thumbnail.url" alt=""
+            [style]="{'height':'200px','width':'100%','border-radius':'30px'}">
+        </div>
+        <div class="col-lg-7 ms-4 text-xl">
+          <div class="my-3">
+            <b class="fs-4">{{singleContent.attributes.name}} </b>
+          </div>
+          <div class=" col-lg-11">
+            <p class="textOverflow">{{singleContent.attributes.description}} PrimeIcons is the default icon library of
+              PrimeNG with over 250 open source icons developed by PrimeTek.</p>
+          </div>
+
+          <div class="d-flex align-items-center">
+            <span class="material-icons">
+              category
+            </span>
+            <b class="ms-2"> {{singleContent.attributes.subject}} </b>
+          </div>
+
+          <div class="d-flex col-lg-12 mt-3">
+            <div class="col-lg-6">
+              <span> No.of Lectures - <b>{{singleContent.attributes.content.data.length}} </b> </span>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center ">
+              <span class="material-icons">
+                schedule
+              </span>
+              <span class="ms-2 "> Duration - <b>{{(singleContent.attributes.total_duration/3600).toFixed(1)}} hrs</b>
+              </span>
+            </div>
+          </div>
+          <div class="my-3 d-flex align-items-center">
+            <span class="material-icons">
+              currency_rupee
+            </span>
+            <span>{{(singleContent.attributes.price) }}.00 </span>
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <div class="d-flex">
+              <button class="btn btn-primary mx-2">{{ singleContent.attributes.technology }}</button>
+            </div>
+            <div>
+              <button class="btn btn-warning">{{ singleContent.attributes.level }}</button>
+            </div>
+            <ng-container *ngIf="singleContent.attributes.no_of_purchases" class=" ">
+              <button class="btn btn-sm fw-bold" style="background-color: rgb(213, 240, 158);">
+                Best Seller
+              </button>
+            </ng-container>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row  mt-4">
+      <div class="col-lg-7">
+        <div class="card">
+          <div class="what-u-learn p-4">
+            <h1><b>User Learnings...</b></h1>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+
+                  <div class="col-lg-6 mb-3" *ngFor="
+                      let userLearn of userLearnings;
+                      let i = index
+                    ">
+                    <div class="d-flex align-items-center">
+                      <i class="pi pi-check me-2 text-success"></i>
+                      <span style="
+                      font-family: 'Lucida Sans', 'Lucida Sans Regular',
+                        'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
+                        sans-serif; white-space: nowrap; overflow: hidden;
+                    ">{{ userLearn.u_learn }}...</span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-lg-4  justify-content-center " *ngIf="singleContent" >
+        <div class="card px-3 p-2 " style="max-height: 222px;">
+          <h2 class=" card-header pb-1 m-0"><b>Miscellaneous</b></h2>
+          <div class="card-body">
+            <h2>No.of purchases - {{singleContent.attributes.no_of_purchases}} </h2>
           </div>
         </div>
       </div>
