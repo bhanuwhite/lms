@@ -2,7 +2,8 @@
 
   <div class="surface-ground py-1 px-3">
     <ng-container *ngIf="singleContent">
-      <span class="block fs-2 font-medium mb-3"> {{singleContent.attributes.name}} Details </span>
+      <h1 style="font-size: 1.5rem;"><b> {{singleContent.attributes.name}} Details</b>  </h1>
+      <!-- <span class="block fs-2 font-medium mb-3">  </span> -->
     </ng-container>
 
     <div class="grid" *ngIf="singleContent">
@@ -64,13 +65,12 @@
     </div>
 
 
-    <div class="row surface-card shadow-2 p-2 m-1 border-round">
-      <div class="d-flex col-lg-12" *ngIf="singleContent">
-        <div class="col-lg-5 img-fluid">
+    <div class="row surface-card shadow-2 p-2 m-1 border-round" *ngIf="singleContent">
+        <div class="col-lg-4 img-fluid">
           <img [src]="singleContent.attributes.placeholder_img.data.attributes.formats.thumbnail.url" alt=""
             [style]="{'height':'200px','width':'100%','border-radius':'30px'}">
         </div>
-        <div class="col-lg-7 ms-4 text-xl">
+        <div class="col-lg-8">
           <div class="my-3">
             <b class="fs-4">{{singleContent.attributes.name}} </b>
           </div>
@@ -86,7 +86,7 @@
             <b class="ms-2"> {{singleContent.attributes.subject}} </b>
           </div>
 
-          <div class="d-flex col-lg-12 mt-3">
+          <div class="d-flex lecture_details col-lg-12 mt-3">
             <div class="col-lg-6">
               <span> No.of Lectures - <b>{{singleContent.attributes.content.data.length}} </b> </span>
             </div>
@@ -105,14 +105,14 @@
             <span>{{(singleContent.attributes.price) }}.00 </span>
           </div>
 
-          <div class="d-flex justify-content-between">
-            <div class="d-flex">
-              <button class="btn btn-primary mx-2">{{ singleContent.attributes.technology }}</button>
+          <div class="d-flex button_wrapper justify-content-between">
+            <div class="mb-2">
+              <button class="btn btn-primary">{{ singleContent.attributes.technology }}</button>
             </div>
-            <div>
+            <div class="mb-2">
               <button class="btn btn-warning">{{ singleContent.attributes.level }}</button>
             </div>
-            <ng-container *ngIf="singleContent.attributes.no_of_purchases" class=" ">
+            <ng-container *ngIf="singleContent.attributes.no_of_purchases">
               <button class="btn btn-sm fw-bold" style="background-color: rgb(213, 240, 158);">
                 Best Seller
               </button>
@@ -121,7 +121,7 @@
 
 
         </div>
-      </div>
+     
     </div>
 
     <div class="row  mt-4">
