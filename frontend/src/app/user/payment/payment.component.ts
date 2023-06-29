@@ -130,7 +130,13 @@ export class PaymentComponent implements OnInit {
       name: 'LMS Project',
       description: 'Buy Course',
       order_id: this.orderId,
+
       handler: (response: any) => {
+
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature);
+
         const requestBody = {
           razorpay_payment_id: response.razorpay_payment_id,
           razorpay_order_id: response.razorpay_order_id,
