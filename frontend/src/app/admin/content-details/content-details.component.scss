@@ -72,6 +72,17 @@
     // .sidebar{
     //     display: none !important;
     // }
+    .button_wrapper{
+        button{
+            margin: 0;
+            width: 100%;
+        }
+        display: block !important;
+    }
+    .lecture_details{
+        display: block !important;
+        margin: 5px 0;
+    }
     .content-details-wrapper  {
         padding: 20px 25px 0px 35px;
         // position: absolute;
