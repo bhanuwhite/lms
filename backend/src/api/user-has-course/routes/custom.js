@@ -4,7 +4,7 @@ module.exports = {
       {
         method: 'GET',
         path: '/users-course',
-        handler: 'custom.exampleAction',
+        handler: 'custom.find',
       },
     ],
   };

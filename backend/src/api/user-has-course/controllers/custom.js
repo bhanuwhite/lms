@@ -4,7 +4,7 @@ const { createCoreController } = require("@strapi/strapi").factories;
 module.exports = createCoreController(
   "api::user-has-course.user-has-course",
   ({ strapi }) => ({
-    async exampleAction(ctx) {
+    async find(ctx) {
       try {
         const { user_id } = ctx.request.query;
         if (!user_id) {
@@ -25,14 +25,10 @@ module.exports = createCoreController(
               user_id: parseInt(user_id),
             }
           );
-        // console.log(JSON.stringify(userHasCourses));
 
         let usersCourse = userHasCourses.filter((res) => {
           try {
             return res.user_id.id === parseInt(ctx.request.query.user_id);
-            // console.log(typeof(res.user_id.id), ctx.request.query.user_id);
-
-            // console.log(res);
           } catch (e) {}
         });
 

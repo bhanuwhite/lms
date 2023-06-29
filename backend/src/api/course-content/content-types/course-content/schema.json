@@ -27,7 +27,8 @@
       "required": false,
       "allowedTypes": [
         "images",
-        "videos"
+        "videos",
+        "files"
       ]
     },
     "link": {
@@ -66,16 +67,6 @@
     "creator_id": {
       "type": "biginteger"
     },
-    "rating": {
-      "type": "enumeration",
-      "enum": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E"
-      ]
-    },
     "no_of_purchases": {
       "type": "biginteger",
       "default": "0"
@@ -86,6 +77,57 @@
         "Beginner",
         "Intermediate",
         "Advanced"
+      ]
+    },
+    "total_duration": {
+      "type": "biginteger",
+      "default": "0"
+    },
+    "video_name": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "enumeration",
+      "enum": [
+        "Business development",
+        "Database",
+        "Information & cyber security",
+        "Software development",
+        "Web development"
+      ]
+    },
+    "discount": {
+      "type": "biginteger",
+      "default": "0"
+    },
+    "files": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "pre_learning": {
+      "type": "json"
+    },
+    "course_include": {
+      "type": "json"
+    },
+    "user_learning": {
+      "type": "json"
+    },
+    "rating": {
+      "type": "integer",
+      "max": 5,
+      "min": 1
+    },
+    "pre_learning_img": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
       ]
     }
   }
