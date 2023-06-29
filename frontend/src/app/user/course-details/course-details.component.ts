@@ -76,10 +76,13 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
         .subscribe((res) => {
           this.Spinner = false;
           this.userCourseData = res.data;
+
           this.putId = this.userCourseData.attributes.course_ids.data[0].id;
           this.courseId = this.userCourseData.id;
           this.defaultVideo();
           resolve();
+  console.log(this.userCourseData);
+
         })),
         (error: any) => {
           reject(error);
@@ -93,6 +96,8 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
       this.apiService.getUserCourse(this.userID).subscribe((res) => {
         res.map((resData:any)=>{
           this.libDataIds.push(resData.course_ids[0]?.id)
+          console.log();
+
         })
         resolve(),
           (err: any) => {
@@ -177,11 +182,41 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     this.ratingDialog=true;
   }
 
-  userRating(rating:any){
 
-console.log(rating);
+ userRating(rating:any){
+
+// console.log(rating);
+// console.log(this.userCourseData.attributes.course_ids.data[0].id);
+  console.log(this.userCourseData);
+
+const course_id = this.userCourseData.attributes.course_ids.data[0].id;
+
+
+const ratingBody={
+
+  data : {
+    course_id :this.userCourseData.attributes.course_ids.data[0].id,
+    user_id : this.userID,
+    rating : rating
+    }
+}
+console.log(ratingBody);
+
+
+this.apiService.postUserRatings(ratingBody).subscribe((res:any)=>{
+  console.log(res);
+
+})
+
+this.apiService.getUserRatings(course_id).subscribe((res:any)=>{
+  console.log(res);
+
+})
+
 
   }
+
+
 
   ngOnDestroy(): void {
     this.LibraryContent$.unsubscribe();

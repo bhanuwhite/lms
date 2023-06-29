@@ -240,6 +240,11 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   // get content
+  totalAvgRating :number=0;
+  sum :number=0;
+  ratingData:any
+  // Get Content
+
   public getContent(): void {
     this.loadingSpinner = true;
     this.apiService.getContent().subscribe((res: AllCourseContent) => {
@@ -248,6 +253,44 @@ export class ContentComponent implements OnInit, OnDestroy {
         this.contentData2 = res.data;
         this.loadingSpinner = false;
         // console.log(this.contentData);
+
+
+        for (let i = 0; i < this.contentData.length; i++) {
+
+
+          this.apiService.getUserRatings(this.contentData[i].id).subscribe((res:any)=>{
+            console.log(res);
+
+            for (let j = 0; j < res.length; j++) {
+
+              this.sum = res[j].rating + this.sum;
+
+            }
+
+
+            this.totalAvgRating = (this.sum /  res.length);
+
+
+           this.ratingData ={
+            data:{
+              rating:this.totalAvgRating
+            }
+           }
+
+            this.apiService.updateContent(this.contentData[i].id, this.ratingData).subscribe((res)=>{
+              console.log(res);
+            })
+
+
+            this.sum =  0
+          })
+         }
+
+
+
+
+
+
       } catch (error) {
         this.messageService.add({
           severity: 'error',
@@ -581,6 +624,8 @@ export class ContentComponent implements OnInit, OnDestroy {
 
     this.editDisply = true;
     this._data = item;
+    console.log(this._data.id);
+
     this.techString = item.attributes?.technology;
     this.subjectString = item.attributes?.subject;
     this.levelString = item.attributes?.level;
@@ -685,6 +730,8 @@ export class ContentComponent implements OnInit, OnDestroy {
         course_include: this.courseUpdateGroup.value.coursesIncludes,
       },
     };
+
+
 
     // Post api call here
     if (this.courseContentVideo.length != 0) {

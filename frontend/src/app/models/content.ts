@@ -25,6 +25,7 @@ export interface AllCourseContentData {
     technology: string;
     subject: string;
     level: string;
+    rating:number;
     no_of_purchases: number;
     total_duration:  number;
     course_duration:  any;

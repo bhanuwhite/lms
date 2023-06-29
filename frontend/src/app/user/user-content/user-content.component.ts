@@ -43,6 +43,7 @@ export class UserContentComponent {
   subjects: Subjects[] = [];
 
   formGroup!: FormGroup;
+  value: number =3
 
   ngOnInit(): void {
     this.getContent();
@@ -66,7 +67,7 @@ export class UserContentComponent {
 
   public getLocalData(): void {
     const getLocalData = JSON.parse(localStorage.getItem('user')!);
-    this.userID = getLocalData.id;
+    this.userID = getLocalData?.id;
   }
 
   public myCourseLen: number = 0;
@@ -132,7 +133,7 @@ export class UserContentComponent {
     location.reload();
   }
 
-  // Get Content
+//GET CONTENT
   public getContent(): void {
     this.apiService.getContent().subscribe((res) => {
       try {
@@ -142,10 +143,46 @@ export class UserContentComponent {
         this.courseList2 = res.data;
         this.items = res.data;
         this.isLoading = true;
+        console.log(this.coursesList);
+
+
+      //  for (let i = 0; i < this.coursesList.length; i++) {
+
+
+      //   this.apiService.getUserRatings(this.coursesList[i].id).subscribe((res:any)=>{
+      //     console.log(res);
+
+      //     for (let j = 0; j < res.length; j++) {
+
+      //       this.sum = res[j].rating + this.sum;
+
+      //     }
+      //     console.log(this.sum);
+
+      //     this.totalAvgRating = (this.sum /  res.length);
+      //     console.log(this.totalAvgRating);
+
+      //    const ratingData ={
+      //     data:{
+      //       rating:this.totalAvgRating
+      //     }
+      //    }
+
+      //     // this.apiService.updateContent(ratingData).subscribe((res)=>{
+      //     //   console.log(res);
+      //     // })
+
+      //      this.coursesList[i].attributes.rating = this.totalAvgRating
+      //     this.sum =  0
+      //   })
+      //  }
+
       } catch (error) {
         console.log(error);
       }
     });
+
+
   }
 
   public searchFunction() {
