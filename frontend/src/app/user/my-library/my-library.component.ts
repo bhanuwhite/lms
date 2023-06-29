@@ -53,7 +53,6 @@ export class MyLibraryComponent implements OnInit {
           res.map((courseRes: any) => {
             if (courseRes.course_ids.length != 0) {
               this.courseData.push(courseRes);
-              console.log(this.courseData);
 
             }
           });
