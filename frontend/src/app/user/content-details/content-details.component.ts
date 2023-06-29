@@ -28,9 +28,10 @@ import { CartResponse } from 'src/app/models/cart';
 })
 export class ContentDetailsComponent implements OnInit {
   public displayDialog = false;
+   showSpinner:boolean = true;
   public courseId!: number;
   public userID!: number;
-  public singleCourse!: AllCourseContentData;
+  public singleCourse!: any;
   userCourses: AllCourseContentData[] = [];
   userCourseID: number[] = [];
   @ViewChild('courseVideoElmt') courseVideoElmt!: ElementRef;
@@ -88,6 +89,7 @@ export class ContentDetailsComponent implements OnInit {
   public getCourses(): void {
     this.apiService.getContent().subscribe((res) => {
       this.userCourses = res.data;
+      this.showSpinner = false;
     });
   }
 
@@ -98,6 +100,7 @@ export class ContentDetailsComponent implements OnInit {
       });
       this.apiService.getSingleContent(this.courseId).subscribe((res) => {
         this.singleCourse = res['data'];
+
       });
       resolve();
       (error: any) => {
@@ -111,7 +114,7 @@ export class ContentDetailsComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.apiService.getUserCart(this.userID).subscribe((res) => {
         res.map((resObj: CartResponse) => {
-          this.userCourseID.push(resObj.course_ids[0].id);
+          this.userCourseID.push(resObj.course_ids[0]?.id);
         });
         this.userCourseID = [...new Set(this.userCourseID)];
         this.aboutService.userCartLength(res.length);

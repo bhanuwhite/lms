@@ -17,6 +17,7 @@ export class AboutService {
   get nativeWindow() : any {
     return _window();
  }
+
   private aboutLms = '../../assets/data/about/aboutlms.json';
   constructor(private httpClientRef: HttpClient) {}
   //get aboutlms data

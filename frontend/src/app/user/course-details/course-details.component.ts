@@ -91,11 +91,9 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   public gettingUserHasCourse(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.apiService.getUserCourse(this.userID).subscribe((res) => {
-        console.log(res);
         res.map((resData:any)=>{
-          this.libDataIds.push(resData.course_ids[0].id)
+          this.libDataIds.push(resData.course_ids[0]?.id)
         })
-        console.log(this.libDataIds);
         resolve(),
           (err: any) => {
             reject(err);
@@ -171,6 +169,18 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     } else {
       this.accordianTabIndex = index;
     }
+  }
+
+  public ratingDialog :boolean= false;
+  openRating(){
+    console.log("hello");
+    this.ratingDialog=true;
+  }
+
+  userRating(rating:any){
+
+console.log(rating);
+
   }
 
   ngOnDestroy(): void {

@@ -7,7 +7,6 @@
       </span>
       <i class="pi pi-times cursor-pointer site-name close-menu" style="font-size: 20px" (click)="step=1"></i>
     </div>
-    <!-- <hr class="p-0 m-0"> -->
     <div class="sidebar-content">
       <div class="list-wrapper">
         <ul class="listbox-list">
@@ -20,23 +19,12 @@
           <li class="listbox-item" routerLink="/admin/content" [class.active]="isActive('/admin/content')">
             <i class="pi pi-file-edit me-2"></i> <span>Courses</span>
           </li>
-          <!-- <li [class.active]="isActive('/admin/courses')" class="listbox-item" routerLink="/admin/courses">
-                        <i class="pi pi-book me-2"></i> <span>Course</span>
-                    </li> -->
           <li class="listbox-item" [class.active]="isActive('/admin/quiz')" routerLink="/admin/quiz">
             <i class="pi pi-stopwatch me-2"></i> <span>Assessments</span>
           </li>
           <li class="listbox-item" [class.active]="isActive('/admin/trackuser')" routerLink="/admin/trackuser">
             <i class="pi pi-user me-2"></i><span>Track_Users</span>
           </li>
-          <!-- <li class="listbox-item" [class.active]="isActive('/admin/community-forum')"
-                        routerLink="/admin/community-forum">
-                        <i class="pi pi-users me-2"></i> <span>Community Forum</span>
-                    </li>
-                    <li class="listbox-item" [class.active]="isActive('/admin/messages')" routerLink="/admin/messages">
-                        <i class="pi pi-envelope me-2"></i> <span>Messages</span>
-                    </li> -->
-
           <hr class="mt-4 mb-2">
 
         </ul>
@@ -50,18 +38,7 @@
       <li class="listbox-item" (click)="onLogout()">
         <i class="pi pi-sign-out me-2"></i> <span>Logout</span>
       </li>
-      <!-- <ul class="listbox-list">
-                <hr class="mb-2">
-                <li class="listbox-item">
-                    <span>Privacy Statement</span>
-                </li>
-                <li class="listbox-item">
-                    <span>Support</span>
-                </li>
-                <li class="listbox-item">
-                    <span>Contact Us</span>
-                </li>
-            </ul> -->
+
     </div>
   </div>
   <div class="content-inner">
@@ -102,28 +79,19 @@
     </span>
   </ng-template>
   <ng-template pTemplate="content">
-    <li class="listbox-item" [class.active]="isActive('admin')" routerLink="/admin">
-      <span> <i class="pi pi-palette me-2"></i>Dashboard</span>
-    </li>
-    <li [class.active]="isActive('admin/content')" class="listbox-item" routerLink="/admin/content">
-      <span><i class="pi pi-file-edit me-2"></i>Content library</span>
-    </li>
-    <li [class.active]="isActive('admin/courses')" class="listbox-item" routerLink="/admin/courses">
-      <span><i class="pi pi-book me-2"></i>Course</span>
-    </li>
-    <li class="listbox-item" [class.active]="isActive('admin/quiz')" routerLink="/admin/quiz">
-      <span><i class="pi pi-stopwatch me-2"></i>Quiz</span>
-    </li>
-    <li class="listbox-item">
-      <span><i class="pi pi-calendar me-2"></i>Schedule</span>
-    </li>
-    <li class="listbox-item">
-      <span><i class="pi pi-envelope me-2"></i>Messages</span>
-    </li>
-    <li class="listbox-item">
-      <span><i class="pi pi-users me-2"></i>Groups</span>
-    </li>
 
+    <li class="listbox-item" [class.active]="isActive('/admin')" routerLink="/admin">
+      <i class="pi pi-chart-line me-2"></i> <span> Dashboard</span>
+    </li>
+    <li class="listbox-item" routerLink="/admin/content" [class.active]="isActive('/admin/content')">
+      <i class="pi pi-file-edit me-2"></i> <span>Courses</span>
+    </li>
+    <li class="listbox-item" [class.active]="isActive('/admin/quiz')" routerLink="/admin/quiz">
+      <i class="pi pi-stopwatch me-2"></i> <span>Assessments</span>
+    </li>
+    <li class="listbox-item" [class.active]="isActive('/admin/trackuser')" routerLink="/admin/trackuser">
+      <i class="pi pi-user me-2"></i><span>Track_Users</span>
+    </li>
 
   </ng-template>
   <ng-template pTemplate="footer">

@@ -33,7 +33,9 @@ export class MycartComponent implements OnInit {
     this.getLocalStoredData();
     this.getCartCourse();
     this.gettingUserHasCourse();
+
   }
+
   public getLocalStoredData() {
     const localStoredData = JSON.parse(localStorage.getItem('user')!);
     this.userID = localStoredData.id;
@@ -41,13 +43,18 @@ export class MycartComponent implements OnInit {
 
   public getCartCourse(): void {
     this.apiservice.getUserCart(this.userID).subscribe((res) => {
+      res.map((cartRes: any) => {
+        if (cartRes.course_ids.length == 0) {
+          this.apiservice.deleteCartItem(cartRes.id).subscribe();
+        }
+      });
       this.courseData = res;
-      this.aboutService.userCartLength(res.length);
 
+      this.aboutService.userCartLength(res.length);
       this.courseData.map((res) => {
-        if (res.course_ids[0].price != 0) {
+        if (res.course_ids[0]?.price != 0) {
           this.totalAmount =
-            Number(res.course_ids[0].price) + Number(this.totalAmount);
+            Number(res.course_ids[0]?.price) + Number(this.totalAmount);
         }
       });
     });
@@ -67,6 +74,8 @@ export class MycartComponent implements OnInit {
   }
 
   addToLibrary(course: any) {
+    console.log("Adding item to cart");
+
     this.purchases = course.course_ids[0].no_of_purchases;
     this.confirmationService.confirm({
       message: `Do you want to add this ${course?.course_ids[0].name} to Library?`,
@@ -130,8 +139,6 @@ export class MycartComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.apiservice.deleteCartItem(id).subscribe((res) => {
-          console.log(res);
-
           this.messageService.add({
             severity: 'success',
             summary: 'Course has been removed from Cart',

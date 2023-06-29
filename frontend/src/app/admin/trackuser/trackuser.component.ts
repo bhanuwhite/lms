@@ -14,39 +14,36 @@ export class TrackuserComponent implements OnInit, OnDestroy {
   public trackResponse: TrackResponseData[] = [];
   private TrackRes$: Subscription = new Subscription();
 
-  constructor(private apiservivce: ApiService, public router:Router) {}
+  constructor(private apiservivce: ApiService, public router: Router) {}
 
   ngOnInit(): void {
     this.getTrackApi();
   }
 
-  public getTrackApi():Promise<void> {
-    return new Promise((resolve,reject)=>{
+  public getTrackApi(): Promise<void> {
+    return new Promise((resolve, reject) => {
       this.TrackRes$ = this.apiservivce.getTrack().subscribe((res) => {
         this.trackResponse = res.data;
       });
       resolve();
-      (err:any)=>{
-        reject(err)
-      }
-    })
+      (err: any) => {
+        reject(err);
+      };
+    });
   }
 
-
-  public UseridRepeated(index:number):boolean{
+  public UseridRepeated(index: number): boolean {
     const currentUserId = this.trackResponse[index].attributes.user_id;
-    for(let i=0;i<index;i++){
-      if(this.trackResponse[i].attributes.user_id === currentUserId){
-        return true
+    for (let i = 0; i < index; i++) {
+      if (this.trackResponse[i].attributes.user_id === currentUserId) {
+        return true;
       }
     }
     return false;
   }
 
-  public showTrackDetails(id:number): void{
-    console.log(id);
-
-    this.router.navigate(['trackuser/',id])
+  public showTrackDetails(id: number): void {
+    this.router.navigate(['trackuser/', id]);
   }
 
   ngOnDestroy(): void {

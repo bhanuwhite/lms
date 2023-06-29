@@ -1,4 +1,4 @@
-<nav class="navbar  bg-blue navbar-expand-lg navbar-light shadow-sm" style="height: auto;">
+<nav class="navbar  bg-blue navbar-expand-lg navbar-light shadow-sm" style="height: 80px;">
   <div class="container-fluid">
     <div class="col-lg-2 cursor-pointer" routerLink="/user">
       <span class="d-flex align-items-center" style="color:  #fff;"><i class="pi pi-bolt" style="font-size: 2rem"></i>
@@ -7,7 +7,7 @@
   </div>
   <div class="col-lg-8 d-flex justify-content-center">
     <div class="collapse navbar-collapse justify-content-center" id="navbarNav" style="font-size: 24px;">
-      <ul class="navbar-nav   mb-lg-0" style="gap: 35px;">
+      <ul class="navbar-nav align-items-center b-lg-0" style="gap: 35px;">
         <li class="nav-item">
           <a class="nav-link nave-menu active" aria-current="page" routerLink="/user" routerLinkActive="active"
             style="font-size: 1.3rem;"> Home</a>
@@ -19,20 +19,24 @@
         <li class="nav-item">
           <a class="nav-link nave-menu" routerLink="/user/assessment" style="font-size: 1.3rem;">Assessment</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link nave-menu" routerLink="/user/mycart" style="font-size: 1.3rem;">
-            <i class="pi pi-shopping-cart mr-1" style="font-size: 1.5rem;">
-              <span pBadge styleClass="font-size:0.4rem" value={{cartLength}}></span>
-            </i>
-            Cart </a>
-        </li>
+
       </ul>
     </div>
   </div>
-  <div class="col-lg-2 d-flex justify-content-end cursor-pointer">
+  <div class="col-lg-2 d-flex justify-content-end align-items-center cursor-pointer me-3">
+
+    <div class="me-3">
+      <a class="" routerLink="/user/mycart" style="font-size: 1.3rem;">
+        <i class="pi pi-shopping-cart mr-1 text-white" style="font-size: 1.7rem;">
+          <span pBadge styleClass="font-size:0.4rem" value={{cartLength}}></span>
+        </i>
+      </a>
+    </div>
+    <div>
     <p-avatar shape="circle" size="large" icon="pi pi-user" (click)="menu.toggle($event)"
       [style]="{'background-color':'#2188d9', 'color': '#ffffff'}"></p-avatar>
     <p-menu #menu [popup]="true" [model]="items"></p-menu>
+    </div>
   </div>
 </nav>
 

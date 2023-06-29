@@ -92,7 +92,6 @@ export class QuizDetailsComponent implements OnInit {
   visible: boolean = false;
   result: string[] = [];
 
-  // public answerArray: any[] = [];
 
   showDialog(question: QuizResponse) {
     this.visible = true;
@@ -104,7 +103,7 @@ export class QuizDetailsComponent implements OnInit {
 
         this.categories.map(res=>{
           res.checked =false;
-    // this.answerArray.push(res);
+
         })
 
 
@@ -125,7 +124,7 @@ export class QuizDetailsComponent implements OnInit {
 
     const levelName = question.attributes.level;
     this._id = question.id;
-    // console.log(question);
+
 
     this.editQuizGroup = this.fb.group({
       Course_Name: new FormControl(question.attributes.course_name),
@@ -152,7 +151,7 @@ export class QuizDetailsComponent implements OnInit {
 
   onChange(name: string, selectedOption: EventTarget | null) {
 
-    // console.log(isChecked.checked);
+    console.log(selectedOption);
 
     if (selectedOption instanceof HTMLInputElement && selectedOption.checked !== undefined) {
       const checked = selectedOption.checked;
@@ -166,13 +165,20 @@ export class QuizDetailsComponent implements OnInit {
 
 
     } else {
-      let index = this.emailFormArray.controls.findIndex((x) => x.value == name)
-      this.emailFormArray.removeAt(index);
+
+
+      let index = this.emailFormArray.controls.findIndex((x) => x.value == name);
+      if (index !== -1) {
+        this.emailFormArray.removeAt(index);
 
     }
-this.emailFormArray.clear();
+
+
+    }
+
 
   }
+
   }
 
 

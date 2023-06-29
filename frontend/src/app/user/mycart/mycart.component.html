@@ -1,113 +1,74 @@
+<div class="content_part_wrapper">
 <div style="background-color: rgb(247, 243, 243)">
-  <div
-    class="d-flex flex-column justify-content-center align-items-center pt-5"
-    *ngIf="courseData.length == 0"
-  >
-    <img
-      src="../../../assets/img/myCart.PNG"
-      alt=""
-      style="height: 250px; width: 450px"
-    />
+  <div class="d-flex flex-column h-100 justify-content-center align-items-center pt-5" *ngIf="courseData.length == 0">
+    <img src="../../../assets/img/myCart.PNG" alt="" style="height: 250px; width: 450px" />
     <div class="mt-4">
       <button class="btn btn-primary btn-md m-4" routerLink="">
         Add Course
       </button>
     </div>
   </div>
-
-  <div class="row ms-4 p-4" *ngIf="courseData.length != 0">
-    <div class="">
-      <h2
-        class="fw-bold fs-1 pb-5"
-        style="
-          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
-            sans-serif;
-        "
-      >
-        Shoping Cart
-      </h2>
-      <!-- <div class="me-5">
-        <button class="btn btn-primary"  routerLink="/user/payment">CheckOut </button>
-      </div> -->
-
-      <h4>{{ courseData.length }} Courses in Cart</h4>
-    </div>
-
-    <div class="d-flex">
+  </div>
+  <div class="container-fluid px-4 py-4" *ngIf="courseData.length != 0">
+    <h1 class="fw-bold" style="font-size: 1.5rem;">
+      Shoping Cart
+    </h1>
+    <h4>{{ courseData.length }} Courses in Cart</h4>
+    <div class="row">
       <div class="col-lg-9">
-        <div class="col-lg-9" *ngFor="let course of courseData">
+        <div class="row" *ngFor="let course of courseData">
           <p-divider></p-divider>
-          <div class="d-flex">
-            <div class="d-flex col-lg-12">
-              <img
-                src="{{ course.course_ids[0].placeholder_img.url }}"
-                alt="img"
-                width="180px"
-                height="150px"
-                class="col-lg-4"
-              />
-              <div class="ms-5 col-lg-7">
-                <div class="col-lg-12 d-flex justify-content-between">
-                  <h3
-                  class="fs-5 "
-                  style="
-                    font-family: 'Gill Sans', 'Gill Sans MT', Calibri,
-                      'Trebuchet MS', sans-serif;
-                  "
-                >
-                  <b>{{ course.course_ids[0].name }}</b>
-                </h3>
+          <ng-container *ngIf="course.course_ids.length != 0">
+            <div class="col-lg-3">
+              <img src="{{ course.course_ids[0].placeholder_img.url }}" alt="img" width="180px" height="150px">
+            </div>
+            <div class="col-lg-5">
+              <h3 class="fs-5">
+                <b>{{ course.course_ids[0].name }}</b>
+              </h3>
+              <h4 class="textOverflow">
+                {{ course.course_ids[0].description }}
+              </h4>
+              <div class="d-flex">
+                <div *ngIf="course.course_ids[0]?.no_of_purchases >= 3">
+                  <button class="btn btn-outline-success btn-sm">
+                    Best Seller
+                  </button>
                 </div>
-                <h4 class="textOverflow col-lg-8">
-                  {{ course.course_ids[0].description }}
-                </h4>
                 <div class="d-flex">
-                  <div *ngIf="course.course_ids[0]?.no_of_purchases >= 3">
-                    <button class="btn btn-outline-success btn-sm">
-                      Best Seller
-                    </button>
-                  </div>
-                  <div class="d-flex ps-2">
-
-                    <p-rating
-                      class="pt-1 pe-2"
-                      value="4"
-                      [stars]="5"
-                      [cancel]="false"
-                    ></p-rating>
-                    <h3 >(4.5)</h3>
-                  </div>
-                </div>
-                <div>
-                  <ul class="d-flex" style="gap: 20px">
-                    <li class="mr-2">
-                      {{ course.course_ids[0].content.length }} Lectures
-                    </li>
-                    <li class="mr-2">{{ course.course_ids[0].level }}</li>
-                   <li> <b>₹  {{ course.course_ids[0].price}}</b></li>
-                  </ul>
+                  <p-rating class="pt-1" value="4" [stars]="5" [cancel]="false"></p-rating>
+                  <h3>(4.5)</h3>
                 </div>
               </div>
-
-              <div class="col-lg-2  align-items-center mt-5">
-
-                <button *ngIf="course.course_ids[0].price == 0" (click)="addToLibrary(course)" class="btn btn-outline-primary mb-2">AddToLibrary</button>
-                <button class="btn btn-outline-danger btn-sm" (click)="removeCourse(course.id)">Remove</button>
+              <div>
+                <ul class="d-flex px-3" style="gap: 20px">
+                  <li class="">
+                    {{ course.course_ids[0].content.length }} Lectures
+                  </li>
+                  <li class="mr-2">{{ course.course_ids[0].level }}</li>
+                  <li> <b>₹ {{ course.course_ids[0].price}}</b></li>
+                </ul>
               </div>
             </div>
-          </div>
+            <div class="col-lg-4" style="gap: 5px;">
+              <button *ngIf="course.course_ids[0].price == 0" (click)="addToLibrary(course)"
+                class="btn btn-outline-primary me-2">AddToLibrary</button>
+              <button class="btn btn-outline-danger" (click)="removeCourse(course.id)">Remove</button>
+            </div>
+          </ng-container>
         </div>
       </div>
-
       <div class="col-lg-3">
-        <h3 style="font-family: 'Courier New', Courier, monospace;"><b>Total:</b></h3>
-        <h2 class="fs-2" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">₹  {{totalAmount}}</h2>
-   <button  routerLink="/user/payment" class="btn btn-primary w-100 p-2">Checkout</button>
-   <p-divider></p-divider>
+        <p-divider></p-divider>
+        <div class="d-flex" style="gap: 10px;">
+          <h3 style="font-family: 'Courier New', Courier, monospace;"><b>Total:</b></h3>
+          <h2 class="fs-2" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+            ₹{{totalAmount}}</h2>
+        </div>
+        <button routerLink="/user/payment" class="btn btn-primary w-100 p-2">Checkout</button>
       </div>
     </div>
   </div>
-
   <div class="card flex justify-content-center">
     <p-toast></p-toast>
     <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
