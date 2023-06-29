@@ -281,3 +281,20 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+@media (min-width: 1023px) and (max-width: 1600px){
+  .mobile_header{
+    display: none !important;
+ }
+}
+@media (min-width: 319px) and (max-width: 768px) {
+  .large_header{
+    display: none;
+  }
+  button.menu-button {
+    display: block;
+    padding: 10px 15px;
+    background: #fff0;
+    border-radius: 5px;
+    border: 1px solid #000;
+}
+}
