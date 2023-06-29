@@ -59,6 +59,7 @@ import { MycartComponent } from './mycart/mycart.component';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { BadgeModule } from 'primeng/badge';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { SidebarModule } from 'primeng/sidebar';
 
 @NgModule({
   declarations: [
@@ -134,7 +135,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     ToastModule,
     ConfirmPopupModule,
     BadgeModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    SidebarModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
