@@ -41,7 +41,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   timeConsumedByUser: number = 0;
   watchedDurations: { name: string; duration: number }[] = [];
   timeArray: number[] = [];
-  putId!: number;
+  course_id!: number;
   accordianTabIndex: number = -1;
   putLibId!: number;
   @ViewChild('Course_video') Course_video!: ElementRef;
@@ -54,8 +54,10 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.activeParams();
     this.getLocalStoredData();
-    this.getLibraryData();
-    this.gettingUserHasCourse()
+    this.gettingUserHasCourse();
+    this.getLibraryData().then(() => this.getRating());
+
+    this.getContent();
   }
 
   public activeParams() {
@@ -77,12 +79,10 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
           this.Spinner = false;
           this.userCourseData = res.data;
 
-          this.putId = this.userCourseData.attributes.course_ids.data[0].id;
+          this.course_id = this.userCourseData.attributes.course_ids.data[0].id;
           this.courseId = this.userCourseData.id;
           this.defaultVideo();
           resolve();
-  console.log(this.userCourseData);
-
         })),
         (error: any) => {
           reject(error);
@@ -94,11 +94,10 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   public gettingUserHasCourse(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.apiService.getUserCourse(this.userID).subscribe((res) => {
-        res.map((resData:any)=>{
-          this.libDataIds.push(resData.course_ids[0]?.id)
-          console.log();
+        res.map((resData: any) => {
+          this.libDataIds.push(resData.course_ids[0]?.id);
 
-        })
+        });
         resolve(),
           (err: any) => {
             reject(err);
@@ -144,8 +143,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
     this.PutUserHasCourse$ = this.apiService
       .putUserHasCourse(this.courseId, putBody)
-      .subscribe((res) => {
-      });
+      .subscribe((res) => {});
   }
 
   // Displaying Default video 1st
@@ -176,47 +174,103 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  public ratingDialog :boolean= false;
-  openRating(){
-    console.log("hello");
-    this.ratingDialog=true;
+  CourseRating_UserIds: any[] = [];
+
+  getRating() {
+    this.apiService.getUserRatings(this.course_id).subscribe((res: any) => {
+      for (let i = 0; i < res.length; i++) {
+        this.CourseRating_UserIds.push(JSON.parse(res[i].user_id));
+      }
+    });
   }
 
-
- userRating(rating:any){
-
-// console.log(rating);
-// console.log(this.userCourseData.attributes.course_ids.data[0].id);
-  console.log(this.userCourseData);
-
-const course_id = this.userCourseData.attributes.course_ids.data[0].id;
-
-
-const ratingBody={
-
-  data : {
-    course_id :this.userCourseData.attributes.course_ids.data[0].id,
-    user_id : this.userID,
-    rating : rating
-    }
-}
-console.log(ratingBody);
-
-
-this.apiService.postUserRatings(ratingBody).subscribe((res:any)=>{
-  console.log(res);
-
-})
-
-this.apiService.getUserRatings(course_id).subscribe((res:any)=>{
-  console.log(res);
-
-})
-
-
+  visible: boolean = false;
+  showDialog() {
+    this.visible = true;
   }
 
+  userRating(rating: number) {
+    this.visible = false;
+    const ratingBody = {
+      data: {
+        course_id: this.course_id,
+        user_id: this.userID,
+        rating: rating,
+      },
+    };
 
+    this.apiService.postUserRatings(ratingBody).subscribe((res: any) => {
+      this.getContent();
+      this.getRating();
+    });
+  }
+
+  // updateRating(updatedRating: number) {
+  //   const updatedRatingBody = {
+  //     data: {
+  //       course_id: this.course_id,
+  //       user_id: this.userID,
+  //       rating: updatedRating,
+  //     },
+  //   };
+
+  //   this.apiService
+  //     .upadateUserRatings(this.userID, updatedRatingBody)
+  //     .subscribe((res: any) => {});
+
+  //   this.visible = false;
+  // }
+
+  contentData: any;
+  totalAvgRating: number | null = 0;
+  sum: number = 0;
+  ratingData: any;
+
+  public getContent(): void {
+    this.apiService.getContent().subscribe((res) => {
+      try {
+        this.contentData = res.data;
+
+        for (let i = 0; i < this.contentData.length; i++) {
+          this.apiService
+            .getUserRatings(this.contentData[i].id)
+            .subscribe((res: any) => {
+              for (let j = 0; j < res.length; j++) {
+                this.sum = res[j].rating + this.sum;
+              }
+
+              this.totalAvgRating = this.sum / res.length;
+
+              if (
+                isNaN(this.totalAvgRating) ||
+                this.totalAvgRating === Infinity ||
+                this.totalAvgRating === -Infinity
+              ) {
+                this.totalAvgRating = null;
+              }
+
+              this.ratingData = {
+                data: {
+                  rating: this.totalAvgRating?.toFixed(0),
+                },
+              };
+
+              this.apiService
+                .updateContent(this.contentData[i].id, this.ratingData)
+                .subscribe((res) => {});
+
+              this.sum = 0;
+            });
+        }
+      } catch (error) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error !!',
+          detail: 'Something went wrong !!',
+        });
+      }
+    });
+  }
 
   ngOnDestroy(): void {
     this.LibraryContent$.unsubscribe();

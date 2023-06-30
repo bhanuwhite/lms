@@ -240,7 +240,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   // get content
-  totalAvgRating :number=0;
+  totalAvgRating :number | null =0;
   sum :number=0;
   ratingData:any
   // Get Content
@@ -252,14 +252,12 @@ export class ContentComponent implements OnInit, OnDestroy {
         this.contentData = res.data;
         this.contentData2 = res.data;
         this.loadingSpinner = false;
-        // console.log(this.contentData);
-
 
         for (let i = 0; i < this.contentData.length; i++) {
 
 
           this.apiService.getUserRatings(this.contentData[i].id).subscribe((res:any)=>{
-            console.log(res);
+
 
             for (let j = 0; j < res.length; j++) {
 
@@ -269,16 +267,23 @@ export class ContentComponent implements OnInit, OnDestroy {
 
 
             this.totalAvgRating = (this.sum /  res.length);
+            if (
+              isNaN(this.totalAvgRating) ||
+              this.totalAvgRating === Infinity ||
+              this.totalAvgRating === -Infinity
+            ) {
+              this.totalAvgRating = null;
+            }
 
 
            this.ratingData ={
             data:{
-              rating:this.totalAvgRating
+              rating:this.totalAvgRating?.toFixed(0)
             }
            }
 
             this.apiService.updateContent(this.contentData[i].id, this.ratingData).subscribe((res)=>{
-              console.log(res);
+
             })
 
 

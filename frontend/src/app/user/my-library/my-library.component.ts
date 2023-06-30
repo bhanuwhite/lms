@@ -53,7 +53,6 @@ export class MyLibraryComponent implements OnInit {
           res.map((courseRes: any) => {
             if (courseRes.course_ids.length != 0) {
               this.courseData.push(courseRes);
-              console.log(this.courseData);
 
             }
           });
@@ -69,14 +68,6 @@ export class MyLibraryComponent implements OnInit {
   }
 
 
-  // get rating
-
-  public userRating(rating_value: any, course:any) {
-
-    console.log(rating_value);
-    console.log(course.course_ids[0].rating);
-
-  }
 
   filterCourseData(): void {
     if (this.searchWord) {

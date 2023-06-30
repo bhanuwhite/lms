@@ -29,6 +29,7 @@ export class UserHeaderComponent implements OnInit {
   changePassword!: FormGroup;
   public toNewPassword: boolean = true;
   errorMessageObj!: any;
+  visibleSidebar1!:boolean
 
   constructor(
     private router: Router,
@@ -140,6 +141,10 @@ export class UserHeaderComponent implements OnInit {
   public cancelForm() {
     this.passwordDialog = false;
   }
+
+  public isActive(base: string): boolean {
+    return this.router.url === base;//.includes(`${base}`);
+}
 
   currentPwdInput: boolean = false;
   public changePassowrdSubmit(): void {
