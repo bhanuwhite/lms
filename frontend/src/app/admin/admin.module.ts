@@ -55,6 +55,7 @@ import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
 import { TrackuserComponent } from './trackuser/trackuser.component';
 import { TrackDetailsComponent } from './track-details/track-details.component';
 
+
 @NgModule({
   declarations: [
     AdminComponent,
@@ -69,7 +70,8 @@ import { TrackDetailsComponent } from './track-details/track-details.component';
     AccountSettingsComponent,
     QuizDetailsComponent,
     TrackuserComponent,
-    TrackDetailsComponent
+    TrackDetailsComponent,
+
 
   ],
   imports: [
