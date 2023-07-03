@@ -281,11 +281,30 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.category_dropdown{
+  .p-dropdown{
+    width: 100%;
+    height: 58px;
+  }
+}
 
-@media (min-width: 1023px) and (max-width: 1600px){
+@media (min-width: 1023px) and (max-width: 3000px){
   .mobile_header{
     display: none !important;
  }
+}
+@media (min-width: 769px) and (max-width: 1022px){
+  .large_header{
+    display: none !important;
+  }
+  button.user_bar {
+    display: block;
+    padding: 10px 15px;
+    color: #fff;
+    background: #fff0;
+    border-radius: 5px;
+    border: 2px solid #fff;
+}
 }
 @media (min-width: 319px) and (max-width: 768px) {
   .p-tabview-panels {
@@ -295,7 +314,7 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
     margin: 5px !important;
   }
   .large_header{
-    display: none;
+    display: none !important;
   }
   button.user_bar {
     display: block;
