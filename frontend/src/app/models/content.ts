@@ -23,10 +23,16 @@ export interface AllCourseContentData {
     publishedAt?: string;
     status: string;
     technology: string;
+    subject: string;
     level: string;
     no_of_purchases: number;
-    course_duration: any;
+    total_duration:  number;
+    course_duration:  any;
     user_id: string | number;
+    pre_learning:any,
+    user_learning:{u_learn:string}[],
+    course_include:string[]
+
   };
 }
 
@@ -161,12 +167,20 @@ export interface postCourseContentData {
     price?: number | string;
     status?: string;
     technology?: string;
+    subject?: string;
     user_id?: number;
     no_of_purchases?: number;
+    user_learning?:any,
+    pre_learning?:any,
+    course_include?:any,
+    files?:any
   };
 }
 
 // END..
+
+
+
 
 export interface ContentResponse {
   id: number;

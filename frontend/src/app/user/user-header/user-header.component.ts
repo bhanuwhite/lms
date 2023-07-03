@@ -149,7 +149,6 @@ export class UserHeaderComponent implements OnInit {
       password: this.changePassword.value.newPassword,
       passwordConfirmation: this.changePassword.value.confirmPassword,
     };
-    console.log(postData);
 
     this.authService.resetPassword(postData).subscribe(
       (res) => {

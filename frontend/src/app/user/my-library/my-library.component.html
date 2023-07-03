@@ -1,87 +1,89 @@
+<div class="content_part_wrapper">
 <div class="container-fluid px-4 py-4">
   <h1 style="font-size: 1.5rem;"><b>My Libraries</b> </h1>
 
   <div class="d-flex justify-content-center" *ngIf="courseData?.length == 0">
     <div class="card shadow-4 col-lg-3 " style="height: 100px;">
       <div class="card-body text-center d-flex justify-content-center align-items-center">
-        <p class="fs-4"> No courses has been subscribed.</p>
+        <p class="fs-4 lh-sm"> No courses has been subscribed.</p>
       </div>
     </div>
   </div>
-
-
 </div>
 <div *ngIf="Spinner">
   <div class="loader">Loading...</div>
 </div>
-<div class="container-fluid px-4" *ngIf="!Spinner">
-  <p-tabView>
-    <p-tabPanel header="All Course">
+<ng-container class="container-fluid px-4" *ngIf="!Spinner">
+  <div *ngIf="courseData.length !=0">
+    <p-tabView>
+      <p-tabPanel header="All Course">
 
-      <div class="row filter mt-4">
-        <div class="col-lg-3 mb-1">
-          <div class="d-flex">
+        <div class="row filter mt-4">
+          <div class="col-lg-3 mb-1">
+            <div class="d-flex">
 
               <span class="p-input-icon-left w-100">
                 <i class="pi pi-search"></i>
-                <input type="text" class="w-100" pInputText [(ngModel)]="searchWord" (ngModelChange)="filterCourseData()"
-                  placeholder="Search Course...." />
+                <input type="text" class="w-100" pInputText [(ngModel)]="searchWord"
+                  (ngModelChange)="filterCourseData()" placeholder="Search Course...." />
               </span>
-
-            <!-- <input type="search" class="form-control w-100" [(ngModel)]="searchWord" placeholder="Enter Course Name"
-              (ngModelChange)="filterCourseData()" style="line-height: 2;">
-            <button class="btn btn-dark" style="width: 50px;"><i class="pi pi-search"></i></button> -->
-          </div>
-        </div>
-
-      </div>
-      <div class="row mt-4" >
-        <div class="col-lg-3 mb-4" *ngFor="let course of courseData">
-          <div class="card course-card">
-            <div class="img-header">
-              <a [routerLink]="['/user/library',course.id]" routerLinkActive="routerActive">
-                <div>
-                  <img
-                    src={{course?.course_ids[0]?.placeholder_img?.formats.thumbnail.url}}
-                    alt="" class="courseFigure">
-                </div>
-              </a>
-            </div>
-            <hr class="m-0 p-0">
-            <h2 class="cursor-pointer px-3 textOverflow" style="cursor: pointer;">
-              {{course?.course_ids[0]?.name}}</h2>
-            <div class="px-3"  >
-              <div class="text-wrap course-disc" [routerLink]="['/user/library',course.id]"   >
-                <p class="cursor-pointer textOverflow ">{{course?.course_ids[0]?.description}} </p>
-              </div>
-              <div class=" cursor-pointer" [routerLink]="['/user/library',course.id]">
-                <div class="progress mt-4" style="height: 4px;">
-                  <div class="progress-bar bg-primary" role="progressbar" [style.width]="course.progress_percentage + '%'"
-                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <p> {{course.progress_percentage}} % Complete</p>
-              </div>
-              <div class="d-flex mt-4">
-                <div class="d-flex m-2 justify-content-end">
-
-                  <p-rating #ratingComponent [stars]="5" [cancel]="false" (onRate)="userRating(ratingComponent.value)"></p-rating>
-
-                </div>
-
-              </div>
-              <div class="d-flex justify-content-end mb-2" *ngIf="course?.course_ids[0]?.price == 0">
-                  <i class=" mr-4 p-text-danger cursor-pointer" pBadge style="font-size: 2rem" severity="danger" value="Remove" (click)="removeCourse(course.id)"></i>
-
-              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </p-tabPanel>
 
-  </p-tabView>
-</div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-lg-3 mb-4" *ngFor="let course of courseData">
+            <ng-container *ngIf="course.course_ids.length != 0">
+              <div class="card course-card">
+                <div class="img-header">
+                  <a [routerLink]="['/user/library',course.id]" routerLinkActive="routerActive">
+                    <div>
+                      <img src={{course?.course_ids[0]?.placeholder_img?.formats.thumbnail.url}} alt=""
+                        class="courseFigure">
+                    </div>
+                  </a>
+                </div>
+                <hr class="m-0 p-0">
+                <h2 class="cursor-pointer px-3 textOverflow" style="cursor: pointer;">
+                  {{course?.course_ids[0]?.name}}</h2>
+                <div class="px-3">
+                  <div class="text-wrap course-disc" [routerLink]="['/user/library',course.id]">
+                    <p class="cursor-pointer textOverflow ">{{course?.course_ids[0]?.description}} </p>
+                  </div>
+                  <div class=" cursor-pointer" [routerLink]="['/user/library',course.id]">
+                    <div class="progress mt-4" style="height: 4px;">
+                      <div class="progress-bar bg-primary" role="progressbar"
+                        [style.width]="course.progress_percentage + '%'" aria-valuenow="75" aria-valuemin="0"
+                        aria-valuemax="100"></div>
+                    </div>
+                    <p> {{course.progress_percentage}} % Complete</p>
+                  </div>
+                  <div class="d-flex mt-4">
+                    <div class="d-flex m-2 justify-content-end">
+
+                      <p-rating #ratingComponent [stars]="5" [cancel]="false"
+                        (onRate)="userRating(ratingComponent.value, course)"></p-rating>
+
+                    </div>
+
+                  </div>
+                  <div class="d-flex justify-content-end mb-2" *ngIf="course?.course_ids[0]?.price == 0">
+                    <i class=" mr-4 p-text-danger cursor-pointer" pBadge style="font-size: 2rem" severity="danger"
+                      value="Remove" (click)="removeCourse(course.id)"></i>
+
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </p-tabPanel>
+
+    </p-tabView>
+  </div>
+</ng-container>
 <div>
   <p-toast></p-toast>
   <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+</div>
 </div>

@@ -38,7 +38,7 @@ import { ContentComponent } from './content/content.component';
 import { MegaMenuModule } from 'primeng/megamenu';
 import {TabViewModule} from 'primeng/tabview';
 import { ToolbarModule } from 'primeng/toolbar';
-import { CourseDetailsComponent } from './course-details/course-details.component';
+// import { CourseDetailsComponent } from './course-details/course-details.component';
 import {AccordionModule} from 'primeng/accordion';
 import { MeetingsComponent } from './meetings/meetings.component';
 import {CheckboxModule} from 'primeng/checkbox';
@@ -69,7 +69,7 @@ import { TrackDetailsComponent } from './track-details/track-details.component';
     DashboardComponent,
     SpinnerComponent,
     ContentComponent,
-    CourseDetailsComponent,
+
     MeetingsComponent,
     ProfileComponent,
     CommunityForumComponent,

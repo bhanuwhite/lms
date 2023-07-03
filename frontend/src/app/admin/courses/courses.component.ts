@@ -54,7 +54,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   editFormGroup!: FormGroup;
   courseFileData!: number | undefined;
   assignFileData!: number | undefined;
-  updateAssignFileData!: number ;
+  updateAssignFileData!: number;
   updateFileData!: number;
   courseData: CourseResData[] = [];
   editData!: CoursesDataObj;
@@ -105,14 +105,12 @@ export class CoursesComponent implements OnInit, OnDestroy {
       this.addFormGroup.get('courseFile')?.setValue(file);
       const formData = new FormData();
       formData.append('files', this.addFormGroup.get('courseFile')?.value);
-      console.log('form Data', formData);
 
       this.courseFileUploadSubscription$ = this.apiService
         .uploadFile(formData)
         .subscribe((res) => {
           try {
             this.courseFileData = res[0].id;
-            console.log('courseFileData', this.courseFileData);
           } catch (error) {
             this.messageService.add({
               severity: 'error',
@@ -137,7 +135,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
         .subscribe((res) => {
           try {
             this.assignFileData = res[0].id;
-            console.log('assignFileData', this.assignFileData);
           } catch (error) {
             this.messageService.add({
               severity: 'error',
@@ -206,11 +203,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
       .getCourses()
       .subscribe((res) => {
         try {
-          console.log(res.data);
-
           this.courseData = res.data;
           this.searchData = res.data;
-          console.log(this.courseData);
           this.isLoading = false;
         } catch (error) {
           this.messageService.add({
@@ -242,7 +236,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
         title: this.addFormGroup.value.title,
       },
     };
-console.log(this.courseBody.data);
 
     this.coursePostSubscription$ = this.apiService
       .postCourse(this.courseBody)
@@ -268,10 +261,9 @@ console.log(this.courseBody.data);
     // this.addFormGroup.get('assignFile')?.setValue(null);
     // this.assignFileData=[]
     // this.courseFileData=[]
-    this.assignFileData= undefined;
-      this.courseFileData = undefined
+    this.assignFileData = undefined;
+    this.courseFileData = undefined;
     this.addFormGroup.reset();
-
   }
 
   public editDialog(data: CoursesDataObj): void {
@@ -392,8 +384,11 @@ console.log(this.courseBody.data);
   public searchData!: any[];
   searchWord: string = '';
   public searchFun() {
-    this.courseData = this.searchData.filter((course:any) => course.attributes.title.toLowerCase().includes(this.searchWord.toLowerCase()));
-    console.log(this.searchWord);
+    this.courseData = this.searchData.filter((course: any) =>
+      course.attributes.title
+        .toLowerCase()
+        .includes(this.searchWord.toLowerCase())
+    );
   }
 
   ngOnDestroy(): void {

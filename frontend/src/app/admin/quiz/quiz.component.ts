@@ -17,9 +17,14 @@ import { Router } from '@angular/router';
 import { ConfirmationService, Message, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { AllCourseContent, AllCourseContentData } from 'src/app/models/content';
-import { Quiz,answers,level, QuizData, QuizResponse } from 'src/app/models/quiz';
+import {
+  Quiz,
+  answers,
+  level,
+  QuizData,
+  QuizResponse,
+} from 'src/app/models/quiz';
 import { ApiService } from 'src/app/services/api.service';
-
 
 @Component({
   selector: 'app-quiz',
@@ -65,7 +70,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   public answersArray: answers[] = [
     { name: 'A', checked: false },
     { name: 'B', checked: false },
-    { name: 'C',  checked: false },
+    { name: 'C', checked: false },
     { name: 'D', checked: false },
   ];
 
@@ -76,8 +81,6 @@ export class QuizComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private route: Router
   ) {}
-
-
 
   ngOnInit(): void {
     this.getCourseContentDetails();
@@ -99,34 +102,28 @@ export class QuizComponent implements OnInit, OnDestroy {
     });
   }
 
+  onChange(name: string, selectedOption: EventTarget | null) {
 
-
-
-
-  onChange(name: string, selectedOption:EventTarget | null) {
-    console.log(selectedOption);
-
-    if (selectedOption instanceof HTMLInputElement && selectedOption.checked !== undefined) {
+    if (
+      selectedOption instanceof HTMLInputElement &&
+      selectedOption.checked !== undefined
+    ) {
       const checked = selectedOption.checked;
 
+      const emailFormArray = <FormArray>(
+        this.addQuizGroup.controls['checkArray']
+      );
 
-    const emailFormArray = <FormArray>this.addQuizGroup.controls['checkArray'];
-
-
-    if (checked) {
-      emailFormArray.push(new FormControl(name));
-
-    } else {
-      let index = emailFormArray.controls.findIndex((x) => x.value == name);
-      emailFormArray.removeAt(index);
+      if (checked) {
+        emailFormArray.push(new FormControl(name));
+      } else {
+        let index = emailFormArray.controls.findIndex((x) => x.value == name);
+        emailFormArray.removeAt(index);
+      }
     }
-
-
   }
-}
 
   public elements = document.getElementsByTagName('input');
-
 
   onSubmitQuestionDetails() {
     this.visible = false;
@@ -148,10 +145,8 @@ export class QuizComponent implements OnInit, OnDestroy {
         course_name: this.addQuizGroup.value.Course_Name,
       },
     };
-    console.log(this.quizBody);
 
     this.apiService.postQuiz(this.quizBody).subscribe((res) => {
-
       try {
         this.messageService.add({
           severity: 'success',
@@ -172,7 +167,6 @@ export class QuizComponent implements OnInit, OnDestroy {
         this.elements[i].checked = false;
       }
     }
-
   }
 
   public getCourseContentDetails() {
@@ -188,15 +182,11 @@ export class QuizComponent implements OnInit, OnDestroy {
 
       // Convert the set back to an array
       this.allCourses = Array.from(uniqueTechnology);
-
-
     });
   }
 
   public getQuizData() {
-    this.apiService.getQuiz().subscribe((res) => {
-
-    });
+    this.apiService.getQuiz().subscribe((res) => {});
   }
 
   visible: boolean = false;
