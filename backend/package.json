@@ -10,13 +10,21 @@
     "strapi": "strapi"
   },
   "dependencies": {
-    "@strapi/plugin-documentation": "4.10.1",
+    "@strapi/plugin-documentation": "^4.10.6",
     "@strapi/plugin-i18n": "4.10.1",
     "@strapi/plugin-users-permissions": "4.10.1",
     "@strapi/strapi": "4.10.1",
+    "axios": "^1.4.0",
     "multer": "^1.4.5-lts.1",
+    "node": "^18.12.0",
+    "paytmchecksum": "^1.5.0",
     "pg": "^8.10.0",
-    "razorpay": "^2.8.6"
+    "razorpay": "^2.8.6",
+    "strapi-chatgpt": "^1.0.2",
+    "strapi-google-auth": "^0.1.2",
+    "strapi-plugin-ratings": "^1.1.9",
+    "strapi-stripe": "^3.3.0",
+    "strapi-utils": "^3.6.11"
   },
   "author": {
     "name": "A Strapi developer"

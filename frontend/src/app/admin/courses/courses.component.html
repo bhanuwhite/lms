@@ -5,10 +5,10 @@
 <!-- style="background-color: #fff;" -->
 <div class="card">
   <p-toolbar styleClass="p-mb-4">
-      <div class="p-d-flex p-ai-center p-jc-between">
-        <h3 style="font-weight: 900;">Manage Courses</h3>
-      </div>
-      <span class="p-input-icon-left">
+    <div class="p-d-flex p-ai-center p-jc-between">
+      <h3 style="font-weight: 900;">Manage Courses</h3>
+    </div>
+    <span class="p-input-icon-left">
       <i class="pi pi-search"></i>
       <input pInputText type="text" placeholder="Search..."  [(ngModel)]="searchWord"
       (ngModelChange)="searchFun()"/>
@@ -43,38 +43,38 @@
         <td (click)="goDetailPage(course)" class="text-center cursor-pointer">{{course.attributes.createdAt|
           date:'medium'}}</td>
 
-        <td (click)="goDetailPage(course)" class="text-center cursor-pointer">{{course.attributes.updatedAt |
-          date:'medium'}}</td>
-        <td class="text-center">
-          <button pButton pRipple icon="pi pi-pencil" (click)="editDialog(course)"
-            class="p-button-rounded p-button-success p-mr-2"></button>
-          <button pButton pRipple icon="pi pi-trash" (click)="deleteCourse(course)"
-            class="p-button-rounded p-button-warning"></button>
-        </td>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="summary">
-      <div class="p-d-flex p-ai-center p-jc-between">
-        In total there are {{courseData ? courseData.length : 0 }} Courses
-      </div>
-    </ng-template>
+          <td (click)="goDetailPage(course)" class="text-center cursor-pointer">{{course.attributes.updatedAt |
+            date:'medium'}}</td>
+          <td class="text-center">
+            <button pButton pRipple icon="pi pi-pencil" (click)="editDialog(course)"
+              class="p-button-rounded p-button-success p-mr-2"></button>
+            <button pButton pRipple icon="pi pi-trash" (click)="deleteCourse(course)"
+              class="p-button-rounded p-button-warning"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          In total there are {{courseData ? courseData.length : 0 }} Courses
+        </div>
+        </ng-template>
   </p-table>
 
 <!-- confirmation dialog for delete-->
-<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" ></p-confirmDialog>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
 
 <!-- Add dialog start -->
-<p-dialog header="Add Course" [(visible)]="addDialogDisplay" [style]="{width: '50vw'}" styleClass="active" [modal]="true">
+<p-dialog header="Add Course" [(visible)]="addDialogDisplay" [style]="{width: '50vw'}" styleClass="active"
+  [modal]="true">
   <hr>
-  <form [formGroup]="addFormGroup" >
+  <form [formGroup]="addFormGroup">
     <div class="p-fluid grid">
       <div class="field mt-2 w-100">
         <label for="title">Course Name</label>
         <span class="p-float-label">
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="title" pInputText
             placeholder="Course Name">
-          <small class="p-error block"
-            *ngIf="addFormGroup.get('title')?.invalid && addFormGroup.get('title')?.touched">
+          <small class="p-error block" *ngIf="addFormGroup.get('title')?.invalid && addFormGroup.get('title')?.touched">
             Course name is required
           </small>
         </span>
@@ -94,15 +94,15 @@
       <div class="field mt-1 w-100">
         <label for="title">Course Content</label>
         <span class="p-float-label">
-          <input type="file" #SelectCourseFileData  (change)="onFileSelect($event)" class="bg-light-grey input-shadow w-100 p-inputtext"
-            pInputText>
+          <input type="file" #SelectCourseFileData (change)="onFileSelect($event)"
+            class="bg-light-grey input-shadow w-100 p-inputtext" pInputText>
         </span>
       </div>
       <div class="field mt-1 w-100">
         <label for="title">Assignment Content</label>
         <span class="p-float-label">
-          <input type="file" #assignmentCourseFile (change)="onAssignFileSelect($event)" class="bg-light-grey input-shadow w-100 p-inputtext"
-            pInputText>
+          <input type="file" #assignmentCourseFile (change)="onAssignFileSelect($event)"
+            class="bg-light-grey input-shadow w-100 p-inputtext" pInputText>
         </span>
       </div>
 
@@ -120,7 +120,8 @@
 
 
 <!-- Edit dialog start -->
-<p-dialog header="Update Course" [(visible)]="editDialogDisplay" [style]="{width: '50vw'}" styleClass="active" [modal]="true">
+<p-dialog header="Update Course" [(visible)]="editDialogDisplay" [style]="{width: '50vw'}" styleClass="active"
+  [modal]="true">
 
   <hr>
   <form [formGroup]="editFormGroup">
@@ -161,7 +162,7 @@
       <div class="field mt-1 w-100">
         <label for="title">Assignment Content</label>
         <span class="p-float-label">
-          <input type="file"  (change)="onUpdateAssignFileSelect($event)"
+          <input type="file" (change)="onUpdateAssignFileSelect($event)"
             class="bg-light-grey input-shadow w-100 p-inputtext" pInputText>
         </span>
       </div>
@@ -173,7 +174,7 @@
           class="pi pi-delete-left me-2 cursor-pointer"></i>Cancel</button>
 
       <button [disabled]="editFormGroup.invalid" type="button" class="btn btn-success me-2" (click)="onUpdate()"><i
-        class="pi pi-save me-2 cursor-pointer"></i>Update</button>
+          class="pi pi-save me-2 cursor-pointer"></i>Update</button>
     </div>
   </form>
 </p-dialog>
