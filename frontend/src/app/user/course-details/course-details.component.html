@@ -1,338 +1,71 @@
-<div class="container-fluid" *ngIf="course_Details">
+<div *ngIf="Spinner">
+  <div class="loader">Loading...</div>
+</div>
+
+<div class="container-fluid" *ngIf="userCourseData && !Spinner">
   <div class="row">
     <div class="col-lg-8">
-      <div class="py-3">
-        <video src="../../../assets/data/javaVideo.mp4" controls class="course_video"></video>
+
+      <div class="py-3" *ngIf="streamVideo">
+        <video [src]="streamVideo.url" controls class="course_video" #Course_video
+          (timeupdate)="getWatchedTime()"></video>
+        <p> <b class="fs-6">{{streamVideo.name}}</b></p>
       </div>
+
     </div>
-    <div class="col-lg-4">
+
+    <div class="col-lg-4 h-100">
       <div class="py-3">
-        <div class="border px-2 py-2 border-top-1">
-          <b>Course Content</b>
+        <div class="border px-2 py-2 border-top-1 d-flex justify-content-center">
+          <b class="fs-5">Course Content</b>
         </div>
-        <p-accordion>
-          <p-accordionTab header="Section-01: Introduction">
-            <div class="d-flex justify-content-between mb-2">
-              <p-checkbox name="groupName" value="val"></p-checkbox>
-              <b class="">What is Web Developement</b>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 15min
-              </div>
+        <p-accordion
+          *ngFor="let courseVideo of userCourseData?.attributes?.course_ids?.data[0]?.attributes?.content?.data; let i=index">
 
-            </div>
-            <div class="d-flex justify-content-between mb-2">
-              <p-checkbox name="groupName" value="val"></p-checkbox>
-              <b class="">What you became</b>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 10min
-              </div>
-            </div>
-            <div class="d-flex justify-content-between">
-
-              <p-checkbox name="groupName" value="val"></p-checkbox>
-              <b class=""> Job Opportunities</b>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 08min
-              </div>
-
-            </div>
-          </p-accordionTab>
-          <p-accordionTab header="Section-02: PreRequisites & Info">
-            <div class="d-flex justify-content-between mb-2">
-
-              <p-checkbox name="groupname" value="val2"></p-checkbox>
-              <b>PreRequisites</b> <br>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 05min
-              </div>
-
-            </div>
-          </p-accordionTab>
-          <p-accordionTab header="Section-03: Program Setup">
-            <div class="d-flex justify-content-between mb-2">
-
-              <p-checkbox name="groupname" value="val2"></p-checkbox>
-              <b class="ms">Installations</b>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 06min
-              </div>
-
-            </div>
-            <div class="d-flex justify-content-between mb-2">
-
-              <p-checkbox name="groupname" value="val2"></p-checkbox>
-              <b class="ms">Others</b>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 06min
-              </div>
-
-            </div>
-          </p-accordionTab>
-          <p-accordionTab header="Section-04: Starting 1st Lesson">
-            <div class="d-flex justify-content-between mb-2">
-              <p-checkbox name="groupname" value="val2"></p-checkbox>
-              <b> Lesson 001</b>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 06min
-              </div>
-            </div>
-            <div class="d-flex justify-content-between mb-2">
-              <p-checkbox name="groupName" value="val"></p-checkbox>
-              <b> Lesson 002</b>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 06min
-              </div>
-            </div>
-            <div class="d-flex justify-content-between mb-2">
-              <p-checkbox name="groupName" value="val"></p-checkbox>
-              <b> Lesson 003</b>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 06min
-              </div>
-            </div>
-            <div class="d-flex justify-content-between mb-2">
-              <p-checkbox name="groupName" value="val"></p-checkbox>
-              <b> Lesson 004</b>
-              <div>
-                <i class="pi pi-play ms-2 text-danger"> </i> 06min
-              </div>
-            </div>
-          </p-accordionTab>
-          <p-accordionTab header="Section-05: 2nd Lesson">
-            <p>Currently no data avoilable</p>
-
+          <p-accordionTab [header]="courseVideo.attributes.name" [selected]=" i === accordianTabIndex"
+            (click)="toggleAccordian(i)">
+            <video [src]="courseVideo.attributes.url" type="video/mp4" alt="" style="height: 200px; width: 100%;"
+              (click)="playVideo(i)" #video (loadedmetadata)="onMetadata(video)"></video>
           </p-accordionTab>
         </p-accordion>
+
+
+
+
+<div class=" flex justify-content-center mt-3">
+
+  <div *ngIf="!CourseRating_UserIds.includes(userID)">
+    <p-button (click)="showDialog()"  label="Give Rating"></p-button>
+
+  <p-dialog header="Rating" class="flex justify-content-center" [(visible)]="visible" [modal]="true" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
+    <p-rating #ratingComponent [stars]="5" [cancel]="false"></p-rating>
+    <button class="btn btn-primary mt-3" (click)="userRating(ratingComponent.value)">Submit</button>
+
+  </p-dialog>
+  </div>
+
+  <div *ngIf="CourseRating_UserIds.includes(userID)">
+
+    <p-button [disabled]="true" (click)="showDialog()"  label="Give Rating"></p-button>
+
+    <!-- <p-button (click)="showDialog()"  label="Update Rating"></p-button>
+
+  <p-dialog header="Update Rating" class="flex justify-content-center" [(visible)]="visible" [modal]="true" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
+    <p-rating #ratingComponent1 [stars]="5" [cancel]="false"></p-rating>
+    <button class="btn btn-primary mt-3" (click)="updateRating(ratingComponent1.value)">Update</button>
+
+  </p-dialog> -->
+  </div>
+
+</div>
+
       </div>
+
 
     </div>
   </div>
-</div>
-<div class="container-fluid col-lg-12">
-  <p-tabView>
-    <p-tabPanel header="Overview">
-      <div class="row py-2 border">
-        <div class="col-lg-1">
-          <i class="pi pi-clock" style="font-size: 2rem;"></i>
-        </div>
-        <div class="col-lg-7 ">
-          <b>Schedule Learning Time</b>
-          <p class="mt-1 course-details-text">A learning schedule outlines the plan on how to study a new subject or
-            skill. It can include a
-            timeline
-            for completing different tasks and milestones, as well as the specific methods and resources that will
-            be used to learn the material.</p>
-        </div>
-        <div class="col-lg-4 d-flex justify-content-end">
-          <p-button label="Get Started"></p-button>
-        </div>
-      </div>
-      <div class="row py-2 mt-2">
-        <div class="col-lg-12">
-          <b>About this Course</b>
-          <p class="mt-1 course-details-text">Website Development refers to the tasks associated with creating,
-            building, and
-            maintaining
-            websites and web
-            applications that run online on a browser. It may, however, also include web design, web programming, and
-            database management.</p>
-        </div>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="col-lg-4">
-          <b>By the Numbers</b>
-        </div>
-        <div class="col-lg-4">
-          <p><b>Skill Level :</b><span style="font-size: 16px;">All Levels </span> </p>
-          <p><b>Students :</b> <span style="font-size: 16px;">42368 </span> </p>
-          <p><b>Languge :</b> <span style="font-size: 16px;"> English & Telugu </span> </p>
-          <p><b>Caption :</b> <span style="font-size: 16px;">Yes </span> </p>
-        </div>
-        <div class="col-lg-4">
-          <p><b>Lectures : </b> <span style="font-size: 16px;">123 </span> </p>
-          <p><b>Videos :</b> <span style="font-size: 16px;"> 36.5 hrs</span> </p>
-        </div>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="col-lg-4">
-          <b>Certificates</b>
-        </div>
-        <div class="col-lg-4">
-          <p style="font-size: 16px;">Get LMS certificate by By completing entire Course</p>
-        </div>
-        <div class="col-lg-4 d-flex justify-content-end">
-          <p-button label="Get LMS Certificate"></p-button>
-        </div>
-      </div>
-      <hr>
-    </p-tabPanel>
-    <p-tabPanel header="Q&A">
-      <div class="row">
-        <div class="col-lg-3 mb-2 d-flex">
-          <input type="search" class="form-control w-100" placeholder="Search for courses" style="line-height: 2;">
-          <button class="btn btn-dark"><i class="pi pi-search"></i></button>
-        </div>
-        <div class="col-lg-3 mb-2">
-          <p-dropdown class="w-100" placeholder="All Lectures" optionLabel="name" [showClear]="true"
-            style="width: 100%;"></p-dropdown>
-        </div>
-        <div class="col-lg-3 mb-2">
-          <p-dropdown class="w-100" placeholder="Filter Question" optionLabel="name" [showClear]="true"
-            style="width: 100%;"></p-dropdown>
-        </div>
-        <div class="col-lg-3 mb-2">
-          <p-dropdown class="w-100" placeholder="Sort by Recommends" optionLabel="name" [showClear]="true"
-            style="width: 100%;"></p-dropdown>
-        </div>
-      </div>
-      <div class="row py-3">
-        <h2> <b class="fs-3">All questions in this Course (1003) </b></h2>
-        <hr>
-        <div class="col-lg-2 d-flex align-items-center">
-          <img src='https://i.pinimg.com/474x/4b/d5/d7/4bd5d78656591dbe5868562168adaef3.jpg' alt="MB"
-            class=" QAprofilePic ms-2">
-          <p class="ms-2 mt-1"> <b>Jamilia Rodrikz</b> </p>
-        </div>
-        <div class="col-lg-10 ">
-          <p> <b>How long will it take to get a new website?</b> </p>
-          <p style="font-size: 16px;">On average, we shoot for a six to eight week turnaround, but the pace of any
-            project is set
-            by each client.</p>
-          <div class="d-flex  py-3">
-            <span class="material-icons">forum</span>
-            <span class="material-icons ms-2">favorite</span>
+  <p-toast></p-toast>
+  <!-- <p-dialog header="Give Rating to This Course" [(visible)]="ratingDialog" [modal]="true" [style]="{'width':'50vw'}">
 
-          </div>
-        </div>
-        <hr>
-        <div class="col-lg-2 d-flex align-items-center">
-          <img src='https://i.pinimg.com/474x/4b/d5/d7/4bd5d78656591dbe5868562168adaef3.jpg' alt="MB"
-            class=" QAprofilePic ms-2">
-          <p class="ms-2 mt-1"> <b>Jamilia Rodrikz</b> </p>
-        </div>
-        <div class="col-lg-10 ">
-          <p> <b>How long will it take to get a new website?</b> </p>
-          <p style="font-size: 16px;">On average, we shoot for a six to eight week turnaround, but the pace of any
-            project is set
-            by each client.</p>
-          <div class="d-flex  py-3">
-            <span class="material-icons">forum</span>
-            <span class="material-icons ms-2">favorite</span>
-
-          </div>
-        </div>
-        <hr>
-        <div class="col-lg-2 d-flex align-items-center">
-          <img src='https://i.pinimg.com/474x/4b/d5/d7/4bd5d78656591dbe5868562168adaef3.jpg' alt="MB"
-            class=" QAprofilePic ms-2">
-          <p class="ms-2 mt-1"> <b>Jamilia Rodrikz</b> </p>
-        </div>
-        <div class="col-lg-10 ">
-          <p> <b>How long will it take to get a new website?</b> </p>
-          <p style="font-size: 16px;">On average, we shoot for a six to eight week turnaround, but the pace of any
-            project is set
-            by each client.</p>
-          <div class="d-flex">
-            <span class="material-icons">forum</span>
-            <span class="material-icons ms-2">favorite</span>
-          </div>
-        </div>
-      </div>
-      <hr>
-    </p-tabPanel>
-    <p-tabPanel header="Notes">
-      <div class="row">
-        <div class="col-lg-7 col-sm-12">
-          <b> Writes Notes Here</b>
-          <div class="mt-2">
-            <textarea name="userNotes" cols="100" rows="5" placeholder="Start notes from here" class="mb-4"></textarea>
-          </div>
-        </div>
-        <div class="col-lg-7 d-flex justify-content-end">
-          <span class="p-buttonset">
-            <button pButton pRipple label="Save" icon="pi pi-check"></button>
-            <button pButton pRipple label="Delete" icon="pi pi-trash"></button>
-          </span>
-        </div>
-      </div>
-    </p-tabPanel>
-    <p-tabPanel header="Announcements">
-      <div class="row">
-        <div class="col-lg-12 col-sm-12">
-          <div class=" ">
-            <div class="  ">
-              <p style="font-size: 16px;">Currently we don't have any Announcements. We will update you.</p> <br>
-              <button class="btn btn-primary mt-3 mb-3">Notify Me</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-    </p-tabPanel>
-    <!-- <p-tabPanel header="Reviews">
-      <div class="row">
-        <b class="pb-3 fs-3"> Student Reviews</b>
-        <div class="col-lg-3 d-flex align-items-center" style="flex-flow: column; margin: auto;">
-          <b class="fs-2 mb-2">4.5</b> 
-          <p-rating class="avgRate" [iconOnStyle]="{'color':'gold'}" [(ngModel)]="avgRatingVal" [readonly]="true"
-            [stars]="5" [cancel]="false"></p-rating>
-          <p class="mt-2">Course Rating</p>
-        </div>
-        <div class="col-lg-9">
-          <div class="d-flex">
-            <p class="ms-4"> <p-rating [iconOnStyle]="{'color':'gold'}" [(ngModel)]="ratingVal1" [readonly]="true"
-                [stars]="5" [cancel]="false"></p-rating>
-            </p>
-            <b class="text-warning ms-3">{{progressBarValue1}}%</b>
-          </div>
-          <div class="d-flex">
-            <p class="ms-4"> <p-rating [iconOnStyle]="{'color':'gold'}" [(ngModel)]="ratingVal2" [readonly]="true"
-              [stars]="5" [cancel]="false"></p-rating>
-          </p>
-          <b class="text-warning ms-3">{{progressBarValue2}}%</b>
-          </div>
-          <div class="d-flex">
-            <p class="ms-4"> <p-rating [iconOnStyle]="{'color':'gold'}" [(ngModel)]="ratingVal2" [readonly]="true"
-              [stars]="5" [cancel]="false"></p-rating>
-          </p>
-          <b class="text-warning ms-3">{{progressBarValue2}}%</b>
-          </div>
-          <div class="d-flex">
-            <p class="ms-4"> <p-rating [iconOnStyle]="{'color':'gold'}" [(ngModel)]="ratingVal2" [readonly]="true"
-              [stars]="5" [cancel]="false"></p-rating>
-          </p>
-          <b class="text-warning ms-3">{{progressBarValue2}}%</b>
-          </div>
-        </div>
-      </div>
-      <div class="ms-5 mt-2">
-        <div>
-          <div *ngIf="reviews.length==0">
-            <h1 class="text-center  mt-5 mb-5">No data is avoilable for this rating </h1>
-          </div>
-          <div *ngIf="reviews.length!=0">
-            <div class="ms-4 mt-4" *ngFor="let review of reviews ">
-              <div class="d-flex">
-                <img src={{review.image}} alt="" class="reviewsImg">
-                <div>
-                  <a href="#" class="ms-3"> {{review.name}}</a> <br>
-                  <button class="ratingBtn ms-3"> {{review.rating}} <i class="pi pi-star"></i> </button>
-                </div>
-              </div>
-              <p class="ms-4 pt-3 pb-3"> {{review.review}} </p>
-              <div class="d-flex ">
-                <button class="btn btn-outline-danger ms-5"> <i class="pi pi-thumbs-up-fill"></i> </button>
-                <button class="btn btn-outline-warning ms-5"> <i class="pi pi-comments"></i> </button>
-                <button class="btn btn-outline-info ms-5"> <i class="pi pi-share-alt"></i> </button>
-              </div>
-              <hr>
-            </div>
-          </div>
-        </div>
-      </div>
-    </p-tabPanel> -->
-  </p-tabView>
+  </p-dialog> -->
 </div>

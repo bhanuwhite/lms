@@ -1,83 +1,113 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MenuItem } from 'primeng/api';
-import { dropDown } from 'src/app/interface';
-
+import { ApiService } from 'src/app/services/api.service';
+import {
+  ConfirmationService,
+  MessageService,
+  ConfirmEventType,
+} from 'primeng/api';
+import { AboutService } from 'src/app/services/about.service';
 @Component({
   selector: 'app-my-library',
   templateUrl: './my-library.component.html',
   styleUrls: ['./my-library.component.scss'],
+  providers: [ConfirmationService, MessageService],
 })
 export class MyLibraryComponent implements OnInit {
-  items!: MenuItem[];
-  searchWord: string = '';
-  public course_Details: any = [];
-  public course_Details2: any = [];
-  public value: number = 10;
-  public progressValue: number = 25;
-  // faSearch = faSearch;
-  courseDetailsJSON = '../../assets/course_details/courseDetails.json';
-  public recentlyAccessDropdown: dropDown[] = [];
-  public selectedRecentlyAccess: string = '';
-  public categoryDropdown: dropDown[] = [];
-  public selectedCategory: string = '';
-  public progressDropdown: dropDown[] = [];
-  public selectedProgress: string = '';
-  public instructorDropdown: dropDown[] = [];
-  public selectedInstructor: string = '';
-  constructor(private httpClient: HttpClient) {
-    this.recentlyAccessDropdown = [
-      { name: 'Recently Accessed' },
-      { name: 'Recently Enrolled' },
-      { name: 'Title: A-to-Z' },
-      { name: 'Title: Z-to-A' },
-    ];
-    this.categoryDropdown = [
-      { name: 'Favorites' },
-      { name: 'All categories' },
-      { name: 'Design' },
-      { name: 'Development' },
-      { name: 'IT & Software' },
-      { name: 'Archived' },
-    ];
-    this.progressDropdown = [{ name: 'Not Started' }, { name: 'In Progress' }];
-    this.instructorDropdown = [
-      { name: 'Mahesh' },
-      { name: ' Ravi' },
-      { name: 'Sreeja' },
-      { name: 'Navya' },
-    ];
-  }
+  public Spinner: boolean = true;
+  public searchWord: string = '';
+  public userID!: number;
+  public searchData: any;
+  public courseData: any[] = [];
+
+  constructor(
+    private httpClient: HttpClient,
+    private apiService: ApiService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+    private aboutService: AboutService
+  ) {}
 
   ngOnInit(): void {
-    this.readingJSON();
+    this.getLocalData();
+    this.gettingUserHasCourse();
+    this.getCartCourse();
   }
-  public searchData: any = [];
-  public searchFun() {
-    this.searchData = this.course_Details.filter((each: any) =>
-      each.title.toLowerCase().includes(this.searchWord.toLowerCase())
-    );
-  }
-  public readingJSON(): void {
-    this.httpClient.get(this.courseDetailsJSON).subscribe((data) => {
-      try {
-        this.course_Details = data;
-         this.searchData = data;
-        this.course_Details2 = this.course_Details;
-        this.items = [
-          { label: 'All Courses' },
-          { label: 'My List' },
-          { label: 'Wish List' },
-          { label: 'Archives' },
-          { label: 'My Tools' },
-        ];
-      } catch (error) {
-        console.log(error);
-      }
+
+  public getCartCourse(): void {
+    this.apiService.getUserCart(this.userID).subscribe((res) => {
+      this.aboutService.userCartLength(res.length);
     });
   }
 
-  public myCourseDetails(courseDetails: object): void {
-    localStorage.setItem('courseDetails', JSON.stringify(courseDetails));
+  public getLocalData(): void {
+    const getLocalData = JSON.parse(localStorage.getItem('user')!);
+    this.userID = getLocalData.id;
   }
+
+  public gettingUserHasCourse(): Promise<void> {
+    this.courseData=[]
+    return new Promise((resolve, reject) => {
+      this.apiService.getUserCourse(this.userID).subscribe((res) => {
+        if (res.length != 0) {
+          res.map((courseRes: any) => {
+            if (courseRes.course_ids.length != 0) {
+              this.courseData.push(courseRes);
+
+            }
+          });
+          resolve();
+        } else {
+          this.courseData = res;
+        }
+
+        this.searchData = this.courseData;
+        this.Spinner = false;
+      });
+    });
+  }
+
+
+
+  filterCourseData(): void {
+    if (this.searchWord) {
+      this.courseData = this.searchData.filter(
+        (course: any) =>
+          course?.course_ids[0]?.name
+            .toLowerCase()
+            .includes(this.searchWord.toLowerCase()) ||
+          course?.course_ids[0]?.description
+            .toLowerCase()
+            .includes(this.searchWord.toLowerCase())
+      );
+    } else {
+      this.courseData = this.searchData;
+    }
+  }
+
+
+  public removeCourse(id:number): void{
+
+          this.confirmationService.confirm({
+            message: `Do you want to delete this course from your Library?`,
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+              this.apiService.deleteUserHasCourse(id).subscribe((res) => {
+                try {
+                  this.gettingUserHasCourse();
+                  this.messageService.add({ severity: 'success', summary: 'Successfully', detail: 'Deleted sucessfully' });
+                } catch (error) {
+                  this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong' });
+                }
+              })
+            },
+            reject: () => {
+              this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
+            }
+
+          })
+  }
+
+
 }

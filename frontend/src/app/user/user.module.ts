@@ -6,7 +6,7 @@ import { UserComponent } from './user.component';
 import { MenuModule } from 'primeng/menu';
 import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
-import { ButtonModule } from 'primeng/button';
+import { Button, ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -25,7 +25,6 @@ import { HeaderComponent } from './header/header.component';
 import { AccordionModule } from 'primeng/accordion';
 import { TabView, TabViewModule } from 'primeng/tabview';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
-import { VideoPopupComponent } from './video-popup/video-popup.component';
 import { UserFooterComponent } from './user-footer/user-footer.component';
 import { UserHeaderComponent } from './user-header/user-header.component';
 import { AvatarModule } from 'primeng/avatar';
@@ -38,7 +37,6 @@ import { MenubarModule } from 'primeng/menubar';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { AboutComponent } from './about/about.component';
 import { ContentDetailsComponent } from './content-details/content-details.component';
 import { MessageComponent } from './message/message.component';
 import { PurchaseHistoryComponent } from './purchase-history/purchase-history.component';
@@ -53,27 +51,36 @@ import { SplitterModule } from 'primeng/splitter';
 import { UserContentComponent } from './user-content/user-content.component';
 import { DividerModule } from 'primeng/divider';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-
-
+import { ToastModule } from 'primeng/toast';
+import { UserCommunityComponent } from './user-community/user-community.component';
+import { AssessmentComponent } from './assessment/assessment.component';
+import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
+import { MycartComponent } from './mycart/mycart.component';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { BadgeModule } from 'primeng/badge';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { SidebarModule } from 'primeng/sidebar';
 
 @NgModule({
   declarations: [
     UserComponent,
     MyLibraryComponent,
     CourseDetailsComponent,
-    AboutComponent,
     UserHeaderComponent,
     UserFooterComponent,
     ContentDetailsComponent,
+    UserCommunityComponent,
     MessageComponent,
-    VideoPopupComponent,
     PurchaseHistoryComponent,
     ReceiptComponent,
     InvoiceComponent,
     PaymentComponent,
     ProfileComponent,
     UserContentComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    AssessmentComponent,
+    QuizDetailsComponent,
+    MycartComponent,
   ],
   imports: [
     CommonModule,
@@ -96,7 +103,14 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
     ProgressBarModule,
     RatingModule,
     MatTabsModule,
-    AvatarModule, MatIconModule, MenuModule, DialogModule, TooltipModule, ButtonModule, CardModule, RatingModule, MatTabsModule,
+    AvatarModule,
+    MatIconModule,
+    MenuModule,
+    DialogModule,
+    TooltipModule,
+    CardModule,
+    RatingModule,
+    MatTabsModule,
     AdminRoutingModule,
     NgbModule,
     AccordionModule,
@@ -117,10 +131,13 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
     FormsModule,
     SplitterModule,
     MultiSelectModule,
-    DividerModule
-
+    DividerModule,
+    ToastModule,
+    ConfirmPopupModule,
+    BadgeModule,
+    OverlayPanelModule,
+    SidebarModule
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
-
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class UserModule { }
+export class UserModule {}

@@ -1,240 +1,167 @@
-<!-- <app-header></app-header> -->
-
-
 <div class="content-inner surface-ground px-3 py-3">
-    <div class="content-details-wrapper">
-    <div class="row">
-        <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12" *ngIf="singleContent" >
-            <h1 class="mb-0">{{singleContent.attributes.name | titlecase}}</h1>
-            <!-- <p> {{singleContent.attributes.author | titlecase}}</p> -->
-        </div>
-        <div class="col-xl-6 col-lg-6 col-md-4 col-sm-12 d-flex justify-content-end">
-            <button pButton pRipple type="button" icon="pi pi-share-alt" class="p-button-rounded p-button-outlined me-2"></button>
-            <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-outlined"></button>
-        </div>
-        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12"  *ngIf="singleContent">
-            <div class="content-video mb-2" *ngFor=" let media of singleContent.attributes.media?.data">
-                <!-- <img src="assets/img/hero.png" alt="" class="img-fluid"> -->
-                <ng-container
-                    *ngIf="media.attributes.formats != null; then content  else video1"></ng-container>
 
-                <ng-template #content>
-                    <img  style="height: 250px;cursor: pointer;"
-                    src="{{media.attributes.formats?.thumbnail?.url}}" class="card-img-top" alt="...">
-                </ng-template>
-                <ng-template #video1>
+  <div class="surface-ground py-1 px-3">
+    <ng-container *ngIf="singleContent">
+      <h1 style="font-size: 1.5rem;"><b> {{singleContent.attributes.name}} Details</b>  </h1>
+      <!-- <span class="block fs-2 font-medium mb-3">  </span> -->
+    </ng-container>
 
-                    <video #vid class="cursor-pointer" height="auto;" width="100%" controls>
-                        <source src="{{media.attributes.url}}" type="video/mp4">
-                        <!-- <source src="assets/img/videoplayback.mp4" type="video/mp4"> -->
-                        <!-- <track src="fgsubtitles_en.vtt" kind="subtitles" srclang="en" label="English"> -->
-                        Your browser does not support the video tag.
-                    </video>
-
-
-                    <!-- <p-progressBar [value]="percentage"></p-progressBar> -->
-                </ng-template>
+    <div class="grid" *ngIf="singleContent">
+      <div class="col-12 md:col-6 lg:col-4 ">
+        <div class="surface-card shadow-2 p-3 border-round">
+          <div class="flex justify-content-between mb-3 ">
+            <div>
+              <span class="block text-700 font-medium mb-3">Cost</span>
+              <div class="text-900 font-medium text-xl">{{singleContent.attributes.price}} </div>
             </div>
-            <div class="card">
-                <p-tabView>
-                    <p-tabPanel header="Description">
-                        <p>{{singleContent.attributes.description}}</p>
-                    </p-tabPanel>
-                    <p-tabPanel header="Reviews">
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
-                    </p-tabPanel>
-                    <p-tabPanel header="Discussion">
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
-                    </p-tabPanel>
-                    <p-tabPanel header="Resource">
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
-                    </p-tabPanel>
-                </p-tabView>
+            <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
+              style="width:2.5rem;height:2.5rem">
+              <span class="material-icons text-blue-500 text-xl">
+                currency_rupee
+              </span>
             </div>
+          </div>
+          <span class="text-green-500 font-medium">4 new purchases </span>
+          <span class="text-500">since last week</span>
         </div>
-        <div class="col-xl-4 col-lg-4 col-md-12 d-flex justify-content-end">
-            <div class="sidebar">
-                <div class="sidebar-header">
-                <h2>About The Content</h2>
-                <div class="card border-0">
-                    <div class="auth-details d-flex align-items-center">
-                        <p-avatar image="assets/img/user.jpg" styleClass="mr-3" size="large" shape="circle">
-                        </p-avatar>
-                        <div  *ngIf="singleContent">
-                            <h2 class="card-title m-0">{{singleContent.attributes.author | titlecase}}</h2>
-                            <p>Tech Expert</p>
-                        </div>
-                    </div>
-                    <div class="card-body p-0">
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content...
-                        .. <b>Read More</b>
-                      </p>
+      </div>
+      <div class="col-12 md:col-6 lg:col-4">
+        <div class="surface-card shadow-2 p-3 border-round ">
+          <div class="flex justify-content-between mb-3">
+            <div>
+              <span class="block text-500 font-medium mb-3">Revenue</span>
+              <div class="text-900 font-medium text-xl">12,451</div>
+            </div>
+            <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
+              style="width:2.5rem;height:2.5rem">
+              <span class="material-icons text-blue-500 text-xl">
+                currency_rupee
+              </span>
+            </div>
+          </div>
+          <span class="text-green-500 font-medium">%10 increase </span>
+          <span class="text-500">since last week</span>
+        </div>
+      </div>
+      <div class="col-12 md:col-6 lg:col-4">
+        <div class="surface-card shadow-2 p-3 border-round">
+          <div class="flex justify-content-between mb-3">
+            <div>
+              <span class="block text-500 font-medium mb-3">Reviews</span>
+              <div class="text-900 font-medium text-xl">101</div>
+            </div>
+            <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
+              style="width:2.5rem;height:2.5rem">
+              <span class="material-icons text-blue-500 text-xl">
+                currency_rupee
+              </span>
+            </div>
+          </div>
+          <span class="text-green-500 font-medium">%5 increase </span>
+          <span class="text-500">since last week</span>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="row surface-card shadow-2 p-2 m-1 border-round" *ngIf="singleContent">
+        <div class="col-lg-4 img-fluid">
+          <img [src]="singleContent.attributes.placeholder_img.data.attributes.formats.thumbnail.url" alt=""
+            [style]="{'height':'200px','width':'100%','border-radius':'30px'}">
+        </div>
+        <div class="col-lg-8">
+          <div class="my-3">
+            <b class="fs-4">{{singleContent.attributes.name}} </b>
+          </div>
+          <div class=" col-lg-11">
+            <p class="textOverflow">{{singleContent.attributes.description}} PrimeIcons is the default icon library of
+              PrimeNG with over 250 open source icons developed by PrimeTek.</p>
+          </div>
+
+          <div class="d-flex align-items-center">
+            <span class="material-icons">
+              category
+            </span>
+            <b class="ms-2"> {{singleContent.attributes.subject}} </b>
+          </div>
+
+          <div class="d-flex lecture_details col-lg-12 mt-3">
+            <div class="col-lg-6">
+              <span> No.of Lectures - <b>{{singleContent.attributes.content.data.length}} </b> </span>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center ">
+              <span class="material-icons">
+                schedule
+              </span>
+              <span class="ms-2 "> Duration - <b>{{(singleContent.attributes.total_duration/3600).toFixed(1)}} hrs</b>
+              </span>
+            </div>
+          </div>
+          <div class="my-3 d-flex align-items-center">
+            <span class="material-icons">
+              currency_rupee
+            </span>
+            <span>{{(singleContent.attributes.price) }}.00 </span>
+          </div>
+
+          <div class="d-flex button_wrapper justify-content-between">
+            <div class="mb-2">
+              <button class="btn btn-primary">{{ singleContent.attributes.technology }}</button>
+            </div>
+            <div class="mb-2">
+              <button class="btn btn-warning">{{ singleContent.attributes.level }}</button>
+            </div>
+            <ng-container *ngIf="singleContent.attributes.no_of_purchases">
+              <button class="btn btn-sm fw-bold" style="background-color: rgb(213, 240, 158);">
+                Best Seller
+              </button>
+            </ng-container>
+          </div>
+
+
+        </div>
+
+    </div>
+
+    <div class="row  mt-4">
+      <div class="col-lg-7">
+        <div class="card">
+          <div class="what-u-learn p-4">
+            <h1><b>User Learnings...</b></h1>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+
+                  <div class="col-lg-6 mb-3" *ngFor="let userLearn of userLearnings;  let i = index">
+                    <div class="d-flex align-items-center">
+                      <i class="pi pi-check me-2 text-success"></i>
+                      <span style="
+                      font-family: 'Lucida Sans', 'Lucida Sans Regular',
+                        'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
+                        sans-serif; white-space: nowrap; overflow: hidden;
+                    ">{{ userLearn.u_learn }}...</span>
                     </div>
                   </div>
-                </div>
-                <hr>
-                <div class="sidebar-content">
-                    <h2>Course Completion</h2>
-                    <p-progressBar [value]="value"></p-progressBar>
-                    <ul class="listbox-list mt-1 d-flex justify-content-between align-items-center">
-                        <li class="listbox-item">
-                            <span>01</span>
-                        </li>
-                        <li class="listbox-item">
-                            <span>Introduction To Project  Managment</span>
-                        </li>
-                        <li class="listbox-item">
-                            <i class="pi pi-check" style="font-size: 1rem; color: green;"></i>
-                        </li>
-                    </ul>
-                    <ul class="listbox-list mt-1 d-flex justify-content-between align-items-center">
-                        <li class="listbox-item">
-                            <span>02</span>
-                        </li>
-                        <li class="listbox-item">
-                            <span>Introduction To Project  Managment</span>
-                        </li>
-                        <li class="listbox-item">
-                            <i class="pi pi-check" style="font-size: 1rem; color: green;"></i>
-                        </li>
-                    </ul>
-                    <ul class="listbox-list mt-1 d-flex justify-content-between align-items-center">
-                        <li class="listbox-item">
-                            <span>03</span>
-                        </li>
-                        <li class="listbox-item">
-                            <span>Introduction To Project  Managment</span>
-                        </li>
-                        <li class="listbox-item">
-                            <i class="pi pi-check" style="font-size: 1rem; color: green;"></i>
-                        </li>
-                    </ul>
-                    <ul class="listbox-list mt-1 d-flex justify-content-between align-items-center">
-                        <li class="listbox-item">
-                            <span>04</span>
-                        </li>
-                        <li class="listbox-item">
-                            <span>Introduction To Project  Managment</span>
-                        </li>
-                        <li class="listbox-item">
-                            <i class="pi pi-check" style="font-size: 1rem; color: green;"></i>
-                        </li>
-                    </ul>
-                    <ul class="listbox-list mt-1 d-flex justify-content-between align-items-center">
-                        <li class="listbox-item">
-                            <span>05</span>
-                        </li>
-                        <li class="listbox-item">
-                            <span>Introduction To Project  Managment</span>
-                        </li>
-                        <li class="listbox-item">
-                            <i class="pi pi-check" style="font-size: 1rem; color: green;"></i>
-                        </li>
-                    </ul>
-                    <ul class="listbox-list mt-1 d-flex justify-content-between align-items-center">
-                        <li class="listbox-item">
-                            <span>06</span>
-                        </li>
-                        <li class="listbox-item">
-                            <span>Introduction To Project  Managment</span>
-                        </li>
-                        <li class="listbox-item">
-                            <i class="pi pi-check" style="font-size: 1rem; color: green;"></i>
-                        </li>
-                    </ul>
-
 
                 </div>
-                <div class="sidebar-footer">
-
-                </div>
+              </div>
             </div>
+          </div>
+
         </div>
 
+      </div>
+
+      <div class="col-lg-4  justify-content-center " *ngIf="singleContent" >
+        <div class="card px-3 p-2 " style="max-height: 222px;">
+          <h2 class=" card-header pb-1 m-0"><b>Miscellaneous</b></h2>
+          <div class="card-body">
+            <h2>No.of purchases - {{singleContent.attributes.no_of_purchases}} </h2>
+          </div>
+        </div>
+      </div>
     </div>
+
+  </div>
 </div>
-</div>
-    <app-spinner *ngIf="isLoading==true"></app-spinner>
-<!-- <div class="container my-3 pb-2">
-    <div class="border p-2">
-        <div class="course_detail mb-3">
-            <p-tag styleClass="mr-2" value="Course Details"></p-tag>
-        </div>
-        <div id="course_name">
-            <div class="course_name mt-2">
-                <h1>Python</h1>
-            </div>
-            <div class="sub-title border-bottom">
-                <p class="text-blue">Seeing Your Way to learning. How to Use Visioning to Create Tomorrow</p>
-            </div>
-            <div class="content-block">
-                <h2>Description</h2>
-                <p>Visioning is oftentimes used as the first step in a health or financial wellness plan. What comes to
-                    mind
-                    when you ask yourself:</p>
-                <ul>
-                    <li>What do I most want to achieve?</li>
-                    <li>What are my hopes for the future?</li>
-                    <li>How do I see myself spending my time?</li>
-                    <li>Where are the places I feel out-of-balance?</li>
-                </ul>
-                <p>Exploring open-ended questions is just one of the practice opportunities you’ll find as you begin
-                    crafting your vision for personal well-being.</p>
-                <p>In this short (approximately 20 minute) interactive course, you’ll find multiple avenues for
-                    beginning
-                    your visioning process, including audio meditations and visualization exercises. This is not
-                    daydreaming; you’ll focus on what means the most to you in your life and how you envision your
-                    tomorrows. You can hone the visioning skills you already have, or learn from scratch about how
-                    visioning
-                    can help you move forward.</p><br>
-                <p><span class="text-blue">Duration</span> <br>Approximately 20 minutes</p>
-            </div>
-            <div class="content-block">
-                <h2>
-                    User Guide:
-                </h2>
-                <div class="detail-block">
-                    <p><span class="text-blue">Audio / Video</span><br> This course features video segments with audio
-                        narration. Turn your audio ON. Earphones or a headset may be necessary, depending on your
-                        viewing
-                        situation.</p>
-                </div>
-                <div class="detail-block">
-                    <p><span class="text-blue">Navigation</span><br> This course was designed for viewing sequentially
-                        by clicking the NEXT button on the bottom right side of the viewer. However, the menu on the
-                        left-hand side is available for self-selecting content.</p>
-                </div>
-                <div class="detail-block">
-                    <p><span class="text-blue">Personal Input</span><br> Throughout the course, you will find
-                        self-assessments and text fields that ask for your personal input. By entering relevant
-                        information,
-                        you will be better able to engage in the visioning process. Most of the interactions are
-                        optional;
-                        however, a few require your input. On these few slides, the NEXT button is not visible until you
-                        make a selection.</p>
-                </div>
-                <div class="detail-block">
-                    <p><span class="text-blue">Your Information</span><br>Your personal input, whether answers to
-                        assessments/quizzes or text field entries, is NOT stored. It is for your use during an
-                        individual
-                        session, and will need to be re-entered each time you re-launch the course. You will be able to
-                        print the screen containing your Visioning process at the end of the course. </p>
-                </div>
-                <div class="detail-block">
-                    <p><span class="text-blue">Links to External Content</span><br>To ensure that links to content
-                        outside the course open correctly, change your browser preferences to “open links in a new
-                        window.”
-                    </p>
-                </div>
-            </div>
-            <div class="content-block">
-            </div>
-        </div>
-    </div>
-</div> -->
