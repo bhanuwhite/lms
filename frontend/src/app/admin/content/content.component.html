@@ -312,7 +312,7 @@
           <div class="field mt-2 w-100">
             <label for="description">Description :</label>
             <span class="p-float-label">
-              <textarea rows="5" formControlName="description" pInputTextarea (input)="checkWordCount()"
+              <textarea rows="5" formControlName="description" pInputTextarea (input)="editcheckWordCount()"
                 [style]="{ width: '100%' }" placeholder="Enter description" [readOnly]="remainingWords == 0"></textarea>
               <div class="d-flex justify-content-end">
                 <p>{{ remainingWords }} Words remaining</p>

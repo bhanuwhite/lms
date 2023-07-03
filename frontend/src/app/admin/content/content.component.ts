@@ -346,6 +346,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   public checkWordCount(): void {
+
     const textValue = this.addCourse.controls['description'].value;
     const wordCount = textValue?.trim().split(/\s+/).length;
     this.remainingWords = 100 - wordCount;
@@ -357,6 +358,19 @@ export class ContentComponent implements OnInit, OnDestroy {
       );
       this.remainingWords = 0;
     }
+
+  }
+  public editcheckWordCount(): void{
+    const textString =  this.courseUpdateGroup.value.description;
+    console.log(textString);
+  }
+
+  public editcheckWord(description:any): void{
+
+
+    this.remainingWords = 100 - description.split(" ").length;
+    console.log(this.remainingWords);
+
   }
 
   public async courseFileSelect(event: Event): Promise<void> {
@@ -602,6 +616,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   ];
 
   // Edit dialog open
+
   checkArray: any[] = [];
   public editContentDialog(item: AllCourseContentData): void {
     this.checkArray = item.attributes.course_include;
@@ -665,6 +680,14 @@ export class ContentComponent implements OnInit, OnDestroy {
       ),
     });
     this.courseUpdateGroup.setControl('userLearnings', this.userLearns());
+    this.editcheckWord(this.courseUpdateGroup.value.description);
+
+//  console.log(this.courseUpdateGroup.value.description.length);
+
+
+
+
+
   }
 
 
