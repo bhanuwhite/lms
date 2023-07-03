@@ -50,7 +50,7 @@
       <span style="font-size: 24px;"> LMS</span> </span>
   </div>
   <div class="  ">
-    <button type="button" class="menu-button" (click)="visibleSidebar1=true"> <i class="pi pi-bars"></i></button>
+    <button type="button" class=" user_bar" (click)="visibleSidebar1=true"> <i class="pi pi-bars"></i></button>
   </div>
 </div>
 <!-- mobile header end here -->
@@ -66,22 +66,16 @@
     </span>
   </ng-template>
   <ng-template pTemplate="content">
-
+    
 
     <li class="listbox-item  d-flex align-items-center" routerLink="/user" [class.active]="isActive('/user')">
-      <span class="material-icons">
-        home
-        </span> <span>Home</span>
+      <i class="pi pi-home me-2"></i> <span>Home</span>
     </li>
     <li class="listbox-item d-flex align-items-center" [class.active]="isActive('/user/library')" routerLink="/user/library">
-      <span class="material-icons">
-        library_add_check
-        </span> <span>My Libraries</span>
+      <i class="pi pi-check-square me-2"></i> <span>My Libraries</span>
     </li>
     <li class="listbox-item d-flex align-items-center"[class.active]="isActive('/user/assessment')" routerLink="/user/assessment">
-      <span class="material-icons">
-        library_books
-        </span><span>Assessments</span>
+      <i class="pi pi-book me-2"></i><span>Assessments</span>
 
     </li>
 
@@ -97,7 +91,7 @@
 
 
 
-<div class="card shadow-2">
+<div class="card shadow-2" style="border: 0px;">
   <p-dialog header="Change Password" [modal]="true" [closable]="false" [dismissableMask]="true"
     [(visible)]="passwordDialog" [style]="{'width':'30vw','height':'auto'}">
     <form action="" [formGroup]="changePassword" (ngSubmit)="changePassowrdSubmit()">

@@ -1,14 +1,14 @@
 <div class="content_part_wrapper">
-<div class="card">
+<div class="card border-none" style="border: 0px;">
   <h2
-    class="p-3 mt-2"
+    class="p-3"
     style="color: white; height: 70px; background-color: rgb(59, 58, 58)"
   >
     {{ courseName }}
   </h2>
   <p-tabView>
     <p-tabPanel header="Beginner">
-      <div class="m-5">
+      <div class=" quiz_wrapper">
         <div *ngFor="let question of quizBeginerDetails; let i = index">
           <div class="row m-3" style="gap: 8px">
             <div class="col-lg-6 col-md-12 col-sm-12 bg-white question-box">
