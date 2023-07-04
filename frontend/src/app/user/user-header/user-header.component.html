@@ -1,12 +1,13 @@
 <!-- Large screen header -->
-<nav class="navbar   large_header  bg-blue navbar-expand-lg navbar-light shadow-sm" style="height: 80px;">
+
+<nav class="navbar   large_header  bg-blue navbar-expand-lg navbar-light shadow-sm" style="height: 80px;"  *ngIf="!visibleSidebar1" >
   <div class="container-fluid">
-    <div class="col-lg-2 cursor-pointer" routerLink="/user">
+    <div class="col-lg-2 col-md-2 col-sm-2 cursor-pointer" routerLink="/user">
       <span class="d-flex align-items-center" style="color:  #fff;"><i class="pi pi-bolt" style="font-size: 2rem"></i>
         <span style="font-size: 24px;"> LMS</span> </span>
     </div>
   </div>
-  <div class="col-lg-8 d-flex justify-content-center">
+  <div class="col-lg-8 col-md-8 col-sm-8 d-flex justify-content-center">
     <div class="collapse navbar-collapse justify-content-center" id="navbarNav" style="font-size: 24px;">
       <ul class="navbar-nav align-items-center b-lg-0" style="gap: 35px;">
         <li class="nav-item">
@@ -24,7 +25,7 @@
       </ul>
     </div>
   </div>
-  <div class="col-lg-2 d-flex justify-content-end align-items-center cursor-pointer me-3">
+  <div class="col-lg-2 col-md-2 col-sm-2 d-flex justify-content-end align-items-center cursor-pointer me-3">
 
     <div class="me-3">
       <a class="" routerLink="/user/mycart" style="font-size: 1.3rem;">
@@ -61,7 +62,6 @@
 <!-- mobile header end here -->
 
 
-
 <!-- mobile header sidebar -->
 <p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000">
   <ng-template pTemplate="header">
@@ -81,6 +81,12 @@
     </li>
     <li class="listbox-item d-flex align-items-center"[class.active]="isActive('/user/assessment')" routerLink="/user/assessment">
       <i class="pi pi-book me-2"></i><span>Assessments</span>
+
+    </li>
+    <li class="listbox-item d-flex align-items-center"[class.active]="isActive('/user/mycart')" routerLink="/user/mycart">
+      <span class="material-icons">
+        shopping_cart
+        </span><span>Cart</span>
 
     </li>
 
