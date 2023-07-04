@@ -118,7 +118,6 @@ export class PaymentComponent implements OnInit {
 
     this.apiservice.postPayment(paymentBody).subscribe((res) => {
       this.orderId = res.orderId;
-      console.log(res.orderId);
     });
   }
 
@@ -143,10 +142,8 @@ export class PaymentComponent implements OnInit {
           razorapay_signature: response.razorapay_signature,
           amount: this.finalPayment.toFixed(0),
         };
-        console.log(requestBody);
 
         this.apiservice.postPaymentVerify(requestBody).subscribe((res) => {
-          console.log(res);
 
           this.afterPayment();
         });

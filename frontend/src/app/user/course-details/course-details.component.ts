@@ -7,12 +7,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ratingObj, QAcategory } from '../../interface';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
-import { UserLibraryGetResponseData } from 'src/app/models/user-library';
 import { MessageService } from 'primeng/api';
-import { resolve } from 'chart.js/dist/helpers/helpers.options';
 import { TrackResponseData } from 'src/app/models/track';
 import { Subscription } from 'rxjs';
 @Component({
@@ -29,8 +26,6 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   trackCourseIds: number[] = [];
   SingleContentLib$: Subscription = new Subscription();
   LibraryContent$: Subscription = new Subscription();
-  // PostMethodTrack$: Subscription = new Subscription();
-  // TrackPutMethod$: Subscription = new Subscription();
   PutUserHasCourse$: Subscription = new Subscription();
 
   public userID!: number;

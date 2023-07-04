@@ -100,7 +100,6 @@ export class ContentDetailsComponent implements OnInit {
       });
       this.apiService.getSingleContent(this.courseId).subscribe((res) => {
         this.singleCourse = res['data'];
-        console.log(this.singleCourse);
 
       });
       resolve();
