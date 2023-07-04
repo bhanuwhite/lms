@@ -167,7 +167,7 @@ export class ContentComponent implements OnInit, OnDestroy {
       admin_id: new FormControl(this.Admin_id),
       price: new FormControl(''),
       course_duration: new FormControl(),
-      level: new FormControl(''),
+      level: new FormControl('' , [Validators.required]),
       link: ['', [Validators.pattern('^https?://.+')]],
       userLearnings: this.fb.array([this.user_learn()]),
       coursesIncludes: this.fb.array([]),

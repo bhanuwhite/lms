@@ -39,6 +39,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   course_id!: number;
   accordianTabIndex: number = -1;
   putLibId!: number;
+  progressPercentage!: any
   @ViewChild('Course_video') Course_video!: ElementRef;
 
   constructor(
@@ -53,6 +54,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     this.getLibraryData().then(() => this.getRating());
 
     this.getContent();
+    // this.getWatchedTime()
   }
 
   public activeParams() {
@@ -76,6 +78,9 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
           this.course_id = this.userCourseData.attributes.course_ids.data[0].id;
           this.courseId = this.userCourseData.id;
+          // console.log(this.userCourseData.attributes.progress_percentage);
+
+          this.progressPercentage = this.userCourseData.attributes.progress_percentage
           this.defaultVideo();
           resolve();
         })),
@@ -139,6 +144,10 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     this.PutUserHasCourse$ = this.apiService
       .putUserHasCourse(this.courseId, putBody)
       .subscribe((res) => {});
+
+      this.progressPercentage =  progressPer.toFixed(0)
+      console.log(this.progressPercentage);
+
   }
 
   // Displaying Default video 1st

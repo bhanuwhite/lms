@@ -33,8 +33,14 @@
 
         <div class=" flex justify-content-center mt-3">
 
-          <div *ngIf="!CourseRating_UserIds.includes(userID)">
-            <p-button (click)="showDialog()" label="Give Rating"></p-button>
+  <div *ngIf=" !CourseRating_UserIds.includes(userID) && progressPercentage <= 90">
+
+    <p-button  [disabled]="true" label="Give Rating"></p-button>
+
+  </div>
+
+  <div *ngIf=" !CourseRating_UserIds.includes(userID) && progressPercentage >= 90" >
+    <p-button (click)="showDialog()"  label="Give Rating"></p-button>
 
             <p-dialog header="Rating" class="flex justify-content-center" [(visible)]="visible" [modal]="true"
               [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
@@ -46,16 +52,9 @@
 
           <div *ngIf="CourseRating_UserIds.includes(userID)">
 
-            <p-button [disabled]="true" (click)="showDialog()" label="Give Rating"></p-button>
+    <p-button  [disabled]="true" label="You already given rating"></p-button>
 
-            <!-- <p-button (click)="showDialog()"  label="Update Rating"></p-button>
-
-  <p-dialog header="Update Rating" class="flex justify-content-center" [(visible)]="visible" [modal]="true" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
-    <p-rating #ratingComponent1 [stars]="5" [cancel]="false"></p-rating>
-    <button class="btn btn-primary mt-3" (click)="updateRating(ratingComponent1.value)">Update</button>
-
-  </p-dialog> -->
-          </div>
+  </div>
 
         </div>
 
