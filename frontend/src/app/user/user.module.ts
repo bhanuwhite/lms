@@ -61,7 +61,6 @@ import { BadgeModule } from 'primeng/badge';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SidebarModule } from 'primeng/sidebar';
 
-
 @NgModule({
   declarations: [
     UserComponent,

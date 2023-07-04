@@ -321,4 +321,10 @@ export class ApiService {
    public getUserRatings(id:any): Observable<any> {
     return this.http.get<any>(`api/ratings?course_id=${id}`);
   }
+
+   // PUT Rating
+   public upadateUserRatings(id: number, item: any): Observable<any> {
+    return this.http.put<any>(`api/ratings/${id}`,item);
+  }
+
 }

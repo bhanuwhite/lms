@@ -16,7 +16,7 @@
 
     <div class="col-lg-4 h-100">
       <div class="py-3">
-        <div class="border px-2 py-2 border-top-1 d-flex justify-content-center">
+        <div class="border px-2 mb-2 py-2 border-top-1 d-flex justify-content-center">
           <b class="fs-5">Course Content</b>
         </div>
         <p-accordion
@@ -30,15 +30,35 @@
         </p-accordion>
 
 
-        <div class="card flex justify-content-center mt-5">
 
-          <button class="btn btn-primary " (click)="op.toggle($event)">Give Rating</button>
-          <p-overlayPanel #op>
-            <p-rating #ratingComponent [stars]="5" [cancel]="false"></p-rating>
-            <button class="btn btn-primary mt-3" (click)="userRating(ratingComponent.value)">submit</button>
-          </p-overlayPanel>
 
-        </div>
+<div class=" flex justify-content-center mt-3">
+
+  <div *ngIf="!CourseRating_UserIds.includes(userID)">
+    <p-button (click)="showDialog()"  label="Give Rating"></p-button>
+
+  <p-dialog header="Rating" class="flex justify-content-center" [(visible)]="visible" [modal]="true" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
+    <p-rating #ratingComponent [stars]="5" [cancel]="false"></p-rating>
+    <button class="btn btn-primary mt-3" (click)="userRating(ratingComponent.value)">Submit</button>
+
+  </p-dialog>
+  </div>
+
+  <div *ngIf="CourseRating_UserIds.includes(userID)">
+
+    <p-button [disabled]="true" (click)="showDialog()"  label="Give Rating"></p-button>
+
+    <!-- <p-button (click)="showDialog()"  label="Update Rating"></p-button>
+
+  <p-dialog header="Update Rating" class="flex justify-content-center" [(visible)]="visible" [modal]="true" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
+    <p-rating #ratingComponent1 [stars]="5" [cancel]="false"></p-rating>
+    <button class="btn btn-primary mt-3" (click)="updateRating(ratingComponent1.value)">Update</button>
+
+  </p-dialog> -->
+  </div>
+
+</div>
+
       </div>
 
 

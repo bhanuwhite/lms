@@ -245,7 +245,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   // get content
-  totalAvgRating: number = 0;
+  totalAvgRating: number | null = 0;
   sum: number = 0;
   ratingData: any;
   // Get Content
@@ -259,28 +259,52 @@ export class ContentComponent implements OnInit, OnDestroy {
         this.loadingSpinner = false;
 
         for (let i = 0; i < this.contentData.length; i++) {
-          this.apiService
-            .getUserRatings(this.contentData[i].id)
-            .subscribe((res: any) => {
-              for (let j = 0; j < res.length; j++) {
-                this.sum = res[j].rating + this.sum;
-              }
+
+
+          this.apiService.getUserRatings(this.contentData[i].id).subscribe((res:any)=>{
+
+
+            for (let j = 0; j < res.length; j++) {
+
+              this.sum = res[j].rating + this.sum;
+
+            }
 
               this.totalAvgRating = this.sum / res.length;
 
-              this.ratingData = {
-                data: {
-                  rating: this.totalAvgRating,
-                },
-              };
+            this.totalAvgRating = (this.sum /  res.length);
+            if (
+              isNaN(this.totalAvgRating) ||
+              this.totalAvgRating === Infinity ||
+              this.totalAvgRating === -Infinity
+            ) {
+              this.totalAvgRating = null;
+            }
 
               this.apiService
                 .updateContent(this.contentData[i].id, this.ratingData)
                 .subscribe((res) => {});
 
-              this.sum = 0;
-            });
-        }
+           this.ratingData ={
+            data:{
+              rating:this.totalAvgRating?.toFixed(0)
+            }
+           }
+
+            this.apiService.updateContent(this.contentData[i].id, this.ratingData).subscribe((res)=>{
+
+            })
+
+
+            this.sum =  0
+          })
+         }
+
+
+
+
+
+
       } catch (error) {
         this.messageService.add({
           severity: 'error',
@@ -329,6 +353,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   public checkWordCount(): void {
+
     const textValue = this.addCourse.controls['description'].value;
     const wordCount = textValue?.trim().split(/\s+/).length;
     this.remainingWords = 100 - wordCount;
@@ -340,6 +365,19 @@ export class ContentComponent implements OnInit, OnDestroy {
       );
       this.remainingWords = 0;
     }
+
+  }
+  public editcheckWordCount(): void{
+    const textString =  this.courseUpdateGroup.value.description;
+    console.log(textString);
+  }
+
+  public editcheckWord(description:any): void{
+
+
+    this.remainingWords = 100 - description.split(" ").length;
+    console.log(this.remainingWords);
+
   }
 
   public async courseFileSelect(event: Event): Promise<void> {
@@ -413,6 +451,7 @@ export class ContentComponent implements OnInit, OnDestroy {
 
       this.addCourse.get('image')?.setValue(file);
       this.formData = new FormData();
+      this.formData.append('files', this.addCourse.value.image);
       this.formData.append('files', this.addCourse.value.image);
 
       this.apiService.uploadFile(this.formData).subscribe((res) => {

@@ -68,14 +68,6 @@ export class MyLibraryComponent implements OnInit {
   }
 
 
-  // get rating
-
-  public userRating(rating_value: any, course:any) {
-
-    console.log(rating_value);
-    console.log(course.course_ids[0].rating);
-
-  }
 
   filterCourseData(): void {
     if (this.searchWord) {
@@ -104,7 +96,7 @@ export class MyLibraryComponent implements OnInit {
               this.apiService.deleteUserHasCourse(id).subscribe((res) => {
                 try {
                   this.gettingUserHasCourse();
-                  this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Deleted sucessfully' });
+                  this.messageService.add({ severity: 'success', summary: 'Successfully', detail: 'Deleted sucessfully' });
                 } catch (error) {
                   this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong' });
                 }

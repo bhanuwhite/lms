@@ -1,87 +1,93 @@
 <div class="surface-ground pt-5 mx-auto">
   <div class="card0 border-0">
     <div class="row d-flex">
-      <div class="col-lg-6">
-        <div class="card1 pb-5">
-          <div class="row px-3">
-            <div class="d-flex align-items-center">
-              <h1 style="color: #0d6efd">Welcome to LMS</h1>
-            </div>
-          </div>
-          <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
-            <img height="400px" src="https://t4.ftcdn.net/jpg/04/12/22/09/360_F_412220949_b05U6ue0CR4AwLykbPZIqithDXKHf5L7.jpg" />
+      <div class="col-lg-12">
+        <div class="row px-3">
+          <div class="d-flex align-items-center">
+            <h1 style="color: #0d6efd">Welcome to LMS</h1>
           </div>
         </div>
-      </div>
+        <div  class="row">
+          <div class="d-flex col-lg-12">
 
-      <div class="col-lg-6">
-        <div class="card2 card border-0 px-4 py-5">
-          <form [formGroup]="formgroup">
-            <div class="row mb-4 px-3">
-              <h1 class="mb-0 mr-4 mt-2" style="padding: 10px 12px 0 0">LOGIN</h1>
-            </div>
-
-            <div class="row px-3 mb-2">
-              <div class="input-container">
-                <label class="mb-1 px-0">
-                  <h6 class="mb-0 text-sm">Email : <span class="text-danger"> * </span></h6>
-                </label>
-                <input class="mb-0" type="text" name="name" formControlName="name"
-                  [class.is-invalid]="name.invalid && name.touched"
-                  placeholder="Enter Email Address" (ngBlur)="name.markAsTouched()" />
-
-                <div *ngIf="name.invalid && name.touched" class="invalid-feedback px-0">
-                  <div *ngIf="name.errors?.['required']">Email is required.</div>
-                  <div *ngIf="!name.errors?.['required'] && name.errors?.['emailValidator']">
-                    Invalid email format.
+              <div class=" col-lg-6">
+                <div class="card1 pb-5">
+                  <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
+                    <img height="400px" src="https://t4.ftcdn.net/jpg/04/12/22/09/360_F_412220949_b05U6ue0CR4AwLykbPZIqithDXKHf5L7.jpg" />
                   </div>
+
+
                 </div>
               </div>
-            </div>
 
-            <div class="row px-3 pt-2">
-              <div class="input-container">
-                <label class="mb-0 px-0">
-                  <h6 class="mb-0 text-sm">Password : <span class="text-danger"> * </span></h6>
-                </label>
-                <input type="password" formControlName="pwd" name="pwd"
-                  [class.is-invalid]="pwd.invalid && pwd.touched"
-                  placeholder="Enter Password" (ngBlur)="pwd.markAsTouched()" />
 
-                <div *ngIf="pwd.invalid && pwd.touched" class="invalid-feedback px-0">
-                  <div *ngIf="pwd.errors?.['required']">Password is required.</div>
-                  <div *ngIf="pwd.errors?.['minlength']">Password must have at least 8 characters.</div>
-                </div>
+             <div class="col-lg-6 ">
+              <div class="card2 card border-0 px-4 py-1 mt-4">
+                <form [formGroup]="formgroup">
+                  <div class="row mb-3 px-3">
+                    <h1 class="mb-0 mr-4 mt-2" style="padding: 10px 12px 0 0">LOGIN</h1>
+                  </div>
+
+                  <div class="row px-3 mb-2">
+                    <div class="input-container">
+                      <label class="mb-1 px-0">
+                        <h6 class="mb-0 text-sm">Email : <span class="text-danger"> * </span></h6>
+                      </label>
+                      <input class="mb-0" type="text" name="name" formControlName="name"
+                        [class.is-invalid]="name.invalid && name.touched"
+                        placeholder="Enter Email Address" (ngBlur)="name.markAsTouched()" />
+
+                      <div *ngIf="name.invalid && name.touched" class="invalid-feedback px-0">
+                        <div *ngIf="name.errors?.['required']">Email is required.</div>
+                        <div *ngIf="!name.errors?.['required'] && name.errors?.['emailValidator']">
+                          Invalid email format.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row px-3 pt-2">
+                    <div class="input-container">
+                      <label class="mb-0 px-0">
+                        <h6 class="mb-0 text-sm">Password : <span class="text-danger"> * </span></h6>
+                      </label>
+                      <input type="password" formControlName="pwd" name="pwd"
+                        [class.is-invalid]="pwd.invalid && pwd.touched"
+                        placeholder="Enter Password" (ngBlur)="pwd.markAsTouched()" />
+
+                      <div *ngIf="pwd.invalid && pwd.touched" class="invalid-feedback px-0">
+                        <div *ngIf="pwd.errors?.['required']">Password is required.</div>
+                        <div *ngIf="pwd.errors?.['minlength']">Password must have at least 8 characters.</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row px-3 mb-4">
+                    <a routerLink="/login" style="text-align: end" class="ml-auto p-0 mb-0 text-sm">Forgot Password?</a>
+                  </div>
+
+                  <div class="row mb-3 px-3">
+                    <button pButton pRipple type="submit" class="w-full p-3 text-xl btn-blue" (click)="onSubmit()"
+                      [disabled]="!formgroup.valid">Login</button>
+                  </div>
+
+                  <div class="row mb-4 px-1">
+                    <small class="" style="font-size: 14px; text-align: center; font-weight: 500">
+                      Don't have an account? <a routerLink="/signup" class=" " style="color: #0d6efd">SignUp</a>
+                    </small>
+                  </div>
+
+
+                </form>
               </div>
             </div>
+          </div>
 
-            <div class="row px-3 mb-4">
-              <a routerLink="/login" style="text-align: end" class="ml-auto p-0 mb-0 text-sm">Forgot Password?</a>
-            </div>
-
-            <div class="row mb-3 px-3">
-              <button pButton pRipple type="submit" class="w-full p-3 text-xl btn-blue" (click)="onSubmit()"
-                [disabled]="!formgroup.valid">Login</button>
-            </div>
-
-            <div class="row mb-4 px-1">
-              <small class="" style="font-size: 14px; text-align: center; font-weight: 500">
-                Don't have an account? <a routerLink="/signup" class=" " style="color: #0d6efd">SignUp</a>
-              </small>
-            </div>
-
-            <p-divider align="center">
-              <b>OR</b>
-            </p-divider>
-          </form>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
 <div>
   <p-dialog header="Forgot Password" [(visible)]="forgotPwd" [modal]="true" [style]="{'width':'30vw'}" >
     <form action="forgotform" [formGroup]="forgotForm" (ngSubmit)="forgotFormSubmit()">

@@ -203,6 +203,8 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
   editingCourseData() {
 
     const formValues = this.edituserLearnings.attributes;
+
+    this.imageFileData =  this.edituserLearnings.attributes.placeholder_img.data.attributes.name
     this.selectedCourseIncludes = formValues.course_include;
     this.popupForm = this.fb.group({
       name: formValues.name,

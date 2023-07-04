@@ -40,7 +40,7 @@
               (change)="courseFileSelected($event)" pInputText />
             <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="imgUploadProgress"></p-progressBar>
           </span>
-          <ng-container *ngIf="imageFileData && showimageFileData">
+          <ng-container *ngIf="showimageFileData">
             <span>Selected Image <b>{{imageFileData}}</b> </span>
           </ng-container>
         </div>

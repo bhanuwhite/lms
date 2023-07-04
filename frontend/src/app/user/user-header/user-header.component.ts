@@ -50,11 +50,10 @@ export class UserHeaderComponent implements OnInit {
     this.iconMenu();
   }
 
-  public isActive(base: string): boolean {
-    return this.router.url === base;
-}
+
 
   public iconMenu(): void {
+
     this.items = [
       {
         label: 'Action',
@@ -146,6 +145,10 @@ export class UserHeaderComponent implements OnInit {
   public cancelForm() {
     this.passwordDialog = false;
   }
+
+  public isActive(base: string): boolean {
+    return this.router.url === base;//.includes(`${base}`);
+}
 
   currentPwdInput: boolean = false;
   public changePassowrdSubmit(): void {
