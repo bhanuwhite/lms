@@ -4,3 +4,13 @@
   align-items: center;
   justify-content: center;
 }
+.add_course_img{
+    width: 450px;
+    height: 250px;
+}
+@media (min-width: 319px) and (max-width: 768px) {
+    .add_course_img{
+        width: 100%;
+        height: 250px;
+    }
+}
