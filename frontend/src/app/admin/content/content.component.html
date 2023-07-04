@@ -142,10 +142,8 @@
         <p-dropdown [options]="levels" optionLabel="level" placeholder="Select Level" formControlName="level"
           (onChange)="levelSelected($event)"></p-dropdown>
         <span class="p-float-label">
-          <small class="p-error block" *ngIf="
-              addCourse.get('level')?.invalid && addCourse.get('level')?.touched
-            ">
-            Technology selection is required.
+          <small class="p-error block" *ngIf=" addCourse.get('level')?.invalid && addCourse.get('level')?.touched">
+            Level selection is required.
           </small>
         </span>
       </div>
