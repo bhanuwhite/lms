@@ -1,0 +1,231 @@
+<p-dialog header="Header" [(visible)]="editFormVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false"
+  [resizable]="false">
+  <form [formGroup]="popupForm">
+
+    <div class="p-fluid grid">
+      <div class="field mt-2 w-100">
+        <label for="name">
+          Name :<span class="text-danger fs-5"> * </span>
+        </label>
+        <span class="p-float-label">
+          <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="name" pInputText
+            placeholder="Course Name" />
+
+          <small class="p-error block" *ngIf="
+                  popupForm.get('name')?.invalid &&
+                  popupForm.get('name')?.touched
+                ">
+            <ng-container *ngIf="popupForm.get('name')?.errors?.['required']">Course name is
+              required.</ng-container>
+            <ng-container *ngIf="popupForm.get('name')?.errors?.['pattern']">Numbers or special characters
+              are not allowed.</ng-container>
+          </small>
+        </span>
+      </div>
+      <div class="field mt-2 w-100">
+        <label for="description">Description :</label>
+        <span class="p-float-label">
+          <textarea rows="5" formControlName="description" pInputTextarea (input)="checkWordCount()"
+            [style]="{ width: '100%' }" placeholder="Enter description" [readOnly]="remainingWords == 0"></textarea>
+          <div class="d-flex justify-content-end">
+            <p>{{ remainingWords }} Words remaining</p>
+          </div>
+        </span>
+      </div>
+
+        <div class="field mt-2 w-100">
+          <label for="imgage"> Image :</label>
+          <span class="p-float-label">
+            <input type="file" accept="image/*" class="bg-light-grey input-shadow w-100 p-inputtext"
+              (change)="courseFileSelected($event)" pInputText />
+            <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="imgUploadProgress"></p-progressBar>
+          </span>
+          <ng-container *ngIf="showimageFileData">
+            <span>Selected Image <b>{{imageFileData}}</b> </span>
+          </ng-container>
+        </div>
+
+      <div class="field mt-2 w-100">
+        <label for="Img">
+          Content Video (mp4) : <span class="text-danger fs-5"> * </span>
+        </label>
+        <span class="p-float-label">
+          <input type="file" accept="video/*" multiple class="bg-light-grey input-shadow w-100 p-inputtext" pInputText
+            (change)="courseFileSelect($event)" />
+          <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="videoUploadProgress"></p-progressBar>
+        </span>
+        <ng-container  *ngIf="showVideoFileData">
+          <span class="text-danger"> Please upload videos.. </span>
+        </ng-container>
+
+        <ng-container *ngFor="let desc of courseContentVideo; let i=index">
+          <div class="my-2">
+            <label for="videoDescription"> {{desc.name}} <b>Description</b> :</label>
+            <textarea name="desc" id="videoDescription" rows="3" [style]="{'width':'100%'}" class="my-2" pInputText
+              placeholder="Enter description for {{desc.name}}" (blur)="onInputChanged($event.target,desc)"></textarea>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="field mt-2 w-100">
+        <label for="name">Technology : <span class="text-danger fs-5"> * </span>
+        </label>
+        <p-dropdown formControlName="technology" [options]="Technologies" optionLabel="tech"
+          placeholder="Select Technology" (onChange)="techSelected($event)"></p-dropdown>
+        <span class="p-float-label">
+          <small class="p-error block" *ngIf="
+                  popupForm.get('technology')?.invalid &&
+                  popupForm.get('technology')?.touched
+                ">
+            Technology selection is required.
+          </small>
+        </span>
+      </div>
+
+      <div class="field mt-2 w-100">
+        <label for="technology">Level : <span class="text-danger fs-5"> * </span>
+        </label>
+        <p-dropdown [options]="levels" optionLabel="level" placeholder="Select Level" formControlName="level"
+          (onChange)="levelSelected($event)"></p-dropdown>
+        <span class="p-float-label">
+          <small class="p-error block" *ngIf="
+                  popupForm.get('level')?.invalid &&
+                  popupForm.get('level')?.touched
+                ">
+            Technology Level is required.
+          </small>
+        </span>
+      </div>
+
+      <div class="field mt-2 w-100">
+        <label for="name">Category : <span class="text-danger fs-5"> * </span>
+        </label>
+        <p-dropdown formControlName="subject" [options]="subjects" optionLabel="industry" placeholder="Select Category"
+          (onChange)="subjectSelected($event)"></p-dropdown>
+        <span class="p-float-label">
+          <small class="p-error block" *ngIf="
+                  popupForm.get('subject')?.invalid &&
+                  popupForm.get('subject')?.touched
+                ">
+            Category selection is required.
+          </small>
+        </span>
+      </div>
+
+      <div class="field mt-2 w-100">
+        <div class="field mt-2 w-100" formArrayName="userLearnings">
+          <div *ngFor="let form of addUser().controls;let i=index;" [formGroupName]="i">
+            <label>User Learning {{ i + 1 }}:</label>
+            <div class="p-float-label d-flex align-items-center">
+              <textarea formControlName="u_learn" rows="3" [style]="{'width':'90%'}" class="my-2 col-lg-10"
+                placeholder="Enter user learnings.."></textarea>
+              <span class="material-icons col-lg-2 ms-2 text-danger cursor-pointer" (click)="removeUserLearning(i)">
+                backspace
+              </span>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-primary btn-sm" (click)="addUserLearning()">Add Learnings</button>
+        </div>
+      </div>
+
+      <div class="field mt-2 w-100">
+        <label for="imgage"> Pre-Learnings :</label>
+        <div class="d-flex">
+          <div class="col-lg-6">
+            <input type="text" pInputText class="w-100 my-3" formControlName="preLearn1"
+              placeholder="Enter 1st pre learning.." />
+          </div>
+          <div class="col-lg-6 ms-3">
+            <input type="text" pInputText class="w-100 my-3" formControlName="preLearn2"
+              placeholder="Enter 2nd pre learning.." />
+          </div>
+        </div>
+        <div class="d-flex">
+          <div class="col-lg-6">
+            <input type="text" pInputText class="w-100 my-3" formControlName="preLearn3"
+              placeholder="Enter 3rd pre learning.." />
+          </div>
+          <div class="col-lg-6 ms-3">
+            <input type="text" pInputText class="w-100 my-3" formControlName="preLearn4"
+              placeholder="Enter 4th pre learning.." />
+          </div>
+        </div>
+      </div>
+
+
+      <div class="field mt-2 w-100">
+        <label for="imgage">Course Includes:</label>
+        <div class="row">
+          <div class="d-flex ms-4">
+            <div class="form-check col-lg-6 me-4 checkbox-xl">
+              <input class="form-check-input" value="Certificate" type="checkbox" formArrayName="courseIncludes"
+                [checked]="selectedCourseIncludes.includes('Certificate')"
+                (change)="checkboxValue($event, 'Certificate')" />
+              <label class="form-check-label ms-2" for="certificate">Certificate</label>
+            </div>
+            <div class="form-check col-lg-6 checkbox-xl">
+              <input class="form-check-input" value="Documents" type="checkbox" formArrayName="courseIncludes"
+                [checked]="selectedCourseIncludes.includes('Documents')"
+                (change)="checkboxValue($event, 'Documents')" />
+              <label class="form-check-label ms-2" for="documents">Documents</label>
+            </div>
+          </div>
+        </div>
+
+        <ng-container *ngIf="showDocuments">
+          <div class="field mt-2 w-100">
+            <label for="imgage"> Upload Documents (pdf/csv/excel/zip):</label>
+            <span class="p-float-label">
+              <input type="file" accept=".pdf,.csv,.gif,.xls,.xlsx" class="bg-light-grey input-shadow w-100 p-inputtext"
+                pInputText (change)="courseDocSelected($event)" />
+            </span>
+            <div *ngIf="
+                  popupForm.controls['documents'].invalid &&
+                  popupForm.controls['documents'].touched
+                " class="text-danger">
+              Please select a file.
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="field mt-2 w-100">
+        <label for="price">Price :</label>
+        <span class="p-float-label">
+          <input type="number" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="price" pInputText
+            placeholder="Enter price" />
+        </span>
+      </div>
+
+      <div class="field mt-2 w-100">
+        <label for="link">Link :</label>
+        <span class="p-float-label">
+          <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="link" pInputText
+            placeholder="Enter link here." />
+        </span>
+        <small class="p-error block" *ngIf="
+                popupForm.get('link')?.invalid &&
+                popupForm.get('link')?.touched
+              ">
+          Please enter valid http address.
+        </small>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between mt-2">
+      <button type="button" class="btn btn-dark cursor-pointer" (click)="cancelUpdate()">
+        <i class="pi pi-delete-left me-2 "> </i>Cancel
+      </button>
+
+      <button type="button" class="btn btn-success me-2 cursor-pointer" (click)="onUpdateContent()">
+        <i class="pi pi-save me-2 "></i>Update
+      </button>
+    </div>
+
+
+  </form>
+</p-dialog>
+
+<div>
+  <p-toast></p-toast>
+</div>

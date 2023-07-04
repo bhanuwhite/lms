@@ -12,7 +12,6 @@ import { PaymentComponent } from './payment/payment.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserContentComponent } from './user-content/user-content.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-import { UserCommunityComponent } from './user-community/user-community.component';
 import { AssessmentComponent } from './assessment/assessment.component';
 import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
 import { MycartComponent } from './mycart/mycart.component';

@@ -117,11 +117,6 @@ export class QuizDetailsComponent implements OnInit {
         }
     });
 
-
-
-
-
-
     const levelName = question.attributes.level;
     this._id = question.id;
 

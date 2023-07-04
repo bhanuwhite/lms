@@ -43,6 +43,7 @@ export class UserContentComponent {
   subjects: Subjects[] = [];
 
   formGroup!: FormGroup;
+  value: number =3
 
   ngOnInit(): void {
     this.getContent();
@@ -66,7 +67,7 @@ export class UserContentComponent {
 
   public getLocalData(): void {
     const getLocalData = JSON.parse(localStorage.getItem('user')!);
-    this.userID = getLocalData.id;
+    this.userID = getLocalData?.id;
   }
 
   public myCourseLen: number = 0;
@@ -101,6 +102,10 @@ export class UserContentComponent {
             selectedValue.value.selectedSubject.name.trim()
           ) {
             this.coursesList.push(course);
+            console.log("hello");
+
+            console.log(this.coursesList);
+
           }
         });
       }
@@ -132,7 +137,7 @@ export class UserContentComponent {
     location.reload();
   }
 
-  // Get Content
+//GET CONTENT
   public getContent(): void {
     this.apiService.getContent().subscribe((res) => {
       try {
@@ -142,10 +147,13 @@ export class UserContentComponent {
         this.courseList2 = res.data;
         this.items = res.data;
         this.isLoading = true;
+
       } catch (error) {
         console.log(error);
       }
     });
+
+
   }
 
   public searchFunction() {

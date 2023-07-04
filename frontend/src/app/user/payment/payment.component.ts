@@ -118,7 +118,6 @@ export class PaymentComponent implements OnInit {
 
     this.apiservice.postPayment(paymentBody).subscribe((res) => {
       this.orderId = res.orderId;
-      console.log(res.orderId);
     });
   }
 
@@ -130,17 +129,21 @@ export class PaymentComponent implements OnInit {
       name: 'LMS Project',
       description: 'Buy Course',
       order_id: this.orderId,
+
       handler: (response: any) => {
+
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature);
+
         const requestBody = {
           razorpay_payment_id: response.razorpay_payment_id,
           razorpay_order_id: response.razorpay_order_id,
           razorapay_signature: response.razorapay_signature,
           amount: this.finalPayment.toFixed(0),
         };
-        console.log(requestBody);
 
         this.apiservice.postPaymentVerify(requestBody).subscribe((res) => {
-          console.log(res);
 
           this.afterPayment();
         });
