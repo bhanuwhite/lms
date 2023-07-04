@@ -170,7 +170,7 @@ body {
 }
 .content_part_wrapper{
   min-height: 100%;
-  
+
 }
 
 .p-dropdown.p-component.p-dropdown-clearable {
@@ -297,4 +297,7 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
     border-radius: 5px;
     border: 1px solid #000;
 }
+}
+.p-dialog-content {
+  overflow-x: hidden;
 }

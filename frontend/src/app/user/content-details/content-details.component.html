@@ -65,30 +65,17 @@
               <div class="col-lg-12">
                 <div class="row">
                   <div class="col-lg-6 mb-3" *ngFor="
-                      let userLearn of singleCourse.attributes.user_learning;
-                      let i = index
-                    ">
+                      let userLearn of singleCourse.attributes.user_learning | keyvalue ">
                     <div class="d-flex align-items-center">
                       <i class="pi pi-check me-2 text-primary"></i>
                       <span style="
                       font-family: 'Lucida Sans', 'Lucida Sans Regular',
                         'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
                         sans-serif; white-space: nowrap; overflow: hidden;
-                    ">{{ userLearn.u_learn }}...</span>
+                    ">{{ userLearn.value }}...</span>
                     </div>
                   </div>
-                  <div class="col-lg-6 mb-3" *ngFor="let userLearn of singleCourse.attributes.user_learning">
-                    <div class="d-flex align-items-center">
-                      <i class="pi pi-check me-2 text-primary"></i>
-                      <span style="
-                          font-family: 'Lucida Sans', 'Lucida Sans Regular',
-                            'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
-                            sans-serif; white-space: nowrap; overflow: hidden;
-                        ">
-                        {{ userLearn.u_learn }}...
-                      </span>
-                    </div>
-                  </div>
+
                 </div>
               </div>
             </div>

@@ -30,22 +30,20 @@
         </p-accordion>
 
 
-<div class="card flex justify-content-center mt-5">
+        <div class="card flex justify-content-center mt-5">
 
-  <button class="btn btn-primary "  (click)="op.toggle($event)">Give Rating</button>
-  <p-overlayPanel #op>
-    <p-rating #ratingComponent [stars]="5" [cancel]="false"></p-rating>
-        <button class="btn btn-primary mt-3" (click)="userRating(ratingComponent.value)">submit</button>
-</p-overlayPanel>
+          <button class="btn btn-primary " (click)="op.toggle($event)">Give Rating</button>
+          <p-overlayPanel #op>
+            <p-rating #ratingComponent [stars]="5" [cancel]="false"></p-rating>
+            <button class="btn btn-primary mt-3" (click)="userRating(ratingComponent.value)">submit</button>
+          </p-overlayPanel>
 
-</div>
+        </div>
       </div>
 
 
     </div>
   </div>
   <p-toast></p-toast>
-  <!-- <p-dialog header="Give Rating to This Course" [(visible)]="ratingDialog" [modal]="true" [style]="{'width':'50vw'}">
 
-  </p-dialog> -->
 </div>

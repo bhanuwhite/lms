@@ -36,12 +36,10 @@ export class TrackDetailsComponent implements OnInit {
     // })
 
     this.apiService.getTrack().subscribe((res) => {
-      console.log('Track res', res);
 
       this.userCourses = res.data.filter((res:any)=>
         this.userTrackId === res.attributes.user_id
       );
-      console.log("User subscribed Courses", this.userCourses);
 
     });
   }
