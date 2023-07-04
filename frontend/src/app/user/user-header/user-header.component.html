@@ -53,9 +53,9 @@
     <button type="button" class=" user_bar" (click)="visibleSidebar1=true"> <i class="pi pi-bars"></i></button>
   </div>
   <div>
-    <p-avatar shape="circle" size="large" icon="pi pi-user" (click)="menu.toggle($event)"
+    <p-avatar shape="circle" size="large" icon="pi pi-user" (click)="menus.toggle($event)"
       [style]="{'background-color':'#2188d9', 'color': '#ffffff'}"></p-avatar>
-    <p-menu #menu [popup]="true" [model]="items"></p-menu>
+    <p-menu #menus [popup]="true" [model]="items"></p-menu>
   </div>
 </div>
 <!-- mobile header end here -->

@@ -307,6 +307,17 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
 }
 }
 @media (min-width: 319px) and (max-width: 768px) {
+  .profile_image_wrapper{
+    .p-card.p-component{
+      width: 100% !important;
+    }
+  }
+  .file_choose_input{
+    input{
+      width: 100% !important;
+      position: relative;
+    }
+  }
   .p-tabview-panels {
     padding: 0 !important;
     margin: 10px;
