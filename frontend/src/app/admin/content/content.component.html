@@ -60,7 +60,7 @@
 </div>
 
 <!-- New Course adding -->
-<p-dialog header="Add New Course" [(visible)]="courseDialog" [modal]="true" [style]="{'width':'50vw'}">
+<p-dialog header="Add New Course" class="p-dialog-content" [(visible)]="courseDialog" [modal]="true" [style]="{'width':'50vw'}">
   <form action="" [formGroup]="addCourse" (ngSubmit)="courseFormSubmit(videoInput, imgInput)">
     <div class="p-fluid grid">
       <div class="field mt-2 w-100">

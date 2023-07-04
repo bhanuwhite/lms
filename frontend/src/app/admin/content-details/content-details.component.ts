@@ -32,6 +32,8 @@ export class ContentDetailsComponent implements OnInit {
     this.isLoading = true;
     this.apiService.getSingleContent(id).subscribe(res => {
       this.singleContent= res.data;
+      console.log(this.singleContent);
+
       this.userLearnings = this.singleContent.attributes.user_learning
       this.isLoading = false;
 

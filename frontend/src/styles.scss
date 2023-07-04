@@ -288,7 +288,7 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
   }
 }
 
-@media (min-width: 1023px) and (max-width: 3000px){
+@media (min-width: 1023px) and (max-width: 7000px){
   .mobile_header{
     display: none !important;
  }
@@ -343,4 +343,7 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
   transform: translate(50%,-50%);
   transform-origin: 100% 0;
   margin: 0;
+}
+.p-dialog-content {
+  overflow-x: hidden;
 }

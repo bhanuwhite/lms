@@ -19,7 +19,16 @@
     width: 50%;
 
     // padding: auto;
-
 }
+@media (min-width: 319px) and (max-width: 768px) {
+  .search_bar_area{
+      flex-wrap: wrap;
+      gap: 10px;
+      input{
+          width: 100% !important;
+      }
+  }
+}
+
 
 

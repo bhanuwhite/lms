@@ -442,9 +442,9 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.imgUploadProgress = true;
     if (target.files?.length) {
       const file = target.files[0];
-      this.addCourse.get('imgVideo')?.setValue(file);
+      this.addCourse.get('image')?.setValue(file);
       this.formData = new FormData();
-      this.formData.append('files', this.addCourse.value.imgVideo);
+      this.formData.append('files', this.addCourse.value.image);
 
       this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {
