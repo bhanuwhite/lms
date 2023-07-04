@@ -102,6 +102,10 @@ export class UserContentComponent {
             selectedValue.value.selectedSubject.name.trim()
           ) {
             this.coursesList.push(course);
+            console.log("hello");
+
+            console.log(this.coursesList);
+
           }
         });
       }
