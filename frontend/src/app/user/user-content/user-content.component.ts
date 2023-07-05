@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { AllCourseContentData, ContentResponse } from 'src/app/models/content';
@@ -37,7 +37,8 @@ export class UserContentComponent {
     private apiService: ApiService,
     private router: Router,
     private messageService: MessageService,
-    private aboutService: AboutService
+    private aboutService: AboutService,
+
   ) {}
 
   subjects: Subjects[] = [];
@@ -63,6 +64,11 @@ export class UserContentComponent {
     this.formGroup = new FormGroup({
       selectedSubject: new FormControl<Subjects | null>(null),
     });
+  }
+
+  public visible:boolean = false
+  public examPopup():void{
+    this.visible = true
   }
 
   public getLocalData(): void {

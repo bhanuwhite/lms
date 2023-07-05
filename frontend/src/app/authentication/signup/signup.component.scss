@@ -185,3 +185,11 @@ a {
         margin: 0px 15px;
     }
 }
+@media (min-width: 319px) and (max-width: 768px) {
+    .card1{
+        padding-bottom: 10px !important;
+        img{
+            height: auto;
+        }
+    }
+}
