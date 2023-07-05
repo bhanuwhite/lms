@@ -1,10 +1,5 @@
 <div class="content_part_wrapper">
 
-  <div *ngIf="Spinner">
-    <div class="loader">Loading...</div>
-    </div>
-    <div class="row all-Courses m-0" *ngIf="coursesList.length != 0">
-
 
 
   <div class="container-fluid mb-2">
@@ -64,12 +59,12 @@
     </div>
   </div>
 
-  <!-- <div class="container-fluid" *ngIf="!Spinner"> -->
+  <div class="container-fluid" *ngIf="!Spinner">
     <div class="text-center">
       <h2><b>Courses to get you Started</b></h2>
     </div>
     <hr />
-  <!-- </div> -->
+  </div>
   <div class="container-fluid">
     <div class="row py-3 col-lg-12 ms-1 d-flex justify-content-end">
       <div class="col-lg-2"></div>
@@ -91,6 +86,10 @@
 
       </div>
     </div>
+
+    <div *ngIf="Spinner">
+      <div class="loader">Loading...</div>
+      </div>
 
     <div class="row all-Courses" *ngIf="coursesList.length != 0">
       <p-card class="course-card" *ngFor="let course of coursesList">
@@ -168,9 +167,19 @@
         </ng-template>
       </p-card>
     </div>
+
+    <div   class="d-flex justify-content-center mt-5" *ngIf="coursesList.length == 0">
+
+      <div class="d-flex justify-content-center card shadow-4 col-lg-3">
+        <div class="card-body text-center d-flex justify-content-center align-items-center">
+          <p class="fs-4 lh-sm"> Courses are not available</p>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 
 
-</div>
 
 </div>
