@@ -113,7 +113,7 @@ export class PaymentComponent implements OnInit {
 
   createOrderId() {
     const paymentBody = {
-      amount: this.finalPayment.toFixed(0) + '00',
+      amount: this.finalPayment?.toFixed(0) + '00',
     };
 
     this.apiservice.postPayment(paymentBody).subscribe((res) => {
@@ -124,7 +124,7 @@ export class PaymentComponent implements OnInit {
   onPay() {
     const options = {
       key: 'rzp_test_fv78mxq1yb7Yj6',
-      amount: this.finalPayment.toFixed(0) + '00',
+      amount: this.finalPayment?.toFixed(0) + '00',
       currency: 'INR',
       name: 'LMS Project',
       description: 'Buy Course',

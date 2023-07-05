@@ -32,7 +32,8 @@ export class UserContentComponent {
   @ViewChild('desc') desc!: ElementRef;
   private userID!: number;
   public UserAssessments: string[] = [];
-  public assessment_Length!: number;
+  public assessment_Length: number =0;
+  public myCourseLen: number = 0;
   constructor(
     private apiService: ApiService,
     private router: Router,
@@ -76,7 +77,7 @@ export class UserContentComponent {
     this.userID = getLocalData?.id;
   }
 
-  public myCourseLen: number = 0;
+
   public gettingUserHasCourse(): void {
     this.apiService.getUserCourse(this.userID).subscribe((res) => {
       res.map((resObj: any) => {
@@ -95,28 +96,7 @@ export class UserContentComponent {
     });
   }
 
-  onSelectSubject(selectedValue: any) {
-    this.coursesList = [];
 
-    if (selectedValue.value.selectedSubject.name) {
-      if (selectedValue.value.selectedSubject.name === 'All') {
-        this.coursesList = this.courseList2;
-      } else {
-        this.courseList2.forEach((course: any) => {
-          if (
-            course.attributes.subject.trim() ===
-            selectedValue.value.selectedSubject.name.trim()
-          ) {
-            this.coursesList.push(course);
-            console.log("hello");
-
-            console.log(this.coursesList);
-
-          }
-        });
-      }
-    }
-  }
 
   public getAllCourseDetais() {
     this.apiService.getContent().subscribe((res) => {
@@ -150,6 +130,7 @@ export class UserContentComponent {
         this.Spinner = false;
         this.coursesList = res.data;
 
+
         this.courseList2 = res.data;
         this.items = res.data;
         this.isLoading = true;
@@ -178,6 +159,29 @@ export class UserContentComponent {
       );
     } else {
       this.coursesList = this.courseList2;
+    }
+  }
+
+  onSelectSubject(selectedValue: any) {
+    this.coursesList = [];
+
+    if (selectedValue.value.selectedSubject.name) {
+      if (selectedValue.value.selectedSubject.name === 'All') {
+        this.coursesList = this.courseList2;
+      } else {
+        this.courseList2.forEach((course: any) => {
+          if (
+            course.attributes.subject.trim() ===
+            selectedValue.value.selectedSubject.name.trim()
+          ) {
+            this.coursesList.push(course);
+            console.log("hello");
+
+            console.log(this.coursesList);
+
+          }
+        });
+      }
     }
   }
 
