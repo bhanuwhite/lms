@@ -113,34 +113,37 @@ export class PaymentComponent implements OnInit {
 
   createOrderId() {
     const paymentBody = {
-      amount: this.finalPayment.toFixed(0) + '00',
+      amount: this.finalPayment?.toFixed(0) + '00',
     };
 
     this.apiservice.postPayment(paymentBody).subscribe((res) => {
       this.orderId = res.orderId;
-      console.log(res.orderId);
     });
   }
 
   onPay() {
     const options = {
       key: 'rzp_test_fv78mxq1yb7Yj6',
-      amount: this.finalPayment.toFixed(0) + '00',
+      amount: this.finalPayment?.toFixed(0) + '00',
       currency: 'INR',
       name: 'LMS Project',
       description: 'Buy Course',
       order_id: this.orderId,
+
       handler: (response: any) => {
+
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature);
+
         const requestBody = {
           razorpay_payment_id: response.razorpay_payment_id,
           razorpay_order_id: response.razorpay_order_id,
           razorapay_signature: response.razorapay_signature,
           amount: this.finalPayment.toFixed(0),
         };
-        console.log(requestBody);
 
         this.apiservice.postPaymentVerify(requestBody).subscribe((res) => {
-          console.log(res);
 
           this.afterPayment();
         });

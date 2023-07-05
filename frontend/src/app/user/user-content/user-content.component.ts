@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { AllCourseContentData, ContentResponse } from 'src/app/models/content';
@@ -32,17 +32,20 @@ export class UserContentComponent {
   @ViewChild('desc') desc!: ElementRef;
   private userID!: number;
   public UserAssessments: string[] = [];
-  public assessment_Length!: number;
+  public assessment_Length: number =0;
+  public myCourseLen: number = 0;
   constructor(
     private apiService: ApiService,
     private router: Router,
     private messageService: MessageService,
-    private aboutService: AboutService
+    private aboutService: AboutService,
+
   ) {}
 
   subjects: Subjects[] = [];
 
   formGroup!: FormGroup;
+  value: number =3
 
   ngOnInit(): void {
     this.getContent();
@@ -64,12 +67,17 @@ export class UserContentComponent {
     });
   }
 
-  public getLocalData(): void {
-    const getLocalData = JSON.parse(localStorage.getItem('user')!);
-    this.userID = getLocalData.id;
+  public visible:boolean = false
+  public examPopup():void{
+    this.visible = true
   }
 
-  public myCourseLen: number = 0;
+  public getLocalData(): void {
+    const getLocalData = JSON.parse(localStorage.getItem('user')!);
+    this.userID = getLocalData?.id;
+  }
+
+
   public gettingUserHasCourse(): void {
     this.apiService.getUserCourse(this.userID).subscribe((res) => {
       res.map((resObj: any) => {
@@ -88,24 +96,7 @@ export class UserContentComponent {
     });
   }
 
-  onSelectSubject(selectedValue: any) {
-    this.coursesList = [];
 
-    if (selectedValue.value.selectedSubject.name) {
-      if (selectedValue.value.selectedSubject.name === 'All') {
-        this.coursesList = this.courseList2;
-      } else {
-        this.courseList2.forEach((course: any) => {
-          if (
-            course.attributes.subject.trim() ===
-            selectedValue.value.selectedSubject.name.trim()
-          ) {
-            this.coursesList.push(course);
-          }
-        });
-      }
-    }
-  }
 
   public getAllCourseDetais() {
     this.apiService.getContent().subscribe((res) => {
@@ -132,20 +123,24 @@ export class UserContentComponent {
     location.reload();
   }
 
-  // Get Content
+//GET CONTENT
   public getContent(): void {
     this.apiService.getContent().subscribe((res) => {
       try {
         this.Spinner = false;
         this.coursesList = res.data;
 
+
         this.courseList2 = res.data;
         this.items = res.data;
         this.isLoading = true;
+
       } catch (error) {
         console.log(error);
       }
     });
+
+
   }
 
   public searchFunction() {
@@ -164,6 +159,29 @@ export class UserContentComponent {
       );
     } else {
       this.coursesList = this.courseList2;
+    }
+  }
+
+  onSelectSubject(selectedValue: any) {
+    this.coursesList = [];
+
+    if (selectedValue.value.selectedSubject.name) {
+      if (selectedValue.value.selectedSubject.name === 'All') {
+        this.coursesList = this.courseList2;
+      } else {
+        this.courseList2.forEach((course: any) => {
+          if (
+            course.attributes.subject.trim() ===
+            selectedValue.value.selectedSubject.name.trim()
+          ) {
+            this.coursesList.push(course);
+            console.log("hello");
+
+            console.log(this.coursesList);
+
+          }
+        });
+      }
     }
   }
 

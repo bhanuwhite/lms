@@ -63,21 +63,13 @@ export class ApiService {
   }
 
   //Post COURSE CONTENT
-  public postContent(
-    item: postCourseContentData
-  ): Observable<AllCourseContentData> {
+  public postContent( item: postCourseContentData): Observable<AllCourseContentData> {
     return this.http.post<AllCourseContentData>(`api/course-contents`, item);
   }
 
   // update COURSE CONTENT
-  public updateContent(
-    id: number,
-    item: postCourseContentData
-  ): Observable<AllCourseContentData> {
-    return this.http.put<AllCourseContentData>(
-      `api/course-contents/${id}`,
-      item
-    );
+  public updateContent(id: number, item: postCourseContentData ): Observable<AllCourseContentData> {
+    return this.http.put<AllCourseContentData>(`api/course-contents/${id}`,item );
   }
 
   // Delete COURSE CONTENT
@@ -319,4 +311,20 @@ export class ApiService {
   public postPaymentVerify(item: any): Observable<any> {
     return this.http.post<any>(`api/payment/verify`, item);
   }
+
+   // POST
+   public postUserRatings(item: any): Observable<any> {
+    return this.http.post<any>(`api/ratings`, item);
+  }
+
+   // get
+   public getUserRatings(id:any): Observable<any> {
+    return this.http.get<any>(`api/ratings?course_id=${id}`);
+  }
+
+   // PUT Rating
+   public upadateUserRatings(id: number, item: any): Observable<any> {
+    return this.http.put<any>(`api/ratings/${id}`,item);
+  }
+
 }

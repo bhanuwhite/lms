@@ -14,7 +14,9 @@ import { throwError } from 'rxjs';
 import { TokenInterceptor } from 'src/app/interceptor/token-interceptor.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
-
+// import { Component, OnInit } from '@angular/core';
+// import { Router } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
 @Component({
   selector: 'app-user-header',
   templateUrl: './user-header.component.html',
@@ -29,7 +31,7 @@ export class UserHeaderComponent implements OnInit {
   changePassword!: FormGroup;
   public toNewPassword: boolean = true;
   errorMessageObj!: any;
-
+  visibleSidebar1!: boolean;
   constructor(
     private router: Router,
     private aboutService: AboutService,
@@ -48,7 +50,10 @@ export class UserHeaderComponent implements OnInit {
     this.iconMenu();
   }
 
+
+
   public iconMenu(): void {
+
     this.items = [
       {
         label: 'Action',
@@ -140,6 +145,10 @@ export class UserHeaderComponent implements OnInit {
   public cancelForm() {
     this.passwordDialog = false;
   }
+
+  public isActive(base: string): boolean {
+    return this.router.url === base;//.includes(`${base}`);
+}
 
   currentPwdInput: boolean = false;
   public changePassowrdSubmit(): void {

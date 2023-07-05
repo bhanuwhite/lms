@@ -52,13 +52,13 @@ import { UserContentComponent } from './user-content/user-content.component';
 import { DividerModule } from 'primeng/divider';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { ToastModule } from 'primeng/toast';
-import { UserCommunityComponent } from './user-community/user-community.component';
 import { AssessmentComponent } from './assessment/assessment.component';
 import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
 import { MycartComponent } from './mycart/mycart.component';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { BadgeModule } from 'primeng/badge';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { SidebarModule } from 'primeng/sidebar';
 
 @NgModule({
   declarations: [
@@ -68,7 +68,6 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     UserHeaderComponent,
     UserFooterComponent,
     ContentDetailsComponent,
-    UserCommunityComponent,
     MessageComponent,
     PurchaseHistoryComponent,
     ReceiptComponent,
@@ -134,7 +133,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     ToastModule,
     ConfirmPopupModule,
     BadgeModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    SidebarModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

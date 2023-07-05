@@ -74,7 +74,6 @@ export class MycartComponent implements OnInit {
   }
 
   addToLibrary(course: any) {
-    console.log("Adding item to cart");
 
     this.purchases = course.course_ids[0].no_of_purchases;
     this.confirmationService.confirm({
