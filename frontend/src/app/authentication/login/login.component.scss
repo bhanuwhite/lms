@@ -5,12 +5,31 @@
 //     height: auto;
 
 // }
+.main_signup_wrapper{
+    overflow-x: hidden;
+}
+.pass-div.pt-2 {
+    padding: 0 6px;
+}
+@media (min-width: 319px) and (max-width: 768px) {
+    .card1{
+        padding-bottom: 10px !important;
+        img{
+            height: auto;
+        }
+    }
+    .pass-div{
+        padding: 10px 0 !important;
+    }
+}
+
 .surface-ground {
     display: grid;
     place-items: center;
     height: 100vh;
     overflow-y: auto;
 }
+
 
 body {
     color: #000;
@@ -27,6 +46,8 @@ body {
 
 .card2 {
     margin: 0px 40px;
+    // margin-top: 20px;
+    height: 400px;
 }
 
 .logo {

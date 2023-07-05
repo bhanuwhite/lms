@@ -28,7 +28,7 @@ import { CartResponse } from 'src/app/models/cart';
 })
 export class ContentDetailsComponent implements OnInit {
   public displayDialog = false;
-   showSpinner:boolean = true;
+  showSpinner: boolean = true;
   public courseId!: number;
   public userID!: number;
   public singleCourse!: any;

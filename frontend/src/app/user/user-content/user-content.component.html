@@ -1,4 +1,12 @@
 <div class="content_part_wrapper">
+
+  <div *ngIf="Spinner">
+    <div class="loader">Loading...</div>
+    </div>
+    <div class="row all-Courses m-0" *ngIf="coursesList.length != 0">
+
+
+
   <div class="container-fluid mb-2">
     <div class="row mt-1">
       <div class="col-lg-4 col-md-6 mb-1 md:col-6 lg:col-4">
@@ -33,7 +41,7 @@
       </div>
 
       <div class="col-lg-4 mb-1 col-md-6 md:col-6 lg:col-4">
-        <div class="surface-card shadow-2 p-2 border-round">
+        <div class="surface-card shadow-2 p-2 border-round" (click)="examPopup()">
           <div class="flex justify-content-between mb-3">
             <div>
               <span class="block text-500 font-medium mb-3">My Exams</span>
@@ -45,20 +53,27 @@
             </div>
           </div>
         </div>
+
+        <p-dialog header="Exams" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+          <p class="m-0">
+                    Coming Soon....!
+          </p>
+      </p-dialog>
+
       </div>
     </div>
   </div>
 
-  <div class="container-fluid" *ngIf="!Spinner">
+  <!-- <div class="container-fluid" *ngIf="!Spinner"> -->
     <div class="text-center">
       <h2><b>Courses to get you Started</b></h2>
     </div>
     <hr />
-  </div>
+  <!-- </div> -->
   <div class="container-fluid">
     <div class="row py-3 col-lg-12 ms-1 d-flex justify-content-end">
       <div class="col-lg-2"></div>
-      <div class="col-lg-5 ms-5 d-flex justify-content-end align-items-center">
+      <div class="col-lg-5 mb-2 ms-5 d-flex justify-content-end align-items-center">
         <span class="p-input-icon-left w-100">
           <i class="pi pi-search"></i>
           <input type="text" class="w-100" pInputText [(ngModel)]="searchWord" (ngModelChange)="searchFunction()"
@@ -67,15 +82,16 @@
       </div>
 
       <div class="col-lg-4">
-        <form [formGroup]="formGroup">
-          <p-dropdown formControlName="selectedSubject" [options]="subjects" optionLabel="name"
-            placeholder="--Select Category--" (onChange)="onSelectSubject(formGroup)"></p-dropdown>
-        </form>
+          <form [formGroup]="formGroup">
+            <div class="category">
+              <p-dropdown formControlName="selectedSubject" [options]="subjects" optionLabel="name"
+              placeholder="--Select Category--" (onChange)="onSelectSubject(formGroup)"></p-dropdown>
+            </div>
+          </form>
+
       </div>
     </div>
-    <div *ngIf="Spinner">
-      <div class="loader">Loading...</div>
-    </div>
+
     <div class="row all-Courses" *ngIf="coursesList.length != 0">
       <p-card class="course-card" *ngFor="let course of coursesList">
         <ng-template pTemplate="header">
@@ -100,15 +116,12 @@
             </div>
           </div>
           <div class="row mb-3">
-            <div class="col-lg-4 mt-2  "  >
-              <div class="warning-button">
-                <i class="button_learning" pBadge style="font-size: 2rem" value="{{ course.attributes.level }}" severity="warning"></i>
-              </div>
-             
+            <div class="col-lg-4 mt-2 text-center" style="text-align: center">
+              <i class="" pBadge style="font-size: 2rem" value="{{ course.attributes.level }}" severity="warning"></i>
             </div>
             <div class="col-lg-8 d-flex justify-content-end">
               <p class="m-0 p-0">
-                Lectures : <b>{{ course.attributes.content.data.length }}</b>
+                Lectures : <b>{{ course?.attributes?.content?.data?.length }}</b>
               </p>
             </div>
           </div>
@@ -156,4 +169,8 @@
       </p-card>
     </div>
   </div>
+
+
+</div>
+
 </div>

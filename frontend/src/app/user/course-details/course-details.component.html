@@ -5,67 +5,102 @@
 <div class="container-fluid" *ngIf="userCourseData && !Spinner">
   <div class="row">
     <div class="col-lg-8">
-
       <div class="py-3" *ngIf="streamVideo">
-        <video [src]="streamVideo.url" controls class="course_video" #Course_video
-          (timeupdate)="getWatchedTime()"></video>
-        <p> <b class="fs-6">{{streamVideo.name}}</b></p>
+        <video
+          [src]="streamVideo.url"
+          controls
+          class="course_video"
+          #Course_video
+          (timeupdate)="getWatchedTime()"
+        ></video>
+        <p>
+          <b class="fs-6">{{ streamVideo.name }}</b>
+        </p>
       </div>
-
     </div>
 
     <div class="col-lg-4 h-100">
       <div class="py-3">
-        <div class="border px-2 py-2 border-top-1 d-flex justify-content-center">
+        <div
+          class="border px-2 mb-2 py-2 border-top-1 d-flex justify-content-center"
+        >
           <b class="fs-5">Course Content</b>
         </div>
-        <p-accordion
-          *ngFor="let courseVideo of userCourseData?.attributes?.course_ids?.data[0]?.attributes?.content?.data; let i=index">
+        <div class="videoScroll overflow-auto position-relative">
+          <div
+            *ngFor="
+              let courseVideo of userCourseData?.attributes?.course_ids?.data[0]
+                ?.attributes?.content?.data;
+              let i = index
+            "
+          >
+            <div class="card shadow-1">
+              <b class="m-2 text-wrap text-black"
+                >{{ courseVideo.attributes.alternativeText }}
+              </b>
+              <hr />
+              <video
+                type="video/mp4"
+                src="{{ courseVideo.attributes.url }}"
+                (click)="playVideo(i)"
+                #video
+                (loadedmetadata)="onMetadata(video)"
+                [autoplay]="false"
+                [muted]="true"
+                class="rounded-4 px-3 pb-3"
+              ></video>
+            </div>
+          </div>
+        </div>
 
-          <p-accordionTab [header]="courseVideo.attributes.name" [selected]=" i === accordianTabIndex"
-            (click)="toggleAccordian(i)">
-            <video [src]="courseVideo.attributes.url" type="video/mp4" alt="" style="height: 200px; width: 100%;"
-              (click)="playVideo(i)" #video (loadedmetadata)="onMetadata(video)"></video>
-          </p-accordionTab>
-        </p-accordion>
+        <div class="flex justify-content-center mt-3">
+          <div
+            *ngIf="
+              !CourseRating_UserIds.includes(userID) && progressPercentage <= 90
+            "
+          >
+            <p-button [disabled]="true" label="Give Rating"></p-button>
+          </div>
 
+          <div
+            *ngIf="
+              !CourseRating_UserIds.includes(userID) && progressPercentage >= 90
+            "
+          >
+            <p-button (click)="showDialog()" label="Give Rating"></p-button>
 
+            <p-dialog
+              header="Rating"
+              class="flex justify-content-center"
+              [(visible)]="visible"
+              [modal]="true"
+              [style]="{ width: '25vw' }"
+              [draggable]="false"
+              [resizable]="false"
+            >
+              <p-rating
+                #ratingComponent
+                [stars]="5"
+                [cancel]="false"
+              ></p-rating>
+              <button
+                class="btn btn-primary mt-3"
+                (click)="userRating(ratingComponent.value)"
+              >
+                Submit
+              </button>
+            </p-dialog>
+          </div>
 
-
-<div class=" flex justify-content-center mt-3">
-
-  <div *ngIf="!CourseRating_UserIds.includes(userID)">
-    <p-button (click)="showDialog()"  label="Give Rating"></p-button>
-
-  <p-dialog header="Rating" class="flex justify-content-center" [(visible)]="visible" [modal]="true" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
-    <p-rating #ratingComponent [stars]="5" [cancel]="false"></p-rating>
-    <button class="btn btn-primary mt-3" (click)="userRating(ratingComponent.value)">Submit</button>
-
-  </p-dialog>
-  </div>
-
-  <div *ngIf="CourseRating_UserIds.includes(userID)">
-
-    <p-button [disabled]="true" (click)="showDialog()"  label="Give Rating"></p-button>
-
-    <!-- <p-button (click)="showDialog()"  label="Update Rating"></p-button>
-
-  <p-dialog header="Update Rating" class="flex justify-content-center" [(visible)]="visible" [modal]="true" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
-    <p-rating #ratingComponent1 [stars]="5" [cancel]="false"></p-rating>
-    <button class="btn btn-primary mt-3" (click)="updateRating(ratingComponent1.value)">Update</button>
-
-  </p-dialog> -->
-  </div>
-
-</div>
-
+          <div *ngIf="CourseRating_UserIds.includes(userID)">
+            <p-button
+              [disabled]="true"
+              label="You already given rating"
+            ></p-button>
+          </div>
+        </div>
       </div>
-
-
     </div>
   </div>
   <p-toast></p-toast>
-  <!-- <p-dialog header="Give Rating to This Course" [(visible)]="ratingDialog" [modal]="true" [style]="{'width':'50vw'}">
-
-  </p-dialog> -->
 </div>

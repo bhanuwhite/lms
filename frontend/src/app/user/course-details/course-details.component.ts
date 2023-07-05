@@ -7,12 +7,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ratingObj, QAcategory } from '../../interface';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
-import { UserLibraryGetResponseData } from 'src/app/models/user-library';
 import { MessageService } from 'primeng/api';
-import { resolve } from 'chart.js/dist/helpers/helpers.options';
 import { TrackResponseData } from 'src/app/models/track';
 import { Subscription } from 'rxjs';
 @Component({
@@ -29,8 +26,6 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   trackCourseIds: number[] = [];
   SingleContentLib$: Subscription = new Subscription();
   LibraryContent$: Subscription = new Subscription();
-  // PostMethodTrack$: Subscription = new Subscription();
-  // TrackPutMethod$: Subscription = new Subscription();
   PutUserHasCourse$: Subscription = new Subscription();
 
   public userID!: number;
@@ -44,6 +39,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   course_id!: number;
   accordianTabIndex: number = -1;
   putLibId!: number;
+  progressPercentage!: any
   @ViewChild('Course_video') Course_video!: ElementRef;
 
   constructor(
@@ -58,6 +54,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     this.getLibraryData().then(() => this.getRating());
 
     this.getContent();
+    // this.getWatchedTime()
   }
 
   public activeParams() {
@@ -81,6 +78,9 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
           this.course_id = this.userCourseData.attributes.course_ids.data[0].id;
           this.courseId = this.userCourseData.id;
+          // console.log(this.userCourseData.attributes.progress_percentage);
+
+          this.progressPercentage = this.userCourseData.attributes.progress_percentage
           this.defaultVideo();
           resolve();
         })),
@@ -144,6 +144,10 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     this.PutUserHasCourse$ = this.apiService
       .putUserHasCourse(this.courseId, putBody)
       .subscribe((res) => {});
+
+      this.progressPercentage =  progressPer.toFixed(0)
+      console.log(this.progressPercentage);
+
   }
 
   // Displaying Default video 1st

@@ -54,7 +54,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
 import { TrackuserComponent } from './trackuser/trackuser.component';
 import { TrackDetailsComponent } from './track-details/track-details.component';
-
+import { EditFormComponent } from './edit-form/edit-form.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +71,7 @@ import { TrackDetailsComponent } from './track-details/track-details.component';
     QuizDetailsComponent,
     TrackuserComponent,
     TrackDetailsComponent,
-
+    EditFormComponent
 
   ],
   imports: [

@@ -22,6 +22,8 @@ import {
   AllCourseContent,
 } from 'src/app/models/content';
 import { ApiService } from 'src/app/services/api.service';
+import { HttpClient } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-content',
@@ -38,7 +40,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class ContentComponent implements OnInit, OnDestroy {
   @ViewChild('vid', { read: ElementRef }) tempRef!: ElementRef;
-
+  popup: string = '';
   private contentGetSubsription$: Subscription = new Subscription();
   private contentPostSubsription$: Subscription = new Subscription();
   private contentUpdateSubsription$: Subscription = new Subscription();
@@ -84,7 +86,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   courseDocument: any;
   updateCertificates: boolean = false;
   updateDocuments: boolean = false;
-  editUserLearnings: { u_learn: string }[] = [];
+  editUserLearnings: any;
 
   Technologies = [
     { tech: 'Angular' },
@@ -120,7 +122,8 @@ export class ContentComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private fb: FormBuilder,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -157,17 +160,19 @@ export class ContentComponent implements OnInit, OnDestroy {
       ]),
       description: new FormControl(''),
       imgVideo: new FormControl(''),
+      image: new FormControl(''),
       technology: new FormControl('', [Validators.required]),
       subject: new FormControl('', [Validators.required]),
       status: new FormControl({ status: 'active' }),
       admin_id: new FormControl(this.Admin_id),
       price: new FormControl(''),
-      image: new FormControl(''),
       course_duration: new FormControl(),
-      level: new FormControl(''),
+      level: new FormControl('' , [Validators.required]),
       link: ['', [Validators.pattern('^https?://.+')]],
       userLearnings: this.fb.array([this.user_learn()]),
       coursesIncludes: this.fb.array([]),
+      categoryCheck: '',
+      documentCheck: '',
       documents: new FormControl(),
       preLearn1: new FormControl(),
       preLearn2: new FormControl(),
@@ -240,9 +245,9 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   // get content
-  totalAvgRating :number | null =0;
-  sum :number=0;
-  ratingData:any
+  totalAvgRating: number | null = 0;
+  sum: number = 0;
+  ratingData: any;
   // Get Content
 
   public getContent(): void {
@@ -265,6 +270,7 @@ export class ContentComponent implements OnInit, OnDestroy {
 
             }
 
+              this.totalAvgRating = this.sum / res.length;
 
             this.totalAvgRating = (this.sum /  res.length);
             if (
@@ -275,6 +281,9 @@ export class ContentComponent implements OnInit, OnDestroy {
               this.totalAvgRating = null;
             }
 
+              this.apiService
+                .updateContent(this.contentData[i].id, this.ratingData)
+                .subscribe((res) => {});
 
            this.ratingData ={
             data:{
@@ -323,6 +332,7 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   public showCourseDialog() {
     this.courseDialog = true;
+    // this.popup="add"
   }
   public closeCourseDialog() {
     this.courseDialog = false;
@@ -340,9 +350,6 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
   public statusSelected(event: { value: { status: string } }) {
     this.selectedStatus = event.value.status;
-  }
-  public statusSelected2(event: { value: { status: string } }) {
-    this.updatedStatus = event.value.status;
   }
 
   public checkWordCount(): void {
@@ -405,7 +412,6 @@ export class ContentComponent implements OnInit, OnDestroy {
       });
       uploadPromises.push(uploadPromise);
     });
-
     try {
       await Promise.all(uploadPromises);
       this.videoUploadProgress = false;
@@ -413,9 +419,8 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'Something went wrong!',
+        detail: 'While uploading the videos!',
       });
-      console.error(error);
     }
   }
 
@@ -442,12 +447,19 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.imgUploadProgress = true;
     if (target.files?.length) {
       const file = target.files[0];
-      this.addCourse.get('imgVideo')?.setValue(file);
+      const fileName = file.name;
+
+      this.addCourse.get('image')?.setValue(file);
       this.formData = new FormData();
-      this.formData.append('files', this.addCourse.value.imgVideo);
+      this.formData.append('files', this.addCourse.value.image);
+      this.formData.append('files', this.addCourse.value.image);
 
       this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {
+          this.convertUrlToFile(res[0].formats.thumbnail.url, fileName).then(
+            (imgFile: any) => {}
+          );
+
           this.courseContentImage = res;
           this.imgUploadProgress = false;
         } catch (error) {
@@ -459,6 +471,24 @@ export class ContentComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  convertUrlToFile(url: string, fileName: string): Promise<File> {
+    return new Promise<File>((resolve, reject) => {
+      this.http.get(url, { responseType: 'blob' }).subscribe(
+        (blob: Blob) => {
+          // Create a File object from the Blob using the provided fileName
+          const file = new File([blob], fileName, {
+            type: 'image/jpeg',
+          });
+          resolve(file);
+        },
+        (error) => {
+          // Return a default File object in case of an error
+          resolve(new File([], 'default.jpg', { type: 'image/jpeg' }));
+        }
+      );
+    });
   }
 
   checkboxValue(event: any, value: string): Promise<void> {
@@ -528,10 +558,15 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   public elements = document.getElementsByTagName('input');
 
+  public userLearnObj: { [key: number]: string } = {};
   public courseFormSubmit(
     videoInput: HTMLInputElement,
     imgInput: HTMLInputElement
   ) {
+    for (let i = 0; i < this.addCourse.value.userLearnings.length; i++) {
+      this.userLearnObj[i] = this.addCourse.value.userLearnings[i]?.u_learn;
+    }
+
     this.courseDialog = false;
     const courseData = {
       data: {
@@ -553,7 +588,7 @@ export class ContentComponent implements OnInit, OnDestroy {
           3: this.addCourse.value.preLearn3,
           4: this.addCourse.value.preLearn4,
         },
-        user_learning: this.addCourse.value.userLearnings,
+        user_learning: this.userLearnObj,
         course_include: this.addCourse.value.coursesIncludes,
         files: this.courseDocument,
       },
@@ -610,186 +645,8 @@ export class ContentComponent implements OnInit, OnDestroy {
     }
   }
 
-  public categories: any = [
-    { name: 'Certificate', checked: false },
-    { name: 'Documents', checked: false },
-  ];
-
-  // Edit dialog open
-
-  checkArray: any[] = [];
   public editContentDialog(item: AllCourseContentData): void {
-    this.checkArray = item.attributes.course_include;
-    this.categories.map((res: any) => {
-      res.checked = false;
-    });
-
-    this.checkArray.forEach((value) => {
-      const category = this.categories.find((c: any) => c.name === value);
-      if (category) {
-        category.checked = true;
-
-        if ('certificate' === category.name.toLocaleLowerCase()) {
-          this.updateCertificates = true;
-        } else if ('documents' === category.name.toLocaleLowerCase()) {
-          this.updateDocuments = true;
-          this.showDocuments = true;
-        }
-      } else {
-        this.updateCertificates = false;
-        this.updateDocuments = false;
-        this.showDocuments = false;
-      }
-    });
-
-    this.editDisply = true;
-    this._data = item;
-    console.log(this._data.id);
-
-    this.techString = item.attributes?.technology;
-    this.subjectString = item.attributes?.subject;
-    this.levelString = item.attributes?.level;
-    this.statusString = item.attributes?.status;
-    this.videoContent = item.attributes?.content;
-    this.imageContent = item.attributes?.placeholder_img;
-
-    this.courseUpdateGroup = this.fb.group({
-      name: new FormControl(item.attributes?.name, [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z., ]+$'),
-      ]),
-      description: new FormControl(item.attributes?.description),
-      price: new FormControl(item.attributes?.price),
-      technology: [{ tech: this.techString }],
-      subject: [{ industry: this.subjectString }],
-      level: [{ level: this.levelString }],
-      link: new FormControl(item.attributes?.link),
-      status: 'active',
-      user_id: new FormControl(this.Admin_id),
-      image: new FormControl(this.imageContent),
-      imgVideo: new FormControl(this.videoContent),
-      preLearn1: item.attributes.pre_learning[1],
-      preLearn2: item.attributes.pre_learning['2'],
-      preLearn3: item.attributes.pre_learning['3'],
-      preLearn4: item.attributes.pre_learning['4'],
-
-      coursesIncludes: this.fb.array(
-        this.categories
-          .filter((category: any) => category.checked)
-          .map((category: any) => new FormControl(category.name))
-      ),
-    });
-    this.courseUpdateGroup.setControl('userLearnings', this.userLearns());
-    this.editcheckWord(this.courseUpdateGroup.value.description);
-
-//  console.log(this.courseUpdateGroup.value.description.length);
-
-
-
-
-
-  }
-
-
-  public userLearns(): FormArray {
-    const formArray = this.fb.array([]);
-    this.editUserLearnings.forEach((res) => {
-      formArray.push(this.fb.control(res.u_learn));
-    });
-    return formArray;
-  }
-
-
-  // close edit dialog
-  public closeEditDialog(): void {
-    this.editDisply = false;
-    this.updateCertificates = false;
-    this.updateDocuments = false;
-  }
-
-  updateCheckBoxArray!: FormArray;
-
-  editCheckboxValue(event: any, value: string) {
-    console.log(event.checked);
-
-    if (event instanceof HTMLInputElement && event.checked !== undefined) {
-      const checked = event.checked;
-
-      this.updateCheckBoxArray = this.courseUpdateGroup.controls[
-        'coursesIncludes'
-      ] as FormArray;
-      console.log(this.updateCheckBoxArray.value);
-
-      if (checked) {
-        this.updateCheckBoxArray.push(new FormControl(value));
-
-        console.log(this.updateCheckBoxArray.value);
-      } else {
-        let index = this.updateCheckBoxArray.controls.findIndex(
-          (x) => x.value == value
-        );
-        if (index !== -1) {
-          this.updateCheckBoxArray.removeAt(index);
-        }
-      }
-      console.log(this.updateCheckBoxArray.value);
-    }
-    console.log(this.courseUpdateGroup.value.coursesIncludes);
-  }
-
-  // update content
-  public onUpdateContent(): void {
-    this.editDisply = false;
-
-    const updateCourseData = {
-      data: {
-        technology: this.selectedTech,
-        level: this.selectedLevel,
-        content: this.courseContentVideo,
-        description: this.courseUpdateGroup.value.description,
-        link: this.courseUpdateGroup.value.link,
-        name: this.courseUpdateGroup.value.name,
-        placeholder_img: this.courseContentImage,
-        price: this.courseUpdateGroup.value.price,
-        user_id: this.Admin_id,
-        status: this.selectedStatus,
-
-        user_learnings: this.courseUpdateGroup.value.userLearnings,
-        course_include: this.courseUpdateGroup.value.coursesIncludes,
-      },
-    };
-
-
-
-    // Post api call here
-    if (this.courseContentVideo.length != 0) {
-      this.apiService
-        .updateContent(this._data.id, updateCourseData)
-        .subscribe((res) => {
-          try {
-            this.editDisply = false;
-            this.messageService.add({
-              severity: 'info',
-              summary: 'Update',
-              detail: 'Content updated successfully !!',
-            });
-            this.updateCertificates = false;
-            this.updateDocuments = false;
-            this.getContent();
-          } catch (error) {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: 'Something went to wrong !!',
-            });
-          }
-        });
-    } else {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Please upload Course Video C ontent',
-      });
-    }
+    this.editUserLearnings = item;
   }
 
   // Delete content
