@@ -41,7 +41,7 @@
       </div>
 
       <div class="col-lg-4 mb-1 col-md-6 md:col-6 lg:col-4">
-        <div class="surface-card shadow-2 p-2 border-round">
+        <div class="surface-card shadow-2 p-2 border-round" (click)="examPopup()">
           <div class="flex justify-content-between mb-3">
             <div>
               <span class="block text-500 font-medium mb-3">My Exams</span>
@@ -53,6 +53,13 @@
             </div>
           </div>
         </div>
+
+        <p-dialog header="Exams" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+          <p class="m-0">
+                    Coming Soon....!
+          </p>
+      </p-dialog>
+
       </div>
     </div>
   </div>
@@ -81,7 +88,7 @@
               placeholder="--Select Category--" (onChange)="onSelectSubject(formGroup)"></p-dropdown>
             </div>
           </form>
-   
+
       </div>
     </div>
 
