@@ -32,7 +32,7 @@ export class UserContentComponent {
   @ViewChild('desc') desc!: ElementRef;
   private userID!: number;
   public UserAssessments: string[] = [];
-  public assessment_Length!: number;
+  public assessment_Length: number=0;
   constructor(
     private apiService: ApiService,
     private router: Router,
