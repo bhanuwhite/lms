@@ -28,7 +28,7 @@ export class TokenInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       retry(1),
       catchError((error: HttpErrorResponse) => {
-      console.log(error);
+
         this.errorMessage = error
 
         this.errorMsg = error.error.error.message;
@@ -42,7 +42,7 @@ export class TokenInterceptor implements HttpInterceptor {
         }
         else if (error.status === 400) {
           if(error.error.error.message === "Invalid identifier or password"){
-          this.messageService.add({ severity: 'error', summary: 'Invalid', detail:error.error.error.message});
+          this.messageService.add({ severity: 'error', summary: 'Invalid', detail: "Invalid Email or password"});
           }
           else if(error.error.error.message === "Email or Username are already taken"){
           this.messageService.add({ severity: 'error', summary: '', detail:error.error.error.message});

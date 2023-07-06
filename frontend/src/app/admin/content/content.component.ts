@@ -41,12 +41,6 @@ import { catchError, map } from 'rxjs/operators';
 export class ContentComponent implements OnInit, OnDestroy {
   @ViewChild('vid', { read: ElementRef }) tempRef!: ElementRef;
   popup: string = '';
-  private contentGetSubsription$: Subscription = new Subscription();
-  private contentPostSubsription$: Subscription = new Subscription();
-  private contentUpdateSubsription$: Subscription = new Subscription();
-  private contentDeleteSubsription$: Subscription = new Subscription();
-  private fileUploadForPostSubscription$: Subscription = new Subscription();
-  private fileUploadForUpdateSubscription$: Subscription = new Subscription();
   private allSubsription$: Subscription[] = [];
 
   public searchWord: string = '';
@@ -150,7 +144,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   // New Course adding details.
-  // userLearnings!: FormArray;
+
   public newCourse() {
     this.addCourse = this.fb.group({
       name: new FormControl('', [
@@ -257,41 +251,6 @@ export class ContentComponent implements OnInit, OnDestroy {
         this.contentData = res.data;
         this.contentData2 = res.data;
         this.loadingSpinner = false;
-
-        for (let i = 0; i < this.contentData.length; i++) {
-          this.apiService
-            .getUserRatings(this.contentData[i].id)
-            .subscribe((res: any) => {
-              for (let j = 0; j < res.length; j++) {
-                this.sum = res[j].rating + this.sum;
-              }
-              this.totalAvgRating = this.sum / res.length;
-              this.totalAvgRating = this.sum / res.length;
-              if (
-                isNaN(this.totalAvgRating) ||
-                this.totalAvgRating === Infinity ||
-                this.totalAvgRating === -Infinity
-              ) {
-                this.totalAvgRating = null;
-              }
-
-              this.apiService
-                .updateContent(this.contentData[i].id, this.ratingData)
-                .subscribe((res) => {});
-
-              this.ratingData = {
-                data: {
-                  rating: this.totalAvgRating?.toFixed(0),
-                },
-              };
-
-              this.apiService
-                .updateContent(this.contentData[i].id, this.ratingData)
-                .subscribe((res) => {});
-
-              this.sum = 0;
-            });
-        }
       } catch (error) {
         this.messageService.add({
           severity: 'error',
@@ -354,12 +313,10 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
   public editcheckWordCount(): void {
     const textString = this.courseUpdateGroup.value.description;
-    console.log(textString);
   }
 
   public editcheckWord(description: any): void {
     this.remainingWords = 100 - description.split(' ').length;
-    console.log(this.remainingWords);
   }
 
   public async courseFileSelect(event: Event): Promise<void> {
@@ -430,11 +387,9 @@ export class ContentComponent implements OnInit, OnDestroy {
     if (target.files?.length) {
       const file = target.files[0];
       const fileName = file.name;
-
       this.addCourse.get('image')?.setValue(file);
       this.formData = new FormData();
       this.formData.append('files', this.addCourse.value.image);
-
       this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {
 
@@ -455,14 +410,12 @@ export class ContentComponent implements OnInit, OnDestroy {
     return new Promise<File>((resolve, reject) => {
       this.http.get(url, { responseType: 'blob' }).subscribe(
         (blob: Blob) => {
-          // Create a File object from the Blob using the provided fileName
           const file = new File([blob], fileName, {
             type: 'image/jpeg',
           });
           resolve(file);
         },
         (error) => {
-          // Return a default File object in case of an error
           resolve(new File([], 'default.jpg', { type: 'image/jpeg' }));
         }
       );
@@ -472,7 +425,6 @@ export class ContentComponent implements OnInit, OnDestroy {
   checkboxValue(event: any, value: string): Promise<void> {
     return new Promise((resolve, reject) => {
       const arrayForm = <FormArray>this.addCourse.get('coursesIncludes');
-
       if (event?.target?.checked) {
         arrayForm.push(this.fb.control(value));
         if (event.target.value.toLowerCase() === 'documents') {
@@ -485,7 +437,6 @@ export class ContentComponent implements OnInit, OnDestroy {
         );
         if (index !== -1) {
           arrayForm.removeAt(index);
-
           if (event.target.value.toLowerCase() === 'documents') {
             this.showDocuments = false;
             this.addCourse.get('documents')?.clearValidators();
@@ -507,7 +458,6 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.addCourse.get('documents')?.setValue(file);
       this.formData = new FormData();
       this.formData.append('files', this.addCourse.value.documents);
-
       this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {
           this.courseDocument = res;
@@ -528,11 +478,11 @@ export class ContentComponent implements OnInit, OnDestroy {
         alternativeText: data.value,
       },
     };
-
     this.apiService
       .uploadVideoDesc(videoDescObj.id, videoDesc)
       .subscribe((res) => {});
   }
+
 
   public elements = document.getElementsByTagName('input');
 
@@ -544,7 +494,6 @@ export class ContentComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.addCourse.value.userLearnings.length; i++) {
       this.userLearnObj[i] = this.addCourse.value.userLearnings[i]?.u_learn;
     }
-
     this.courseDialog = false;
     const courseData = {
       data: {
