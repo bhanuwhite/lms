@@ -392,9 +392,7 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.formData.append('files', this.addCourse.value.image);
       this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {
-          this.convertUrlToFile(res[0].formats.thumbnail.url, fileName).then(
-            (imgFile: any) => {}
-          );
+
           this.courseContentImage = res;
           this.imgUploadProgress = false;
         } catch (error) {
