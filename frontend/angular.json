@@ -37,7 +37,6 @@
             "scripts": [
               "node_modules/quill/dist/quill.js",
               "node_modules/chart.js/dist/chart.js"
-
             ]
           },
           "configurations": {
@@ -54,7 +53,13 @@
                   "maximumError": "5mb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environment/environment.ts",
+                  "with": "src/environment/environment.prod.ts"
+                }
+              ]
             },
             "development": {
               "buildOptimizer": false,

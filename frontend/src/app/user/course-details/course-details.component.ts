@@ -209,21 +209,6 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  // updateRating(updatedRating: number) {
-  //   const updatedRatingBody = {
-  //     data: {
-  //       course_id: this.course_id,
-  //       user_id: this.userID,
-  //       rating: updatedRating,
-  //     },
-  //   };
-
-  //   this.apiService
-  //     .upadateUserRatings(this.userID, updatedRatingBody)
-  //     .subscribe((res: any) => {});
-
-  //   this.visible = false;
-  // }
 
   contentData: any;
   totalAvgRating: number | null = 0;

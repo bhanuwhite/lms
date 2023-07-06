@@ -1,5 +1,5 @@
-<p-dialog header="Update Course" [(visible)]="editFormVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false"
-  [resizable]="false">
+<p-dialog header="Update Course" [(visible)]="editFormVisible" [modal]="true" [style]="{ width: '50vw' }"
+  [draggable]="false" [resizable]="false">
   <form [formGroup]="popupForm">
 
     <div class="p-fluid grid">
@@ -33,30 +33,56 @@
         </span>
       </div>
 
-        <div class="field mt-2 w-100">
-          <label for="imgage"> Image :</label>
-          <span class="p-float-label">
-            <input type="file" accept="image/*" class="bg-light-grey input-shadow w-100 p-inputtext"
-              (change)="courseFileSelected($event)" pInputText />
-            <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="imgUploadProgress"></p-progressBar>
-          </span>
-          <ng-container *ngIf="showimageFileData">
-            <span>Selected Image <b>{{imageFileData}}</b> </span>
-          </ng-container>
-        </div>
-
       <div class="field mt-2 w-100">
-        <label for="Img">
-          Content Video (mp4) : <span class="text-danger fs-5"> * </span>
+        <label for="image"> Image :
+          <img
+            [src]=" imgSrc ? imgSrc: edituserLearnings.attributes.placeholder_img.data.attributes.formats.thumbnail.url"
+            alt="" pTooltip="Click to change image" tooltip [style]="{'height':'80px','width':'80px'}"
+            class=" ms-5 rounded-pill">
+
         </label>
         <span class="p-float-label">
-          <input type="file" accept="video/*" multiple class="bg-light-grey input-shadow w-100 p-inputtext" pInputText
+          <input type="file" id="image" accept="image/*" class="bg-light-grey input-shadow w-100 p-inputtext d-none"
+            (change)="courseFileSelected($event)" pInputText />
+          <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="imgUploadProgress"></p-progressBar>
+        </span>
+        <ng-container *ngIf="showimageFileData">
+          <span>Selected Image <b>{{imageFileData}}</b> </span>
+        </ng-container>
+      </div>
+
+      <div class="field mt-2 w-100">
+        <label for="courseVideos">
+          Content Video (mp4) : <span class="text-danger fs-5"> * </span>
+
+
+          <ng-container class="d-flex flex-wrap "  *ngIf="newVideosUpload.length == 0 ; else newVideos">
+            <div *ngFor="let videos of edituserLearnings.attributes.content.data">
+              <video [src]="videos.attributes.url" class="m-2" style="height: 100px;width: 100px;"></video>
+            </div>
+          </ng-container>
+
+          <ng-template #newVideos >
+            <div class="d-flex flex-wrap " >
+            <div *ngFor="let videos of newVideosUpload">
+              <video [src]="videos.url" class="m-2" style="height: 100px;width: 100px;"></video>
+            </div>
+            </div>
+          </ng-template>
+
+
+        </label>
+
+
+        <span class="p-float-label">
+          <input type="file" id="courseVideos" accept="video/*" multiple
+            class="bg-light-grey input-shadow w-100 p-inputtext d-none" pInputText
             (change)="courseFileSelect($event)" />
           <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="videoUploadProgress"></p-progressBar>
         </span>
-        <ng-container  *ngIf="showVideoFileData">
+        <!-- <ng-container *ngIf="showVideoFileData">
           <span class="text-danger"> Please upload videos.. </span>
-        </ng-container>
+        </ng-container> -->
 
         <ng-container *ngFor="let desc of courseContentVideo; let i=index">
           <div class="my-2">
@@ -113,7 +139,7 @@
       </div>
 
       <div class="field mt-2 w-100">
-        <div class="field mt-2 w-100" formArrayName="userLearnings">
+        <div class="field mt-2 w-100" formArrayName="userLearning">
           <div *ngFor="let form of addUser().controls;let i=index;" [formGroupName]="i">
             <label>User Learning {{ i + 1 }}:</label>
             <div class="p-float-label d-flex align-items-center">

@@ -1,13 +1,11 @@
 import {
   AfterViewInit,
   Component,
-  DoCheck,
   EventEmitter,
   Input,
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import {
@@ -20,9 +18,8 @@ import {
 import { ContentComponent } from '../content/content.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ApiService } from 'src/app/services/api.service';
-import { AllCourseContentData } from 'src/app/models/content';
 import { HttpClient } from '@angular/common/http';
-import { flatMap } from 'rxjs';
+
 
 @Component({
   selector: 'app-edit-form',
@@ -54,6 +51,8 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
   showDocuments: boolean = false;
   showimageFileData: boolean = true;
   showVideoFileData: boolean = true;
+  imgSrc!:string;
+
   Technologies = [
     { tech: 'Angular' },
     { tech: 'DotNet' },
@@ -112,7 +111,7 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
       preLearn2: [''],
       preLearn3: [''],
       preLearn4: [''],
-      userLearnings: this.fb.array([]),
+      userLearning: this.fb.array([]),
     });
   }
   ngAfterViewInit(): void {
@@ -140,7 +139,7 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
     this.Admin_id = localData.id;
   }
   addUser(): FormArray {
-    return this.popupForm.get('userLearnings') as FormArray;
+    return this.popupForm.get('userLearning') as FormArray;
   }
   removeUserLearning(index: number) {
     this.addUser().removeAt(index);
@@ -201,6 +200,7 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
 
   imageFileData!: string;
   editingCourseData() {
+    console.log(this.edituserLearnings);
 
     const formValues = this.edituserLearnings.attributes;
 
@@ -225,7 +225,7 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
       preLearn2: formValues.pre_learning['2'],
       preLearn3: formValues.pre_learning['3'],
       preLearn4: formValues.pre_learning['4'],
-      userLearnings: this.fb.array([]),
+      userLearning: this.fb.array([]),
     });
   }
 
@@ -240,6 +240,7 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   public courseFileSelected(event: Event) {
+
     const target = event.target as HTMLInputElement;
     this.imgUploadProgress = true;
     this.showimageFileData = false;
@@ -252,6 +253,7 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
       this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {
           this.courseContentImage = res;
+          this.imgSrc = res[0].formats.thumbnail.url;
           this.imgUploadProgress = false;
         } catch (error) {
           this.messageService.add({
@@ -263,6 +265,8 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
       });
     }
   }
+
+  newVideosUpload:any[]=[]
 
   public async courseFileSelect(event: Event): Promise<void> {
     const target = event.target as HTMLInputElement;
@@ -284,6 +288,10 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
                 this.allVideosDuration = this.allVideosDuration + duration;
                 this.courseContentVideo[currentUploadIndex] = res[0];
                 currentUploadIndex++;
+                console.log(this.courseContentVideo);
+                this.newVideosUpload= this.courseContentVideo
+                console.log(this.newVideosUpload);
+
                 resolve();
               });
             } catch (error) {
@@ -370,14 +378,13 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
           3: updateData.preLearn3,
           4: updateData.preLearn4,
         },
-        user_learnings: this.userLearnObj,
+        user_learning: this.userLearnObj,
         course_include: this.selectedCourseIncludes,
         files: this.courseDocument,
       },
     };
 
     // Post api call here
-    if (this.courseContentVideo.length != 0) {
       this.apiService
         .updateContent(this.edituserLearnings.id, updateCourseData)
         .subscribe((res) => {
@@ -391,20 +398,16 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
             this.getcontent.emit();
             this.showimageFileData = true;
             this.showVideoFileData = true;
+            this.newVideosUpload=[]
           } catch (error) {
             this.messageService.add({
               severity: 'error',
-              summary: 'Error',
-              detail: 'Something went to wrong !!',
+              summary: 'Failed',
+              detail: 'Content upload failed..!!',
             });
           }
         });
-    } else {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Please upload Course Video C ontent',
-      });
-    }
+
   }
 
   public courseDoc() {

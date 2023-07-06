@@ -221,3 +221,23 @@ export interface mediaDataObj {
     width: string | null;
   };
 }
+
+export interface mediaDocument{
+  alternativeText : null;
+  caption: null;
+  createdAt : string;
+  ext : string;
+  formats: null
+hash: string;
+height: null
+id: number
+mime: string
+name: string
+previewUrl: null
+provider :string
+provider_metadata: null
+size: number
+updatedAt :string
+url: string
+width: null
+}
