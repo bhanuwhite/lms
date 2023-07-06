@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import {
   AllCourseContent,
   AllCourseContentData,
-  postCourseContentData,
+  postCourseContentData,mediaDocument
 } from '../models/content';
 import { Quiz, QuizData } from '../models/quiz';
 import {

@@ -19,7 +19,7 @@ import {
   AllCourseContentData,
   AllCourseContentVideo,
   AllCourseContentPlaceholder_Img,
-  AllCourseContent,
+  AllCourseContent,mediaDocument
 } from 'src/app/models/content';
 import { ApiService } from 'src/app/services/api.service';
 import { HttpClient } from '@angular/common/http';
@@ -77,10 +77,10 @@ export class ContentComponent implements OnInit, OnDestroy {
   courseContentImage: any;
   allVideosDuration: number = 0;
   showDocuments: boolean = false;
-  courseDocument: any;
+  courseDocument!: mediaDocument;
   updateCertificates: boolean = false;
   updateDocuments: boolean = false;
-  editUserLearnings: any;
+  editUserLearnings!: AllCourseContentData;
 
   Technologies = [
     { tech: 'Angular' },
@@ -460,6 +460,8 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.formData.append('files', this.addCourse.value.documents);
       this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {
+          console.log(res);
+
           this.courseDocument = res;
         } catch (error) {
           this.messageService.add({
