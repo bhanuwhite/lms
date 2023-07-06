@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-
+import { environment } from 'src/environment/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +17,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.token = localStorage.getItem("token");
-    if (request.url !== 'api/auth/local' && request.url !== 'api/auth/local/register') {
+    if (request.url !== `${environment.apiUrl}/api/auth/local` && request.url !== `${environment.apiUrl}/api/auth/local/register`) {
       request = request.clone({
         headers: request.headers.set('Authorization', `Bearer ${this.token}`).set("Access-Control-Allow-Origin", "*"),
       });
@@ -26,7 +26,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
 
     return next.handle(request).pipe(
-      retry(1),
+      // retry(1),
       catchError((error: HttpErrorResponse) => {
 
         this.errorMessage = error

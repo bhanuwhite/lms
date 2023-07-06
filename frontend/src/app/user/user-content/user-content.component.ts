@@ -30,7 +30,6 @@ export class UserContentComponent {
   public showPurchase: boolean = false;
   @ViewChild('desc') desc!: ElementRef;
   private userID!: number;
-  // public UserAssessments: string[] = [];
   public assessment_Length: number =0;
   public myCourseLen: number = 0;
   constructor(
@@ -51,7 +50,6 @@ export class UserContentComponent {
     this.getLocalData();
     this.gettingUserHasCourse();
     window.scrollTo(0, 0);
-    // this.getAllCourseDetails();
     this.subjects = [
       { name: 'All', code: 'all' },
       { name: 'Business development', code: 'BD' },
@@ -76,9 +74,7 @@ export class UserContentComponent {
     this.userID = getLocalData?.id;
   }
 
-
   public gettingUserHasCourse(): void {
-
     this.apiService.getUserCourse(this.userID).subscribe((res) => {
       res.map((resObj: any) => {
         if (resObj.course_ids.length != 0) {
@@ -107,52 +103,26 @@ export class UserContentComponent {
     location.reload();
   }
 
-
-  // public getAllCourseDetails() {
-
-  //   this.apiService.getContent().subscribe((res) => {
-  //     const courses = res.data;
-  //     const uniqueTechnology = new Set<string>();
-
-  //     courses.forEach((item) => {
-  //       uniqueTechnology.add(item.attributes.technology);
-  //     });
-
-  //     const UserAssessments = Array.from(uniqueTechnology);
-  //     this.assessment_Length = UserAssessments.length;
-  //   });
-  // }
-
 //GET CONTENT
 
 public getContent(): void {
-
     this.apiService.getContent().subscribe((res) => {
       try {
         this.Spinner = false;
         this.coursesList = res.data;
-
         this.courseList2 = res.data;
         this.isLoading = true;
-
         const courses = res.data;
         const uniqueTechnology = new Set<string>();
-
         courses.forEach((item) => {
           uniqueTechnology.add(item.attributes.technology);
         });
-
         const UserAssessments = Array.from(uniqueTechnology);
         this.assessment_Length = UserAssessments.length;
-
-
-
       } catch (error) {
 
       }
     });
-
-
   }
 
   public searchFunction() {
@@ -176,7 +146,6 @@ public getContent(): void {
 
   onSelectSubject(selectedValue: any) {
     this.coursesList = [];
-
     if (selectedValue.value.selectedSubject.name) {
       if (selectedValue.value.selectedSubject.name === 'All') {
         this.coursesList = this.courseList2;
@@ -187,8 +156,6 @@ public getContent(): void {
             selectedValue.value.selectedSubject.name.trim()
           ) {
             this.coursesList.push(course);
-
-
           }
         });
       }
