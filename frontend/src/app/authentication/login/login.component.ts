@@ -23,9 +23,9 @@ import { Login } from 'src/app/models/authenticate';
 })
 export class LoginComponent {
   formgroup!: FormGroup;
-  forgotForm!:FormGroup;
- public role: string;
-public forgotPwd:boolean = false;
+  forgotForm!: FormGroup;
+  public role: string;
+  public forgotPwd: boolean = false;
   body!: Login;
   public isLoading: boolean = false;
 
@@ -50,8 +50,8 @@ public forgotPwd:boolean = false;
     });
 
     this.forgotForm = this.fb.group({
-      email:new FormControl('',[Validators.required, emailValidator()])
-    })
+      email: new FormControl('', [Validators.required, emailValidator()]),
+    });
   }
 
   public onSubmit(): void {
@@ -63,8 +63,9 @@ public forgotPwd:boolean = false;
     this.isLoading = true;
     this.authService.loginUser(this.body).subscribe((res) => {
       localStorage.setItem('token', res.jwt);
-      try {
 
+
+      try {
         const data = res.user;
         localStorage.setItem('user', JSON.stringify(data));
         if (data.role_id === '1') {
@@ -84,7 +85,7 @@ public forgotPwd:boolean = false;
           });
         }
       } catch (error) {
-        console.log('error', error);
+
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -101,40 +102,31 @@ public forgotPwd:boolean = false;
   public get pwd() {
     return this.formgroup.get('pwd')!;
   }
-  public showForgotForm(){
-    this.forgotPwd = !this.forgotPwd
+  public showForgotForm() {
+    this.forgotPwd = !this.forgotPwd;
   }
 
-  public cancelForm(){
-    this.forgotPwd = !this.forgotPwd
+  public cancelForm() {
+    this.forgotPwd = !this.forgotPwd;
   }
 
   public get email() {
-    return this.forgotForm.get('email')
+    return this.forgotForm.get('email');
   }
-public forgotFormSubmit():void {
-  console.log(this.forgotForm.getRawValue());
-  const forgotBody = {
-    email: this.forgotForm.value.email
+  public forgotFormSubmit(): void {
+    const forgotBody = {
+      email: this.forgotForm.value.email,
+    };
+
+    this.authService.forgotPassword(forgotBody).subscribe((res) => {});
+
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Check your Email',
+      detail: 'Reset link sent to your Email.',
+      life: 5000,
+    });
+    this.forgotForm.reset();
+    this.forgotPwd = !this.forgotPwd;
   }
-
-this.authService.forgotPassword(forgotBody).subscribe((res)=>{
-  console.log("forgor res",res);
-})
-
-  this.messageService.add({
-    severity:'success',
-    summary:"Check your Email",
-    detail:"Reset link sent to your Email.",
-    life:5000
-  })
-  this.forgotForm.reset();
-  this.forgotPwd = !this.forgotPwd
-
-}
-
-
-
-
-
 }
