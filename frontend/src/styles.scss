@@ -379,6 +379,10 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
 .category {
   .p-dropdown.p-component {
     width: 100% !important;
-    height: 46px !important;
+    height: 57px !important;
   }
+}
+.p-splitter {
+  display: flex;
+  flex-wrap: wrap !important;
 }
