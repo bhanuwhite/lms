@@ -10,6 +10,8 @@ export interface AllCourseContent {
     };
   };
 }
+
+
 export interface AllCourseContentData {
   data: AllCourseContentData;
   id: number;
@@ -207,6 +209,7 @@ export interface SingleContentData {
     };
   };
 }
+
 export interface mediaDataObj {
   id: number;
   attributes: {

@@ -24,6 +24,8 @@ import {
   CartPostRes,
   CartResponse,
 } from '../models/cart';
+import { CourseData , postUserCourse , postUserCourseData} from 'src/app/models/library';
+
 
 @Injectable({
   providedIn: 'root',
@@ -250,8 +252,8 @@ export class ApiService {
 
   //  --------- USER-HAS-COURSE API----------
   // GET Courses by passing UserID
-  public getUserCourse(id: number): Observable<any> {
-    return this.http.get<any>(`api/users-course?user_id=${id}`);
+  public getUserCourse(id: number): Observable<CourseData[]> {
+    return this.http.get<CourseData[]>(`api/users-course?user_id=${id}`);
   }
 
   //  public getUserHasCourse(): Observable<any> {
@@ -265,8 +267,8 @@ export class ApiService {
   }
 
   // POST
-  public postUserHasCourse(item: any): Observable<any> {
-    return this.http.post<any>(`api/user-has-courses`, item);
+  public postUserHasCourse(item: postUserCourse): Observable<postUserCourseData> {
+    return this.http.post<postUserCourseData>(`api/user-has-courses`, item);
   }
 
   // PUT

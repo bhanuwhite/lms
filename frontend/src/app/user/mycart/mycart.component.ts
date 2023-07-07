@@ -50,7 +50,7 @@ export class MycartComponent implements OnInit {
       });
       this.courseData = res;
 
-      console.log(this.courseData[0].course_ids[0].rating);
+      // console.log(this.courseData[0]?.course_ids[0].rating);
 
 
       this.aboutService.userCartLength(res.length);
