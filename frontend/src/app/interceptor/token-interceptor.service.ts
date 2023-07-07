@@ -19,7 +19,7 @@ export class TokenInterceptor implements HttpInterceptor {
     this.token = localStorage.getItem("token");
     if (request.url !== `${environment.apiUrl}/api/auth/local` && request.url !== `${environment.apiUrl}/api/auth/local/register`) {
       request = request.clone({
-        headers: request.headers.set('Authorization', `Bearer ${this.token}`).set("Access-Control-Allow-Origin", "*"),
+        headers: request.headers.set('Authorization', `Bearer ${this.token}`),
       });
     }
 

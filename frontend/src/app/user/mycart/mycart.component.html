@@ -14,7 +14,7 @@
         Shoping Cart
       </h1>
       <h4>{{ courseData.length }} Courses in Cart</h4>
-      <div class="row">
+      <div class="row shadow-4 py-2">
         <div class="col-lg-9">
           <div class="row" *ngFor="let course of courseData">
             <p-divider></p-divider>
@@ -71,7 +71,7 @@
         </div>
       </div>
     </div>
-    <div class="card flex justify-content-center">
+    <div class="card flex border-0 justify-content-center">
       <p-toast></p-toast>
       <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
     </div>

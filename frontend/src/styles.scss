@@ -363,6 +363,13 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
     margin: 0;
   }
 }
+.user_badge{
+.p-badge{
+  position: relative !important;
+  left: -47px !important;
+}
+  
+}
 
 .button_learning {
   position: absolute;
@@ -386,3 +393,4 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
   display: flex;
   flex-wrap: wrap !important;
 }
+ 
