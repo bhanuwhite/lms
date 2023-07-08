@@ -63,8 +63,6 @@ export class LoginComponent {
     this.isLoading = true;
     this.authService.loginUser(this.body).subscribe((res) => {
       localStorage.setItem('token', res.jwt);
-
-
       try {
         const data = res.user;
         localStorage.setItem('user', JSON.stringify(data));

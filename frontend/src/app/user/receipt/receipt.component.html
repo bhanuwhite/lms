@@ -1,68 +1,72 @@
-<div class="m-0">
-  <div class="row mt-5 p-5 m-0">
+<div class="row mt-5 mx-2">
+    <b class="fs-2">Receipt</b>
     <div *ngIf="purchasingCourseDetails">
-      <div class="mt-4 mb-3">
-        <h3 class="pt-4 fs-2">
-          <b>Receipt-</b>
-          {{ purchasingCourseDetails?.course_ids[0]?.updatedAt | date }}
-        </h3>
-      </div>
-      <p-splitter [style]="{ height: '150px' }">
-        <ng-template pTemplate>
-          <div class="mt-3 ms-3">
-            <b>Ahex Tech Pvt ltd.</b>
-            <p>Hyderabad, Madhapur, Ayyappa Society 500081.</p>
-            <a href="#">Ahex.com</a>
-            <div class="mt-5">
-              <p>
-                Sold to : <b>{{ userName }}</b>
-              </p>
-            </div>
-          </div>
-        </ng-template>
-        <ng-template pTemplate>
-          <div class="mt-5 ms-3">
-            <b>Date: {{ currentDate | date }} </b>
-            <p><b>Order ID: </b></p>
-          </div>
-        </ng-template>
-      </p-splitter>
+        <div class="mt-4 mb-3">
+            <!-- <b class="pt-4">Receipt- {{purchasingCourseDetails.date | date}} </b> -->
+        </div>
+        <p-splitter>
+            <ng-template pTemplate>
+                <div class="mt-3 ms-3">
+                    <b>Ahex Tech Pvt ltd.</b>
+                    <p>Hyderabad, Madhapur, Ayyappa Society 500081.</p>
+                    <a href="#">Ahex.com</a>
+                    <div class="mt-5">
+                        <p>Sold to : <b>Mahesh Badanakurthi</b> </p>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate>
+                <div class="mt-5 ms-3">
+                    <b>Date: {{purchasingCourseDetails.date | date}} </b>
+                    <p><b>Order ID: </b> J986JHB876B(7)B34 </p>
+                </div>
+            </ng-template>
+        </p-splitter>
     </div>
-    <div>
-      <div class="col-12">
-        <table class="table table-striped table-hover mt-5 table-bordered">
-          <thead class="text-center">
-            <th class="col-4 p-3">Course</th>
-            <th class="col-4 p-3">Date</th>
-            <th class="col-1 p-3">Ordered Id</th>
-            <th class="col-1 p-3">Price</th>
-            <th class="col-1 p-3">Total Amount</th>
-          </thead>
-          <tbody class="text-center me-3">
-            <tr *ngIf="purchasingCourseDetails">
-              <td class="p-3">
-                {{ purchasingCourseDetails?.course_ids[0]?.name }}
-              </td>
-              <td class="p-3">
-                {{ purchasingCourseDetails?.course_ids[0]?.updatedAt | date }}
-              </td>
-              <td class="p-3">{{ purchasingCourseDetails }}</td>
-              <td class="p-3">
-                {{
-                  purchasingCourseDetails.course_ids[0]?.price
-                    | currency : "INR"
-                }}
-              </td>
-              <td class="p-3">
-                {{
-                  purchasingCourseDetails.course_ids[0]?.price
-                    | currency : "INR"
-                }}
-              </td>
-            </tr>
-          </tbody>
+<div class="table_data">
+    <div class="col-12">
+        <table class="table table-striped table-hover mt-5">
+            <thead class="text-center ">
+                <th class="col-4 p-3"> Item </th>
+                <th class="col-1 p-3"> Ordered </th>
+                <th class="col-1 p-3"> Coupon Codes </th>
+                <th class="col-1 p-3"> Quantity </th>
+                <th class="col-1 p-3">Price </th>
+                <th class="col-1 p-3"> Amount </th>
+            </thead>
+            <tbody class="text-center me-3">
+                <tr *ngIf="purchasingCourseDetails">
+                    <td class=" p-3"> {{purchasingCourseDetails.name}} </td>
+                    <td class=" p-3"> {{currentDate | date}} </td>
+                    <td class=" p-3"> MYCoupon001# </td>
+                    <td class=" p-3">1 </td>
+                    <td class=" p-3"> {{purchasingCourseDetails.totalPrice }} </td>
+                    <td class=" p-3"> {{ (purchasingCourseDetails.totalPrice) +
+                        (purchasingCourseDetails.totalPrice *
+                        (18/100))}} </td>
+                </tr>
+                <tr *ngIf="purchasingCourseDetails">
+                    <td class=" p-3"></td>
+                    <td class=" p-3"></td>
+                    <td class=" p-3"></td>
+                    <td class=" p-3"> GST 18% </td>
+                    <td class=" p-3"> {{(purchasingCourseDetails.totalPrice * (18/100))}} </td>
+                    <td class=" p-3"></td>
+                </tr>
+                <tr *ngIf="purchasingCourseDetails">
+                    <td class=" p-3"></td>
+                    <td class=" p-3"></td>
+                    <td class=" p-3"></td>
+                    <td class=" p-3"> Grand Total </td>
+                    <td class=" p-3"> {{ (purchasingCourseDetails.totalPrice) +
+                        (purchasingCourseDetails.totalPrice *
+                        (18/100))}} </td>
+                    <td class=" p-3"></td>
+                </tr>
+            </tbody>
         </table>
-      </div>
     </div>
-  </div>
+
+</div>
+
 </div>
