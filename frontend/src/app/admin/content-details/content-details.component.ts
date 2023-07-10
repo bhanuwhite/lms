@@ -11,6 +11,7 @@ import { environment } from 'src/environment/environment';
   styleUrls: ['./content-details.component.scss'],
 })
 export class ContentDetailsComponent implements OnInit {
+  public imgUrl = environment.apiUrl
   constructor(
     private activatedRoute: ActivatedRoute,
     private apiService: ApiService

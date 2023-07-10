@@ -44,7 +44,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   @ViewChild('vid', { read: ElementRef }) tempRef!: ElementRef;
   popup: string = '';
   private allSubsription$: Subscription[] = [];
-
+  public imgUrl = environment.apiUrl
   public searchWord: string = '';
   public loadingSpinner: boolean = false;
   public editDisply: boolean = false;

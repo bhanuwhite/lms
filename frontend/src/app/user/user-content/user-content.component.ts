@@ -1,10 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import {  MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { AllCourseContentData, ContentResponse } from 'src/app/models/content';
-import { UserLibraryGetResponseData } from 'src/app/models/user-library';
 import { AboutService } from 'src/app/services/about.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { environment } from 'src/environment/environment';
@@ -21,6 +20,7 @@ interface Subjects {
 })
 export class UserContentComponent {
   private contentGetSubscriptions$: Subscription = new Subscription();
+  public imgUrl = environment.apiUrl
   public currentRate: number = 2;
   public Spinner: boolean = true;
   public isLoading: boolean = false;
