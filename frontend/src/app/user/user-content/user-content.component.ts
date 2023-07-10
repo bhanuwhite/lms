@@ -7,6 +7,7 @@ import { AllCourseContentData, ContentResponse } from 'src/app/models/content';
 import { UserLibraryGetResponseData } from 'src/app/models/user-library';
 import { AboutService } from 'src/app/services/about.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { environment } from 'src/environment/environment';
 
 interface Subjects {
   name: string;
@@ -43,7 +44,9 @@ export class UserContentComponent {
   subjects: Subjects[] = [];
 
   formGroup!: FormGroup;
-  value: number =3
+  value: number =3;
+  public img_url = environment.apiUrl ;
+
 
   ngOnInit(): void {
     this.getContent();

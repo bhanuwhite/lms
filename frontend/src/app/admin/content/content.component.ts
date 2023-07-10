@@ -25,6 +25,7 @@ import {
 } from 'src/app/models/content';
 import { ApiService } from 'src/app/services/api.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-content',
@@ -170,9 +171,13 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   // Get Content
 
+  public img_url = environment.apiUrl ;
   public getContent(): void {
     this.loadingSpinner = true;
     this.apiService.getContent().subscribe((res: AllCourseContent) => {
+
+      // console.log( this.img_url + res.data[0].attributes.placeholder_img.data.attributes.formats?.thumbnail?.url)
+
       try {
         this.contentData = res.data;
         this.contentData2 = res.data;
@@ -316,6 +321,7 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {
           this.courseContentImage = res;
+          console.log('Image uploaded reponse', res);
           this.imgUploadProgress = false;
         } catch (error) {
           this.messageService.add({
@@ -424,46 +430,47 @@ export class ContentComponent implements OnInit, OnDestroy {
           files: this.courseDocument,
         },
       };
+      console.log('Course Post reqquest ', courseData);
 
-      if (this.courseContentVideo.length != 0) {
-        this.apiService.postContent(courseData).subscribe((res) => {
-          try {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Success',
-              detail: 'Course added successfully !!',
-            });
-            this.courseContentVideo = [];
-            this.showDocuments = false;
-            this.addCourse
-              .get('documents')
-              ?.removeValidators(Validators.required);
+      this.apiService.postContent(courseData).subscribe((res) => {
+        console.log(res);
 
-            videoInput.value = '';
-            imgInput.value = '';
-            this.allVideosDuration = 0;
-            this.getContent();
-            this.addCourse.reset();
-          } catch (error) {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Something went wrong.',
-              detail: 'Course not added !!',
-            });
-          }
-        });
-      } else {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Course Content is empty',
-          detail: 'Please upload Course Video Content.  !!',
-        });
-      }
+        try {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Course added successfully !!',
+          });
+          this.courseContentVideo = [];
+          this.showDocuments = false;
+          this.addCourse
+            .get('documents')
+            ?.removeValidators(Validators.required);
 
-      for (let i = 0; i < this.elements.length; i++) {
-        if (this.elements[i].type == 'checkbox') {
-          this.elements[i].checked = false;
+          videoInput.value = '';
+          imgInput.value = '';
+          this.allVideosDuration = 0;
+          this.getContent();
+          this.addCourse.reset();
+        } catch (error) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Something went wrong.',
+            detail: 'Course not added !!',
+          });
         }
+      });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Course Content is empty',
+        detail: 'Please upload Course Video Content.  !!',
+      });
+    }
+
+    for (let i = 0; i < this.elements.length; i++) {
+      if (this.elements[i].type == 'checkbox') {
+        this.elements[i].checked = false;
       }
     }
   }
@@ -511,3 +518,4 @@ export class ContentComponent implements OnInit, OnDestroy {
     });
   }
 }
+

@@ -12,6 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { TrackResponseData } from 'src/app/models/track';
 import { Subscription } from 'rxjs';
+import { environment } from 'src/environment/environment';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-course-details',
   templateUrl: './course-details.component.html',
@@ -45,17 +47,23 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   constructor(
     public apiService: ApiService,
     public activeParam: ActivatedRoute,
-    public messageService: MessageService
+    public messageService: MessageService,
+    private sanitizer: DomSanitizer
   ) {}
   ngOnInit() {
     this.activeParams();
-    this.getLocalStoredData();
+    this.getLocalStoredData()
+    // .then(() => this.getSingleCourseObj())
+    // this.getSingleCourseObj()
     this.gettingUserHasCourse();
     this.getLibraryData().then(() => this.getRating());
 
     this.getContent();
     // this.getWatchedTime()
+
   }
+
+  public img_url = environment.apiUrl ;
 
   public activeParams() {
     this.activeParam.params.subscribe((res) => {
@@ -71,10 +79,11 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   public getLibraryData(): Promise<void> {
     return new Promise((resolve, reject) => {
       (this.SingleContentLib$ = this.apiService
-        .getUserHasCourseById(this.activeParamId)
-        .subscribe((res) => {
+        .getUserHasCourseById(this.activeParamId).subscribe((res) => {
           this.Spinner = false;
           this.userCourseData = res.data;
+          console.log(this.userCourseData.attributes?.course_ids?.data[0]);
+
 
           this.course_id = this.userCourseData.attributes.course_ids.data[0].id;
           this.courseId = this.userCourseData.id;
@@ -162,10 +171,8 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
   // click to play a specific video in a course
   public playVideo(index: number) {
-    this.streamVideo =
-      this.userCourseData?.attributes?.course_ids.data[0]?.attributes.content.data[
-        index
-      ].attributes;
+    this.streamVideo =  this.userCourseData?.attributes?.course_ids.data[0]?.attributes.content.data[index].attributes;
+console.log(this.streamVideo);
 
     window.scrollTo(0, 0);
   }
@@ -261,6 +268,45 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+  public videoUrl!: SafeResourceUrl;
+  public singleCourse !:any
+
+  // public getSingleCourseObj(): Promise<void> {
+
+  //   return new Promise<void>((resolve, reject) => {
+  //     this.activeParam.params.subscribe((res) => {
+  //       this.courseId = res['id'];
+  //       // console.log(res['id']);
+
+  //     });
+  //     this.apiService.getSingleContent(this.courseId).subscribe((res) => {
+  //       console.log(res);
+
+  //       this.singleCourse = res['data'];
+  //       console.log(this.singleCourse);
+
+
+  //       this.videoUrl = this.getSafeVideoUrl(res['data'].attributes.link);
+
+  //     });
+  //     resolve();
+  //     (error: any) => {
+  //       reject(error);
+  //     };
+  //   });
+  // }
+
+  // getSafeVideoUrl(link: string): SafeResourceUrl {
+  //   const videoId = this.extractVideoId(link);
+  //   const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+  //   return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+  // }
+  // extractVideoId(link: string): string {
+  //   const regex = /youtu(?:\.be|be\.com)\/(?:.*v(?:\/|=)|(?:.*\/)?)([a-zA-Z0-9-_]+)/;
+  //   const match = link?.match(regex);
+  //   return match ? match[1] : '';
+  // }
+
   ngOnDestroy(): void {
     this.LibraryContent$.unsubscribe();
     this.SingleContentLib$.unsubscribe();
@@ -268,3 +314,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
   // End
 }
+function then(arg0: () => Promise<void>) {
+  throw new Error('Function not implemented.');
+}
+

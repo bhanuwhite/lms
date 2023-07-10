@@ -43,7 +43,7 @@
                         <div class="img-header">
                           <a [routerLink]="['/user/library',course.id]" routerLinkActive="routerActive">
                             <div>
-                              <img src={{course.course_ids[0].placeholder_img.formats.thumbnail.url}} alt=""
+                              <img [src]='img_url + course.course_ids[0].placeholder_img.formats.thumbnail.url' alt=""
                                 class="courseFigure">
                             </div>
                           </a>

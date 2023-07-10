@@ -26,7 +26,8 @@
   <div class="row" *ngIf="contentData.length != 0">
     <div class="col-lg-6 col-xl-3 mb-3" *ngFor="let data of contentData">
       <div class="card" style="max-height: 380px; width: 100%">
-        <img [routerLink]="['/admin/content', data.id]" style="height: 200px; cursor: pointer" [src]='data.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url' alt="Course Image" class="card-img-top" />
+        <img [routerLink]="['/admin/content', data.id]" style="height: 200px; cursor: pointer" [src]='img_url+data.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url' alt="Course Image" class="card-img-top" />
+
         <div class="card-body">
           <div class="row cursor-pointer" [routerLink]="['/admin/content', data.id]">
             <div class="col-lg-6">
@@ -64,12 +65,12 @@
 </div>
 
 <!-- New Course adding -->
-<p-dialog header="Add New Course" class="p-dialog-content" [(visible)]="courseDialog" [modal]="true"
+<p-dialog header="New Course" class="p-dialog-content" [(visible)]="courseDialog" [modal]="true"
   [style]="{'width':'50vw'}">
   <form action="" [formGroup]="addCourse" (ngSubmit)="courseFormSubmit(videoInput, imgInput)">
     <div class="p-fluid grid">
       <div class="field mt-2 w-100">
-        <label for="name">Name :<span class="text-danger fs-5"> * </span>
+        <label for="name">Name<span class="text-danger fs-5"> * </span>:
         </label>
         <span class="p-float-label">
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="name" pInputText

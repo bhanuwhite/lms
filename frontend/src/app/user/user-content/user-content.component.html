@@ -98,10 +98,8 @@
       <p-card class="course-card" *ngFor="let course of coursesList">
         <ng-template pTemplate="header">
           <div class="courseImage">
-            <a><img alt="Card" src="{{
-                course?.attributes?.placeholder_img?.data?.attributes?.formats
-                  ?.thumbnail?.url
-              }}" class="img-fluid" pTooltip="Click to see Course details." tooltip
+            <a><img alt="Card" [src]="img_url+ course?.attributes?.placeholder_img?.data?.attributes?.formats
+                  ?.thumbnail?.url" class="img-fluid"
                   style="height: 225px; border-radius: 10px 10px 2px 2px" [routerLink]="['course/', course.id]" /></a>
             </div>
           </ng-template>

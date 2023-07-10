@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { SingleCourseObj } from 'src/app/models/content';
 import { ApiService } from 'src/app/services/api.service';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-content-details',
@@ -18,6 +19,7 @@ export class ContentDetailsComponent implements OnInit {
   isLoading: boolean = false;
   // SingleCourseObj  interface
   singleContent: any
+  public img_url = environment.apiUrl ;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res) => {

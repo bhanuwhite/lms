@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/services/api.service';
 import {ConfirmationService,MessageService,ConfirmEventType,} from 'primeng/api';
 import { AboutService } from 'src/app/services/about.service';
 import { CourseData } from 'src/app/models/library';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-my-library',
@@ -31,6 +32,8 @@ export class MyLibraryComponent implements OnInit {
     this.gettingUserHasCourse();
     this.getCartCourse();
   }
+
+  public img_url = environment.apiUrl ;
 
   public getCartCourse(): void {
     this.apiService.getUserCart(this.userID).subscribe((res) => {

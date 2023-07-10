@@ -16,6 +16,7 @@ import { AllCourseContentData, SingleCourseData } from 'src/app/models/content';
 import { AboutService } from 'src/app/services/about.service';
 import { CartResponse } from 'src/app/models/cart';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-content-details',
@@ -34,6 +35,7 @@ export class ContentDetailsComponent implements OnInit {
   @ViewChild('courseVideoElmt') courseVideoElmt!: ElementRef;
   isPlaying = false;
   private videoElement!: HTMLVideoElement;
+
 
   constructor(
     public dialogService: DialogService,
@@ -91,7 +93,9 @@ export class ContentDetailsComponent implements OnInit {
     });
   }
  public videoUrl!: SafeResourceUrl;
+
   public getSingleCourseObj(): Promise<void> {
+
     return new Promise<void>((resolve, reject) => {
       this.activeParams.params.subscribe((res) => {
         this.courseId = res['id'];
