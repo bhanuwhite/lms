@@ -105,9 +105,6 @@
     "review": {
       "type": "text"
     },
-    "technology": {
-      "type": "json"
-    },
     "docs": {
       "type": "media",
       "multiple": true,
@@ -116,6 +113,9 @@
         "images",
         "files"
       ]
+    },
+    "technologies": {
+      "type": "json"
     }
   }
 }

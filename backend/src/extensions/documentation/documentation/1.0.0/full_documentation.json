@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-07-10T06:44:03.348Z"
+    "x-generation-date": "2023-07-10T07:02:42.539Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -1966,7 +1966,6 @@
                                                 "review": {
                                                   "type": "string"
                                                 },
-                                                "technology": {},
                                                 "docs": {
                                                   "type": "object",
                                                   "properties": {
@@ -2109,6 +2108,7 @@
                                                     }
                                                   }
                                                 },
+                                                "technologies": {},
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -2504,7 +2504,6 @@
               "review": {
                 "type": "string"
               },
-              "technology": {},
               "docs": {
                 "type": "array",
                 "items": {
@@ -2518,7 +2517,8 @@
                   ],
                   "example": "string or id"
                 }
-              }
+              },
+              "technologies": {}
             }
           }
         }
@@ -3546,7 +3546,6 @@
           "review": {
             "type": "string"
           },
-          "technology": {},
           "docs": {
             "type": "object",
             "properties": {
@@ -3689,6 +3688,7 @@
               }
             }
           },
+          "technologies": {},
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -6982,7 +6982,6 @@
                                                 "review": {
                                                   "type": "string"
                                                 },
-                                                "technology": {},
                                                 "docs": {
                                                   "type": "object",
                                                   "properties": {
@@ -7125,6 +7124,7 @@
                                                     }
                                                   }
                                                 },
+                                                "technologies": {},
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -10039,7 +10039,6 @@
                                                 "review": {
                                                   "type": "string"
                                                 },
-                                                "technology": {},
                                                 "docs": {
                                                   "type": "object",
                                                   "properties": {
@@ -10182,6 +10181,7 @@
                                                     }
                                                   }
                                                 },
+                                                "technologies": {},
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -11550,7 +11550,6 @@
                         "review": {
                           "type": "string"
                         },
-                        "technology": {},
                         "docs": {
                           "type": "object",
                           "properties": {
@@ -11693,6 +11692,7 @@
                             }
                           }
                         },
+                        "technologies": {},
                         "createdAt": {
                           "type": "string",
                           "format": "date-time"
