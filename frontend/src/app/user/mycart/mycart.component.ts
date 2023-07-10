@@ -99,7 +99,7 @@ export class MycartComponent implements OnInit {
           });
 
           this.gettingUserHasCourse();
-
+// Mahesh new
           const putCourseBody = {
             data: {
               no_of_purchases: Number(this.purchases) + Number(1),

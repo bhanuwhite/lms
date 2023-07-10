@@ -4,42 +4,37 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-
   public items: any;
-  public mainItems: any;
   public contentItems: any;
 
-  constructor(private router: Router) { }
-
-
+  constructor(private router: Router) {}
   ngOnInit(): void {
     this.contentMenu();
     this.iconMenu();
   }
 
   public iconMenu(): void {
-    this.items = [{
-      label: 'Action',
-      items: [{
-        label: 'Logout',
-        icon: 'pi pi-sign-out mt-0 text-danger',
-        command: () => {
-          this.onLogout();
-        }
-      },
+    this.items = [
       {
-        label: 'Change Password',
-        icon: 'pi pi-key ',
-        command: () => {
-
-        }
-      }
-      ]
-    },
-
+        label: 'Action',
+        items: [
+          {
+            label: 'Logout',
+            icon: 'pi pi-sign-out mt-0 text-danger',
+            command: () => {
+              this.onLogout();
+            },
+          },
+          {
+            label: 'Change Password',
+            icon: 'pi pi-key ',
+            command: () => {},
+          },
+        ],
+      },
     ];
   }
 
@@ -49,26 +44,23 @@ export class HeaderComponent implements OnInit {
     location.reload();
   }
 
-
-
   public contentMenu(): void {
-    this.contentItems = [{
-      // label: 'Action',
-
-      label: 'Quiz',
-      icon: 'pi pi-question-circle mt-0 text-primary',
-      command: () => {
-        this.quizNavigate();
-      }
-    },
-    {
-      label: 'Assessments',
-      icon: 'pi pi-hourglass text-primary',
-      command: () => {
-        this.assessmentNavigate();
-      }
-    }
-    ]
+    this.contentItems = [
+      {
+        label: 'Quiz',
+        icon: 'pi pi-question-circle mt-0 text-primary',
+        command: () => {
+          this.quizNavigate();
+        },
+      },
+      {
+        label: 'Assessments',
+        icon: 'pi pi-hourglass text-primary',
+        command: () => {
+          this.assessmentNavigate();
+        },
+      },
+    ];
   }
 
   public quizNavigate(): void {
@@ -79,5 +71,3 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/admin/assessment');
   }
 }
-
-

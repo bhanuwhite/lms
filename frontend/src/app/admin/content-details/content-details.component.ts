@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
+import { SingleCourseObj } from 'src/app/models/content';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -15,8 +16,8 @@ export class ContentDetailsComponent implements OnInit {
   ) {}
   id: number = 0;
   isLoading: boolean = false;
-  singleContent: any;
-  userLearnings: { u_learn: string }[] = [];
+  // SingleCourseObj  interface
+  singleContent: any
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res) => {
@@ -32,7 +33,7 @@ export class ContentDetailsComponent implements OnInit {
     this.isLoading = true;
     this.apiService.getSingleContent(id).subscribe((res) => {
       this.singleContent = res.data;
-      this.userLearnings = this.singleContent.attributes.user_learning;
+      console.log(this.singleContent);
       this.isLoading = false;
     });
   }

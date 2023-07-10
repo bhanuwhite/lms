@@ -4,7 +4,6 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { AdminComponent } from './admin.component';
 import { ContentDetailsComponent } from './content-details/content-details.component';
 import { ContentComponent } from './content/content.component';
-import { CoursesComponent } from './courses/courses.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { QuizComponent } from './quiz/quiz.component';
@@ -26,10 +25,6 @@ const routes: Routes = [
       {
         path: 'content/:id', component: ContentDetailsComponent
       },
-      {
-        path: 'courses', component: CoursesComponent
-      },
-
       {
         path: 'quiz', component: QuizComponent
       },

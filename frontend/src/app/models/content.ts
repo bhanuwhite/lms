@@ -25,16 +25,65 @@ export interface AllCourseContentData {
     technology: string;
     subject: string;
     level: string;
-    rating:number;
-    no_of_purchases: number;
-    total_duration:  number;
-    course_duration:  any;
+    rating: number;
+    no_of_purchases?: number;
+    total_duration: number;
+    course_duration: any;
     user_id: string | number;
-    pre_learning:any,
-    user_learning:{u_learn:string}[],
-    course_include:string[]
-
+    course_include: string[];
   };
+}
+
+export interface myFiles {
+  data: {
+    id:number,
+    attributes:{
+      alternativeText:string,
+      caption:string,
+      ext:string,
+      hash:string,
+      name:string,
+      url:string
+    }
+  }[]
+}
+
+export interface SingleCourseObj {
+  id: number;
+  attributes:{
+    content:{
+      data : {
+        id:number,
+        attributes:{
+          alternativeText: string,
+          caption:string,
+          ext:string,
+          hash:string,
+          name:string,
+          url:string
+        } [] | null
+      }
+    },
+    course_includes?:string[],
+    createdAt:string,
+    creater_id:null | string,
+    description:string,
+    discount:number | string,
+    files?:myFiles,
+    level:string,
+    link:string,
+    name:string,
+    no_of_purchases:number | string,
+    placeholder_img:any,
+    price:number | string,
+    rating:null | number,
+    review : null | string,
+    status:string,
+    subject:string,
+    technology:string,
+    total_duration:number | string,
+
+  }
 }
 
 export interface SingleCourseData {
@@ -170,18 +219,13 @@ export interface postCourseContentData {
     technology?: string;
     subject?: string;
     user_id?: number;
-    no_of_purchases?: number;
-    user_learning?:any,
-    pre_learning?:any,
-    course_include?:any,
-    files?:any
+    no_of_purchases?: number ;
+    course_include?: any;
+    files?: any;
   };
 }
 
 // END..
-
-
-
 
 export interface ContentResponse {
   id: number;
@@ -222,22 +266,34 @@ export interface mediaDataObj {
   };
 }
 
-export interface mediaDocument{
-  alternativeText : null;
+export interface mediaDocument {
+  alternativeText: null;
   caption: null;
-  createdAt : string;
-  ext : string;
-  formats: null
-hash: string;
-height: null
-id: number
-mime: string
-name: string
-previewUrl: null
-provider :string
-provider_metadata: null
-size: number
-updatedAt :string
-url: string
-width: null
+  createdAt: string;
+  ext: string;
+  formats: null;
+  hash: string;
+  height: null;
+  id: number;
+  mime: string;
+  name: string;
+  previewUrl: null;
+  provider: string;
+  provider_metadata: null;
+  size: number;
+  updatedAt: string;
+  url: string;
+  width: null;
+}
+
+export interface videoObj {
+  alternativeText: string;
+  caption: string;
+  ext: string;
+  hash: string;
+  id: number;
+  mime: string;
+  name: string;
+  size: number;
+  url: string;
 }

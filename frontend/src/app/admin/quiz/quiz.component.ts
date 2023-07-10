@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   OnDestroy,
@@ -16,14 +15,7 @@ import {
 import { Router } from '@angular/router';
 import { ConfirmationService, Message, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { AllCourseContent, AllCourseContentData } from 'src/app/models/content';
-import {
-  Quiz,
-  answers,
-  level,
-  QuizData,
-  QuizResponse,
-} from 'src/app/models/quiz';
+import { Quiz, answers, level } from 'src/app/models/quiz';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -41,42 +33,34 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class QuizComponent implements OnInit, OnDestroy {
   @ViewChild('vid') videoPlayer!: ElementRef;
-
-  isLoading: boolean = false;
+  public isLoading: boolean = false;
   msgs: Message[] = [];
-  addDisplay: boolean = false;
-  editDisplay: boolean = false;
-
+  public addDisplay: boolean = false;
+  public editDisplay: boolean = false;
   public addQuizGroup!: FormGroup;
   public editQuizGroup!: FormGroup;
   public course_Name: string = '';
-
   public allCourses: string[] = [];
+  visible: boolean = false;
   public quizBody!: Quiz;
-
   quizGetSubscription$: Subscription = new Subscription();
   quizPostSubscription$: Subscription = new Subscription();
   quizUpdateSubscription$: Subscription = new Subscription();
   quizDeleteSubscription$: Subscription = new Subscription();
   percentage: number = 0;
-
   public level: level[] = [
     { level_name: 'beginner' },
     { level_name: 'intermediate' },
     { level_name: 'advanced' },
   ];
-  // selectedCategories: any[] = [];
-
   public answersArray: answers[] = [
     { name: 'A', checked: false },
     { name: 'B', checked: false },
     { name: 'C', checked: false },
     { name: 'D', checked: false },
   ];
-
   constructor(
     private fb: FormBuilder,
-    // private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private apiService: ApiService,
     private route: Router
@@ -103,17 +87,14 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   onChange(name: string, selectedOption: EventTarget | null) {
-
     if (
       selectedOption instanceof HTMLInputElement &&
       selectedOption.checked !== undefined
     ) {
       const checked = selectedOption.checked;
-
       const emailFormArray = <FormArray>(
         this.addQuizGroup.controls['checkArray']
       );
-
       if (checked) {
         emailFormArray.push(new FormControl(name));
       } else {
@@ -127,10 +108,8 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   onSubmitQuestionDetails() {
     this.visible = false;
-
     const answers = this.addQuizGroup.value.checkArray;
     const myString: string = JSON.stringify(answers.join(' '));
-
     this.quizBody = {
       data: {
         level: this.addQuizGroup.value.level.level_name,
@@ -172,15 +151,10 @@ export class QuizComponent implements OnInit, OnDestroy {
   public getCourseContentDetails() {
     this.apiService.getContent().subscribe((res) => {
       const courses = res.data;
-
       const uniqueTechnology = new Set<string>();
-
-      // Iterate through the items array and add technology values to the set
       courses.forEach((item) => {
         uniqueTechnology.add(item.attributes.technology);
       });
-
-      // Convert the set back to an array
       this.allCourses = Array.from(uniqueTechnology);
     });
   }
@@ -188,15 +162,11 @@ export class QuizComponent implements OnInit, OnDestroy {
   public getQuizData() {
     this.apiService.getQuiz().subscribe((res) => {});
   }
-
-  visible: boolean = false;
-
   showDialog(course: string) {
     this.visible = true;
     this.course_Name = course;
     this.loadForm();
   }
-
   addCancel() {
     this.visible = false;
   }
@@ -206,10 +176,5 @@ export class QuizComponent implements OnInit, OnDestroy {
     localStorage.setItem('CourseName', technology);
   }
 
-  ngOnDestroy(): void {
-    // this.quizGetSubscription$.unsubscribe();
-    // this.quizPostSubscription$.unsubscribe();
-    // this.quizUpdateSubscription$.unsubscribe();
-    // this.quizDeleteSubscription$.unsubscribe();
-  }
+  ngOnDestroy(): void {}
 }

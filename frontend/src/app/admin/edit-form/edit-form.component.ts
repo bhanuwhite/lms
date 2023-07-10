@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   Input,
@@ -18,7 +17,8 @@ import {
 import { ContentComponent } from '../content/content.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ApiService } from 'src/app/services/api.service';
-import { HttpClient } from '@angular/common/http';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { SingleCourseObj, mediaDocument, videoObj } from 'src/app/models/content';
 
 
 @Component({
@@ -27,10 +27,11 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./edit-form.component.scss'],
   providers: [ConfirmationService, MessageService],
 })
-export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
+export class EditFormComponent implements OnInit, OnChanges {
   @Input() edituserLearnings: any;
-  @Input() popupClick: any;
-  @Output()('getcontent') getcontent: EventEmitter<any> = new EventEmitter();
+  @Input() popupClick!: string;
+  @Output() getcontent = new EventEmitter<any>();
+
   @ViewChild(ContentComponent)
   EditClick!: ContentComponent;
   visible: boolean = true;
@@ -47,11 +48,15 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
   videoUploadProgress: boolean = false;
   courseContentVideo: any[] = [];
   allVideosDuration: number = 0;
-  courseDocument: any;
+  courseDocument!: mediaDocument;
   showDocuments: boolean = false;
   showimageFileData: boolean = true;
   showVideoFileData: boolean = true;
   imgSrc!:string;
+  imageFileData!: string;
+  selectedCourseIncludes: string[] = [];
+  newVideosUpload:any[]=[]
+
 
   Technologies = [
     { tech: 'Angular' },
@@ -85,9 +90,8 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
   constructor(
     public fb: FormBuilder,
     private apiService: ApiService,
-    private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private http: HttpClient
+    private sanitizer: DomSanitizer
   ) {
     this.popupForm = this.fb.group({
       name: new FormControl('', [
@@ -95,7 +99,7 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
         Validators.pattern('^[a-zA-Z., ]+$'),
       ]),
       description: [''],
-      price: [''],
+      price: ['',[Validators.required]],
       imgVideo: [''],
       technology: new FormControl('', [Validators.required]),
       subject: new FormControl('', [Validators.required]),
@@ -107,29 +111,19 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
       course_duration: [''],
       courserIncludes: this.fb.array([]),
       documents: [''],
-      preLearn1: [''],
-      preLearn2: [''],
-      preLearn3: [''],
-      preLearn4: [''],
-      userLearning: this.fb.array([]),
     });
-  }
-  ngAfterViewInit(): void {
-    // this.EditClick.editContentDialog;
   }
 
   ngOnChanges(): void {
     this.visible = this.popupClick == 'edit' ? true : false;
     this.editFormVisible = this.popupClick == 'edit' ? true : false;
     this.editingCourseData();
-    this.patchValueData();
     this.checkCourseIncludes();
     this.courseDoc();
   }
 
   ngOnInit(): void {
     this.editingCourseData();
-    this.patchValueData();
     this.getLocalData();
     this.checkCourseIncludes();
   }
@@ -138,35 +132,6 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
     const localData = JSON.parse(localStorage.getItem('user')!);
     this.Admin_id = localData.id;
   }
-  addUser(): FormArray {
-    return this.popupForm.get('userLearning') as FormArray;
-  }
-  removeUserLearning(index: number) {
-    this.addUser().removeAt(index);
-  }
-  addUserLearning() {
-    this.addUser().push(
-      this.fb.group({
-        u_learn: '',
-      })
-    );
-  }
-  patchValueData() {
-    this.addUser().controls = [];
-    let u_LearnObj = this.edituserLearnings.attributes.user_learning;
-    let array = Object.entries(u_LearnObj).map(([key, u_learn]) => ({
-      key,
-      u_learn,
-    }));
-    array.forEach((userLearn: any) => {
-      this.addUser().controls.push(
-        this.fb.group({
-          u_learn: userLearn.u_learn,
-        })
-      );
-    });
-  }
-
   cancelUpdate() {
     this.editFormVisible = false;
   }
@@ -185,12 +150,11 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  public categories: any = [
+  public categories: {name:string,checked:boolean}[] = [
     { name: 'Certificate', checked: false },
     { name: 'Documents', checked: false },
   ];
 
-  selectedCourseIncludes: string[] = [];
   checkCourseIncludes(): void {
     const controls = this.edituserLearnings.attributes.course_include.map(
       (option: any) => this.fb.control(true)
@@ -198,12 +162,10 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
     this.popupForm.setControl('courseIncludes', this.fb.array(controls));
   }
 
-  imageFileData!: string;
   editingCourseData() {
     console.log(this.edituserLearnings);
 
     const formValues = this.edituserLearnings.attributes;
-
     this.imageFileData =  this.edituserLearnings.attributes.placeholder_img.data.attributes.name
     this.selectedCourseIncludes = formValues.course_include;
     this.popupForm = this.fb.group({
@@ -221,11 +183,6 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
       course_duration: formValues.total_duration,
       courserIncludes: this.fb.array([]),
       documents: formValues.files,
-      preLearn1: formValues.pre_learning['1'],
-      preLearn2: formValues.pre_learning['2'],
-      preLearn3: formValues.pre_learning['3'],
-      preLearn4: formValues.pre_learning['4'],
-      userLearning: this.fb.array([]),
     });
   }
 
@@ -240,7 +197,6 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   public courseFileSelected(event: Event) {
-
     const target = event.target as HTMLInputElement;
     this.imgUploadProgress = true;
     this.showimageFileData = false;
@@ -266,8 +222,6 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  newVideosUpload:any[]=[]
-
   public async courseFileSelect(event: Event): Promise<void> {
     const target = event.target as HTMLInputElement;
     const selectedFiles = Array.from(target.files || []);
@@ -288,10 +242,7 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
                 this.allVideosDuration = this.allVideosDuration + duration;
                 this.courseContentVideo[currentUploadIndex] = res[0];
                 currentUploadIndex++;
-                console.log(this.courseContentVideo);
                 this.newVideosUpload= this.courseContentVideo
-                console.log(this.newVideosUpload);
-
                 resolve();
               });
             } catch (error) {
@@ -315,7 +266,6 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
         summary: 'Error',
         detail: 'Something went wrong!',
       });
-      console.error(error);
     }
   }
 
@@ -337,28 +287,44 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
     });
   }
 
-  public onInputChanged(data: any, videoDescObj: any) {
+  public onInputChanged(data: Event, videoDescObj: videoObj) {
+    const value = (data.target as HTMLTextAreaElement).value;
+
+    console.log(data);
+    console.log(videoDescObj);
     const videoDesc = {
       fileInfo: {
-        alternativeText: data.value,
+        alternativeText: value,
       },
     };
-
     this.apiService
       .uploadVideoDesc(videoDescObj.id, videoDesc)
       .subscribe((res) => {});
   }
 
-  private userLearnObj: { [key: string]: string } = {};
+  public getSafeFileUrl(fileData: string, fileType: string): SafeResourceUrl {
+    const mimeType = this.getMimeType(fileType);
+    const safeDataUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`data:${mimeType};base64,${fileData}`);
+    return safeDataUrl;
+  }
+
+  private getMimeType(fileType: string): string {
+    switch (fileType) {
+      case 'pdf':
+        return 'application/pdf';
+      case 'csv':
+        return 'text/csv';
+      case 'txt':
+        return 'text/plain';
+      default:
+        return '';
+    }
+  }
+
+
+
   public onUpdateContent(): void {
     const updateData = this.popupForm.value;
-
-    for (let i = 0; i < this.addUser().controls.length; i++) {
-      this.userLearnObj[i] = this.addUser().controls[i].value.u_learn.u_learn
-        ? this.addUser().controls[i].value.u_learn.u_learn
-        : this.addUser().controls[i].value.u_learn;
-    }
-
     const updateCourseData = {
       data: {
         technology: this.selectedTech,
@@ -372,13 +338,6 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
         price: updateData.price,
         user_id: this.Admin_id,
         status: 'active',
-        pre_learning: {
-          1: updateData.preLearn1,
-          2: updateData.preLearn2,
-          3: updateData.preLearn3,
-          4: updateData.preLearn4,
-        },
-        user_learning: this.userLearnObj,
         course_include: this.selectedCourseIncludes,
         files: this.courseDocument,
       },
@@ -416,20 +375,23 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  checkboxValue(event: any, value: string) {
+ public checkboxValue(event: Event, value: string):void {
     const arrayForm = <FormArray>this.popupForm.get('coursesIncludes');
+    const isChecked = (event.target as HTMLInputElement).checked;
 
-    if (event?.target?.checked) {
-      if (!this.selectedCourseIncludes.includes(event.target.value)) {
-        this.selectedCourseIncludes.push(event.target.value);
+    if (isChecked) {
+      arrayForm.push(this.fb.control(value));
+
+      if (!this.selectedCourseIncludes.includes(value)) {
+        this.selectedCourseIncludes.push(value);
       }
       if (this.selectedCourseIncludes.includes('Documents')) {
         this.showDocuments = true;
       }
     } else {
-      if (this.selectedCourseIncludes.includes(event.target.value)) {
+      if (this.selectedCourseIncludes.includes(value)) {
         this.selectedCourseIncludes = this.selectedCourseIncludes.filter(
-          (value: string) => value !== event.target.value
+          (value: string) => value !== value
         );
       }
       if (!this.selectedCourseIncludes.includes('Documents')) {
@@ -445,10 +407,11 @@ export class EditFormComponent implements OnInit, OnChanges, AfterViewInit {
       this.popupForm.get('documents')?.setValue(file);
       this.formData = new FormData();
       this.formData.append('files', this.popupForm.value.documents);
-
       this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {
           this.courseDocument = res;
+          console.log(this.courseDocument);
+
         } catch (error) {
           this.messageService.add({
             severity: 'error',

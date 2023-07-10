@@ -5,7 +5,6 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { resolve } from 'chart.js/dist/helpers/helpers.options';
 import { MessageService } from 'primeng/api';
 import { userProfile, userUpdateProfile } from 'src/app/models/profile';
 import { ApiService } from 'src/app/services/api.service';
@@ -80,7 +79,6 @@ export class ProfileComponent implements OnInit {
             this.userFirstName = res.firstname;
             this.userLastName = res.lastname;
             this.mobileNo = res.mobile;
-            // this.linkedin = res.linkedIn;
             this.biograpy = res.biography;
           }
         });

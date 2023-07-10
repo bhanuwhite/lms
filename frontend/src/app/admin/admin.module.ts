@@ -26,7 +26,6 @@ import { MenubarModule } from 'primeng/menubar';
 import { AvatarModule } from 'primeng/avatar';
 import { EditorModule } from 'primeng/editor';
 import { TableModule } from 'primeng/table';
-import { CoursesComponent } from './courses/courses.component';
 import { TagModule } from 'primeng/tag';
 import {SidebarModule} from 'primeng/sidebar';
 import { CalendarModule } from 'primeng/calendar';
@@ -38,7 +37,6 @@ import { ContentComponent } from './content/content.component';
 import { MegaMenuModule } from 'primeng/megamenu';
 import {TabViewModule} from 'primeng/tabview';
 import { ToolbarModule } from 'primeng/toolbar';
-// import { CourseDetailsComponent } from './course-details/course-details.component';
 import {AccordionModule} from 'primeng/accordion';
 import {CheckboxModule} from 'primeng/checkbox';
 import {AvatarGroupModule} from 'primeng/avatargroup';
@@ -62,7 +60,6 @@ import { EditFormComponent } from './edit-form/edit-form.component';
     ContentDetailsComponent,
     HeaderComponent,
     QuizComponent,
-    CoursesComponent,
     DashboardComponent,
     SpinnerComponent,
     ContentComponent,

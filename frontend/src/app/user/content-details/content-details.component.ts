@@ -1,16 +1,12 @@
 import {
   Component,
   OnInit,
-  TemplateRef,
-  DoCheck,
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
-// import { ContentResponse } from 'src/app/models/content';
 import {
   MessageService,
   ConfirmationService,
@@ -19,6 +15,7 @@ import {
 import { AllCourseContentData, SingleCourseData } from 'src/app/models/content';
 import { AboutService } from 'src/app/services/about.service';
 import { CartResponse } from 'src/app/models/cart';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-content-details',
@@ -45,7 +42,8 @@ export class ContentDetailsComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router,
-    private aboutService: AboutService
+    private aboutService: AboutService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
@@ -92,7 +90,7 @@ export class ContentDetailsComponent implements OnInit {
       this.showSpinner = false;
     });
   }
-
+ public videoUrl!: SafeResourceUrl;
   public getSingleCourseObj(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       this.activeParams.params.subscribe((res) => {
@@ -100,6 +98,8 @@ export class ContentDetailsComponent implements OnInit {
       });
       this.apiService.getSingleContent(this.courseId).subscribe((res) => {
         this.singleCourse = res['data'];
+
+        this.videoUrl = this.getSafeVideoUrl(res['data'].attributes.link);
 
       });
       resolve();
@@ -109,6 +109,16 @@ export class ContentDetailsComponent implements OnInit {
     });
   }
 
+  getSafeVideoUrl(link: string): SafeResourceUrl {
+    const videoId = this.extractVideoId(link);
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+  }
+  extractVideoId(link: string): string {
+    const regex = /youtu(?:\.be|be\.com)\/(?:.*v(?:\/|=)|(?:.*\/)?)([a-zA-Z0-9-_]+)/;
+    const match = link?.match(regex);
+    return match ? match[1] : '';
+  }
   // Getting Cart courses
   public getCartCourses(): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -149,7 +159,6 @@ export class ContentDetailsComponent implements OnInit {
             this.getCartCourses();
           },
           (error: any) => {
-            console.log('Error', error);
           }
         );
       },
@@ -177,13 +186,6 @@ export class ContentDetailsComponent implements OnInit {
     this.router.navigate(['mycart']);
   }
 
-  // onClickVideo(courseDetails: {}) {
-  //   const ref = this.dialogService.open(VideoPopupComponent, {
-  //     header: 'Course Preview',
-  //     width: '50%',
-  //     data: { name: 'John' },
-  //   });
-  // }
   onClose() {
     this.displayDialog = false;
   }
