@@ -74,7 +74,7 @@
           <b class="fs-4">{{singleContent.attributes.name}} </b>
         </div>
         <div class=" col-lg-11">
-          <p class="textOverflow">{{singleContent.attributes.description}} PrimeIcons is the default icon library of
+          <p class="">{{singleContent.attributes.description}} PrimeIcons is the default icon library of
             PrimeNG with over 250 open source icons developed by PrimeTek.</p>
         </div>
 
@@ -87,7 +87,8 @@
 
         <div class="d-flex lecture_details col-lg-12 mt-3">
           <div class="col-lg-6">
-            <span> No.of Lectures - <b>{{ singleContent.attributes.content.data !== null ? singleContent.attributes.content.data.length : '' }}            </b> </span>
+            <span> No.of Lectures - <b>{{ singleContent.attributes.content.data !== null ?
+                singleContent.attributes.content.data.length : '' }} </b> </span>
           </div>
           <div class="col-lg-6 d-flex align-items-center ">
             <span class="material-icons">
@@ -97,33 +98,32 @@
             </span>
           </div>
         </div>
-        <div class="my-3 d-flex align-items-center">
-          <span class="material-icons">
-            currency_rupee
-          </span>
-          <span>{{(singleContent.attributes.price) }}.00 </span>
-        </div>
 
-        <div class="d-flex button_wrapper justify-content-between">
-          <div class="mb-2">
-            <button class="btn btn-primary">{{ singleContent.attributes.technology }}</button>
+
+        <div class="d-flex button_wrapper justify-content-between align-items-center">
+          <div class="my-3 d-flex align-items-center">
+            <div *ngIf="singleContent.attributes.price !=0">
+              <span class="material-icons">
+                currency_rupee
+              </span>
+              <span>{{(singleContent.attributes.price) }}.00 </span>
+            </div>
+            <div *ngIf="singleContent.attributes.price ==0">
+              <button class="btn btn-primary">Free Course</button>
+
+            </div>
           </div>
-          <div class="mb-2">
+          <div class="">
             <button class="btn btn-warning">{{ singleContent.attributes.level }}</button>
           </div>
           <ng-container *ngIf="singleContent.attributes.no_of_purchases">
-            <button class="btn btn-sm fw-bold" style="background-color: rgb(213, 240, 158);">
+            <button class="btn btn-sm fw-bold btn-warning" style="background-color: rgb(213, 240, 158);">
               Best Seller
             </button>
           </ng-container>
         </div>
-
-
       </div>
-
     </div>
-
-    <
 
   </div>
 </div>

@@ -18,7 +18,8 @@ import { ContentComponent } from '../content/content.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ApiService } from 'src/app/services/api.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { SingleCourseObj, mediaDocument, videoObj } from 'src/app/models/content';
+import {  mediaDocument, videoObj } from 'src/app/models/content';
+import { environment } from 'src/environment/environment';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class EditFormComponent implements OnInit, OnChanges {
   @Input() edituserLearnings: any;
   @Input() popupClick!: string;
   @Output() getcontent = new EventEmitter<any>();
-
+  public imgUrl= environment.apiUrl
   @ViewChild(ContentComponent)
   EditClick!: ContentComponent;
   visible: boolean = true;
@@ -84,6 +85,7 @@ export class EditFormComponent implements OnInit, OnChanges {
     { industry: 'Software development' },
     { industry: 'Web development' },
   ];
+  public selectedTechnologies:string[]=[]
 
   courseStatus = [{ status: 'active' }, { status: 'block' }];
 
@@ -163,7 +165,8 @@ export class EditFormComponent implements OnInit, OnChanges {
   }
 
   editingCourseData() {
-    console.log(this.edituserLearnings);
+    const techData = this.edituserLearnings.attributes.technologies;
+    this.selectedTechnologies = Object.values(techData);
 
     const formValues = this.edituserLearnings.attributes;
     this.imageFileData =  this.edituserLearnings.attributes.placeholder_img.data.attributes.name
@@ -173,7 +176,7 @@ export class EditFormComponent implements OnInit, OnChanges {
       description: formValues.description,
       price: formValues.price,
       imgVideo: formValues.content,
-      technology: [{ tech: formValues.technology }],
+      technology: [Object.values(techData)],
       subject: [{ industry: formValues.subject }],
       level: [{ level: formValues.level }],
       status: 'active',
@@ -185,9 +188,9 @@ export class EditFormComponent implements OnInit, OnChanges {
       documents: formValues.files,
     });
   }
-
-  public techSelected(event: { value: { tech: string } }) {
-    this.selectedTech = event.value.tech;
+  technologyArr: string[] = [];
+  public techSelected(event: any) {
+    this.technologyArr = event.value.map((item: { tech: string }) => item.tech);
   }
   public levelSelected(event: { value: { level: string } }) {
     this.selectedLevel = event.value.level;
@@ -289,9 +292,6 @@ export class EditFormComponent implements OnInit, OnChanges {
 
   public onInputChanged(data: Event, videoDescObj: videoObj) {
     const value = (data.target as HTMLTextAreaElement).value;
-
-    console.log(data);
-    console.log(videoDescObj);
     const videoDesc = {
       fileInfo: {
         alternativeText: value,
@@ -322,12 +322,18 @@ export class EditFormComponent implements OnInit, OnChanges {
   }
 
 
-
+public technologyData:any
   public onUpdateContent(): void {
+
+    this.technologyData = {};
+
+    for (let i = 0; i < this.technologyArr.length; i++) {
+      this.technologyData[i + 1] = this.technologyArr[i];
+    }
     const updateData = this.popupForm.value;
     const updateCourseData = {
       data: {
-        technology: this.selectedTech,
+        technologies: this.technologyData,
         level: this.selectedLevel,
         subject: this.selectedSubject,
         content: this.courseContentVideo,
@@ -410,8 +416,6 @@ export class EditFormComponent implements OnInit, OnChanges {
       this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {
           this.courseDocument = res;
-          console.log(this.courseDocument);
-
         } catch (error) {
           this.messageService.add({
             severity: 'error',

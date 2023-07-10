@@ -43,7 +43,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   @ViewChild('vid', { read: ElementRef }) tempRef!: ElementRef;
   popup: string = '';
   private allSubsription$: Subscription[] = [];
-  public imgUrl = environment.apiUrl
+  public imgUrl = environment.apiUrl;
   public searchWord: string = '';
   public loadingSpinner: boolean = false;
   public editDisply: boolean = false;
@@ -83,7 +83,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   updateDocuments: boolean = false;
   editUserLearnings!: AllCourseContentData;
 
-  Technologies = [
+  Technologies: { tech: string }[] = [
     { tech: 'Angular' },
     { tech: 'DotNet' },
     { tech: 'Java' },
@@ -212,8 +212,9 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.courseContentVideo = [];
     this.addCourse.get('documents')?.removeValidators(Validators.required);
   }
-  public techSelected(event: { value: { tech: string } }) {
-    this.selectedTech = event.value.tech;
+  technologyArr: string[] = [];
+  public techSelected(event: any) {
+    this.technologyArr = event.value.map((item: { tech: string }) => item.tech);
   }
   public levelSelected(event: { value: { level: string } }) {
     this.selectedLevel = event.value.level;
@@ -397,17 +398,23 @@ export class ContentComponent implements OnInit, OnDestroy {
       control.markAsTouched();
     });
   }
+  public data!: { [key: number]: string };
+
   public courseFormSubmit(
     videoInput: HTMLInputElement,
     imgInput: HTMLInputElement
   ) {
+    this.data = {};
+    for (let i = 0; i < this.technologyArr.length; i++) {
+      this.data[i + 1] = this.technologyArr[i];
+    }
     this.markAllFieldsAsTouched();
 
     if (this.addCourse.valid) {
       this.courseDialog = false;
       const courseData = {
         data: {
-          technology: this.selectedTech,
+          technologies: this.data,
           subject: this.selectedSubject,
           content: this.courseContentVideo,
           description: this.addCourse.value.description,
@@ -425,45 +432,43 @@ export class ContentComponent implements OnInit, OnDestroy {
         },
       };
 
-      if (this.courseContentVideo.length != 0) {
-        this.apiService.postContent(courseData).subscribe((res) => {
-          try {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Success',
-              detail: 'Course added successfully !!',
-            });
-            this.courseContentVideo = [];
-            this.showDocuments = false;
-            this.addCourse
-              .get('documents')
-              ?.removeValidators(Validators.required);
+      this.apiService.postContent(courseData).subscribe((res) => {
+        try {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Course added successfully !!',
+          });
+          this.courseContentVideo = [];
+          this.showDocuments = false;
+          this.addCourse
+            .get('documents')
+            ?.removeValidators(Validators.required);
 
-            videoInput.value = '';
-            imgInput.value = '';
-            this.allVideosDuration = 0;
-            this.getContent();
-            this.addCourse.reset();
-          } catch (error) {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Something went wrong.',
-              detail: 'Course not added !!',
-            });
-          }
-        });
-      } else {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Course Content is empty',
-          detail: 'Please upload Course Video Content.  !!',
-        });
-      }
-
-      for (let i = 0; i < this.elements.length; i++) {
-        if (this.elements[i].type == 'checkbox') {
-          this.elements[i].checked = false;
+          videoInput.value = '';
+          imgInput.value = '';
+          this.allVideosDuration = 0;
+          this.getContent();
+          this.addCourse.reset();
+        } catch (error) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Something went wrong.',
+            detail: 'Course not added !!',
+          });
         }
+      });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Course Content is empty',
+        detail: 'Please upload Course Video Content.  !!',
+      });
+    }
+
+    for (let i = 0; i < this.elements.length; i++) {
+      if (this.elements[i].type == 'checkbox') {
+        this.elements[i].checked = false;
       }
     }
   }
