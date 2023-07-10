@@ -32,6 +32,9 @@
     "total_duration": {
       "type": "biginteger",
       "default": "0"
+    },
+    "transactionId": {
+      "type": "text"
     }
   }
 }
