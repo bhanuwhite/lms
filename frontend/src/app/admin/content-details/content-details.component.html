@@ -66,7 +66,7 @@
 
     <div class="row surface-card shadow-2 p-2 m-1 border-round" *ngIf="singleContent">
       <div class="col-lg-4 img-fluid">
-        <img [src]="imgUrl+singleContent.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url" alt=""
+        <img [src]=" img_url + singleContent.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url" alt=""
           [style]="{'height':'200px','width':'100%','border-radius':'30px'}">
       </div>
       <div class="col-lg-8">
@@ -74,7 +74,7 @@
           <b class="fs-4">{{singleContent.attributes.name}} </b>
         </div>
         <div class=" col-lg-11">
-          <p class="textOverflow">{{singleContent.attributes.description}} PrimeIcons is the default icon library of
+          <p class="">{{singleContent.attributes.description}} PrimeIcons is the default icon library of
             PrimeNG with over 250 open source icons developed by PrimeTek.</p>
         </div>
 
@@ -89,6 +89,8 @@
           <div class="col-lg-6">
             <span> No.of Lectures - <b>{{ singleContent.attributes.content.data !== null ?
                 singleContent.attributes.content.data.length : '' }} </b> </span>
+            <span> No.of Lectures - <b>{{ singleContent.attributes.content.data !== null ?
+                singleContent.attributes.content.data.length : '' }} </b> </span>
           </div>
           <div class="col-lg-6 d-flex align-items-center mb-2 ">
             <span class="material-icons">
@@ -101,30 +103,28 @@
 
 
         <div class="d-flex button_wrapper justify-content-between align-items-center">
-
           <div class="my-3 d-flex align-items-center">
+            <div *ngIf="singleContent.attributes.price !=0">
+              <span class="material-icons">
+                currency_rupee
+              </span>
+              <span>{{(singleContent.attributes.price) }}.00 </span>
+            </div>
+            <div *ngIf="singleContent.attributes.price ==0">
+              <button class="btn btn-primary">Free Course</button>
 
-
-            <button *ngIf="singleContent.attributes.price == 0" class="btn btn-primary"> Free </button>
-            <div>
-              <span *ngIf="singleContent.attributes.price != 0"> <span class="material-icons">
-                  currency_rupee
-                </span> {{(singleContent.attributes.price) }}.00 </span>
             </div>
           </div>
-          <div class="mb-2">
+          <div class="">
             <button class="btn btn-warning">{{ singleContent.attributes.level }}</button>
           </div>
           <ng-container *ngIf="singleContent.attributes.no_of_purchases">
-            <button class="btn btn-sm fw-bold" style="background-color: rgb(213, 240, 158);">
+            <button class="btn btn-sm fw-bold btn-warning" style="background-color: rgb(213, 240, 158);">
               Best Seller
             </button>
           </ng-container>
         </div>
-
-
       </div>
-
     </div>
 
 

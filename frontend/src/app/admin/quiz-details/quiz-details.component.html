@@ -46,7 +46,7 @@
       <div class="p-fluid grid">
 
         <div class="field mt-2 w-100">
-          <label for="title">Coursename :</label>
+          <label for="title">Course name<span class="text-danger fs-5">*</span>:</label>
           <span>
             <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="Course_Name"
               class="form-control" required formControlName="Course_Name" pInputText placeholder="Course_Name">
@@ -60,7 +60,7 @@
 
 
         <div class="field mt-2 w-100">
-          <label for="title">Level :</label>
+          <label for="title">Level<span class="text-danger fs-5">*</span>:</label>
 
           <p-dropdown [options]="level" optionLabel="level_name" formControlName="level"
             placeholder="Select level"></p-dropdown>
@@ -73,7 +73,7 @@
         </div>
 
         <div class="field mt-2 w-100">
-          <label for="title">Question :</label>
+          <label for="title">Question<span class="text-danger fs-5">*</span> :</label>
           <span>
 
             <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="question" class="form-control"
@@ -85,8 +85,8 @@
           </span>
 
         </div>
-        <div class="field mt-2 w-35 m-1">
-          <label for="title">Option (A)</label>
+        <div class="field mt-2 w-30 m-1">
+          <label for="title">Option (A)<span class="text-danger fs-5">*</span></label>
           <span>
             <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" style="resize: none;"
               cols="30" formControlName="option1" pInputText>
@@ -97,8 +97,8 @@
           </span>
         </div>
 
-        <div class="field mt-2 w-35 m-1">
-          <label for="title">Option (B)</label>
+        <div class="field mt-2 w-30 m-1">
+          <label for="title">Option (B)<span class="text-danger fs-5">*</span></label>
           <span>
             <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option2"
               pInputText>
@@ -107,8 +107,8 @@
               Option(B) is required</small>
           </span>
         </div>
-        <div class="field mt-2 w-35 m-1">
-          <label for="title">Option (C)</label>
+        <div class="field mt-2 w-30 m-1">
+          <label for="title">Option (C)<span class="text-danger fs-5">*</span></label>
           <span>
             <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option3"
               pInputText>
@@ -117,8 +117,8 @@
               Option(C) is required</small>
           </span>
         </div>
-        <div class="field mt-2 w-35 m-1">
-          <label for="title">Option (D)</label>
+        <div class="field mt-2 w-30 m-1">
+          <label for="title">Option (D)<span class="text-danger fs-5">*</span></label>
           <span>
             <input type="text" required class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="option4"
               pInputText>
@@ -128,7 +128,7 @@
           </span>
         </div>
         <div class="field mt-2 w-100">
-          <label for="title">Answer :</label>
+          <label for="title">Answer<span class="text-danger fs-5">*</span>:</label>
           <span class="d-flex">
             <div *ngFor="let data of categories" class="p-2">
               <label>

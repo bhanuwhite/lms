@@ -215,7 +215,7 @@ export interface postCourseContentData {
           url: string;
         };
       };
-    };
+    } ;
     price?: number | string;
     status?: string;
     technology?: string;

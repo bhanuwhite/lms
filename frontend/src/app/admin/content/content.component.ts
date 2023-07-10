@@ -24,6 +24,7 @@ import {
   videoObj,
 } from 'src/app/models/content';
 import { ApiService } from 'src/app/services/api.service';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environment/environment';
 
 @Component({
@@ -43,7 +44,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   @ViewChild('vid', { read: ElementRef }) tempRef!: ElementRef;
   popup: string = '';
   private allSubsription$: Subscription[] = [];
-  public imgUrl = environment.apiUrl
+  public imgUrl = environment.apiUrl;
   public searchWord: string = '';
   public loadingSpinner: boolean = false;
   public editDisply: boolean = false;
@@ -83,7 +84,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   updateDocuments: boolean = false;
   editUserLearnings!: AllCourseContentData;
 
-  Technologies = [
+  Technologies: { tech: string }[] = [
     { tech: 'Angular' },
     { tech: 'DotNet' },
     { tech: 'Java' },
@@ -170,9 +171,13 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   // Get Content
 
+  public img_url = environment.apiUrl ;
   public getContent(): void {
     this.loadingSpinner = true;
     this.apiService.getContent().subscribe((res: AllCourseContent) => {
+
+      // console.log( this.img_url + res.data[0].attributes.placeholder_img.data.attributes.formats?.thumbnail?.url)
+
       try {
         this.contentData = res.data;
         this.contentData2 = res.data;
@@ -212,8 +217,9 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.courseContentVideo = [];
     this.addCourse.get('documents')?.removeValidators(Validators.required);
   }
-  public techSelected(event: { value: { tech: string } }) {
-    this.selectedTech = event.value.tech;
+  technologyArr: string[] = [];
+  public techSelected(event: any) {
+    this.technologyArr = event.value.map((item: { tech: string }) => item.tech);
   }
   public levelSelected(event: { value: { level: string } }) {
     this.selectedLevel = event.value.level;
@@ -316,6 +322,7 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {
           this.courseContentImage = res;
+          console.log('Image uploaded reponse', res);
           this.imgUploadProgress = false;
         } catch (error) {
           this.messageService.add({
@@ -397,17 +404,23 @@ export class ContentComponent implements OnInit, OnDestroy {
       control.markAsTouched();
     });
   }
+  public data!: { [key: number]: string };
+
   public courseFormSubmit(
     videoInput: HTMLInputElement,
     imgInput: HTMLInputElement
   ) {
+    this.data = {};
+    for (let i = 0; i < this.technologyArr.length; i++) {
+      this.data[i + 1] = this.technologyArr[i];
+    }
     this.markAllFieldsAsTouched();
 
     if (this.addCourse.valid) {
       this.courseDialog = false;
       const courseData = {
         data: {
-          technology: this.selectedTech,
+          technologies: this.data,
           subject: this.selectedSubject,
           content: this.courseContentVideo,
           description: this.addCourse.value.description,
@@ -424,46 +437,45 @@ export class ContentComponent implements OnInit, OnDestroy {
           files: this.courseDocument,
         },
       };
+      console.log('Course Post reqquest ', courseData);
 
-      if (this.courseContentVideo.length != 0) {
-        this.apiService.postContent(courseData).subscribe((res) => {
-          try {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Success',
-              detail: 'Course added successfully !!',
-            });
-            this.courseContentVideo = [];
-            this.showDocuments = false;
-            this.addCourse
-              .get('documents')
-              ?.removeValidators(Validators.required);
+      this.apiService.postContent(courseData).subscribe((res) => {
+        try {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Course added successfully !!',
+          });
+          this.courseContentVideo = [];
+          this.showDocuments = false;
+          this.addCourse
+            .get('documents')
+            ?.removeValidators(Validators.required);
 
-            videoInput.value = '';
-            imgInput.value = '';
-            this.allVideosDuration = 0;
-            this.getContent();
-            this.addCourse.reset();
-          } catch (error) {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Something went wrong.',
-              detail: 'Course not added !!',
-            });
-          }
-        });
-      } else {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Course Content is empty',
-          detail: 'Please upload Course Video Content.  !!',
-        });
-      }
-
-      for (let i = 0; i < this.elements.length; i++) {
-        if (this.elements[i].type == 'checkbox') {
-          this.elements[i].checked = false;
+          videoInput.value = '';
+          imgInput.value = '';
+          this.allVideosDuration = 0;
+          this.getContent();
+          this.addCourse.reset();
+        } catch (error) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Something went wrong.',
+            detail: 'Course not added !!',
+          });
         }
+      });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Course Content is empty',
+        detail: 'Please upload Course Video Content.  !!',
+      });
+    }
+
+    for (let i = 0; i < this.elements.length; i++) {
+      if (this.elements[i].type == 'checkbox') {
+        this.elements[i].checked = false;
       }
     }
   }
@@ -511,3 +523,4 @@ export class ContentComponent implements OnInit, OnDestroy {
     });
   }
 }
+

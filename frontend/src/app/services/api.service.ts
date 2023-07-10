@@ -68,14 +68,9 @@ export class ApiService {
   }
 
   //Post COURSE CONTENT
-  public postContent(
-    item: postCourseContentData
-  ): Observable<AllCourseContentData> {
-    return this.http.post<AllCourseContentData>(
-      `${environment.apiUrl}/api/course-contents`,
-      item
-    );
-  }
+  public postContent( item: any ): Observable<any> {
+    return this.http.post<any>( `${environment.apiUrl}/api/course-contents`,item);
+}
 
   // update COURSE CONTENT
   public updateContent(
