@@ -26,7 +26,7 @@
   <div class="row" *ngIf="contentData.length != 0">
     <div class="col-lg-6 col-xl-3 mb-3" *ngFor="let data of contentData">
       <div class="card" style="max-height: 380px; width: 100%">
-        <img [routerLink]="['/admin/content', data.id]" style="height: 200px; cursor: pointer" [src]='data.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url' alt="Course Image" class="card-img-top" />
+        <img [routerLink]="['/admin/content', data.id]" style="height: 200px; cursor: pointer" [src]='imgUrl+data.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url' alt="Course Image" class="card-img-top" />
         <div class="card-body">
           <div class="row cursor-pointer" [routerLink]="['/admin/content', data.id]">
             <div class="col-lg-6">

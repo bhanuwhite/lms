@@ -66,7 +66,7 @@
 
     <div class="row surface-card shadow-2 p-2 m-1 border-round" *ngIf="singleContent">
       <div class="col-lg-4 img-fluid">
-        <img [src]="singleContent.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url" alt=""
+        <img [src]="imgUrl+singleContent.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url" alt=""
           [style]="{'height':'200px','width':'100%','border-radius':'30px'}">
       </div>
       <div class="col-lg-8">

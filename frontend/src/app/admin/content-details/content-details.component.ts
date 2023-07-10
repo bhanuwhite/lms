@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { SingleCourseObj } from 'src/app/models/content';
 import { ApiService } from 'src/app/services/api.service';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-content-details',
@@ -10,6 +11,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./content-details.component.scss'],
 })
 export class ContentDetailsComponent implements OnInit {
+  public imgUrl = environment.apiUrl
   constructor(
     private activatedRoute: ActivatedRoute,
     private apiService: ApiService

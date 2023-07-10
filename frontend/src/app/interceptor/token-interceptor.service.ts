@@ -26,7 +26,7 @@ export class TokenInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         this.errorMessage = error
-        this.errorMsg = error.error.error.message;
+        this.errorMsg = error.error.error?.message;
         let errorMessage = '';
         if (error.status === 401) {
           localStorage.clear();
