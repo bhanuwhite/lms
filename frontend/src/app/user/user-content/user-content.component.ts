@@ -44,7 +44,9 @@ export class UserContentComponent {
   subjects: Subjects[] = [];
 
   formGroup!: FormGroup;
-  value: number =3
+  value: number =3;
+  public img_url = environment.apiUrl ;
+
 
   ngOnInit(): void {
     this.getContent();

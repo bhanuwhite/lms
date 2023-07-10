@@ -20,6 +20,7 @@ export class ContentDetailsComponent implements OnInit {
   isLoading: boolean = false;
   // SingleCourseObj  interface
   singleContent: any
+  public img_url = environment.apiUrl ;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res) => {

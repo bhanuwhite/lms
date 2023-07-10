@@ -82,7 +82,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       option2: new FormControl('', Validators.required),
       option3: new FormControl('', Validators.required),
       option4: new FormControl('', Validators.required),
-      checkArray: this.fb.array([]),
+      checkArray: this.fb.array([],Validators.required),
     });
   }
 
@@ -156,6 +156,8 @@ export class QuizComponent implements OnInit, OnDestroy {
         uniqueTechnology.add(item.attributes.technology);
       });
       this.allCourses = Array.from(uniqueTechnology);
+      console.log(this.allCourses);
+
     });
   }
 
