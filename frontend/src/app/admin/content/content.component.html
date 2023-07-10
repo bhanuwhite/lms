@@ -2,11 +2,16 @@
   <div class="row">
     <div class="mb-3 d-flex align-items-center justify-content-between search_bar_area">
       <h1 class="m-0" style="font-size: 1.5rem"><b> Content</b></h1>
-      <span class="p-input-icon-left">
-        <i class="pi pi-search"></i>
-        <input type="text" pInputText [(ngModel)]="searchWord" (ngModelChange)="filterCourse()"
-          placeholder="Search Course...." style="height: 40px" />
-      </span>
+
+
+      <div class="col-lg-5 mb-2 ms-5 d-flex justify-content-end align-items-center">
+        <span class="p-input-icon-left w-100">
+          <i class="pi pi-search"></i>
+          <input type="text" class="w-100" pInputText [(ngModel)]="searchWord" (ngModelChange)="filterCourse()"
+            placeholder="Search Course...." />
+        </span>
+      </div>
+
       <div class="drop-button">
         <button class="btn btn-primary" (click)="showCourseDialog()">
           Add Course <i class="pi pi-plus cursor-pointer"></i>
@@ -26,7 +31,7 @@
   <div class="row" *ngIf="contentData.length != 0">
     <div class="col-lg-6 col-xl-3 mb-3" *ngFor="let data of contentData">
       <div class="card" style="max-height: 380px; width: 100%">
-        <!-- <img [routerLink]="['/admin/content', data.id]" style="height: 200px; cursor: pointer" [src]='data.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url' alt="Course Image" class="card-img-top" /> -->
+        <img [routerLink]="['/admin/content', data.id]" style="height: 200px; cursor: pointer" [src]='imgUrl+data.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url' alt="Course Image" class="card-img-top" />
         <div class="card-body">
           <div class="row cursor-pointer" [routerLink]="['/admin/content', data.id]">
             <div class="col-lg-6">

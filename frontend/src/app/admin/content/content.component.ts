@@ -24,7 +24,7 @@ import {
   videoObj,
 } from 'src/app/models/content';
 import { ApiService } from 'src/app/services/api.service';
-import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-content',
@@ -43,7 +43,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   @ViewChild('vid', { read: ElementRef }) tempRef!: ElementRef;
   popup: string = '';
   private allSubsription$: Subscription[] = [];
-
+  public imgUrl = environment.apiUrl
   public searchWord: string = '';
   public loadingSpinner: boolean = false;
   public editDisply: boolean = false;
