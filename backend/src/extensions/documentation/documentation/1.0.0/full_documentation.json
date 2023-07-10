@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-07-05T10:22:24.565Z"
+    "x-generation-date": "2023-07-10T07:02:42.539Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -1769,21 +1769,6 @@
                                                     }
                                                   }
                                                 },
-                                                "technology": {
-                                                  "type": "string",
-                                                  "enum": [
-                                                    "Angular",
-                                                    "DotNet",
-                                                    "Java",
-                                                    "Javascript",
-                                                    "MongoDB",
-                                                    "MySQL",
-                                                    "Node JS",
-                                                    "Postgresql",
-                                                    "Python",
-                                                    "React JS"
-                                                  ]
-                                                },
                                                 "status": {
                                                   "type": "string",
                                                   "enum": [
@@ -1974,13 +1959,14 @@
                                                     }
                                                   }
                                                 },
-                                                "pre_learning": {},
                                                 "course_include": {},
-                                                "user_learning": {},
                                                 "rating": {
                                                   "type": "integer"
                                                 },
-                                                "pre_learning_img": {
+                                                "review": {
+                                                  "type": "string"
+                                                },
+                                                "docs": {
                                                   "type": "object",
                                                   "properties": {
                                                     "data": {
@@ -2122,9 +2108,7 @@
                                                     }
                                                   }
                                                 },
-                                                "review": {
-                                                  "type": "string"
-                                                },
+                                                "technologies": {},
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -2209,6 +2193,9 @@
                                     "type": "string",
                                     "pattern": "^\\d*$",
                                     "example": "123456789"
+                                  },
+                                  "transactionId": {
+                                    "type": "string"
                                   },
                                   "createdAt": {
                                     "type": "string",
@@ -2448,21 +2435,6 @@
                 ],
                 "example": "string or id"
               },
-              "technology": {
-                "type": "string",
-                "enum": [
-                  "Angular",
-                  "DotNet",
-                  "Java",
-                  "Javascript",
-                  "MongoDB",
-                  "MySQL",
-                  "Node JS",
-                  "Postgresql",
-                  "Python",
-                  "React JS"
-                ]
-              },
               "status": {
                 "type": "string",
                 "enum": [
@@ -2525,13 +2497,14 @@
                   "example": "string or id"
                 }
               },
-              "pre_learning": {},
               "course_include": {},
-              "user_learning": {},
               "rating": {
                 "type": "integer"
               },
-              "pre_learning_img": {
+              "review": {
+                "type": "string"
+              },
+              "docs": {
                 "type": "array",
                 "items": {
                   "oneOf": [
@@ -2545,9 +2518,7 @@
                   "example": "string or id"
                 }
               },
-              "review": {
-                "type": "string"
-              }
+              "technologies": {}
             }
           }
         }
@@ -3378,21 +3349,6 @@
               }
             }
           },
-          "technology": {
-            "type": "string",
-            "enum": [
-              "Angular",
-              "DotNet",
-              "Java",
-              "Javascript",
-              "MongoDB",
-              "MySQL",
-              "Node JS",
-              "Postgresql",
-              "Python",
-              "React JS"
-            ]
-          },
           "status": {
             "type": "string",
             "enum": [
@@ -3583,13 +3539,14 @@
               }
             }
           },
-          "pre_learning": {},
           "course_include": {},
-          "user_learning": {},
           "rating": {
             "type": "integer"
           },
-          "pre_learning_img": {
+          "review": {
+            "type": "string"
+          },
+          "docs": {
             "type": "object",
             "properties": {
               "data": {
@@ -3731,9 +3688,7 @@
               }
             }
           },
-          "review": {
-            "type": "string"
-          },
+          "technologies": {},
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -6830,21 +6785,6 @@
                                                     }
                                                   }
                                                 },
-                                                "technology": {
-                                                  "type": "string",
-                                                  "enum": [
-                                                    "Angular",
-                                                    "DotNet",
-                                                    "Java",
-                                                    "Javascript",
-                                                    "MongoDB",
-                                                    "MySQL",
-                                                    "Node JS",
-                                                    "Postgresql",
-                                                    "Python",
-                                                    "React JS"
-                                                  ]
-                                                },
                                                 "status": {
                                                   "type": "string",
                                                   "enum": [
@@ -7035,13 +6975,14 @@
                                                     }
                                                   }
                                                 },
-                                                "pre_learning": {},
                                                 "course_include": {},
-                                                "user_learning": {},
                                                 "rating": {
                                                   "type": "integer"
                                                 },
-                                                "pre_learning_img": {
+                                                "review": {
+                                                  "type": "string"
+                                                },
+                                                "docs": {
                                                   "type": "object",
                                                   "properties": {
                                                     "data": {
@@ -7183,9 +7124,7 @@
                                                     }
                                                   }
                                                 },
-                                                "review": {
-                                                  "type": "string"
-                                                },
+                                                "technologies": {},
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -7270,6 +7209,9 @@
                                     "type": "string",
                                     "pattern": "^\\d*$",
                                     "example": "123456789"
+                                  },
+                                  "transactionId": {
+                                    "type": "string"
                                   },
                                   "createdAt": {
                                     "type": "string",
@@ -9900,21 +9842,6 @@
                                                     }
                                                   }
                                                 },
-                                                "technology": {
-                                                  "type": "string",
-                                                  "enum": [
-                                                    "Angular",
-                                                    "DotNet",
-                                                    "Java",
-                                                    "Javascript",
-                                                    "MongoDB",
-                                                    "MySQL",
-                                                    "Node JS",
-                                                    "Postgresql",
-                                                    "Python",
-                                                    "React JS"
-                                                  ]
-                                                },
                                                 "status": {
                                                   "type": "string",
                                                   "enum": [
@@ -10105,13 +10032,14 @@
                                                     }
                                                   }
                                                 },
-                                                "pre_learning": {},
                                                 "course_include": {},
-                                                "user_learning": {},
                                                 "rating": {
                                                   "type": "integer"
                                                 },
-                                                "pre_learning_img": {
+                                                "review": {
+                                                  "type": "string"
+                                                },
+                                                "docs": {
                                                   "type": "object",
                                                   "properties": {
                                                     "data": {
@@ -10253,9 +10181,7 @@
                                                     }
                                                   }
                                                 },
-                                                "review": {
-                                                  "type": "string"
-                                                },
+                                                "technologies": {},
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -10340,6 +10266,9 @@
                                     "type": "string",
                                     "pattern": "^\\d*$",
                                     "example": "123456789"
+                                  },
+                                  "transactionId": {
+                                    "type": "string"
                                   },
                                   "createdAt": {
                                     "type": "string",
@@ -10576,6 +10505,9 @@
                 "type": "string",
                 "pattern": "^\\d*$",
                 "example": "123456789"
+              },
+              "transactionId": {
+                "type": "string"
               }
             }
           }
@@ -11421,21 +11353,6 @@
                             }
                           }
                         },
-                        "technology": {
-                          "type": "string",
-                          "enum": [
-                            "Angular",
-                            "DotNet",
-                            "Java",
-                            "Javascript",
-                            "MongoDB",
-                            "MySQL",
-                            "Node JS",
-                            "Postgresql",
-                            "Python",
-                            "React JS"
-                          ]
-                        },
                         "status": {
                           "type": "string",
                           "enum": [
@@ -11626,13 +11543,14 @@
                             }
                           }
                         },
-                        "pre_learning": {},
                         "course_include": {},
-                        "user_learning": {},
                         "rating": {
                           "type": "integer"
                         },
-                        "pre_learning_img": {
+                        "review": {
+                          "type": "string"
+                        },
+                        "docs": {
                           "type": "object",
                           "properties": {
                             "data": {
@@ -11774,9 +11692,7 @@
                             }
                           }
                         },
-                        "review": {
-                          "type": "string"
-                        },
+                        "technologies": {},
                         "createdAt": {
                           "type": "string",
                           "format": "date-time"
@@ -12266,6 +12182,9 @@
                                     "pattern": "^\\d*$",
                                     "example": "123456789"
                                   },
+                                  "transactionId": {
+                                    "type": "string"
+                                  },
                                   "createdAt": {
                                     "type": "string",
                                     "format": "date-time"
@@ -12375,6 +12294,9 @@
             "type": "string",
             "pattern": "^\\d*$",
             "example": "123456789"
+          },
+          "transactionId": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",

@@ -19,5 +19,5 @@ module.exports = createCoreController("api::payment.payment", ({ strapi }) => ({
       let a = await instance.orders.create(options);
       console.log(a);
       ctx.send({ orderId : a.id })
-  }
-}))    
+  } 
+}))  

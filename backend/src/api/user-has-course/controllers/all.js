@@ -11,6 +11,7 @@ module.exports = createCoreController(
           .findMany(
             {
               populate: [
+                "user_id",
                 "course_ids.content",
                 "course_ids.placeholder_img",
               ],

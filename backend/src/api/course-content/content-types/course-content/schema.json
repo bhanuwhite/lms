@@ -42,21 +42,6 @@
         "images"
       ]
     },
-    "technology": {
-      "type": "enumeration",
-      "enum": [
-        "Angular",
-        "DotNet",
-        "Java",
-        "Javascript",
-        "MongoDB",
-        "MySQL",
-        "Node JS",
-        "Postgresql",
-        "Python",
-        "React JS"
-      ]
-    },
     "status": {
       "type": "enumeration",
       "enum": [
@@ -94,7 +79,8 @@
         "Information & cyber security",
         "Software development",
         "Web development"
-      ]
+      ],
+      "enumName": "allowed"
     },
     "discount": {
       "type": "biginteger",
@@ -108,13 +94,7 @@
         "files"
       ]
     },
-    "pre_learning": {
-      "type": "json"
-    },
     "course_include": {
-      "type": "json"
-    },
-    "user_learning": {
       "type": "json"
     },
     "rating": {
@@ -122,16 +102,20 @@
       "max": 5,
       "min": 1
     },
-    "pre_learning_img": {
+    "review": {
+      "type": "text"
+    },
+    "docs": {
       "type": "media",
       "multiple": true,
       "required": false,
       "allowedTypes": [
-        "images"
+        "images",
+        "files"
       ]
     },
-    "review": {
-      "type": "text"
+    "technologies": {
+      "type": "json"
     }
   }
 }
