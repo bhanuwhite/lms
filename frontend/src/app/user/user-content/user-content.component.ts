@@ -119,6 +119,8 @@ public getContent(): void {
         });
         const UserAssessments = Array.from(uniqueTechnology);
         this.assessment_Length = UserAssessments.length;
+        console.log(this.coursesList);
+
       } catch (error) {
 
       }
