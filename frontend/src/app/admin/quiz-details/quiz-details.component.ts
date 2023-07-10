@@ -225,17 +225,17 @@ export class QuizDetailsComponent implements OnInit {
 
   deleteQuestion(question: QuizResponse) {
     console.log(question);
-    // this.apiService.deleteQuiz();
+
 
     this.confirmationService.confirm({
-      message: `Do you want to delete - ${question.attributes.question} ?`,
+      message: `Do you want to delete - ${question.attributes.question} `,
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
         this.apiService.deleteQuiz(question.id).subscribe(res => {
           try {
             this.getQuizData();
-            this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Deleted sucessfully' });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Deleted sucessfully' });
           } catch (error) {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong' });
           }
