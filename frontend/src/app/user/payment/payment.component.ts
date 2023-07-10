@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
   providers: [AboutService],
 })
 export class PaymentComponent implements OnInit {
-
   discount: number = 0;
   totalAmount!: number;
   cities: any[] = [];
@@ -25,11 +24,11 @@ export class PaymentComponent implements OnInit {
   razorpayResponse: any;
   showModal = false;
 
-
-
   ngOnInit(): void {
     this.getLocalStoredData();
     this.getCartDetails();
+
+
 
     setTimeout(() => {
       this.createOrderId();
@@ -131,7 +130,6 @@ export class PaymentComponent implements OnInit {
       order_id: this.orderId,
 
       handler: (response: any) => {
-
         alert(response.razorpay_payment_id);
         alert(response.razorpay_order_id);
         alert(response.razorpay_signature);
@@ -144,8 +142,9 @@ export class PaymentComponent implements OnInit {
         };
 
         this.apiservice.postPaymentVerify(requestBody).subscribe((res) => {
+          console.log(options);
 
-          this.afterPayment();
+          this.afterPayment(this.orderId);
         });
       },
       theme: {
@@ -168,7 +167,9 @@ export class PaymentComponent implements OnInit {
     rzp.open();
   }
 
-  afterPayment() {
+  afterPayment(order_id: any) {
+    console.log(order_id);
+
     this.paidCourses.map((course: any) => {
       const courseDetails = {
         data: {
@@ -177,9 +178,17 @@ export class PaymentComponent implements OnInit {
         },
       };
 
-      this.apiservice.postUserHasCourse(courseDetails).subscribe((res) => {});
+      this.apiservice.postUserHasCourse(courseDetails).subscribe((res) => {
+
+      });
 
       this.apiservice.deleteCartItem(course.id).subscribe((res: any) => {});
+
+      // const paymentDetails ={
+      //   course_ids: course.course_ids[0].id,
+      //   user_id: this.userID,
+
+      // }
     });
     this.route.navigate(['/user/mycart']);
   }
