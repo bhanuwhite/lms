@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
     this.getContent();
   }
 
-  chat: any[] = [65, 59, 80, 81, 56, 80, 80];
+  chat: number[] = [65, 59, 80, 81, 56, 80, 80];
   /**
    * chatData
    */
@@ -46,10 +46,6 @@ export class DashboardComponent implements OnInit {
         },
       ],
     };
-  }
-
-  public onEvent(data: any) {
-    console.log(data);
   }
 
   public overViewMenus(): void {

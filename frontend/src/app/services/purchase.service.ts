@@ -8,22 +8,17 @@ export class PurchaseService {
 
   constructor() { }
 
-  courseObj: courseDataObj = {
-    name: "",
-    paymentType: '',
-    totalPrice: 0,
-    date: ''
-  }
-  purchasingCourse(purchaseCourse: courseDataObj) {
+  courseObj: any = { }
+
+  purchasingCourse(purchaseCourse:any) {
+    console.log(purchaseCourse);
+
     this.courseObj = purchaseCourse;
+
   }
-  invoiceCourseObj: courseDataObj = {
-    name: "",
-    paymentType: '',
-    totalPrice: 0,
-    date: ''
-  }
-  invoice(invoiceCourse: courseDataObj) {
+
+  invoiceCourseObj: any= { }
+  invoice(invoiceCourse: any) {
     this.invoiceCourseObj = invoiceCourse
   }
 }

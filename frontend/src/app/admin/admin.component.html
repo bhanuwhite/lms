@@ -23,7 +23,7 @@
             <i class="pi pi-stopwatch me-2"></i> <span>Assessments</span>
           </li>
           <li class="listbox-item" [class.active]="isActive('/admin/trackuser')" routerLink="/admin/trackuser">
-            <i class="pi pi-user me-2"></i><span>Track_Users</span>
+            <i class="pi pi-user me-2"></i><span>Users</span>
           </li>
           <hr class="mt-4 mb-2">
 
@@ -42,8 +42,21 @@
     </div>
   </div>
   <div class="content-inner">
-    <div class="header float-left">
-      <div class="row">
+    <div class="header float-left d-flex align-items-center justify-content-between">
+      <div>
+        <div class="search-bar d-flex align-items-center ps-3" style="width: 40%;">
+          <button type="button" class="menu-button" (click)="visibleSidebar1 = true"> <i
+              class="pi pi-bars"></i></button>
+        </div>
+      </div>
+      <div class="me-3">
+        <!-- <button pButton pRipple type="button" icon="pi pi-bell"
+        class="p-button-rounded   text-dark  p-button-text"></button> -->
+      <p-avatar shape="circle" size="medium" class="cursor-pointer me-2" (click)="menu.toggle($event)"
+        icon="pi pi-user" [style]="{'background-color':'#ffff','border':'0.5px solid', 'color': '#000'}"></p-avatar>
+      <p-menu #menu [popup]="true" [model]="items"></p-menu>
+      </div>
+      <!-- <div class="row">
         <div class="col-lg-6 col-md-6 p-3">
           <div class="search-bar d-flex align-items-center ps-3" style="width: 40%;">
             <button type="button" class="menu-button" (click)="visibleSidebar1 = true"> <i
@@ -57,7 +70,7 @@
             icon="pi pi-user" [style]="{'background-color':'#ffff','border':'0.5px solid', 'color': '#000'}"></p-avatar>
           <p-menu #menu [popup]="true" [model]="items"></p-menu>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="content">
       <router-outlet></router-outlet>

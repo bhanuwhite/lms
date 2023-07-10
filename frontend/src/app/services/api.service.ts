@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import {
   AllCourseContent,
   AllCourseContentData,
-  postCourseContentData,mediaDocument
+  postCourseContentData
 } from '../models/content';
 import { Quiz, QuizData } from '../models/quiz';
 import {
@@ -25,6 +25,9 @@ import {
   CartResponse,
 } from '../models/cart';
 import { environment } from 'src/environment/environment';
+import { CourseData , postUserCourse , postUserCourseData} from 'src/app/models/library';
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -297,8 +300,8 @@ export class ApiService {
 
   //  --------- USER-HAS-COURSE API----------
   // GET Courses by passing UserID
-  public getUserCourse(id: number): Observable<any> {
-    return this.http.get<any>(
+  public getUserCourse(id: number): Observable<CourseData[]> {
+    return this.http.get<CourseData[]>(
       `${environment.apiUrl}/api/users-course?user_id=${id}`
     );
   }
@@ -314,8 +317,8 @@ export class ApiService {
   }
 
   // POST
-  public postUserHasCourse(item: any): Observable<any> {
-    return this.http.post<any>(
+  public postUserHasCourse(item: postUserCourse): Observable<postUserCourseData> {
+    return this.http.post<postUserCourseData>(
       `${environment.apiUrl}/api/user-has-courses`,
       item
     );

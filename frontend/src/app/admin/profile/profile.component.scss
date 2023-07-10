@@ -2,29 +2,27 @@
 
 //for responsiveness
 .profile-first-section {
-    margin-top: 30px;
-
-    h1 {
-       
-        font-size: 42px;
-    }
+  margin-top: 30px;
+  h1 {
+    font-size: 42px;
+  }
 }
 
 .profile-second-section {
-    margin-top: 40px;
+  margin-top: 40px;
 }
 
 ::-webkit-file-upload-button {
-    background: white;
-    padding: 8px;
-    color: rgb(158, 157, 157);
-    border: 1px solid rgb(200, 197, 197);
-    position: relative;
-    left: 350px;
+  background: white;
+  padding: 8px;
+  color: rgb(158, 157, 157);
+  border: 1px solid rgb(200, 197, 197);
+  position: relative;
+  left: 350px;
 }
 
 @media screen and (max-width:1200px) {
-    ::-webkit-file-upload-button {
-        position: static;
-    }
+  ::-webkit-file-upload-button {
+    position: static;
+  }
 }

@@ -66,7 +66,7 @@
 
     <div class="row surface-card shadow-2 p-2 m-1 border-round" *ngIf="singleContent">
       <div class="col-lg-4 img-fluid">
-        <img [src]="singleContent.attributes.placeholder_img.data.attributes.formats.thumbnail.url" alt=""
+        <img [src]="singleContent.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url" alt=""
           [style]="{'height':'200px','width':'100%','border-radius':'30px'}">
       </div>
       <div class="col-lg-8">
@@ -87,7 +87,7 @@
 
         <div class="d-flex lecture_details col-lg-12 mt-3">
           <div class="col-lg-6">
-            <span> No.of Lectures - <b>{{singleContent.attributes.content.data?.length}} </b> </span>
+            <span> No.of Lectures - <b>{{ singleContent.attributes.content.data !== null ? singleContent.attributes.content.data.length : '' }}            </b> </span>
           </div>
           <div class="col-lg-6 d-flex align-items-center ">
             <span class="material-icons">
@@ -123,44 +123,7 @@
 
     </div>
 
-    <div class="row  mt-4">
-      <div class="col-lg-7">
-        <div class="card">
-          <div class="what-u-learn p-4">
-            <h1><b>User Learnings...</b></h1>
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="row">
-
-                  <div class="col-lg-6 mb-3" *ngFor=" let userLearn of userLearnings | keyvalue ">
-                    <div class="d-flex align-items-center">
-                      <i class="pi pi-check me-2 text-success"></i>
-                      <span style="
-                      font-family: 'Lucida Sans', 'Lucida Sans Regular',
-                        'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
-                        sans-serif; white-space: nowrap; overflow: hidden;
-                    ">{{ userLearn.value }}...</span>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="col-lg-4  justify-content-center " *ngIf="singleContent">
-        <div class="card px-3 p-2 " style="max-height: 222px;">
-          <h2 class=" card-header pb-1 m-0"><b>Miscellaneous</b></h2>
-          <div class="card-body">
-            <h2>No.of purchases - {{singleContent.attributes.no_of_purchases}} </h2>
-          </div>
-        </div>
-      </div>
-    </div>
+    <
 
   </div>
 </div>

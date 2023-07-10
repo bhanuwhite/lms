@@ -36,7 +36,7 @@
       <div class="field mt-2 w-100">
         <label for="image"> Image :
           <img
-            [src]=" imgSrc ? imgSrc: edituserLearnings.attributes.placeholder_img.data.attributes.formats.thumbnail.url"
+            [src]=" imgSrc ? imgSrc: edituserLearnings.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url"
             alt="" pTooltip="Click to change image" tooltip [style]="{'height':'80px','width':'80px'}"
             class=" ms-5 rounded-pill">
 
@@ -53,44 +53,49 @@
 
       <div class="field mt-2 w-100">
         <label for="courseVideos">
-          Content Video (mp4) : <span class="text-danger fs-5"> * </span>
-
-
-          <ng-container class="d-flex flex-wrap "  *ngIf="newVideosUpload.length == 0 ; else newVideos">
-            <div *ngFor="let videos of edituserLearnings.attributes.content.data">
+          Content Video (mp4) :
+          <ng-container class="d-flex flex-wrap " *ngIf="newVideosUpload.length == 0 ; else newVideos">
+            <div *ngFor="let videos of edituserLearnings.attributes.content?.data">
               <video [src]="videos.attributes.url" class="m-2" style="height: 100px;width: 100px;"></video>
             </div>
           </ng-container>
-
-          <ng-template #newVideos >
-            <div class="d-flex flex-wrap " >
-            <div *ngFor="let videos of newVideosUpload">
-              <video [src]="videos.url" class="m-2" style="height: 100px;width: 100px;"></video>
-            </div>
+          <ng-template #newVideos>
+            <div class="d-flex">
+              <div *ngFor="let videos of newVideosUpload">
+                <div >
+                  <video [src]="videos.url" class="m-2" style="height: 100px;width: 100px;"></video>
+                </div>
+              </div>
             </div>
           </ng-template>
-
-
         </label>
-
-
         <span class="p-float-label">
           <input type="file" id="courseVideos" accept="video/*" multiple
             class="bg-light-grey input-shadow w-100 p-inputtext d-none" pInputText
             (change)="courseFileSelect($event)" />
           <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="videoUploadProgress"></p-progressBar>
         </span>
-        <!-- <ng-container *ngIf="showVideoFileData">
-          <span class="text-danger"> Please upload videos.. </span>
-        </ng-container> -->
-
         <ng-container *ngFor="let desc of courseContentVideo; let i=index">
           <div class="my-2">
             <label for="videoDescription"> {{desc.name}} <b>Description</b> :</label>
             <textarea name="desc" id="videoDescription" rows="3" [style]="{'width':'100%'}" class="my-2" pInputText
-              placeholder="Enter description for {{desc.name}}" (blur)="onInputChanged($event.target,desc)"></textarea>
+              placeholder="Enter description for {{desc.name}}" (blur)="onInputChanged($event,desc)"></textarea>
           </div>
         </ng-container>
+      </div>
+
+      <div class="field mt-2 w-100">
+        <label for="link">Link :</label>
+        <span class="p-float-label">
+          <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="link" pInputText
+            placeholder="Enter link here." />
+        </span>
+        <small class="p-error block" *ngIf="
+                popupForm.get('link')?.invalid &&
+                popupForm.get('link')?.touched
+              ">
+          Please enter valid http address.
+        </small>
       </div>
 
       <div class="field mt-2 w-100">
@@ -139,48 +144,6 @@
       </div>
 
       <div class="field mt-2 w-100">
-        <div class="field mt-2 w-100" formArrayName="userLearning">
-          <div *ngFor="let form of addUser().controls;let i=index;" [formGroupName]="i">
-            <label>User Learning {{ i + 1 }}:</label>
-            <div class="p-float-label d-flex align-items-center">
-              <textarea formControlName="u_learn" rows="3" [style]="{'width':'90%'}" class="my-2 col-lg-10"
-                placeholder="Enter user learnings.."></textarea>
-              <span class="material-icons col-lg-2 ms-2 text-danger cursor-pointer" (click)="removeUserLearning(i)">
-                backspace
-              </span>
-            </div>
-          </div>
-
-          <button type="button" class="btn btn-primary btn-sm" (click)="addUserLearning()">Add Learnings</button>
-        </div>
-      </div>
-
-      <div class="field mt-2 w-100">
-        <label for="imgage"> Pre-Learnings :</label>
-        <div class="d-flex">
-          <div class="col-lg-6">
-            <input type="text" pInputText class="w-100 my-3" formControlName="preLearn1"
-              placeholder="Enter 1st pre learning.." />
-          </div>
-          <div class="col-lg-6 ms-3">
-            <input type="text" pInputText class="w-100 my-3" formControlName="preLearn2"
-              placeholder="Enter 2nd pre learning.." />
-          </div>
-        </div>
-        <div class="d-flex">
-          <div class="col-lg-6">
-            <input type="text" pInputText class="w-100 my-3" formControlName="preLearn3"
-              placeholder="Enter 3rd pre learning.." />
-          </div>
-          <div class="col-lg-6 ms-3">
-            <input type="text" pInputText class="w-100 my-3" formControlName="preLearn4"
-              placeholder="Enter 4th pre learning.." />
-          </div>
-        </div>
-      </div>
-
-
-      <div class="field mt-2 w-100">
         <label for="imgage">Course Includes:</label>
         <div class="row">
           <div class="d-flex ms-4">
@@ -201,10 +164,18 @@
 
         <ng-container *ngIf="showDocuments">
           <div class="field mt-2 w-100">
-            <label for="imgage"> Upload Documents (pdf/csv/excel/zip):</label>
+            <label for="uploadFile"> Uploaded Documents (pdf/csv/excel/zip):
+              <div class="cursor-pointer">
+                <iframe
+                  [src]="getSafeFileUrl(edituserLearnings.attributes.files.data[0]?.attributes.url,edituserLearnings.attributes.files.data[0]?.attributes.ext)"
+                  width="100%" height="100px"></iframe>
+                <p> {{edituserLearnings.attributes.files.data[0]?.attributes.name}} </p>
+              </div>
+            </label>
             <span class="p-float-label">
-              <input type="file" accept=".pdf,.csv,.gif,.xls,.xlsx" class="bg-light-grey input-shadow w-100 p-inputtext"
-                pInputText (change)="courseDocSelected($event)" />
+              <input type="file" id="uploadFile" accept=".pdf,.csv,.gif,.xls,.xlsx"
+                class="bg-light-grey input-shadow w-100 p-inputtext d-none" pInputText
+                (change)="courseDocSelected($event)" />
             </span>
             <div *ngIf="
                   popupForm.controls['documents'].invalid &&
@@ -224,19 +195,7 @@
         </span>
       </div>
 
-      <div class="field mt-2 w-100">
-        <label for="link">Link :</label>
-        <span class="p-float-label">
-          <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="link" pInputText
-            placeholder="Enter link here." />
-        </span>
-        <small class="p-error block" *ngIf="
-                popupForm.get('link')?.invalid &&
-                popupForm.get('link')?.touched
-              ">
-          Please enter valid http address.
-        </small>
-      </div>
+
     </div>
     <div class="d-flex justify-content-between mt-2">
       <button type="button" class="btn btn-dark cursor-pointer" (click)="cancelUpdate()">
