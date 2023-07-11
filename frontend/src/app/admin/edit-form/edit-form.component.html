@@ -5,7 +5,7 @@
     <div class="p-fluid grid">
       <div class="field mt-2 w-100">
         <label for="name">
-          Name :<span class="text-danger fs-5"> * </span>
+          Name<span class="text-danger fs-5">*</span> :
         </label>
         <span class="p-float-label">
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="name" pInputText
@@ -34,9 +34,9 @@
       </div>
 
       <div class="field mt-2 w-100">
-        <label for="image"> Image :
+        <label for="image"> Thumbnail image :
           <img
-            [src]=" imgSrc ? imgSrc: edituserLearnings.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url"
+            [src]=" imgSrc ? imgUrl+imgSrc: imgUrl+edituserLearnings.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url"
             alt="" pTooltip="Click to change image" tooltip [style]="{'height':'80px','width':'80px'}"
             class=" ms-5 rounded-pill">
 
@@ -99,10 +99,10 @@
       </div>
 
       <div class="field mt-2 w-100">
-        <label for="name">Technology : <span class="text-danger fs-5"> * </span>
+        <label for="technology">Technology<span class="text-danger fs-5">*</span> :
         </label>
-        <p-dropdown formControlName="technology" [options]="Technologies" optionLabel="tech"
-          placeholder="Select Technology" (onChange)="techSelected($event)"></p-dropdown>
+        <p-multiSelect formControlName="technology" id="technology" [options]="Technologies" optionLabel="tech"
+          placeholder="Select Technology"  (onChange)="techSelected($event)"></p-multiSelect>
         <span class="p-float-label">
           <small class="p-error block" *ngIf="
                   popupForm.get('technology')?.invalid &&
@@ -111,10 +111,11 @@
             Technology selection is required.
           </small>
         </span>
+
       </div>
 
       <div class="field mt-2 w-100">
-        <label for="technology">Level : <span class="text-danger fs-5"> * </span>
+        <label for="technology">Level<span class="text-danger fs-5">*</span> :
         </label>
         <p-dropdown [options]="levels" optionLabel="level" placeholder="Select Level" formControlName="level"
           (onChange)="levelSelected($event)"></p-dropdown>
@@ -129,7 +130,7 @@
       </div>
 
       <div class="field mt-2 w-100">
-        <label for="name">Category : <span class="text-danger fs-5"> * </span>
+        <label for="name">Category<span class="text-danger fs-5">*</span> :
         </label>
         <p-dropdown formControlName="subject" [options]="subjects" optionLabel="industry" placeholder="Select Category"
           (onChange)="subjectSelected($event)"></p-dropdown>
@@ -164,7 +165,7 @@
 
         <ng-container *ngIf="showDocuments">
           <div class="field mt-2 w-100">
-            <label for="uploadFile"> Uploaded Documents (pdf/csv/excel/zip):
+            <label for="uploadFile"> Uploaded Documents (pdf/csv/excel/zip) <span class="text-danger fs-5">*</span> :
               <div class="cursor-pointer">
                 <iframe
                   [src]="getSafeFileUrl(edituserLearnings.attributes.files.data[0]?.attributes.url,edituserLearnings.attributes.files.data[0]?.attributes.ext)"
@@ -188,10 +189,18 @@
       </div>
 
       <div class="field mt-2 w-100">
-        <label for="price">Price :</label>
+        <label for="price">Price <span class="text-danger fs-5">*</span> :</label>
         <span class="p-float-label">
           <input type="number" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="price" pInputText
             placeholder="Enter price" />
+        </span>
+        <span class="p-float-label">
+          <small class="p-error block" *ngIf="
+              popupForm.get('price')?.invalid &&
+              popupForm.get('price')?.touched
+            ">
+            Price is required.
+          </small>
         </span>
       </div>
 

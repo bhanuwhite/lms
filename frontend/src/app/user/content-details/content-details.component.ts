@@ -110,11 +110,7 @@ export class ContentDetailsComponent implements OnInit {
       });
       this.apiService.getSingleContent(this.courseId).subscribe((res) => {
         this.singleCourse = res['data'];
-console.log(this.singleCourse.attributes.price);
-
         this.videoUrl = this.getSafeVideoUrl(res['data'].attributes.link);
-console.log(this.videoUrl);
-
       });
       resolve();
       (error: any) => {

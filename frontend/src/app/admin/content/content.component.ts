@@ -44,7 +44,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   @ViewChild('vid', { read: ElementRef }) tempRef!: ElementRef;
   popup: string = '';
   private allSubsription$: Subscription[] = [];
-  public imgUrl = environment.apiUrl
+  public imgUrl = environment.apiUrl;
   public searchWord: string = '';
   public loadingSpinner: boolean = false;
   public editDisply: boolean = false;
@@ -84,7 +84,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   updateDocuments: boolean = false;
   editUserLearnings!: AllCourseContentData;
 
-  Technologies = [
+  Technologies: { tech: string }[] = [
     { tech: 'Angular' },
     { tech: 'DotNet' },
     { tech: 'Java' },
@@ -217,8 +217,9 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.courseContentVideo = [];
     this.addCourse.get('documents')?.removeValidators(Validators.required);
   }
-  public techSelected(event: { value: { tech: string } }) {
-    this.selectedTech = event.value.tech;
+  technologyArr: string[] = [];
+  public techSelected(event: any) {
+    this.technologyArr = event.value.map((item: { tech: string }) => item.tech);
   }
   public levelSelected(event: { value: { level: string } }) {
     this.selectedLevel = event.value.level;
@@ -403,17 +404,23 @@ export class ContentComponent implements OnInit, OnDestroy {
       control.markAsTouched();
     });
   }
+  public data!: { [key: number]: string };
+
   public courseFormSubmit(
     videoInput: HTMLInputElement,
     imgInput: HTMLInputElement
   ) {
+    this.data = {};
+    for (let i = 0; i < this.technologyArr.length; i++) {
+      this.data[i + 1] = this.technologyArr[i];
+    }
     this.markAllFieldsAsTouched();
 
     if (this.addCourse.valid) {
       this.courseDialog = false;
       const courseData = {
         data: {
-          technology: this.selectedTech,
+          technologies: this.data,
           subject: this.selectedSubject,
           content: this.courseContentVideo,
           description: this.addCourse.value.description,
@@ -433,8 +440,6 @@ export class ContentComponent implements OnInit, OnDestroy {
       console.log('Course Post reqquest ', courseData);
 
       this.apiService.postContent(courseData).subscribe((res) => {
-        console.log(res);
-
         try {
           this.messageService.add({
             severity: 'success',

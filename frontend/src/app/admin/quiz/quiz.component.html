@@ -1,8 +1,15 @@
 <div class="surface-ground px-4 py-3">
-  <div class="row d-flex " *ngIf="allCourses">
+  <div class="row align-items-center">
+    <div class="col-lg-6 col-md-6 d-flex align-items-center">
+        <h1 style="font-size: 1.5rem;"><b> Assessments</b>  </h1>
+
+    </div>
+ 
+</div>
+  <div class="row d-flex my-3" *ngIf="allCourses">
     <div class="col-lg-3 " *ngFor="let course of allCourses">
       <div>
-        <div class="card p-2 shadow-2 m-2">
+        <div class="card p-2 shadow-2">
           <div class="d-flex justify-content-between align-items-center">
             <h4 class="mb-2 p-0">
               Exam

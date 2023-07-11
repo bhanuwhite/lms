@@ -1,7 +1,10 @@
-<div class="surface-ground px-3 py-3">
-  <h1 style="font-size: 1.5rem;"><b> All Users</b> </h1>
-
-  <div class="row">
+<div class="surface-ground px-4 py-3">
+  <div class="row align-items-center">
+    <div class="col-lg-6 col-md-6 d-flex align-items-center">
+      <h1 style="font-size: 1.5rem;"><b> All Users</b> </h1>
+    </div>
+  </div>
+  <div class="row my-3">
     <div class="col-lg-3" *ngFor="let users of trackResponse; let i=index">
       <ng-container *ngIf="!UseridRepeated(i)">
         <div class="card p-2 text-center shadow-2 cursor-pointer" (click)="showTrackDetails(users.id)">
