@@ -322,7 +322,12 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
   .p-dialog.p-component.p-dialog-draggable {
     width: 80% !important;
   }
-
+  .all-Courses {
+    .p-card.p-component{
+       
+      height: auto !important;
+    }
+  }
   .profile_image_wrapper {
     .p-card.p-component {
       width: 100% !important;
