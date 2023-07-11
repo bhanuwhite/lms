@@ -27,9 +27,14 @@ button{
 }
 
 .all-Courses {
+  .p-card.p-component{
+    max-height: 600px !important;
+    height: 557px !important;
+  }
     p-card {
         transition: 0.3s all;
         width: 25%;
+        
         margin: 15px 0px;
         border-radius: 10px;
     }

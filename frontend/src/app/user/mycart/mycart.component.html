@@ -20,7 +20,7 @@
             <p-divider></p-divider>
             <ng-container *ngIf="course.course_ids.length != 0">
               <div class="col-lg-3">
-                <img src="{{ course.course_ids[0].placeholder_img.url }}" alt="img" width="180px" height="150px">
+                <img [src]="img_url+course.course_ids[0].placeholder_img.url " alt="img" width="180px" height="150px">
               </div>
               <div class="col-lg-5">
                 <h3 class="fs-5">
@@ -53,9 +53,10 @@
                 </div>
               </div>
               <div class="col-lg-4" style="gap: 5px;">
-                <button *ngIf="course.course_ids[0].price == 0" (click)="addToLibrary(course)"
+                <!-- <button *ngIf="course.course_ids[0].price == 0" (click)="addToLibrary(course)"
                   class="btn btn-outline-primary me-2">AddToLibrary</button>
-                <button class="btn btn-outline-danger" (click)="removeCourse(course.id)">Remove</button>
+                 -->
+                  <button class="btn btn-outline-danger" (click)="removeCourse(course.id)">Remove</button>
               </div>
             </ng-container>
           </div>

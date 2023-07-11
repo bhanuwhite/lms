@@ -29,7 +29,7 @@
         <h2 style="font-family:Georgia, 'Times New Roman', Times, serif;"><b>Order details</b></h2>
         <div class="flex align-items-center flex-wrap " *ngFor="let course of paidCourses">
           <div class="w-4 course_detail_div">
-            <img src={{course.course_ids[0].placeholder_img.url}} width="80px" height="80px">
+            <img [src]="img_url+course.course_ids[0].placeholder_img.url" width="80px" height="80px">
           </div>
           <div class="w-4 course_detail_div">
             <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">

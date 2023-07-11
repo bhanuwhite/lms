@@ -53,8 +53,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.activeParams();
     this.getLocalStoredData()
-    // .then(() => this.getSingleCourseObj())
-    // this.getSingleCourseObj()
+    this.getSingleCourseObj()
     this.gettingUserHasCourse();
     this.getLibraryData().then(() => this.getRating());
 
@@ -68,6 +67,8 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   public activeParams() {
     this.activeParam.params.subscribe((res) => {
       this.activeParamId = res['id'];
+      console.log(this.activeParamId);
+
     });
   }
 
@@ -78,8 +79,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
   public getLibraryData(): Promise<void> {
     return new Promise((resolve, reject) => {
-      (this.SingleContentLib$ = this.apiService
-        .getUserHasCourseById(this.activeParamId).subscribe((res) => {
+      (this.SingleContentLib$ = this.apiService .getUserHasCourseById(this.activeParamId).subscribe((res) => {
           this.Spinner = false;
           this.userCourseData = res.data;
           console.log(this.userCourseData.attributes?.course_ids?.data[0]);
@@ -100,6 +100,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   }
 
   libDataIds: number[] = [];
+
   public gettingUserHasCourse(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.apiService.getUserCourse(this.userID).subscribe((res) => {
@@ -271,41 +272,43 @@ console.log(this.streamVideo);
   public videoUrl!: SafeResourceUrl;
   public singleCourse !:any
 
-  // public getSingleCourseObj(): Promise<void> {
+  public getSingleCourseObj(): Promise<void> {
 
-  //   return new Promise<void>((resolve, reject) => {
-  //     this.activeParam.params.subscribe((res) => {
-  //       this.courseId = res['id'];
-  //       // console.log(res['id']);
+    return new Promise<void>((resolve, reject) => {
+      // this.activeParam.params.subscribe((res) => {
+      //   this.courseId = res['id'];
+      //   console.log(res['id']);
 
-  //     });
-  //     this.apiService.getSingleContent(this.courseId).subscribe((res) => {
-  //       console.log(res);
+      // });
+      this.apiService .getUserHasCourseById(this.activeParamId).subscribe((res) => {
+          // console.log(res.data.attributes?.course_ids?.data[0]);
 
-  //       this.singleCourse = res['data'];
-  //       console.log(this.singleCourse);
+        this.singleCourse = res.data.attributes?.course_ids?.data[0];
+        console.log(this.singleCourse);
 
 
-  //       this.videoUrl = this.getSafeVideoUrl(res['data'].attributes.link);
+        this.videoUrl = this.getSafeVideoUrl(this.singleCourse.attributes.link);
+console.log(this.videoUrl);
 
-  //     });
-  //     resolve();
-  //     (error: any) => {
-  //       reject(error);
-  //     };
-  //   });
-  // }
 
-  // getSafeVideoUrl(link: string): SafeResourceUrl {
-  //   const videoId = this.extractVideoId(link);
-  //   const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-  //   return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
-  // }
-  // extractVideoId(link: string): string {
-  //   const regex = /youtu(?:\.be|be\.com)\/(?:.*v(?:\/|=)|(?:.*\/)?)([a-zA-Z0-9-_]+)/;
-  //   const match = link?.match(regex);
-  //   return match ? match[1] : '';
-  // }
+      });
+      resolve();
+      (error: any) => {
+        reject(error);
+      };
+    });
+  }
+
+  getSafeVideoUrl(link: string): SafeResourceUrl {
+    const videoId = this.extractVideoId(link);
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+  }
+  extractVideoId(link: string): string {
+    const regex = /youtu(?:\.be|be\.com)\/(?:.*v(?:\/|=)|(?:.*\/)?)([a-zA-Z0-9-_]+)/;
+    const match = link?.match(regex);
+    return match ? match[1] : '';
+  }
 
   ngOnDestroy(): void {
     this.LibraryContent$.unsubscribe();
