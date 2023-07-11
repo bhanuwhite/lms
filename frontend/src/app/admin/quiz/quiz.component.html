@@ -66,28 +66,31 @@
             </small>
           </span>
         </div>
-        <div class="field mt-2 my-2 mr-3 w-30">
-          <label for="title">Option (A)<span class="text-danger fs-5">*</span></label>
-          <span>
-            <input type="text" required class="bg-light-grey input-shadow p-inputtext" style="resize: none;"
-             formControlName="option1" pInputText>
-            <small class="p-error block"
-              *ngIf="addQuizGroup.get('option1')?.invalid  && addQuizGroup.get('option1')?.touched">
-              Option(A) name is required
-            </small>
-          </span>
+        <div class="d-flex">
+          <div class="field mt-2 my-2 mr-2  w-30">
+            <label for="title">Option (A)<span class="text-danger fs-5">*</span></label>
+            <span>
+              <input type="text" required class="bg-light-grey input-shadow p-inputtext" style="resize: none;"
+               formControlName="option1" pInputText>
+              <small class="p-error block"
+                *ngIf="addQuizGroup.get('option1')?.invalid  && addQuizGroup.get('option1')?.touched">
+                Option(A) name is required
+              </small>
+            </span>
+          </div>
+          <div class="field mt-2 my-2  w-30">
+            <label for="title">Option (B)<span class="text-danger fs-5">*</span></label>
+            <span>
+              <input type="text" required class="bg-light-grey input-shadow p-inputtext" formControlName="option2"
+                pInputText>
+              <small class="p-error block"
+                *ngIf="addQuizGroup.get('option2')?.invalid  && addQuizGroup.get('option2')?.touched">
+                Option(B) is required</small>
+            </span>
+          </div>
         </div>
-        <div class="field mt-2 my-2  w-30">
-          <label for="title">Option (B)<span class="text-danger fs-5">*</span></label>
-          <span>
-            <input type="text" required class="bg-light-grey input-shadow p-inputtext" formControlName="option2"
-              pInputText>
-            <small class="p-error block"
-              *ngIf="addQuizGroup.get('option2')?.invalid  && addQuizGroup.get('option2')?.touched">
-              Option(B) is required</small>
-          </span>
-        </div>
-        <div class="field mt-2 my-2 mr-3 w-30">
+       <div class="d-flex">
+        <div class="field mt-2 my-2 mr-2 w-30">
           <label for="title">Option (C)<span class="text-danger fs-5">*</span></label>
           <span>
             <input type="text" required class="bg-light-grey input-shadow w-90 p-inputtext" formControlName="option3"
@@ -107,6 +110,7 @@
               Option(D) is required</small>
           </span>
         </div>
+       </div>
 
 
         <div class="field mt-2 w-100">
