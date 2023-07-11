@@ -3,12 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Quiz, QuizData, QuizResponse,answers,level } from 'src/app/models/quiz';
 import { ApiService } from 'src/app/services/api.service';
-// import { QuizComponent } from '../quiz/quiz.component';
 
-
-// interface level {
-//   level_name: string;
-// }
 
 @Component({
   selector: 'app-quiz-details',

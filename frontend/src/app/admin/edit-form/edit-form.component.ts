@@ -18,9 +18,8 @@ import { ContentComponent } from '../content/content.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ApiService } from 'src/app/services/api.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import {  mediaDocument, videoObj } from 'src/app/models/content';
+import { mediaDocument, videoObj } from 'src/app/models/content';
 import { environment } from 'src/environment/environment';
-
 
 @Component({
   selector: 'app-edit-form',
@@ -32,46 +31,49 @@ export class EditFormComponent implements OnInit, OnChanges {
   @Input() edituserLearnings: any;
   @Input() popupClick!: string;
   @Output() getcontent = new EventEmitter<any>();
-  public imgUrl= environment.apiUrl
+  public imgUrl = environment.apiUrl;
   @ViewChild(ContentComponent)
   EditClick!: ContentComponent;
-  visible: boolean = true;
-  editFormVisible: boolean = true;
-  popupForm: FormGroup;
-  remainingWords: number = 100;
+  public visible: boolean = true;
+  public editFormVisible: boolean = true;
+  public popupForm: FormGroup;
+  public remainingWords: number = 100;
   private Admin_id!: number;
-  imgUploadProgress: boolean = false;
+  public imgUploadProgress: boolean = false;
   public formData = new FormData();
-  public courseContentImage: any;
+  public courseContentImage: any[] = [];
   public selectedTech!: string;
   public selectedLevel!: string;
   public selectedSubject!: string;
-  videoUploadProgress: boolean = false;
-  courseContentVideo: any[] = [];
-  allVideosDuration: number = 0;
-  courseDocument!: mediaDocument;
-  showDocuments: boolean = false;
-  showimageFileData: boolean = true;
-  showVideoFileData: boolean = true;
-  imgSrc!:string;
-  imageFileData!: string;
-  selectedCourseIncludes: string[] = [];
-  newVideosUpload:any[]=[]
+  public videoUploadProgress: boolean = false;
+  public courseContentVideo: any[] = [];
+  public allVideosDuration: number = 0;
+  public courseDocument!: mediaDocument;
+  public showDocuments: boolean = false;
+  public showimageFileData: boolean = true;
+  public showVideoFileData: boolean = true;
+  public imgSrc!: string;
+  public imageFileData!: string;
+  public selectedCourseIncludes: string[] = [];
+  public newVideosUpload: any[] = [];
+  public textValue!: string;
+  public preiviousImgData: any = [];
+  public previousDocData: any = [];
+  public technologyArr: string[] = [];
+  public technologyData: any;
 
-
-  Technologies = [
-    { tech: 'Angular' },
-    { tech: 'DotNet' },
-    { tech: 'Java' },
-    { tech: 'Javascript' },
-    { tech: 'MongoDB' },
-    { tech: 'MySQL' },
-    { tech: 'Node JS' },
-    { tech: 'Postgresql' },
-    { tech: 'Python' },
-    { tech: 'React JS' },
+  Technologies: any[] = [
+    { label: 'Angular', value: 'Angular' },
+    { label: 'DotNet', value: 'DotNet' },
+    { label: 'Java', value: 'Java' },
+    { label: 'Javascript', value: 'Javascript' },
+    { label: 'MongoDB', value: 'MongoDB' },
+    { label: 'MySQL', value: 'MySQL' },
+    { label: 'Node JS', value: 'Node JS' },
+    { label: 'Postgresql', value: 'Postgresql' },
+    { label: 'Python', value: 'Python' },
+    { label: 'React JS', value: 'React JS' },
   ];
-
   levels = [
     { level: 'Beginner' },
     { level: 'Intermediate' },
@@ -85,7 +87,7 @@ export class EditFormComponent implements OnInit, OnChanges {
     { industry: 'Software development' },
     { industry: 'Web development' },
   ];
-  public selectedTechnologies:string[]=[]
+  public selectedTechnologies: string[] = [];
 
   courseStatus = [{ status: 'active' }, { status: 'block' }];
 
@@ -101,9 +103,9 @@ export class EditFormComponent implements OnInit, OnChanges {
         Validators.pattern('^[a-zA-Z., ]+$'),
       ]),
       description: [''],
-      price: ['',[Validators.required]],
+      price: ['', [Validators.required]],
       imgVideo: [''],
-      technology: new FormControl('', [Validators.required]),
+      technologies: new FormControl('', [Validators.required]),
       subject: new FormControl('', [Validators.required]),
       level: [''],
       status: new FormControl('', [Validators.required]),
@@ -112,7 +114,7 @@ export class EditFormComponent implements OnInit, OnChanges {
       image: [''],
       course_duration: [''],
       courserIncludes: this.fb.array([]),
-      documents: [''],
+      documents: ['', Validators.required],
     });
   }
 
@@ -136,15 +138,16 @@ export class EditFormComponent implements OnInit, OnChanges {
   }
   cancelUpdate() {
     this.editFormVisible = false;
+    this.textValue = '';
   }
-
   public checkWordCount(): void {
-    const textValue = this.popupForm.controls['description'].value;
-    const wordCount = textValue?.trim().split(/\s+/).length;
+    this.textValue = this.popupForm.get('description')?.value;
+    const wordCount = this.textValue?.trim().split(/\s+/).length;
+
     this.remainingWords = 100 - wordCount;
 
     if (this.remainingWords < 0) {
-      const words = textValue.trim().split(/\s+/);
+      const words = this.textValue.trim().split(/\s+/);
       this.popupForm.controls['description'].setValue(
         words.slice(0, 100).join(' ')
       );
@@ -152,7 +155,7 @@ export class EditFormComponent implements OnInit, OnChanges {
     }
   }
 
-  public categories: {name:string,checked:boolean}[] = [
+  public categories: { name: string; checked: boolean }[] = [
     { name: 'Certificate', checked: false },
     { name: 'Documents', checked: false },
   ];
@@ -165,18 +168,32 @@ export class EditFormComponent implements OnInit, OnChanges {
   }
 
   editingCourseData() {
-    const techData = this.edituserLearnings.attributes.technologies;
-    this.selectedTechnologies = Object.values(techData);
+    console.log(this.edituserLearnings);
 
     const formValues = this.edituserLearnings.attributes;
-    this.imageFileData =  this.edituserLearnings.attributes.placeholder_img.data.attributes.name
+    this.selectedSubject = formValues.subject;
+    this.selectedLevel = formValues.level;
+    this.preiviousImgData = [];
+    this.preiviousImgData.push(formValues.placeholder_img.data);
+    this.previousDocData = [];
+    this.previousDocData.push(formValues.files.data);
+    this.selectedTechnologies = [];
+    const techData = this.edituserLearnings.attributes.technologies;
+    this.selectedTechnologies = Object.values(techData);
+    this.remainingWords =
+      100 -
+      this.edituserLearnings.attributes.description.trim().split(/\s+/).length;
+    this.imageFileData =
+      this.edituserLearnings.attributes?.placeholder_img?.data?.attributes.name;
     this.selectedCourseIncludes = formValues.course_include;
     this.popupForm = this.fb.group({
       name: formValues.name,
       description: formValues.description,
       price: formValues.price,
       imgVideo: formValues.content,
-      technology: [Object.values(techData)],
+      technologies: [
+        this.selectedTechnologies ? this.selectedTechnologies : '',
+      ],
       subject: [{ industry: formValues.subject }],
       level: [{ level: formValues.level }],
       status: 'active',
@@ -188,10 +205,9 @@ export class EditFormComponent implements OnInit, OnChanges {
       documents: formValues.files,
     });
   }
-  technologyArr: string[] = [];
-  public techSelected(event: any) {
-    this.technologyArr = event.value.map((item: { tech: string }) => item.tech);
-  }
+  public techSelected = (event: any) => {
+    this.technologyArr = event.value.map((item: string) => item);
+  };
   public levelSelected(event: { value: { level: string } }) {
     this.selectedLevel = event.value.level;
   }
@@ -245,7 +261,7 @@ export class EditFormComponent implements OnInit, OnChanges {
                 this.allVideosDuration = this.allVideosDuration + duration;
                 this.courseContentVideo[currentUploadIndex] = res[0];
                 currentUploadIndex++;
-                this.newVideosUpload= this.courseContentVideo
+                this.newVideosUpload = this.courseContentVideo;
                 resolve();
               });
             } catch (error) {
@@ -304,7 +320,9 @@ export class EditFormComponent implements OnInit, OnChanges {
 
   public getSafeFileUrl(fileData: string, fileType: string): SafeResourceUrl {
     const mimeType = this.getMimeType(fileType);
-    const safeDataUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`data:${mimeType};base64,${fileData}`);
+    const safeDataUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      `data:${mimeType};base64,${fileData}`
+    );
     return safeDataUrl;
   }
 
@@ -321,35 +339,43 @@ export class EditFormComponent implements OnInit, OnChanges {
     }
   }
 
+  private markAllFieldsAsTouched() {
+    Object.values(this.popupForm.controls).forEach((control) => {
+      control.markAsTouched();
+    });
+  }
 
-public technologyData:any
   public onUpdateContent(): void {
-
     this.technologyData = {};
-
     for (let i = 0; i < this.technologyArr.length; i++) {
       this.technologyData[i + 1] = this.technologyArr[i];
     }
+    this.markAllFieldsAsTouched();
     const updateData = this.popupForm.value;
-    const updateCourseData = {
-      data: {
-        technologies: this.technologyData,
-        level: this.selectedLevel,
-        subject: this.selectedSubject,
-        content: this.courseContentVideo,
-        description: updateData.description,
-        link: updateData.link,
-        name: updateData.name,
-        placeholder_img: this.courseContentImage,
-        price: updateData.price,
-        user_id: this.Admin_id,
-        status: 'active',
-        course_include: this.selectedCourseIncludes,
-        files: this.courseDocument,
-      },
-    };
+    if (this.popupForm.valid) {
+      const updateCourseData = {
+        data: {
+          technologies: this.technologyData,
+          level: this.selectedLevel,
+          subject: this.selectedSubject,
+          content: this.courseContentVideo,
+          description: updateData.description,
+          link: updateData.link,
+          name: updateData.name,
+          placeholder_img: this.courseContentImage[0]
+            ? this.courseContentImage[0]
+            : this.preiviousImgData[0],
+          price: updateData.price,
+          user_id: this.Admin_id,
+          status: 'active',
+          course_include: this.selectedCourseIncludes,
+          files: this.courseDocument
+            ? this.courseDocument
+            : this.previousDocData,
+        },
+      };
 
-    // Post api call here
+      // Post api call here
       this.apiService
         .updateContent(this.edituserLearnings.id, updateCourseData)
         .subscribe((res) => {
@@ -363,7 +389,11 @@ public technologyData:any
             this.getcontent.emit();
             this.showimageFileData = true;
             this.showVideoFileData = true;
-            this.newVideosUpload=[]
+            this.newVideosUpload = [];
+            this.imgSrc = '';
+            this.courseContentImage = [];
+            this.preiviousImgData = [];
+            this.textValue = '';
           } catch (error) {
             this.messageService.add({
               severity: 'error',
@@ -372,7 +402,13 @@ public technologyData:any
             });
           }
         });
-
+    } else {
+      this.messageService.add({
+        severity: 'warning',
+        summary: 'Please fill all fields..',
+        life: 3000,
+      });
+    }
   }
 
   public courseDoc() {
@@ -381,13 +417,9 @@ public technologyData:any
     }
   }
 
- public checkboxValue(event: Event, value: string):void {
-    const arrayForm = <FormArray>this.popupForm.get('coursesIncludes');
+  public checkboxValue(event: Event, value: string): void {
     const isChecked = (event.target as HTMLInputElement).checked;
-
     if (isChecked) {
-      arrayForm.push(this.fb.control(value));
-
       if (!this.selectedCourseIncludes.includes(value)) {
         this.selectedCourseIncludes.push(value);
       }
@@ -397,7 +429,7 @@ public technologyData:any
     } else {
       if (this.selectedCourseIncludes.includes(value)) {
         this.selectedCourseIncludes = this.selectedCourseIncludes.filter(
-          (value: string) => value !== value
+          (value: string) => value != value
         );
       }
       if (!this.selectedCourseIncludes.includes('Documents')) {

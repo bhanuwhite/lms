@@ -37,7 +37,7 @@
     <form [formGroup]="addQuizGroup" (ngSubmit)="onSubmitQuestionDetails()">
       <div class="p-fluid grid">
         <div class="field mt-2 w-100">
-          <label for="title">Course name <span class="text-danger fs-5">*</span>:</label>
+          <label for="title">Course name<span class="text-danger fs-5">*</span> :</label>
           <span>
             <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="Course_Name"
               class="form-control" required formControlName="Course_Name" pInputText placeholder="Course name">
@@ -48,7 +48,7 @@
           </span>
         </div>
         <div class="field mt-2 w-100">
-          <label for="title">Level<span class="text-danger fs-5">*</span>:</label>
+          <label for="title">Level<span class="text-danger fs-5">*</span> :</label>
           <p-dropdown [options]="level" optionLabel="level_name" formControlName="level"
             placeholder="Select level"></p-dropdown>
           <small class="p-error block" *ngIf="addQuizGroup.get('level')?.invalid && addQuizGroup.get('level')?.touched">
@@ -56,7 +56,7 @@
           </small>
         </div>
         <div class="field mt-2 w-100">
-          <label for="title">Question<span class="text-danger fs-5">*</span>:</label>
+          <label for="title">Question<span class="text-danger fs-5">*</span> :</label>
           <span>
             <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="question" class="form-control"
               required formControlName="question" pInputText placeholder="Question">
@@ -66,51 +66,55 @@
             </small>
           </span>
         </div>
-        <div class="field mt-2 my-2 mr-3 w-30">
-          <label for="title">Option (A)<span class="text-danger fs-5">*</span></label>
-          <span>
-            <input type="text" required class="bg-light-grey input-shadow p-inputtext" style="resize: none;"
-             formControlName="option1" pInputText>
-            <small class="p-error block"
-              *ngIf="addQuizGroup.get('option1')?.invalid  && addQuizGroup.get('option1')?.touched">
-              Option(A) name is required
-            </small>
-          </span>
-        </div>
-        <div class="field mt-2 my-2  w-30">
-          <label for="title">Option (B)<span class="text-danger fs-5">*</span></label>
-          <span>
-            <input type="text" required class="bg-light-grey input-shadow p-inputtext" formControlName="option2"
-              pInputText>
-            <small class="p-error block"
-              *ngIf="addQuizGroup.get('option2')?.invalid  && addQuizGroup.get('option2')?.touched">
-              Option(B) is required</small>
-          </span>
-        </div>
-        <div class="field mt-2 my-2 mr-3 w-30">
-          <label for="title">Option (C)<span class="text-danger fs-5">*</span></label>
-          <span>
-            <input type="text" required class="bg-light-grey input-shadow w-90 p-inputtext" formControlName="option3"
-              pInputText>
-            <small class="p-error block"
-              *ngIf="addQuizGroup.get('option3')?.invalid  && addQuizGroup.get('option3')?.touched">
-              Option(C) is required</small>
-          </span>
-        </div>
-        <div class="field mt-2 my-2 w-30">
-          <label for="title">Option (D)<span class="text-danger fs-5">*</span></label>
-          <span>
-            <input type="text" required class="bg-light-grey input-shadow w-90 p-inputtext" formControlName="option4"
-              pInputText>
-            <small class="p-error block"
-              *ngIf="addQuizGroup.get('option4')?.invalid  && addQuizGroup.get('option4')?.touched">
-              Option(D) is required</small>
-          </span>
+        <div class="d-flex ">
+          <div class="field mt-2 my-2 mr-3 w-30">
+            <label for="title">Option (A)<span class="text-danger fs-5">*</span></label>
+            <span>
+              <input type="text" required class="bg-light-grey input-shadow p-inputtext" style="resize: none;"
+                formControlName="option1" pInputText>
+              <small class="p-error block"
+                *ngIf="addQuizGroup.get('option1')?.invalid  && addQuizGroup.get('option1')?.touched">
+                Option(A) name is required
+              </small>
+            </span>
+          </div>
+          <div class="field mt-2 my-2  w-30">
+            <label for="title">Option (B)<span class="text-danger fs-5">*</span></label>
+            <span>
+              <input type="text" required class="bg-light-grey input-shadow p-inputtext" formControlName="option2"
+                pInputText>
+              <small class="p-error block"
+                *ngIf="addQuizGroup.get('option2')?.invalid  && addQuizGroup.get('option2')?.touched">
+                Option(B) is required</small>
+            </span>
+          </div>
+          </div>
+          <div  class="d-flex ">
+          <div class="field mt-2 my-2 mr-3 w-30">
+            <label for="title">Option (C)<span class="text-danger fs-5">*</span></label>
+            <span>
+              <input type="text" required class="bg-light-grey input-shadow w-90 p-inputtext" formControlName="option3"
+                pInputText>
+              <small class="p-error block"
+                *ngIf="addQuizGroup.get('option3')?.invalid  && addQuizGroup.get('option3')?.touched">
+                Option(C) is required</small>
+            </span>
+          </div>
+          <div class="field mt-2 my-2 w-30">
+            <label for="title">Option (D)<span class="text-danger fs-5">*</span></label>
+            <span>
+              <input type="text" required class="bg-light-grey input-shadow w-90 p-inputtext" formControlName="option4"
+                pInputText>
+              <small class="p-error block"
+                *ngIf="addQuizGroup.get('option4')?.invalid  && addQuizGroup.get('option4')?.touched">
+                Option(D) is required</small>
+            </span>
+          </div>
         </div>
 
 
         <div class="field mt-2 w-100">
-          <label for="title">Answer<span class="text-danger fs-5">*</span>:</label>
+          <label for="title">Answer<span class="text-danger fs-5">*</span> :</label>
           <span class="d-flex">
             <div *ngFor="let data of answersArray" class="p-2">
               <label>

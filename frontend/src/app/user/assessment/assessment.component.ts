@@ -39,7 +39,7 @@ export class AssessmentComponent implements OnInit {
       const uniqueTechnology = new Set<string>();
 
       courses.forEach((item) => {
-        uniqueTechnology.add(item.attributes.technology);
+        uniqueTechnology.add(item.attributes?.technologies["0"]);
       });
 
       this.allCourses = Array.from(uniqueTechnology);

@@ -118,7 +118,7 @@ public getContent(): void {
         const courses = res.data;
         const uniqueTechnology = new Set<string>();
         courses.forEach((item) => {
-          uniqueTechnology.add(item.attributes.technology);
+          uniqueTechnology.add(item.attributes?.technologies['0']);
         });
         const UserAssessments = Array.from(uniqueTechnology);
         this.assessment_Length = UserAssessments.length;
