@@ -14,18 +14,7 @@ export class AssessmentComponent implements OnInit {
   public items: string[] = [];
   userID!:number;
 
-  Technologies: { tech: string }[] = [
-    { tech: 'Angular' },
-    { tech: 'DotNet' },
-    { tech: 'Java' },
-    { tech: 'Javascript' },
-    { tech: 'MongoDB' },
-    { tech: 'MySQL' },
-    { tech: 'Node JS' },
-    { tech: 'Postgresql' },
-    { tech: 'Python' },
-    { tech: 'React JS' },
-  ];
+
   constructor(private apiService: ApiService, private route: Router, private aboutService:AboutService ) {}
 
   ngOnInit(): void {
