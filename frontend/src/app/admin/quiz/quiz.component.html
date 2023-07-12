@@ -6,10 +6,10 @@
     </div>
 
 </div>
-  <div class="row d-flex my-3" *ngIf="allCourses">
-    <div class="col-lg-3 " *ngFor="let course of allCourses">
+  <div class="row d-flex my-3" *ngIf="uniqueTech">
+    <div class="col-lg-3 " *ngFor="let course of uniqueTech">
       <div>
-        <div class="card p-2 shadow-2">
+        <div class="card m-2 p-2 shadow-2">
           <div class="d-flex justify-content-between align-items-center">
             <h4 class="mb-2 p-0">
               Exam

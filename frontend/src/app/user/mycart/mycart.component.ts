@@ -31,6 +31,7 @@ export class MycartComponent implements OnInit {
     private aboutService: AboutService
   ) {}
   ngOnInit(): void {
+
     this.getLocalStoredData();
     this.getCartCourse();
     this.gettingUserHasCourse();
