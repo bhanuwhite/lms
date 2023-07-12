@@ -43,6 +43,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   public allCourses: string[] = [];
   visible: boolean = false;
   public quizBody!: Quiz;
+
   quizGetSubscription$: Subscription = new Subscription();
   quizPostSubscription$: Subscription = new Subscription();
   quizUpdateSubscription$: Subscription = new Subscription();
@@ -59,6 +60,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     { name: 'C', checked: false },
     { name: 'D', checked: false },
   ];
+
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
@@ -147,17 +149,27 @@ export class QuizComponent implements OnInit, OnDestroy {
       }
     }
   }
+  public uniqueTech: string[] = [];
 
   public getCourseContentDetails() {
     this.apiService.getContent().subscribe((res) => {
       const courses = res.data;
-      const uniqueTechnology = new Set<string>();
+
       courses.forEach((item) => {
-        uniqueTechnology.add(item.attributes?.technologies['1']);
+        this.allCourses.push(item.attributes?.technologies);
+        this.allCourses.forEach((obj) => {
+          const values = Object.values(obj);
+          values.forEach((value) => {
+            if (!this.uniqueTech.includes(value)) {
+              this.uniqueTech.push(value);
+            }
+          });
+        });
       });
-      this.allCourses = Array.from(uniqueTechnology);
     });
   }
+
+
 
   public getQuizData() {
     this.apiService.getQuiz().subscribe((res) => {});

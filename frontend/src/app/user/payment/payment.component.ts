@@ -183,7 +183,10 @@ export class PaymentComponent implements OnInit {
 
       });
 
-      this.apiservice.deleteCartItem(course.id).subscribe((res: any) => {});
+      this.apiservice.deleteCartItem(course.id).subscribe((res: any) => {
+      this.route.navigate(['/user/mycart']);
+
+      });
 
       // const paymentDetails ={
       //   course_ids: course.course_ids[0].id,
@@ -191,6 +194,6 @@ export class PaymentComponent implements OnInit {
 
       // }
     });
-    this.route.navigate(['/user/mycart']);
+
   }
 }
