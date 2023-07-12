@@ -27,10 +27,6 @@ button{
 }
 
 .all-Courses {
-  .p-card.p-component{
-    max-height: 600px !important;
-    height: 557px !important;
-  }
     p-card {
         transition: 0.3s all;
         width: 25%;
@@ -103,7 +99,6 @@ a {
     .all-Courses p-card {
         width: 100%;
     }
-
     .banner-image {
       background-image: url("../../../assets/img/user1.jpg");
       min-height: 500px;
@@ -123,6 +118,7 @@ a {
         position: absolute;
         left: 0;
     }
+ 
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
