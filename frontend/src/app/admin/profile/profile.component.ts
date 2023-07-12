@@ -136,7 +136,6 @@ export class ProfileComponent implements OnInit {
       email: this.userProfileForm.value.email,
       mobile: this.userProfileForm.value.mobileNo,
       biography: this.userProfileForm.value.biography,
-      // linkedIn: this.userProfileForm.value.linkedin,
     };
 
     this.apiService

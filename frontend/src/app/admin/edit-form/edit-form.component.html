@@ -35,10 +35,13 @@
 
       <div class="field mt-2 w-100">
         <label for="image"> Thumbnail image :
-          <img
+          <img *ngIf="edituserLearnings.attributes.placeholder_img.data != null"
             [src]=" imgSrc ? imgUrl+imgSrc: imgUrl+edituserLearnings.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url"
             alt="" pTooltip="Click to change image" tooltip [style]="{'height':'80px','width':'80px'}"
             class=" ms-5 rounded-pill">
+
+          <img src="" alt="No Image" *ngIf="edituserLearnings.attributes.placeholder_img.data == null"
+            [style]="{'height':'80px','width':'80px'}" class=" ms-5 rounded-pill">
 
         </label>
         <span class="p-float-label">
@@ -62,7 +65,7 @@
           <ng-template #newVideos>
             <div class="d-flex">
               <div *ngFor="let videos of newVideosUpload">
-                <div >
+                <div>
                   <video [src]="videos.url" class="m-2" style="height: 100px;width: 100px;"></video>
                 </div>
               </div>
@@ -101,8 +104,9 @@
       <div class="field mt-2 w-100">
         <label for="technology">Technology<span class="text-danger fs-5">*</span> :
         </label>
-        <p-multiSelect formControlName="technology" id="technology" [options]="Technologies" optionLabel="tech"
-          placeholder="Select Technology"  (onChange)="techSelected($event)"></p-multiSelect>
+
+        <p-multiSelect formControlName="technologies" id="technology" [options]="Technologies"
+          placeholder="Select Technology" (onChange)="techSelected($event)"></p-multiSelect>
         <span class="p-float-label">
           <small class="p-error block" *ngIf="
                   popupForm.get('technology')?.invalid &&
@@ -166,22 +170,18 @@
         <ng-container *ngIf="showDocuments">
           <div class="field mt-2 w-100">
             <label for="uploadFile"> Uploaded Documents (pdf/csv/excel/zip) <span class="text-danger fs-5">*</span> :
-              <div class="cursor-pointer">
+              <div class="cursor-pointer" *ngIf="edituserLearnings.attributes.files.data !=null">
                 <iframe
                   [src]="getSafeFileUrl(edituserLearnings.attributes.files.data[0]?.attributes.url,edituserLearnings.attributes.files.data[0]?.attributes.ext)"
                   width="100%" height="100px"></iframe>
                 <p> {{edituserLearnings.attributes.files.data[0]?.attributes.name}} </p>
               </div>
             </label>
-            <span class="p-float-label">
+            <span class="p-float-label" *ngIf="edituserLearnings.attributes.files.data == null">
               <input type="file" id="uploadFile" accept=".pdf,.csv,.gif,.xls,.xlsx"
-                class="bg-light-grey input-shadow w-100 p-inputtext d-none" pInputText
-                (change)="courseDocSelected($event)" />
+                class="bg-light-grey input-shadow w-100 p-inputtext" pInputText (change)="courseDocSelected($event)" />
             </span>
-            <div *ngIf="
-                  popupForm.controls['documents'].invalid &&
-                  popupForm.controls['documents'].touched
-                " class="text-danger">
+            <div *ngIf="popupForm.get('documents')?.invalid && popupForm.get('documents')?.touched" class="text-danger">
               Please select a file.
             </div>
           </div>

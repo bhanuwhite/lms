@@ -99,22 +99,20 @@
           </div>
         </div>
 
-
         <div class="d-flex button_wrapper justify-content-between align-items-center">
           <div class="my-3 d-flex align-items-center">
-            <div *ngIf="singleContent.attributes.price !=0">
+            <div *ngIf="singleContent.attributes.price !=0" class="d-flex align-items-center">
               <span class="material-icons">
                 currency_rupee
               </span>
-              <span>{{(singleContent.attributes.price) }}.00 </span>
+              <b class="fs-6">{{(singleContent.attributes.price) }}.00 </b>
             </div>
-            <div *ngIf="singleContent.attributes.price ==0">
-              <button class="btn btn-primary">Free Course</button>
-
+            <div *ngIf="singleContent.attributes.price == 0">
+              <button class="btn btn-sm btn-primary">Free Course</button>
             </div>
           </div>
           <div class="">
-            <button class="btn btn-warning">{{ singleContent.attributes.level }}</button>
+            <button class="btn btn-sm btn-warning">{{ singleContent.attributes.level }}</button>
           </div>
           <ng-container *ngIf="singleContent.attributes.no_of_purchases">
             <button class="btn btn-sm fw-bold btn-warning" style="background-color: rgb(213, 240, 158);">

@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { ExternalLibraryService } from './util';
 import { AboutService } from 'src/app/services/about.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-payment',
@@ -27,9 +28,6 @@ export class PaymentComponent implements OnInit {
   ngOnInit(): void {
     this.getLocalStoredData();
     this.getCartDetails();
-
-
-
     setTimeout(() => {
       this.createOrderId();
     }, 1500);
@@ -38,6 +36,9 @@ export class PaymentComponent implements OnInit {
       .lazyLoadLibrary('https://checkout.razorpay.com/v1/checkout.js')
       .subscribe();
   }
+
+  public img_url = environment.apiUrl ;
+
 
   constructor(
     private apiservice: ApiService,

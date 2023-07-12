@@ -24,7 +24,7 @@ export interface AllCourseContentData {
     price: string;
     publishedAt?: string;
     status: string;
-    technology: string;
+    technologies: any;
     subject: string;
     level: string;
     rating: number;
@@ -82,7 +82,7 @@ export interface SingleCourseObj {
     review : null | string,
     status:string,
     subject:string,
-    technology:string,
+    technologies:any,
     total_duration:number | string,
 
   }
@@ -99,7 +99,7 @@ export interface SingleCourseData {
     price: string;
     publishedAt?: string;
     status: string;
-    technology: string;
+    technologies: any;
     level: string;
     no_of_purchases: number;
     course_duration: any;
@@ -117,7 +117,7 @@ export interface AllCoursePostData {
     price: number;
     publishedAt?: string;
     status: string;
-    technology: string;
+    technologies: any;
     user_id: string | number;
   };
 }
