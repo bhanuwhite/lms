@@ -43,6 +43,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   public allCourses: string[] = [];
   visible: boolean = false;
   public quizBody!: Quiz;
+
   quizGetSubscription$: Subscription = new Subscription();
   quizPostSubscription$: Subscription = new Subscription();
   quizUpdateSubscription$: Subscription = new Subscription();
@@ -59,6 +60,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     { name: 'C', checked: false },
     { name: 'D', checked: false },
   ];
+
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
@@ -82,7 +84,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       option2: new FormControl('', Validators.required),
       option3: new FormControl('', Validators.required),
       option4: new FormControl('', Validators.required),
-      checkArray: this.fb.array([],Validators.required),
+      checkArray: this.fb.array([], Validators.required),
     });
   }
 
@@ -147,19 +149,27 @@ export class QuizComponent implements OnInit, OnDestroy {
       }
     }
   }
+  public uniqueTech: string[] = [];
 
   public getCourseContentDetails() {
     this.apiService.getContent().subscribe((res) => {
       const courses = res.data;
-      const uniqueTechnology = new Set<string>();
-      courses.forEach((item) => {
-        uniqueTechnology.add(item.attributes.technology);
-      });
-      this.allCourses = Array.from(uniqueTechnology);
-      console.log(this.allCourses);
 
+      courses.forEach((item) => {
+        this.allCourses.push(item.attributes?.technologies);
+        this.allCourses.forEach((obj) => {
+          const values = Object.values(obj);
+          values.forEach((value) => {
+            if (!this.uniqueTech.includes(value)) {
+              this.uniqueTech.push(value);
+            }
+          });
+        });
+      });
     });
   }
+
+
 
   public getQuizData() {
     this.apiService.getQuiz().subscribe((res) => {});

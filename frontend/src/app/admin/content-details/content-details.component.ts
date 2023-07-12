@@ -11,16 +11,18 @@ import { environment } from 'src/environment/environment';
   styleUrls: ['./content-details.component.scss'],
 })
 export class ContentDetailsComponent implements OnInit {
-  public imgUrl = environment.apiUrl
+  public imgUrl = environment.apiUrl;
   constructor(
     private activatedRoute: ActivatedRoute,
     private apiService: ApiService
   ) {}
   id: number = 0;
   isLoading: boolean = false;
+  public techArr: string[] = [];
   // SingleCourseObj  interface
-  singleContent: any
-  public img_url = environment.apiUrl ;
+  singleContent: any;
+  public img_url = environment.apiUrl;
+  public courseIncludes: string[] = [];
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res) => {
@@ -36,7 +38,10 @@ export class ContentDetailsComponent implements OnInit {
     this.isLoading = true;
     this.apiService.getSingleContent(id).subscribe((res) => {
       this.singleContent = res.data;
-      console.log(this.singleContent);
+      this.techArr = Object.values(this.singleContent.attributes.technologies);
+      this.courseIncludes = this.singleContent.attributes.course_include.filter(
+        (item: string) => item !== null
+      );
       this.isLoading = false;
     });
   }

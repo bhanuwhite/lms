@@ -41,6 +41,7 @@ export class ContentDetailsComponent implements OnInit {
     public dialogService: DialogService,
     private activeParams: ActivatedRoute,
     private apiService: ApiService,
+    // private apiservice: ApiService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router,
@@ -59,6 +60,8 @@ export class ContentDetailsComponent implements OnInit {
 
     window.scrollTo(0, 0);
   }
+  public img_url = environment.apiUrl ;
+
 
   public getLocalData(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
@@ -71,7 +74,15 @@ export class ContentDetailsComponent implements OnInit {
     });
   }
 
+  public getCourses(): void {
+    this.apiService.getContent().subscribe((res) => {
+      this.userCourses = res.data;
+      this.showSpinner = false;
+    });
+  }
+
   libDataIds: number[] = [];
+
   public gettingUserHasCourse(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.apiService.getUserCourse(this.userID).subscribe((res) => {
@@ -86,12 +97,7 @@ export class ContentDetailsComponent implements OnInit {
     });
   }
 
-  public getCourses(): void {
-    this.apiService.getContent().subscribe((res) => {
-      this.userCourses = res.data;
-      this.showSpinner = false;
-    });
-  }
+
  public videoUrl!: SafeResourceUrl;
 
   public getSingleCourseObj(): Promise<void> {
@@ -99,6 +105,8 @@ export class ContentDetailsComponent implements OnInit {
     return new Promise<void>((resolve, reject) => {
       this.activeParams.params.subscribe((res) => {
         this.courseId = res['id'];
+        console.log(this.courseId);
+
       });
       this.apiService.getSingleContent(this.courseId).subscribe((res) => {
         this.singleCourse = res['data'];
@@ -116,6 +124,7 @@ export class ContentDetailsComponent implements OnInit {
     const embedUrl = `https://www.youtube.com/embed/${videoId}`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
   }
+
   extractVideoId(link: string): string {
     const regex = /youtu(?:\.be|be\.com)\/(?:.*v(?:\/|=)|(?:.*\/)?)([a-zA-Z0-9-_]+)/;
     const match = link?.match(regex);
@@ -139,6 +148,7 @@ export class ContentDetailsComponent implements OnInit {
   }
 
   public addToCart(item: SingleCourseData): void {
+
     this.confirmationService.confirm({
       message: `Do you want to add this ${item?.attributes.name} to Cart?`,
       header: 'Confirmation',
@@ -186,6 +196,64 @@ export class ContentDetailsComponent implements OnInit {
   }
   public GotoCart(): void {
     this.router.navigate(['mycart']);
+  }
+
+  public purchases :any;
+
+  addToLibrary(course: any) {
+console.log(course);
+
+    this.purchases = course.attributes.no_of_purchases;
+    this.confirmationService.confirm({
+
+      message: `Do you want to add this ${course?.attributes.name} to Library?`,
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        const courseDetails = {
+          data: {
+            course_ids: course.id,
+            user_id: this.userID,
+          },
+        };
+        this.apiService.postUserHasCourse(courseDetails).subscribe((res) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Successfully',
+            detail: 'Course added to library',
+          });
+
+          this.gettingUserHasCourse();
+          const putCourseBody = {
+            data: {
+              no_of_purchases: Number(this.purchases) + Number(1),
+            },
+          };
+          this.apiService
+            .updateContent(course.course_ids[0].id, putCourseBody)
+            .subscribe((res) => {});
+        });
+      },
+      reject: (type: any) => {
+        switch (type) {
+          case ConfirmEventType.REJECT:
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Rejected',
+              detail: 'You have rejected',
+            });
+            break;
+          case ConfirmEventType.CANCEL:
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Cancelled',
+              detail: 'You have cancelled',
+            });
+            break;
+        }
+      },
+    });
+
   }
 
   onClose() {

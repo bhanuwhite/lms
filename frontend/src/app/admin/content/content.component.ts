@@ -24,7 +24,6 @@ import {
   videoObj,
 } from 'src/app/models/content';
 import { ApiService } from 'src/app/services/api.service';
-import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environment/environment';
 
 @Component({
@@ -50,39 +49,38 @@ export class ContentComponent implements OnInit, OnDestroy {
   public editDisply: boolean = false;
   public contentData: AllCourseContentData[] = [];
   public contentData2: AllCourseContentData[] = [];
-
   public _data!: AllCourseContentData;
   public formData = new FormData();
   public percentage: number = 0;
   public isProgressFile: boolean = false;
   public courseGroup!: FormGroup;
   public courseUpdateGroup!: FormGroup;
-  addCourse!: FormGroup;
-  remainingWords: number = 100;
-  remWord: number = 100;
-  Admin_id!: number;
-  techString!: string;
-  levelString!: string;
-  statusString!: string;
-  subjectString!: string;
-  courseDialog: boolean = false;
-  selectedTech!: string;
-  selectedLevel!: string;
-  selectedSubject!: string;
-  selectedStatus!: string;
-  updatedStatus!: string;
-  videoUploadProgress: boolean = false;
-  imgUploadProgress: boolean = false;
-  videoContent!: AllCourseContentVideo;
-  imageContent!: AllCourseContentPlaceholder_Img;
-  courseContentVideo: any[] = [];
-  courseContentImage: any;
-  allVideosDuration: number = 0;
-  showDocuments: boolean = false;
-  courseDocument!: mediaDocument;
-  updateCertificates: boolean = false;
-  updateDocuments: boolean = false;
-  editUserLearnings!: AllCourseContentData;
+  public addCourse!: FormGroup;
+  public remainingWords: number = 100;
+  public remWord: number = 100;
+  public Admin_id!: number;
+  public techString!: string;
+  public levelString!: string;
+  public statusString!: string;
+  public subjectString!: string;
+  public courseDialog: boolean = false;
+  public selectedTech!: string;
+  public selectedLevel!: string;
+  public selectedSubject!: string;
+  public selectedStatus!: string;
+  public updatedStatus!: string;
+  public videoUploadProgress: boolean = false;
+  public imgUploadProgress: boolean = false;
+  public videoContent!: AllCourseContentVideo;
+  public imageContent!: AllCourseContentPlaceholder_Img;
+  public courseContentVideo: any[] = [];
+  public courseContentImage: any;
+  public allVideosDuration: number = 0;
+  public showDocuments: boolean = false;
+  public courseDocument!: mediaDocument;
+  public updateCertificates: boolean = false;
+  public updateDocuments: boolean = false;
+  public editUserLearnings!: AllCourseContentData;
 
   Technologies: { tech: string }[] = [
     { tech: 'Angular' },
@@ -170,14 +168,10 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   // Get Content
-
-  public img_url = environment.apiUrl ;
+  public img_url = environment.apiUrl;
   public getContent(): void {
     this.loadingSpinner = true;
     this.apiService.getContent().subscribe((res: AllCourseContent) => {
-
-      // console.log( this.img_url + res.data[0].attributes.placeholder_img.data.attributes.formats?.thumbnail?.url)
-
       try {
         this.contentData = res.data;
         this.contentData2 = res.data;
@@ -322,7 +316,6 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.apiService.uploadFile(this.formData).subscribe((res) => {
         try {
           this.courseContentImage = res;
-          console.log('Image uploaded reponse', res);
           this.imgUploadProgress = false;
         } catch (error) {
           this.messageService.add({
@@ -421,23 +414,21 @@ export class ContentComponent implements OnInit, OnDestroy {
       const courseData = {
         data: {
           technologies: this.data,
+          level: this.selectedLevel,
           subject: this.selectedSubject,
           content: this.courseContentVideo,
           description: this.addCourse.value.description,
           link: this.addCourse.value.link,
           name: this.addCourse.value.name,
-          placeholder_img: this.courseContentImage[0],
+          placeholder_img: this.courseContentImage ? this.courseContentImage[0]:null,
           price: this.addCourse.value.price,
           user_id: this.Admin_id,
           status: 'active',
-          level: this.selectedLevel,
           total_duration: this.allVideosDuration.toFixed(0),
-
           course_include: this.addCourse.value.coursesIncludes,
           files: this.courseDocument,
         },
       };
-      console.log('Course Post reqquest ', courseData);
 
       this.apiService.postContent(courseData).subscribe((res) => {
         try {
@@ -468,8 +459,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     } else {
       this.messageService.add({
         severity: 'error',
-        summary: 'Course Content is empty',
-        detail: 'Please upload Course Video Content.  !!',
+        detail: 'Please fill required fields..!!',
       });
     }
 
@@ -523,4 +513,3 @@ export class ContentComponent implements OnInit, OnDestroy {
     });
   }
 }
-

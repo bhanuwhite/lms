@@ -33,7 +33,7 @@
                 <i class="pi pi-video me-2 mt-1"></i>
                 <h4>
                   No. of Lectures :
-                  <b> {{ singleCourse.attributes.content.data.length }} </b>
+                  <b> {{ singleCourse.attributes.content.data?.length }} </b>
                 </h4>
               </div>
             </div>
@@ -61,7 +61,7 @@
       <div class="col-lg-5">
         <div class="video-container" [class.playing]="isPlaying">
           <video
-            [src]="singleCourse?.attributes?.content.data[0]?.attributes?.url"
+            [src]=" img_url+singleCourse?.attributes?.content.data[0]?.attributes?.url"
             controls
             #courseVideoElmt
             (click)="playCourse()"
@@ -79,36 +79,67 @@
       </div>
     </div>
     <div class="row mt-4">
-      <div class="col-lg-7">
-        <div class="card">
-          <div class="what-u-learn p-4">
-            <h1><b>What you'll learn</b></h1>
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="row">
-                  <ng-container *ngIf="videoUrl">
-                    <iframe [src]="videoUrl" width="560" height="315" frameborder="0" allowfullscreen></iframe>
-                  </ng-container>
-                </div>
+
+        <div class="col-lg-7 mt-4">
+          <div class="surface-section mt-3" style="overflow: auto">
+            <h2><b>Course Content</b></h2>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <div class="ud-text-sm" data-purpose="curriculum-stats">
+                <span class="curriculum--content-length--5Nict">
+                  <b> {{ singleCourse.attributes.content.data.length }}</b>
+                  lectures •
+                  <span>
+                    <b>
+                      {{
+                        (singleCourse.attributes.total_duration / 3600).toFixed(
+                          1
+                        )
+                      }}</b
+                    >
+                    hrs</span
+                  ></span
+                >
               </div>
             </div>
+            <p-accordion>
+              <p-accordionTab
+                *ngFor="let content of singleCourse.attributes.content.data"
+              >
+                <ng-template class="d-flex" pTemplate="header">
+                  <div>
+                    {{ content.attributes.name.slice(0, -4) }}
+                  </div>
+                </ng-template>
+                <div class="intro-list">
+                  <ul>
+                    <li class="d-flex justify-content-between align-items-center">
+                      <div class="d-flex align-items-center" >
+                        <div>
+                          <video [src]=" img_url+content.attributes?.url" height="120px" width="150px">
+                          </video>
+                        </div>
+                        <i class=" pi pi-chevron-right m-2 ml-4 "></i>
+                       <p class="ms-3"> {{ content.attributes.alternativeText }}</p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </p-accordionTab>
+            </p-accordion>
           </div>
-        </div>
+
       </div>
 
       <div class="col-lg-4 justify-content-center">
         <div class="">
           <div class="d-flex align-items-center">
             <h1
-              class="m-0"
-              *ngIf="parsePrice(singleCourse.attributes.price) != 0"
-            >
+              class="m-0"*ngIf="parsePrice(singleCourse.attributes.price) != 0">
               <b>{{ singleCourse.attributes.price | currency : "INR" }}</b>
             </h1>
             <h1
               class="m-0"
-              *ngIf="parsePrice(singleCourse.attributes.price) == 0"
-            >
+              *ngIf="parsePrice(singleCourse.attributes.price) == 0">
               <b>FREE</b>
             </h1>
           </div>
@@ -120,12 +151,28 @@
               class="btn btn-primary mt-3"
               *ngIf="
                 !userCourseID.includes(singleCourse.id) &&
-                !libDataIds.includes(singleCourse.id)
+                !libDataIds.includes(singleCourse.id) &&
+                parsePrice(singleCourse.attributes.price) != 0
+
               "
               style="width: 95%"
               (click)="addToCart(singleCourse)"
             >
               Add To Cart
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-primary mt-3"
+              *ngIf="
+                !userCourseID.includes(singleCourse.id) &&
+                !libDataIds.includes(singleCourse.id) &&
+                parsePrice(singleCourse.attributes.price) == 0
+              "
+              style="width: 95%"
+              (click)="addToLibrary(singleCourse)"
+            >
+              Add To Library
             </button>
 
             <button
@@ -152,7 +199,7 @@
             </button>
           </div>
         </div>
-        <div
+        <!-- <div
           class="card px-3 language_card p-2 mt-2"
           *ngIf="singleCourse.attributes.pre_learning"
         >
@@ -180,12 +227,12 @@
               {{ singleCourse.attributes.pre_learning[4] }}
             </li>
           </ul>
-        </div>
+        </div> -->
       </div>
     </div>
     <div>
       <div class="row">
-        <div class="col-lg-7 mt-4">
+        <!-- <div class="col-lg-7 mt-4">
           <div class="surface-section mt-3" style="overflow: auto">
             <h2><b>Course Content</b></h2>
             <div class="d-flex justify-content-between align-items-center mb-2">
@@ -205,14 +252,7 @@
                   ></span
                 >
               </div>
-              <!-- <button
-                type="button"
-                data-purpose="expand-toggle"
-                aria-expanded="false"
-                class="expend-button"
-              >
-                <span>Expand all sections</span>
-              </button> -->
+
             </div>
             <p-accordion>
               <p-accordionTab
@@ -238,7 +278,8 @@
               </p-accordionTab>
             </p-accordion>
           </div>
-        </div>
+        </div> -->
+
       </div>
     </div>
   </div>
@@ -247,3 +288,7 @@
     <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
   </div>
 </div>
+<!-- <div class="card flex border-0 justify-content-center">
+  <p-toast></p-toast>
+  <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+</div> -->

@@ -65,9 +65,21 @@
 
 
     <div class="row surface-card shadow-2 p-2 m-1 border-round" *ngIf="singleContent">
-      <div class="col-lg-4 img-fluid">
-        <img [src]=" img_url + singleContent.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url" alt=""
-          [style]="{'height':'200px','width':'100%','border-radius':'30px'}">
+      <div class="col-lg-4">
+        <ng-container *ngIf="singleContent.attributes.placeholder_img.data != null">
+          <div class="img-fluid">
+            <img [src]=" img_url + singleContent.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url"
+              alt="" [style]="{'height':'200px','width':'100%','border-radius':'30px'}">
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="singleContent.attributes.placeholder_img.data == null">
+          <div class="card border-primary d-flex justify-content-center align-items-center"
+            [style]="{'height':'200px','width':'100%','border-radius':'30px'}">
+            <p class="fs-3 fw-bold"> {{singleContent.attributes.technologies['1']}} </p>
+          </div>
+
+        </ng-container>
       </div>
       <div class="col-lg-8">
         <div class="my-3">
@@ -104,19 +116,18 @@
 
         <div class="d-flex button_wrapper justify-content-between align-items-center">
           <div class="my-3 d-flex align-items-center">
-            <div *ngIf="singleContent.attributes.price !=0">
+            <div *ngIf="singleContent.attributes.price !=0" class="d-flex align-items-center">
               <span class="material-icons">
                 currency_rupee
               </span>
-              <span>{{(singleContent.attributes.price) }}.00 </span>
+              <b class="fs-6">{{(singleContent.attributes.price) }}.00 </b>
             </div>
-            <div *ngIf="singleContent.attributes.price ==0">
-              <button class="btn btn-primary">Free Course</button>
-
+            <div *ngIf="singleContent.attributes.price == 0">
+              <button class="btn btn-sm btn-primary">Free Course</button>
             </div>
           </div>
           <div class="">
-            <button class="btn btn-warning">{{ singleContent.attributes.level }}</button>
+            <button class="btn btn-sm btn-warning">{{ singleContent.attributes.level }}</button>
           </div>
           <ng-container *ngIf="singleContent.attributes.no_of_purchases">
             <button class="btn btn-sm fw-bold btn-warning" style="background-color: rgb(213, 240, 158);">

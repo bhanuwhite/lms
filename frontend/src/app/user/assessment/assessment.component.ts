@@ -13,6 +13,8 @@ export class AssessmentComponent implements OnInit {
   public searchQuery: string = '';
   public items: string[] = [];
   userID!:number;
+
+
   constructor(private apiService: ApiService, private route: Router, private aboutService:AboutService ) {}
 
   ngOnInit(): void {
@@ -32,18 +34,29 @@ export class AssessmentComponent implements OnInit {
     });
   }
 
-
+public uniqueTech :string[]=[]
   public getAllCourseDetais() {
     this.apiService.getContent().subscribe((res) => {
-      const courses = res.data;
-      const uniqueTechnology = new Set<string>();
 
-      courses.forEach((item) => {
-        uniqueTechnology.add(item.attributes.technology);
+
+      res.data.forEach((item) => {
+
+         this.allCourses.push(item.attributes?.technologies)
+
+
+         this.allCourses.forEach((item)=>{
+          const values = Object.values(item);
+          values.forEach((obj)=>{
+            if (!this.uniqueTech.includes(obj)) {
+              this.uniqueTech.push(obj);
+            }
+
+          })
+
+         })
       });
 
-      this.allCourses = Array.from(uniqueTechnology);
-      this.items = this.allCourses;
+
 
     });
   }
