@@ -317,6 +317,13 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
     border: 2px solid #fff;
   }
 }
+@media (min-width: 1023px) and (max-width: 1300px) {
+  .all-Courses{
+    p-card{
+      width: 33.33% !important;
+    }
+  }
+}
 
 @media (min-width: 319px) and (max-width: 768px) {
   // .all-Courses {

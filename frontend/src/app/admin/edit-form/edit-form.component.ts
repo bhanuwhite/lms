@@ -155,28 +155,25 @@ export class EditFormComponent implements OnInit, OnChanges {
     }
   }
 
-  public categories: { name: string; checked: boolean }[] = [
-    { name: 'Certificate', checked: false },
-    { name: 'Documents', checked: false },
-  ];
-
   checkCourseIncludes(): void {
     const controls = this.edituserLearnings.attributes.course_include.map(
       (option: any) => this.fb.control(true)
     );
     this.popupForm.setControl('courseIncludes', this.fb.array(controls));
   }
-
+  totalDuration!: number;
   editingCourseData() {
-    console.log(this.edituserLearnings);
-
+    this.showDocuments = false;
+    this.courseDoc();
     const formValues = this.edituserLearnings.attributes;
+    this.technologyArr = Object.values(formValues.technologies);
+    this.totalDuration = formValues.total_duration;
     this.selectedSubject = formValues.subject;
     this.selectedLevel = formValues.level;
     this.preiviousImgData = [];
     this.preiviousImgData.push(formValues.placeholder_img.data);
     this.previousDocData = [];
-    this.previousDocData.push(formValues.files.data);
+    this.previousDocData = formValues.files.data;
     this.selectedTechnologies = [];
     const techData = this.edituserLearnings.attributes.technologies;
     this.selectedTechnologies = Object.values(techData);
@@ -368,13 +365,16 @@ export class EditFormComponent implements OnInit, OnChanges {
           price: updateData.price,
           user_id: this.Admin_id,
           status: 'active',
+          total_duration: this.allVideosDuration
+            ? this.allVideosDuration.toFixed(0)
+            : this.totalDuration,
           course_include: this.selectedCourseIncludes,
-          files: this.courseDocument
-            ? this.courseDocument
-            : this.previousDocData,
+          files:
+            this.courseDocument == undefined
+              ? this.previousDocData
+              : this.courseDocument,
         },
       };
-
       // Post api call here
       this.apiService
         .updateContent(this.edituserLearnings.id, updateCourseData)
@@ -414,6 +414,8 @@ export class EditFormComponent implements OnInit, OnChanges {
   public courseDoc() {
     if (this.selectedCourseIncludes.includes('Documents')) {
       this.showDocuments = true;
+    } else {
+      this.showDocuments = false;
     }
   }
 
@@ -434,6 +436,9 @@ export class EditFormComponent implements OnInit, OnChanges {
       }
       if (!this.selectedCourseIncludes.includes('Documents')) {
         this.showDocuments = false;
+      }
+      if (value === 'Documents') {
+        this.previousDocData = null;
       }
     }
   }

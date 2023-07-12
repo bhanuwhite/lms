@@ -36,9 +36,16 @@
             class="card-img-top" />
           <div *ngIf="data.attributes.placeholder_img.data == null" class="card-header d-flex justify-content-center"
             style="height: 200px; cursor: pointer">
-          <div class="d-flex align-items-center" >
-            <b *ngIf="data.attributes.technologies" class="fs-4"> {{data.attributes.technologies['1']}} </b>
-          </div>
+
+            <ng-container *ngIf="data.attributes.technologies">
+              <div>
+                <div *ngFor="let tech of data.attributes.technologies | keyvalue" class="d-flex flex-column justify-content-center align-items-center p-1">
+                  <p class="fs-4 fw-bold">{{ tech.value }}</p>
+                </div>
+              </div>
+
+            </ng-container>
+
             <b *ngIf="!data.attributes.technologies"> No preview Image </b>
           </div>
         </div>

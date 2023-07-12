@@ -414,6 +414,7 @@ export class ContentComponent implements OnInit, OnDestroy {
       const courseData = {
         data: {
           technologies: this.data,
+          level: this.selectedLevel,
           subject: this.selectedSubject,
           content: this.courseContentVideo,
           description: this.addCourse.value.description,
@@ -423,9 +424,7 @@ export class ContentComponent implements OnInit, OnDestroy {
           price: this.addCourse.value.price,
           user_id: this.Admin_id,
           status: 'active',
-          level: this.selectedLevel,
           total_duration: this.allVideosDuration.toFixed(0),
-
           course_include: this.addCourse.value.coursesIncludes,
           files: this.courseDocument,
         },
