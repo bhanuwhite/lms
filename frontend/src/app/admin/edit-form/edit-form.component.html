@@ -40,8 +40,11 @@
             alt="" pTooltip="Click to change image" tooltip [style]="{'height':'80px','width':'80px'}"
             class=" ms-5 rounded-pill">
 
-          <img src="" alt="No Image" *ngIf="edituserLearnings.attributes.placeholder_img.data == null"
-            [style]="{'height':'80px','width':'80px'}" class=" ms-5 rounded-pill">
+          <ng-container
+            *ngIf="edituserLearnings.attributes.placeholder_img.data == null || edituserLearnings.attributes.placeholder_img.data == undefined">
+            <img [src]="imgSrc? imgUrl+imgSrc:''" alt="No Image" [style]="{'height':'80px','width':'80px'}"
+              class=" ms-5 rounded-pill">
+          </ng-container>
 
         </label>
         <span class="p-float-label">
@@ -56,17 +59,21 @@
 
       <div class="field mt-2 w-100">
         <label for="courseVideos">
-          Content Video (mp4) :
-          <ng-container class="d-flex flex-wrap " *ngIf="newVideosUpload.length == 0 ; else newVideos">
-            <div *ngFor="let videos of edituserLearnings.attributes.content?.data">
-              <video [src]="videos.attributes.url" class="m-2" style="height: 100px;width: 100px;"></video>
+          Content Video (mp4/MPEG/WMV/FLV) :
+          <ng-container *ngIf="newVideosUpload.length == 0 ; else newVideos">
+            <div class="d-flex flex-wrap ">
+              <div *ngFor="let videos of edituserLearnings.attributes.content?.data">
+                <video [src]="imgUrl+videos.attributes.url" class="m-2" style="height: 100px;width: 100px;"></video>
+                <p class="text-truncate" [style]="{'width': '100px'}" [pTooltip]="videos.attributes.alternativeText"
+                  tootltip><b>{{ videos.attributes.alternativeText }}</b></p>
+              </div>
             </div>
           </ng-container>
           <ng-template #newVideos>
             <div class="d-flex">
               <div *ngFor="let videos of newVideosUpload">
                 <div>
-                  <video [src]="videos.url" class="m-2" style="height: 100px;width: 100px;"></video>
+                  <video [src]="imgUrl+videos.url" class="m-2" style="height: 100px;width: 100px;"></video>
                 </div>
               </div>
             </div>
@@ -170,14 +177,14 @@
         <ng-container *ngIf="showDocuments">
           <div class="field mt-2 w-100">
             <label for="uploadFile"> Uploaded Documents (pdf/csv/excel/zip) <span class="text-danger fs-5">*</span> :
-              <div class="cursor-pointer" *ngIf="edituserLearnings.attributes.files.data !=null">
+              <div class="cursor-pointer" *ngIf="previousDocData != null">
                 <iframe
                   [src]="getSafeFileUrl(edituserLearnings.attributes.files.data[0]?.attributes.url,edituserLearnings.attributes.files.data[0]?.attributes.ext)"
                   width="100%" height="100px"></iframe>
                 <p> {{edituserLearnings.attributes.files.data[0]?.attributes.name}} </p>
               </div>
             </label>
-            <span class="p-float-label" *ngIf="edituserLearnings.attributes.files.data == null">
+            <span class="p-float-label" *ngIf="previousDocData == null">
               <input type="file" id="uploadFile" accept=".pdf,.csv,.gif,.xls,.xlsx"
                 class="bg-light-grey input-shadow w-100 p-inputtext" pInputText (change)="courseDocSelected($event)" />
             </span>
