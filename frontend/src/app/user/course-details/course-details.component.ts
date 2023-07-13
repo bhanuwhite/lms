@@ -275,11 +275,7 @@ console.log(this.streamVideo);
   public getSingleCourseObj(): Promise<void> {
 
     return new Promise<void>((resolve, reject) => {
-      // this.activeParam.params.subscribe((res) => {
-      //   this.courseId = res['id'];
-      //   console.log(res['id']);
 
-      // });
       this.apiService .getUserHasCourseById(this.activeParamId).subscribe((res) => {
           // console.log(res.data.attributes?.course_ids?.data[0]);
 
