@@ -90,20 +90,22 @@
           <b class="ms-2"> {{singleContent.attributes.subject}} </b>
         </div>
 
-        <ng-container *ngIf="singleContent.attributes.content.data !== null">
-          <div class="d-flex lecture_details col-lg-12 mt-3">
-            <div class="col-lg-6">
-              <span> No.of Lectures - <b>{{ singleContent.attributes.content.data.length }} </b> </span>
-            </div>
-            <div class="col-lg-6 d-flex align-items-center ">
-              <span class="material-icons">
-                schedule
-              </span>
-              <span class="ms-2 "> Duration - <b>{{(singleContent.attributes.total_duration/3600).toFixed(1)}} hrs</b>
-              </span>
-            </div>
+        <div class="d-flex lecture_details col-lg-12 mt-3">
+          <div class="col-lg-6">
+            <span> No.of Lectures - <b>{{ singleContent.attributes.content.data !== null ?
+                singleContent.attributes.content.data.length : '' }} </b> </span>
+            <span> No.of Lectures - <b>{{ singleContent.attributes.content.data !== null ?
+                singleContent.attributes.content.data.length : '' }} </b> </span>
           </div>
-        </ng-container>
+          <div class="col-lg-6 d-flex align-items-center mb-2 ">
+            <span class="material-icons">
+              schedule
+            </span>
+            <span class="ms-2 "> Duration - <b>{{(singleContent.attributes.total_duration/3600).toFixed(1)}} hrs</b>
+            </span>
+          </div>
+        </div>
+
 
         <div class="d-flex button_wrapper my-2 justify-content-between align-items-center">
           <div class="my-3 d-flex align-items-center">

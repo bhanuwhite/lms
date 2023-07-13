@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tracks",
+  "info": {
+    "singularName": "track",
+    "pluralName": "tracks",
+    "displayName": "track",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "tracking_id": {
+      "type": "biginteger"
+    },
+    "total_duration": {
+      "type": "biginteger"
+    },
+    "time_consumed": {
+      "type": "biginteger"
+    },
+    "user_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "course_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::course-content.course-content"
+    }
+  }
+}

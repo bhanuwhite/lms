@@ -12,18 +12,29 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "my_courses": {
+    "course_ids": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::course.course"
+      "target": "api::course-content.course-content"
+    },
+    "progress_percentage": {
+      "type": "biginteger"
     },
     "user_id": {
-      "type": "biginteger",
-      "required": true
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     },
-    "course_id": {
-      "required": true,
-      "type": "biginteger"
+    "time_consumed": {
+      "type": "biginteger",
+      "default": "0"
+    },
+    "total_duration": {
+      "type": "biginteger",
+      "default": "0"
+    },
+    "transactionId": {
+      "type": "text"
     }
   }
 }
