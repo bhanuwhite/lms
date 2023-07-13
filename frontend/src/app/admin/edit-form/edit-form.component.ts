@@ -55,12 +55,13 @@ export class EditFormComponent implements OnInit, OnChanges {
   public imgSrc!: string;
   public imageFileData!: string;
   public selectedCourseIncludes: string[] = [];
-  public newVideosUpload: any[] = [];
+  public previousVideosData: any[] = [];
   public textValue!: string;
   public preiviousImgData: any = [];
   public previousDocData: any = [];
   public technologyArr: string[] = [];
   public technologyData: any;
+  public newVideosUpload: any[] = [];
 
   Technologies: any[] = [
     { label: 'Angular', value: 'Angular' },
@@ -163,9 +164,12 @@ export class EditFormComponent implements OnInit, OnChanges {
   }
   totalDuration!: number;
   editingCourseData() {
+    // console.log(this.edituserLearnings);
     this.showDocuments = false;
     this.courseDoc();
     const formValues = this.edituserLearnings.attributes;
+    this.previousVideosData = formValues.content.data;
+
     this.technologyArr = Object.values(formValues.technologies);
     this.totalDuration = formValues.total_duration;
     this.selectedSubject = formValues.subject;
@@ -355,7 +359,7 @@ export class EditFormComponent implements OnInit, OnChanges {
           technologies: this.technologyData,
           level: this.selectedLevel,
           subject: this.selectedSubject,
-          content: this.courseContentVideo,
+          content: this.courseContentVideo.length == 0 ? this.previousVideosData : this.courseContentVideo  ,
           description: updateData.description,
           link: updateData.link,
           name: updateData.name,
@@ -389,10 +393,12 @@ export class EditFormComponent implements OnInit, OnChanges {
             this.getcontent.emit();
             this.showimageFileData = true;
             this.showVideoFileData = true;
-            this.newVideosUpload = [];
+            this.previousVideosData = [];
             this.imgSrc = '';
             this.courseContentImage = [];
             this.preiviousImgData = [];
+            this.courseContentVideo = []
+            this.newVideosUpload = []
             this.textValue = '';
           } catch (error) {
             this.messageService.add({

@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "assessments",
+  "info": {
+    "singularName": "assessment",
+    "pluralName": "assessments",
+    "displayName": "assessment",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "level": {
+      "type": "enumeration",
+      "enum": [
+        "beginner",
+        "intermediate",
+        "advanced"
+      ],
+      "enumName": "allowed"
+    },
+    "question": {
+      "type": "text"
+    },
+    "q_options": {
+      "type": "json"
+    },
+    "course_name": {
+      "type": "string"
+    },
+    "quiz_type": {
+      "type": "enumeration",
+      "enum": [
+        "exam",
+        "certification"
+      ]
+    },
+    "answers": {
+      "type": "richtext"
+    }
+  }
+}

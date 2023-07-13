@@ -1,0 +1,121 @@
+{
+  "kind": "collectionType",
+  "collectionName": "course_contents",
+  "info": {
+    "singularName": "course-content",
+    "pluralName": "course-contents",
+    "displayName": "course_content",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "price": {
+      "type": "biginteger"
+    },
+    "content": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "videos",
+        "files"
+      ]
+    },
+    "link": {
+      "type": "text"
+    },
+    "placeholder_img": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "active",
+        "block"
+      ]
+    },
+    "creator_id": {
+      "type": "biginteger"
+    },
+    "no_of_purchases": {
+      "type": "biginteger",
+      "default": "0"
+    },
+    "level": {
+      "type": "enumeration",
+      "enum": [
+        "Beginner",
+        "Intermediate",
+        "Advanced"
+      ]
+    },
+    "total_duration": {
+      "type": "biginteger",
+      "default": "0"
+    },
+    "video_name": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "enumeration",
+      "enum": [
+        "Business development",
+        "Database",
+        "Information & cyber security",
+        "Software development",
+        "Web development"
+      ],
+      "enumName": "allowed"
+    },
+    "discount": {
+      "type": "biginteger",
+      "default": "0"
+    },
+    "files": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "course_include": {
+      "type": "json"
+    },
+    "rating": {
+      "type": "integer",
+      "max": 5,
+      "min": 1
+    },
+    "review": {
+      "type": "text"
+    },
+    "docs": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "technologies": {
+      "type": "json"
+    }
+  }
+}

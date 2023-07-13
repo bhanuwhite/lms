@@ -1,0 +1,579 @@
+Hello Good Evening Sir,
+
+
+Today's Work:
+
+1) Today as I was going deeper into the concepts of Node.Js I found some JavaScripts topics which we really need to be good at, like
+	
+	a) Lexical Structure
+	b) Expressions
+	c) Data Types
+	d) Classes
+	e) Variables
+	f) Functions
+	g) this operator
+	h) Arrow Functions
+	i) Loops
+	j) Scopes
+	k) Arrays
+	l) Template Literals
+	m) Strict Mode
+	n) ECMAScript 2015 (ES6)
+	
+	I just took a reference to see if I'm okay with these topics.
+
+
+	These above Asynchronous programming topics I have to go through a bit.
+	
+	a) Asynchronous programming and callbacks
+	b) Timers
+	c) Promises	
+	d) Async and Await	
+	e) Closures	
+	f) The Event Loop
+
+
+2) I was following the official documentation of Node.Js (https://nodejs.dev/en/learn/) to get the concepts more clear.  
+
+
+
+Thanks and regards 
+Shubham Kumar Das
+Ahex Technologies Pvt. Ltd.
+
+
+
+Good evening sir
+
+Today's Work
+
+Today I ran a code on NodeJs, ExpressJs and MongoDB to add data into the database
+Faced a lot of error since mainly 'StrictQuery' and 'triggerUncaughtException' on the mongodb side.,
+Which at the end was able to handle and got the desired result and added data to the database.,
+
+Sincerely,
+Shubham Kumar Das
+
+
+Hello Good Evening mam 
+
+I was facing lot of errors just at the time of connection to mongodb which later I was able to tackle and added the data to the database.
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+Good Evening sir
+
+Today's Work
+
+Today I worked on Json Web Token (JWT) to store the token in cookies,
+So that whenever we login cookies matches the stored token with newly built tokens,
+
+I wrote code on Json Web Token and did the authorization and got the desired result,
+
+Also I got the connection using MongoDB Atlas and was able to connect with the mongoDB using mongoose and displayed the data in the database.
+Using Cluster under the collections : "test.users" and 
+
+Used the functionality of JWT of jwt.sign(_id,) and jwt.verify().,
+The use of jwt.sign({_id:object},(string:secretKey);
+and the use to verify using jwt.verify(obj);
+
+Also read the documentaion of Joi which will help in making schema's for validation purpose.
+
+
+Tomorrow's Work
+
+Tomorrow I will be constructing a singup and login page, and will validate the authentication and authorization through middlewares.,
+Using tokens stored in cookies. 
+
+
+
+
+Sincerely,
+Shubham Kumar Das
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Good Evening sir
+
+Today's Work
+
+Today I worked on (two-factor-authentication) 2FA using NodeJs
+Using speakeasy : It is a one-time passcode generator, ideal for use in two-factor authentication, 
+that supports Google Authenticator and other two-factor devices.
+
+Also working with geoLocator using : node-geocoder
+It is a node library used for geocoding and reverse geocoding
+Which also shows latitude, longitude. of a geo-location.
+
+Sincerely,
+Shubham Kumar Das
+-----------------------------------------------------------------------------------
+
+Good Evening sir
+
+Today's Work
+
+Today I worked on Verifying OTP 
+And Using gir bash pushed the code on github
+Also working on API regarding visits for dashboard
+Working with new Schema as visits has more inputs 
+
+
+Sincerely,
+Shubham Kumar Das
+
+--------------------------------------------------------------------------------------
+
+Good Evening Sir
+
+Today's Work
+
+Today I learnt to use Jwt tokens for sign_in a user
+and use of Jwt to verify a user
+Also learnt about the functionality of forget password (API)
+also to change password when a user is already logged in
+
+
+Sincerely,
+Shubham Kumar Das
+
+
+---------------------------------------------------------------------------------------
+
+Good Evening Sir,
+
+Today's Work,
+
+Today I studied Express js with extra properties, method and events of:
+
+	1) express() 
+	2) application
+	3) request
+	4) response
+	5) router
+
+Also did some research on to work Express with mongoDB
+It's connection and data storing.,
+
+
+
+Sincerely,
+Shubham Kumar Das
+
+----------------------------------------------------------------------------------------
+
+Good Evening Sir,
+
+Today's Work,
+
+
+Today I worked on to resolve the code as per requirement
+To upload images and videos
+Used the multer package
+Changed path directory getting saved at uploading
+
+Also worked with authorization code in swagger 
+For accepting jwt token  
+And returning the desired result
+
+
+Sincerely,
+Shubham Kumar Das
+
+_______________________________________________________________________________________________
+
+Good Evening Sir,
+
+Today's Work,
+
+Today I worked with the visits and the users api
+To get multiple image and videos upload
+And its working as needed
+
+Also, worked on some modification and opmization of the code.
+For quick response.
+
+
+Sincerely,
+Shubham Kumar Das
+_________________________________________________________________________________________________
+
+Good Evening Sir,
+
+Today's Work,
+
+Today I worked on exif package 
+That helps to upload files
+And to get the metadata of the file 
+Uploaded in jpg, jpeg, png format
+
+Also today I research on twilio 
+It helps to send messages to user
+For OTP connfirmation and all other needs
+
+
+Sincerely,
+Shubham Kumar Das
+___________________________________________________________________________________________________
+
+// routes.js
+const express = require('express');
+const router = express.Router();
+const User = require('./user');
+
+router.post('/login', async (req, res) => {
+  const { username, pin } = req.body;
+
+  try {
+    // Find the user by username
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      // User not found
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    // Check if the PIN matches
+    if (user.pin !== pin) {
+      // Invalid PIN
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    // PIN is correct, login successful
+    return res.json({ message: 'Login successful' });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: 'Server error' });
+  }
+});
+
+module.exports = router;
+
+_________________________________________________________________________________________________________
+
+Good Evening Sir,
+
+Today's Work,
+
+Today I worked on the visit api's 
+For displaying all the created visits
+By a surveyor at once 
+Using visit/user/:user_id as the route of the api
+And also made some required changes in the api
+
+Sincerely,
+Shubham Kumar Das
+
+__________________________________________________________________________________________________________
+
+Good Evening Sir,
+
+Today's Work,
+
+Today, I work on building Microservices 
+Using Node JS with Express JS and Mongoose. 
+Wrote API for Online shopping for :
+	i) Customers
+	ii) Products 
+	iii) Orders
+With creating files under scr for
+	i)  API
+	ii) Database
+	iii)Services
+	iv) Utils
+	v)  Config 
+ 
+
+Sincerely,
+Shubham Kumar Das    
+_______________________________________________________________________________________________________________
+
+Good Evening Sir,
+
+Today's Work,
+
+Today I worked on LMS with 
+	i)  Node JS
+	ii) Strapi
+	iii)Postgres SQL
+
+The app is running good 
+And I researched on the Strapi and postgres SQL
+To get familiar with the application 
+
+
+Sincerely.,
+Shubham Kumar Das
+__________________________________________________________________________________________________________________
+
+Good Evening Sir,
+
+Today's Work,
+
+Today I worked on LMS with 
+	i)  Node JS
+	ii) Strapi
+	iii)Postgres SQL
+
+Reaserched on how to write custom API's using Strapi 
+
+Also worked on the payment gateway for the LMS
+Some research on the payment gateway  
+
+
+Sincerely.,
+Shubham Kumar Das
+
+______________________________________________________________________________________________________________
+
+Good Evening Sir,
+
+Today's Work,
+
+Today I worked on LMS with  
+	Register and 
+	Login APIs
+
+And corrected the code as per required 
+
+And learn more about the strapi and postgres SQL  
+
+
+Sincerely.,
+Shubham Kumar Das
+____________________________________________________________________________________________________________________
+
+Good Evening Sir,
+
+Today's Work,
+
+Today I worked on the APIs for
+	content-library
+	courses
+	quiz
+
+And also added swagger documentaion to the LMS project
+
+Also learning how to create custom API using strapi
+
+Pushed all the code on the github
+
+
+Sincerely,
+Shubham Kumar Das
+
+___________________________________________________________________________________________________________________________
+ 
+
+Good Evening Sir,
+
+Today's Work,
+
+Today I worked on the APIs customized code to display media files also
+Worked on content-library to fetch media and attributes
+Worked on courses to fetch media and attributes
+
+And also added media data and attributes to swagger documentaion to the LMS project
+
+Pushed all the code to the github repo.
+
+
+
+Sincerely,
+Shubham Kumar Das
+
+Tomorrow work 
+
+Add tables for the mapping of the user dashboad for the courses he has taken and show all his activity
+Also for the free courses show in the dash board
+________________________________________________________________________________________________________________________________
+
+Good Evening Sir,
+
+Today's Work,
+
+Today I worked on to add data for :
+	user-has-course and
+	user-transaction 
+And tested all the routes all running well
+at localhost:
+ 
+Also added key_id and key_secret from
+Rezorpay SDK for the payment gateway.,
+
+
+Sincerely,
+Shubham Kumar Das
+_____________________________________________________________
+
+Key Id == rzp_test_fv78mxq1yb7Yj6
+_____________________________________________________________
+
+key_id      ==   rzp_test_fv78mxq1yb7Yj6
+key_secret  ==   q1U3YTaltzE3g7agawBHK3bQ
+_____________________________________________________________
+
+http://206.189.140.51:1337/admin/auth/register?registrationToken=5fb445cfec527e01a23f8fd4934538bb4529bf9f
+_________________________________________________________________________________________________________
+
+Today worked on the Razorpay account, key_id and key_secret created and 
+Implemented the code some authentication error occured trying to figure out the issue.
+======================================
+
+'use strict'
+
+const express = require("express");
+const app = express();
+const port = 8080;
+const bodyParser = require("body-parser");
+const Razorpay = require("razorpay");
+app.use(require("body-parser").json());
+var instance = new Razorpay({
+  key_id: 'rzp_test_fv78mxq1yb7Yj6',
+  key_secret: 'q1U3YTaltzE3g7agawBHK3bQ',
+});
+
+
+
+app.get("/", (req, res) => {
+  res.sendFile("standard.html", { root: __dirname });
+});
+
+
+app.post("/create/orderId", (req, res) => {
+  console.log("create orderId request", req.body);
+  var options = {
+    amount: req.body.amount, // amount in the smallest currency unit
+    currency: "INR",
+    receipt: "rcp1",
+  };
+  instance.orders.create(options, function (err, order) {
+    console.log(order);
+    res.send({ orderId: order.id });
+  });
+
+});
+
+app.post("/api/payment/verify", (req, res) => {
+  
+  let body = req.body.response.razorpay_order_id + "|" + req.body.response.razorpay_payment_id;
+
+  var crypto = require("crypto");
+  var expectedSignature = crypto.createHmac('sha256', 'q1U3YTaltzE3g7agawBHK3bQ')
+                                .update(body.toString())
+                                .digest("hex");
+                                console.log("sig received ", req.body.response.razorpay_signature);
+                                console.log("sig generated ", expectedSignature);
+  var response = { signatureIsValid: "false" };
+  if (expectedSignature === req.body.response.razorpay_signature)
+    response = { signatureIsValid: "true" };
+        res.send(response);
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
+
+
+
+
+
+routes
+
+
+
+'use strict'
+// path: ./src/api/order/routes/custom-order.js
+
+module.exports = {
+    routes: [
+      {
+        method: 'POST',
+        path: '/create/orderId',
+        handler: 'custom.exampleAction',
+      },
+    ],
+  };
+
+  module.exports = {
+    routes: [
+      {
+        method: 'POST',
+        path: '/payment/verify',
+        handler: 'custom.exampleAction',
+      },
+    ],
+  };
+
+Good Evening Sir,
+
+Today's Work,
+
+Today I worked on to add data for :
+	user-has-course and
+	user-transaction 
+
+Worked with strapi with the content type
+user-has-course and user-transaction to
+populate the data inside the relations
+of the courses and the user-has-courses
+
+
+Sincerely,
+Shubham Kumar Das
+
+
+Hi Team
+
+Today, I have completed the following activities:
+
+Task 1
+Task 2
+Task 3
+Task 4
+
+
+Tomorrow, I plan on completing the following activities:
+
+Task 1
+Task 2
+Task 3
+Task 4
+
+Goals for the week:
+
+Task 1
+Task 2
+Task 3
+Task 4
+Other Updates :
+
+
+Good Evening Sir,
+
+Today, I have completed the following activities:
+
+Today I worked on to free courses on LMS project
+
+Added API for community forum to make communities for discussion
+Added fiels like: id, profile, description, community_name
+
+Tomorrow, I plan on completing the following activities:
+
+The API for Order, Revenue, Users and Total Courses
+For the Admin Dashboard
+
+Goals for the week:
+
+Working on LMS Project
+
+
+Sincerely,
+Shubham Kumar Das
