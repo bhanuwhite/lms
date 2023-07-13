@@ -412,6 +412,7 @@ export class EditFormComponent implements OnInit, OnChanges {
   }
 
   public courseDoc() {
+
     if (this.selectedCourseIncludes.includes('Documents')) {
       this.showDocuments = true;
     } else {
