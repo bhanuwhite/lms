@@ -44,8 +44,8 @@
                         <td class=" p-3">{{ purchasingCourseDetails?.course_ids[0]?.updatedAt | date }} </td>
                         <td class=" p-3"> Txn123456789</td>
                         <td class=" p-3">1 </td>
-                        <td class=" p-3"> {{purchasingCourseDetails?.course_ids[0].Price }} </td>
-                        <td class=" p-3"> {{purchasingCourseDetails?.course_ids[0].Price }} </td>
+                        <td class=" p-3"> {{purchasingCourseDetails?.course_ids[0].price | currency :'INR'}} </td>
+                        <td class=" p-3"> {{purchasingCourseDetails?.course_ids[0].price | currency :'INR' }} </td>
                     </tr>
 
                 </tbody>

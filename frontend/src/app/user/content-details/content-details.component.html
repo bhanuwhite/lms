@@ -125,50 +125,52 @@
     <div class="row mt-4">
 
       <div class="col-lg-7 shadow-4 rounded">
-        <div class="surface-section mt-3 h-15rem" >
+        <div class="surface-section mt-3 h-15rem"  >
           <h2><b>Course Content</b></h2>
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <div class="ud-text-sm" data-purpose="curriculum-stats">
-              <span class="curriculum--content-length--5Nict">
-                <b> {{ singleCourse.attributes.content.data?.length }}</b>
-                lectures •
-                <span>
-                  <b>
-                    {{
-                    (singleCourse.attributes.total_duration / 3600).toFixed(
-                    1
-                    )
-                    }}</b>
-                  hrs</span></span>
+          <div  *ngIf="singleCourse?.attributes?.content.data">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <div class="ud-text-sm" data-purpose="curriculum-stats">
+                <span class="curriculum--content-length--5Nict">
+                  <b> {{ singleCourse.attributes.content.data?.length }}</b>
+                  lectures •
+                  <span>
+                    <b>
+                      {{
+                      (singleCourse.attributes.total_duration / 3600).toFixed(
+                      1
+                      )
+                      }}</b>
+                    hrs</span></span>
+              </div>
             </div>
-          </div>
-          <div class="h-10rem" style="overflow-y:scroll;">
-            <p-accordion >
-              <p-accordionTab *ngFor="let content of singleCourse.attributes.content.data">
-                <ng-template class="d-flex" pTemplate="header">
-                  <div>
-                    {{ content.attributes.name.slice(0, -4) }}
-                  </div>
-                </ng-template>
-                <div class="intro-list">
+            <div class="h-10rem" style="overflow-y:scroll;">
+              <p-accordion >
+                <p-accordionTab *ngFor="let content of singleCourse.attributes.content.data">
+                  <ng-template class="d-flex" pTemplate="header">
+                    <div>
+                      {{ content.attributes.name.slice(0, -4) }}
+                    </div>
+                  </ng-template>
+                  <div class="intro-list">
 
-                  <ul>
-                    <li
-                      class="d-flex justify-content-between align-items-center"
-                    >
-                      <div class="d-flex align-items-center">
-                        <div>
-                          <video [src]=" img_url+content.attributes?.url" height="120px" width="150px">
-                          </video>
+                    <ul>
+                      <li
+                        class="d-flex justify-content-between align-items-center"
+                      >
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <video [src]=" img_url+content.attributes?.url" height="120px" width="150px">
+                            </video>
+                          </div>
+                          <i class=" pi pi-chevron-right m-2 ml-4 "></i>
+                          <p class="m-0"> {{ content.attributes.alternativeText }}</p>
                         </div>
-                        <i class=" pi pi-chevron-right m-2 ml-4 "></i>
-                        <p class="m-0"> {{ content.attributes.alternativeText }}</p>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </p-accordionTab>
-            </p-accordion>
+                      </li>
+                    </ul>
+                  </div>
+                </p-accordionTab>
+              </p-accordion>
+            </div>
           </div>
 
         </div>
