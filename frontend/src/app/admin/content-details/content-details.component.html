@@ -142,7 +142,7 @@
                     [style]="{'height':'200px','width':'100% ','border-radius':'30px'}"></video>
                 </div>
                 <div class="  fs-6 col-lg-8 col-md-12 mb-2 ">
-                  <p>This is some content from a media component. You can replace this with any content and adjust it
+                  <p> {{content.attributes.alternativeText}} This is some content from a media component. You can replace this with any content and adjust it
                     as needed.</p>
                 </div>
               </div>
@@ -157,10 +157,10 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <ng-container *ngIf="singleContent.attributes.course_include.length !=0">
-                      <b>Course included :</b>
-                      <div *ngFor="let course of courseIncludes" class="ms-4">
-                        <i class="pi pi-angle-right"> </i>
-                        <span> {{course}}</span>
+                      <h2><b>Course included :</b></h2>
+                      <div *ngFor="let course of courseIncludes" class=" d-flex align-items-center">
+                        <i class="pi pi-angle-right me-3"> </i>
+                        <h4 class="m-0"> {{course}}</h4>
                       </div>
                     </ng-container>
                   </div>
