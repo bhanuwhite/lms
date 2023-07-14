@@ -67,6 +67,8 @@ export class ContentDetailsComponent implements OnInit {
     return new Promise<void>((resolve, reject) => {
       const getLocalData = JSON.parse(localStorage.getItem('user')!);
       this.userID = getLocalData.id;
+
+
       resolve();
       (error: any) => {
         reject(error);
@@ -84,10 +86,15 @@ export class ContentDetailsComponent implements OnInit {
   libDataIds: number[] = [];
 
   public gettingUserHasCourse(): Promise<void> {
+
     return new Promise((resolve, reject) => {
       this.apiService.getUserCourse(this.userID).subscribe((res) => {
+
+
         res.map((resData: any) => {
           this.libDataIds.push(resData.course_ids[0]?.id);
+
+
         });
         resolve(),
           (err: any) => {
@@ -105,12 +112,16 @@ export class ContentDetailsComponent implements OnInit {
     return new Promise<void>((resolve, reject) => {
       this.activeParams.params.subscribe((res) => {
         this.courseId = res['id'];
-        console.log(this.courseId);
+
 
       });
       this.apiService.getSingleContent(this.courseId).subscribe((res) => {
         this.singleCourse = res['data'];
+
+
         this.videoUrl = this.getSafeVideoUrl(res['data'].attributes.link);
+
+
       });
       resolve();
       (error: any) => {
@@ -132,10 +143,15 @@ export class ContentDetailsComponent implements OnInit {
   }
   // Getting Cart courses
   public getCartCourses(): Promise<void> {
+
     return new Promise((resolve, reject) => {
       this.apiService.getUserCart(this.userID).subscribe((res) => {
+
+
         res.map((resObj: CartResponse) => {
           this.userCourseID.push(resObj.course_ids[0]?.id);
+
+
         });
         this.userCourseID = [...new Set(this.userCourseID)];
         this.aboutService.userCartLength(res.length);
@@ -200,6 +216,7 @@ export class ContentDetailsComponent implements OnInit {
 
   public purchases :any;
 
+
   addToLibrary(course: any) {
 console.log(course);
 
@@ -216,7 +233,11 @@ console.log(course);
             user_id: this.userID,
           },
         };
+
+
         this.apiService.postUserHasCourse(courseDetails).subscribe((res) => {
+
+
           this.messageService.add({
             severity: 'success',
             summary: 'Successfully',

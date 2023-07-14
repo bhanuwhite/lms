@@ -50,7 +50,7 @@ export interface courseDetails {
   review: null | string;
   status: string;
   subject: string;
-  technology: string;
+  technologies: {1:string;2:string;3:string;4:string};
   total_duration: string;
   updatedAt: string;
   user_learning: { 0: string; 1: string };
