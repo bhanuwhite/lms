@@ -67,6 +67,8 @@ export class ContentDetailsComponent implements OnInit {
     return new Promise<void>((resolve, reject) => {
       const getLocalData = JSON.parse(localStorage.getItem('user')!);
       this.userID = getLocalData.id;
+      console.log(this.userID);
+
       resolve();
       (error: any) => {
         reject(error);
@@ -84,10 +86,15 @@ export class ContentDetailsComponent implements OnInit {
   libDataIds: number[] = [];
 
   public gettingUserHasCourse(): Promise<void> {
+
     return new Promise((resolve, reject) => {
       this.apiService.getUserCourse(this.userID).subscribe((res) => {
+        console.log(res);
+
         res.map((resData: any) => {
           this.libDataIds.push(resData.course_ids[0]?.id);
+          console.log(this.libDataIds);
+
         });
         resolve(),
           (err: any) => {
@@ -105,16 +112,16 @@ export class ContentDetailsComponent implements OnInit {
     return new Promise<void>((resolve, reject) => {
       this.activeParams.params.subscribe((res) => {
         this.courseId = res['id'];
-        console.log(this.courseId);
+        // console.log(this.courseId);
 
       });
       this.apiService.getSingleContent(this.courseId).subscribe((res) => {
         this.singleCourse = res['data'];
 
-        console.log(this.singleCourse);
+        // console.log(this.singleCourse);
 
         this.videoUrl = this.getSafeVideoUrl(res['data'].attributes.link);
-        console.log(this.videoUrl);
+        // console.log(this.videoUrl);
 
       });
       resolve();
@@ -137,10 +144,15 @@ export class ContentDetailsComponent implements OnInit {
   }
   // Getting Cart courses
   public getCartCourses(): Promise<void> {
+
     return new Promise((resolve, reject) => {
       this.apiService.getUserCart(this.userID).subscribe((res) => {
+        console.log(res);
+
         res.map((resObj: CartResponse) => {
           this.userCourseID.push(resObj.course_ids[0]?.id);
+          //  console.log(this.userCourseID);
+
         });
         this.userCourseID = [...new Set(this.userCourseID)];
         this.aboutService.userCartLength(res.length);
@@ -205,6 +217,7 @@ export class ContentDetailsComponent implements OnInit {
 
   public purchases :any;
 
+
   addToLibrary(course: any) {
 console.log(course);
 
@@ -221,7 +234,11 @@ console.log(course);
             user_id: this.userID,
           },
         };
+        console.log(courseDetails);
+
         this.apiService.postUserHasCourse(courseDetails).subscribe((res) => {
+          console.log(res);
+
           this.messageService.add({
             severity: 'success',
             summary: 'Successfully',
