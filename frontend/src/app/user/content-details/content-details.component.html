@@ -1,168 +1,168 @@
-<div class="content_part_wrapper">
-  <div class="container-fluid px-4 py-4">
+<div class="">
+  <div class="container-fluid px-4 py-4" *ngIf="singleCourse">
     <div class="row">
-      <div class="d-flex col-lg-12">
-        <div class="col-lg-7">
-          <h1 style="font-size: 1.5rem">
-            <b>{{ singleCourse.attributes.name }}</b>
-          </h1>
-          <p class="me-5">{{ singleCourse.attributes.description }}</p>
-          <div class="mt-5">
-            <h3><b>Course Includes:</b></h3>
+      <div class="col-lg-7 shadow-4 rounded p-3">
+        <h1 style="font-size: 1.5rem">
+          <b>{{ singleCourse.attributes.name }}</b>
+        </h1>
+        <p class="me-5">{{ singleCourse.attributes.description }}</p>
+        <div class="mt-5">
+          <h3><b>Course Includes:</b></h3>
+          <div class="row" style="
+              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+                sans-serif;
+            ">
+            <div class="col-lg-4">
+              <div class="d-flex align-items-center py-2">
+                <i class="pi pi-video me-2 mt-1"></i>
+                <h4>
+                  Duration of Course
+                  <b>
+                    {{
+                    (singleCourse.attributes.total_duration / 3600).toFixed(1)
+                    }}
+                    hrs.
+                  </b>
+                </h4>
+              </div>
 
-            <div
-              class="row"
-              style="
-                font-family: 'Gill Sans', 'Gill Sans MT', Calibri,
-                  'Trebuchet MS', sans-serif;
-              "
-            >
-              <div class="col-lg-4">
-                <div class="d-flex align-items-center py-2">
-                  <i class="pi pi-video me-2 mt-1"></i>
-                  <h4>
-                    Duration of Course
-                    <b>
-                      {{
-                        (singleCourse.attributes.total_duration / 3600).toFixed(
-                          1
-                        )
-                      }}
-                      hrs.
-                    </b>
-                  </h4>
-                </div>
-
-                <div class="d-flex align-items-center py-2">
-                  <i class="pi pi-video me-2 mt-1"></i>
-                  <h4>
-                    No. of Lectures :
-                    <b> {{ singleCourse.attributes.content.data?.length }} </b>
-                  </h4>
-                </div>
+              <div class="d-flex align-items-center py-2">
+                <i class="pi pi-video me-2 mt-1"></i>
+                <h4>
+                  No. of Lectures :
+                  <b> {{ singleCourse.attributes.content.data?.length }} </b>
+                </h4>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="col-lg-5">
-          <div
-            *ngIf="
-              singleCourse?.attributes?.content.data == null &&
-              singleCourse?.attributes?.link != null
-            "
-          >
-            <iframe
-              [src]="videoUrl"
-              frameborder="10"
-              height="250"
-              width="450"
-              style="border-radius: 10px"
-            ></iframe>
-          </div>
-          <div
-            class="m-0"
-            *ngIf="
-              singleCourse?.attributes?.content.data == null &&
-              singleCourse?.attributes?.link == null
-            "
-          >
-            <img
-              height="250px"
-              width="400"
-              [src]="
-                img_url +
-                singleCourse?.attributes?.placeholder_img?.data?.attributes
-                  ?.formats?.thumbnail?.url
-              "
-              alt="image"
-            />
-          </div>
-
-          <div>
-            <div
-              class="video-container"
-              [class.playing]="isPlaying"
-              *ngIf="singleCourse?.attributes?.content.data"
-            >
-              <div>
-                <video
-                  [src]="
-                    img_url +
-                    singleCourse?.attributes?.content.data[0]?.attributes?.url
-                  "
-                  controls
-                  #courseVideoElmt
-                  (click)="playCourse()"
-                ></video>
-                <div class="overlay">
-                  <span
-                    *ngIf="!isPlaying"
-                    class="play-icon material-icons"
-                    (click)="playVideo()"
-                  >
-                    play_circle
-                  </span>
-                </div>
+            <div class="col-lg-6">
+              <div *ngFor="let course of singleCourse.attributes.course_include">
+                <ng-container *ngIf="course == 'Documents'">
+                  <div class="d-flex py-2 align-items-center">
+                    <i class="pi pi-download me-2 mt-1"></i>
+                    <h4>Downloadable Resources.</h4>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="course == 'Certificate'">
+                  <div class="d-flex py-2 align-items-center">
+                    <i class="pi pi-download me-2 mt-1"></i>
+                    <h4>Certification of completion.</h4>
+                  </div>
+                </ng-container>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+      <div class="col-lg-5">
 
-    <div class="row mt-2">
-      <div class="d-flex col-lg-12">
-        <div class="col-lg-7 mt-4">
+
+        <div
+          *ngIf="
+            singleCourse?.attributes?.content.data == null &&
+            singleCourse?.attributes?.link != null
+          "
+        >
+          <iframe
+            [src]="videoUrl"
+            frameborder="10"
+            height="250"
+            width="450"
+            style="border-radius: 10px"
+          ></iframe>
+        </div>
+        <div
+          class="m-0"
+          *ngIf="
+            singleCourse?.attributes?.content.data == null &&
+            singleCourse?.attributes?.link == null
+          "
+        >
+          <img
+            height="250px"
+            width="400"
+            [src]="
+              img_url +
+              singleCourse?.attributes?.placeholder_img?.data?.attributes
+                ?.formats?.thumbnail?.url
+            "
+            alt="image"
+          />
+        </div>
+
+        <div>
           <div
-            class="surface-section mt-3"
+            class="video-container"
+            [class.playing]="isPlaying"
             *ngIf="singleCourse?.attributes?.content.data"
-            style="overflow: auto"
           >
-            <h2><b>Course Content</b></h2>
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <div class="ud-text-sm" data-purpose="curriculum-stats">
-                <span class="curriculum--content-length--5Nict">
-                  <b> {{ singleCourse.attributes.content.data.length }}</b>
-                  lectures •
-                  <span>
-                    <b>
-                      {{
-                        (
-                          singleCourse?.attributes?.total_duration / 3600
-                        ).toFixed(1)
-                      }}</b
-                    >
-                    hrs</span
-                  ></span
+            <div>
+              <video
+                [src]="
+                  img_url +
+                  singleCourse?.attributes?.content.data[0]?.attributes?.url
+                "
+                controls
+                #courseVideoElmt
+                (click)="playCourse()"
+              ></video>
+              <div class="overlay">
+                <span
+                  *ngIf="!isPlaying"
+                  class="play-icon material-icons"
+                  (click)="playVideo()"
                 >
+                  play_circle
+                </span>
               </div>
             </div>
-            <p-accordion>
-              <p-accordionTab
-                *ngFor="let content of singleCourse?.attributes?.content.data"
-              >
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+    <div class="row mt-4">
+
+      <div class="col-lg-7 shadow-4 rounded">
+        <div class="surface-section mt-3 h-15rem" >
+          <h2><b>Course Content</b></h2>
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <div class="ud-text-sm" data-purpose="curriculum-stats">
+              <span class="curriculum--content-length--5Nict">
+                <b> {{ singleCourse.attributes.content.data?.length }}</b>
+                lectures •
+                <span>
+                  <b>
+                    {{
+                    (singleCourse.attributes.total_duration / 3600).toFixed(
+                    1
+                    )
+                    }}</b>
+                  hrs</span></span>
+            </div>
+          </div>
+          <div class="h-10rem" style="overflow-y:scroll;">
+            <p-accordion >
+              <p-accordionTab *ngFor="let content of singleCourse.attributes.content.data">
                 <ng-template class="d-flex" pTemplate="header">
                   <div>
                     {{ content.attributes.name.slice(0, -4) }}
                   </div>
                 </ng-template>
                 <div class="intro-list">
+
                   <ul>
                     <li
                       class="d-flex justify-content-between align-items-center"
                     >
                       <div class="d-flex align-items-center">
                         <div>
-                          <video
-                            [src]="img_url + content.attributes?.url"
-                            height="120px"
-                            width="150px"
-                          ></video>
+                          <video [src]=" img_url+content.attributes?.url" height="120px" width="150px">
+                          </video>
                         </div>
-                        <i class="pi pi-chevron-right m-2 ml-4"></i>
-                        <p class="ms-3">
-                          {{ content.attributes.alternativeText }}
-                        </p>
+                        <i class=" pi pi-chevron-right m-2 ml-4 "></i>
+                        <p class="m-0"> {{ content.attributes.alternativeText }}</p>
                       </div>
                     </li>
                   </ul>
@@ -170,78 +170,80 @@
               </p-accordionTab>
             </p-accordion>
           </div>
+
         </div>
 
-        <div class="col-lg-4 justify-content-center">
-          <div class="d-flex align-items-center">
-            <div
-              class="m-0"
-              *ngIf="parsePrice(singleCourse.attributes.price) != 0"
-            >
-              <h1>
-                <b>{{ singleCourse.attributes.price | currency : "INR" }}</b>
-              </h1>
-            </div>
-            <div
-              class="m-0"
-              *ngIf="parsePrice(singleCourse.attributes.price) == 0"
-            >
-              <h1><b>FREE</b></h1>
-            </div>
+
+      </div>
+      <div class="col-lg-4 justify-content-center">
+        <div class="d-flex align-items-center">
+          <div
+            class="m-0"
+            *ngIf="parsePrice(singleCourse.attributes.price) != 0"
+          >
+            <h1>
+              <b>{{ singleCourse.attributes.price | currency : "INR" }}</b>
+            </h1>
           </div>
-
-          <div class="text-center">
-            <button
-              type="button"
-              class="btn btn-primary mt-3"
-              *ngIf="
-                !userCourseID.includes(singleCourse.id) &&
-                !libDataIds.includes(singleCourse.id) &&
-                parsePrice(singleCourse.attributes.price) != 0
-              "
-              style="width: 95%"
-              (click)="addToCart(singleCourse)"
-            >
-              Add To Cart
-            </button>
-
-            <button
-              type="button"
-              class="btn btn-primary mt-3"
-              *ngIf="
-                !userCourseID.includes(singleCourse.id) &&
-                !libDataIds.includes(singleCourse.id) &&
-                parsePrice(singleCourse.attributes.price) == 0
-              "
-              style="width: 95%"
-              (click)="addToLibrary(singleCourse)"
-            >
-              Add To Library
-            </button>
-
-            <button
-              type="button"
-              class="btn btn-success mt-3"
-              *ngIf="
-                userCourseID.includes(singleCourse.id) &&
-                !libDataIds.includes(singleCourse.id)
-              "
-              style="width: 95%"
-              (click)="GotoCart()"
-            >
-              Go To Cart
-            </button>
-
-            <button
-              type="button"
-              class="btn btn-success mt-3"
-              *ngIf="libDataIds.includes(singleCourse.id)"
-              style="width: 95%"
-              routerLink="/library"
-            >
-              Go to Library
-            </button>
+          <div
+            class="m-0"
+            *ngIf="parsePrice(singleCourse.attributes.price) == 0"
+          >
+            <h1><b>FREE</b></h1>
           </div>
+        </div>
+
+        <div class="text-center">
+          <button
+            type="button"
+            class="btn btn-primary mt-3"
+            *ngIf="
+              !userCourseID.includes(singleCourse.id) &&
+              !libDataIds.includes(singleCourse.id) &&
+              parsePrice(singleCourse.attributes.price) != 0
+            "
+            style="width: 95%"
+            (click)="addToCart(singleCourse)"
+          >
+            Add To Cart
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-primary mt-3"
+            *ngIf="
+              !userCourseID.includes(singleCourse.id) &&
+              !libDataIds.includes(singleCourse.id) &&
+              parsePrice(singleCourse.attributes.price) == 0
+            "
+            style="width: 95%"
+            (click)="addToLibrary(singleCourse)"
+          >
+            Add To Library
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-success mt-3"
+            *ngIf="
+              userCourseID.includes(singleCourse.id) &&
+              !libDataIds.includes(singleCourse.id)
+            "
+            style="width: 95%"
+            (click)="GotoCart()"
+          >
+            Go To Cart
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-success mt-3"
+            *ngIf="libDataIds.includes(singleCourse.id)"
+            style="width: 95%"
+            routerLink="/library"
+          >
+            Go to Library
+          </button>
         </div>
       </div>
     </div>
