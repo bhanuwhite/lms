@@ -149,7 +149,7 @@
         <ng-template pTemplate="footer">
           <div class="row align-items-center">
             <div class="col-lg-5" *ngIf="parsePrice(course.attributes.price) != 0">
-              <h3>
+              <h3 class="m-0">
                 <b>{{ course.attributes.price | currency : "INR" }} </b>
               </h3>
             </div>

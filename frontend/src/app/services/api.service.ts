@@ -265,26 +265,30 @@ export class ApiService {
     return this.http.get<TrackResponse>(`${environment.apiUrl}/api/tracks`);
   }
 
-  // GT by id
-  public getTrackbyId(id: number): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/api/tracks/${id}`);
+  public getAllUsers(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/api/allCourses`);
   }
+
+  // GT by id
+  // public getTrackbyId(id: number): Observable<any> {
+  //   return this.http.get<any>(`${environment.apiUrl}/api/allCourses/${id}`);
+  // }
 
   // POST
-  public postTrack(item: TrackPost): Observable<TrackResponse> {
-    return this.http.post<TrackResponse>(
-      `${environment.apiUrl}/api/tracks`,
-      item
-    );
-  }
+  // public postTrack(item: TrackPost): Observable<TrackResponse> {
+  //   return this.http.post<TrackResponse>(
+  //     `${environment.apiUrl}/api/tracks`,
+  //     item
+  //   );
+  // }
 
   // PUT
-  public putTrack(id: number, item: TrackPut): Observable<TrackResponse> {
-    return this.http.put<TrackResponse>(
-      `${environment.apiUrl}/api/tracks/${id}`,
-      item
-    );
-  }
+  // public putTrack(id: number, item: TrackPut): Observable<TrackResponse> {
+  //   return this.http.put<TrackResponse>(
+  //     `${environment.apiUrl}/api/tracks/${id}`,
+  //     item
+  //   );
+  // }
 
   // DELETE
   public deleteTrack(id: number): Observable<TrackResponse> {

@@ -387,7 +387,8 @@ export class ContentComponent implements OnInit, OnDestroy {
     };
     this.apiService
       .uploadVideoDesc(videoDescObj.id, videoDesc)
-      .subscribe((res) => {});
+      .subscribe((res) => {
+      });
   }
 
   public elements = document.getElementsByTagName('input');
