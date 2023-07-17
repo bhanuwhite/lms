@@ -251,7 +251,7 @@ console.log(course);
             },
           };
           this.apiService
-            .updateContent(course.course_ids[0].id, putCourseBody)
+            .updateContent(course?.course_ids[0].id, putCourseBody)
             .subscribe((res) => {});
         });
       },
