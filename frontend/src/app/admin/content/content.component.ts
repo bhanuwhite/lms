@@ -391,6 +391,9 @@ export class ContentComponent implements OnInit, OnDestroy {
       });
   }
 
+  convertToNumber(value: string): number {
+    return Number(value);
+  }
   public elements = document.getElementsByTagName('input');
 
   private markAllFieldsAsTouched() {

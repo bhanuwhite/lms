@@ -171,7 +171,7 @@ export class QuizDetailsComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
-          detail: 'data Edited...',
+          detail: 'Update successfull..',
         });
 
         location.reload();
