@@ -1,7 +1,7 @@
 <div class="content-inner surface-ground px-3 py-3">
   <div class="surface-ground py-1 px-3">
     <ng-container *ngIf="singleContent">
-      <h1 style="font-size: 1.5rem;"><b> {{singleContent.attributes.name}} Details</b> </h1>
+      <h1 style="font-size: 1.5rem;"><b> {{singleContent.attributes.name}}</b> </h1>
     </ng-container>
     <div class="grid" *ngIf="singleContent">
       <div class="col-12 md:col-6 lg:col-4 ">
@@ -68,7 +68,7 @@
           </div>
         </ng-container>
         <ng-container *ngIf="singleContent.attributes.placeholder_img.data == null">
-          <div class="card border-primary d-flex justify-content-center align-items-center"
+          <div class="card  d-flex justify-content-center align-items-center"
             [style]="{'height':'200px','width':'100%','border-radius':'30px'}">
             <p class="fs-3 fw-bold"> {{singleContent.attributes.technologies['1']}} </p>
           </div>
@@ -137,8 +137,8 @@
           <div class="col-lg-12 col-md-12 col-sm-12">
             <div *ngFor="let content of singleContent.attributes.content.data">
               <div class="row px-2 align-items-center">
-                <div class="col-lg-4 mb-2 col-md-12 flex-shrink-0 border-primary">
-                  <video [src]="img_url+content.attributes.url" controls class="card border-primary mt-2"
+                <div class="col-lg-4 mb-2 col-md-12 flex-shrink-0 ">
+                  <video [src]="img_url+content.attributes.url" controls class="card  mt-2"
                     [style]="{'height':'200px','width':'100% ','border-radius':'30px'}"></video>
                 </div>
                 <div class="  fs-6 col-lg-8 col-md-12 mb-2 ">
@@ -151,13 +151,13 @@
           <div class="col-lg-12 my-3 col-md-12 col-sm-12">
             <div class="card  ">
               <div class="card-header  d-flex align-items-center justify-content-center">
-                <b class="fs-4">Miscellaneous</b>
+                <b class="fs-4">Others</b>
               </div>
               <div class="card-body">
                 <div class="row">
                   <div class="col-lg-6">
                     <ng-container *ngIf="singleContent.attributes.course_include.length !=0">
-                      <h2><b>Course included :</b></h2>
+                      <h2><b>Attachements :</b></h2>
                       <div *ngFor="let course of courseIncludes" class=" d-flex align-items-center">
                         <i class="pi pi-angle-right me-3"> </i>
                         <h4 class="m-0"> {{course}}</h4>
@@ -166,7 +166,7 @@
                   </div>
                   <div class="col-lg-6">
                     <ng-container *ngIf="techArr">
-                      <h2><b> Technology used :</b> </h2>
+                      <h2><b> Technology :</b> </h2>
                       <div class="d-flex align-items-center" *ngFor="let tech of techArr">
                         <i class="pi pi-angle-right me-3"> </i>
                         <h4 class="m-0">{{tech}}</h4>
