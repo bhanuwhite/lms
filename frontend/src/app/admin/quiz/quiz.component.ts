@@ -169,8 +169,6 @@ export class QuizComponent implements OnInit, OnDestroy {
     });
   }
 
-
-
   public getQuizData() {
     this.apiService.getQuiz().subscribe((res) => {});
   }

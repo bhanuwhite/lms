@@ -3,14 +3,11 @@ import {
   ElementRef,
   OnDestroy,
   OnInit,
-  TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { TrackResponseData } from 'src/app/models/track';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environment/environment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -24,8 +21,6 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   public userCourseData: any;
   public Spinner: boolean = true;
   activeParamId!: number;
-  trackResponse: TrackResponseData[] = [];
-  trackCourseIds: number[] = [];
   SingleContentLib$: Subscription = new Subscription();
   LibraryContent$: Subscription = new Subscription();
   PutUserHasCourse$: Subscription = new Subscription();
@@ -41,7 +36,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   course_id!: number;
   accordianTabIndex: number = -1;
   putLibId!: number;
-  progressPercentage!: any
+  progressPercentage!: any;
   @ViewChild('Course_video') Course_video!: ElementRef;
 
   constructor(
@@ -52,23 +47,21 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   ) {}
   ngOnInit() {
     this.activeParams();
-    this.getLocalStoredData()
-    this.getSingleCourseObj()
+    this.getLocalStoredData();
+    this.getSingleCourseObj();
     this.gettingUserHasCourse();
     this.getLibraryData().then(() => this.getRating());
 
     this.getContent();
     // this.getWatchedTime()
-
   }
 
-  public img_url = environment.apiUrl ;
+  public img_url = environment.apiUrl;
 
   public activeParams() {
     this.activeParam.params.subscribe((res) => {
       this.activeParamId = res['id'];
       console.log(this.activeParamId);
-
     });
   }
 
@@ -79,17 +72,15 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
   public getLibraryData(): Promise<void> {
     return new Promise((resolve, reject) => {
-      (this.SingleContentLib$ = this.apiService .getUserHasCourseById(this.activeParamId).subscribe((res) => {
+      (this.SingleContentLib$ = this.apiService
+        .getUserHasCourseById(this.activeParamId)
+        .subscribe((res) => {
           this.Spinner = false;
           this.userCourseData = res.data;
-          console.log(this.userCourseData.attributes?.course_ids?.data[0]);
-
-
           this.course_id = this.userCourseData.attributes.course_ids.data[0].id;
           this.courseId = this.userCourseData.id;
-          // console.log(this.userCourseData.attributes.progress_percentage);
-
-          this.progressPercentage = this.userCourseData.attributes.progress_percentage
+          this.progressPercentage =
+            this.userCourseData.attributes.progress_percentage;
           this.defaultVideo();
           resolve();
         })),
@@ -106,7 +97,6 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
       this.apiService.getUserCourse(this.userID).subscribe((res) => {
         res.map((resData: any) => {
           this.libDataIds.push(resData.course_ids[0]?.id);
-
         });
         resolve(),
           (err: any) => {
@@ -155,9 +145,8 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
       .putUserHasCourse(this.courseId, putBody)
       .subscribe((res) => {});
 
-      this.progressPercentage =  progressPer.toFixed(0)
-      console.log(this.progressPercentage);
-
+    this.progressPercentage = progressPer.toFixed(0);
+    console.log(this.progressPercentage);
   }
 
   // Displaying Default video 1st
@@ -172,8 +161,11 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
   // click to play a specific video in a course
   public playVideo(index: number) {
-    this.streamVideo =  this.userCourseData?.attributes?.course_ids.data[0]?.attributes.content.data[index].attributes;
-console.log(this.streamVideo);
+    this.streamVideo =
+      this.userCourseData?.attributes?.course_ids.data[0]?.attributes.content.data[
+        index
+      ].attributes;
+    console.log(this.streamVideo);
 
     window.scrollTo(0, 0);
   }
@@ -216,7 +208,6 @@ console.log(this.streamVideo);
       this.getRating();
     });
   }
-
 
   contentData: any;
   totalAvgRating: number | null = 0;
@@ -270,24 +261,23 @@ console.log(this.streamVideo);
   }
 
   public videoUrl!: SafeResourceUrl;
-  public singleCourse !:any
+  public singleCourse!: any;
 
   public getSingleCourseObj(): Promise<void> {
-
     return new Promise<void>((resolve, reject) => {
-
-      this.apiService .getUserHasCourseById(this.activeParamId).subscribe((res) => {
+      this.apiService
+        .getUserHasCourseById(this.activeParamId)
+        .subscribe((res) => {
           // console.log(res.data.attributes?.course_ids?.data[0]);
 
-        this.singleCourse = res.data.attributes?.course_ids?.data[0];
-        console.log(this.singleCourse);
+          this.singleCourse = res.data.attributes?.course_ids?.data[0];
+          console.log(this.singleCourse);
 
-
-        this.videoUrl = this.getSafeVideoUrl(this.singleCourse.attributes.link);
-console.log(this.videoUrl);
-
-
-      });
+          this.videoUrl = this.getSafeVideoUrl(
+            this.singleCourse.attributes.link
+          );
+          console.log(this.videoUrl);
+        });
       resolve();
       (error: any) => {
         reject(error);
@@ -301,7 +291,8 @@ console.log(this.videoUrl);
     return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
   }
   extractVideoId(link: string): string {
-    const regex = /youtu(?:\.be|be\.com)\/(?:.*v(?:\/|=)|(?:.*\/)?)([a-zA-Z0-9-_]+)/;
+    const regex =
+      /youtu(?:\.be|be\.com)\/(?:.*v(?:\/|=)|(?:.*\/)?)([a-zA-Z0-9-_]+)/;
     const match = link?.match(regex);
     return match ? match[1] : '';
   }
@@ -316,4 +307,3 @@ console.log(this.videoUrl);
 function then(arg0: () => Promise<void>) {
   throw new Error('Function not implemented.');
 }
-

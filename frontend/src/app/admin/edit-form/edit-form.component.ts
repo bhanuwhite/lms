@@ -164,7 +164,6 @@ export class EditFormComponent implements OnInit, OnChanges {
   }
   totalDuration!: number;
   editingCourseData() {
-    // console.log(this.edituserLearnings);
     this.showDocuments = false;
     this.courseDoc();
     const formValues = this.edituserLearnings.attributes;
@@ -359,7 +358,10 @@ export class EditFormComponent implements OnInit, OnChanges {
           technologies: this.technologyData,
           level: this.selectedLevel,
           subject: this.selectedSubject,
-          content: this.courseContentVideo.length == 0 ? this.previousVideosData : this.courseContentVideo  ,
+          content:
+            this.courseContentVideo.length == 0
+              ? this.previousVideosData
+              : this.courseContentVideo,
           description: updateData.description,
           link: updateData.link,
           name: updateData.name,
@@ -397,8 +399,8 @@ export class EditFormComponent implements OnInit, OnChanges {
             this.imgSrc = '';
             this.courseContentImage = [];
             this.preiviousImgData = [];
-            this.courseContentVideo = []
-            this.newVideosUpload = []
+            this.courseContentVideo = [];
+            this.newVideosUpload = [];
             this.textValue = '';
           } catch (error) {
             this.messageService.add({
@@ -418,7 +420,6 @@ export class EditFormComponent implements OnInit, OnChanges {
   }
 
   public courseDoc() {
-
     if (this.selectedCourseIncludes.includes('Documents')) {
       this.showDocuments = true;
     } else {

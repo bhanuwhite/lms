@@ -17,7 +17,6 @@ import {
   LibraryGetResponse,
   UserLibraryGetResponse,
 } from '../models/user-library';
-import { TrackPost, TrackPut, TrackResponse } from '../models/track';
 import {
   CartGetRes,
   CartPostBody,
@@ -258,44 +257,7 @@ export class ApiService {
     );
   }
 
-  // -------- TRACK API --------------------
 
-  // GET
-  public getTrack(): Observable<TrackResponse> {
-    return this.http.get<TrackResponse>(`${environment.apiUrl}/api/tracks`);
-  }
-
-  public getAllUsers(): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/api/allCourses`);
-  }
-
-  // GT by id
-  // public getTrackbyId(id: number): Observable<any> {
-  //   return this.http.get<any>(`${environment.apiUrl}/api/allCourses/${id}`);
-  // }
-
-  // POST
-  // public postTrack(item: TrackPost): Observable<TrackResponse> {
-  //   return this.http.post<TrackResponse>(
-  //     `${environment.apiUrl}/api/tracks`,
-  //     item
-  //   );
-  // }
-
-  // PUT
-  // public putTrack(id: number, item: TrackPut): Observable<TrackResponse> {
-  //   return this.http.put<TrackResponse>(
-  //     `${environment.apiUrl}/api/tracks/${id}`,
-  //     item
-  //   );
-  // }
-
-  // DELETE
-  public deleteTrack(id: number): Observable<TrackResponse> {
-    return this.http.delete<TrackResponse>(
-      `${environment.apiUrl}/api/tracks/${id}`
-    );
-  }
 
   //  --------- USER-HAS-COURSE API----------
   // GET Courses by passing UserID
@@ -305,9 +267,7 @@ export class ApiService {
     );
   }
 
-  //  public getUserHasCourse(): Observable<any> {
-  //     return this.http.get<any>(`api/user-has-courses?populate=course_ids.content&populate=course_ids.placeholder_img`);
-  //   }
+
   // GET by ID
   public getUserHasCourseById(id: number): Observable<any> {
     return this.http.get<any>(
@@ -397,4 +357,17 @@ export class ApiService {
   public upadateUserRatings(id: number, item: any): Observable<any> {
     return this.http.put<any>(`${environment.apiUrl}/api/ratings/${id}`, item);
   }
+
+
+// GET ALL USER'S
+
+public getAllUers():Observable<any> {
+  return this.http.get<any>(`${environment.apiUrl}/api/users`)
+}
+
+// GET SINGLE USER PROGRESS
+public getSingleUserProgress(id:number):Observable<any> {
+  return this.http.get<any>(`${environment.apiUrl}/api/users-course?user_id=${id}`)
+}
+
 }

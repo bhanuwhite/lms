@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
@@ -36,7 +31,6 @@ export class ContentDetailsComponent implements OnInit {
   isPlaying = false;
   private videoElement!: HTMLVideoElement;
 
-
   constructor(
     public dialogService: DialogService,
     private activeParams: ActivatedRoute,
@@ -60,14 +54,12 @@ export class ContentDetailsComponent implements OnInit {
 
     window.scrollTo(0, 0);
   }
-  public img_url = environment.apiUrl ;
-
+  public img_url = environment.apiUrl;
 
   public getLocalData(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       const getLocalData = JSON.parse(localStorage.getItem('user')!);
       this.userID = getLocalData.id;
-
 
       resolve();
       (error: any) => {
@@ -86,15 +78,10 @@ export class ContentDetailsComponent implements OnInit {
   libDataIds: number[] = [];
 
   public gettingUserHasCourse(): Promise<void> {
-
     return new Promise((resolve, reject) => {
       this.apiService.getUserCourse(this.userID).subscribe((res) => {
-
-
         res.map((resData: any) => {
           this.libDataIds.push(resData.course_ids[0]?.id);
-
-
         });
         resolve(),
           (err: any) => {
@@ -104,24 +91,17 @@ export class ContentDetailsComponent implements OnInit {
     });
   }
 
-
- public videoUrl!: SafeResourceUrl;
+  public videoUrl!: SafeResourceUrl;
 
   public getSingleCourseObj(): Promise<void> {
-
     return new Promise<void>((resolve, reject) => {
       this.activeParams.params.subscribe((res) => {
         this.courseId = res['id'];
-
-
       });
       this.apiService.getSingleContent(this.courseId).subscribe((res) => {
         this.singleCourse = res['data'];
 
-
         this.videoUrl = this.getSafeVideoUrl(res['data'].attributes.link);
-
-
       });
       resolve();
       (error: any) => {
@@ -137,21 +117,17 @@ export class ContentDetailsComponent implements OnInit {
   }
 
   extractVideoId(link: string): string {
-    const regex = /youtu(?:\.be|be\.com)\/(?:.*v(?:\/|=)|(?:.*\/)?)([a-zA-Z0-9-_]+)/;
+    const regex =
+      /youtu(?:\.be|be\.com)\/(?:.*v(?:\/|=)|(?:.*\/)?)([a-zA-Z0-9-_]+)/;
     const match = link?.match(regex);
     return match ? match[1] : '';
   }
   // Getting Cart courses
   public getCartCourses(): Promise<void> {
-
     return new Promise((resolve, reject) => {
       this.apiService.getUserCart(this.userID).subscribe((res) => {
-
-
         res.map((resObj: CartResponse) => {
           this.userCourseID.push(resObj.course_ids[0]?.id);
-
-
         });
         this.userCourseID = [...new Set(this.userCourseID)];
         this.aboutService.userCartLength(res.length);
@@ -164,7 +140,6 @@ export class ContentDetailsComponent implements OnInit {
   }
 
   public addToCart(item: SingleCourseData): void {
-
     this.confirmationService.confirm({
       message: `Do you want to add this ${item?.attributes.name} to Cart?`,
       header: 'Confirmation',
@@ -186,8 +161,7 @@ export class ContentDetailsComponent implements OnInit {
             });
             this.getCartCourses();
           },
-          (error: any) => {
-          }
+          (error: any) => {}
         );
       },
       reject: (type: any) => {
@@ -214,15 +188,13 @@ export class ContentDetailsComponent implements OnInit {
     this.router.navigate(['mycart']);
   }
 
-  public purchases :any;
-
+  public purchases: any;
 
   addToLibrary(course: any) {
-console.log(course);
+    console.log(course);
 
     this.purchases = course.attributes.no_of_purchases;
     this.confirmationService.confirm({
-
       message: `Do you want to add this ${course?.attributes.name} to Library?`,
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
@@ -234,10 +206,7 @@ console.log(course);
           },
         };
 
-
         this.apiService.postUserHasCourse(courseDetails).subscribe((res) => {
-
-
           this.messageService.add({
             severity: 'success',
             summary: 'Successfully',
@@ -251,7 +220,7 @@ console.log(course);
             },
           };
           this.apiService
-            .updateContent(course.course_ids[0].id, putCourseBody)
+            .updateContent(course.id, putCourseBody)
             .subscribe((res) => {});
         });
       },
@@ -274,7 +243,6 @@ console.log(course);
         }
       },
     });
-
   }
 
   onClose() {

@@ -5,23 +5,19 @@
     </div>
   </div>
   <div class="row my-3">
-    <div class="col-lg-3" *ngFor="let users of trackResponse; let i=index">
-      <ng-container *ngIf="!UseridRepeated(i)">
-        <div class="card p-2 text-center shadow-2 cursor-pointer" (click)="showTrackDetails(users.id)">
-          <div class="card-header  d-flex justify-content-center align-items-center">
-            <span class="material-symbols-outlined" style="font-size: 3rem;"> account_circle </span>
-          </div>
-          <div class="card-body text-center">
-            <div class="">
-              <h1>Name</h1>
-              <h2> {{users.attributes.user_id}} </h2>
-              <h3>Email</h3>
-            </div>
-          </div>
+    <div class="col-lg-3" *ngFor="let users of allUsersData; let i=index">
+      <div class="card border-warning mt-2 text-center shadow-2 cursor-pointer" (click)="showTrackDetails(users.id)">
+        <div class="card-header  d-flex justify-content-center align-items-center">
+          <span class="material-symbols-outlined" style="font-size: 3rem;"> account_circle </span>
         </div>
-      </ng-container>
-
-
+        <div class="card-body d-flex  justify-content-evenly">
+          <h2>ID : {{users.id}} </h2>
+          <h2> {{users.username}} </h2>
+        </div>
+        <div class="card-footer">
+          <h3> {{users.email}} </h3>
+        </div>
+      </div>
     </div>
   </div>
 
