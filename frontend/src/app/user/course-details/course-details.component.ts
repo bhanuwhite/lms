@@ -61,11 +61,6 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   public activeParams() {
     this.activeParam.params.subscribe((res) => {
       this.activeParamId = res['id'];
-<<<<<<< HEAD
-      console.log(this.activeParamId);
-=======
-
->>>>>>> fb923bc19daab49d8ec996e03ac7c99b322fc3e9
     });
   }
 
@@ -81,19 +76,12 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
         .subscribe((res) => {
           this.Spinner = false;
           this.userCourseData = res.data;
-<<<<<<< HEAD
-          this.course_id = this.userCourseData.attributes.course_ids.data[0].id;
-          this.courseId = this.userCourseData.id;
-          this.progressPercentage =
-            this.userCourseData.attributes.progress_percentage;
-=======
 
 
           this.course_id = this.userCourseData.attributes.course_ids.data[0].id;
           this.courseId = this.userCourseData.id;
 
           this.progressPercentage = this.userCourseData.attributes.progress_percentage
->>>>>>> fb923bc19daab49d8ec996e03ac7c99b322fc3e9
           this.defaultVideo();
           resolve();
         })),
@@ -158,13 +146,8 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
       .putUserHasCourse(this.courseId, putBody)
       .subscribe((res) => {});
 
-<<<<<<< HEAD
-    this.progressPercentage = progressPer.toFixed(0);
-    console.log(this.progressPercentage);
-=======
       this.progressPercentage =  progressPer.toFixed(0)
 
->>>>>>> fb923bc19daab49d8ec996e03ac7c99b322fc3e9
   }
 
   // Displaying Default video 1st
@@ -283,21 +266,6 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
   public getSingleCourseObj(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-<<<<<<< HEAD
-      this.apiService
-        .getUserHasCourseById(this.activeParamId)
-        .subscribe((res) => {
-          // console.log(res.data.attributes?.course_ids?.data[0]);
-
-          this.singleCourse = res.data.attributes?.course_ids?.data[0];
-          console.log(this.singleCourse);
-
-          this.videoUrl = this.getSafeVideoUrl(
-            this.singleCourse.attributes.link
-          );
-          console.log(this.videoUrl);
-        });
-=======
 
       this.apiService .getUserHasCourseById(this.activeParamId).subscribe((res) => {
 
@@ -309,7 +277,6 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
 
       });
->>>>>>> fb923bc19daab49d8ec996e03ac7c99b322fc3e9
       resolve();
       (error: any) => {
         reject(error);
