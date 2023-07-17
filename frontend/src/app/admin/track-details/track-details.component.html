@@ -1,17 +1,17 @@
-<div class="surface-ground px-3 py-3">
+<div class="surface-ground px-4 py-3">
   <h1 style="font-size: 1.5rem;"><b> User Details </b> </h1>
 
   <ng-container *ngIf="UserTracking.length == 0">
     <div class="d-flex justify-content-center">
       <div class="card shadow-3  text-center" style="width: 18rem;">
         <div class="card-body">
-          <h2>No data avoilable.</h2>
+          <h2>No data available.</h2>
         </div>
       </div>
     </div>
   </ng-container>
   <ng-container *ngIf="UserTracking.length != 0">
-    <div class="row">
+    <div class="row my-5">
       <div class="  surface-ground col-lg-3 col-md-12 col-sm-12">
         <div class=" card shadow-3  " style="text-align: center;">
           <p>No.of courses Taken</p>
