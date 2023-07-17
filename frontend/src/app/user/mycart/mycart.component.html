@@ -14,13 +14,28 @@
         Shoping Cart
       </h1>
       <h4>{{ courseData.length }} Courses in Cart</h4>
-      <div class="row shadow-4 py-2">
+      <div class="row bg-white shadow-4 py-2">
         <div class="col-lg-9">
           <div class="row" *ngFor="let course of courseData">
             <p-divider></p-divider>
             <ng-container *ngIf="course.course_ids.length != 0">
               <div class="col-lg-3">
-                <img [src]="img_url+course.course_ids[0].placeholder_img.url " alt="img" width="180px" height="150px">
+                <ng-container  *ngIf="course.course_ids[0].placeholder_img != null">
+                  <a [routerLink]="['/user/library',course.id]" routerLinkActive="routerActive">
+                    <div>
+                      <img [src]='img_url + course.course_ids[0].placeholder_img.formats.thumbnail.url' alt=""
+                        class="courseFigure" width="180px" height="150px">
+                    </div>
+                  </a>
+                </ng-container>
+                <ng-container *ngIf="course.course_ids[0].placeholder_img == null">
+                  <div [routerLink]="['/user/library',course.id]" routerLinkActive="routerActive" class="card cursor-pointer border-primary d-flex justify-content-center align-items-center"
+                    [style]="{'height':'150px','width':'180px','border-radius':'30px'}">
+                    <p class="fs-3 fw-bold"> {{course.course_ids[0].technologies['1']}} </p>
+                  </div>
+
+                </ng-container>
+
               </div>
               <div class="col-lg-5">
                 <h3 class="fs-5">

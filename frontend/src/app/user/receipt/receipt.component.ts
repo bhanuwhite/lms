@@ -23,7 +23,6 @@ userName!:any;
 
   public purchasingCourseData(): void {
     this.purchasingCourseDetails = this.purchaseService.courseObj;
-    console.log(this.purchasingCourseDetails);
 
   }
 
@@ -31,6 +30,5 @@ userName!:any;
 
     const localStoredData = JSON.parse(localStorage.getItem('user')!);
     this.userName = localStoredData.username;
-    console.log(this.userName);
   }
 }

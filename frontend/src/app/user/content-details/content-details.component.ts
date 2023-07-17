@@ -220,7 +220,7 @@ export class ContentDetailsComponent implements OnInit {
             },
           };
           this.apiService
-            .updateContent(course.id, putCourseBody)
+            .updateContent(course?.course_ids[0].id, putCourseBody)
             .subscribe((res) => {});
         });
       },

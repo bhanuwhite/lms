@@ -25,10 +25,10 @@ userDetails!:any;
   userLocalStorage(){
 
     this.userDetails  = JSON.parse(localStorage.getItem('user')!);
-    // console.log(this.userDetails);
+
   }
   public invoiceData(): void {
     this.invoiceCourseDetails = this.purchaseService.invoiceCourseObj;
-    // console.log(this.invoiceCourseDetails);
+
   }
 }
