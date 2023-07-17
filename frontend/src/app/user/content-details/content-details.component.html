@@ -57,9 +57,11 @@
             singleCourse?.attributes?.content.data == null &&
             singleCourse?.attributes?.link != null
           ">
-          <iframe [src]="videoUrl" frameborder="10" height="250" width="450" style="border-radius: 10px"></iframe>
-        </div>
-        <div class="m-0" *ngIf="
+
+
+            <iframe [src]="videoUrl" frameborder="10" height="100%" style="border-radius: 10px; width: 100%;"></iframe>
+</div>
+                         <div class="m-0" *ngIf="
             singleCourse?.attributes?.content.data == null &&
             singleCourse?.attributes?.link == null
           ">

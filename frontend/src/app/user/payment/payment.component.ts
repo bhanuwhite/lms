@@ -143,7 +143,6 @@ export class PaymentComponent implements OnInit {
         };
 
         this.apiservice.postPaymentVerify(requestBody).subscribe((res) => {
-          console.log(options);
 
           this.afterPayment(this.orderId);
         });
@@ -169,7 +168,7 @@ export class PaymentComponent implements OnInit {
   }
 
   afterPayment(order_id: any) {
-    console.log(order_id);
+
 
     this.paidCourses.map((course: any) => {
       const courseDetails = {

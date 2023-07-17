@@ -21,15 +21,15 @@
             <ng-container *ngIf="course.course_ids.length != 0">
               <div class="col-lg-3">
                 <ng-container  *ngIf="course.course_ids[0].placeholder_img != null">
-                  <a [routerLink]="['/user/library',course.id]" routerLinkActive="routerActive">
+
                     <div>
                       <img [src]='img_url + course.course_ids[0].placeholder_img.formats.thumbnail.url' alt=""
-                        class="courseFigure" width="180px" height="150px">
+                        class="courseFigure" width="180px" height="150px" (click)="onClick(course.course_ids[0])">
                     </div>
-                  </a>
+
                 </ng-container>
                 <ng-container *ngIf="course.course_ids[0].placeholder_img == null">
-                  <div [routerLink]="['/user/library',course.id]" routerLinkActive="routerActive" class="card cursor-pointer border-primary d-flex justify-content-center align-items-center"
+                  <div   (click)="onClick(course.course_ids[0])" class="card cursor-pointer border-primary d-flex justify-content-center align-items-center"
                     [style]="{'height':'150px','width':'180px','border-radius':'30px'}">
                     <p class="fs-3 fw-bold"> {{course.course_ids[0].technologies['1']}} </p>
                   </div>

@@ -44,6 +44,10 @@ export class MycartComponent implements OnInit {
     const localStoredData = JSON.parse(localStorage.getItem('user')!);
     this.userID = localStoredData.id;
   }
+  public onClick(course:any){
+
+    this.router.navigate(['/course/',course.id])
+  }
 
   public getCartCourse(): void {
     this.apiservice.getUserCart(this.userID).subscribe((res) => {
@@ -55,6 +59,7 @@ export class MycartComponent implements OnInit {
       this.courseData = res;
       this.aboutService.userCartLength(res.length);
       this.courseData.map((res) => {
+
         if (res.course_ids[0]?.price != 0) {
           this.totalAmount =
             Number(res.course_ids[0]?.price) + Number(this.totalAmount);
