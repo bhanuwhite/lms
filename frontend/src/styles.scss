@@ -8,10 +8,21 @@ body {
 }
 
 body {
+  background-color: #eff3f8;
+  height: 100%;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
+.all_course_tab{
+  .p-tabview .p-tabview-panels{
+    background-color: #eff3f8 !important;
+  }
+  
+}
+.p-tabview .p-tabview-panels{
+  background-color: #fff !important;
+}
+.p-tabview .p-tabview-panels
 :root {
   --text-color: #495057;
   --text-color-secondary: #6c757d;
