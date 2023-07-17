@@ -17,6 +17,12 @@
           <b class="fs-6">{{ streamVideo.name }}</b>
         </p>
       </div>
+
+      <div *ngIf="
+            singleCourse?.attributes?.content.data == null &&
+            singleCourse?.attributes?.link != null" class="m-5">
+            <iframe [src]="videoUrl" frameborder="10" height="400px" style="border-radius: 10px; width: 100%;"></iframe>
+        </div>
     </div>
 
     <div class="col-lg-4 bg-white shadow-4 rounded h-100">
@@ -30,10 +36,9 @@
           <div
             *ngFor=" let courseVideo of userCourseData?.attributes?.course_ids?.data[0]?.attributes?.content?.data; let i = index ">
             <div class="card shadow-1">
-              <b class="m-2 text-wrap text-black"
-                >{{ courseVideo.attributes.alternativeText }}
+              <b class="m-2 text-wrap text-black">{{ courseVideo.attributes.alternativeText }}
               </b>
-              <hr />
+              <hr/>
               <video
                 type="video/mp4"
                 [src]=" img_url + courseVideo.attributes.url "
@@ -47,10 +52,8 @@
             </div>
           </div>
           <div >
-            <div class="row">
-
-                <iframe  [src]="videoUrl" width="300" height="200" frameborder="0" ></iframe>
-
+            <div class="row" >
+                <iframe  [src]="videoUrl" width="300" height="200" frameborder="10" allowfullscreen  ></iframe>
             </div>
           </div>
         </div>

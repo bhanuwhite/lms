@@ -83,6 +83,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
           this.userCourseData = res.data;
 
 
+
           this.course_id = this.userCourseData.attributes.course_ids.data[0].id;
           this.courseId = this.userCourseData.id;
 
@@ -169,10 +170,14 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   // click to play a specific video in a course
   public playVideo(index: number) {
     this.streamVideo =  this.userCourseData?.attributes?.course_ids.data[0]?.attributes.content.data[index].attributes;
-console.log(this.streamVideo);
+
 
     window.scrollTo(0, 0);
   }
+
+
+
+
 
   public toggleAccordian(index: number): void {
     if (this.accordianTabIndex === index) {
