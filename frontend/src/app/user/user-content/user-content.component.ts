@@ -108,6 +108,9 @@ export class UserContentComponent {
 
 //GET CONTENT
 
+public allCourses:string[]=[];
+public uniqueTech :string[]=[]
+
 public getContent(): void {
     this.apiService.getContent().subscribe((res) => {
       try {
@@ -115,13 +118,30 @@ public getContent(): void {
         this.coursesList = res.data;
         this.courseList2 = res.data;
         this.isLoading = true;
-        const courses = res.data;
-        const uniqueTechnology = new Set<string>();
-        courses.forEach((item) => {
-          uniqueTechnology.add(item.attributes?.technologies['0']);
-        });
-        const UserAssessments = Array.from(uniqueTechnology);
-        this.assessment_Length = UserAssessments.length;
+        // const courses = res.data;
+        // const uniqueTechnology = new Set<string>();
+        // courses.forEach((item) => {
+        //   uniqueTechnology.add(item.attributes?.technologies['0']);
+        // });
+        // const UserAssessments = Array.from(uniqueTechnology);
+        // this.assessment_Length = UserAssessments.length;
+
+        res.data.forEach((item) => {
+
+          this.allCourses.push(item.attributes?.technologies)
+
+
+          this.allCourses.forEach((item)=>{
+           const values = Object.values(item);
+           values.forEach((obj)=>{
+             if (!this.uniqueTech.includes(obj)) {
+               this.uniqueTech.push(obj);
+             }
+
+           })
+
+          })
+       });
 
 
       } catch (error) {
@@ -129,6 +149,32 @@ public getContent(): void {
       }
     });
   }
+
+  // public getAllCourseDetais() {
+  //   this.apiService.getContent().subscribe((res) => {
+
+
+  //     res.data.forEach((item) => {
+
+  //        this.allCourses.push(item.attributes?.technologies)
+
+
+  //        this.allCourses.forEach((item)=>{
+  //         const values = Object.values(item);
+  //         values.forEach((obj)=>{
+  //           if (!this.uniqueTech.includes(obj)) {
+  //             this.uniqueTech.push(obj);
+  //           }
+
+  //         })
+
+  //        })
+  //     });
+
+
+
+  //   });
+  // }
 
   public searchFunction() {
     if (this.searchWord) {
