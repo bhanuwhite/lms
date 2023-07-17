@@ -22,7 +22,11 @@ export class TrackuserComponent implements OnInit, OnDestroy {
   public getTrackApi(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.apiservivce.getAllUers().subscribe((res) => {
-        this.allUsersData = res;
+        this.allUsersData = res.filter((resObj:UserDetails)=>{
+          return resObj.role_id == 3
+        })
+        console.log(this.allUsersData);
+
       });
       resolve();
       (err: any) => {
