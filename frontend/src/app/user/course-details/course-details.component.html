@@ -2,9 +2,9 @@
   <div class="loader">Loading...</div>
 </div>
 
-<div class="container-fluid" *ngIf="userCourseData && !Spinner">
-  <div class="row">
-    <div class="col-lg-8">
+<div class="container-fluid my-4" *ngIf="userCourseData && !Spinner">
+  <div class="row justify-content-around">
+    <div class="col-lg-7 bg-white shadow-4 rounded">
       <div class="py-3" *ngIf="streamVideo">
         <video
           [src]="img_url+ streamVideo.url"
@@ -13,13 +13,13 @@
           #Course_video
           (timeupdate)="getWatchedTime()"
         ></video>
-        <p>
+        <p class="my-3">
           <b class="fs-6">{{ streamVideo.name }}</b>
         </p>
       </div>
     </div>
 
-    <div class="col-lg-4 h-100">
+    <div class="col-lg-4 bg-white shadow-4 rounded h-100">
       <div class="py-3">
         <div
           class="border px-2 mb-2 py-2 border-top-1 d-flex justify-content-center"

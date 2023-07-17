@@ -1,7 +1,7 @@
 <div class="">
   <div class="container-fluid px-4 py-4" *ngIf="singleCourse">
     <div class="row justify-content-around">
-      <div class="col-lg-7 shadow-4 rounded p-3">
+      <div class="col-lg-7 bg-white shadow-4 rounded p-3">
         <h1 style="font-size: 1.5rem">
           <b>{{ singleCourse.attributes.name }}</b>
         </h1>
@@ -50,7 +50,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4 flex justify-content-center shadow-4 rounded p-3">
+      <div class="col-lg-4 bg-white flex justify-content-center shadow-4 rounded p-3">
 
 
         <div *ngIf="
@@ -88,7 +88,7 @@
       </div>
     </div>
     <div class="row justify-content-around mt-4">
-      <div class="col-lg-7 shadow-4 rounded">
+      <div class="col-lg-7 bg-white shadow-4 rounded">
         <div class="surface-section mt-3 h-15rem">
           <h2><b>Course Content</b></h2>
           <div *ngIf="singleCourse?.attributes?.content.data">
@@ -135,7 +135,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4 h-10rem flex flex-column align-items-center shadow-4 rounded justify-content-center">
+      <div class="col-lg-4 bg-white h-10rem flex flex-column align-items-center shadow-4 rounded justify-content-center">
         <div class="d-flex  align-items-center">
           <h1 class="m-0" *ngIf="parsePrice(singleCourse.attributes.price) != 0">
             <b>{{ singleCourse.attributes.price | currency : "INR" }}</b>
