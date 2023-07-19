@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AllCourseContent } from 'src/app/models/content';
+import { UserDetails } from 'src/app/models/track';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -14,12 +15,29 @@ export class DashboardComponent implements OnInit {
   public schedule = ['Weekly', 'Monthly', 'Quarterly'];
   visibleSidebar1: boolean = true;
   courseCount!: number;
-
+  public allUsersData: UserDetails[] = [];
+  public totalUser!: number;
   constructor(private apiService: ApiService) {}
   ngOnInit(): void {
     this.overViewMenus();
     this.chatData();
     this.getContent();
+    this.getTrackApi();
+  }
+
+  public getTrackApi(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.apiService.getAllUers().subscribe((res) => {
+        this.allUsersData = res.filter((resObj: UserDetails) => {
+          return resObj.role_id == 3;
+        });
+        this.totalUser = this.allUsersData.length;
+      });
+      resolve();
+      (err: any) => {
+        reject(err);
+      };
+    });
   }
 
   chat: number[] = [65, 59, 80, 81, 56, 80, 80];

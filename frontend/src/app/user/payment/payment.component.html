@@ -27,8 +27,8 @@
           purchases made in certain tax jurisdictions.
         </h5>
         <h2 style="font-family:Georgia, 'Times New Roman', Times, serif;"><b>Order details</b></h2>
-        <div class="flex align-items-center flex-wrap p-2 " *ngFor="let course of paidCourses">
-          <div class="m-2">
+        <div class="flex align-items-center flex-wrap" *ngFor="let course of paidCourses">
+          <div class="">
             <ng-container  *ngIf="course.course_ids[0].placeholder_img != null">
               <div>
                 <img [src]='img_url + course.course_ids[0].placeholder_img.formats.thumbnail.url' alt=""
@@ -37,14 +37,14 @@
 
           </ng-container>
           <ng-container *ngIf="course.course_ids[0].placeholder_img == null">
-            <div class="card cursor-pointer border-primary d-flex justify-content-center align-items-center"
+            <div class="card cursor-pointer ml-4 border-primary d-flex justify-content-center align-items-center"
               [style]="{'height':'80px','width':'80px','border-radius':'30px'}">
               <p class="fs-5 fw-bold"> {{course.course_ids[0].technologies['1']}} </p>
             </div>
 
           </ng-container>
           </div>
-          <div class="w-4 course_detail_div">
+          <div class="w-4 ml-4 course_detail_div">
             <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
               {{course.course_ids[0].name}}</h3>
           </div>

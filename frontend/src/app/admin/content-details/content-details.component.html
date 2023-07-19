@@ -9,7 +9,7 @@
           <div class="flex justify-content-between mb-3 ">
             <div>
               <span class="block text-700 font-medium mb-3">Cost</span>
-              <div class="text-900 font-medium text-xl">{{singleContent.attributes.price}} </div>
+              <div class="text-900 font-medium text-xl">{{singleContent.attributes.price | currency:'INR'}} </div>
             </div>
             <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
               style="width:2.5rem;height:2.5rem">
@@ -27,7 +27,7 @@
           <div class="flex justify-content-between mb-3">
             <div>
               <span class="block text-500 font-medium mb-3">Revenue</span>
-              <div class="text-900 font-medium text-xl">12,451</div>
+              <div class="text-900 font-medium text-xl">0</div>
             </div>
             <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
               style="width:2.5rem;height:2.5rem">
@@ -36,7 +36,7 @@
               </span>
             </div>
           </div>
-          <span class="text-green-500 font-medium">%10 increase </span>
+          <span class="text-green-500 font-medium">%0 increase </span>
           <span class="text-500">since last week</span>
         </div>
       </div>
@@ -45,7 +45,7 @@
           <div class="flex justify-content-between mb-3">
             <div>
               <span class="block text-500 font-medium mb-3">Reviews</span>
-              <div class="text-900 font-medium text-xl">101</div>
+              <div class="text-900 font-medium text-xl">0</div>
             </div>
             <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
               style="width:2.5rem;height:2.5rem">
@@ -54,7 +54,7 @@
               </span>
             </div>
           </div>
-          <span class="text-green-500 font-medium">%5 increase </span>
+          <span class="text-green-500 font-medium">%0 increase </span>
           <span class="text-500">since last week</span>
         </div>
       </div>
@@ -142,8 +142,7 @@
                     [style]="{'height':'200px','width':'100% ','border-radius':'30px'}"></video>
                 </div>
                 <div class="  fs-6 col-lg-8 col-md-12 mb-2 ">
-                  <p> {{content.attributes.alternativeText}} This is some content from a media component. You can replace this with any content and adjust it
-                    as needed.</p>
+                  <p> {{content.attributes.alternativeText}} </p>
                 </div>
               </div>
             </div>
