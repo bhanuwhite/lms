@@ -334,15 +334,18 @@ export class ContentComponent implements OnInit, OnDestroy {
       const arrayForm = this.addCourse.get('coursesIncludes') as FormArray;
 
       if (isChecked) {
+
         arrayForm.push(this.fb.control(value));
         if (value.toLowerCase() === 'documents') {
           this.showDocuments = true;
           this.addCourse.get('documents')?.setValidators(Validators.required);
         }
       } else {
+
         const index = arrayForm.controls.findIndex(
-          (control) => control.value === value
-        );
+          (control) => control.value === value);
+        console.log(index);
+
         if (index !== -1) {
           arrayForm.removeAt(index);
           if (value.toLowerCase() === 'documents') {

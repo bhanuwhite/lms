@@ -45,13 +45,14 @@
                           <a [routerLink]="['/user/library',course.id]" routerLinkActive="routerActive">
                             <div>
                               <img [src]='img_url + course.course_ids[0].placeholder_img.formats.thumbnail.url' alt=""
-                                class="courseFigure">
+                                class="courseFigure"  [style]="{'height':'200px','width':'100%'}">
                             </div>
                           </a>
                         </ng-container>
                         <ng-container *ngIf="course.course_ids[0].placeholder_img == null">
-                          <div [routerLink]="['/user/library',course.id]" routerLinkActive="routerActive" class="card cursor-pointer border-primary d-flex justify-content-center align-items-center"
-                            [style]="{'height':'200px','width':'100%','border-radius':'30px'}">
+
+                          <div [routerLink]="['/user/library',course.id]" routerLinkActive="routerActive" class="card cursor-pointer d-flex justify-content-center align-items-center"
+                            [style]="{'height':'200px','width':'100%'}">
                             <p class="fs-3 fw-bold"> {{course.course_ids[0].technologies['1']}} </p>
                           </div>
 

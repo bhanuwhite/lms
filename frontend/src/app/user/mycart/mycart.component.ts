@@ -50,6 +50,7 @@ export class MycartComponent implements OnInit {
   }
 
   public getCartCourse(): void {
+    this.totalAmount=0
     this.apiservice.getUserCart(this.userID).subscribe((res) => {
       res.map((cartRes: any) => {
         if (cartRes.course_ids.length == 0) {
@@ -63,6 +64,7 @@ export class MycartComponent implements OnInit {
         if (res.course_ids[0]?.price != 0) {
           this.totalAmount =
             Number(res.course_ids[0]?.price) + Number(this.totalAmount);
+
         }
       });
     });

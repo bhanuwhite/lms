@@ -161,6 +161,7 @@ export class EditFormComponent implements OnInit, OnChanges {
       (option: any) => this.fb.control(true)
     );
     this.popupForm.setControl('courseIncludes', this.fb.array(controls));
+    // console.log(this.edituserLearnings);
   }
   totalDuration!: number;
   editingCourseData() {
@@ -204,6 +205,7 @@ export class EditFormComponent implements OnInit, OnChanges {
       courserIncludes: this.fb.array([]),
       documents: formValues.files,
     });
+    console.log(this.selectedCourseIncludes);
   }
   public techSelected = (event: any) => {
     this.technologyArr = event.value.map((item: string) => item);
@@ -429,6 +431,7 @@ export class EditFormComponent implements OnInit, OnChanges {
 
   public checkboxValue(event: Event, value: string): void {
     const isChecked = (event.target as HTMLInputElement).checked;
+
     if (isChecked) {
       if (!this.selectedCourseIncludes.includes(value)) {
         this.selectedCourseIncludes.push(value);
@@ -438,10 +441,12 @@ export class EditFormComponent implements OnInit, OnChanges {
       }
     } else {
       if (this.selectedCourseIncludes.includes(value)) {
-        this.selectedCourseIncludes = this.selectedCourseIncludes.filter(
-          (value: string) => value != value
-        );
+        const index = this.selectedCourseIncludes.indexOf(value);
+        if (index !== -1) {
+          this.selectedCourseIncludes.splice(index, 1);
+        }
       }
+
       if (!this.selectedCourseIncludes.includes('Documents')) {
         this.showDocuments = false;
       }
