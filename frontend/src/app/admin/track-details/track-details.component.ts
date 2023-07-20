@@ -41,10 +41,13 @@ export class TrackDetailsComponent implements OnInit {
       const res = await this.apiService
         .getSingleUserProgress(this.userTrackId)
         .toPromise();
-      this.courseLength = res.length;
       this.UserTracking = res;
+      this.UserTracking = this.UserTracking.filter((resObj) => {
+        return resObj.course_ids.length != 0;
+      });
+      this.courseLength = this.UserTracking.length;
       this.UserTeck = this.UserTracking.map((res) => {
-        return res.course_ids[0].technologies['1'];
+        return res.course_ids[0]?.technologies['1'];
       });
       this.userTeckProgress = this.UserTracking.map((res) => {
         return Number(res.progress_percentage);
