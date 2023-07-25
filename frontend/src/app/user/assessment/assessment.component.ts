@@ -12,10 +12,14 @@ export class AssessmentComponent implements OnInit {
   public allCourses: string[] = [];
   public searchQuery: string = '';
   public items: string[] = [];
-  userID!:number;
+  userID!: number;
+  public Spinner: boolean = true;
 
-
-  constructor(private apiService: ApiService, private route: Router, private aboutService:AboutService ) {}
+  constructor(
+    private apiService: ApiService,
+    private route: Router,
+    private aboutService: AboutService
+  ) {}
 
   ngOnInit(): void {
     this.getAllQuizDetails();
@@ -34,30 +38,21 @@ export class AssessmentComponent implements OnInit {
     });
   }
 
-public uniqueTech :string[]=[]
+  public uniqueTech: string[] = [];
   public getAllCourseDetais() {
     this.apiService.getContent().subscribe((res) => {
-
-
       res.data.forEach((item) => {
-
-         this.allCourses.push(item.attributes?.technologies)
-
-
-         this.allCourses.forEach((item)=>{
+        this.allCourses.push(item.attributes?.technologies);
+        this.allCourses.forEach((item) => {
           const values = Object.values(item);
-          values.forEach((obj)=>{
+          values.forEach((obj) => {
             if (!this.uniqueTech.includes(obj)) {
               this.uniqueTech.push(obj);
             }
-
-          })
-
-         })
+          });
+        });
       });
-
-
-
+      this.Spinner = false
     });
   }
 
@@ -66,7 +61,6 @@ public uniqueTech :string[]=[]
   }
 
   public openQuiz(course: string) {
-
     this.route.navigate(['/assessment/', course]);
     localStorage.setItem('CourseName', course);
   }

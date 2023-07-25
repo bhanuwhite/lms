@@ -33,7 +33,7 @@
       <div class="card" style="max-height: 380px; width: 100%">
         <div [routerLink]="['/admin/content', data.id]">
           <img *ngIf="data.attributes.placeholder_img.data != null"
-            style="height: 160px; cursor: pointer"
+            style="height: 225px; cursor: pointer; border-radius: 10px 10px 2px 2px"
             [src]='img_url+data.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url' alt="Course Image"
             class="card-img-top" />
           <div *ngIf="data.attributes.placeholder_img.data == null" class="card-header d-flex align-items-center justify-content-center"

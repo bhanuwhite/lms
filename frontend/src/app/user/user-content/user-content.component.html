@@ -119,7 +119,7 @@
                 <b>{{ course.attributes.name }}</b>
               </h4>
             </div>
-            <div class="col-lg-6 d-flex justify-content-end">
+            <div class="col-lg-6 d-flex justify-content-end" *ngIf="course.attributes.total_duration !=0">
               <p class="m-0 p-0 d-flex justify-content-center"><span class="material-icons pe-1"> schedule </span>
                 {{((course.attributes.total_duration)/3600).toFixed(1)}}hrs </p>
             </div>
@@ -129,7 +129,7 @@
               <i class="user_badge" pBadge style="font-size: 2rem" value="{{ course.attributes.level }}"
                 severity="warning"></i>
             </div>
-            <div class="col-lg-8 d-flex justify-content-end">
+            <div class="col-lg-8 d-flex justify-content-end" *ngIf="course?.attributes?.content?.data?.length">
               <p class="m-0 p-0">
                 Lectures : <b>{{ course?.attributes?.content?.data?.length }}</b>
               </p>
