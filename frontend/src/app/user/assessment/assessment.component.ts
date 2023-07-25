@@ -12,8 +12,14 @@ export class AssessmentComponent implements OnInit {
   public allCourses: string[] = [];
   public searchQuery: string = '';
   public items: string[] = [];
-  userID!:number;
-  constructor(private apiService: ApiService, private route: Router, private aboutService:AboutService ) {}
+  userID!: number;
+  public Spinner: boolean = true;
+
+  constructor(
+    private apiService: ApiService,
+    private route: Router,
+    private aboutService: AboutService
+  ) {}
 
   ngOnInit(): void {
     this.getAllQuizDetails();
@@ -32,19 +38,21 @@ export class AssessmentComponent implements OnInit {
     });
   }
 
-
+  public uniqueTech: string[] = [];
   public getAllCourseDetais() {
     this.apiService.getContent().subscribe((res) => {
-      const courses = res.data;
-      const uniqueTechnology = new Set<string>();
-
-      courses.forEach((item) => {
-        uniqueTechnology.add(item.attributes.technology);
+      res.data.forEach((item) => {
+        this.allCourses.push(item.attributes?.technologies);
+        this.allCourses.forEach((item) => {
+          const values = Object.values(item);
+          values.forEach((obj) => {
+            if (!this.uniqueTech.includes(obj)) {
+              this.uniqueTech.push(obj);
+            }
+          });
+        });
       });
-
-      this.allCourses = Array.from(uniqueTechnology);
-      this.items = this.allCourses;
-
+      this.Spinner = false
     });
   }
 
@@ -53,7 +61,6 @@ export class AssessmentComponent implements OnInit {
   }
 
   public openQuiz(course: string) {
-
     this.route.navigate(['/assessment/', course]);
     localStorage.setItem('CourseName', course);
   }

@@ -8,20 +8,27 @@ import { PurchaseService } from 'src/app/services/purchase.service';
   styleUrls: ['./invoice.component.scss']
 })
 export class InvoiceComponent implements OnInit{
+
   currentDate = new Date();
-  invoiceCourseDetails: courseDataObj = {
-    name: '',
-    paymentType: '',
-    totalPrice: 0,
-    date: '',
-  };
+  invoiceCourseDetails: any;
+userDetails!:any;
   gst: number = 18 / 100;
   constructor(public purchaseService: PurchaseService) { }
+
   ngOnInit(): void {
+
     this.invoiceData();
+    this.userLocalStorage();
+  }
+
+
+  userLocalStorage(){
+
+    this.userDetails  = JSON.parse(localStorage.getItem('user')!);
+
   }
   public invoiceData(): void {
     this.invoiceCourseDetails = this.purchaseService.invoiceCourseObj;
-    console.log(this.invoiceCourseDetails);
+
   }
 }

@@ -8,6 +8,7 @@ import {
 } from 'primeng/api';
 import { ApiService } from 'src/app/services/api.service';
 import { AboutService } from 'src/app/services/about.service';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-mycart',
@@ -30,18 +31,26 @@ export class MycartComponent implements OnInit {
     private aboutService: AboutService
   ) {}
   ngOnInit(): void {
+
     this.getLocalStoredData();
     this.getCartCourse();
     this.gettingUserHasCourse();
 
   }
+  public img_url = environment.apiUrl ;
+
 
   public getLocalStoredData() {
     const localStoredData = JSON.parse(localStorage.getItem('user')!);
     this.userID = localStoredData.id;
   }
+  public onClick(course:any){
+
+    this.router.navigate(['/course/',course.id])
+  }
 
   public getCartCourse(): void {
+    this.totalAmount=0
     this.apiservice.getUserCart(this.userID).subscribe((res) => {
       res.map((cartRes: any) => {
         if (cartRes.course_ids.length == 0) {
@@ -49,15 +58,13 @@ export class MycartComponent implements OnInit {
         }
       });
       this.courseData = res;
-
-      console.log(this.courseData[0].course_ids[0].rating);
-
-
       this.aboutService.userCartLength(res.length);
       this.courseData.map((res) => {
+
         if (res.course_ids[0]?.price != 0) {
           this.totalAmount =
             Number(res.course_ids[0]?.price) + Number(this.totalAmount);
+
         }
       });
     });
@@ -76,62 +83,7 @@ export class MycartComponent implements OnInit {
     this.router.navigate(['course/', courseId]);
   }
 
-  addToLibrary(course: any) {
 
-    this.purchases = course.course_ids[0].no_of_purchases;
-    this.confirmationService.confirm({
-      message: `Do you want to add this ${course?.course_ids[0].name} to Library?`,
-      header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        const courseDetails = {
-          data: {
-            course_ids: course.course_ids[0].id,
-            user_id: this.userID,
-          },
-        };
-
-        this.apiservice.postUserHasCourse(courseDetails).subscribe((res) => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Successfully',
-            detail: 'Course added to library',
-          });
-
-          this.gettingUserHasCourse();
-
-          const putCourseBody = {
-            data: {
-              no_of_purchases: Number(this.purchases) + Number(1),
-            },
-          };
-          this.apiservice
-            .updateContent(course.course_ids[0].id, putCourseBody)
-            .subscribe((res) => {});
-        });
-        this.apiservice.deleteCartItem(course.id).subscribe((res: any) => {});
-        location.reload();
-      },
-      reject: (type: any) => {
-        switch (type) {
-          case ConfirmEventType.REJECT:
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Rejected',
-              detail: 'You have rejected',
-            });
-            break;
-          case ConfirmEventType.CANCEL:
-            this.messageService.add({
-              severity: 'warn',
-              summary: 'Cancelled',
-              detail: 'You have cancelled',
-            });
-            break;
-        }
-      },
-    });
-  }
 
   // Removing Course form Cart
   public removeCourse(id: number): void {

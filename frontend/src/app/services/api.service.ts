@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import {
   AllCourseContent,
   AllCourseContentData,
-  postCourseContentData,mediaDocument
+  postCourseContentData
 } from '../models/content';
 import { Quiz, QuizData } from '../models/quiz';
 import {
@@ -17,7 +17,6 @@ import {
   LibraryGetResponse,
   UserLibraryGetResponse,
 } from '../models/user-library';
-import { TrackPost, TrackPut, TrackResponse } from '../models/track';
 import {
   CartGetRes,
   CartPostBody,
@@ -25,6 +24,9 @@ import {
   CartResponse,
 } from '../models/cart';
 import { environment } from 'src/environment/environment';
+import { CourseData , postUserCourse , postUserCourseData} from 'src/app/models/library';
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -65,14 +67,9 @@ export class ApiService {
   }
 
   //Post COURSE CONTENT
-  public postContent(
-    item: postCourseContentData
-  ): Observable<AllCourseContentData> {
-    return this.http.post<AllCourseContentData>(
-      `${environment.apiUrl}/api/course-contents`,
-      item
-    );
-  }
+  public postContent( item: any ): Observable<any> {
+    return this.http.post<any>( `${environment.apiUrl}/api/course-contents`,item);
+}
 
   // update COURSE CONTENT
   public updateContent(
@@ -260,52 +257,17 @@ export class ApiService {
     );
   }
 
-  // -------- TRACK API --------------------
 
-  // GET
-  public getTrack(): Observable<TrackResponse> {
-    return this.http.get<TrackResponse>(`${environment.apiUrl}/api/tracks`);
-  }
-
-  // GT by id
-  public getTrackbyId(id: number): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/api/tracks/${id}`);
-  }
-
-  // POST
-  public postTrack(item: TrackPost): Observable<TrackResponse> {
-    return this.http.post<TrackResponse>(
-      `${environment.apiUrl}/api/tracks`,
-      item
-    );
-  }
-
-  // PUT
-  public putTrack(id: number, item: TrackPut): Observable<TrackResponse> {
-    return this.http.put<TrackResponse>(
-      `${environment.apiUrl}/api/tracks/${id}`,
-      item
-    );
-  }
-
-  // DELETE
-  public deleteTrack(id: number): Observable<TrackResponse> {
-    return this.http.delete<TrackResponse>(
-      `${environment.apiUrl}/api/tracks/${id}`
-    );
-  }
 
   //  --------- USER-HAS-COURSE API----------
   // GET Courses by passing UserID
-  public getUserCourse(id: number): Observable<any> {
-    return this.http.get<any>(
+  public getUserCourse(id: number): Observable<CourseData[]> {
+    return this.http.get<CourseData[]>(
       `${environment.apiUrl}/api/users-course?user_id=${id}`
     );
   }
 
-  //  public getUserHasCourse(): Observable<any> {
-  //     return this.http.get<any>(`api/user-has-courses?populate=course_ids.content&populate=course_ids.placeholder_img`);
-  //   }
+
   // GET by ID
   public getUserHasCourseById(id: number): Observable<any> {
     return this.http.get<any>(
@@ -314,8 +276,8 @@ export class ApiService {
   }
 
   // POST
-  public postUserHasCourse(item: any): Observable<any> {
-    return this.http.post<any>(
+  public postUserHasCourse(item: postUserCourse): Observable<postUserCourseData> {
+    return this.http.post<postUserCourseData>(
       `${environment.apiUrl}/api/user-has-courses`,
       item
     );
@@ -395,4 +357,17 @@ export class ApiService {
   public upadateUserRatings(id: number, item: any): Observable<any> {
     return this.http.put<any>(`${environment.apiUrl}/api/ratings/${id}`, item);
   }
+
+
+// GET ALL USER'S
+
+public getAllUers():Observable<any> {
+  return this.http.get<any>(`${environment.apiUrl}/api/users`)
+}
+
+// GET SINGLE USER PROGRESS
+public getSingleUserProgress(id:number):Observable<any> {
+  return this.http.get<any>(`${environment.apiUrl}/api/users-course?user_id=${id}`)
+}
+
 }

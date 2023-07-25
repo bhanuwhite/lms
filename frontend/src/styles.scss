@@ -8,10 +8,21 @@ body {
 }
 
 body {
+  background-color: #eff3f8;
+  height: 100%;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
+.all_course_tab{
+  .p-tabview .p-tabview-panels{
+    background-color: #eff3f8 !important;
+  }
+  
+}
+.p-tabview .p-tabview-panels{
+  background-color: #fff !important;
+}
+.p-tabview .p-tabview-panels
 :root {
   --text-color: #495057;
   --text-color-secondary: #6c757d;
@@ -290,6 +301,12 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
     height: 58px;
   }
 }
+// .all-Courses {
+//   .p-card.p-component{
+//     max-height: 700px !important;
+//     height: 557px !important;
+//   }
+// }
 
 @media (min-width: 1023px) and (max-width: 7000px) {
   .mobile_header {
@@ -311,12 +328,30 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
     border: 2px solid #fff;
   }
 }
+@media (min-width: 1023px) and (max-width: 1300px) {
+  .all-Courses{
+    p-card{
+      width: 33.33% !important;
+    }
+  }
+}
 
 @media (min-width: 319px) and (max-width: 768px) {
+  // .all-Courses {
+  //   .p-card.p-component{
+  //     max-height: 700px !important;
+  //     height: auto !important;
+  //   }
+  // }
   .p-dialog.p-component.p-dialog-draggable {
     width: 80% !important;
   }
-
+  .all-Courses {
+    .p-card.p-component{
+       
+      height: auto !important;
+    }
+  }
   .profile_image_wrapper {
     .p-card.p-component {
       width: 100% !important;
@@ -363,6 +398,13 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
     margin: 0;
   }
 }
+.user_badge{
+.p-badge{
+  position: relative !important;
+  left: -47px !important;
+}
+
+}
 
 .button_learning {
   position: absolute;
@@ -381,4 +423,8 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
     width: 100% !important;
     height: 46px !important;
   }
+}
+.p-splitter {
+  display: flex;
+  flex-wrap: wrap !important;
 }

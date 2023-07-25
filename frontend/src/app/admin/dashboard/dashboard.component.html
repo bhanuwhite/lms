@@ -1,159 +1,140 @@
 <div class="content-inner surface-ground px-3 py-3">
-    <div class="row align-items-center">
-        <div class="col-lg-6 col-md-6 d-flex align-items-center">
-            <h1 style="font-size: 1.5rem;"><b> Overview</b>  </h1>
+  <div class="row align-items-center">
+      <div class="col-lg-6 col-md-6 d-flex align-items-center">
+          <h1 style="font-size: 1.5rem;"><b> Overview</b>  </h1>
 
-        </div>
-        <div class="col-lg-6 col-md-6 d-flex justify-content-end align-items-center">
-            <div class="drop-button">
-              <p-dropdown [options]="schedule" >   </p-dropdown>
-                <!-- <button pButton pRipple type="button" icon="pi pi-chevron-down" popup="true"
-                    (click)="menu.toggle($event)" label="Weekly" class="p-button-raised p-button-text"></button>
-                <p-menu [style]="{'width': '120px'}" (click)="onEvent($event)" #menu [popup]="true"
-                    [model]="overViewMenu"></p-menu> -->
+      </div>
+      <div class="col-lg-6 col-md-6 d-flex justify-content-end align-items-center">
+          <div class="drop-button">
+            <p-dropdown [options]="schedule" >   </p-dropdown>
+          </div>
+      </div>
+  </div>
+  <div class="row mt-1">
+      <!-- <div class="col-lg-3 col-md-6 mb-1 md:col-6 lg:col-3">
+          <div class="surface-card card_wrapper_boxes shadow-2 p-2 border-round">
+              <div class="flex justify-content-between mb-3">
+                  <div>
+                      <span class="block text-500 font-medium mb-3">ORDERS</span>
+                      <div class="text-900 font-medium text-xl">10</div>
+                  </div>
+                  <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
+                      style="width:2.5rem;height:2.5rem">
+                      <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
+                  </div>
+              </div>
+          </div>
+      </div> -->
+      <!-- <div class="col-lg-3 mb-1 col-md-6 md:col-6 lg:col-3">
+          <div class="surface-card card_wrapper_boxes shadow-2 p-2 border-round">
+              <div class="flex justify-content-between mb-3">
+                  <div>
+                      <span class="block text-500 font-medium mb-3">REVENUE</span>
+                      <div class="text-900 font-medium text-xl">01 </div>
+                  </div>
+                  <div class="flex align-items-center justify-content-center bg-orange-100 border-round"
+                      style="width:2.5rem;height:2.5rem">
+                      <i class="pi pi-wallet text-orange-500 text-xl"></i>
+                  </div>
+              </div>
+          </div>
+      </div> -->
+      <div class="col-lg-6 mb-1 col-md-6 md:col-6 lg:col-6">
+          <div class="surface-card card_wrapper_boxes shadow-2 p-2 border-round cursor-pointer" routerLink="/trackuser" >
+              <div class="flex justify-content-between mb-3">
+                  <div>
+                      <span class="block text-500 font-medium mb-3"> Total Users</span>
+                      <div class="text-900 font-medium text-xl"> {{totalUser}} </div>
+                  </div>
+                  <div class="flex align-items-center justify-content-center bg-cyan-100 border-round"
+                      style="width:2.5rem;height:2.5rem">
+                      <i class="pi pi-users text-cyan-500 text-xl"></i>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-lg-6 mb-1 col-md-6 md:col-6 lg:col-6">
+          <div class="surface-card card_wrapper_boxes shadow-2 p-2 border-round cursor-pointer"  routerLink="/content" >
+              <div class="flex justify-content-between mb-3">
+                  <div>
+                      <span class="block text-500 font-medium mb-3">TOTAL COURSES</span>
+                      <div class="text-900 font-medium text-xl">  {{courseCount}} </div>
+                  </div>
+                  <div class="flex align-items-center justify-content-center bg-purple-100 border-round"
+                      style="width:2.5rem;height:2.5rem">
+                      <i class="pi pi-book text-purple-500 text-xl"></i>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row mt-3">
+      <div class="col-lg-6 col-md-12 ">
+          <div class="row mb-3">
+              <div class="col-lg-6 col-md-6 d-flex align-items-center">
+                  <h2 class="m-0">
+                      Overview
+                  </h2>
+              </div>
+              <div class="col-lg-6 col-md-6 d-flex justify-content-end align-items-center">
+                  <div class="drop-button">
+                    <p-dropdown [options]="schedule" >  </p-dropdown>
+                  </div>
+              </div>
+          </div>
+          <div class="card">
+              <p-chart type="line" [data]="basicData" [style]="{'height':'auto'}"></p-chart>
+          </div>
+      </div>
+      <div class="col-lg-6 col-md-12">
+          <div class="row mb-3">
+              <div class="col-lg-12 col-md-12 d-flex align-items-center">
+                  <h2 class=" m-0">
+                      Upcoming Classes
+                  </h2>
+              </div>
+          </div>
+          <div class="card" style="height: 300px; overflow-y: auto;">
+              <div class="class-content  mb-2 d-flex justify-content-between">
+                  <div>
+                      <span>List Of UX 2nd Sem</span>
+                      <h2 class=" m-0 pb-1">
+                          Upcoming Classes
+                      </h2>
+                      <span>9.00 AM To 12.00 PM </span>
+                  </div>
+                  <div>
+                      <i class="pi pi-ellipsis-h" style="font-size: 2rem"></i>
+                  </div>
 
-            </div>
-        </div>
-    </div>
-    <div class="row mt-1">
-        <div class="col-lg-3 col-md-6 mb-1 md:col-6 lg:col-3">
-            <div class="surface-card shadow-2 p-2 border-round">
-                <div class="flex justify-content-between mb-3">
-                    <div>
-                        <span class="block text-500 font-medium mb-3">ORDERS</span>
-                        <div class="text-900 font-medium text-xl">10</div>
-                    </div>
-                    <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
-                        style="width:2.5rem;height:2.5rem">
-                        <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
-                    </div>
-                </div>
-                <!-- <span class="text-green-500 font-medium">24 new </span>
-                    <span class="text-500">since last visit</span> -->
-            </div>
-        </div>
-        <div class="col-lg-3 mb-1 col-md-6 md:col-6 lg:col-3">
-            <div class="surface-card shadow-2 p-2 border-round">
-                <div class="flex justify-content-between mb-3">
-                    <div>
-                        <span class="block text-500 font-medium mb-3">REVENUE</span>
-                        <div class="text-900 font-medium text-xl">01 </div>
-                    </div>
-                    <div class="flex align-items-center justify-content-center bg-orange-100 border-round"
-                        style="width:2.5rem;height:2.5rem">
-                        <i class="pi pi-wallet text-orange-500 text-xl"></i>
-                    </div>
-                </div>
-                <!-- <span class="text-green-500 font-medium">%52+ </span>
-                    <span class="text-500">since last week</span> -->
-            </div>
-        </div>
-        <div class="col-lg-3 mb-1 col-md-6 md:col-6 lg:col-3">
-            <div class="surface-card shadow-2 p-2 border-round">
-                <div class="flex justify-content-between mb-3">
-                    <div>
-                        <span class="block text-500 font-medium mb-3">USERS</span>
-                        <div class="text-900 font-medium text-xl">09</div>
-                    </div>
-                    <div class="flex align-items-center justify-content-center bg-cyan-100 border-round"
-                        style="width:2.5rem;height:2.5rem">
-                        <i class="pi pi-users text-cyan-500 text-xl"></i>
-                    </div>
-                </div>
-                <!-- <span class="text-green-500 font-medium">520 </span>
-                    <span class="text-500">newly registered</span> -->
-            </div>
-        </div>
-        <div class="col-lg-3 mb-1 col-md-6 md:col-6 lg:col-3">
-            <div class="surface-card shadow-2 p-2 border-round">
-                <div class="flex justify-content-between mb-3">
-                    <div>
-                        <span class="block text-500 font-medium mb-3">TOTAL COURSES</span>
-                        <div class="text-900 font-medium text-xl">  {{courseCount}} </div>
-                    </div>
-                    <div class="flex align-items-center justify-content-center bg-purple-100 border-round"
-                        style="width:2.5rem;height:2.5rem">
-                        <i class="pi pi-book text-purple-500 text-xl"></i>
-                    </div>
-                </div>
-                <!-- <span class="text-green-500 font-medium">85 </span>
-                    <span class="text-500">responded</span> -->
-            </div>
-        </div>
-    </div>
-    <div class="row mt-3">
-        <div class="col-lg-6 col-md-12 ">
-            <div class="row mb-3">
-                <div class="col-lg-6 col-md-6 d-flex align-items-center">
-                    <h2 class="m-0">
-                        Overview
-                    </h2>
-                </div>
-                <div class="col-lg-6 col-md-6 d-flex justify-content-end align-items-center">
-                    <div class="drop-button">
-                      <p-dropdown [options]="schedule" >  </p-dropdown>
-                        <!-- <button pButton pRipple (click)="menu1.toggle($event)" type="button" icon="pi pi-chevron-down"
-                            label="Weekly" class="p-button-raised p-button-text"></button>
-                        <p-menu [style]="{'width': '120px'}" (click)="onEvent($event)" #menu1 [popup]="true"
-                            [model]="overViewMenu"></p-menu> -->
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <!-- <h5>Basic</h5> -->
-                <p-chart type="line" [data]="basicData" [style]="{'height':'auto'}"></p-chart>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-12">
-            <div class="row mb-3">
-                <div class="col-lg-12 col-md-12 d-flex align-items-center">
-                    <h2 class=" m-0">
-                        Upcoming Classes
-                    </h2>
-                </div>
-            </div>
-            <div class="card" style="height: 300px; overflow-y: auto;">
-                <div class="class-content  mb-2 d-flex justify-content-between">
-                    <div>
-                        <span>List Of UX 2nd Sem</span>
-                        <h2 class=" m-0 pb-1">
-                            Upcoming Classes
-                        </h2>
-                        <span>9.00 AM To 12.00 PM </span>
-                    </div>
-                    <div>
-                        <i class="pi pi-ellipsis-h" style="font-size: 2rem"></i>
-                    </div>
+              </div>
+              <div class="class-content-one mb-2 d-flex justify-content-between">
+                  <div>
+                      <span>List Of UX 2nd Sem</span>
+                      <h2 class=" m-0 pb-1">
+                          Upcoming Classes
+                      </h2>
+                      <span>9.00 AM To 12.00 PM </span>
+                  </div>
+                  <div>
+                      <i class="pi pi-ellipsis-h" style="font-size: 2rem"></i>
+                  </div>
 
-                </div>
-                <div class="class-content-one mb-2 d-flex justify-content-between">
-                    <div>
-                        <span>List Of UX 2nd Sem</span>
-                        <h2 class=" m-0 pb-1">
-                            Upcoming Classes
-                        </h2>
-                        <span>9.00 AM To 12.00 PM </span>
-                    </div>
-                    <div>
-                        <i class="pi pi-ellipsis-h" style="font-size: 2rem"></i>
-                    </div>
+              </div>
+              <div class="class-content-two d-flex justify-content-between">
+                  <div>
+                      <span>List Of UX 2nd Sem</span>
+                      <h2 class=" m-0 pb-1">
+                          Upcoming Classes
+                      </h2>
+                      <span>9.00 AM To 12.00 PM </span>
+                  </div>
+                  <div>
+                      <i class="pi pi-ellipsis-h" style="font-size: 2rem"></i>
+                  </div>
 
-                </div>
-                <div class="class-content-two d-flex justify-content-between">
-                    <div>
-                        <span>List Of UX 2nd Sem</span>
-                        <h2 class=" m-0 pb-1">
-                            Upcoming Classes
-                        </h2>
-                        <span>9.00 AM To 12.00 PM </span>
-                    </div>
-                    <div>
-                        <i class="pi pi-ellipsis-h" style="font-size: 2rem"></i>
-                    </div>
-
-                </div>
-                <!-- <p-calendar  [inline]="true" [showWeek]="true" [style]="{'height':'258px'}"></p-calendar> -->
-            </div>
-        </div>
-    </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>

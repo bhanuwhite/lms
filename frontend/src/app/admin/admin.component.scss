@@ -109,7 +109,7 @@
 
 // header
 .header {
-    height: auto !important;
+    height: 90px !important;
     box-shadow: 0 1px 3px rgb(0 0 0 / 30%);
     width: 100%;
     background-color: #FFF !important;
@@ -172,7 +172,6 @@ input.p-inputtext.p-component.p-element.search-text {
     }
 
     .header {
-        height: auto !important;
         box-shadow: 0 1px 3px rgb(0 0 0 / 30%);
         width: 100% !important;
         // float: left;

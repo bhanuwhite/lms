@@ -12,26 +12,21 @@ export class TokenInterceptor implements HttpInterceptor {
   token: any;
   errorMsg!:string
   errorMessage!:HttpErrorResponse;
-
   constructor(private router: Router, private messageService: MessageService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.token = localStorage.getItem("token");
     if (request.url !== `${environment.apiUrl}/api/auth/local` && request.url !== `${environment.apiUrl}/api/auth/local/register`) {
       request = request.clone({
-        headers: request.headers.set('Authorization', `Bearer ${this.token}`).set("Access-Control-Allow-Origin", "*"),
+        headers: request.headers.set('Authorization', `Bearer ${this.token}`),
       });
     }
 
 
-
     return next.handle(request).pipe(
-      // retry(1),
       catchError((error: HttpErrorResponse) => {
-
         this.errorMessage = error
-
-        this.errorMsg = error.error.error.message;
+        this.errorMsg = error.error.error?.message;
         let errorMessage = '';
         if (error.status === 401) {
           localStorage.clear();

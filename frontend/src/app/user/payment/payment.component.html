@@ -1,17 +1,113 @@
-<div>
+<div class="px-5 my-4">
+  <h2 style=" font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande','Lucida Sans Unicode', Geneva, Verdana, sans-serif;" class="fs-1">
+    <b>Checkout</b>
+  </h2><br>
+  <h4 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,sans-serif;" class="fs-4">
+    Billing Adress
+  </h4>
+  <div class="grid">
+    <div class="col-12 md:col-6 lg:col-6">
+      <div class="shadow-3 bg-white p-4 rounded">
+        <div class="flex wrapper_country mb-2 gap-4">
+          <div class="w-6 ">
+            <h6 style="font-size: small"><b>Country</b></h6>
+            <p-dropdown (onChange)="onChange($event)" [options]="countryList" optionLabel="name"
+              placeholder="Select Country" [style]="{'width':'100%'}"></p-dropdown>
+          </div>
+          <div class="w-6">
+            <h6 style="font-size: small"><b>State/Union Territory</b></h6>
+            <div *ngIf="countryList">
+              <p-dropdown [options]="states" optionLabel="value" placeholder="Select state"
+                [style]="{'width':'100%'}"></p-dropdown>
+            </div>
+          </div>
+        </div>
+        <h5 class="">
+          LMS is required by law to collect aplicable transaction taxes for
+          purchases made in certain tax jurisdictions.
+        </h5>
+        <h2 style="font-family:Georgia, 'Times New Roman', Times, serif;"><b>Order details</b></h2>
+        <div class="flex align-items-center flex-wrap" *ngFor="let course of paidCourses">
+          <div class="">
+            <ng-container  *ngIf="course.course_ids[0].placeholder_img != null">
+              <div>
+                <img [src]='img_url + course.course_ids[0].placeholder_img.formats.thumbnail.url' alt=""
+                  class="courseFigure"  width="80px" height="80px">
+              </div>
 
-  <div class="container-fluid">
-    <div class="row ml-5">
+          </ng-container>
+          <ng-container *ngIf="course.course_ids[0].placeholder_img == null">
+            <div class="card cursor-pointer ml-4 border-primary d-flex justify-content-center align-items-center"
+              [style]="{'height':'80px','width':'80px','border-radius':'30px'}">
+              <p class="fs-5 fw-bold"> {{course.course_ids[0].technologies['1']}} </p>
+            </div>
 
+          </ng-container>
+          </div>
+          <div class="w-4 ml-4 course_detail_div">
+            <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+              {{course.course_ids[0].name}}</h3>
+          </div>
+          <div class="w-4 course_detail_div text-center">
+            <h2><b>₹ {{course.course_ids[0].price}}</b> </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-6">
+      <div class="shadow-3 bg-white p-4 rounded">
+        <div class="flex justify-content-end">
+          <p-button icon="pi pi-times" class="ms-1" pTooltip="Cancel" styleClass="p-button-rounded p-button-danger"
+            routerLink="/user/mycart"></p-button>
+        </div>
+        <h1><b>Summary</b></h1>
+        <div class="flex justify-content-between">
+          <div class="w-6">
+            <h3>Original Price:</h3>
+          </div>
+          <div class="w-6">
+            <h3> {{totalAmount| currency : "INR" }}</h3>
+          </div>
+        </div>
+        <div class="flex justify-content-between">
+          <div class="w-6">
+            <h3>Discount Price:</h3>
+          </div>
+          <div class="w-6">
+            <h3>- {{discount | currency : "INR" }}</h3>
+          </div>
+        </div>
+        <hr />
+        <div class="flex mb-2 justify-content-between">
+          <div class="w-6">
+            <h3>Total Price:</h3>
+          </div>
+          <div class="w-6">
+            <h3> {{totalAmount - discount | currency : "INR" }}</h3>
+          </div>
+        </div>
+        <h5 style="text-align: center">
+          By completing your purchase you agree to these
+          <a href="#">Terms of Services</a>
+        </h5>
+        <div class="d-flex justify-content-center">
+          <button (click)="onPay()" class="btn btn-success p-2">Pay with Razorpay</button>
+        </div>
+        <h4 style="text-align: center">30-Day Money-Bank Guarantee</h4>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- <div class="container-fluid">
+    <div class="row">
       <div class="col-lg-7 p-5">
-        <div class=" px-4 py-4 justify-content-between w-60">
+        <div class=" py-4 justify-content-between w-60">
           <h1 style="
               font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
                 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             " class="fs-1">
             <b>Checkout</b>
           </h1>
-
         </div>
         <h3 style="
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,
@@ -104,5 +200,4 @@
 
 
     </div>
-  </div>
-</div>
+  </div> -->

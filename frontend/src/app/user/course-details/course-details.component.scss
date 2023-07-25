@@ -41,7 +41,8 @@ video.course_video {
 .videoScroll {
   margin-top: 1%;
   width: 100%;
-  height: 63vh;
+  height: calc(100vh - 300px);
+  overflow-x: hidden;
   overflow-y: scroll;
 
   video {

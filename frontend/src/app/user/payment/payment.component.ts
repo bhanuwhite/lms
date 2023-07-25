@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { ExternalLibraryService } from './util';
 import { AboutService } from 'src/app/services/about.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-payment',
@@ -11,7 +12,6 @@ import { Router } from '@angular/router';
   providers: [AboutService],
 })
 export class PaymentComponent implements OnInit {
-
   discount: number = 0;
   totalAmount!: number;
   cities: any[] = [];
@@ -25,12 +25,9 @@ export class PaymentComponent implements OnInit {
   razorpayResponse: any;
   showModal = false;
 
-
-
   ngOnInit(): void {
     this.getLocalStoredData();
     this.getCartDetails();
-
     setTimeout(() => {
       this.createOrderId();
     }, 1500);
@@ -39,6 +36,9 @@ export class PaymentComponent implements OnInit {
       .lazyLoadLibrary('https://checkout.razorpay.com/v1/checkout.js')
       .subscribe();
   }
+
+  public img_url = environment.apiUrl ;
+
 
   constructor(
     private apiservice: ApiService,
@@ -131,7 +131,6 @@ export class PaymentComponent implements OnInit {
       order_id: this.orderId,
 
       handler: (response: any) => {
-
         alert(response.razorpay_payment_id);
         alert(response.razorpay_order_id);
         alert(response.razorpay_signature);
@@ -145,7 +144,7 @@ export class PaymentComponent implements OnInit {
 
         this.apiservice.postPaymentVerify(requestBody).subscribe((res) => {
 
-          this.afterPayment();
+          this.afterPayment(this.orderId);
         });
       },
       theme: {
@@ -168,7 +167,9 @@ export class PaymentComponent implements OnInit {
     rzp.open();
   }
 
-  afterPayment() {
+  afterPayment(order_id: any) {
+
+
     this.paidCourses.map((course: any) => {
       const courseDetails = {
         data: {
@@ -177,10 +178,21 @@ export class PaymentComponent implements OnInit {
         },
       };
 
-      this.apiservice.postUserHasCourse(courseDetails).subscribe((res) => {});
+      this.apiservice.postUserHasCourse(courseDetails).subscribe((res) => {
 
-      this.apiservice.deleteCartItem(course.id).subscribe((res: any) => {});
+      });
+
+      this.apiservice.deleteCartItem(course.id).subscribe((res: any) => {
+      this.route.navigate(['/user/mycart']);
+
+      });
+
+      // const paymentDetails ={
+      //   course_ids: course.course_ids[0].id,
+      //   user_id: this.userID,
+
+      // }
     });
-    this.route.navigate(['/user/mycart']);
+
   }
 }

@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/services/api.service';
-import {
-  ConfirmationService,
-  MessageService,
-  ConfirmEventType,
-} from 'primeng/api';
+import {ConfirmationService,MessageService,ConfirmEventType,} from 'primeng/api';
 import { AboutService } from 'src/app/services/about.service';
+import { CourseData } from 'src/app/models/library';
+import { environment } from 'src/environment/environment';
+
 @Component({
   selector: 'app-my-library',
   templateUrl: './my-library.component.html',
@@ -17,8 +16,8 @@ export class MyLibraryComponent implements OnInit {
   public Spinner: boolean = true;
   public searchWord: string = '';
   public userID!: number;
-  public searchData: any;
-  public courseData: any[] = [];
+  public searchData: CourseData[]=[];
+  public courseData: CourseData[] = [];
 
   constructor(
     private httpClient: HttpClient,
@@ -33,6 +32,8 @@ export class MyLibraryComponent implements OnInit {
     this.gettingUserHasCourse();
     this.getCartCourse();
   }
+
+  public img_url = environment.apiUrl ;
 
   public getCartCourse(): void {
     this.apiService.getUserCart(this.userID).subscribe((res) => {
@@ -49,10 +50,12 @@ export class MyLibraryComponent implements OnInit {
     this.courseData=[]
     return new Promise((resolve, reject) => {
       this.apiService.getUserCourse(this.userID).subscribe((res) => {
+
         if (res.length != 0) {
           res.map((courseRes: any) => {
             if (courseRes.course_ids.length != 0) {
               this.courseData.push(courseRes);
+
 
             }
           });

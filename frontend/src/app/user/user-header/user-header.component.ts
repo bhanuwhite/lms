@@ -110,7 +110,7 @@ export class UserHeaderComponent implements OnInit {
   public getLocalData(): Promise<void> {
     return new Promise((resolve, reject) => {
       const LocalData = JSON.parse(localStorage.getItem('user')!);
-      this.userEmail = LocalData.email;
+      this.userEmail = LocalData?.email;
       resolve(),
         (err: any) => {
           reject(err);

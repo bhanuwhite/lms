@@ -3,15 +3,14 @@ import {
   ElementRef,
   OnDestroy,
   OnInit,
-  TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { TrackResponseData } from 'src/app/models/track';
 import { Subscription } from 'rxjs';
+import { environment } from 'src/environment/environment';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-course-details',
   templateUrl: './course-details.component.html',
@@ -21,40 +20,47 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   streamVideo!: { url: string; name: string };
   public userCourseData: any;
   public Spinner: boolean = true;
-  activeParamId!: number;
-  trackResponse: TrackResponseData[] = [];
-  trackCourseIds: number[] = [];
-  SingleContentLib$: Subscription = new Subscription();
-  LibraryContent$: Subscription = new Subscription();
-  PutUserHasCourse$: Subscription = new Subscription();
-
+  private activeParamId!: number;
+  private SingleContentLib$: Subscription = new Subscription();
+  private LibraryContent$: Subscription = new Subscription();
+  private PutUserHasCourse$: Subscription = new Subscription();
   public userID!: number;
   public courseId!: number;
   public trackingId: number = 0;
   public totalDurationVideo: any = 0;
-  userWatchedTime: number = 1;
-  timeConsumedByUser: number = 0;
-  watchedDurations: { name: string; duration: number }[] = [];
-  timeArray: number[] = [];
-  course_id!: number;
-  accordianTabIndex: number = -1;
-  putLibId!: number;
-  progressPercentage!: any
+  public userWatchedTime: number = 1;
+  public timeConsumedByUser: number = 0;
+  public watchedDurations: { name: string; duration: number }[] = [];
+  public timeArray: number[] = [];
+  public course_id!: number;
+  public accordianTabIndex: number = -1;
+  public putLibId!: number;
+  public progressPercentage!: any;
+  public libDataIds: number[] = [];
+  public videoUrl!: SafeResourceUrl;
+  public singleCourse!: any;
+  public contentData: any;
+  public totalAvgRating: number | null = 0;
+  public sum: number = 0;
+  public ratingData: any;
+
+  public img_url = environment.apiUrl;
+
   @ViewChild('Course_video') Course_video!: ElementRef;
 
   constructor(
     public apiService: ApiService,
     public activeParam: ActivatedRoute,
-    public messageService: MessageService
+    public messageService: MessageService,
+    private sanitizer: DomSanitizer
   ) {}
   ngOnInit() {
     this.activeParams();
     this.getLocalStoredData();
+    this.getSingleCourseObj();
     this.gettingUserHasCourse();
     this.getLibraryData().then(() => this.getRating());
-
     this.getContent();
-    // this.getWatchedTime()
   }
 
   public activeParams() {
@@ -75,12 +81,10 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
         .subscribe((res) => {
           this.Spinner = false;
           this.userCourseData = res.data;
-
           this.course_id = this.userCourseData.attributes.course_ids.data[0].id;
           this.courseId = this.userCourseData.id;
-          // console.log(this.userCourseData.attributes.progress_percentage);
-
-          this.progressPercentage = this.userCourseData.attributes.progress_percentage
+          this.progressPercentage =
+            this.userCourseData.attributes.progress_percentage;
           this.defaultVideo();
           resolve();
         })),
@@ -90,13 +94,11 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  libDataIds: number[] = [];
   public gettingUserHasCourse(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.apiService.getUserCourse(this.userID).subscribe((res) => {
         res.map((resData: any) => {
           this.libDataIds.push(resData.course_ids[0]?.id);
-
         });
         resolve(),
           (err: any) => {
@@ -144,20 +146,22 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     this.PutUserHasCourse$ = this.apiService
       .putUserHasCourse(this.courseId, putBody)
       .subscribe((res) => {});
-
-      this.progressPercentage =  progressPer.toFixed(0)
-      console.log(this.progressPercentage);
-
+    this.progressPercentage = progressPer.toFixed(0);
   }
 
   // Displaying Default video 1st
   public defaultVideo() {
-    this.streamVideo = {
-      url: this.userCourseData?.attributes?.course_ids.data[0]?.attributes
-        .content.data[0]?.attributes?.url,
-      name: this.userCourseData?.attributes?.course_ids.data[0]?.attributes
-        .content.data[0]?.attributes?.name,
-    };
+    if (
+      this.userCourseData.attributes.course_ids.data[0].attributes.content
+        .data != null
+    ) {
+      this.streamVideo = {
+        url: this.userCourseData.attributes.course_ids.data[0].attributes
+          .content.data[0].attributes.url,
+        name: this.userCourseData.attributes.course_ids.data[0].attributes
+          .content.data[0].attributes.name,
+      };
+    }
   }
 
   // click to play a specific video in a course
@@ -166,7 +170,6 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
       this.userCourseData?.attributes?.course_ids.data[0]?.attributes.content.data[
         index
       ].attributes;
-
     window.scrollTo(0, 0);
   }
 
@@ -209,17 +212,10 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-
-  contentData: any;
-  totalAvgRating: number | null = 0;
-  sum: number = 0;
-  ratingData: any;
-
   public getContent(): void {
     this.apiService.getContent().subscribe((res) => {
       try {
         this.contentData = res.data;
-
         for (let i = 0; i < this.contentData.length; i++) {
           this.apiService
             .getUserRatings(this.contentData[i].id)
@@ -227,9 +223,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
               for (let j = 0; j < res.length; j++) {
                 this.sum = res[j].rating + this.sum;
               }
-
               this.totalAvgRating = this.sum / res.length;
-
               if (
                 isNaN(this.totalAvgRating) ||
                 this.totalAvgRating === Infinity ||
@@ -237,17 +231,14 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
               ) {
                 this.totalAvgRating = null;
               }
-
               this.ratingData = {
                 data: {
                   rating: this.totalAvgRating?.toFixed(0),
                 },
               };
-
               this.apiService
                 .updateContent(this.contentData[i].id, this.ratingData)
                 .subscribe((res) => {});
-
               this.sum = 0;
             });
         }
@@ -261,10 +252,40 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+  public getSingleCourseObj(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.apiService
+        .getUserHasCourseById(this.activeParamId)
+        .subscribe((res) => {
+          this.singleCourse = res.data.attributes?.course_ids?.data[0]!;
+          this.videoUrl = this.getSafeVideoUrl(
+            this.singleCourse.attributes.link
+          );
+        });
+      resolve();
+      (error: any) => {
+        reject(error);
+      };
+    });
+  }
+
+  getSafeVideoUrl(link: string): SafeResourceUrl {
+    const videoId = this.extractVideoId(link);
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+  }
+  extractVideoId(link: string): string {
+    const regex =
+      /youtu(?:\.be|be\.com)\/(?:.*v(?:\/|=)|(?:.*\/)?)([a-zA-Z0-9-_]+)/;
+    const match = link?.match(regex);
+    return match ? match[1] : '';
+  }
+
   ngOnDestroy(): void {
     this.LibraryContent$.unsubscribe();
     this.SingleContentLib$.unsubscribe();
   }
-
-  // End
+}
+function then(arg0: () => Promise<void>) {
+  throw new Error('Function not implemented.');
 }

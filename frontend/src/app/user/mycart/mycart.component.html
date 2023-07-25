@@ -14,13 +14,28 @@
         Shoping Cart
       </h1>
       <h4>{{ courseData.length }} Courses in Cart</h4>
-      <div class="row">
+      <div class="row bg-white shadow-4 py-2">
         <div class="col-lg-9">
           <div class="row" *ngFor="let course of courseData">
             <p-divider></p-divider>
             <ng-container *ngIf="course.course_ids.length != 0">
               <div class="col-lg-3">
-                <img src="{{ course.course_ids[0].placeholder_img.url }}" alt="img" width="180px" height="150px">
+                <ng-container  *ngIf="course.course_ids[0].placeholder_img != null">
+
+                    <div>
+                      <img [src]='img_url + course.course_ids[0].placeholder_img.formats.thumbnail.url' alt=""
+                        class="courseFigure" width="180px" height="150px" (click)="onClick(course.course_ids[0])">
+                    </div>
+
+                </ng-container>
+                <ng-container *ngIf="course.course_ids[0].placeholder_img == null">
+                  <div   (click)="onClick(course.course_ids[0])" class="card cursor-pointer border-primary d-flex justify-content-center align-items-center"
+                    [style]="{'height':'150px','width':'180px','border-radius':'30px'}">
+                    <p class="fs-3 fw-bold"> {{course.course_ids[0].technologies['1']}} </p>
+                  </div>
+
+                </ng-container>
+
               </div>
               <div class="col-lg-5">
                 <h3 class="fs-5">
@@ -45,7 +60,7 @@
                 <div>
                   <ul class="d-flex px-3" style="gap: 20px">
                     <li class="">
-                      {{ course.course_ids[0].content.length }} Lectures
+                      {{ course.course_ids[0]?.content?.length }} Lectures
                     </li>
                     <li class="mr-2">{{ course.course_ids[0].level }}</li>
                     <li> <b>₹ {{ course.course_ids[0].price}}</b></li>
@@ -53,9 +68,7 @@
                 </div>
               </div>
               <div class="col-lg-4" style="gap: 5px;">
-                <button *ngIf="course.course_ids[0].price == 0" (click)="addToLibrary(course)"
-                  class="btn btn-outline-primary me-2">AddToLibrary</button>
-                <button class="btn btn-outline-danger" (click)="removeCourse(course.id)">Remove</button>
+                  <button class="btn btn-outline-danger" (click)="removeCourse(course.id)">Remove</button>
               </div>
             </ng-container>
           </div>
@@ -71,7 +84,7 @@
         </div>
       </div>
     </div>
-    <div class="card flex justify-content-center">
+    <div class="card flex border-0 justify-content-center">
       <p-toast></p-toast>
       <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
     </div>

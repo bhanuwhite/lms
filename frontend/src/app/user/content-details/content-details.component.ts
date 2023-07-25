@@ -1,16 +1,7 @@
-import {
-  Component,
-  OnInit,
-  TemplateRef,
-  DoCheck,
-  ViewChild,
-  ElementRef,
-} from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
-// import { ContentResponse } from 'src/app/models/content';
 import {
   MessageService,
   ConfirmationService,
@@ -19,6 +10,8 @@ import {
 import { AllCourseContentData, SingleCourseData } from 'src/app/models/content';
 import { AboutService } from 'src/app/services/about.service';
 import { CartResponse } from 'src/app/models/cart';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-content-details',
@@ -42,10 +35,12 @@ export class ContentDetailsComponent implements OnInit {
     public dialogService: DialogService,
     private activeParams: ActivatedRoute,
     private apiService: ApiService,
+    // private apiservice: ApiService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router,
-    private aboutService: AboutService
+    private aboutService: AboutService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
@@ -59,11 +54,13 @@ export class ContentDetailsComponent implements OnInit {
 
     window.scrollTo(0, 0);
   }
+  public img_url = environment.apiUrl;
 
   public getLocalData(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       const getLocalData = JSON.parse(localStorage.getItem('user')!);
       this.userID = getLocalData.id;
+
       resolve();
       (error: any) => {
         reject(error);
@@ -71,7 +68,15 @@ export class ContentDetailsComponent implements OnInit {
     });
   }
 
+  public getCourses(): void {
+    this.apiService.getContent().subscribe((res) => {
+      this.userCourses = res.data;
+      this.showSpinner = false;
+    });
+  }
+
   libDataIds: number[] = [];
+
   public gettingUserHasCourse(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.apiService.getUserCourse(this.userID).subscribe((res) => {
@@ -86,12 +91,7 @@ export class ContentDetailsComponent implements OnInit {
     });
   }
 
-  public getCourses(): void {
-    this.apiService.getContent().subscribe((res) => {
-      this.userCourses = res.data;
-      this.showSpinner = false;
-    });
-  }
+  public videoUrl!: SafeResourceUrl;
 
   public getSingleCourseObj(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
@@ -101,6 +101,7 @@ export class ContentDetailsComponent implements OnInit {
       this.apiService.getSingleContent(this.courseId).subscribe((res) => {
         this.singleCourse = res['data'];
 
+        this.videoUrl = this.getSafeVideoUrl(res['data'].attributes.link);
       });
       resolve();
       (error: any) => {
@@ -109,6 +110,18 @@ export class ContentDetailsComponent implements OnInit {
     });
   }
 
+  getSafeVideoUrl(link: string): SafeResourceUrl {
+    const videoId = this.extractVideoId(link);
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+  }
+
+  extractVideoId(link: string): string {
+    const regex =
+      /youtu(?:\.be|be\.com)\/(?:.*v(?:\/|=)|(?:.*\/)?)([a-zA-Z0-9-_]+)/;
+    const match = link?.match(regex);
+    return match ? match[1] : '';
+  }
   // Getting Cart courses
   public getCartCourses(): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -148,9 +161,7 @@ export class ContentDetailsComponent implements OnInit {
             });
             this.getCartCourses();
           },
-          (error: any) => {
-            console.log('Error', error);
-          }
+          (error: any) => {}
         );
       },
       reject: (type: any) => {
@@ -177,13 +188,61 @@ export class ContentDetailsComponent implements OnInit {
     this.router.navigate(['mycart']);
   }
 
-  // onClickVideo(courseDetails: {}) {
-  //   const ref = this.dialogService.open(VideoPopupComponent, {
-  //     header: 'Course Preview',
-  //     width: '50%',
-  //     data: { name: 'John' },
-  //   });
-  // }
+  public purchases: any;
+
+  addToLibrary(course: any) {
+    this.purchases = course.attributes.no_of_purchases;
+    this.confirmationService.confirm({
+      message: `Do you want to add this ${course?.attributes.name} to Library?`,
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        const courseDetails = {
+          data: {
+            course_ids: course.id,
+            user_id: this.userID,
+          },
+        };
+
+        this.apiService.postUserHasCourse(courseDetails).subscribe((res) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Successfully',
+            detail: 'Course added to library',
+          });
+
+          this.gettingUserHasCourse();
+          const putCourseBody = {
+            data: {
+              no_of_purchases: Number(this.purchases) + Number(1),
+            },
+          };
+          this.apiService
+            .updateContent(course?.course_ids[0]?.id, putCourseBody)
+            .subscribe((res) => {});
+        });
+      },
+      reject: (type: any) => {
+        switch (type) {
+          case ConfirmEventType.REJECT:
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Rejected',
+              detail: 'You have rejected',
+            });
+            break;
+          case ConfirmEventType.CANCEL:
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Cancelled',
+              detail: 'You have cancelled',
+            });
+            break;
+        }
+      },
+    });
+  }
+
   onClose() {
     this.displayDialog = false;
   }
@@ -202,7 +261,6 @@ export class ContentDetailsComponent implements OnInit {
   }
 
   private onVideoPlaying = () => {};
-
   private onVideoPaused = () => {
     this.isPlaying = !this.isPlaying;
   };

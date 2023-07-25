@@ -4,7 +4,7 @@
 </div>
 
 <ng-container class="container-fluid px-4" >
-  <div >
+  <div class="all_course_tab">
     <p-tabView>
       <p-tabPanel header="All Course">
 
@@ -41,19 +41,30 @@
                     <ng-container *ngIf="course.course_ids.length != 0">
                       <div class="card course-card">
                         <div class="img-header">
+                          <ng-container  *ngIf="course.course_ids[0].placeholder_img != null">
                           <a [routerLink]="['/user/library',course.id]" routerLinkActive="routerActive">
                             <div>
-                              <img src={{course?.course_ids[0]?.placeholder_img?.formats.thumbnail.url}} alt=""
-                                class="courseFigure">
+                              <img [src]='img_url + course.course_ids[0].placeholder_img.formats.thumbnail.url' alt=""
+                                class="courseFigure"  [style]="{'height':'200px','width':'100%'}">
                             </div>
                           </a>
+                        </ng-container>
+                        <ng-container *ngIf="course.course_ids[0].placeholder_img == null">
+
+                          <div [routerLink]="['/user/library',course.id]" routerLinkActive="routerActive" class="card cursor-pointer d-flex justify-content-center align-items-center"
+                            [style]="{'height':'200px','width':'100%'}">
+                            <p class="fs-3 fw-bold"> {{course.course_ids[0].technologies['1']}} </p>
+                          </div>
+
+                        </ng-container>
                         </div>
+
                         <hr class="m-0 p-0">
                         <h2 class="cursor-pointer px-3 textOverflow" style="cursor: pointer;">
-                          {{course?.course_ids[0]?.name}}</h2>
+                          {{course.course_ids[0].name}}</h2>
                         <div class="px-3">
                           <div class="text-wrap course-disc" [routerLink]="['/user/library',course.id]">
-                            <p class="cursor-pointer textOverflow ">{{course?.course_ids[0]?.description}} </p>
+                            <p class="cursor-pointer textOverflow ">{{course.course_ids[0].description}} </p>
                           </div>
                           <div class=" cursor-pointer" [routerLink]="['/user/library',course.id]">
                             <div class="progress mt-4" style="height: 4px;">
@@ -67,12 +78,12 @@
                             <div class="d-flex m-2 justify-content-end">
 
                              <div class="d-flex">
-                    <p-rating [(ngModel)]="course?.course_ids[0].rating" [readonly]="true" [cancel]="false"></p-rating>
+                    <p-rating [(ngModel)]="course.course_ids[0].rating" [readonly]="true" [cancel]="false"></p-rating>
                   </div>
                             </div>
 
                           </div>
-                          <div class="d-flex justify-content-end my-2" *ngIf="course?.course_ids[0]?.price == 0">
+                          <div class="d-flex justify-content-end my-2" *ngIf="course.course_ids[0].price == 0">
                             <i class=" mr-4 p-text-danger cursor-pointer" pBadge style="font-size: 2rem" severity="danger"
                               value="Remove" (click)="removeCourse(course.id)"></i>
 

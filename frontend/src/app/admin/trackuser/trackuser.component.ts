@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { resolve } from 'chart.js/dist/helpers/helpers.options';
 import { Subscription } from 'rxjs';
-import { TrackResponseData } from 'src/app/models/track';
 import { ApiService } from 'src/app/services/api.service';
+import { UserDetails } from 'src/app/models/track';
 
 @Component({
   selector: 'app-trackuser',
@@ -11,7 +10,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./trackuser.component.scss'],
 })
 export class TrackuserComponent implements OnInit, OnDestroy {
-  public trackResponse: TrackResponseData[] = [];
+  public allUsersData: UserDetails[] = [];
   private TrackRes$: Subscription = new Subscription();
 
   constructor(private apiservivce: ApiService, public router: Router) {}
@@ -22,24 +21,16 @@ export class TrackuserComponent implements OnInit, OnDestroy {
 
   public getTrackApi(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.TrackRes$ = this.apiservivce.getTrack().subscribe((res) => {
-        this.trackResponse = res.data;
+      this.apiservivce.getAllUers().subscribe((res) => {
+        this.allUsersData = res.filter((resObj: UserDetails) => {
+          return resObj.role_id == 3;
+        });
       });
       resolve();
       (err: any) => {
         reject(err);
       };
     });
-  }
-
-  public UseridRepeated(index: number): boolean {
-    const currentUserId = this.trackResponse[index].attributes.user_id;
-    for (let i = 0; i < index; i++) {
-      if (this.trackResponse[i].attributes.user_id === currentUserId) {
-        return true;
-      }
-    }
-    return false;
   }
 
   public showTrackDetails(id: number): void {
