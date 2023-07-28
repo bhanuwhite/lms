@@ -8,8 +8,8 @@
   </div>
 
 
-  <div class="ms-2" *ngIf="uniqueTech">
-    <p-table [value]="uniqueTech" [tableStyle]="{'min-width': '60rem'}" class="table" [paginator]="true" [rows]="5"
+  <div  *ngIf="uniqueTech">
+    <p-table [value]="uniqueTech"   class="table" [paginator]="true" [rows]="5"
       [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]">
       <ng-template pTemplate="header">
         <tr>

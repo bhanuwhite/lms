@@ -52,7 +52,7 @@ body {
 .card2 {
     margin: 0px 40px;
     // margin-top: 20px;
-    height: 400px;
+    max-height: 450px;
 }
 
 .logo {
@@ -217,4 +217,15 @@ a {
         border-top: 1px solid #EEEEEE !important;
         margin: 0px 15px;
     }
+}
+
+.invalid-feedback.px-0.ng-star-inserted {
+    position: absolute;
+    top: 100%;
+    margin: 0px;
+}
+.pass{
+    position: absolute;
+    top: 94% !important;
+    margin: 0px;
 }

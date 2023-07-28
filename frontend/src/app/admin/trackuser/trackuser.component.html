@@ -1,11 +1,12 @@
 <!-- Table -->
+<div class="surface-ground px-4 py-3">
 <div class="row align-items-center">
-  <div class="col-lg-6 col-md-6 d-flex align-items-center m-2">
+  <div class="col-lg-6 col-md-6 d-flex align-items-center">
     <h1 style="font-size: 1.5rem; "><b> All Users</b> </h1>
   </div>
 </div>
-<div class="ms-2">
-  <p-table [value]="allUsersData" [tableStyle]="{'min-width': '60rem'}" class="table" [paginator]="true"
+<div class="">
+  <p-table [value]="allUsersData"  class="table" [paginator]="true"
   [rows]="5"
   [showCurrentPageReport]="true"  [rowsPerPageOptions]="[5, 10, 15]"  >
     <ng-template pTemplate="header">
@@ -36,6 +37,7 @@
     </ng-template>
   </p-table>
 
+</div>
 </div>
 
 <div>
