@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import {  MessageService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { AllCourseContentData, ContentResponse } from 'src/app/models/content';
@@ -20,7 +20,7 @@ interface Subjects {
 })
 export class UserContentComponent {
   private contentGetSubscriptions$: Subscription = new Subscription();
-  public imgUrl = environment.apiUrl
+  public imgUrl = environment.apiUrl;
   public currentRate: number = 2;
   public Spinner: boolean = true;
   public isLoading: boolean = false;
@@ -31,23 +31,21 @@ export class UserContentComponent {
   public showPurchase: boolean = false;
   @ViewChild('desc') desc!: ElementRef;
   private userID!: number;
-  public assessment_Length: number =0;
+  public assessment_Length: number = 0;
   public myCourseLen: number = 0;
-  public showContent!:boolean
+  public showContent!: boolean;
   constructor(
     private apiService: ApiService,
     private router: Router,
     private messageService: MessageService,
-    private aboutService: AboutService,
-
+    private aboutService: AboutService
   ) {}
 
   subjects: Subjects[] = [];
 
   formGroup!: FormGroup;
-  value: number =3;
-  public img_url = environment.apiUrl ;
-
+  value: number = 3;
+  public img_url = environment.apiUrl;
 
   ngOnInit(): void {
     this.getContent();
@@ -68,21 +66,17 @@ export class UserContentComponent {
     });
   }
 
-  public visible:boolean = false
-  public examPopup():void{
-    this.visible = true
+  public visible: boolean = false;
+  public examPopup(): void {
+    this.visible = true;
   }
 
   public getLocalData(): void {
     const getLocalData = JSON.parse(localStorage.getItem('user')!);
     this.userID = getLocalData?.id;
-    console.log(this.userID);
-
-this.apiService.getSingleUser(this.userID).subscribe((res)=>{
-  console.log(res);
-  this.showContent = res.blocked
-})
-
+    this.apiService.getSingleUser(this.userID).subscribe((res) => {
+      this.showContent = res.blocked;
+    });
   }
 
   public gettingUserHasCourse(): void {
@@ -114,12 +108,12 @@ this.apiService.getSingleUser(this.userID).subscribe((res)=>{
     location.reload();
   }
 
-//GET CONTENT
+  //GET CONTENT
 
-public allCourses:string[]=[];
-public uniqueTech :string[]=[]
+  public allCourses: string[] = [];
+  public uniqueTech: string[] = [];
 
-public getContent(): void {
+  public getContent(): void {
     this.apiService.getContent().subscribe((res) => {
       try {
         this.Spinner = false;
@@ -135,37 +129,27 @@ public getContent(): void {
         // this.assessment_Length = UserAssessments.length;
 
         res.data.forEach((item) => {
+          this.allCourses.push(item.attributes?.technologies);
 
-          this.allCourses.push(item.attributes?.technologies)
-
-
-          this.allCourses.forEach((item)=>{
-           const values = Object.values(item);
-           values.forEach((obj)=>{
-             if (!this.uniqueTech.includes(obj)) {
-               this.uniqueTech.push(obj);
-             }
-
-           })
-
-          })
-       });
-
-
-      } catch (error) {
-
-      }
+          this.allCourses.forEach((item) => {
+            const values = Object.values(item);
+            values.forEach((obj) => {
+              if (!this.uniqueTech.includes(obj)) {
+                this.uniqueTech.push(obj);
+              }
+            });
+          });
+        });
+      } catch (error) {}
     });
   }
 
   // public getAllCourseDetais() {
   //   this.apiService.getContent().subscribe((res) => {
 
-
   //     res.data.forEach((item) => {
 
   //        this.allCourses.push(item.attributes?.technologies)
-
 
   //        this.allCourses.forEach((item)=>{
   //         const values = Object.values(item);
@@ -178,8 +162,6 @@ public getContent(): void {
 
   //        })
   //     });
-
-
 
   //   });
   // }

@@ -19,18 +19,14 @@
           <div class="col-lg-6 col-md-12 m-0">
             <div class="card2 card border-0 px-4 py-1 mt-4">
               <form [formGroup]="formgroup" (ngSubmit)="onSubmit()">
-
                 <h1 class="mb-3 mr-4 mt-2" style="padding: 10px 12px 0 0">LOGIN</h1>
-
-
-                <div class="input-container position-relative mb-4">
+                <div class="input-container mb-3">
                   <label class="mb-1 px-0">
                     <h6 class="mb-0 text-sm">Email : <span class="text-danger"> * </span></h6>
                   </label>
                   <input class="mb-0" type="text" name="name" formControlName="name"
                     [class.is-invalid]="name.invalid && name.touched" placeholder="Enter Email Address"
                     (ngBlur)="name.markAsTouched()" />
-
                   <div *ngIf="name.invalid && name.touched" class="invalid-feedback px-0">
                     <div *ngIf="name.errors?.['required']">Email is required.</div>
                     <div *ngIf="!name.errors?.['required'] && name.errors?.['emailValidator']">
@@ -39,8 +35,7 @@
                   </div>
                 </div>
 
-
-                <div class="input-container position-relative">
+                <div class="input-container">
                   <label class="mb-0 px-0">
                     <h6 class="mb-0 text-sm">Password : <span class="text-danger"> * </span></h6>
                   </label>
@@ -48,12 +43,11 @@
                     [class.is-invalid]="pwd.invalid && pwd.touched" placeholder="Enter Password"
                     (ngBlur)="pwd.markAsTouched()" />
 
-                  <div *ngIf="pwd.invalid && pwd.touched" class="invalid-feedback pass px-0">
+                  <div *ngIf="pwd.invalid && pwd.touched" class="invalid-feedback px-0">
                     <div *ngIf="pwd.errors?.['required']">Password is required.</div>
                     <div *ngIf="pwd.errors?.['minlength']">Password must have at least 8 characters.</div>
                   </div>
                 </div>
-
 
                 <div class="row px-3 mb-4">
                   <a routerLink="/login" style="text-align: end" class="ml-auto p-0 mb-0 text-sm">Forgot Password?</a>
@@ -64,14 +58,14 @@
                     [disabled]="formgroup.invalid">Login</button>
                 </div>
 
-                <div class="row mb-2 px-1">
+                <div class="row mb-4 px-1">
                   <small class="" style="font-size: 14px; text-align: center; font-weight: 500">
                     Don't have an account? <a routerLink="/signup" class=" " style="color: #0d6efd">SignUp</a>
                   </small>
                 </div>
 
 
-                <div class="d-flex align-items-end flex-column bd-highlight">
+                <div class="d-flex align-items-end flex-column bd-highlight mb-3" style="height: 200px;">
                   <div class="d-flex align-items-end align-items-end " (click)="showHelpDesk = true">
                     <!-- <span class="material-icons">
                       help
@@ -126,28 +120,24 @@
 </div>
 
 <p-dialog [(visible)]="showHelpDesk" [modal]="true" [style]="{'width':'70vw'}">
-
-  <div class="row align-items-center justify-content-center">
+  <div class="row">
     <div class=" " style="background-color: aliceblue;">
-      <div class="p-2 align-items-center d-flex justify-content-center">
-        <h1 class="m-0 fw-bold">Welcome to LMS Help Desk </h1>
+      <div class="text-cetner m-4 d-flex justify-content-center">
+        <p class="fs-3">Welcome to LMS Help Desk </p>
       </div>
     </div>
-    <div class="row m-0 p-0">
-      <div class="d-flex justify-content-center mt-3">
+    <div class="row ">
+      <div class="d-flex col-lg-12 mt-3">
         <div class="card shadow-2  col-lg-4">
-          <div class="card-body text-center flex-column d-flex justify-content-center">
-            <div class=" mb-4">
+          <div class="card-body d-flex flex-column justify-content-center">
+            <div class=" mb-4 px-5">
               <span class="p-2 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
                 <span class="material-icons text-4xl text-blue-500">
                   login
                 </span>
               </span>
               <div class="text-900 text-xl mb-3 font-medium">Login..</div>
-              <div class="mb-3">
-                <span class="text-700 line-height-3 "> Are you not able to Login into you account for any reason ?
-                </span>
-              </div>
+              <span class="text-700 line-height-3"> Are you not able to Login into you account for any reason ? </span>
               <div>
                 <p-button label="Click here" styleClass="p-button-raised p-button-text p-button-success"></p-button>
               </div>
@@ -156,18 +146,16 @@
         </div>
 
         <div class="card shadow-2 col-lg-4 ms-2">
-          <div class="card-body  text-center flex-column d-flex justify-content-center ">
-            <div class=" mb-4">
+          <div class="card-body  d-flex justify-content-center ">
+            <div class=" mb-4 px-5">
               <span class="p-2 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
                 <span class="material-icons text-4xl text-blue-500">
                   person
                 </span>
               </span>
               <div class="text-900 text-xl mb-3 font-medium">Logout..</div>
-              <div class="mb-3">
-                <span class="text-700 line-height-3"> How to create a an account and other queries please click below
-                  button </span>
-              </div>
+              <span class="text-700 line-height-3"> How to create a an account and other queries please click below
+                button </span>
               <div>
                 <p-button label="Click here" styleClass="p-button-raised p-button-text p-button-success"></p-button>
               </div>
@@ -176,28 +164,23 @@
         </div>
 
         <div class="card shadow-2 col-lg-4 ms-2">
-          <div class="card-body  text-center flex-column d-flex justify-content-center">
-            <div class=" mb-4">
+          <div class="card-body  d-flex justify-content-center">
+            <div class=" mb-4 px-5">
               <span class="p-2 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
                 <span class="material-icons text-4xl text-blue-500">
                   account_circle
                 </span>
               </span>
               <div class="text-900 text-xl mb-3 font-medium">Account related..</div>
-              <div class="mb-3">
-                <span class="text-700 line-height-3"> Account blocked or missing payment details or other queries please
-                  click below button. </span>
-              </div>
-            
+              <span class="text-700 line-height-3"> Account blocked or missing payment details or other queries please
+                click below button. </span>
               <div>
                 <p-button label="Click here" styleClass="p-button-raised p-button-text p-button-success"></p-button>
-
               </div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
 
   </div>
