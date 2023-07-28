@@ -33,6 +33,7 @@ export class UserContentComponent {
   private userID!: number;
   public assessment_Length: number =0;
   public myCourseLen: number = 0;
+  public showContent!:boolean
   constructor(
     private apiService: ApiService,
     private router: Router,
@@ -75,6 +76,13 @@ export class UserContentComponent {
   public getLocalData(): void {
     const getLocalData = JSON.parse(localStorage.getItem('user')!);
     this.userID = getLocalData?.id;
+    console.log(this.userID);
+
+this.apiService.getSingleUser(this.userID).subscribe((res)=>{
+  console.log(res);
+  this.showContent = res.blocked
+})
+
   }
 
   public gettingUserHasCourse(): void {

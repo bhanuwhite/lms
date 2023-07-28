@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ApiService } from '../services/api.service';
-import { UserDetails } from '../models/track';
 
 @Component({
   selector: 'app-admin',
@@ -21,7 +19,6 @@ export class AdminComponent implements OnInit {
   step: number = 2;
   visibleSidebar1!: boolean;
   items: any;
-
   constructor(private router: Router) {}
 
   ngOnInit(): void {

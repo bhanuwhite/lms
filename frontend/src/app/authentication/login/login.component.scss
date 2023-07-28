@@ -29,6 +29,11 @@
     height: 100vh;
     overflow-y: auto;
 }
+.centered-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 
 body {

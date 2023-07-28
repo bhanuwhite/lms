@@ -1,0 +1,99 @@
+<ng-container *ngIf="roleName?.toLowerCase() === 'technology'">
+
+  <div class="card">
+
+    <div class="d-flex justify-content-between me-4 my-3">
+      <h1 class="m-0" style="font-size: 1.5rem"><b> Technology</b></h1>
+
+      <button class=" btn btn-primary" (click)="addTech()">Add Technology</button>
+    </div>
+    <p-table [value]="techData" [tableStyle]="{'min-width': '60rem'}" class="table table-hover" [paginator]="true"
+    [rows]="5"
+    [showCurrentPageReport]="true"  [rowsPerPageOptions]="[5, 10, 15]" >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="attributes.technologies.tech" style="width:20%">Technology <p-sortIcon
+              field="tech"></p-sortIcon></th>
+          <th style="width:20%">Action </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr>
+          <td><b>{{product.attributes.technologies.tech}}</b></td>
+          <td>
+            <div class="d-flex align-items-center">
+              <span class="material-icons text-primary cursor-pointer "
+                (click)="editTech(product.id,product.attributes.technologies.tech)">
+                edit
+              </span>
+              <span class="material-icons text-danger cursor-pointer ms-3" (click)="deleteTech(product)">
+                delete
+              </span>
+            </div>
+          </td>
+
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="roleName?.toLowerCase() === 'category'">
+
+  <div class="card">
+    <div class="d-flex justify-content-between ms-2 my-2">
+      <h1 class="m-0" style="font-size: 1.5rem"><b> Category</b></h1>
+      <button class=" btn btn-primary" (click)="addCat()">Add Category</button>
+    </div>
+
+
+    <p-table [value]="categoryData" [tableStyle]="{'min-width': '60rem'}" class="table" [paginator]="true"
+    [rows]="5"
+    [showCurrentPageReport]="true"  [rowsPerPageOptions]="[5, 10, 15]" >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="attributes.categories.tech" style="width:20%">Category <p-sortIcon
+              field="category"></p-sortIcon></th>
+          <th style="width:20%">Action </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr>
+          <td><b>{{product.attributes.categories.tech}}</b></td>
+          <td>
+            <div class="d-flex align-items-center">
+              <span class="material-icons text-primary cursor-pointer "
+                (click)="editCategory(product.id,product.attributes.categories.tech)">
+                edit
+              </span>
+              <span class="material-icons text-danger cursor-pointer ms-3" (click)="deleteCat(product)">
+                delete
+              </span>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</ng-container>
+
+<div>
+  <p-toast></p-toast>
+  <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
+
+</div>
+
+<p-dialog header="{{headerName}}" [visible]="showPopup" [modal]="true" [style]="{'width':'40vw'}">
+  <form [formGroup]="techForm" (ngSubmit)="techSubmit()">
+    <div>
+      <label for="tech">{{headerName}} : </label>
+      <input pInputText id="tech" type="text" formControlName="tech" class="p-inputtext-md form-control mt-1"
+        placeholder='Enter  {{headerName}}  name ' />
+
+    </div>
+    <div class="d-flex justify-content-between m-3">
+      <button class="btn btn-secondary btn-sm" type="reset" (click)="showPopup = false"> Clear </button>
+      <button class="btn btn-success btn-sm" type="submit">Submit</button>
+    </div>
+  </form>
+</p-dialog>

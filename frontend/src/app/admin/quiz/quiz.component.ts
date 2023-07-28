@@ -1,3 +1,4 @@
+import { PropertyWrite } from '@angular/compiler';
 import {
   Component,
   ElementRef,
@@ -12,10 +13,13 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { SortEvent } from 'primeng/api';
+
 import { Router } from '@angular/router';
+import { resolve } from 'chart.js/dist/helpers/helpers.options';
 import { ConfirmationService, Message, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { Quiz, answers, level } from 'src/app/models/quiz';
+import { Quiz, QuizResponse, answers, level } from 'src/app/models/quiz';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -65,13 +69,14 @@ export class QuizComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private messageService: MessageService,
     private apiService: ApiService,
-    private route: Router
+    private route: Router,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
     this.getCourseContentDetails();
-    this.loadForm();
     this.getQuizData();
+    this.loadForm();
   }
 
   // Add Form validation
@@ -134,6 +139,8 @@ export class QuizComponent implements OnInit, OnDestroy {
           summary: 'Success',
           detail: 'Question Added',
         });
+        this.getCourseContentDetails();
+        this.getQuizData();
       } catch (error) {
         this.messageService.add({
           severity: 'error',
@@ -154,7 +161,6 @@ export class QuizComponent implements OnInit, OnDestroy {
   public getCourseContentDetails() {
     this.apiService.getContent().subscribe((res) => {
       const courses = res.data;
-
       courses.forEach((item) => {
         this.allCourses.push(item.attributes?.technologies);
         this.allCourses.forEach((obj) => {
@@ -169,8 +175,14 @@ export class QuizComponent implements OnInit, OnDestroy {
     });
   }
 
+  public techCourseNames!: string[];
   public getQuizData() {
-    this.apiService.getQuiz().subscribe((res) => {});
+    this.apiService.getQuiz().subscribe((res) => {
+      this.techCourseNames = res.data.map((res) => {
+        return res.attributes.course_name.toLocaleLowerCase();
+      });
+      this.techCourseNames = Array.from(new Set(this.techCourseNames));
+    });
   }
   showDialog(course: string) {
     this.visible = true;
@@ -184,6 +196,43 @@ export class QuizComponent implements OnInit, OnDestroy {
   showQuizQuestions(technology: string) {
     this.route.navigate(['/quiz/', technology]);
     localStorage.setItem('CourseName', technology);
+  }
+
+  public deleteExam(quiz: any): void {
+    this.confirmationService.confirm({
+      message: `Are you want to delete ${quiz} Assessments ?`,
+      header: 'Confirmation..',
+      accept: () => {
+        try {
+          this.apiService.getQuiz().subscribe((res) => {
+            res.data.map((res: QuizResponse) => {
+              if (
+                quiz.toLowerCase() === res.attributes.course_name.toLowerCase()
+              ) {
+                this.apiService.deleteQuiz(res.id).subscribe((res) => {
+                  this.getCourseContentDetails();
+                  this.getQuizData();
+                });
+              }
+            });
+          });
+        } catch (err: any) {
+          console.warn(err);
+        }
+
+        this.messageService.add({
+          severity: 'success',
+          life: 3000,
+          summary: `${quiz} Assessments deleted.`,
+        });
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: ' Request denied.',
+        });
+      },
+    });
   }
 
   ngOnDestroy(): void {}

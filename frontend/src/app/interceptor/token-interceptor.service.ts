@@ -25,6 +25,8 @@ export class TokenInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
+        console.log(error);
+
         this.errorMessage = error
         this.errorMsg = error.error.error?.message;
         let errorMessage = '';
@@ -41,6 +43,9 @@ export class TokenInterceptor implements HttpInterceptor {
           }
           else if(error.error.error.message === "Email or Username are already taken"){
           this.messageService.add({ severity: 'error', summary: '', detail:error.error.error.message});
+          }
+          else if(error.error.error.message === "Your account has been blocked by an administrator" ){
+            this.messageService.add({  severity:'warn',summary:"Your account has been blocked by Admin.", detail:"Please go with guidelines in Help Desk.", life:5000})
           }
         }
         else {

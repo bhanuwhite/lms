@@ -7,80 +7,85 @@
             <h1 style="color: #0d6efd">Welcome to LMS</h1>
           </div>
         </div>
-        <div  class="row m-0">
-              <div class=" col-lg-6 col-md-12 m-0">
-                <div class="card1 pb-5">
-                  <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
-                    <img height="400px" src="https://t4.ftcdn.net/jpg/04/12/22/09/360_F_412220949_b05U6ue0CR4AwLykbPZIqithDXKHf5L7.jpg" />
+        <div class="row m-0">
+          <div class=" col-lg-6 col-md-12 m-0">
+            <div class="card1 pb-5">
+              <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
+                <img height="400px"
+                  src="https://t4.ftcdn.net/jpg/04/12/22/09/360_F_412220949_b05U6ue0CR4AwLykbPZIqithDXKHf5L7.jpg" />
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12 m-0">
+            <div class="card2 card border-0 px-4 py-1 mt-4">
+              <form [formGroup]="formgroup" (ngSubmit)="onSubmit()">
+
+                <h1 class="mb-3 mr-4 mt-2" style="padding: 10px 12px 0 0">LOGIN</h1>
+
+
+                <div class="input-container mb-3">
+                  <label class="mb-1 px-0">
+                    <h6 class="mb-0 text-sm">Email : <span class="text-danger"> * </span></h6>
+                  </label>
+                  <input class="mb-0" type="text" name="name" formControlName="name"
+                    [class.is-invalid]="name.invalid && name.touched" placeholder="Enter Email Address"
+                    (ngBlur)="name.markAsTouched()" />
+
+                  <div *ngIf="name.invalid && name.touched" class="invalid-feedback px-0">
+                    <div *ngIf="name.errors?.['required']">Email is required.</div>
+                    <div *ngIf="!name.errors?.['required'] && name.errors?.['emailValidator']">
+                      Invalid email format.
+                    </div>
                   </div>
                 </div>
-              </div>
-             <div class="col-lg-6 col-md-12 m-0">
-              <div class="card2 card border-0 px-4 py-1 mt-4">
-                <form [formGroup]="formgroup" (ngSubmit)="onSubmit()">
-
-                    <h1 class="mb-3 mr-4 mt-2" style="padding: 10px 12px 0 0">LOGIN</h1>
 
 
-                    <div class="input-container mb-3">
-                      <label class="mb-1 px-0">
-                        <h6 class="mb-0 text-sm">Email : <span class="text-danger"> * </span></h6>
-                      </label>
-                      <input class="mb-0" type="text" name="name" formControlName="name"
-                        [class.is-invalid]="name.invalid && name.touched"
-                        placeholder="Enter Email Address" (ngBlur)="name.markAsTouched()" />
+                <div class="input-container">
+                  <label class="mb-0 px-0">
+                    <h6 class="mb-0 text-sm">Password : <span class="text-danger"> * </span></h6>
+                  </label>
+                  <input type="password" formControlName="pwd" name="pwd"
+                    [class.is-invalid]="pwd.invalid && pwd.touched" placeholder="Enter Password"
+                    (ngBlur)="pwd.markAsTouched()" />
 
-                      <div *ngIf="name.invalid && name.touched" class="invalid-feedback px-0">
-                        <div *ngIf="name.errors?.['required']">Email is required.</div>
-                        <div *ngIf="!name.errors?.['required'] && name.errors?.['emailValidator']">
-                          Invalid email format.
-                        </div>
-                      </div>
-
-                      <!-- <div *ngIf="name.invalid && name.touched && formgroup.invalid && formgroup.submitted" class=" px-0">
-                        <small class="text-danger">hello</small>
-                 </div> -->
-                    </div>
-
-
-                    <div class="input-container">
-                      <label class="mb-0 px-0">
-                        <h6 class="mb-0 text-sm">Password : <span class="text-danger"> * </span></h6>
-                      </label>
-                      <input type="password" formControlName="pwd" name="pwd"
-                        [class.is-invalid]="pwd.invalid && pwd.touched"
-                        placeholder="Enter Password" (ngBlur)="pwd.markAsTouched()" />
-
-                      <div *ngIf="pwd.invalid && pwd.touched" class="invalid-feedback px-0">
-                        <div *ngIf="pwd.errors?.['required']">Password is required.</div>
-                        <div *ngIf="pwd.errors?.['minlength']">Password must have at least 8 characters.</div>
-                      </div>
-
-                      <!-- <div *ngIf="pwd.invalid && pwd.untouched && formgroup.invalid && formgroup.touched" class=" px-0">
-                             <small class="text-danger">hello</small>
-                      </div> -->
-
-                    </div>
-
-
-                  <div class="row px-3 mb-4">
-                    <a routerLink="/login" style="text-align: end" class="ml-auto p-0 mb-0 text-sm">Forgot Password?</a>
+                  <div *ngIf="pwd.invalid && pwd.touched" class="invalid-feedback px-0">
+                    <div *ngIf="pwd.errors?.['required']">Password is required.</div>
+                    <div *ngIf="pwd.errors?.['minlength']">Password must have at least 8 characters.</div>
                   </div>
+                </div>
 
-                  <div class="row mb-3 px-3">
-                    <button pButton pRipple type="submit" class="w-full p-2 text-xl btn btn-primary" [disabled]="formgroup.invalid" >Login</button>
-                  </div>
 
-                  <div class="row mb-4 px-1">
+                <div class="row px-3 mb-4">
+                  <a routerLink="/login" style="text-align: end" class="ml-auto p-0 mb-0 text-sm">Forgot Password?</a>
+                </div>
+
+                <div class="row mb-3 px-3">
+                  <button pButton pRipple type="submit" class="w-full p-2 text-xl btn btn-primary centered-text"
+                    [disabled]="formgroup.invalid">Login</button>
+                </div>
+
+                <div class="row mb-4 px-1">
+                  <small class="" style="font-size: 14px; text-align: center; font-weight: 500">
+                    Don't have an account? <a routerLink="/signup" class=" " style="color: #0d6efd">SignUp</a>
+                  </small>
+                </div>
+
+
+                <div class="d-flex align-items-end flex-column bd-highlight mb-3" style="height: 200px;">
+                  <div class="d-flex align-items-end align-items-end " (click)="showHelpDesk = true">
+                    <!-- <span class="material-icons">
+                      help
+                      </span> -->
                     <small class="" style="font-size: 14px; text-align: center; font-weight: 500">
-                      Don't have an account? <a routerLink="/signup" class=" " style="color: #0d6efd">SignUp</a>
+                      <a class=" " style="color: #0d6efd"><u>Help Desk</u></a>
                     </small>
                   </div>
 
+                </div>
 
-                </form>
-              </div>
+              </form>
             </div>
+          </div>
 
 
         </div>
@@ -89,15 +94,15 @@
   </div>
 </div>
 <div>
-  <p-dialog header="Forgot Password" [(visible)]="forgotPwd" [modal]="true" [style]="{'width':'30vw'}" >
+  <p-dialog header="Forgot Password" [(visible)]="forgotPwd" [modal]="true" [style]="{'width':'50vw'}">
     <form action="forgotform" [formGroup]="forgotForm" (ngSubmit)="forgotFormSubmit()">
       <div class="row px-3 mb-2">
         <label class="mb-1 px-0">
           <h6 class="mb-0 text-sm">Email : <span class="text-danger"> * </span></h6>
         </label>
         <input class="mb-0" type="text" name="email" formControlName="email"
-          [class.is-invalid]="email?.invalid && (email?.dirty || email?.touched)"
-          (blur)="email?.markAsTouched()" placeholder="Enter Email Address">
+          [class.is-invalid]="email?.invalid && (email?.dirty || email?.touched)" (blur)="email?.markAsTouched()"
+          placeholder="Enter Email Address">
 
         <div *ngIf="email?.invalid && email?.touched" class="invalid-feedback px-0">
           <div *ngIf="email?.errors?.['required']">
@@ -112,11 +117,93 @@
 
       </div>
       <div class="d-flex justify-content-between">
-        <button type="reset" class="btn btn-secondary" (click)="cancelForm()" >Cancel</button>
-        <button type="submit" class="btn btn-success" [disabled]="forgotForm.invalid" >Submit</button>
+        <button type="reset" class="btn btn-secondary" (click)="cancelForm()">Cancel</button>
+        <button type="submit" class="btn btn-success" [disabled]="forgotForm.invalid">Submit</button>
 
       </div>
     </form>
   </p-dialog>
 </div>
+
+<p-dialog [(visible)]="showHelpDesk" [modal]="true" [style]="{'width':'70vw'}">
+
+  <div class="row">
+    <!-- <div class="d-flex" style="color:#0d6efd;">
+      <i class="pi pi-bolt" style="font-size: 2rem"></i>
+      <span class="" style="font-size: 24px;"> LMS</span>
+    </div> -->
+
+    <div class=" " style="background-color: aliceblue;">
+      <div class="text-cetner m-4 d-flex justify-content-center">
+        <p class="fs-3">Welcome to LMS Help Desk </p>
+      </div>
+
+    </div>
+
+    <div class="row ">
+
+      <div class="d-flex col-lg-12 mt-3">
+        <div class="card shadow-2  col-lg-4">
+          <div class="card-body d-flex flex-column justify-content-center">
+
+            <div class=" mb-4 px-5">
+              <span class="p-2 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
+                <span class="material-icons text-4xl text-blue-500">
+                  login
+                </span>
+              </span>
+              <div class="text-900 text-xl mb-3 font-medium">Login..</div>
+              <span class="text-700 line-height-3"> Are you not able to Login into you account for any reason ? </span>
+              <div>
+                <p-button label="Click here" styleClass="p-button-raised p-button-text p-button-success"></p-button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card shadow-2 col-lg-4 ms-2">
+          <div class="card-body  d-flex justify-content-center ">
+            <div class=" mb-4 px-5">
+              <span class="p-2 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
+                <span class="material-icons text-4xl text-blue-500">
+                  person
+                </span>
+              </span>
+              <div class="text-900 text-xl mb-3 font-medium">Logout..</div>
+              <span class="text-700 line-height-3"> How to create a an account and other queries please click below
+                button </span>
+
+              <div>
+                <p-button label="Click here" styleClass="p-button-raised p-button-text p-button-success"></p-button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card shadow-2 col-lg-4 ms-2">
+          <div class="card-body  d-flex justify-content-center">
+            <div class=" mb-4 px-5">
+              <span class="p-2 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
+                <span class="material-icons text-4xl text-blue-500">
+                  account_circle
+                </span>
+              </span>
+              <div class="text-900 text-xl mb-3 font-medium">Account related..</div>
+              <span class="text-700 line-height-3"> Account blocked or missing payment details or other queries please
+                click below button. </span>
+              <div>
+                <p-button label="Click here" styleClass="p-button-raised p-button-text p-button-success"></p-button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</p-dialog>
 <p-toast></p-toast>

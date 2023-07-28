@@ -80,15 +80,16 @@ export class QuizDetailsComponent implements OnInit {
 
   public getQuizData() {
     this.quizDetails = [];
-
     this.apiService.getQuiz().subscribe((res) => {
       this.quizData = res.data;
+      console.log(this.quizData);
 
       this.quizData.map((res: QuizResponse) => {
         if (this.courseName == res.attributes.course_name) {
           this.quizDetails.push(res);
         }
       });
+        console.log(this.quizDetails);
     });
   }
 

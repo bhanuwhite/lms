@@ -27,3 +27,10 @@
   height: 160px;
   max-height: 160px;
 }
+
+
+
+.table tr:nth-child(even) {
+  background-color: #e5fab5;
+}
+

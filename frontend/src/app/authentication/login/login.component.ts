@@ -28,7 +28,7 @@ export class LoginComponent {
   public forgotPwd: boolean = false;
   body!: Login;
   public isLoading: boolean = false;
-
+public showHelpDesk:boolean = false
   isError: boolean = false;
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -62,6 +62,8 @@ export class LoginComponent {
 
     this.isLoading = true;
     this.authService.loginUser(this.body).subscribe((res) => {
+      console.log(res);
+
       localStorage.setItem('token', res.jwt);
       try {
         const data = res.user;

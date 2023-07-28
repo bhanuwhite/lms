@@ -1,3 +1,11 @@
+<ng-container *ngIf="showContent == true">
+  <div class="card" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;">
+    <div class="d-flex justify-content-center">
+      <h2>Your account is blocked.</h2>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="showContent == false">
 <div class="content_part_wrapper">
 
   <div class="container-fluid mb-2">
@@ -190,3 +198,4 @@
 
 
 </div>
+</ng-container>

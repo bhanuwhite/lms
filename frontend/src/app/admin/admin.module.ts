@@ -53,7 +53,8 @@ import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
 import { TrackuserComponent } from './trackuser/trackuser.component';
 import { TrackDetailsComponent } from './track-details/track-details.component';
 import { EditFormComponent } from './edit-form/edit-form.component';
-
+import { TecheCatComponent } from './teche-cat/teche-cat.component';
+import { TieredMenuModule } from 'primeng/tieredmenu';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { EditFormComponent } from './edit-form/edit-form.component';
     QuizDetailsComponent,
     TrackuserComponent,
     TrackDetailsComponent,
-    EditFormComponent
+    EditFormComponent,
+    TecheCatComponent
 
   ],
   imports: [
@@ -112,7 +114,8 @@ import { EditFormComponent } from './edit-form/edit-form.component';
     OverlayPanelModule,
     BadgeModule,
     ScrollPanelModule,
-    ScrollerModule
+    ScrollerModule,
+    TieredMenuModule
   ],
   providers: [
     ApiService

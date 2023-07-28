@@ -194,12 +194,16 @@ input.p-inputtext.p-component.p-element.search-text {
 .content-inner{
   overflow-x: hidden !important;
 }
-    // .content {
-    //     width: 100% !important;
-    //     top: 80px;
-    //     left: 0 !important;
-    //     position: absolute;
-    //     background-color: rgb(211 211 211 / 19%);
-    //     height: calc(100% - 84px) !important;
-    // }
+
 }
+
+  .techee:hover{
+    border: 1px solid rgb(245, 7, 7);
+    padding: 2px;
+    border-radius: 10px;
+    font-size:large;
+  }
+
+
+
+
