@@ -116,6 +116,16 @@
     },
     "technologies": {
       "type": "json"
+    },
+    "technology": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::technology.technology"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category.category"
     }
   }
 }
