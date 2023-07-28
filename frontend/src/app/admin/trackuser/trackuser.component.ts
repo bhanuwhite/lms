@@ -96,7 +96,7 @@ export class TrackuserComponent implements OnInit, OnDestroy {
           this.messageService.add({
             severity: 'success',
             summary: 'Confirmed',
-            detail: `${users.username} has been Unlocked`,
+            detail: `${users.username} account has been Unlocked`,
           });
         },
         reject: () => {

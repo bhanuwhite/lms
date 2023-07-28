@@ -42,19 +42,28 @@ export class TecheCatComponent implements OnInit {
   }
 
   public techData: any;
+  private techList: string[] = [];
+
   private getTech(): void {
     this.apiService.getTechnoogy().subscribe((res) => {
       this.techData = res.data;
       res.data.map((resObj: any) => {
         this.Technologies.push(resObj.attributes.technologies);
       });
+      this.techList = res.data.map((res: any) => {
+        return res.attributes.technologies.tech.toLowerCase();
+      });
     });
   }
 
   public categoryData: any;
+  private categoryList: string[] = [];
   private getCategory(): void {
     this.apiService.getCategory().subscribe((res) => {
       this.categoryData = res.data;
+      this.categoryList = res.data.map((res: any) => {
+        return res.attributes.categories.tech.toLowerCase();
+      });
     });
   }
 
@@ -77,16 +86,37 @@ export class TecheCatComponent implements OnInit {
             },
           },
         };
-        if (this.formValue == 'new') {
-          this.apiService.postTechnoogy(postTech).subscribe((res) => {
-            this.getTech();
+        if (this.formValue === 'new') {
+          this.getTech();
+
+          if (this.techList.includes(this.techForm.value.tech.toLowerCase())) {
+            this.messageService.add({
+              severity: 'warn',
+              summary: `${this.techForm.value.tech} Technology already exists.`,
+              life: 3000,
+            });
             this.techForm.reset();
-          });
+          } else {
+
+            this.apiService.postTechnoogy(postTech).subscribe((res) => {
+              this.getTech();
+              this.techForm.reset();
+              this.messageService.add({
+                severity: 'success',
+                summary: `${this.techForm.value.tech} Technology added.`,
+                life: 3000,
+              });
+            });
+          }
         } else {
           this.apiService
             .putTechnoogy(this.editId, postTech)
             .subscribe((res) => {
               this.getTech();
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Technology edit successfull',
+              });
             });
         }
 
@@ -100,13 +130,35 @@ export class TecheCatComponent implements OnInit {
           },
         };
         if (this.formValue === 'new') {
-          this.apiService.postCategory(postCat).subscribe((res) => {
-            this.getCategory();
+          this.getCategory();
+          if (
+            this.categoryList.includes(this.techForm.value.tech.toLowerCase())
+          ) {
+
+            this.messageService.add({
+              severity: 'warn',
+              summary: `${this.techForm.value.tech} Category already exists.`,
+              life: 4000,
+            });
             this.techForm.reset();
-          });
+          } else {
+            this.apiService.postCategory(postCat).subscribe((res) => {
+              this.getCategory();
+              this.techForm.reset();
+              this.messageService.add({
+                severity: 'success',
+                summary: `${this.techForm.value.tech} Category added.`,
+                life: 3000,
+              });
+            });
+          }
         } else if (this.formValue === 'edit') {
           this.apiService.putCategory(this.editId, postCat).subscribe((res) => {
             this.getCategory();
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Category edited successfull.',
+            });
           });
         }
         this.showPopup = false;
@@ -134,7 +186,10 @@ export class TecheCatComponent implements OnInit {
         this.apiService.deleteTechnoogy(item.id).subscribe((res) => {
           this.getTech();
         });
-        this.messageService.add({ severity: 'success', summary: 'Deleted.' });
+        this.messageService.add({
+          severity: 'success',
+          summary: `${item.attributes.technologies.tech} technology Deleted.`,
+        });
       },
       reject: () => {
         this.messageService.add({ severity: 'error', summary: 'Cancelled' });
@@ -162,7 +217,10 @@ export class TecheCatComponent implements OnInit {
         this.apiService.deleteCategory(item.id).subscribe((res) => {
           this.getCategory();
         });
-        this.messageService.add({ severity: 'success', summary: 'Deleted.' });
+        this.messageService.add({
+          severity: 'success',
+          summary: `${item.attributes.categories.tech} category deleted.`,
+        });
       },
       reject: () => {
         this.messageService.add({ severity: 'error', summary: 'Cancelled' });
