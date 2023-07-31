@@ -20,7 +20,7 @@
             <div class="card2 card border-0 px-4 py-1 mt-4">
               <form [formGroup]="formgroup" (ngSubmit)="onSubmit()">
                 <h1 class="mb-3 mr-4 mt-2" style="padding: 10px 12px 0 0">LOGIN</h1>
-                <div class="input-container mb-3">
+                <div class="input-container mb-4 position-relative">
                   <label class="mb-1 px-0">
                     <h6 class="mb-0 text-sm">Email : <span class="text-danger"> * </span></h6>
                   </label>
@@ -35,7 +35,7 @@
                   </div>
                 </div>
 
-                <div class="input-container">
+                <div class="input-container  position-relative ">
                   <label class="mb-0 px-0">
                     <h6 class="mb-0 text-sm">Password : <span class="text-danger"> * </span></h6>
                   </label>
@@ -43,7 +43,7 @@
                     [class.is-invalid]="pwd.invalid && pwd.touched" placeholder="Enter Password"
                     (ngBlur)="pwd.markAsTouched()" />
 
-                  <div *ngIf="pwd.invalid && pwd.touched" class="invalid-feedback px-0">
+                  <div *ngIf="pwd.invalid && pwd.touched" class="invalid-feedback pass px-0">
                     <div *ngIf="pwd.errors?.['required']">Password is required.</div>
                     <div *ngIf="pwd.errors?.['minlength']">Password must have at least 8 characters.</div>
                   </div>
@@ -65,7 +65,7 @@
                 </div>
 
 
-                <div class="d-flex align-items-end flex-column bd-highlight mb-3" style="height: 200px;">
+                <div class="d-flex align-items-end flex-column bd-highlight">
                   <div class="d-flex align-items-end align-items-end " (click)="showHelpDesk = true">
                     <!-- <span class="material-icons">
                       help
@@ -122,66 +122,66 @@
 <p-dialog [(visible)]="showHelpDesk" [modal]="true" [style]="{'width':'70vw'}">
   <div class="row">
     <div class=" " style="background-color: aliceblue;">
-      <div class="text-cetner m-4 d-flex justify-content-center">
-        <p class="fs-3">Welcome to LMS Help Desk </p>
+      <div class="text-cetner p-2 d-flex justify-content-center">
+        <h1 class="m-0 fw-bold">
+          Welcome to LMS Help Desk
+        </h1>         
       </div>
-    </div>
-    <div class="row ">
-      <div class="d-flex col-lg-12 mt-3">
-        <div class="card shadow-2  col-lg-4">
-          <div class="card-body d-flex flex-column justify-content-center">
-            <div class=" mb-4 px-5">
+    </div>   
+      <div class="d-flex justify-content-center mt-3">
+        <div class="card shadow-2 col-lg-4">
+          <div class="card-body d-flex justify-content-center align-items-center flex-column ">
               <span class="p-2 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
                 <span class="material-icons text-4xl text-blue-500">
                   login
                 </span>
               </span>
               <div class="text-900 text-xl mb-3 font-medium">Login..</div>
-              <span class="text-700 line-height-3"> Are you not able to Login into you account for any reason ? </span>
+              <div class="mb-3 text-center">
+                <span class="text-700 line-height-3"> Are you not able to Login into you account for any reason ? </span>
+              </div>   
               <div>
                 <p-button label="Click here" styleClass="p-button-raised p-button-text p-button-success"></p-button>
               </div>
-            </div>
           </div>
         </div>
-
-        <div class="card shadow-2 col-lg-4 ms-2">
-          <div class="card-body  d-flex justify-content-center ">
-            <div class=" mb-4 px-5">
+        <div class="card  shadow-2 col-lg-4 ms-2">
+          <div class="card-body  d-flex justify-content-center align-items-center flex-column  ">
               <span class="p-2 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
                 <span class="material-icons text-4xl text-blue-500">
                   person
                 </span>
               </span>
               <div class="text-900 text-xl mb-3 font-medium">Logout..</div>
-              <span class="text-700 line-height-3"> How to create a an account and other queries please click below
-                button </span>
+              <div class="mb-3 text-center">
+                <span class="text-700 line-height-3"> How to create a an account and other queries please click below
+                  button </span>
+              </div>
               <div>
                 <p-button label="Click here" styleClass="p-button-raised p-button-text p-button-success"></p-button>
               </div>
-            </div>
           </div>
         </div>
 
-        <div class="card shadow-2 col-lg-4 ms-2">
-          <div class="card-body  d-flex justify-content-center">
-            <div class=" mb-4 px-5">
+        <div class="card shadow-2  col-lg-4 ms-2">
+          <div class="card-body d-flex justify-content-center flex-column align-items-center">        
               <span class="p-2 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
                 <span class="material-icons text-4xl text-blue-500">
                   account_circle
                 </span>
               </span>
               <div class="text-900 text-xl mb-3 font-medium">Account related..</div>
-              <span class="text-700 line-height-3"> Account blocked or missing payment details or other queries please
-                click below button. </span>
+              <div class=" mb-3 text-center">
+                <span class="text-700 line-height-3"> Account blocked or missing payment details or other queries please
+                  click below button. </span>
+              </div>
               <div>
                 <p-button label="Click here" styleClass="p-button-raised p-button-text p-button-success"></p-button>
               </div>
-            </div>
           </div>
         </div>
       </div>
-    </div>
+    
 
   </div>
 </p-dialog>
