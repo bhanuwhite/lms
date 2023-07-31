@@ -77,6 +77,7 @@ export class TecheCatComponent implements OnInit {
     this.formValue = 'new';
   }
   public techSubmit(): void {
+    const myValue = this.techForm.value.tech
     try {
       if (this.headerName?.toLowerCase() === 'technology') {
         const postTech = {
@@ -89,10 +90,10 @@ export class TecheCatComponent implements OnInit {
         if (this.formValue === 'new') {
           this.getTech();
 
-          if (this.techList.includes(this.techForm.value.tech.toLowerCase())) {
+          if (this.techList.includes(this.techForm.value.tech.toLowerCase().trim())) {
             this.messageService.add({
               severity: 'warn',
-              summary: `${this.techForm.value.tech} Technology already exists.`,
+              summary: `${myValue} Technology already exists.`,
               life: 3000,
             });
             this.techForm.reset();
@@ -103,7 +104,7 @@ export class TecheCatComponent implements OnInit {
               this.techForm.reset();
               this.messageService.add({
                 severity: 'success',
-                summary: `${this.techForm.value.tech} Technology added.`,
+                summary: `${myValue} Technology added.`,
                 life: 3000,
               });
             });
@@ -132,12 +133,12 @@ export class TecheCatComponent implements OnInit {
         if (this.formValue === 'new') {
           this.getCategory();
           if (
-            this.categoryList.includes(this.techForm.value.tech.toLowerCase())
+            this.categoryList.includes(this.techForm.value.tech.toLowerCase().trim())
           ) {
 
             this.messageService.add({
               severity: 'warn',
-              summary: `${this.techForm.value.tech} Category already exists.`,
+              summary: `${myValue} Category already exists.`,
               life: 4000,
             });
             this.techForm.reset();
@@ -147,7 +148,7 @@ export class TecheCatComponent implements OnInit {
               this.techForm.reset();
               this.messageService.add({
                 severity: 'success',
-                summary: `${this.techForm.value.tech} Category added.`,
+                summary: `${myValue} Category added.`,
                 life: 3000,
               });
             });
