@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService, SortEvent } from 'primeng/api';
+import { UserCatData, UserTechData } from 'src/app/models/track';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -10,13 +11,17 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./teche-cat.component.scss'],
 })
 export class TecheCatComponent implements OnInit {
-  products: any;
   public showPopup: boolean = false;
   public roleName!: string | null;
   public techForm!: FormGroup;
-  headerName!: string | null;
+  public headerName!: string | null;
   public formValue: string = 'new';
-  Technologies: { tech: string }[] = [];
+  private Technologies: { tech: string }[] = [];
+  public techData: UserTechData[] = [];
+  private techList: string[] = [];
+  private editId!: number;
+  public categoryData: UserCatData[] = [];
+  private categoryList: string[] = [];
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -41,27 +46,22 @@ export class TecheCatComponent implements OnInit {
     });
   }
 
-  public techData: any;
-  private techList: string[] = [];
-
   private getTech(): void {
     this.apiService.getTechnoogy().subscribe((res) => {
       this.techData = res.data;
-      res.data.map((resObj: any) => {
+      res.data.map((resObj: UserTechData) => {
         this.Technologies.push(resObj.attributes.technologies);
       });
-      this.techList = res.data.map((res: any) => {
+      this.techList = res.data.map((res: UserTechData) => {
         return res.attributes.technologies.tech.toLowerCase();
       });
     });
   }
 
-  public categoryData: any;
-  private categoryList: string[] = [];
   private getCategory(): void {
     this.apiService.getCategory().subscribe((res) => {
       this.categoryData = res.data;
-      this.categoryList = res.data.map((res: any) => {
+      this.categoryList = res.data.map((res: UserCatData) => {
         return res.attributes.categories.tech.toLowerCase();
       });
     });
@@ -77,7 +77,7 @@ export class TecheCatComponent implements OnInit {
     this.formValue = 'new';
   }
   public techSubmit(): void {
-    const myValue = this.techForm.value.tech
+    const myValue = this.techForm.value.tech;
     try {
       if (this.headerName?.toLowerCase() === 'technology') {
         const postTech = {
@@ -89,8 +89,11 @@ export class TecheCatComponent implements OnInit {
         };
         if (this.formValue === 'new') {
           this.getTech();
-
-          if (this.techList.includes(this.techForm.value.tech.toLowerCase().trim())) {
+          if (
+            this.techList.includes(
+              this.techForm.value.tech.toLowerCase().trim()
+            )
+          ) {
             this.messageService.add({
               severity: 'warn',
               summary: `${myValue} Technology already exists.`,
@@ -98,7 +101,6 @@ export class TecheCatComponent implements OnInit {
             });
             this.techForm.reset();
           } else {
-
             this.apiService.postTechnoogy(postTech).subscribe((res) => {
               this.getTech();
               this.techForm.reset();
@@ -120,7 +122,6 @@ export class TecheCatComponent implements OnInit {
               });
             });
         }
-
         this.showPopup = false;
       } else if (this.headerName?.toLowerCase() === 'category') {
         const postCat = {
@@ -133,9 +134,10 @@ export class TecheCatComponent implements OnInit {
         if (this.formValue === 'new') {
           this.getCategory();
           if (
-            this.categoryList.includes(this.techForm.value.tech.toLowerCase().trim())
+            this.categoryList.includes(
+              this.techForm.value.tech.toLowerCase().trim()
+            )
           ) {
-
             this.messageService.add({
               severity: 'warn',
               summary: `${myValue} Category already exists.`,
@@ -179,7 +181,7 @@ export class TecheCatComponent implements OnInit {
       this.editId = id;
     }
   }
-  public deleteTech(item: any): void {
+  public deleteTech(item: UserTechData): void {
     this.confirmationService.confirm({
       message: `Do you want to delete this ${item.attributes.technologies.tech} technology ?`,
       header: 'Delete Confirmation',
@@ -198,7 +200,6 @@ export class TecheCatComponent implements OnInit {
     });
   }
 
-  editId!: number;
   public editCategory(id: number, name: string): void {
     if (this.headerName?.toLowerCase() === 'category') {
       this.showPopup = true;
@@ -210,7 +211,7 @@ export class TecheCatComponent implements OnInit {
     }
   }
 
-  public deleteCat(item: any): void {
+  public deleteCat(item: UserCatData): void {
     this.confirmationService.confirm({
       message: `Do you want to delete this ${item.attributes.categories.tech} Category ?`,
       header: 'Delete Confirmation',

@@ -47,7 +47,9 @@ export class QuizComponent implements OnInit, OnDestroy {
   public allCourses: string[] = [];
   visible: boolean = false;
   public quizBody!: Quiz;
-
+  public elements = document.getElementsByTagName('input');
+  public techCourseNames: string[] = [];
+  public uniqueTech: string[] = [];
   quizGetSubscription$: Subscription = new Subscription();
   quizPostSubscription$: Subscription = new Subscription();
   quizUpdateSubscription$: Subscription = new Subscription();
@@ -111,8 +113,6 @@ export class QuizComponent implements OnInit, OnDestroy {
     }
   }
 
-  public elements = document.getElementsByTagName('input');
-
   onSubmitQuestionDetails() {
     this.visible = false;
     const answers = this.addQuizGroup.value.checkArray;
@@ -149,14 +149,12 @@ export class QuizComponent implements OnInit, OnDestroy {
         });
       }
     });
-
     for (let i = 0; i < this.elements.length; i++) {
       if (this.elements[i].type == 'checkbox') {
         this.elements[i].checked = false;
       }
     }
   }
-  public uniqueTech: string[] = [];
 
   public getCourseContentDetails() {
     this.apiService.getContent().subscribe((res) => {
@@ -175,7 +173,6 @@ export class QuizComponent implements OnInit, OnDestroy {
     });
   }
 
-  public techCourseNames!: string[];
   public getQuizData() {
     this.apiService.getQuiz().subscribe((res) => {
       this.techCourseNames = res.data.map((res) => {
@@ -198,7 +195,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     localStorage.setItem('CourseName', technology);
   }
 
-  public deleteExam(quiz: any): void {
+  public deleteExam(quiz: string): void {
     this.confirmationService.confirm({
       message: `Are you want to delete ${quiz} Assessments ?`,
       header: 'Confirmation..',
@@ -219,7 +216,6 @@ export class QuizComponent implements OnInit, OnDestroy {
         } catch (err: any) {
           console.warn(err);
         }
-
         this.messageService.add({
           severity: 'success',
           life: 3000,

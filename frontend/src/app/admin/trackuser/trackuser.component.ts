@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { UserDetails } from 'src/app/models/track';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { userProfile } from 'src/app/models/profile';
 
 @Component({
   selector: 'app-trackuser',
@@ -40,12 +41,11 @@ export class TrackuserComponent implements OnInit, OnDestroy {
     });
   }
 
-
   public showTrackDetails(id: number): void {
     this.router.navigate(['trackuser/', id]);
   }
 
-  public blockUser(users: any): void {
+  public blockUser(users: userProfile): void {
     if (users.blocked == false) {
       this.confirmationService.confirm({
         message: `Are sure to Lock ${users.username} account ?`,

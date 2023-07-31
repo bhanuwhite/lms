@@ -1,43 +1,42 @@
 <!-- Table -->
 <div class="surface-ground px-4 py-3">
-<div class="row align-items-center">
-  <div class="col-lg-6 col-md-6 d-flex align-items-center">
-    <h1 style="font-size: 1.5rem; "><b> All Users</b> </h1>
+  <div class="row align-items-center">
+    <div class="col-lg-6 col-md-6 d-flex align-items-center">
+      <h1 style="font-size: 1.5rem; "><b> All Users</b> </h1>
+    </div>
   </div>
-</div>
-<div class="">
-  <p-table [value]="allUsersData"  class="table" [paginator]="true"
-  [rows]="5"
-  [showCurrentPageReport]="true"  [rowsPerPageOptions]="[5, 10, 15]"  >
-    <ng-template pTemplate="header">
-      <tr>
-        <th pSortableColumn="username" style="width:20%">Name <p-sortIcon field="name"></p-sortIcon></th>
-        <th pSortableColumn="email" style="width:20%">E-mail <p-sortIcon field="email"></p-sortIcon></th>
-        <th style="width:20%">Action </th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-users>
-      <tr >
-        <td (click)="showTrackDetails(users.id)" class="cursor-pointer  "><b>{{users.username | titlecase}}</b></td>
-        <td (click)="showTrackDetails(users.id)" class="cursor-pointer">{{users.email}}</td>
-        <td class="cursor-pointer">
-          <div class="d-flex">
-            <span class="material-icons" *ngIf="users.blocked == false" (click)="blockUser(users)"
-              style="font-size: 2rem;">
-              key
-            </span>
-            <span class="material-icons" *ngIf="users.blocked == true" (click)="blockUser(users)"
-              style="font-size: 2rem;">
-              vpn_key_off
-            </span>
-          </div>
+  <div class="">
+    <p-table [value]="allUsersData" class="table" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[5, 10, 15]">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="username" style="width:20%">Name <p-sortIcon field="name"></p-sortIcon></th>
+          <th pSortableColumn="email" style="width:20%">E-mail <p-sortIcon field="email"></p-sortIcon></th>
+          <th style="width:20%">Action </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-users>
+        <tr>
+          <td (click)="showTrackDetails(users.id)" class="cursor-pointer  "><b>{{users.username | titlecase}}</b></td>
+          <td (click)="showTrackDetails(users.id)" class="cursor-pointer">{{users.email}}</td>
+          <td class="cursor-pointer">
+            <div class="d-flex">
+              <span class="material-icons" *ngIf="users.blocked == false" (click)="blockUser(users)"
+                style="font-size: 2rem;">
+                key
+              </span>
+              <span class="material-icons" *ngIf="users.blocked == true" (click)="blockUser(users)"
+                style="font-size: 2rem;">
+                vpn_key_off
+              </span>
+            </div>
 
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
 
-</div>
+  </div>
 </div>
 
 <div>

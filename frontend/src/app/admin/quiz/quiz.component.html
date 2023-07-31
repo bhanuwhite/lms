@@ -8,9 +8,9 @@
   </div>
 
 
-  <div  *ngIf="uniqueTech">
-    <p-table [value]="uniqueTech"   class="table" [paginator]="true" [rows]="5"
-      [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]">
+  <div *ngIf="uniqueTech">
+    <p-table [value]="uniqueTech" class="table" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[5,10,15]">
       <ng-template pTemplate="header">
         <tr>
           <th style="width:20%">Technology</th>
@@ -22,8 +22,9 @@
           <td (click)="showQuizQuestions(tech)" class="cursor-pointer"><b>{{tech}}</b> </td>
           <td>
             <div>
-              <p-button label="Add" icon="pi pi-plus" class=" cursor-pointer" (click)="showDialog(tech)">  </p-button>
-              <p-button label="Remove" icon="pi pi-minus" class=" cursor-pointer" styleClass="p-button-danger" *ngIf="techCourseNames.includes(tech.toLowerCase())" (click)="deleteExam(tech)">   </p-button>
+              <p-button label="Add" icon="pi pi-plus" class=" cursor-pointer" (click)="showDialog(tech)"> </p-button>
+              <p-button label="Remove" icon="pi pi-minus" class=" cursor-pointer" styleClass="p-button-danger"
+                *ngIf="techCourseNames.includes(tech.toLowerCase())" (click)="deleteExam(tech)"> </p-button>
             </div>
           </td>
         </tr>
