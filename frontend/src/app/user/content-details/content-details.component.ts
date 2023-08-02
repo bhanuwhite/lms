@@ -187,10 +187,12 @@ export class ContentDetailsComponent implements OnInit {
     this.router.navigate(['mycart']);
   }
 
-  public purchases: any;
+  public purchases!: number;
 
   addToLibrary(course: any) {
     this.purchases = course.attributes.no_of_purchases;
+    console.log('no.of purchases ', this.purchases);
+
     this.confirmationService.confirm({
       message: `Do you want to add this ${course?.attributes.name} to Library?`,
       header: 'Confirmation',
@@ -204,21 +206,29 @@ export class ContentDetailsComponent implements OnInit {
         };
 
         this.apiService.postUserHasCourse(courseDetails).subscribe((res) => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Successfully',
-            detail: 'Course added to library',
-          });
+          try {
+            console.log(res);
+
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successfully',
+              detail: 'Course added to library',
+            });
+          } catch (err: any) {}
 
           this.gettingUserHasCourse();
           const putCourseBody = {
             data: {
-              no_of_purchases: Number(this.purchases) + Number(1),
+              no_of_purchases: 1,
             },
           };
+          console.log(putCourseBody);
+
           this.apiService
             .updateContent(course?.course_ids[0]?.id, putCourseBody)
-            .subscribe((res) => {});
+            .subscribe((res) => {
+              console.log(res);
+            });
         });
       },
       reject: (type: any) => {

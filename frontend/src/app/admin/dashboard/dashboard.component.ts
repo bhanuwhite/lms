@@ -91,6 +91,7 @@ export class DashboardComponent implements OnInit {
     this.visibleSidebar1 = false;
   }
 
+  top3Course : any;
   public getContent(): void {
     this.apiService.getContent().subscribe((res: AllCourseContent) => {
       console.log(res.data);
@@ -106,6 +107,12 @@ export class DashboardComponent implements OnInit {
             this.purchaseCount += 1;
           }
         });
+
+        res.data.sort((a:any, b:any) => b.attributes.no_of_purchases - a.attributes.no_of_purchases);
+        this.top3Course = res.data.slice(0,3)
+        console.log(this.top3Course);
+
+
 
         res.data.forEach((item) => {
           this.allCourses.push(item.attributes?.technologies);
