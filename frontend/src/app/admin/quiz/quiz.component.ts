@@ -81,6 +81,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.loadForm();
   }
 
+
   // Add Form validation
   public loadForm(): void {
     this.addQuizGroup = this.fb.group({
@@ -179,6 +180,7 @@ export class QuizComponent implements OnInit, OnDestroy {
         return res.attributes.course_name.toLocaleLowerCase();
       });
       this.techCourseNames = Array.from(new Set(this.techCourseNames));
+
     });
   }
   showDialog(course: string) {

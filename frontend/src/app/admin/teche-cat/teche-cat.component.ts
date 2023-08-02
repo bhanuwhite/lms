@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService, SortEvent } from 'primeng/api';
 import { UserCatData, UserTechData } from 'src/app/models/track';
@@ -30,7 +30,7 @@ export class TecheCatComponent implements OnInit {
     private messageService: MessageService
   ) {
     this.techForm = this.fb.group({
-      tech: '',
+      tech: ['', [Validators.required, Validators.minLength(1), Validators.pattern('^[a-zA-Z., ]+$')]],
     });
   }
   ngOnInit(): void {
@@ -38,6 +38,8 @@ export class TecheCatComponent implements OnInit {
     this.getTech();
     this.getCategory();
   }
+
+
 
   private routerName(): void {
     this.router.paramMap.subscribe((param) => {
@@ -78,6 +80,9 @@ export class TecheCatComponent implements OnInit {
   }
   public techSubmit(): void {
     const myValue = this.techForm.value.tech;
+    if(this.techForm.valid){
+
+
     try {
       if (this.headerName?.toLowerCase() === 'technology') {
         const postTech = {
@@ -170,6 +175,13 @@ export class TecheCatComponent implements OnInit {
       console.warn(err);
     }
   }
+  else{
+    this.messageService.add({
+      severity:'error',
+      summary:"Please enter valid data"
+    })
+  }
+  }
 
   public editTech(id: number, name: string): void {
     if (this.headerName?.toLowerCase() === 'technology') {
@@ -228,5 +240,9 @@ export class TecheCatComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Cancelled' });
       },
     });
+  }
+  public cancelForm():void {
+    this.showPopup = false;
+    this.techForm.reset()
   }
 }

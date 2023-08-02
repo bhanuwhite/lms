@@ -19,14 +19,55 @@ export class AdminComponent implements OnInit {
   step: number = 2;
   visibleSidebar1!: boolean;
   items: any;
+  public TechCat: any;
   constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.iconMenu();
+    this.techCatMenu();
   }
 
   public isActive(base: string): boolean {
     return this.router.url === base;
+  }
+
+  public techCatMenu(): void {
+    this.TechCat = [
+      {
+        label: 'Dashboard',
+        routerLink: '/admin',
+        icon: 'pi pi-chart-line',
+      },
+      {
+        label: 'Courses',
+        routerLink: '/admin/content',
+        icon: 'pi pi-file-edit',
+      },
+      {
+        label: 'Assessments',
+        routerLink: '/admin/quiz',
+        icon: 'pi pi-stopwatch',
+      },
+      {
+        label: 'Users',
+        routerLink: '/admin/trackuser',
+        icon: 'pi pi-user',
+      },
+      {
+        label: 'Tech ',
+        icon: 'pi pi-database',
+        items: [
+          {
+            label: 'Technology',
+            routerLink: ['/admin/technology', 'Technology'],
+          },
+          {
+            label: 'Category',
+            routerLink: ['/admin/technology', 'Category'],
+          },
+        ],
+      },
+    ];
   }
 
   public iconMenu(): void {

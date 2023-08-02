@@ -59,7 +59,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { BadgeModule } from 'primeng/badge';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SidebarModule } from 'primeng/sidebar';
-
+import { ChartModule } from 'primeng/chart';
 @NgModule({
   declarations: [
     UserComponent,
@@ -134,7 +134,8 @@ import { SidebarModule } from 'primeng/sidebar';
     ConfirmPopupModule,
     BadgeModule,
     OverlayPanelModule,
-    SidebarModule
+    SidebarModule,
+    ChartModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

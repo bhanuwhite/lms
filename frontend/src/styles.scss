@@ -17,7 +17,7 @@ body {
   .p-tabview .p-tabview-panels{
     background-color: #eff3f8 !important;
   }
-  
+
 }
 .p-tabview .p-tabview-panels{
   background-color: #fff !important;
@@ -348,7 +348,7 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
   }
   .all-Courses {
     .p-card.p-component{
-       
+
       height: auto !important;
     }
   }
@@ -427,4 +427,10 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
 .p-splitter {
   display: flex;
   flex-wrap: wrap !important;
+}
+.p-tieredmenu {
+  border: none !important;
+}
+.p-tieredmenu:hover {
+  border: none !important;
 }

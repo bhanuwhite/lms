@@ -17,6 +17,12 @@ export class DashboardComponent implements OnInit {
   courseCount!: number;
   public allUsersData: UserDetails[] = [];
   public totalUser!: number;
+  public freeCourseCount: number = 0;
+  public paidCourseCount: number = 0;
+  public assessmentCount: number = 0;
+  public purchaseCount: number = 0;
+  public allCourses: string[] = [];
+  public uniqueTech: string[] = [];
   constructor(private apiService: ApiService) {}
   ngOnInit(): void {
     this.overViewMenus();
@@ -87,8 +93,32 @@ export class DashboardComponent implements OnInit {
 
   public getContent(): void {
     this.apiService.getContent().subscribe((res: AllCourseContent) => {
+      console.log(res.data);
       try {
         this.courseCount = res.data.length;
+        res.data.map((resObj: any) => {
+          if (resObj.attributes.price == 0) {
+            this.freeCourseCount += 1;
+          } else {
+            this.paidCourseCount += 1;
+          }
+          if (resObj.attributes.no_of_purchases != 0) {
+            this.purchaseCount += 1;
+          }
+        });
+
+        res.data.forEach((item) => {
+          this.allCourses.push(item.attributes?.technologies);
+          this.allCourses.forEach((obj) => {
+            const values = Object.values(obj);
+            values.forEach((value) => {
+              if (!this.uniqueTech.includes(value)) {
+                this.uniqueTech.push(value);
+              }
+            });
+          });
+        });
+        this.assessmentCount = this.uniqueTech.length;
       } catch (error) {}
     });
   }

@@ -1,319 +1,193 @@
 <div class="content_part_wrapper">
-  <div class="card border-none" style="border: 0px;">
+  <div class="card border-none " style="border: 0px;">
     <h2 class="p-3" style="color: white; height: 70px; background-color: rgb(59, 58, 58)">
       {{ courseName }}
     </h2>
-    <p-tabView>
-      <p-tabPanel header="Beginner">
+
+    <div>
+      <h1 class="m-0" style="font-size: 1.5rem"><b> Choose Assessment Level </b></h1>
+
+      <div class="d-flex mb-3">
+        <button class="btn btn-primary" (click)="getUserLevel('beginner')">Beginner</button>
+        <button class="btn btn-warning ms-2" (click)="getUserLevel('intermediate')">Intermediate</button>
+        <button class="btn btn-success ms-2" (click)="getUserLevel('advanced')">Advanced</button>
+      </div>
+
+      <ng-container *ngIf="userQuizDetails.length !=0 && !showAssessment">
+
         <div>
+      <h1 class="m-0" style="font-size: 1.2rem"><b> {{headerName | titlecase}} level  </b></h1>
+
+        </div>
+        <div class="grid">
+          <div class="col-12 md:col-6 lg:col-6 bg-white question-box"
+            *ngFor="let question of userQuizDetails; let i = index">
+            <div class="shadow-4 rounded p-2">
+              <div class="question-type ms-1 my-2 d-flex align-items-center justify-content-between">
+                <h2>{{ i + 1 }}.{{ question.attributes.question }}</h2>
+              </div>
+
+              <div>
+                <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
+                  <input class="form-check-input ml-2" type="radio" [name]="'option' + i" [value]="'A'"
+                    [id]="question.attributes.q_options.a" (change)="onChange(question, 'A', i)" />
+                  <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
+                    [for]="question.attributes.q_options.a">
+                    {{ question.attributes.q_options.a }}
+                  </label>
+                </li>
+                <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
+                  <input class="form-check-input ml-2" type="radio" [name]="'option' + i" [value]="'B'"
+                    [id]="question.attributes.q_options.b" (change)="onChange(question, 'B', i)" />
+                  <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
+                    [for]="question.attributes.q_options.b">
+                    {{ question.attributes.q_options.b }}
+                  </label>
+                </li>
+                <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
+                  <input class="form-check-input ml-2" type="radio" [name]="'option' + i" [value]="'C'"
+                    [id]="question.attributes.q_options.c" (change)="onChange(question, 'C', i)" />
+                  <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
+                    [for]="question.attributes.q_options.c">
+                    {{ question.attributes.q_options.c }}
+                  </label>
+                </li>
+                <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
+                  <input class="form-check-input ml-2" type="radio" [name]="'option' + i" [value]="'D'"
+                    [id]="question.attributes.q_options.d" (change)="onChange(question, 'D', i)" />
+                  <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
+                    [for]="question.attributes.q_options.d">
+                    {{ question.attributes.q_options.d }}
+                  </label>
+                </li>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="d-flex justify-content-center m-3" >
+          <button class="btn btn-success px-4" (click)="SubmitBeginnerAss(userQuizDetails)">Submit</button>
+        </div>
+
+      </ng-container>
+
+      <ng-container *ngIf="userQuizDetails.length == 0">
+        <div class="d-flex justify-content-center align-items-center">
+          <div class="card shadow-4 col-lg-3  " style="height: 100px;">
+            <div class="card-body text-center d-flex justify-content-center align-items-center">
+              <p class="fs-4 lh-sm"> No assessment is created.</p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="showAssessment">
+        <div>
+          <h1 class="m-0" style="font-size: 1.2rem"><b> Assessment Report </b></h1>
+
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex">
+
+                  <div style="width: 300px; height: 250px;">
+                    <p-chart type="doughnut" [data]="chartData" [options]="chartOptions"></p-chart>
+                  </div>
+                  <div class="d-flex flex-column justify-content-center">
+                    <p> Status : <b>{{assessmentStatus}}</b></p>
+                    <p> Success Percentage : <b>{{successPer}} %</b></p>
+                    <button class="btn btn-warning" (click)="viewAns=!viewAns">View Answers</button>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <ng-container *ngIf="viewAns">
+
+          <h1 class="m-0" style="font-size: 1.2rem"><b> Answers </b></h1>
+
           <div class="grid">
             <div class="col-12 md:col-6 lg:col-6 bg-white question-box"
-              *ngFor="let question of quizBeginerDetails; let i = index">
+              *ngFor="let question of userQuizDetails; let i = index">
               <div class="shadow-4 rounded p-2">
                 <div class="question-type ms-1 my-2 d-flex align-items-center justify-content-between">
                   <h2>{{ i + 1 }}.{{ question.attributes.question }}</h2>
                 </div>
-                
-                  <div class="answer">
-                    <div class="card m-1" [class.selected-card]="
-                        question.questionStates.selectedIndex === 0
-                      ">
-                      <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
-                        <input class="form-check-input ml-2" type="radio" name="option" [value]="'A'"
-                          [id]="question.attributes.q_options.a" (change)="onChange(question, 'A', 0)" />
-                        <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
-                          [for]="question.attributes.q_options.a">
-                          {{ question.attributes.q_options.a }}
-                        </label>
-                      </li>
-                    </div>
-  
-                    <div class="card m-1" [class.selected-card]="
-                        question.questionStates.selectedIndex === 1
-                      ">
-                      <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
-                        <input class="form-check-input ml-2" type="radio" name="option" [value]="'B'"
-                          [id]="question.attributes.q_options.b" (change)="onChange(question, 'B', 1)" />
-                        <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
-                          [for]="question.attributes.q_options.b">
-                          {{ question.attributes.q_options.b }}
-                        </label>
-                      </li>
-                    </div>
-  
-                    <div class="card m-1" [class.selected-card]="
-                        question.questionStates.selectedIndex === 2
-                      ">
-                      <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
-                        <input class="form-check-input ml-2" type="radio" name="option" [value]="'C'"
-                          [id]="question.attributes.q_options.c" (change)="onChange(question, 'C', 2)" />
-                        <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
-                          [for]="question.attributes.q_options.c">
-                          {{ question.attributes.q_options.c }}
-                        </label>
-                      </li>
-                    </div>
-  
-                    <div class="card m-1" [class.selected-card]="
-                        question.questionStates.selectedIndex === 3
-                      ">
-                      <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
-                        <input class="form-check-input ml-2" type="radio" name="option" [value]="'D'"
-                          [id]="question.attributes.q_options.d" (change)="onChange(question, 'D', 3)" />
-                        <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
-                          [for]="question.attributes.q_options.d">
-                          {{ question.attributes.q_options.d }}
-                        </label>
-                      </li>
-                    </div>
-                  </div>
-            
-  
-                <div class="mt-3 d-flex justify-content-end">
-                  <button class="btn btn-primary" style="opacity: 0.9" (click)="checkAnswer(question)"
-                    *ngIf="!question.questionStates.visible">
-                    Check Answer
-                  </button>
-                  <button class="btn btn-secondary" style="opacity: 0.9" (click)="hideAnswer(question)"
-                    *ngIf="question.questionStates.visible">
-                    hide
-                  </button>
-                </div>
-              </div>
-         
-              <div class="card mt-2 p-2" style="background-color: rgba(0, 0, 0, 0.1)"
-                *ngIf="question.questionStates.visible">
-                <h2 style="color: green" *ngIf="question.questionStates.isCorrect">
-                  Correct Answer
-                </h2>
-                <h2 style="color: red" *ngIf="!question.questionStates.isCorrect">
-                  Wrong Answer
-                </h2>
 
                 <div>
-                  <h4 *ngIf="question.questionStates.correctAnswer === 'A'">
-                    Answer: A. {{ question.attributes.q_options.a }}
-                  </h4>
-                  <h4 *ngIf="question.questionStates.correctAnswer === 'B'">
-                    Answer: B. {{ question.attributes.q_options.b }}
-                  </h4>
-                  <h4 *ngIf="question.questionStates.correctAnswer === 'C'">
-                    Answer: C. {{ question.attributes.q_options.c }}
-                  </h4>
-                  <h4 *ngIf="question.questionStates.correctAnswer === 'D'">
-                    Answer: D. {{ question.attributes.q_options.d }}
-                  </h4>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+                  <li class="form-check p-2 m-1 d-flex "
+                    [ngClass]="{'inputBorder':replaceQuotes(question.attributes.answers) === 'A'}"
+                    style="width: 99%; cursor: pointer; gap: 10px;">
+                    <div class="d-flex">
+                      <p>
+                        <input class="form-check-input ml-2" type="radio" [disabled]="true"
+                          [checked]="replaceQuotes(question.attributes.answers) === 'A'"
+                          [id]="question.attributes.q_options.a" />
+                      </p>
+                      <label class="form-check-label ms-2" style="padding-top: 1px; cursor: pointer"
+                        [for]="question.attributes.q_options.a">
+                        {{ question.attributes.q_options.a }}
+                      </label>
+                    </div>
 
-      </p-tabPanel>
-      <p-tabPanel header="Intermediate">
-        <div class="">
-          <div>
-            <div class="grid">
-              <div class="col-12 md:col-6 lg:col-6 bg-white question-box"
-                *ngFor="let question of quizintermidiateDetails; let i = index">
-                <div class="shadow-4 p-2 rounded">
-                  <div class="question-type ms-1 my-2 d-flex align-items-center justify-content-between">
-                    <h2>{{ i + 1 }}.{{ question.attributes.question }}</h2>
-                  </div>
-                    <div class="answer">
-                      <div class="card m-1" [class.selected-card]="
-                        question.questionStates.selectedIndex === 0
-                      ">
-                        <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
-                          <input class="form-check-input ml-2" type="radio" name="option" [value]="'A'"
-                            [id]="question.attributes.q_options.a" (change)="onChange(question, 'A', 0)" />
-                          <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
-                            [for]="question.attributes.q_options.a">
-                            {{ question.attributes.q_options.a }}
-                          </label>
-                        </li>
-                      </div>
-  
-                      <div class="card m-1" [class.selected-card]="
-                        question.questionStates.selectedIndex === 1
-                      ">
-                        <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
-                          <input class="form-check-input ml-2" type="radio" name="option" [value]="'B'"
-                            [id]="question.attributes.q_options.b" (change)="onChange(question, 'B', 1)" />
-                          <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
-                            [for]="question.attributes.q_options.b">
-                            {{ question.attributes.q_options.b }}
-                          </label>
-                        </li>
-                      </div>
-  
-                      <div class="card m-1" [class.selected-card]="
-                        question.questionStates.selectedIndex === 2
-                      ">
-                        <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
-                          <input class="form-check-input ml-2" type="radio" name="option" [value]="'C'"
-                            [id]="question.attributes.q_options.c" (change)="onChange(question, 'C', 2)" />
-                          <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
-                            [for]="question.attributes.q_options.c">
-                            {{ question.attributes.q_options.c }}
-                          </label>
-                        </li>
-                      </div>
-  
-                      <div class="card m-1" [class.selected-card]="
-                        question.questionStates.selectedIndex === 3
-                      ">
-                        <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
-                          <input class="form-check-input ml-2" type="radio" name="option" [value]="'D'"
-                            [id]="question.attributes.q_options.d" (change)="onChange(question, 'D', 3)" />
-                          <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
-                            [for]="question.attributes.q_options.d">
-                            {{ question.attributes.q_options.d }}
-                          </label>
-                        </li>
-                      </div>
+                  </li>
+                  <li class="form-check p-2 m-1 d-flex "
+                    [ngClass]="{'inputBorder':replaceQuotes(question.attributes.answers) === 'B'}"
+                    style="width: 99%; cursor: pointer; gap: 10px">
+                    <div class="d-flex">
+                      <p>
+                        <input class="form-check-input ml-2" type="radio" [disabled]="true"
+                          [checked]="replaceQuotes(question.attributes.answers) === 'B'"
+                          [id]="question.attributes.q_options.b" />
+                      </p>
+                      <label class="form-check-label ms-2" style="padding-top: 1px; cursor: pointer"
+                        [for]="question.attributes.q_options.b">
+                        {{ question.attributes.q_options.b }}
+                      </label>
                     </div>
-                  
-  
-                  <div class="mt-3 d-flex justify-content-end">
-                    <button class="btn btn-primary" style="opacity: 0.9" (click)="checkAnswer(question)"
-                      *ngIf="!question.questionStates.visible">
-                      Check Answer
-                    </button>
-                    <button class="btn btn-secondary" style="opacity: 0.9" (click)="hideAnswer(question)"
-                      *ngIf="question.questionStates.visible">
-                      hide
-                    </button>
-                  </div>
-                  <div class="card mt-2 p-2" style="background-color: rgba(0, 0, 0, 0.1)"
-                    *ngIf="question.questionStates.visible">
-                    <h2 style="color: green" *ngIf="question.questionStates.isCorrect">
-                      Correct Answer
-                    </h2>
-                    <h2 style="color: red" *ngIf="!question.questionStates.isCorrect">
-                      Wrong Answer
-                    </h2>
-  
-                    <div>
-                      <h4 *ngIf="question.questionStates.correctAnswer === 'A'">
-                        Answer: A. {{ question.attributes.q_options.a }}
-                      </h4>
-                      <h4 *ngIf="question.questionStates.correctAnswer === 'B'">
-                        Answer: B. {{ question.attributes.q_options.b }}
-                      </h4>
-                      <h4 *ngIf="question.questionStates.correctAnswer === 'C'">
-                        Answer: C. {{ question.attributes.q_options.c }}
-                      </h4>
-                      <h4 *ngIf="question.questionStates.correctAnswer === 'D'">
-                        Answer: D. {{ question.attributes.q_options.d }}
-                      </h4>
+                  </li>
+                  <li class="form-check p-2 m-1 d-flex "
+                    [ngClass]="{'inputBorder':replaceQuotes(question.attributes.answers) === 'C'}"
+                    style="width: 99%; cursor: pointer; gap: 10px">
+                    <div class="d-flex">
+                      <p>
+                        <input class="form-check-input ml-2" type="radio" [disabled]="true"
+                          [checked]="replaceQuotes(question.attributes.answers) === 'C'"
+                          [id]="question.attributes.q_options.c" />
+                      </p>
+                      <label class="form-check-label ms-2" style="padding-top: 1px; cursor: pointer"
+                        [for]="question.attributes.q_options.c">
+                        {{ question.attributes.q_options.c }}
+                      </label>
                     </div>
-                  </div>
-                </div>
-           
-              </div>
-            </div>
-          </div>
-        </div>
-      </p-tabPanel>
-      <p-tabPanel header="Advanced">
-        <div class="">
-          <div class="grid">
-            <div class="col-12 md:col-6 lg:col-6 bg-white question-box"
-              *ngFor="let question of quizAdvancedDetails; let i = index">
-              <div class="shadow-4 rounded p-2">
-                <div class="question-type ms-1 my-2 d-flex align-items-center justify-content-between">
-                  <h2>{{ i + 1 }}.{{ question.attributes.question }}</h2>
-                </div>
-                  <div class="answer">
-                    <div class="card m-1" [class.selected-card]="
-                        question.questionStates.selectedIndex === 0
-                      ">
-                      <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
-                        <input class="form-check-input ml-2" type="radio" name="option" [value]="'A'"
-                          [id]="question.attributes.q_options.a" (change)="onChange(question, 'A', 0)" />
-                        <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
-                          [for]="question.attributes.q_options.a">
-                          {{ question.attributes.q_options.a }}
-                        </label>
-                      </li>
+                  </li>
+                  <li class="form-check p-2 m-1 d-flex "
+                    [ngClass]="{'inputBorder':replaceQuotes(question.attributes.answers) === 'D'}"
+                    style="width: 99%; cursor: pointer; gap: 10px">
+                    <div class="d-flex">
+                      <p>
+                        <input class="form-check-input ml-2" type="radio" [disabled]="true"
+                          [checked]="replaceQuotes(question.attributes.answers) === 'D'"
+                          [id]="question.attributes.q_options.d" />
+                      </p>
+                      <label class="form-check-label ms-2" style="padding-top: 1px; cursor: pointer"
+                        [for]="question.attributes.q_options.d">
+                        {{ question.attributes.q_options.d }}
+                      </label>
                     </div>
-  
-                    <div class="card m-1" [class.selected-card]="
-                        question.questionStates.selectedIndex === 1
-                      ">
-                      <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
-                        <input class="form-check-input ml-2" type="radio" name="option" [value]="'B'"
-                          [id]="question.attributes.q_options.b" (change)="onChange(question, 'B', 1)" />
-                        <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
-                          [for]="question.attributes.q_options.b">
-                          {{ question.attributes.q_options.b }}
-                        </label>
-                      </li>
-                    </div>
-                    <div class="card m-1" [class.selected-card]="
-                        question.questionStates.selectedIndex === 2
-                      ">
-                      <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
-                        <input class="form-check-input ml-2" type="radio" name="option" [value]="'C'"
-                          [id]="question.attributes.q_options.c" (change)="onChange(question, 'C', 2)" />
-                        <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
-                          [for]="question.attributes.q_options.c">
-                          {{ question.attributes.q_options.c }}
-                        </label>
-                      </li>
-                    </div>
-                    <div class="card m-1" [class.selected-card]="
-                        question.questionStates.selectedIndex === 3
-                      ">
-                      <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
-                        <input class="form-check-input ml-2" type="radio" name="option" [value]="'D'"
-                          [id]="question.attributes.q_options.d" (change)="onChange(question, 'D', 3)" />
-                        <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
-                          [for]="question.attributes.q_options.d">
-                          {{ question.attributes.q_options.d }}
-                        </label>
-                      </li>
-                    </div>
-                  </div>
-                <div class="mt-3 d-flex justify-content-end">
-                  <button class="btn btn-primary" style="opacity: 0.9" (click)="checkAnswer(question)"
-                    *ngIf="!question.questionStates.visible">
-                    Check Answer
-                  </button>
-                  <button class="btn btn-secondary" style="opacity: 0.9" (click)="hideAnswer(question)"
-                    *ngIf="question.questionStates.visible">
-                    hide
-                  </button>
-                </div>
-                <div class="card mt-2 p-2" style="background-color: rgba(0, 0, 0, 0.1)"
-                  *ngIf="question.questionStates.visible">
-                  <h2 style="color: green" *ngIf="question.questionStates.isCorrect">
-                    Correct Answer
-                  </h2>
-                  <h2 style="color: red" *ngIf="!question.questionStates.isCorrect">
-                    Wrong Answer
-                  </h2>
-                  <div>
-                    <h4 *ngIf="question.questionStates.correctAnswer === 'A'">
-                      Answer: A. {{ question.attributes.q_options.a }}
-                    </h4>
-                    <h4 *ngIf="question.questionStates.correctAnswer === 'B'">
-                      Answer: B. {{ question.attributes.q_options.b }}
-                    </h4>
-                    <h4 *ngIf="question.questionStates.correctAnswer === 'C'">
-                      Answer: C. {{ question.attributes.q_options.c }}
-                    </h4>
-                    <h4 *ngIf="question.questionStates.correctAnswer === 'D'">
-                      Answer: D. {{ question.attributes.q_options.d }}
-                    </h4>
-                  </div>
+                  </li>
                 </div>
               </div>
+
             </div>
           </div>
-        </div>
-      </p-tabPanel>
-    </p-tabView>
+        </ng-container>
+      </ng-container>
+    </div>
   </div>
-</div>

@@ -8,8 +8,8 @@
         <button class="mb-2 btn btn-primary" (click)="addTech()">Add Technology</button>
       </div>
     </div>
-    <p-table [value]="techData" class="table table-hover" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
-      [rowsPerPageOptions]="[5, 10, 15]">
+    <p-table [value]="techData" class="table table-hover" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[10, 15,20]">
       <ng-template pTemplate="header">
         <tr>
           <th pSortableColumn="attributes.technologies.tech" style="width:20%">Technology <p-sortIcon
@@ -19,7 +19,7 @@
       </ng-template>
       <ng-template pTemplate="body" let-product>
         <tr>
-          <td><b>{{product.attributes.technologies.tech}}</b></td>
+          <td>{{product.attributes.technologies.tech}}</td>
           <td>
             <div class="d-flex align-items-center">
               <span class="material-icons text-primary cursor-pointer "
@@ -49,8 +49,8 @@
         <button class="mb-2 btn btn-primary" (click)="addCat()">Add Category</button>
       </div>
     </div>
-    <p-table [value]="categoryData" class="table" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
-      [rowsPerPageOptions]="[5, 10, 15]">
+    <p-table [value]="categoryData" class="table" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[10, 15,20]">
       <ng-template pTemplate="header">
         <tr>
           <th pSortableColumn="attributes.categories.tech" style="width:20%">Category <p-sortIcon
@@ -60,7 +60,7 @@
       </ng-template>
       <ng-template pTemplate="body" let-product>
         <tr>
-          <td><b>{{product.attributes.categories.tech}}</b></td>
+          <td>{{product.attributes.categories.tech}}</td>
           <td>
             <div class="d-flex align-items-center">
               <span class="material-icons text-primary cursor-pointer "
@@ -84,17 +84,24 @@
 
 </div>
 
-<p-dialog header="{{headerName}}" [visible]="showPopup" [modal]="true" [style]="{'width':'40vw'}">
+<p-dialog header="Add {{headerName}}" [visible]="showPopup" [modal]="true" [style]="{'width':'40vw'}">
   <form [formGroup]="techForm" (ngSubmit)="techSubmit()">
     <div>
-      <label for="tech">{{headerName}} : </label>
+      <label for="tech">{{headerName}}  </label>
       <input pInputText id="tech" type="text" formControlName="tech" class="p-inputtext-md form-control mt-1"
-        placeholder='Enter  {{headerName}}  name ' />
+        placeholder='Enter {{headerName | lowercase}} name ' />
+        <small class="p-error block" *ngIf="
+        techForm.get('tech')?.invalid && techForm.get('tech')?.touched
+      ">
+      <ng-container *ngIf="techForm.get('tech')?.errors?.['required']">Category name is required.</ng-container>
+      <ng-container *ngIf="techForm.get('tech')?.errors?.['pattern']">Numbers or special characters are not
+        allowed.</ng-container>
+    </small>
 
     </div>
-    <div class="d-flex justify-content-between m-3">
-      <button class="btn btn-secondary btn-sm" type="reset" (click)="showPopup = false"> Clear </button>
-      <button class="btn btn-success btn-sm" type="submit">Submit</button>
+    <div class="d-flex justify-content-end m-3">
+      <button class="btn btn-secondary btn-sm" type="reset" (click)="cancelForm()"> Cancel </button>
+      <button class="btn btn-success btn-sm" type="submit" >Submit</button>
     </div>
   </form>
 </p-dialog>
