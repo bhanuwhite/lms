@@ -86,8 +86,8 @@
 
 <p-dialog header="Add {{headerName}}" [visible]="showPopup" [modal]="true" [style]="{'width':'40vw'}">
   <form [formGroup]="techForm" (ngSubmit)="techSubmit()">
-    <div>
-      <label for="tech">{{headerName}}  </label>
+    <div class="mb-2">
+      <label for="tech" class="mb-2">{{headerName}}  </label>
       <input pInputText id="tech" type="text" formControlName="tech" class="p-inputtext-md form-control mt-1"
         placeholder='Enter {{headerName | lowercase}} name ' />
         <small class="p-error block" *ngIf="
@@ -99,7 +99,7 @@
     </small>
 
     </div>
-    <div class="d-flex justify-content-end m-3">
+    <div class="d-flex justify-content-end ">
       <button class="btn btn-secondary btn-sm" type="reset" (click)="cancelForm()"> Cancel </button>
       <button class="btn btn-success btn-sm" type="submit" >Submit</button>
     </div>

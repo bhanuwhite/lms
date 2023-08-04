@@ -11,6 +11,7 @@ import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environment/environment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { AboutService } from 'src/app/services/about.service';
 @Component({
   selector: 'app-course-details',
   templateUrl: './course-details.component.html',
@@ -52,7 +53,8 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     public apiService: ApiService,
     public activeParam: ActivatedRoute,
     public messageService: MessageService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private aboutService: AboutService
   ) {}
   ngOnInit() {
     this.activeParams();
@@ -74,6 +76,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     this.userID = localStoredData.id;
   }
 
+  private courseCount!: number;
   public getLibraryData(): Promise<void> {
     return new Promise((resolve, reject) => {
       (this.SingleContentLib$ = this.apiService
@@ -82,6 +85,9 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
           this.Spinner = false;
           this.userCourseData = res.data;
           this.course_id = this.userCourseData.attributes.course_ids.data[0].id;
+          this.courseCount =
+            this.userCourseData.attributes.course_ids.data[0].attributes
+              .video_name ?? 0;
           this.courseId = this.userCourseData.id;
           this.progressPercentage =
             this.userCourseData.attributes.progress_percentage;
@@ -114,6 +120,8 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   }
 
   // get running time of video.
+
+  private courseVideoCount$: Subscription = new Subscription();
   getWatchedTime() {
     this.userWatchedTime = this.Course_video.nativeElement.currentTime;
     const videoIndex = this.watchedDurations.findIndex(
@@ -147,6 +155,30 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
       .putUserHasCourse(this.courseId, putBody)
       .subscribe((res) => {});
     this.progressPercentage = progressPer.toFixed(0);
+
+    this.aboutService.watchCourseCount(Number(this.progressPercentage));
+    this.courseVideoCount$ = this.aboutService.watchCount$.subscribe((res) => {
+      if (res >= 10) {
+        const count = Number(this.courseCount) + Number(1);
+        const updateVideoCount = {
+          data: {
+            video_name: String(count),
+          },
+        };
+        this.apiService
+          .updateContent(this.course_id, updateVideoCount)
+          .subscribe((res) => {
+            try {
+              this.messageService.add({
+                severity: 'success',
+                detail: 'Video count increased',
+              });
+            } catch (err) {
+              console.log(err);
+            }
+          });
+      }
+    });
   }
 
   // Displaying Default video 1st
@@ -284,6 +316,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.LibraryContent$.unsubscribe();
     this.SingleContentLib$.unsubscribe();
+    this.courseVideoCount$.unsubscribe();
   }
 }
 function then(arg0: () => Promise<void>) {

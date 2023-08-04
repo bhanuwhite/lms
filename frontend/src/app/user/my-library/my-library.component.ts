@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/services/api.service';
-import {ConfirmationService,MessageService,ConfirmEventType,} from 'primeng/api';
+import {
+  ConfirmationService,
+  MessageService,
+  ConfirmEventType,
+} from 'primeng/api';
 import { AboutService } from 'src/app/services/about.service';
 import { CourseData } from 'src/app/models/library';
 import { environment } from 'src/environment/environment';
@@ -16,8 +20,9 @@ export class MyLibraryComponent implements OnInit {
   public Spinner: boolean = true;
   public searchWord: string = '';
   public userID!: number;
-  public searchData: CourseData[]=[];
+  public searchData: CourseData[] = [];
   public courseData: CourseData[] = [];
+  public img_url = environment.apiUrl;
 
   constructor(
     private httpClient: HttpClient,
@@ -33,8 +38,6 @@ export class MyLibraryComponent implements OnInit {
     this.getCartCourse();
   }
 
-  public img_url = environment.apiUrl ;
-
   public getCartCourse(): void {
     this.apiService.getUserCart(this.userID).subscribe((res) => {
       this.aboutService.userCartLength(res.length);
@@ -47,30 +50,26 @@ export class MyLibraryComponent implements OnInit {
   }
 
   public gettingUserHasCourse(): Promise<void> {
-    this.courseData=[]
+    this.courseData = [];
     return new Promise((resolve, reject) => {
       this.apiService.getUserCourse(this.userID).subscribe((res) => {
-
         if (res.length != 0) {
           res.map((courseRes: any) => {
             if (courseRes.course_ids.length != 0) {
               this.courseData.push(courseRes);
-
-
             }
           });
           resolve();
         } else {
           this.courseData = res;
         }
-
         this.searchData = this.courseData;
         this.Spinner = false;
+        console.log(this.courseData);
+
       });
     });
   }
-
-
 
   filterCourseData(): void {
     if (this.searchWord) {
@@ -88,29 +87,36 @@ export class MyLibraryComponent implements OnInit {
     }
   }
 
-
-  public removeCourse(id:number): void{
-
-          this.confirmationService.confirm({
-            message: `Do you want to delete this course from your Library?`,
-            header: 'Delete Confirmation',
-            icon: 'pi pi-info-circle',
-            accept: () => {
-              this.apiService.deleteUserHasCourse(id).subscribe((res) => {
-                try {
-                  this.gettingUserHasCourse();
-                  this.messageService.add({ severity: 'success', summary: 'Successfully', detail: 'Deleted sucessfully' });
-                } catch (error) {
-                  this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong' });
-                }
-              })
-            },
-            reject: () => {
-              this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
-            }
-
-          })
+  public removeCourse(id: number): void {
+    this.confirmationService.confirm({
+      message: `Do you want to delete this course from your Library?`,
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.apiService.deleteUserHasCourse(id).subscribe((res) => {
+          try {
+            this.gettingUserHasCourse();
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successfully',
+              detail: 'Deleted sucessfully',
+            });
+          } catch (error) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Something went to wrong',
+            });
+          }
+        });
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Rejected',
+          detail: 'You have rejected',
+        });
+      },
+    });
   }
-
-
 }

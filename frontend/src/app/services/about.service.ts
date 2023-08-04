@@ -30,4 +30,10 @@ export class AboutService {
   public userCartLength(value: number): void {
     this.cartLength.next(value);
   }
+
+private progressValue = new BehaviorSubject<number>(0)
+watchCount$ = this.progressValue.asObservable();
+public watchCourseCount(value:number):void{
+  this.progressValue.next(value)
+}
 }

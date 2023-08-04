@@ -33,6 +33,8 @@ export interface AllCourseContentData {
     course_duration: any;
     user_id: string | number;
     course_include: string[];
+    video_name?:null | string;
+    discount?:string
   };
 }
 
@@ -224,6 +226,8 @@ export interface postCourseContentData {
     no_of_purchases?: number ;
     course_include?: any;
     files?: any;
+    video_name?:string | null,
+    discount?:string
   };
 }
 

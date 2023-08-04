@@ -30,12 +30,15 @@ export class ContentDetailsComponent implements OnInit {
   @ViewChild('courseVideoElmt') courseVideoElmt!: ElementRef;
   isPlaying = false;
   private videoElement!: HTMLVideoElement;
+  public img_url = environment.apiUrl;
+  public libDataIds: number[] = [];
+  public videoUrl!: SafeResourceUrl;
+  public purchases!: number;
 
   constructor(
     public dialogService: DialogService,
     private activeParams: ActivatedRoute,
     private apiService: ApiService,
-    // private apiservice: ApiService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router,
@@ -51,16 +54,13 @@ export class ContentDetailsComponent implements OnInit {
       .then(() => this.getCartCourses());
     window.scrollTo(0, 0);
     this.gettingUserHasCourse();
-
     window.scrollTo(0, 0);
   }
-  public img_url = environment.apiUrl;
 
   public getLocalData(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       const getLocalData = JSON.parse(localStorage.getItem('user')!);
       this.userID = getLocalData.id;
-
       resolve();
       (error: any) => {
         reject(error);
@@ -75,8 +75,6 @@ export class ContentDetailsComponent implements OnInit {
     });
   }
 
-  libDataIds: number[] = [];
-
   public gettingUserHasCourse(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.apiService.getUserCourse(this.userID).subscribe((res) => {
@@ -90,8 +88,6 @@ export class ContentDetailsComponent implements OnInit {
       });
     });
   }
-
-  public videoUrl!: SafeResourceUrl;
 
   public getSingleCourseObj(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
@@ -187,12 +183,8 @@ export class ContentDetailsComponent implements OnInit {
     this.router.navigate(['mycart']);
   }
 
-  public purchases!: number;
-
   addToLibrary(course: any) {
     this.purchases = course.attributes.no_of_purchases;
-    console.log('no.of purchases ', this.purchases);
-
     this.confirmationService.confirm({
       message: `Do you want to add this ${course?.attributes.name} to Library?`,
       header: 'Confirmation',
@@ -204,11 +196,8 @@ export class ContentDetailsComponent implements OnInit {
             user_id: this.userID,
           },
         };
-
         this.apiService.postUserHasCourse(courseDetails).subscribe((res) => {
           try {
-            console.log(res);
-
             this.messageService.add({
               severity: 'success',
               summary: 'Successfully',
@@ -219,16 +208,12 @@ export class ContentDetailsComponent implements OnInit {
           this.gettingUserHasCourse();
           const putCourseBody = {
             data: {
-              no_of_purchases: 1,
+              no_of_purchases: Number(this.purchases) + 1,
             },
           };
-          console.log(putCourseBody);
-
           this.apiService
-            .updateContent(course?.course_ids[0]?.id, putCourseBody)
-            .subscribe((res) => {
-              console.log(res);
-            });
+            .updateContent(course?.id, putCourseBody)
+            .subscribe((res) => {});
         });
       },
       reject: (type: any) => {

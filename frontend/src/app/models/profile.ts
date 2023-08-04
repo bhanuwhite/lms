@@ -7,7 +7,9 @@ export interface userProfile {
     mobile:number,
     email:string,
     role_id:number,
-    blocked?:boolean
+    blocked?:boolean,
+    createdAt?:string,
+    updatedAt?:string
 }
 
 export interface selectedLanguages {

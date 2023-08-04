@@ -55,6 +55,7 @@ import { TrackDetailsComponent } from './track-details/track-details.component';
 import { EditFormComponent } from './edit-form/edit-form.component';
 import { TecheCatComponent } from './teche-cat/teche-cat.component';
 import { TieredMenuModule } from 'primeng/tieredmenu';
+import { RatingModule } from 'primeng/rating';
 
 @NgModule({
   declarations: [
@@ -115,7 +116,8 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
     BadgeModule,
     ScrollPanelModule,
     ScrollerModule,
-    TieredMenuModule
+    TieredMenuModule,
+    RatingModule
   ],
   providers: [
     ApiService
