@@ -111,6 +111,27 @@
       flex: 0 0 auto;
       width: 20% !important;
     }
+    @media only screen and (max-width: 767px) {
+      .col-lg-2 {
+        flex: 0 0 auto;
+        width: 100% !important;
+      }
+      .content-inner{
+        padding: 5px 10px !important;
+      }
+    }
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .col-lg-2 {
+        flex: 0 0 auto;
+        width: 50% !important;
+      }
+    }
+    @media (min-width: 1025px) and (max-width: 1200px) {
+      .col-lg-2 {
+        flex: 0 0 auto;
+        width: 50% !important;
+      }
+    }
 
     // .content-inner{
     //   height: fit-content;
