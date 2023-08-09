@@ -5,10 +5,10 @@
     </h2>
     <div class="container-fluid">
       <h1 style="font-size: 1.5rem"><b> Choose Assessment Level </b></h1>
-      <div class="d-flex mb-3">
-        <button class="btn btn-primary" (click)="getUserLevel('beginner')">Beginner</button>
-        <button class="btn btn-warning ms-2" (click)="getUserLevel('intermediate')">Intermediate</button>
-        <button class="btn btn-success ms-2" (click)="getUserLevel('advanced')">Advanced</button>
+      <div class="d-flex flex-wrap mb-3">
+        <button class="btn btn-primary mb-1" (click)="getUserLevel('beginner')">Beginner</button>
+        <button class="btn btn-warning ms-2 mb-1" (click)="getUserLevel('intermediate')">Intermediate</button>
+        <button class="btn btn-success ms-2 mb-1 assessment_level_button" (click)="getUserLevel('advanced')">Advanced</button>
       </div>
       <ng-container *ngIf="userQuizDetails.length !=0 && !showAssessment">
         <div>
@@ -63,7 +63,7 @@
       </ng-container>
       <ng-container *ngIf="userQuizDetails.length == 0">
         <div class="d-flex justify-content-center align-items-center">
-          <div class="card shadow-4 col-lg-3  " style="height: 100px;">
+          <div class="card shadow-4 col-lg-3  mb-2" style="height: 100px;">
             <div class="card-body text-center d-flex justify-content-center align-items-center">
               <p class="fs-4 lh-sm"> No assessment is created.</p>
             </div>
@@ -76,13 +76,13 @@
         </div>
         <div class="row mb-3">
           <div class="col-lg-12">
-            <div class="card w-50 shadow-4">
+            <div class="card w-50 shadow-4 assessment_chart_div">
               <div class="card-body">
-                <div class="d-flex">
+                <div class="d-flex flex-wrap">
                   <div>
                     <p-chart type="doughnut" [data]="chartData" [options]="chartOptions"></p-chart>
                   </div>
-                  <div class="d-flex flex-column justify-content-center">
+                  <div class="d-flex flex-column p-2 justify-content-center">
                     <p> Status : <b>{{assessmentStatus}}</b></p>
                     <p> Success Percentage : <b>{{successPer}} %</b></p>
                     <button class="btn btn-warning" (click)="viewAns=!viewAns">View Answers</button>

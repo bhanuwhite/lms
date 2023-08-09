@@ -46,12 +46,13 @@
 
 <!-- mobile header -->
 <div class="header bg-blue d-flex justify-content-between align-items-center mobile_header px-3 float-left" style="height: 65px;">
-  <div class="search-bar d-flex align-items-center">
+  <div class=" d-flex align-items-center">
+    <button type="button" class=" user_bar" (click)="visibleSidebar1=true"> <i class="pi pi-bars"></i></button>
+  
+  </div>
+  <div class="search-bar  ">
     <span class="d-flex align-items-center" style="color:  #fff;"><i class="pi pi-bolt" style="font-size: 2rem"></i>
       <span style="font-size: 24px;" routerLink="/user"> LMS</span> </span>
-  </div>
-  <div class="  ">
-    <button type="button" class=" user_bar" (click)="visibleSidebar1=true"> <i class="pi pi-bars"></i></button>
   </div>
   <div>
     <p-avatar shape="circle" size="large" icon="pi pi-user" (click)="menus.toggle($event)"

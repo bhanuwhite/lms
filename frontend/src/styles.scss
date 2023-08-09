@@ -343,6 +343,11 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
   //     height: auto !important;
   //   }
   // }
+  .add_remove_button{
+    button.p-ripple.p-element.p-button-sm.p-button.p-component {
+      margin-bottom: 5px !important;
+  }
+  }
   .p-dialog.p-component.p-dialog-draggable {
     width: 80% !important;
   }

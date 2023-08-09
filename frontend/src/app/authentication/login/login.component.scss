@@ -217,6 +217,15 @@ a {
         border-top: 1px solid #EEEEEE !important;
         margin: 0px 15px;
     }
+    .login_div{
+        margin-bottom: 10px;
+    }
+    .help_desk_wrapper{
+        flex-wrap: wrap !important;
+        .inner_div{
+            margin: 5px 0px !important;
+        }
+    }
 }
 
 .invalid-feedback.px-0.ng-star-inserted {

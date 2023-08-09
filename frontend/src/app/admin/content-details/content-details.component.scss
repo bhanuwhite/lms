@@ -47,7 +47,7 @@
 }
 .course_video_section{
     padding: 15px;
-    margin: 20px 5px;
+    margin: 20px 0px;
 }
 
 .content-details-wrapper {
@@ -87,6 +87,15 @@
         overflow-y: auto;
         width: 100%;
     }
+    iframe {
+        width: 100% !important;
+    }
+    .content-inner {
+        padding: 15px 15px !important;
+    }
+    .surface-ground{
+        padding: 15px 15px !important;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1025px) {
@@ -99,5 +108,8 @@
         width: 100%;
         overflow-x: hidden;
     
+    }
+    iframe {
+        width: 100% !important;
     }
 }
