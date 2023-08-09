@@ -10,3 +10,10 @@
     flex-flow: column;
   }
 }
+@media only screen and (max-width: 767px) {
+  
+  .content-inner {
+    padding: 15px 15px !important;
+}
+
+}

@@ -1,40 +1,33 @@
-<div>
-  <div class="container">
-
-<div class="d-flex justify-content-between mt-3">
-  <div class="col-lg-4">
-    <h1 style="font-size: 1.5rem">
-      <b>Assessments </b>
-    </h1>
-  </div>
+<div class="container">
+  <div class="d-flex justify-content-between flex-wrap mt-3">
+    <div class="col-lg-4">
+      <h1 style="font-size: 1.5rem">
+        <b>Assessments </b>
+      </h1>
+    </div>
     <div class="col-lg-4 d-flex p-0">
       <span class="p-input-icon-left w-100">
         <i class="pi pi-search"></i>
         <input type="text" class="w-100" pInputText [(ngModel)]="searchQuery" (ngModelChange)="onSearchDetails()"
           placeholder="Search Course...." />
       </span>
-  </div>
-
-</div>
-
-
-
-    <div *ngIf="Spinner">
-      <div class="loader">Loading...</div>
     </div>
-
-    <div *ngIf="!Spinner">
-      <div class="d-flex assessment_wrapper h-100 mb-5 align-items-center justify-content-center"
-        *ngIf="uniqueTech.length == 0">
-        <div class="card shadow-4 col-lg-3 " style="height: 100px;">
-          <div class="card-body text-center d-flex justify-content-center align-items-center">
-            <p class="fs-4 lh-sm"> No Assessments are available </p>
-          </div>
+  </div>
+  <div *ngIf="Spinner">
+    <div class="loader">Loading...</div>
+  </div>
+  <div *ngIf="!Spinner">
+    <div class="d-flex assessment_wrapper h-100 mb-5 align-items-center justify-content-center"
+      *ngIf="uniqueTech.length == 0">
+      <div class="card shadow-4 col-lg-3 " style="height: 100px;">
+        <div class="card-body text-center d-flex justify-content-center align-items-center">
+          <p class="fs-4 lh-sm"> No Assessments are available </p>
         </div>
       </div>
-      <div class="row d-flex my-3" *ngIf="uniqueTech.length != 0">
-        <div class="container shadow-4 bg-white">
-          <p-table [value]="filteredTech" class="table" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+    </div>
+    <div class="row d-flex my-3" *ngIf="uniqueTech.length != 0">
+      <div class="container shadow-4 bg-white assessment_table">
+        <p-table [value]="filteredTech" class="table" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
           [rowsPerPageOptions]="[10,15,20]">
           <ng-template pTemplate="header">
             <tr>
@@ -47,17 +40,13 @@
               <td class="cursor-pointer">{{course}} </td>
               <td>
                 <div>
-                  <p-button label="Take Assessment" icon="pi pi-plus" class=" cursor-pointer"
-                    (click)="openQuiz(course)" styleClass="p-button-sm"> </p-button>
-
+                  <p-button label="Take Assessment" icon="pi pi-plus" class=" cursor-pointer" (click)="openQuiz(course)"
+                    styleClass="p-button-sm"> </p-button>
                 </div>
               </td>
             </tr>
           </ng-template>
         </p-table>
-        </div>
-
-
       </div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-<div class="surface-ground px-4 py-3">
+<div class="surface-ground px-4 py-3 content-inner">
   <div class="row align-items-center">
     <div class="col-lg-6 col-md-6 d-flex align-items-center">
       <h1 style="font-size: 1.5rem;"><b> Assessments</b> </h1>
@@ -20,8 +20,8 @@
         <tr>
           <td (click)="showQuizQuestions(tech)" class="cursor-pointer">{{tech}} </td>
           <td>
-            <div>
-              <p-button label="Add" icon="pi pi-plus" class=" cursor-pointer" styleClass="p-button-sm" (click)="showDialog(tech)"> </p-button>
+            <div class="add_remove_button">
+              <p-button label="Add" icon="pi pi-plus" class=" cursor-pointer mb-1" styleClass="p-button-sm" (click)="showDialog(tech)"> </p-button>
               <p-button label="Remove" icon="pi pi-minus" class=" cursor-pointer" styleClass="p-button-danger p-button-sm"
                 *ngIf="techCourseNames.includes(tech.toLowerCase())" (click)="deleteExam(tech)"> </p-button>
             </div>
