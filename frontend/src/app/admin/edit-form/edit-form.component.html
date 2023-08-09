@@ -63,7 +63,8 @@
           <ng-container *ngIf="newVideosUpload.length == 0 ; else newVideos">
             <div class="d-flex flex-wrap ">
               <div *ngFor="let videos of edituserLearnings.attributes.content?.data">
-                <video [src]="imgUrl+videos.attributes.url" class="m-2" [style]="{'height': '100px','width': '100px'}"></video>
+                <video [src]="imgUrl+videos.attributes.url" class="m-2"
+                  [style]="{'height': '100px','width': '100px'}"></video>
                 <p class="text-truncate" [style]="{'width': '100px'}" [pTooltip]="videos.attributes.alternativeText"
                   tootltip><b>{{ videos.attributes.alternativeText }}</b></p>
               </div>

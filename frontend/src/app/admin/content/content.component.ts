@@ -217,8 +217,9 @@ export class ContentComponent implements OnInit, OnDestroy {
   public levelSelected(event: { value: { level: string } }) {
     this.selectedLevel = event.value.level;
   }
-  public subjectSelected(event: { value: { industry: string } }) {
-    this.selectedSubject = event.value.industry;
+  public subjectSelected(event: { value: { tech: string } }) {
+    this.selectedSubject = event.value.tech;
+
   }
   public statusSelected(event: { value: { status: string } }) {
     this.selectedStatus = event.value.status;
@@ -440,6 +441,7 @@ export class ContentComponent implements OnInit, OnDestroy {
             severity: 'success',
             summary: 'Success',
             detail: 'Course added successfully !!',
+
           });
           this.courseContentVideo = [];
           this.showDocuments = false;

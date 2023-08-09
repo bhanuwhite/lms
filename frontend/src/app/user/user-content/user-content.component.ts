@@ -10,7 +10,6 @@ import { environment } from 'src/environment/environment';
 
 interface Subjects {
   name: string;
-  code: string;
 }
 
 @Component({
@@ -41,8 +40,7 @@ export class UserContentComponent {
     private aboutService: AboutService
   ) {}
 
-  subjects: Subjects[] = [];
-
+  subjects: Subjects[] = [{name:'All'}];
   formGroup!: FormGroup;
   value: number = 3;
   public img_url = environment.apiUrl;
@@ -52,17 +50,20 @@ export class UserContentComponent {
     this.getLocalData();
     this.gettingUserHasCourse();
     window.scrollTo(0, 0);
-    this.subjects = [
-      { name: 'All', code: 'all' },
-      { name: 'Business development', code: 'BD' },
-      { name: 'Database', code: 'DB' },
-      { name: 'Information & cyber security', code: 'ICs' },
-      { name: 'Software development', code: 'SD' },
-      { name: 'Web development', code: 'WD' },
-    ];
-
+    this.getCategory();
     this.formGroup = new FormGroup({
       selectedSubject: new FormControl<Subjects | null>(null),
+    });
+  }
+
+  private getCategory(): void {
+    this.apiService.getCategory().subscribe((res) => {
+      res.data.map((resObj: any) => {
+        const catObj = {
+          name: resObj.attributes.categories.tech,
+        };
+        this.subjects.push(catObj);
+      });
     });
   }
 
@@ -107,12 +108,10 @@ export class UserContentComponent {
     localStorage.clear();
     location.reload();
   }
-
   //GET CONTENT
 
   public allCourses: string[] = [];
   public uniqueTech: string[] = [];
-
   public getContent(): void {
     this.apiService.getContent().subscribe((res) => {
       try {
@@ -120,17 +119,8 @@ export class UserContentComponent {
         this.coursesList = res.data;
         this.courseList2 = res.data;
         this.isLoading = true;
-        // const courses = res.data;
-        // const uniqueTechnology = new Set<string>();
-        // courses.forEach((item) => {
-        //   uniqueTechnology.add(item.attributes?.technologies['0']);
-        // });
-        // const UserAssessments = Array.from(uniqueTechnology);
-        // this.assessment_Length = UserAssessments.length;
-
         res.data.forEach((item) => {
           this.allCourses.push(item.attributes?.technologies);
-
           this.allCourses.forEach((item) => {
             const values = Object.values(item);
             values.forEach((obj) => {
@@ -143,28 +133,6 @@ export class UserContentComponent {
       } catch (error) {}
     });
   }
-
-  // public getAllCourseDetais() {
-  //   this.apiService.getContent().subscribe((res) => {
-
-  //     res.data.forEach((item) => {
-
-  //        this.allCourses.push(item.attributes?.technologies)
-
-  //        this.allCourses.forEach((item)=>{
-  //         const values = Object.values(item);
-  //         values.forEach((obj)=>{
-  //           if (!this.uniqueTech.includes(obj)) {
-  //             this.uniqueTech.push(obj);
-  //           }
-
-  //         })
-
-  //        })
-  //     });
-
-  //   });
-  // }
 
   public searchFunction() {
     if (this.searchWord) {
@@ -185,16 +153,20 @@ export class UserContentComponent {
     }
   }
 
-  onSelectSubject(selectedValue: any) {
+  onSelectSubject(selectedValue: string) {
+    console.log(selectedValue);
+
     this.coursesList = [];
-    if (selectedValue.value.selectedSubject.name) {
-      if (selectedValue.value.selectedSubject.name === 'All') {
+    if (selectedValue) {
+      if (selectedValue === 'All') {
         this.coursesList = this.courseList2;
       } else {
         this.courseList2.forEach((course: any) => {
+          console.log(course);
+
           if (
-            course.attributes.subject.trim() ===
-            selectedValue.value.selectedSubject.name.trim()
+            course.attributes.subject?.toLowerCase() ===
+            selectedValue?.toLowerCase()
           ) {
             this.coursesList.push(course);
           }

@@ -90,9 +90,9 @@ export class EditFormComponent implements OnInit, OnChanges {
       price: ['', [Validators.required]],
       imgVideo: [''],
       technologies: new FormControl('', [Validators.required]),
-      subject: new FormControl('', [Validators.required]),
+      subject: ['', [Validators.required]],
       level: [''],
-      status: new FormControl('', [Validators.required]),
+      status: ['', [Validators.required]],
       link: [''],
       admin_id: [''],
       image: [''],
@@ -165,9 +165,11 @@ export class EditFormComponent implements OnInit, OnChanges {
   }
   totalDuration!: number;
   editingCourseData() {
+
     this.showDocuments = false;
     this.courseDoc();
     const formValues = this.edituserLearnings.attributes;
+    console.log(formValues.subject);
     this.previousVideosData = formValues.content.data;
 
     this.technologyArr = Object.values(formValues.technologies);
@@ -195,7 +197,7 @@ export class EditFormComponent implements OnInit, OnChanges {
       technologies: [
         this.selectedTechnologies ? this.selectedTechnologies : '',
       ],
-      subject: [{ industry: formValues.subject }],
+      subject: [{ tech: "Database" }],
       level: [{ level: formValues.level }],
       status: 'active',
       link: formValues.link,
@@ -212,8 +214,8 @@ export class EditFormComponent implements OnInit, OnChanges {
   public levelSelected(event: { value: { level: string } }) {
     this.selectedLevel = event.value.level;
   }
-  public subjectSelected(event: { value: { industry: string } }) {
-    this.selectedSubject = event.value.industry;
+  public subjectSelected(event: { value: { tech: string } }) {
+    this.selectedSubject = event.value.tech;
   }
 
   public courseFileSelected(event: Event) {
