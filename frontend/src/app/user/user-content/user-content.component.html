@@ -1,13 +1,4 @@
-<ng-container *ngIf="showContent == true">
-  <div class="card" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;">
-    <div class="d-flex justify-content-center">
-      <h2>Your account is blocked.</h2>
-    </div>
-  </div>
-</ng-container>
-<ng-container *ngIf="showContent == false">
 <div class="content_part_wrapper">
-
   <div class="container-fluid mb-2">
     <div class="row mt-1">
       <div class="col-lg-4 col-md-6 mb-1 md:col-6 lg:col-4">
@@ -56,14 +47,12 @@
             </div>
           </div>
         </div>
-
         <p-dialog header="Exams" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false"
           [resizable]="false">
           <p class="m-0">
             Coming Soon....!
           </p>
         </p-dialog>
-
       </div>
     </div>
   </div>
@@ -92,10 +81,8 @@
               placeholder="Select Category" (onChange)="onSelectSubject(formGroup)"></p-dropdown>
           </div>
         </form>
-
       </div>
     </div>
-
     <div *ngIf="Spinner">
       <div class="loader">Loading...</div>
     </div>
@@ -103,7 +90,7 @@
     <div class="row all-Courses" *ngIf="coursesList.length != 0">
       <p-card class="course-card" *ngFor="let course of coursesList">
         <ng-template pTemplate="header">
-          <div class="courseImage">
+          <div class="">
             <ng-container *ngIf="course.attributes.placeholder_img.data !==null">
               <a><img alt="Card" [src]="img_url+ course?.attributes?.placeholder_img?.data?.attributes?.formats
                 ?.thumbnail?.url" class="img-fluid" style="height: 225px; border-radius: 10px 10px 2px 2px"
@@ -112,63 +99,62 @@
 
             <ng-container *ngIf="course.attributes.placeholder_img.data == null">
               <div class="card  cursor-pointer d-flex justify-content-center align-items-center"
-                [style]="{'height':'225px','width':'100%','border-radius':'10px 10px 2px 2px'}" [routerLink]="['course/', course.id]">
+                [style]="{'height':'225px','width':'100%','border-radius':'10px 10px 2px 2px'}"
+                [routerLink]="['course/', course.id]">
                 <p class="fs-3 fw-bold"> {{course.attributes.technologies['1']}} </p>
               </div>
-
             </ng-container>
 
           </div>
         </ng-template>
         <div class="cursor-pointer">
           <div class="row">
-            <div class="col-lg-6 text-truncate">
+            <div class="col-lg-6 col-md-6 col-sm-6 text-truncate">
               <h4 class="textOverflow">
                 <b>{{ course.attributes.name }}</b>
               </h4>
             </div>
-            <div class="col-lg-6 d-flex justify-content-end" *ngIf="course.attributes.total_duration !=0">
+            <div class="col-lg-6 col-sm-6 col-md-6  d-flex justify-content-end" *ngIf="course.attributes.total_duration !=0">
               <p class="m-0 p-0 d-flex justify-content-center"><span class="material-icons pe-1"> schedule </span>
                 {{((course.attributes.total_duration)/3600).toFixed(1)}}hrs </p>
             </div>
           </div>
-          <div class="row mb-3">
-            <div class="col-lg-4 mt-2">
+          <div class="row">
+            <div class="col-lg-4 col-sm-4 col-md-4">
               <i class="user_badge" pBadge style="font-size: 2rem" value="{{ course.attributes.level }}"
                 severity="warning"></i>
             </div>
-            <div class="col-lg-8 d-flex justify-content-end" *ngIf="course?.attributes?.content?.data?.length">
+            <div class="col-lg-8 col-sm-8 col-md-8 d-flex justify-content-end" *ngIf="course?.attributes?.content?.data?.length">
               <p class="m-0 p-0">
                 Lectures : <b>{{ course?.attributes?.content?.data?.length }}</b>
               </p>
             </div>
           </div>
           <div class="d-flex justify-content-between">
-            <div class="col-lg-6 text-truncate" pTooltip="{{ course.attributes.description }}" tooltip>
+            <div class="col-lg-12 col-sm-12 col-md-12 text-truncate" pTooltip="{{ course.attributes.description }}" tooltip>
               <p class="textOverflow">{{ course.attributes.description }}</p>
             </div>
-
           </div>
-
           <div class="d-flex">
             <p-rating [(ngModel)]="course.attributes.rating" [readonly]="true" [cancel]="false"></p-rating>
           </div>
         </div>
         <ng-template pTemplate="footer">
           <div class="row align-items-center">
-            <div class="col-lg-5" *ngIf="parsePrice(course.attributes.price) != 0">
-              <h3 class="m-0">
-                <b>{{ course.attributes.price | currency : "INR" }} </b>
-              </h3>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="col-lg-5 col-sm-5 col-md-5" *ngIf="parsePrice(course.attributes.price) != 0">
+                <h3 class="m-0">
+                  <b>{{ course.attributes.price | currency : "INR" }} </b>
+                </h3>
+              </div>
+              <div class="col-lg-7 col-sm-7 col-md-7 d-flex justify-content-end">
+                <button class="btn btn-primary" style="width: fit-content"
+                  *ngIf="parsePrice(course.attributes.price) != 0" [routerLink]="['course/', course.id]">
+                  Check Details
+                </button>
+              </div>
             </div>
-            <div class="col-lg-7 d-flex justify-content-end">
-              <button class="btn btn-primary" style="width: fit-content"
-                *ngIf="parsePrice(course.attributes.price) != 0" [routerLink]="['course/', course.id]">
-                Check Details
-              </button>
-            </div>
-
-            <div class="d-flex justify-content-end ml-2" *ngIf="
+            <div class="d-flex justify-content-end" *ngIf="
               parsePrice(course.attributes.price) == 0 &&
               libDataId &&
               course.id &&
@@ -184,18 +170,11 @@
     </div>
 
     <div class="d-flex justify-content-center mt-5" *ngIf="coursesList.length == 0  &&  !Spinner">
-
       <div class="d-flex justify-content-center card shadow-4 col-lg-3">
         <div class="card-body text-center d-flex justify-content-center align-items-center">
           <p class="fs-4 lh-sm"> Courses are not available</p>
         </div>
       </div>
-
     </div>
-
   </div>
-
-
-
 </div>
-</ng-container>

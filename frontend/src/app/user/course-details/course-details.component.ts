@@ -44,8 +44,12 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   public totalAvgRating: number | null = 0;
   public sum: number = 0;
   public ratingData: any;
-
   public img_url = environment.apiUrl;
+  private courseCount!: number;
+  private videoCount: boolean = true;
+  visible: boolean = false;
+  CourseRating_UserIds: number[] = [];
+  private courseVideoCount$: Subscription = new Subscription();
 
   @ViewChild('Course_video') Course_video!: ElementRef;
 
@@ -76,7 +80,6 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     this.userID = localStoredData.id;
   }
 
-  private courseCount!: number;
   public getLibraryData(): Promise<void> {
     return new Promise((resolve, reject) => {
       (this.SingleContentLib$ = this.apiService
@@ -120,8 +123,6 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   }
 
   // get running time of video.
-
-  private courseVideoCount$: Subscription = new Subscription();
   getWatchedTime() {
     this.userWatchedTime = this.Course_video.nativeElement.currentTime;
     const videoIndex = this.watchedDurations.findIndex(
@@ -155,10 +156,9 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
       .putUserHasCourse(this.courseId, putBody)
       .subscribe((res) => {});
     this.progressPercentage = progressPer.toFixed(0);
-
     this.aboutService.watchCourseCount(Number(this.progressPercentage));
     this.courseVideoCount$ = this.aboutService.watchCount$.subscribe((res) => {
-      if (res >= 10) {
+      if (res >= 10 && this.videoCount) {
         const count = Number(this.courseCount) + Number(1);
         const updateVideoCount = {
           data: {
@@ -168,6 +168,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
         this.apiService
           .updateContent(this.course_id, updateVideoCount)
           .subscribe((res) => {
+            this.videoCount = false;
             try {
               this.messageService.add({
                 severity: 'success',
@@ -213,8 +214,6 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  CourseRating_UserIds: any[] = [];
-
   getRating() {
     this.apiService.getUserRatings(this.course_id).subscribe((res: any) => {
       for (let i = 0; i < res.length; i++) {
@@ -223,7 +222,6 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  visible: boolean = false;
   showDialog() {
     this.visible = true;
   }
@@ -317,8 +315,6 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     this.LibraryContent$.unsubscribe();
     this.SingleContentLib$.unsubscribe();
     this.courseVideoCount$.unsubscribe();
+    this.courseVideoCount$.unsubscribe();
   }
-}
-function then(arg0: () => Promise<void>) {
-  throw new Error('Function not implemented.');
 }

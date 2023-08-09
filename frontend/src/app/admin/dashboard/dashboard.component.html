@@ -4,9 +4,9 @@
       <h1 style="font-size: 1.5rem;"><b> Overview</b> </h1>
     </div>
   </div>
-  <div class="row mt-1">
+  <div class="row ">
 
-    <div class="col-lg-2 mb-1 col-md-6 col-sm-12">
+    <div class="col-lg-2 col-md-6 col-sm-12 box_mobile">
       <div class="surface-card card_wrapper_boxes shadow-2 p-2 border-round cursor-pointer" routerLink="/trackuser">
         <div class="flex justify-content-between mb-3">
           <div>
@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-2 mb-1 col-md-6 col-sm-12">
+    <div class="col-lg-2 col-md-6 col-sm-12 box_mobile">
       <div class="surface-card card_wrapper_boxes shadow-2 p-2 border-round cursor-pointer" routerLink="/content">
         <div class="flex justify-content-between mb-3">
           <div>
@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-2 mb-1 col-md-6 col-sm-12">
+    <div class="col-lg-2 col-md-6 col-sm-12 box_mobile">
       <div class="surface-card card_wrapper_boxes shadow-2 p-2 border-round cursor-pointer" routerLink="/content">
         <div class="flex justify-content-between mb-3">
           <div>
@@ -48,7 +48,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-2 mb-1 col-md-6 col-sm-12">
+    <div class="col-lg-2 col-md-6 col-sm-12 box_mobile">
       <div class="surface-card card_wrapper_boxes shadow-2 p-2 border-round cursor-pointer" routerLink="/quiz">
         <div class="flex justify-content-between mb-3">
           <div>
@@ -62,7 +62,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-2 mb-1 col-md-6 col-sm-12">
+    <div class="col-lg-2 col-md-6 col-sm-12 box_mobile">
       <div class="surface-card card_wrapper_boxes shadow-2 p-2 border-round cursor-pointer" routerLink="/content">
         <div class="flex justify-content-between mb-3">
           <div>
@@ -87,18 +87,25 @@
         <div class="card-body">
           <p-table [value]="usersData2" [tableStyle]="{'min-width': 'auto'}" class="table">
             <ng-template pTemplate="header">
-                <tr>
-                    <th pSortableColumn="username" >Name <p-sortIcon field="name"></p-sortIcon></th>
-                    <th pSortableColumn="email" >E-mail <p-sortIcon field="email"></p-sortIcon></th>
+              <tr>
+                <th pSortableColumn="username">Name <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="email">E-mail <p-sortIcon field="email"></p-sortIcon></th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-user>
-                <tr>
-                    <td>{{user.username | titlecase}}</td>
-                    <td>{{user.email}}</td>
-                </tr>
+              <tr>
+                <td>{{user.username | titlecase}}</td>
+                <td>{{user.email}}</td>
+              </tr>
             </ng-template>
-        </p-table>
+          </p-table>
+        </div>
+        <div class="d-flex align-items-end flex-column bd-highlight me-2 mb-2" style="cursor: pointer;">
+          <div class="d-flex align-items-end align-items-end " routerLink="/trackuser">
+            <small class="" style="font-size: 14px; text-align: center; font-weight: 500">
+              <button class="btn btn-primary btn-sm">View All</button>
+            </small>
+          </div>
         </div>
       </div>
     </div>
@@ -119,7 +126,7 @@
     </div>
     <div class="card-body">
       <div class="card">
-        <p-table [value]="top5Courses"  class="text-center">
+        <p-table [value]="top5Courses" class="text-center">
           <ng-template pTemplate="header">
             <tr>
               <th pSortableColumn="attributes.name">Name <p-sortIcon field="name"></p-sortIcon> </th>
@@ -161,11 +168,10 @@
           </ng-template>
 
         </p-table>
-        <div class="d-flex align-items-end my-2 flex-column bd-highlight me-1" style="cursor: pointer;">
+        <div class="d-flex align-items-end mb-2 flex-column bd-highlight me-1" style="cursor: pointer;">
           <div class="d-flex align-items-end align-items-end " routerLink="/content">
             <small class="" style="font-size: 17px; text-align: center; font-weight: 500">
-              <button class="btn btn-primary">View All</button>
-              <!-- <a class=" " style="color: #0d6efd"><u>View All</u></a> -->
+              <button class="btn btn-primary btn-sm">View All</button>
             </small>
           </div>
         </div>

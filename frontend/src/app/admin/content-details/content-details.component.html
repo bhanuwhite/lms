@@ -132,7 +132,7 @@
     </div>
     <ng-container *ngIf="singleContent &&  singleContent.attributes.content.data !=null">
       <div class=" course_video_section surface-card  border-round" *ngIf="singleContent">
-        <h1 class="px-2" style="font-size: 1.5rem;"><b> Course videos :</b> </h1>
+        <h1 class="px-2" style="font-size: 1.5rem;"><b> Content videos :</b> </h1>
         <div class=" row flex-wrap">
           <div class="col-lg-12 col-md-12 col-sm-12">
             <div *ngFor="let content of singleContent.attributes.content.data">
@@ -181,9 +181,9 @@
     </ng-container>
 
     <ng-container
-      *ngIf="singleContent &&  singleContent.attributes.content.data ==null && singleContent.attributes.link !=''">
+      *ngIf="singleContent &&  singleContent.attributes.content.data == null && singleContent.attributes.link != ''">
       <div class=" course_video_section surface-card  border-round" *ngIf="singleContent">
-        <h1 class="px-2" style="font-size: 1.5rem;"><b> Course videos :</b> </h1>
+        <h1 class="px-2" style="font-size: 1.5rem;"><b> Content videos :</b> </h1>
         <iframe [src]="videoUrl" frameborder="10" height="250px" style="border-radius: 10px; width: 50%"></iframe>
       </div>
     </ng-container>

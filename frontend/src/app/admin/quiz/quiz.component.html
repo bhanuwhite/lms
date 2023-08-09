@@ -18,11 +18,11 @@
       </ng-template>
       <ng-template pTemplate="body" let-tech>
         <tr>
-          <td (click)="showQuizQuestions(tech)" class="cursor-pointer"><b>{{tech}}</b> </td>
+          <td (click)="showQuizQuestions(tech)" class="cursor-pointer">{{tech}} </td>
           <td>
             <div>
-              <p-button label="Add" icon="pi pi-plus" class=" cursor-pointer" (click)="showDialog(tech)"> </p-button>
-              <p-button label="Remove" icon="pi pi-minus" class=" cursor-pointer" styleClass="p-button-danger"
+              <p-button label="Add" icon="pi pi-plus" class=" cursor-pointer" styleClass="p-button-sm" (click)="showDialog(tech)"> </p-button>
+              <p-button label="Remove" icon="pi pi-minus" class=" cursor-pointer" styleClass="p-button-danger p-button-sm"
                 *ngIf="techCourseNames.includes(tech.toLowerCase())" (click)="deleteExam(tech)"> </p-button>
             </div>
           </td>
