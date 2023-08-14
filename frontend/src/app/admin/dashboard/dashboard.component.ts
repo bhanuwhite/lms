@@ -29,6 +29,8 @@ export class DashboardComponent implements OnInit {
   private topViewedCourses: string[] = [];
   private topViewedCount: string[] = [];
   public topViewedCourseData: {} = {};
+  public usersData: userProfile[] = [];
+  public usersData2: userProfile[] = [];
 
   constructor(private apiService: ApiService) {}
   ngOnInit(): void {
@@ -37,28 +39,23 @@ export class DashboardComponent implements OnInit {
     setTimeout(() => {
       this.getViewedChart();
     }, 1000);
-    this.getUsers()
+    this.getUsers();
   }
 
-  public usersData:userProfile[]=[]
-  public usersData2:userProfile[]=[]
-  private getUsers ():void {
-    this.apiService.getProfileDetails().subscribe((res)=>{
-      this.usersData = [...res]
-      this.usersData.sort((a:any,b:any)=>
-      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      )
-      this.usersData = this.usersData.filter((res:any)=>{
+  private getUsers(): void {
+    this.apiService.getProfileDetails().subscribe((res) => {
+      this.usersData = [...res];
+      this.usersData.sort(
+        (a: any, b: any) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+      this.usersData = this.usersData.filter((res: any) => {
         return res.role_id == 3;
-      })
-      this.usersData2 = this.usersData.slice(0,5)
-console.log(this.usersData2);
-return 2;
-
-    })
+      });
+      this.usersData2 = this.usersData.slice(0, 5);
+      return 2;
+    });
   }
-
-
 
   private getViewedChart(): Promise<void> {
     return new Promise((resolve, reject) => {

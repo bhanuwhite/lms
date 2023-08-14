@@ -81,7 +81,6 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.loadForm();
   }
 
-
   // Add Form validation
   public loadForm(): void {
     this.addQuizGroup = this.fb.group({
@@ -177,10 +176,9 @@ export class QuizComponent implements OnInit, OnDestroy {
   public getQuizData() {
     this.apiService.getQuiz().subscribe((res) => {
       this.techCourseNames = res.data.map((res) => {
-        return res.attributes.course_name.toLocaleLowerCase();
+        return res.attributes.course_name.toLocaleLowerCase().replace(/ /g, '');
       });
       this.techCourseNames = Array.from(new Set(this.techCourseNames));
-
     });
   }
   showDialog(course: string) {
@@ -196,21 +194,32 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.route.navigate(['/quiz/', technology]);
     localStorage.setItem('CourseName', technology);
   }
-
-  public deleteExam(quiz: string): void {
+  public delAss: boolean = false;
+  public deleteAss!: string;
+  public deleteAssesmentLevel(data: any) {
+    const deleteCourseName = data.target.value;
     this.confirmationService.confirm({
-      message: `Are you want to delete ${quiz} Assessments ?`,
+      message: `Are you sure want to delete ${this.deleteAss}  ${deleteCourseName} level Assessment ? `,
       header: 'Confirmation..',
       accept: () => {
         try {
           this.apiService.getQuiz().subscribe((res) => {
             res.data.map((res: QuizResponse) => {
               if (
-                quiz.toLowerCase() === res.attributes.course_name.toLowerCase()
+                this.deleteAss.toLowerCase() ===
+                  res.attributes.course_name.toLowerCase().replace(/ /g, '') &&
+                deleteCourseName.toLowerCase() ===
+                  res.attributes.level.toLowerCase()
               ) {
                 this.apiService.deleteQuiz(res.id).subscribe((res) => {
                   this.getCourseContentDetails();
                   this.getQuizData();
+                  this.messageService.add({
+                    severity: 'success',
+                    life: 3000,
+                    summary: `${this.deleteAss} ${deleteCourseName} level Assessments deleted.`,
+                  });
+                  this.delAss = false;
                 });
               }
             });
@@ -218,19 +227,61 @@ export class QuizComponent implements OnInit, OnDestroy {
         } catch (err: any) {
           console.warn(err);
         }
-        this.messageService.add({
-          severity: 'success',
-          life: 3000,
-          summary: `${quiz} Assessments deleted.`,
-        });
       },
       reject: () => {
         this.messageService.add({
           severity: 'error',
           summary: ' Request denied.',
         });
+        this.delAss = false;
       },
     });
+  }
+
+  public deleteAllAssesmentLevel(data: any) {
+    const deleteCourseName = data.target.value;
+    this.confirmationService.confirm({
+      message: `Are you want to delete ${this.deleteAss}  all level Assessments ?`,
+      header: 'Confirmation..',
+      accept: () => {
+        try {
+          this.apiService.getQuiz().subscribe((res) => {
+            res.data.map((res: QuizResponse) => {
+              if (
+                deleteCourseName.toLowerCase() === 'all' &&
+                this.deleteAss.toLowerCase() ===
+                  res.attributes.course_name.toLowerCase().replace(/ /g, '')
+              ) {
+                this.apiService.deleteQuiz(res.id).subscribe((res) => {
+                  this.getCourseContentDetails();
+                  this.getQuizData();
+                  this.messageService.add({
+                    severity: 'success',
+                    life: 3000,
+                    summary: `${this.deleteAss} all level Assessments are deleted.`,
+                  });
+                  this.delAss = false;
+                });
+              }
+            });
+          });
+        } catch (err: any) {
+          console.warn(err);
+        }
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: ' Request denied.',
+        });
+        this.delAss = false;
+      },
+    });
+  }
+
+  public deleteExam(quiz: string): void {
+    this.deleteAss = quiz;
+    this.delAss = true;
   }
 
   ngOnDestroy(): void {}

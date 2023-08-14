@@ -36,7 +36,7 @@ export class EditFormComponent implements OnInit, OnChanges {
   EditClick!: ContentComponent;
   public visible: boolean = true;
   public editFormVisible: boolean = true;
-  public popupForm: FormGroup;
+  public popupForm!: FormGroup;
   public remainingWords: number = 100;
   private Admin_id!: number;
   public imgUploadProgress: boolean = false;
@@ -81,6 +81,27 @@ export class EditFormComponent implements OnInit, OnChanges {
     private messageService: MessageService,
     private sanitizer: DomSanitizer
   ) {
+
+  }
+
+  ngOnChanges(): void {
+    this.visible = this.popupClick == 'edit' ? true : false;
+    this.editFormVisible = this.popupClick == 'edit' ? true : false;
+    this.editingCourseData();
+    this.checkCourseIncludes();
+    this.courseDoc();
+  }
+
+  ngOnInit(): void {
+    this.formInit();
+    this.editingCourseData();
+    this.getLocalData();
+    this.checkCourseIncludes();
+    this.getTech();
+    this.getCategory();
+  }
+
+  public formInit():void {
     this.popupForm = this.fb.group({
       name: new FormControl('', [
         Validators.required,
@@ -100,22 +121,6 @@ export class EditFormComponent implements OnInit, OnChanges {
       courserIncludes: this.fb.array([]),
       documents: ['', Validators.required],
     });
-  }
-
-  ngOnChanges(): void {
-    this.visible = this.popupClick == 'edit' ? true : false;
-    this.editFormVisible = this.popupClick == 'edit' ? true : false;
-    this.editingCourseData();
-    this.checkCourseIncludes();
-    this.courseDoc();
-  }
-
-  ngOnInit(): void {
-    this.editingCourseData();
-    this.getLocalData();
-    this.checkCourseIncludes();
-    this.getTech();
-    this.getCategory();
   }
 
   private getTech(): void {
@@ -165,6 +170,7 @@ export class EditFormComponent implements OnInit, OnChanges {
   }
   totalDuration!: number;
   editingCourseData() {
+    console.log(this.edituserLearnings);
 
     this.showDocuments = false;
     this.courseDoc();
@@ -197,7 +203,7 @@ export class EditFormComponent implements OnInit, OnChanges {
       technologies: [
         this.selectedTechnologies ? this.selectedTechnologies : '',
       ],
-      subject: [{ tech: "Database" }],
+      subject: [{ tech: formValues.subject }],
       level: [{ level: formValues.level }],
       status: 'active',
       link: formValues.link,

@@ -42,6 +42,20 @@
     </div>
   </div>
 
+  <p-dialog header="Confirmation.." [(visible)]="delAss" [style]="{width: '50vw'}" styleClass="active" [modal]="true">
+    <div class="">
+      <h2> Select level to delete Assessments of {{deleteAss}} </h2>
+      <div class="d-flex m-4">
+
+        <button class="btn btn-primary" value="beginner" (click)="deleteAssesmentLevel($event)">Beginner</button>
+        <button class="btn btn-warning ms-2" value="intermediate" (click)="deleteAssesmentLevel($event)">Intermediate</button>
+        <button class="btn btn-info ms-2" value="advanced" (click)="deleteAssesmentLevel($event)">Advansed</button>
+        <button class="btn btn-danger ms-2" value="all" (click)="deleteAllAssesmentLevel($event)">ALL</button>
+
+      </div>
+  </div>
+</p-dialog>
+
   <!-- Add dialog start -->
   <p-dialog header="Add Question" [(visible)]="visible" [style]="{width: '50vw'}" styleClass="active" [modal]="true">
     <hr>
@@ -50,7 +64,7 @@
         <div class="field mt-2 w-100">
           <label for="title">Course name<span class="text-danger fs-5">*</span> :</label>
           <span>
-            <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" name="Course_Name"
+            <input type="text" [readOnly]="true" class="bg-light-grey input-shadow w-100 p-inputtext" name="Course_Name"
               class="form-control" required formControlName="Course_Name" pInputText placeholder="Course name">
             <small class="p-error block"
               *ngIf="addQuizGroup.get('Course_Name')?.invalid && addQuizGroup.get('Course_Name')?.touched">
