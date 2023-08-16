@@ -1,6 +1,6 @@
 
 <!-- <app-spinner *ngIf="isLoading == true"></app-spinner> -->
-<div class="surface-ground main_login_wrapper">
+<div class="surface-ground pt-5 main_login_wrapper">
     <div class=" card0 border-0">
         <div class="row d-flex">
             <div class="col-lg-6">
@@ -14,14 +14,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 login_div">
                 <div class="card2 card border-0 px-4 py-5">
                     <form [formGroup]="formgroup">
                         <div class="row mb-4 px-3">
                             <h1 class="mb-0 mr-4 mt-2" style="padding: 10px 12px 0 0 ;">SIGN UP</h1>
 
                         </div>
-                        <div class="row px-3 pb-3">
+                        <div class="row px-3 pb-3 position-relative">
                             <label class="mb-1 p-0">
                                 <h6 class="mb-0 text-sm">Username : <span class="text-danger"> * </span></h6>
                             </label>
@@ -41,7 +41,7 @@
                             </div>
                         </div>
 
-                        <div class="row px-3 pb-3">
+                        <div class="row px-3 pb-3 position-relative">
                             <label class="mb-1 p-0">
                                 <h6 class="mb-0 text-sm">Email : <span class="text-danger"> * </span></h6>
                             </label>
@@ -60,7 +60,7 @@
                             </div>
                         </div>
 
-                        <div class="row px-3">
+                        <div class="row px-3 position-relative">
                             <label class="mb-1 p-0">
                                 <h6 class="mb-0 text-sm">Password : <span class="text-danger"> * </span></h6>
                             </label>
@@ -68,7 +68,7 @@
                                 [class.is-invalid]="pwd.invalid && (pwd.dirty || pwd.touched)"
                                 placeholder="Enter Password">
 
-                            <div *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" class="invalid-feedback px-0">
+                            <div *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" class="invalid-feedback pass px-0">
                                 <div *ngIf="pwd.errors?.['required']">
                                     Password is required.
                                 </div>

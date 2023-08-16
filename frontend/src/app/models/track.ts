@@ -61,3 +61,16 @@ export interface UserProgressDetails {
   transactionId: number | string | null;
   user_id: UserDetails;
 }
+
+export interface UserTechData {
+  id:number,
+  attributes:{
+    technologies:{ tech:string}
+  }
+}
+export interface UserCatData {
+  id:number,
+  attributes:{
+    categories:{ tech:string}
+  }
+}

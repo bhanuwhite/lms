@@ -29,6 +29,11 @@
     height: 100vh;
     overflow-y: auto;
 }
+.centered-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 
 body {
@@ -47,7 +52,7 @@ body {
 .card2 {
     margin: 0px 40px;
     // margin-top: 20px;
-    height: 400px;
+    max-height: 450px;
 }
 
 .logo {
@@ -212,4 +217,24 @@ a {
         border-top: 1px solid #EEEEEE !important;
         margin: 0px 15px;
     }
+    .login_div{
+        margin-bottom: 10px;
+    }
+    .help_desk_wrapper{
+        flex-wrap: wrap !important;
+        .inner_div{
+            margin: 5px 0px !important;
+        }
+    }
+}
+
+.invalid-feedback.px-0.ng-star-inserted {
+    position: relative;
+    top: 100%;
+    margin: 0px;
+}
+.pass{
+    position: relative;
+    top: 94% !important;
+    margin: 0px;
 }

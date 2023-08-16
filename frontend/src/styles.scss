@@ -17,7 +17,7 @@ body {
   .p-tabview .p-tabview-panels{
     background-color: #eff3f8 !important;
   }
-  
+
 }
 .p-tabview .p-tabview-panels{
   background-color: #fff !important;
@@ -343,12 +343,17 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
   //     height: auto !important;
   //   }
   // }
+  .add_remove_button{
+    button.p-ripple.p-element.p-button-sm.p-button.p-component {
+      margin-bottom: 5px !important;
+  }
+  }
   .p-dialog.p-component.p-dialog-draggable {
     width: 80% !important;
   }
   .all-Courses {
     .p-card.p-component{
-       
+
       height: auto !important;
     }
   }
@@ -427,4 +432,13 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
 .p-splitter {
   display: flex;
   flex-wrap: wrap !important;
+}
+.p-tieredmenu {
+  border: none !important;
+}
+.p-tieredmenu:hover {
+  border: none !important;
+}
+.p-datatable .p-datatable-tbody > tr > td{
+  padding: 0.5rem !important;
 }

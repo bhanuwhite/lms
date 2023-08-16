@@ -81,19 +81,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   public updateCertificates: boolean = false;
   public updateDocuments: boolean = false;
   public editUserLearnings!: AllCourseContentData;
-
-  Technologies: { tech: string }[] = [
-    { tech: 'Angular' },
-    { tech: 'DotNet' },
-    { tech: 'Java' },
-    { tech: 'Javascript' },
-    { tech: 'MongoDB' },
-    { tech: 'MySQL' },
-    { tech: 'Node JS' },
-    { tech: 'Postgresql' },
-    { tech: 'Python' },
-    { tech: 'React JS' },
-  ];
+  Technologies: { tech: string }[] = [];
 
   levels = [
     { level: 'Beginner' },
@@ -101,13 +89,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     { level: 'Advanced' },
   ];
 
-  subjects = [
-    { industry: 'Business development' },
-    { industry: 'Database' },
-    { industry: 'Information & cyber security' },
-    { industry: 'Software development' },
-    { industry: 'Web development' },
-  ];
+  subjects: { tech: string }[] = [];
 
   courseStatus = [{ status: 'active' }, { status: 'block' }];
 
@@ -123,6 +105,23 @@ export class ContentComponent implements OnInit, OnDestroy {
     this.getContent();
     this.newCourse();
     this.getLocalData();
+    this.getTech();
+    this.getCategory();
+  }
+
+  private getTech(): void {
+    this.apiService.getTechnoogy().subscribe((res) => {
+      res.data.map((resObj: any) => {
+        this.Technologies.push(resObj.attributes.technologies);
+      });
+    });
+  }
+  private getCategory(): void {
+    this.apiService.getCategory().subscribe((res) => {
+      res.data.map((resObj: any) => {
+        this.subjects.push(resObj.attributes.categories);
+      });
+    });
   }
 
   public getLocalData() {
@@ -218,8 +217,9 @@ export class ContentComponent implements OnInit, OnDestroy {
   public levelSelected(event: { value: { level: string } }) {
     this.selectedLevel = event.value.level;
   }
-  public subjectSelected(event: { value: { industry: string } }) {
-    this.selectedSubject = event.value.industry;
+  public subjectSelected(event: { value: { tech: string } }) {
+    this.selectedSubject = event.value.tech;
+
   }
   public statusSelected(event: { value: { status: string } }) {
     this.selectedStatus = event.value.status;
@@ -334,18 +334,15 @@ export class ContentComponent implements OnInit, OnDestroy {
       const arrayForm = this.addCourse.get('coursesIncludes') as FormArray;
 
       if (isChecked) {
-
         arrayForm.push(this.fb.control(value));
         if (value.toLowerCase() === 'documents') {
           this.showDocuments = true;
           this.addCourse.get('documents')?.setValidators(Validators.required);
         }
       } else {
-
         const index = arrayForm.controls.findIndex(
-          (control) => control.value === value);
-        console.log(index);
-
+          (control) => control.value === value
+        );
         if (index !== -1) {
           arrayForm.removeAt(index);
           if (value.toLowerCase() === 'documents') {
@@ -390,8 +387,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     };
     this.apiService
       .uploadVideoDesc(videoDescObj.id, videoDesc)
-      .subscribe((res) => {
-      });
+      .subscribe((res) => {});
   }
 
   convertToNumber(value: string): number {
@@ -427,7 +423,9 @@ export class ContentComponent implements OnInit, OnDestroy {
           description: this.addCourse.value.description,
           link: this.addCourse.value.link,
           name: this.addCourse.value.name,
-          placeholder_img: this.courseContentImage ? this.courseContentImage[0]:null,
+          placeholder_img: this.courseContentImage
+            ? this.courseContentImage[0]
+            : null,
           price: this.addCourse.value.price,
           user_id: this.Admin_id,
           status: 'active',
@@ -443,6 +441,7 @@ export class ContentComponent implements OnInit, OnDestroy {
             severity: 'success',
             summary: 'Success',
             detail: 'Course added successfully !!',
+
           });
           this.courseContentVideo = [];
           this.showDocuments = false;

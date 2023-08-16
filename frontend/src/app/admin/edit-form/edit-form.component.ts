@@ -36,7 +36,7 @@ export class EditFormComponent implements OnInit, OnChanges {
   EditClick!: ContentComponent;
   public visible: boolean = true;
   public editFormVisible: boolean = true;
-  public popupForm: FormGroup;
+  public popupForm!: FormGroup;
   public remainingWords: number = 100;
   private Admin_id!: number;
   public imgUploadProgress: boolean = false;
@@ -63,31 +63,14 @@ export class EditFormComponent implements OnInit, OnChanges {
   public technologyData: any;
   public newVideosUpload: any[] = [];
 
-  Technologies: any[] = [
-    { label: 'Angular', value: 'Angular' },
-    { label: 'DotNet', value: 'DotNet' },
-    { label: 'Java', value: 'Java' },
-    { label: 'Javascript', value: 'Javascript' },
-    { label: 'MongoDB', value: 'MongoDB' },
-    { label: 'MySQL', value: 'MySQL' },
-    { label: 'Node JS', value: 'Node JS' },
-    { label: 'Postgresql', value: 'Postgresql' },
-    { label: 'Python', value: 'Python' },
-    { label: 'React JS', value: 'React JS' },
-  ];
+  Technologies: { label: string; value: string }[] = [];
   levels = [
     { level: 'Beginner' },
     { level: 'Intermediate' },
     { level: 'Advanced' },
   ];
 
-  subjects = [
-    { industry: 'Business development' },
-    { industry: 'Database' },
-    { industry: 'Information & cyber security' },
-    { industry: 'Software development' },
-    { industry: 'Web development' },
-  ];
+  subjects: { tech: string }[] = [];
   public selectedTechnologies: string[] = [];
 
   courseStatus = [{ status: 'active' }, { status: 'block' }];
@@ -98,25 +81,7 @@ export class EditFormComponent implements OnInit, OnChanges {
     private messageService: MessageService,
     private sanitizer: DomSanitizer
   ) {
-    this.popupForm = this.fb.group({
-      name: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z., ]+$'),
-      ]),
-      description: [''],
-      price: ['', [Validators.required]],
-      imgVideo: [''],
-      technologies: new FormControl('', [Validators.required]),
-      subject: new FormControl('', [Validators.required]),
-      level: [''],
-      status: new FormControl('', [Validators.required]),
-      link: [''],
-      admin_id: [''],
-      image: [''],
-      course_duration: [''],
-      courserIncludes: this.fb.array([]),
-      documents: ['', Validators.required],
-    });
+
   }
 
   ngOnChanges(): void {
@@ -128,9 +93,52 @@ export class EditFormComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.formInit();
     this.editingCourseData();
     this.getLocalData();
     this.checkCourseIncludes();
+    this.getTech();
+    this.getCategory();
+  }
+
+  public formInit():void {
+    this.popupForm = this.fb.group({
+      name: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z., ]+$'),
+      ]),
+      description: [''],
+      price: ['', [Validators.required]],
+      imgVideo: [''],
+      technologies: new FormControl('', [Validators.required]),
+      subject: ['', [Validators.required]],
+      level: [''],
+      status: ['', [Validators.required]],
+      link: [''],
+      admin_id: [''],
+      image: [''],
+      course_duration: [''],
+      courserIncludes: this.fb.array([]),
+      documents: ['', Validators.required],
+    });
+  }
+
+  private getTech(): void {
+    this.apiService.getTechnoogy().subscribe((res) => {
+      res.data.map((resObj: any) => {
+        this.Technologies.push({
+          label: resObj.attributes.technologies.tech,
+          value: resObj.attributes.technologies.tech,
+        });
+      });
+    });
+  }
+  private getCategory(): void {
+    this.apiService.getCategory().subscribe((res) => {
+      res.data.map((resObj: any) => {
+        this.subjects.push(resObj.attributes.categories);
+      });
+    });
   }
 
   public getLocalData() {
@@ -144,9 +152,7 @@ export class EditFormComponent implements OnInit, OnChanges {
   public checkWordCount(): void {
     this.textValue = this.popupForm.get('description')?.value;
     const wordCount = this.textValue?.trim().split(/\s+/).length;
-
     this.remainingWords = 100 - wordCount;
-
     if (this.remainingWords < 0) {
       const words = this.textValue.trim().split(/\s+/);
       this.popupForm.controls['description'].setValue(
@@ -161,13 +167,15 @@ export class EditFormComponent implements OnInit, OnChanges {
       (option: any) => this.fb.control(true)
     );
     this.popupForm.setControl('courseIncludes', this.fb.array(controls));
-    // console.log(this.edituserLearnings);
   }
   totalDuration!: number;
   editingCourseData() {
+    console.log(this.edituserLearnings);
+
     this.showDocuments = false;
     this.courseDoc();
     const formValues = this.edituserLearnings.attributes;
+    console.log(formValues.subject);
     this.previousVideosData = formValues.content.data;
 
     this.technologyArr = Object.values(formValues.technologies);
@@ -195,7 +203,7 @@ export class EditFormComponent implements OnInit, OnChanges {
       technologies: [
         this.selectedTechnologies ? this.selectedTechnologies : '',
       ],
-      subject: [{ industry: formValues.subject }],
+      subject: [{ tech: formValues.subject }],
       level: [{ level: formValues.level }],
       status: 'active',
       link: formValues.link,
@@ -205,7 +213,6 @@ export class EditFormComponent implements OnInit, OnChanges {
       courserIncludes: this.fb.array([]),
       documents: formValues.files,
     });
-    console.log(this.selectedCourseIncludes);
   }
   public techSelected = (event: any) => {
     this.technologyArr = event.value.map((item: string) => item);
@@ -213,8 +220,8 @@ export class EditFormComponent implements OnInit, OnChanges {
   public levelSelected(event: { value: { level: string } }) {
     this.selectedLevel = event.value.level;
   }
-  public subjectSelected(event: { value: { industry: string } }) {
-    this.selectedSubject = event.value.industry;
+  public subjectSelected(event: { value: { tech: string } }) {
+    this.selectedSubject = event.value.tech;
   }
 
   public courseFileSelected(event: Event) {

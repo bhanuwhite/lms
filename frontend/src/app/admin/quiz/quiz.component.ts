@@ -1,3 +1,4 @@
+import { PropertyWrite } from '@angular/compiler';
 import {
   Component,
   ElementRef,
@@ -12,10 +13,13 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { SortEvent } from 'primeng/api';
+
 import { Router } from '@angular/router';
+import { resolve } from 'chart.js/dist/helpers/helpers.options';
 import { ConfirmationService, Message, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { Quiz, answers, level } from 'src/app/models/quiz';
+import { Quiz, QuizResponse, answers, level } from 'src/app/models/quiz';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -43,7 +47,9 @@ export class QuizComponent implements OnInit, OnDestroy {
   public allCourses: string[] = [];
   visible: boolean = false;
   public quizBody!: Quiz;
-
+  public elements = document.getElementsByTagName('input');
+  public techCourseNames: string[] = [];
+  public uniqueTech: string[] = [];
   quizGetSubscription$: Subscription = new Subscription();
   quizPostSubscription$: Subscription = new Subscription();
   quizUpdateSubscription$: Subscription = new Subscription();
@@ -65,13 +71,14 @@ export class QuizComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private messageService: MessageService,
     private apiService: ApiService,
-    private route: Router
+    private route: Router,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
     this.getCourseContentDetails();
-    this.loadForm();
     this.getQuizData();
+    this.loadForm();
   }
 
   // Add Form validation
@@ -106,8 +113,6 @@ export class QuizComponent implements OnInit, OnDestroy {
     }
   }
 
-  public elements = document.getElementsByTagName('input');
-
   onSubmitQuestionDetails() {
     this.visible = false;
     const answers = this.addQuizGroup.value.checkArray;
@@ -134,6 +139,8 @@ export class QuizComponent implements OnInit, OnDestroy {
           summary: 'Success',
           detail: 'Question Added',
         });
+        this.getCourseContentDetails();
+        this.getQuizData();
       } catch (error) {
         this.messageService.add({
           severity: 'error',
@@ -142,19 +149,16 @@ export class QuizComponent implements OnInit, OnDestroy {
         });
       }
     });
-
     for (let i = 0; i < this.elements.length; i++) {
       if (this.elements[i].type == 'checkbox') {
         this.elements[i].checked = false;
       }
     }
   }
-  public uniqueTech: string[] = [];
 
   public getCourseContentDetails() {
     this.apiService.getContent().subscribe((res) => {
       const courses = res.data;
-
       courses.forEach((item) => {
         this.allCourses.push(item.attributes?.technologies);
         this.allCourses.forEach((obj) => {
@@ -170,7 +174,12 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   public getQuizData() {
-    this.apiService.getQuiz().subscribe((res) => {});
+    this.apiService.getQuiz().subscribe((res) => {
+      this.techCourseNames = res.data.map((res) => {
+        return res.attributes.course_name.toLocaleLowerCase().replace(/ /g, '');
+      });
+      this.techCourseNames = Array.from(new Set(this.techCourseNames));
+    });
   }
   showDialog(course: string) {
     this.visible = true;
@@ -184,6 +193,95 @@ export class QuizComponent implements OnInit, OnDestroy {
   showQuizQuestions(technology: string) {
     this.route.navigate(['/quiz/', technology]);
     localStorage.setItem('CourseName', technology);
+  }
+  public delAss: boolean = false;
+  public deleteAss!: string;
+  public deleteAssesmentLevel(data: any) {
+    const deleteCourseName = data.target.value;
+    this.confirmationService.confirm({
+      message: `Are you sure want to delete ${this.deleteAss}  ${deleteCourseName} level Assessment ? `,
+      header: 'Confirmation..',
+      accept: () => {
+        try {
+          this.apiService.getQuiz().subscribe((res) => {
+            res.data.map((res: QuizResponse) => {
+              if (
+                this.deleteAss.toLowerCase() ===
+                  res.attributes.course_name.toLowerCase().replace(/ /g, '') &&
+                deleteCourseName.toLowerCase() ===
+                  res.attributes.level.toLowerCase()
+              ) {
+                this.apiService.deleteQuiz(res.id).subscribe((res) => {
+                  this.getCourseContentDetails();
+                  this.getQuizData();
+                  this.messageService.add({
+                    severity: 'success',
+                    life: 3000,
+                    summary: `${this.deleteAss} ${deleteCourseName} level Assessments deleted.`,
+                  });
+                  this.delAss = false;
+                });
+              }
+            });
+          });
+        } catch (err: any) {
+          console.warn(err);
+        }
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: ' Request denied.',
+        });
+        this.delAss = false;
+      },
+    });
+  }
+
+  public deleteAllAssesmentLevel(data: any) {
+    const deleteCourseName = data.target.value;
+    this.confirmationService.confirm({
+      message: `Are you want to delete ${this.deleteAss}  all level Assessments ?`,
+      header: 'Confirmation..',
+      accept: () => {
+        try {
+          this.apiService.getQuiz().subscribe((res) => {
+            res.data.map((res: QuizResponse) => {
+              if (
+                deleteCourseName.toLowerCase() === 'all' &&
+                this.deleteAss.toLowerCase() ===
+                  res.attributes.course_name.toLowerCase().replace(/ /g, '')
+              ) {
+                this.apiService.deleteQuiz(res.id).subscribe((res) => {
+                  this.getCourseContentDetails();
+                  this.getQuizData();
+                  this.messageService.add({
+                    severity: 'success',
+                    life: 3000,
+                    summary: `${this.deleteAss} all level Assessments are deleted.`,
+                  });
+                  this.delAss = false;
+                });
+              }
+            });
+          });
+        } catch (err: any) {
+          console.warn(err);
+        }
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: ' Request denied.',
+        });
+        this.delAss = false;
+      },
+    });
+  }
+
+  public deleteExam(quiz: string): void {
+    this.deleteAss = quiz;
+    this.delAss = true;
   }
 
   ngOnDestroy(): void {}

@@ -6,9 +6,10 @@ export interface userProfile {
     lastname: string,
     mobile:number,
     email:string,
-    linkedIn: string,
-    website: string,
-    role_id:number
+    role_id:number,
+    blocked?:boolean,
+    createdAt?:string,
+    updatedAt?:string
 }
 
 export interface selectedLanguages {
@@ -17,13 +18,13 @@ export interface selectedLanguages {
 
 export interface userUpdateProfile {
 
-  username: string;
-    firstname: string;
-    lastname: string;
-    email: string;
-    mobile:number;
+  username?: string;
+    firstname?: string;
+    lastname?: string;
+    email?: string;
+    mobile?:number;
     biography?: string;
-    linkedIn?: string;
+    blocked?:boolean
 
 }
 

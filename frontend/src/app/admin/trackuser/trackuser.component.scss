@@ -1,0 +1,10 @@
+.table tr:nth-child(even) {
+  background-color: #c7f380;
+}
+@media only screen and (max-width: 767px) {
+  
+  .content-inner {
+    padding: 15px 15px !important;
+}
+
+}

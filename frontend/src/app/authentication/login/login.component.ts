@@ -28,7 +28,7 @@ export class LoginComponent {
   public forgotPwd: boolean = false;
   body!: Login;
   public isLoading: boolean = false;
-
+  public showHelpDesk: boolean = false;
   isError: boolean = false;
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -83,7 +83,6 @@ export class LoginComponent {
           });
         }
       } catch (error) {
-
         this.messageService.add({
           severity: 'error',
           summary: 'Error',

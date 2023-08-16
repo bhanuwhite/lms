@@ -63,7 +63,8 @@
           <ng-container *ngIf="newVideosUpload.length == 0 ; else newVideos">
             <div class="d-flex flex-wrap ">
               <div *ngFor="let videos of edituserLearnings.attributes.content?.data">
-                <video [src]="imgUrl+videos.attributes.url" class="m-2" [style]="{'height': '100px','width': '100px'}"></video>
+                <video [src]="imgUrl+videos.attributes.url" class="m-2"
+                  [style]="{'height': '100px','width': '100px'}"></video>
                 <p class="text-truncate" [style]="{'width': '100px'}" [pTooltip]="videos.attributes.alternativeText"
                   tootltip><b>{{ videos.attributes.alternativeText }}</b></p>
               </div>
@@ -143,7 +144,7 @@
       <div class="field mt-2 w-100">
         <label for="name">Category<span class="text-danger fs-5">*</span> :
         </label>
-        <p-dropdown formControlName="subject" [options]="subjects" optionLabel="industry" placeholder="Select Category"
+        <p-dropdown formControlName="subject" [options]="subjects" optionLabel="tech" placeholder="Select Category"
           (onChange)="subjectSelected($event)"></p-dropdown>
         <span class="p-float-label">
           <small class="p-error block" *ngIf="

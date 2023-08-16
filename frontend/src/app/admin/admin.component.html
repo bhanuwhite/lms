@@ -25,6 +25,18 @@
           <li class="listbox-item" [class.active]="isActive('/admin/trackuser')" routerLink="/admin/trackuser">
             <i class="pi pi-user me-2"></i><span>Users</span>
           </li>
+          <li class="listbox-item" [class.active]="isActive('/admin/technology')" (click)="op.toggle($event)">
+            <div>
+              <i class="pi pi-database me-2"></i><span>Tech</span>
+            </div>
+          </li>
+          <p-overlayPanel #op [style]="{'width':'21vw'}" >
+            <div class="text-center">
+              <h3 [routerLink]="['/admin/technology','Technology']" class="cursor-pointer techee">Technology</h3>
+              <h3 [routerLink]="['/admin/technology','Category']" class="cursor-pointer techee">Category</h3>
+            </div>
+          </p-overlayPanel>
+
           <hr class="mt-4 mb-2">
 
         </ul>
@@ -50,37 +62,16 @@
         </div>
       </div>
       <div class="me-3">
-        <!-- <button pButton pRipple type="button" icon="pi pi-bell"
-        class="p-button-rounded   text-dark  p-button-text"></button> -->
-      <p-avatar shape="circle" size="medium" class="cursor-pointer me-2" (click)="menu.toggle($event)"
-        icon="pi pi-user" [style]="{'background-color':'#ffff','border':'0.5px solid', 'color': '#000'}"></p-avatar>
-      <p-menu #menu [popup]="true" [model]="items"></p-menu>
+        <p-avatar shape="circle" size="medium" class="cursor-pointer me-2" (click)="menu.toggle($event)"
+          icon="pi pi-user" [style]="{'background-color':'#ffff','border':'0.5px solid', 'color': '#000'}"></p-avatar>
+        <p-menu #menu [popup]="true" [model]="items"></p-menu>
       </div>
-      <!-- <div class="row">
-        <div class="col-lg-6 col-md-6 p-3">
-          <div class="search-bar d-flex align-items-center ps-3" style="width: 40%;">
-            <button type="button" class="menu-button" (click)="visibleSidebar1 = true"> <i
-                class="pi pi-bars"></i></button>
-          </div>
-        </div>
-        <div class="col-lg-6 col-md-6 none d-flex justify-content-end align-items-center">
-          <button pButton pRipple type="button" icon="pi pi-bell"
-            class="p-button-rounded   text-dark  p-button-text"></button>
-          <p-avatar shape="circle" size="medium" class="cursor-pointer me-4" (click)="menu.toggle($event)"
-            icon="pi pi-user" [style]="{'background-color':'#ffff','border':'0.5px solid', 'color': '#000'}"></p-avatar>
-          <p-menu #menu [popup]="true" [model]="items"></p-menu>
-        </div>
-      </div> -->
     </div>
     <div class="content">
       <router-outlet></router-outlet>
     </div>
   </div>
 </div>
-
-
-
-
 
 
 <!-- sidebar for mobile screen -->
@@ -105,6 +96,17 @@
     <li class="listbox-item" [class.active]="isActive('/admin/trackuser')" routerLink="/admin/trackuser">
       <i class="pi pi-user me-2"></i><span>Users</span>
     </li>
+    <li class="listbox-item" [class.active]="isActive('/admin/technology')" (click)="op.toggle($event)">
+      <div>
+        <i class="pi pi-database me-2"></i><span>Tech</span>
+      </div>
+    </li>
+    <p-overlayPanel #op>
+      <div>
+        <h3 [routerLink]="['/admin/technology','Technology']" class="cursor-pointer techee">Technology</h3>
+        <h3 [routerLink]="['/admin/technology','Category']" class="cursor-pointer techee">Category</h3>
+      </div>
+    </p-overlayPanel>
 
   </ng-template>
   <ng-template pTemplate="footer">

@@ -80,10 +80,8 @@ export class QuizDetailsComponent implements OnInit {
 
   public getQuizData() {
     this.quizDetails = [];
-
     this.apiService.getQuiz().subscribe((res) => {
       this.quizData = res.data;
-
       this.quizData.map((res: QuizResponse) => {
         if (this.courseName == res.attributes.course_name) {
           this.quizDetails.push(res);
@@ -100,7 +98,6 @@ export class QuizDetailsComponent implements OnInit {
     this.categories.map((res) => {
       res.checked = false;
     });
-
     this.result.forEach((value) => {
       const category = this.categories.find((c) => c.name === value);
       if (category) {

@@ -39,6 +39,7 @@ export class AssessmentComponent implements OnInit {
   }
 
   public uniqueTech: string[] = [];
+  filteredTech: string[] = [];
   public getAllCourseDetais() {
     this.apiService.getContent().subscribe((res) => {
       res.data.forEach((item) => {
@@ -52,12 +53,21 @@ export class AssessmentComponent implements OnInit {
           });
         });
       });
-      this.Spinner = false
+      this.Spinner = false;
     });
   }
 
+  courseTech: string[] = [];
   public getAllQuizDetails() {
-    this.apiService.getQuiz().subscribe((res) => {});
+    this.apiService.getQuiz().subscribe((res) => {
+      this.courseTech = res.data.map(
+        (resObj: any) => resObj.attributes.course_name
+      );
+    });
+    setTimeout(() => {
+      this.courseTech = Array.from(new Set(this.courseTech));
+      this.filteredTech = this.courseTech;
+    }, 1000);
   }
 
   public openQuiz(course: string) {
@@ -65,9 +75,10 @@ export class AssessmentComponent implements OnInit {
     localStorage.setItem('CourseName', course);
   }
 
-  onSearchDetails() {
-    this.allCourses = this.items.filter((course: string) =>
-      course.toLowerCase().includes(this.searchQuery.toLowerCase())
+  public onSearchDetails(): void {
+    const searchInputLowercase = this.searchQuery.toLowerCase();
+    this.filteredTech = this.courseTech.filter((tech) =>
+      tech.toLowerCase().includes(searchInputLowercase)
     );
   }
 }

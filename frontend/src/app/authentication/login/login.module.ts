@@ -8,6 +8,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DividerModule } from "primeng/divider";
 import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -19,7 +20,8 @@ import { ToastModule } from 'primeng/toast';
     LoginRoutingModule,
     DividerModule,
     DialogModule,
-    ToastModule
+    ToastModule,
+    ButtonModule
   ]
 })
 export class LoginModule { }

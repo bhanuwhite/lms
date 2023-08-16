@@ -1,140 +1,182 @@
-<div class="content-inner surface-ground px-3 py-3">
+<div class="content-inner surface-ground px-4 py-3">
   <div class="row align-items-center">
-      <div class="col-lg-6 col-md-6 d-flex align-items-center">
-          <h1 style="font-size: 1.5rem;"><b> Overview</b>  </h1>
-
-      </div>
-      <div class="col-lg-6 col-md-6 d-flex justify-content-end align-items-center">
-          <div class="drop-button">
-            <p-dropdown [options]="schedule" >   </p-dropdown>
-          </div>
-      </div>
+    <div class="col-lg-6 col-md-6 d-flex align-items-center">
+      <h1 style="font-size: 1.5rem;"><b> Overview</b> </h1>
+    </div>
   </div>
-  <div class="row mt-1">
-      <!-- <div class="col-lg-3 col-md-6 mb-1 md:col-6 lg:col-3">
-          <div class="surface-card card_wrapper_boxes shadow-2 p-2 border-round">
-              <div class="flex justify-content-between mb-3">
-                  <div>
-                      <span class="block text-500 font-medium mb-3">ORDERS</span>
-                      <div class="text-900 font-medium text-xl">10</div>
-                  </div>
-                  <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
-                      style="width:2.5rem;height:2.5rem">
-                      <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
-                  </div>
-              </div>
+  <div class="row ">
+
+    <div class="col-lg-2 col-md-6 col-sm-12 box_mobile">
+      <div class="surface-card card_wrapper_boxes shadow-2 p-2 border-round cursor-pointer" routerLink="/trackuser">
+        <div class="flex justify-content-between mb-3">
+          <div>
+            <span class="block text-500 font-medium mb-3"> Total Users</span>
+            <div class="text-900 font-medium text-xl"> {{totalUser}} </div>
           </div>
-      </div> -->
-      <!-- <div class="col-lg-3 mb-1 col-md-6 md:col-6 lg:col-3">
-          <div class="surface-card card_wrapper_boxes shadow-2 p-2 border-round">
-              <div class="flex justify-content-between mb-3">
-                  <div>
-                      <span class="block text-500 font-medium mb-3">REVENUE</span>
-                      <div class="text-900 font-medium text-xl">01 </div>
-                  </div>
-                  <div class="flex align-items-center justify-content-center bg-orange-100 border-round"
-                      style="width:2.5rem;height:2.5rem">
-                      <i class="pi pi-wallet text-orange-500 text-xl"></i>
-                  </div>
-              </div>
+          <div class="flex align-items-center justify-content-center bg-cyan-100 border-round"
+            style="width:2.5rem;height:2.5rem">
+            <i class="pi pi-users text-cyan-500 text-xl"></i>
           </div>
-      </div> -->
-      <div class="col-lg-6 mb-1 col-md-6 md:col-6 lg:col-6">
-          <div class="surface-card card_wrapper_boxes shadow-2 p-2 border-round cursor-pointer" routerLink="/trackuser" >
-              <div class="flex justify-content-between mb-3">
-                  <div>
-                      <span class="block text-500 font-medium mb-3"> Total Users</span>
-                      <div class="text-900 font-medium text-xl"> {{totalUser}} </div>
-                  </div>
-                  <div class="flex align-items-center justify-content-center bg-cyan-100 border-round"
-                      style="width:2.5rem;height:2.5rem">
-                      <i class="pi pi-users text-cyan-500 text-xl"></i>
-                  </div>
-              </div>
-          </div>
+        </div>
       </div>
-      <div class="col-lg-6 mb-1 col-md-6 md:col-6 lg:col-6">
-          <div class="surface-card card_wrapper_boxes shadow-2 p-2 border-round cursor-pointer"  routerLink="/content" >
-              <div class="flex justify-content-between mb-3">
-                  <div>
-                      <span class="block text-500 font-medium mb-3">TOTAL COURSES</span>
-                      <div class="text-900 font-medium text-xl">  {{courseCount}} </div>
-                  </div>
-                  <div class="flex align-items-center justify-content-center bg-purple-100 border-round"
-                      style="width:2.5rem;height:2.5rem">
-                      <i class="pi pi-book text-purple-500 text-xl"></i>
-                  </div>
-              </div>
+    </div>
+    <div class="col-lg-2 col-md-6 col-sm-12 box_mobile">
+      <div class="surface-card card_wrapper_boxes shadow-2 p-2 border-round cursor-pointer" routerLink="/content">
+        <div class="flex justify-content-between mb-3">
+          <div>
+            <span class="block text-500 font-medium mb-3">Free Courses</span>
+            <div class="text-900 font-medium text-xl"> {{freeCourseCount}} </div>
           </div>
+          <div class="flex align-items-center justify-content-center bg-purple-100 border-round"
+            style="width:2.5rem;height:2.5rem">
+            <i class="pi pi-book text-purple-500 text-xl"></i>
+          </div>
+        </div>
       </div>
+    </div>
+    <div class="col-lg-2 col-md-6 col-sm-12 box_mobile">
+      <div class="surface-card card_wrapper_boxes shadow-2 p-2 border-round cursor-pointer" routerLink="/content">
+        <div class="flex justify-content-between mb-3">
+          <div>
+            <span class="block text-500 font-medium mb-3">Paid Courses</span>
+            <div class="text-900 font-medium text-xl"> {{paidCourseCount}} </div>
+          </div>
+          <div class="flex align-items-center justify-content-center bg-purple-100 border-round"
+            style="width:2.5rem;height:2.5rem">
+            <i class="pi pi-book text-purple-500 text-xl"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2 col-md-6 col-sm-12 box_mobile">
+      <div class="surface-card card_wrapper_boxes shadow-2 p-2 border-round cursor-pointer" routerLink="/quiz">
+        <div class="flex justify-content-between mb-3">
+          <div>
+            <span class="block text-500 font-medium mb-3">Assessments</span>
+            <div class="text-900 font-medium text-xl"> {{assessmentCount}} </div>
+          </div>
+          <div class="flex align-items-center justify-content-center bg-purple-100 border-round"
+            style="width:2.5rem;height:2.5rem">
+            <i class="pi pi-book text-purple-500 text-xl"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2 col-md-6 col-sm-12 box_mobile">
+      <div class="surface-card card_wrapper_boxes shadow-2 p-2 border-round cursor-pointer" routerLink="/content">
+        <div class="flex justify-content-between mb-3">
+          <div>
+            <span class="block text-500 font-medium mb-3">Purchases</span>
+            <div class="text-900 font-medium text-xl"> {{purchaseCount}} </div>
+          </div>
+          <div class="flex align-items-center justify-content-center bg-purple-100 border-round"
+            style="width:2.5rem;height:2.5rem">
+            <i class="pi pi-money-bill text-purple-500 text-xl"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
-  <div class="row mt-3">
-      <div class="col-lg-6 col-md-12 ">
-          <div class="row mb-3">
-              <div class="col-lg-6 col-md-6 d-flex align-items-center">
-                  <h2 class="m-0">
-                      Overview
-                  </h2>
-              </div>
-              <div class="col-lg-6 col-md-6 d-flex justify-content-end align-items-center">
-                  <div class="drop-button">
-                    <p-dropdown [options]="schedule" >  </p-dropdown>
-                  </div>
-              </div>
+  <div class="row mt-4">
+    <div class="col-lg-6 col-md-12">
+      <div class="card">
+        <div class="ms-3 mt-3">
+          <b class="fs-5">Latest 5 Users </b>
+        </div>
+        <div class="card-body">
+          <p-table [value]="usersData2" [tableStyle]="{'min-width': 'auto'}" class="table">
+            <ng-template pTemplate="header">
+              <tr>
+                <th pSortableColumn="username">Name <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="email">E-mail <p-sortIcon field="email"></p-sortIcon></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-user>
+              <tr>
+                <td>{{user.username | titlecase}}</td>
+                <td>{{user.email}}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <div class="d-flex align-items-end flex-column bd-highlight me-2 mb-2" style="cursor: pointer;">
+          <div class="d-flex align-items-end align-items-end " routerLink="/trackuser">
+            <small class="" style="font-size: 14px; text-align: center; font-weight: 500">
+              <button class="btn btn-primary btn-sm">View All</button>
+            </small>
           </div>
-          <div class="card">
-              <p-chart type="line" [data]="basicData" [style]="{'height':'auto'}"></p-chart>
-          </div>
+        </div>
       </div>
-      <div class="col-lg-6 col-md-12">
-          <div class="row mb-3">
-              <div class="col-lg-12 col-md-12 d-flex align-items-center">
-                  <h2 class=" m-0">
-                      Upcoming Classes
-                  </h2>
-              </div>
-          </div>
-          <div class="card" style="height: 300px; overflow-y: auto;">
-              <div class="class-content  mb-2 d-flex justify-content-between">
-                  <div>
-                      <span>List Of UX 2nd Sem</span>
-                      <h2 class=" m-0 pb-1">
-                          Upcoming Classes
-                      </h2>
-                      <span>9.00 AM To 12.00 PM </span>
-                  </div>
-                  <div>
-                      <i class="pi pi-ellipsis-h" style="font-size: 2rem"></i>
-                  </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+      <div class="card">
+        <div class="ms-3 mt-3">
+          <b class="fs-5">Watch history </b>
+        </div>
+        <p-chart type="bar" [data]="topViewedCourseData" style="padding: 0 23px;"></p-chart>
 
-              </div>
-              <div class="class-content-one mb-2 d-flex justify-content-between">
-                  <div>
-                      <span>List Of UX 2nd Sem</span>
-                      <h2 class=" m-0 pb-1">
-                          Upcoming Classes
-                      </h2>
-                      <span>9.00 AM To 12.00 PM </span>
-                  </div>
-                  <div>
-                      <i class="pi pi-ellipsis-h" style="font-size: 2rem"></i>
-                  </div>
-
-              </div>
-              <div class="class-content-two d-flex justify-content-between">
-                  <div>
-                      <span>List Of UX 2nd Sem</span>
-                      <h2 class=" m-0 pb-1">
-                          Upcoming Classes
-                      </h2>
-                      <span>9.00 AM To 12.00 PM </span>
-                  </div>
-                  <div>
-                      <i class="pi pi-ellipsis-h" style="font-size: 2rem"></i>
-                  </div>
-
-              </div>
-          </div>
       </div>
+    </div>
   </div>
+
+  <div class="card mt-4">
+    <div class="ms-3 mt-3">
+      <b class="fs-5">Top 5 Courses </b>
+    </div>
+    <div class="card-body">
+      <div class="card">
+        <p-table [value]="top5Courses" class="text-center">
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="attributes.name">Name <p-sortIcon field="name"></p-sortIcon> </th>
+              <th>Image</th>
+              <th pSortableColumn="attributes.price">Price <p-sortIcon field="price"></p-sortIcon> </th>
+              <th>Rating</th>
+              <th pSortableColumn="attributes.no_of_purchases">Purchases <p-sortIcon field="price"></p-sortIcon> </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-course>
+            <tr>
+              <td class="textoverflow" [style]="{'cursor':'pointer'}" [routerLink]="['/admin/content', course.id]">
+                {{course.attributes.name}} </td>
+              <td class="textoverflow" [style]="{'cursor':'pointer'}" [routerLink]="['/admin/content', course.id]">
+                <ng-container *ngIf="course.attributes.placeholder_img.data !=null">
+                  <img [src]="img_url+course.attributes?.placeholder_img?.data?.attributes?.formats?.thumbnail.url"
+                    alt="course image" width="100" class="shadow-4" /> </ng-container>
+                <ng-container *ngIf="course.attributes.placeholder_img.data == null"
+                  class="card-header d-flex align-items-center justify-content-center" style=" cursor: pointer">
+                  <ng-container *ngIf="course.attributes.technologies">
+                    <div class="d-flex flex-column justify-content-center align-items-center p-1 border-danger">
+                      <p class="fs-4 fw-bold ">{{ course.attributes.technologies['1'] }}</p>
+                    </div>
+                  </ng-container>
+                  <b *ngIf="!course.attributes.technologies"> No preview Image </b>
+                </ng-container>
+              </td>
+              <td>
+                <ng-container *ngIf="course.attributes.price == 0">
+                  <button class="btn btn-primary">Free</button>
+                </ng-container>
+                <ng-container *ngIf="course.attributes.price != 0">
+                  {{course.attributes.price | currency:'INR'}}
+                </ng-container>
+              </td>
+              <td><p-rating [ngModel]="course.attributes.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+              <td class="p-align-center"> {{course.attributes.no_of_purchases}} </td>
+            </tr>
+          </ng-template>
+
+        </p-table>
+        <div class="d-flex align-items-end mb-2 flex-column bd-highlight me-1" style="cursor: pointer;">
+          <div class="d-flex align-items-end align-items-end " routerLink="/content">
+            <small class="" style="font-size: 17px; text-align: center; font-weight: 500">
+              <button class="btn btn-primary btn-sm">View All</button>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

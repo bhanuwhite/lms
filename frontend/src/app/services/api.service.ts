@@ -370,4 +370,40 @@ public getSingleUserProgress(id:number):Observable<any> {
   return this.http.get<any>(`${environment.apiUrl}/api/users-course?user_id=${id}`)
 }
 
+// Get Users by Id
+
+public getSingleUser(id:number):Observable<any> {
+  return this.http.get<any>(`${environment.apiUrl}/api/users/${id}`)
+}
+
+// GET Technology and Category
+public getTechnoogy():Observable<any> {
+  return this.http.get<any>(`${environment.apiUrl}/api/technologies`)
+}
+public postTechnoogy(item:any):Observable<any> {
+  return this.http.post<any>(`${environment.apiUrl}/api/technologies`,item)
+}
+public putTechnoogy(id:number,item:any):Observable<any> {
+  return this.http.put<any>(`${environment.apiUrl}/api/technologies/${id}`,item)
+}
+
+public deleteTechnoogy(id:number):Observable<any> {
+  return this.http.delete<any>(`${environment.apiUrl}/api/technologies/${id}`)
+}
+
+
+public getCategory():Observable<any> {
+  return this.http.get<any>(`${environment.apiUrl}/api/categories`)
+}
+
+public postCategory(item:any):Observable<any> {
+  return this.http.post<any>(`${environment.apiUrl}/api/categories`,item)
+}
+public putCategory(id:number,item:any):Observable<any> {
+  return this.http.put<any>(`${environment.apiUrl}/api/categories/${id}`,item)
+}
+public deleteCategory(id:number):Observable<any> {
+  return this.http.delete<any>(`${environment.apiUrl}/api/categories/${id}`)
+}
+
 }

@@ -10,6 +10,7 @@ import { QuizComponent } from './quiz/quiz.component';
 import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
 import { TrackuserComponent } from './trackuser/trackuser.component';
 import { TrackDetailsComponent } from './track-details/track-details.component';
+import { TecheCatComponent } from './teche-cat/teche-cat.component';
 
 
 const routes: Routes = [
@@ -43,7 +44,10 @@ const routes: Routes = [
       {
         path: 'quiz/:course', component: QuizDetailsComponent
       },
-
+      {
+        path:'technology/:technology',
+        component: TecheCatComponent
+      }
     ]
   },
 

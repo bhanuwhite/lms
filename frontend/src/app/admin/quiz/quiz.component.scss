@@ -13,6 +13,7 @@
   }
 }
 
+
 @media only screen and (max-width: 760px) {
   .surface-ground {
     .question-box {
@@ -21,9 +22,18 @@
     }
 
   }
+  .content-inner {
+    padding: 15px 15px !important;
+}
 }
 
 .card.p-2.shadow-2 {
   height: 160px;
   max-height: 160px;
+}
+
+
+
+.table tr:nth-child(even) {
+  background-color: #c7f380;
 }

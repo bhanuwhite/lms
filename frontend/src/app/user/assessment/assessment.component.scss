@@ -104,7 +104,15 @@
 }
 
 
+.table tr:nth-child(even) {
+  background-color: #c7f380;
+}
 
+@media only screen and (max-width: 768px) {
+  .assessment_table{
+    padding: 0 15px;
+  }
+}
 
 
 

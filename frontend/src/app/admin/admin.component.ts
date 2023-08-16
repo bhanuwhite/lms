@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ApiService } from '../services/api.service';
-import { UserDetails } from '../models/track';
 
 @Component({
   selector: 'app-admin',
@@ -21,17 +19,47 @@ export class AdminComponent implements OnInit {
   step: number = 2;
   visibleSidebar1!: boolean;
   items: any;
-
+  public TechCat: any;
   constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.iconMenu();
+    this.techDropdown()
   }
 
   public isActive(base: string): boolean {
     return this.router.url === base;
   }
 
+  techItems:any
+  public techDropdown():void {
+    this.techItems = [
+      { name: 'Tech' },
+      { name: 'Technology', code: 'tech' },
+      { name: 'Category', code: 'cat' }
+  ];
+    // this.techItems = [
+
+    //   {
+    //     label:'Tech',
+    //     icon:'pi pi-database',
+    //     items :[
+    //       {
+    //         label:'Technology',
+    //         command: () => {
+    //           this.router.navigateByUrl('/admin/technology');
+    //         },
+    //       },
+    //       {
+    //         label:'Category',
+    //         command: () => {
+    //           this.router.navigateByUrl('/admin/category');
+    //         },
+    //       }
+    //     ]
+    //   }
+    // ]
+  }
   public iconMenu(): void {
     this.items = [
       {
