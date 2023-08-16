@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-07-25T11:18:57.762Z"
+    "x-generation-date": "2023-08-16T09:07:05.000Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -112,6 +112,9 @@
               },
               "answers": {
                 "type": "string"
+              },
+              "status": {
+                "type": "boolean"
               }
             }
           }
@@ -190,6 +193,9 @@
           },
           "answers": {
             "type": "string"
+          },
+          "status": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -1802,16 +1808,6 @@
                                                 "video_name": {
                                                   "type": "string"
                                                 },
-                                                "subject": {
-                                                  "type": "string",
-                                                  "enum": [
-                                                    "Business development",
-                                                    "Database",
-                                                    "Information & cyber security",
-                                                    "Software development",
-                                                    "Web development"
-                                                  ]
-                                                },
                                                 "discount": {
                                                   "type": "string",
                                                   "pattern": "^\\d*$",
@@ -2245,6 +2241,7 @@
                                                     }
                                                   }
                                                 },
+                                                "categories": {},
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -4195,16 +4192,6 @@
                                                 "video_name": {
                                                   "type": "string"
                                                 },
-                                                "subject": {
-                                                  "type": "string",
-                                                  "enum": [
-                                                    "Business development",
-                                                    "Database",
-                                                    "Information & cyber security",
-                                                    "Software development",
-                                                    "Web development"
-                                                  ]
-                                                },
                                                 "discount": {
                                                   "type": "string",
                                                   "pattern": "^\\d*$",
@@ -4638,6 +4625,7 @@
                                                     }
                                                   }
                                                 },
+                                                "categories": {},
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -4994,16 +4982,6 @@
               "video_name": {
                 "type": "string"
               },
-              "subject": {
-                "type": "string",
-                "enum": [
-                  "Business development",
-                  "Database",
-                  "Information & cyber security",
-                  "Software development",
-                  "Web development"
-                ]
-              },
               "discount": {
                 "type": "string",
                 "pattern": "^\\d*$",
@@ -5072,7 +5050,8 @@
                   ],
                   "example": "string or id"
                 }
-              }
+              },
+              "categories": {}
             }
           }
         }
@@ -5936,16 +5915,6 @@
           "video_name": {
             "type": "string"
           },
-          "subject": {
-            "type": "string",
-            "enum": [
-              "Business development",
-              "Database",
-              "Information & cyber security",
-              "Software development",
-              "Web development"
-            ]
-          },
           "discount": {
             "type": "string",
             "pattern": "^\\d*$",
@@ -6379,6 +6348,7 @@
               }
             }
           },
+          "categories": {},
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -9508,16 +9478,6 @@
                                                 "video_name": {
                                                   "type": "string"
                                                 },
-                                                "subject": {
-                                                  "type": "string",
-                                                  "enum": [
-                                                    "Business development",
-                                                    "Database",
-                                                    "Information & cyber security",
-                                                    "Software development",
-                                                    "Web development"
-                                                  ]
-                                                },
                                                 "discount": {
                                                   "type": "string",
                                                   "pattern": "^\\d*$",
@@ -9951,6 +9911,7 @@
                                                     }
                                                   }
                                                 },
+                                                "categories": {},
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -13086,16 +13047,6 @@
                                                 "video_name": {
                                                   "type": "string"
                                                 },
-                                                "subject": {
-                                                  "type": "string",
-                                                  "enum": [
-                                                    "Business development",
-                                                    "Database",
-                                                    "Information & cyber security",
-                                                    "Software development",
-                                                    "Web development"
-                                                  ]
-                                                },
                                                 "discount": {
                                                   "type": "string",
                                                   "pattern": "^\\d*$",
@@ -13529,6 +13480,7 @@
                                                     }
                                                   }
                                                 },
+                                                "categories": {},
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -14733,16 +14685,6 @@
                         "video_name": {
                           "type": "string"
                         },
-                        "subject": {
-                          "type": "string",
-                          "enum": [
-                            "Business development",
-                            "Database",
-                            "Information & cyber security",
-                            "Software development",
-                            "Web development"
-                          ]
-                        },
                         "discount": {
                           "type": "string",
                           "pattern": "^\\d*$",
@@ -15176,6 +15118,7 @@
                             }
                           }
                         },
+                        "categories": {},
                         "createdAt": {
                           "type": "string",
                           "format": "date-time"

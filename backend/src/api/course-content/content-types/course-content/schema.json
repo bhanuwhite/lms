@@ -71,17 +71,6 @@
     "video_name": {
       "type": "string"
     },
-    "subject": {
-      "type": "enumeration",
-      "enum": [
-        "Business development",
-        "Database",
-        "Information & cyber security",
-        "Software development",
-        "Web development"
-      ],
-      "enumName": "allowed"
-    },
     "discount": {
       "type": "biginteger",
       "default": "0"
@@ -126,6 +115,9 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::category.category"
+    },
+    "categories": {
+      "type": "json"
     }
   }
 }
