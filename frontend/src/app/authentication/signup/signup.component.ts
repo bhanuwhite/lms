@@ -49,15 +49,11 @@ export class SignupComponent {
         password: this.formgroup.value.pwd
     }
     this.isLoading = true;
-
-    console.log(this.body)
     this.authSerice.signupUser(this.body).subscribe(res => {
-      console.log('sign up data', res)
       const data = res.user;
       localStorage.setItem('token', res.jwt);
       localStorage.setItem('user', JSON.stringify(data));
       try {
-        console.log(res);
         localStorage.setItem('role', 'user');
         localStorage.setItem('isAuthenticate', 'true');
         this.router.navigate(['user']);

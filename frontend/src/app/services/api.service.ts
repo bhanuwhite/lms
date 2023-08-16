@@ -146,8 +146,8 @@ export class ApiService {
   /**
    * updateQuiz
    */
-  public updateQuiz(id: number, item: Quiz): Observable<Quiz> {
-    return this.http.put<Quiz>(
+  public updateQuiz(id: number, item: any): Observable<any> {
+    return this.http.put<any>(
       `${environment.apiUrl}/api/assessments/${id}`,
       item
     );
@@ -205,29 +205,6 @@ export class ApiService {
     return this.http.get<UserLibraryGetResponse>(
       `${environment.apiUrl}/api/user-has-courses/${id}?populate=course_content.content&populate=course_content.placeholder_img`
     );
-  }
-
-  // GET Communtiy
-  public getCommunities(): Observable<any> {
-    return this.http.get<any>(
-      `${environment.apiUrl}/api/communities?populate=*`
-    );
-  }
-
-  // POST Community
-  public postCommunity(item: any): Observable<any> {
-    return this.http.post<any>(`api/communities`, item);
-  }
-
-  // UPDATE Community
-
-  public updateCommunity(id: number, item: any): Observable<any> {
-    return this.http.put<any>(`api/communities/${id}`, item);
-  }
-
-  // DELETE Community
-  public deleteCommunity(id: number): Observable<any> {
-    return this.http.delete<any>(`api/communities/${id}`);
   }
 
   // GET profile

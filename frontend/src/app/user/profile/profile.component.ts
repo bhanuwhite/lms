@@ -84,7 +84,6 @@ export class ProfileComponent {
           this.userFirstName = res.firstname;
           this.userLastName = res.lastname;
           this.mobileNo = res.mobile;
-          // this.linkedin = res.linkedIn;
           this.biograpy = res.biography;
         }
       });

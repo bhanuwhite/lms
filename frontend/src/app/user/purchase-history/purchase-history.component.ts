@@ -9,63 +9,42 @@ import { PurchaseService } from 'src/app/services/purchase.service';
   templateUrl: './purchase-history.component.html',
   styleUrls: ['./purchase-history.component.scss'],
 })
-export class PurchaseHistoryComponent implements OnInit{
-
+export class PurchaseHistoryComponent implements OnInit {
   purchasingCourses: any[] = [];
-  userID!:number;
+  userID!: number;
 
-  constructor(public router: Router, private apiservice:ApiService ,private purchaseService : PurchaseService) {}
+  constructor(
+    public router: Router,
+    private apiservice: ApiService,
+    private purchaseService: PurchaseService
+  ) {}
 
   ngOnInit(): void {
-     this.getLocalStoredData();
-     this.getPaidCourses();
-
+    this.getLocalStoredData();
+    this.getPaidCourses();
   }
 
   public getLocalStoredData() {
     const localStoredData = JSON.parse(localStorage.getItem('user')!);
     this.userID = localStoredData.id;
-
   }
 
-
- getPaidCourses(){
-
-
-  this.apiservice.getUserCourse(this.userID).subscribe((res: any) => {
-
-
-    res.map((course: any) => {
-      if (course.course_ids.length != 0 && course.course_ids[0].price != 0) {
-        this.purchasingCourses.push(course);
-
-      }
+  getPaidCourses() {
+    this.apiservice.getUserCourse(this.userID).subscribe((res: any) => {
+      res.map((course: any) => {
+        if (course.course_ids.length != 0 && course.course_ids[0].price != 0) {
+          this.purchasingCourses.push(course);
+        }
+      });
     });
-  });
- }
-
-
-
-
-
-
-
-
-
-
-
+  }
 
   public receipt(course: courseDataObj): void {
     this.purchaseService.purchasingCourse(course);
     this.router.navigate(['user/receipt']);
-
-
-
   }
   public invoice(course: courseDataObj): void {
     this.purchaseService.invoice(course);
     this.router.navigate(['user/invoice']);
-
   }
 }
-

@@ -80,9 +80,7 @@ export class EditFormComponent implements OnInit, OnChanges {
     private apiService: ApiService,
     private messageService: MessageService,
     private sanitizer: DomSanitizer
-  ) {
-
-  }
+  ) {}
 
   ngOnChanges(): void {
     this.visible = this.popupClick == 'edit' ? true : false;
@@ -101,7 +99,7 @@ export class EditFormComponent implements OnInit, OnChanges {
     this.getCategory();
   }
 
-  public formInit():void {
+  public formInit(): void {
     this.popupForm = this.fb.group({
       name: new FormControl('', [
         Validators.required,
@@ -170,14 +168,10 @@ export class EditFormComponent implements OnInit, OnChanges {
   }
   totalDuration!: number;
   editingCourseData() {
-    console.log(this.edituserLearnings);
-
     this.showDocuments = false;
     this.courseDoc();
     const formValues = this.edituserLearnings.attributes;
-    console.log(formValues.subject);
     this.previousVideosData = formValues.content.data;
-
     this.technologyArr = Object.values(formValues.technologies);
     this.totalDuration = formValues.total_duration;
     this.selectedSubject = formValues.subject;
@@ -203,7 +197,7 @@ export class EditFormComponent implements OnInit, OnChanges {
       technologies: [
         this.selectedTechnologies ? this.selectedTechnologies : '',
       ],
-      subject: [{ tech: formValues.subject }],
+      subject: [{ tech: formValues.categories }],
       level: [{ level: formValues.level }],
       status: 'active',
       link: formValues.link,
@@ -366,7 +360,7 @@ export class EditFormComponent implements OnInit, OnChanges {
         data: {
           technologies: this.technologyData,
           level: this.selectedLevel,
-          subject: this.selectedSubject,
+          categories: this.selectedSubject,
           content:
             this.courseContentVideo.length == 0
               ? this.previousVideosData

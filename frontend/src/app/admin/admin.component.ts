@@ -24,41 +24,20 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.iconMenu();
-    this.techDropdown()
+    this.techDropdown();
   }
 
   public isActive(base: string): boolean {
     return this.router.url === base;
   }
 
-  techItems:any
-  public techDropdown():void {
+  techItems: any;
+  public techDropdown(): void {
     this.techItems = [
       { name: 'Tech' },
       { name: 'Technology', code: 'tech' },
-      { name: 'Category', code: 'cat' }
-  ];
-    // this.techItems = [
-
-    //   {
-    //     label:'Tech',
-    //     icon:'pi pi-database',
-    //     items :[
-    //       {
-    //         label:'Technology',
-    //         command: () => {
-    //           this.router.navigateByUrl('/admin/technology');
-    //         },
-    //       },
-    //       {
-    //         label:'Category',
-    //         command: () => {
-    //           this.router.navigateByUrl('/admin/category');
-    //         },
-    //       }
-    //     ]
-    //   }
-    // ]
+      { name: 'Category', code: 'cat' },
+    ];
   }
   public iconMenu(): void {
     this.items = [

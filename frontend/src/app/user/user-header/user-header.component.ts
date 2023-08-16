@@ -7,16 +7,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AboutService } from 'src/app/services/about.service';
-import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { catchError, tap } from 'rxjs/operators';
-import { throwError } from 'rxjs';
-import { TokenInterceptor } from 'src/app/interceptor/token-interceptor.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
-// import { Component, OnInit } from '@angular/core';
-// import { Router } from '@angular/router';
-import { ConfirmationService } from 'primeng/api';
 @Component({
   selector: 'app-user-header',
   templateUrl: './user-header.component.html',
@@ -50,10 +42,7 @@ export class UserHeaderComponent implements OnInit {
     this.iconMenu();
   }
 
-
-
   public iconMenu(): void {
-
     this.items = [
       {
         label: 'Action',
@@ -147,8 +136,8 @@ export class UserHeaderComponent implements OnInit {
   }
 
   public isActive(base: string): boolean {
-    return this.router.url === base;//.includes(`${base}`);
-}
+    return this.router.url === base; //.includes(`${base}`);
+  }
 
   currentPwdInput: boolean = false;
   public changePassowrdSubmit(): void {

@@ -10,7 +10,17 @@
         <button class="btn btn-warning ms-2 mb-1" (click)="getUserLevel('intermediate')">Intermediate</button>
         <button class="btn btn-success ms-2 mb-1 assessment_level_button" (click)="getUserLevel('advanced')">Advanced</button>
       </div>
-      <ng-container *ngIf="userQuizDetails.length !=0 && !showAssessment">
+
+      <ng-container *ngIf="userQuizDetails[0]?.attributes?.status == true">
+        <div class="card shadow-4  " style="height: 100px;">
+          <div class="card-body text-center d-flex justify-content-center align-items-center">
+            <p class="fs-4 lh-sm"> You have already taken this Assessment.</p>
+            <p class="fs-4 lh-sm"> Please take After <b>2</b> weeks.</p>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="userQuizDetails.length !=0 && !showAssessment && userQuizDetails[0]?.attributes?.status == false">
         <div>
           <h1 style="font-size: 1.2rem"><b> {{headerName | titlecase}} level </b></h1>
         </div>

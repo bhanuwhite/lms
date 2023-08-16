@@ -17,11 +17,6 @@ export class AccountSettingsComponent {
   selectedCities: string[] = [];
   formData: any;
 
-
-
-  // public onEmailEdit(): void {
-  //   this.displayEmailModal = true;
-  // }
   public changeUserEmail(): void {
     if (this.userEnteredPassword === this.userCurrentPassword) {
       this.userCurrentEmail = this.userNewEmail;
@@ -40,7 +35,6 @@ export class AccountSettingsComponent {
     }
   }
   public onPasswordEdit(): void {
-    console.log('hello');
     this.displayPasswordModal = true;
   }
   public changeUserPassword(): void {
@@ -59,7 +53,6 @@ export class AccountSettingsComponent {
       );
       this.displayPasswordModal = false;
     } else {
-      console.log(this.userEnteredPassword);
 
       console.log('enter your correct password');
     }

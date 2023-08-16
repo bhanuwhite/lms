@@ -1,19 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import {
-  Quiz,
-  QuizData,
-  QuizDetails,
-  QuizResponse,
-  answers,
-  level,
-} from 'src/app/models/quiz';
+import { QuizDetails } from 'src/app/models/quiz';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -32,6 +20,14 @@ export class QuizDetailsComponent implements OnInit {
   public showAssessment: boolean = false;
   public assessmentStatus: string = '';
   public viewAns: boolean = false;
+  public assessmentLevel: string = '';
+  public assessmentCutoff: number = 0;
+  public headerName: string = '';
+  public correctAns: number = 0;
+  public wrongtAns: number = 0;
+  public notAnswered: number = 0;
+  public answersArray: string[] = [];
+
   constructor(
     private apiService: ApiService,
     private fb: FormBuilder,
@@ -47,60 +43,35 @@ export class QuizDetailsComponent implements OnInit {
       this.courseName = res['course'];
     });
   }
-  public assessmentLevel: string = '';
-  public assessmentCutoff: number = 0;
-  public headerName: string = '';
+
   public getUserLevel(level: string): void {
     this.headerName = level;
     this.userQuizDetails = [];
+    this.answersArray = [];
     this.showAssessment = false;
-
     this.apiService.getQuiz().subscribe((res) => {
       try {
         res.data.filter((resObj: any) => {
           if (
-            resObj.attributes.level.toLowerCase() === level.toLowerCase() &&
+            resObj.attributes.level.toLowerCase() ===
+              this.headerName.toLowerCase() &&
             resObj.attributes.course_name.toLowerCase() ===
               this.courseName.toLowerCase()
           ) {
             this.userQuizDetails.push(resObj);
           }
         });
+        for (let i = 0; i < this.userQuizDetails.length; i++) {
+          this.answersArray[i] = '';
+        }
       } catch (err: any) {
         console.log(err);
       }
     });
-    setTimeout(() => {
-      this.answersArray = Array(this.userQuizDetails.length).fill('');
-    }, 3000);
   }
 
-  public correctAns: number = 0;
-  public wrongtAns: number = 0;
-  public notAnswered: number = 0;
-  private answersArray: string[] = [];
   onChange(question: QuizDetails, option: string, Index: number) {
     this.answersArray[Index] = option;
-  }
-
-  checkAnswer(question: QuizDetails) {
-    question.questionStates.visible = true;
-    question.questionStates.correctAnswer = JSON.parse(
-      question.attributes.answers
-    );
-
-    if (
-      question.questionStates.selectedOption ===
-      question.questionStates.correctAnswer
-    ) {
-      question.questionStates.isCorrect = true;
-    } else {
-      question.questionStates.isCorrect = false;
-    }
-  }
-
-  hideAnswer(question: QuizDetails) {
-    question.questionStates.visible = false;
   }
 
   public successPer: string = '';
@@ -126,16 +97,38 @@ export class QuizDetailsComponent implements OnInit {
         (Number(this.correctAns) * 100) /
         Number(this.userQuizDetails.length)
       ).toFixed(1);
-
       if (this.correctAns >= this.assessmentCutoff) {
         this.assessmentStatus = 'Passed';
       } else {
         this.assessmentStatus = 'Failed';
       }
-
       this.showAssessment = true;
-
       await this.scoreStatus(this.correctAns, this.wrongtAns, this.notAnswered);
+
+      if (this.assessmentStatus.toLowerCase() === 'failed') {
+        this.apiService.getQuiz().subscribe((res) => {
+          res.data.map((resObj: any) => {
+            if (
+              this.courseName.toLowerCase() ===
+                resObj.attributes.course_name.toLowerCase() &&
+              this.headerName.toLowerCase() ===
+                resObj.attributes.level.toLowerCase()
+            ) {
+              const putAssessmentStatus = {
+                data: {
+                  status: true,
+                },
+              };
+              this.apiService
+                .updateQuiz(resObj.id, putAssessmentStatus)
+                .subscribe((res) => {});
+            } else
+              (err: any) => {
+                console.log(err);
+              };
+          });
+        });
+      }
     } catch (error) {}
   }
 

@@ -65,8 +65,6 @@ export class MyLibraryComponent implements OnInit {
         }
         this.searchData = this.courseData;
         this.Spinner = false;
-        console.log(this.courseData);
-
       });
     });
   }

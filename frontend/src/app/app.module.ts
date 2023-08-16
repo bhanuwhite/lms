@@ -1,8 +1,5 @@
-import { forwardRef, NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { forwardRef, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {DialogModule} from 'primeng/dialog';
-import {TooltipModule} from 'primeng/tooltip';
-import {ButtonModule} from 'primeng/button';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,25 +24,12 @@ import { AuthGuard } from 'src/guards/auth.guard';
 import { UserGuard } from 'src/guards/user.guard';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SheredModule } from './component/shered.module';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserModule } from './user/user.module';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-// import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
-// import {GoogleLoginProvider} from '@abacritt/angularx-social-login';
-// import { NgModule } from '@angular/core';
-// import { AslGoogleSigninButtonModule } from '../app/authentication/login/login.component';
-// import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
-
-// import {
-//   SocialLoginModule,
-//   SocialAuthServiceConfig,
-//   GoogleLoginProvider,
-//   GoogleSigninButtonDirective,
-//   GoogleSigninButtonModule,
-// } from '@abacritt/angularx-social-login';
 
 let module = [
   MatButtonModule,
@@ -68,14 +52,10 @@ let module = [
   forwardRef(() => MatSnackBarModule),
   MatTabsModule,
   ToastModule,
-
-]
+];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    EmailDirective,
-  ],
+  declarations: [AppComponent, EmailDirective],
   imports: [
     ...module,
     BrowserModule,
@@ -84,41 +64,22 @@ let module = [
     HttpClientModule,
     NgbModule,
     SheredModule,
-    // SocialLoginModule,
-    // GoogleSigninButtonModule,
+  ],
 
-    ],
-
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
-    AuthService,AuthGuard,UserGuard,
+    AuthService,
+    AuthGuard,
+    UserGuard,
 
-      {
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
-      multi: true
+      multi: true,
     },
-    // {
-    //   provide: 'SocialAuthServiceConfig',
-    //   useValue: {
-    //     autoLogin: false,
-    //     providers: [
-    //       {
-    //         id: GoogleLoginProvider.PROVIDER_ID,
-    //         provider: new GoogleLoginProvider(
-    //           '235488694710-e2fe7teii6rsvf755otpk13r4k8t5fph.apps.googleusercontent.com'
-    //         )
-    //       }
-    //     ],
-    //     onError: (err) => {
-    //       console.error(err);
-    //     }
-    //   } as SocialAuthServiceConfig,
-    // },
 
-    MessageService
-
+    MessageService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -40,7 +40,7 @@ export class UserContentComponent {
     private aboutService: AboutService
   ) {}
 
-  subjects: Subjects[] = [{name:'All'}];
+  subjects: Subjects[] = [{ name: 'All' }];
   formGroup!: FormGroup;
   value: number = 3;
   public img_url = environment.apiUrl;
@@ -154,16 +154,12 @@ export class UserContentComponent {
   }
 
   onSelectSubject(selectedValue: string) {
-    console.log(selectedValue);
-
     this.coursesList = [];
     if (selectedValue) {
       if (selectedValue === 'All') {
         this.coursesList = this.courseList2;
       } else {
         this.courseList2.forEach((course: any) => {
-          console.log(course);
-
           if (
             course.attributes.subject?.toLowerCase() ===
             selectedValue?.toLowerCase()

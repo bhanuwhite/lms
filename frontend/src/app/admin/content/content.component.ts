@@ -191,8 +191,8 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.contentData = this.contentData2.filter(
         (content) =>
           content.attributes.name
-            .toLowerCase()
-            .includes(this.searchWord.toLowerCase()) ||
+            .toLowerCase().replace(/ /g,'')
+            .includes(this.searchWord.toLowerCase().replace(/ /g,'')) ||
           content.attributes.price.includes(this.searchWord.toLowerCase())
       );
     } else {
@@ -229,7 +229,6 @@ export class ContentComponent implements OnInit, OnDestroy {
     const textValue = this.addCourse.controls['description'].value;
     const wordCount = textValue?.trim().split(/\s+/).length;
     this.remainingWords = 100 - wordCount;
-
     if (this.remainingWords < 0) {
       const words = textValue.trim().split(/\s+/);
       this.addCourse.controls['description'].setValue(
@@ -418,7 +417,7 @@ export class ContentComponent implements OnInit, OnDestroy {
         data: {
           technologies: this.data,
           level: this.selectedLevel,
-          subject: this.selectedSubject,
+          categories: this.selectedSubject,
           content: this.courseContentVideo,
           description: this.addCourse.value.description,
           link: this.addCourse.value.link,

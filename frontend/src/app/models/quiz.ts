@@ -1,6 +1,7 @@
 export interface Quiz {
     data: {
       level: string;
+      status?:boolean;
       question: string;
       answers: string;
       q_options: {
@@ -29,6 +30,7 @@ export interface QuizResponse {
       course_name: string;
         question: string;
         level:string;
+        status?:boolean
         createdAt: string;
         updatedAt: string;
         publishedAt: string;
@@ -53,7 +55,8 @@ export interface QuizDetails{
   attributes: {
     course_name: string;
       question: string;
-      level:string;
+        status?:boolean
+        level:string;
       createdAt: string;
       updatedAt: string;
       publishedAt: string;
