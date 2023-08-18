@@ -138,10 +138,7 @@ export class QuizDetailsComponent implements OnInit {
       this.userQuizDetails = [];
       this.answersArray = [];
       this.showAssessment = false;
-
       this.apiService.getQuiz().subscribe((res) => {
-        console.log('hi');
-
         try {
           res.data.filter((resObj: any) => {
             if (
@@ -153,15 +150,11 @@ export class QuizDetailsComponent implements OnInit {
               this.userQuizDetails.push(resObj);
             }
           });
-
           if (this.userQuizDetails[0]?.attributes.status) {
             this.ass_submit_time = new Date(
               this.userQuizDetails[0]?.attributes.updatedAt
             );
           }
-          console.log(this.userQuizDetails[0]?.attributes.status);
-
-
           if (!this.userQuizDetails[0]?.attributes.status) {
             this.timerSubscription$.unsubscribe();
           }
