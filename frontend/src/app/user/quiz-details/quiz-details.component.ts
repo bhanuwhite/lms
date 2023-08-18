@@ -34,7 +34,12 @@ export class QuizDetailsComponent implements OnInit {
   targetTime!: Date;
   targetTimes!: Date;
   countdown!: string;
-  private timerSubscription: Subscription = new Subscription();
+
+  public days!: number;
+  public hours!: number;
+  public minutes!: number;
+  public seconds!: number;
+  private timerSubscription$: Subscription = new Subscription();
   public ass_submit_time!: Date;
 
   constructor(
@@ -53,38 +58,37 @@ export class QuizDetailsComponent implements OnInit {
         this.assessmentTime();
       })
       .catch((err) => {
-        console.log( err);
+        console.log(err);
       });
   }
 
   private assessmentTime() {
-    this.targetTime = new Date();
+    if (this.userQuizDetails[0]?.attributes.status) {
+      this.ass_submit_time = new Date(
+        this.userQuizDetails[0]?.attributes.updatedAt
+      );
+      //  below  lines for 2 weeks.
+      // this.targetTime.setDate(this.targetTime.getDate() + 14);
 
-    //  below  lines for 2 weeks.
-    this.targetTime.setDate(this.targetTime.getDate() + 14);
+      //  below lines for for hours.
+      // this.targetTime = new Date(  this.ass_submit_time.getTime() + 2 * 60 * 60 * 1000);
 
-    //  below lines for for hours.
-    // this.targetTime = new Date(  this.ass_submit_time.getTime() + 2 * 60 * 60 * 1000);
+      // below lines for minutes.
+      this.targetTime = new Date(
+        this.ass_submit_time?.getTime() + 2 * 60 * 1000
+      );
 
-    // below lines for minutes.
-    // this.targetTime = new Date(this.ass_submit_time.getTime() + 2 * 60 * 1000);
-
-    this.timerSubscription = interval(1000).subscribe(() => {
-      this.updateCountdown();
-    });
+      this.timerSubscription$ = interval(1000).subscribe(() => {
+        this.updateCountdown();
+      });
+    }
   }
-
-  public days !: number
-  public hours !: number
-  public minutes !: number
-  public seconds !: number
 
   updateCountdown() {
     const currentTime = new Date();
     const timeDifference = this.targetTime.getTime() - currentTime.getTime();
 
     if (timeDifference <= 0) {
-      this.countdown = 'Assessment is now available!';
       this.apiService.getQuiz().subscribe((res) => {
         res.data.map((resObj: any) => {
           if (
@@ -100,7 +104,7 @@ export class QuizDetailsComponent implements OnInit {
               .updateQuiz(resObj.id, putAssessmentStatus)
               .subscribe((res) => {
                 this.getUserLevel(this.headerName);
-                this.timerSubscription.unsubscribe();
+                this.timerSubscription$.unsubscribe();
               });
           } else
             (err: any) => {
@@ -111,21 +115,14 @@ export class QuizDetailsComponent implements OnInit {
     } else {
       // below lines for show in days
       this.days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-      this.hours = Math.floor( (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)   );
-      this.minutes = Math.floor( (timeDifference % (1000 * 60 * 60)) / (1000 * 60)  );
+      this.hours = Math.floor(
+        (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      this.minutes = Math.floor(
+        (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+      );
       this.seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
       this.countdown = `${this.days}d ${this.hours}hr ${this.minutes}m ${this.seconds}s`;
-
-      // below lines for show in days
-      // this.hours = Math.floor( (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)   );
-      // this.minutes = Math.floor( (timeDifference % (1000 * 60 * 60)) / (1000 * 60)  );
-      // this.seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-      // this.countdown = ` ${this.hours}hr ${this.minutes}m ${this.seconds}s`;
-
-      // below lines for show in days
-      // this.minutes = Math.floor( (timeDifference % (1000 * 60 * 60)) / (1000 * 60)  );
-      // this.seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-      // this.countdown = `${this.minutes}m ${this.seconds}s`;
     }
   }
 
@@ -143,6 +140,8 @@ export class QuizDetailsComponent implements OnInit {
       this.showAssessment = false;
 
       this.apiService.getQuiz().subscribe((res) => {
+        console.log('hi');
+
         try {
           res.data.filter((resObj: any) => {
             if (
@@ -155,11 +154,23 @@ export class QuizDetailsComponent implements OnInit {
             }
           });
 
-          this.ass_submit_time = new Date(
-            this.userQuizDetails[0]?.attributes.updatedAt
-          );
+          if (this.userQuizDetails[0]?.attributes.status) {
+            this.ass_submit_time = new Date(
+              this.userQuizDetails[0]?.attributes.updatedAt
+            );
+          }
+          console.log(this.userQuizDetails[0]?.attributes.status);
+
+
+          if (!this.userQuizDetails[0]?.attributes.status) {
+            this.timerSubscription$.unsubscribe();
+          }
+
           for (let i = 0; i < this.userQuizDetails.length; i++) {
             this.answersArray[i] = '';
+          }
+          if (this.userQuizDetails[0]?.attributes.status) {
+            this.assessmentTime();
           }
 
           resolve();
@@ -171,7 +182,7 @@ export class QuizDetailsComponent implements OnInit {
     });
   }
 
-  onChange(question: QuizDetails, option: string, Index: number) {
+  onChange(option: string, Index: number) {
     this.answersArray[Index] = option;
   }
 
@@ -228,7 +239,6 @@ export class QuizDetailsComponent implements OnInit {
                     severity: 'success',
                   });
                 });
-              this.assessmentTime();
             } else
               (err: any) => {
                 console.log(err);
@@ -282,8 +292,8 @@ export class QuizDetailsComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    if (this.timerSubscription) {
-      this.timerSubscription.unsubscribe();
+    if (this.timerSubscription$) {
+      this.timerSubscription$.unsubscribe();
     }
   }
 }

@@ -12,34 +12,30 @@
           (click)="getUserLevel('advanced')">Advanced</button>
       </div>
 
-      <ng-container *ngIf="userQuizDetails[0]?.attributes?.status == true">
+      <ng-container *ngIf="userQuizDetails[0]?.attributes?.status === true ">
         <div class="card shadow-4  ">
           <div class="card-body text-center  justify-content-center align-items-center">
             <div>
-              <h1>You will take assessment in next </h1>
+              <h1>You will take <span class="text-warning">Assessment</span> in next </h1>
               <div class="d-flex justify-content-center align-items-center">
-                <i class="pi pi-clock" style="font-size: 3rem"> </i>
-                <div class="d-flex">
+                <i class="pi pi-clock mb-5 me-2" style="font-size: 3.4rem" *ngIf="minutes"> </i>
+                <div class="d-flex gap-3">
                   <div *ngIf="days" class="countdown">
                     <span> {{days}} </span>
-                    <p >Days </p>
+                    <p class="fw-bold">Days </p>
                   </div>
-
                   <div *ngIf="hours" class="countdown"> <span> {{hours}} </span>
-                    <p >Hours </p>
+                    <p class="fw-bold">Hours </p>
                   </div>
-
                   <div *ngIf="minutes" class="countdown"> <span> {{minutes}} </span>
-                    <p >Minutes </p>
+                    <p class="fw-bold">Minutes </p>
                   </div>
                   <div *ngIf="seconds" class="countdown "> <span class="text-danger"> {{seconds}} </span>
-                    <p >Seconds </p>
+                    <p class="fw-bold"> Seconds </p>
                   </div>
                 </div>
-
               </div>
             </div>
-
           </div>
         </div>
       </ng-container>
@@ -58,7 +54,7 @@
               <div>
                 <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
                   <input class="form-check-input ml-2" type="radio" [name]="'option' + i" [value]="'A'"
-                    [id]="question.attributes.q_options.a" (change)="onChange(question, 'A', i)" />
+                    [id]="question.attributes.q_options.a" (change)="onChange( 'A', i)" />
                   <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
                     [for]="question.attributes.q_options.a">
                     {{ question.attributes.q_options.a }}
@@ -66,7 +62,7 @@
                 </li>
                 <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
                   <input class="form-check-input ml-2" type="radio" [name]="'option' + i" [value]="'B'"
-                    [id]="question.attributes.q_options.b" (change)="onChange(question, 'B', i)" />
+                    [id]="question.attributes.q_options.b" (change)="onChange( 'B', i)" />
                   <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
                     [for]="question.attributes.q_options.b">
                     {{ question.attributes.q_options.b }}
@@ -74,7 +70,7 @@
                 </li>
                 <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
                   <input class="form-check-input ml-2" type="radio" [name]="'option' + i" [value]="'C'"
-                    [id]="question.attributes.q_options.c" (change)="onChange(question, 'C', i)" />
+                    [id]="question.attributes.q_options.c" (change)="onChange( 'C', i)" />
                   <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
                     [for]="question.attributes.q_options.c">
                     {{ question.attributes.q_options.c }}
@@ -82,7 +78,7 @@
                 </li>
                 <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
                   <input class="form-check-input ml-2" type="radio" [name]="'option' + i" [value]="'D'"
-                    [id]="question.attributes.q_options.d" (change)="onChange(question, 'D', i)" />
+                    [id]="question.attributes.q_options.d" (change)="onChange( 'D', i)" />
                   <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
                     [for]="question.attributes.q_options.d">
                     {{ question.attributes.q_options.d }}
