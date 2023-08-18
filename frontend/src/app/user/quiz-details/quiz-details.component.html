@@ -8,19 +8,44 @@
       <div class="d-flex flex-wrap mb-3">
         <button class="btn btn-primary mb-1" (click)="getUserLevel('beginner')">Beginner</button>
         <button class="btn btn-warning ms-2 mb-1" (click)="getUserLevel('intermediate')">Intermediate</button>
-        <button class="btn btn-success ms-2 mb-1 assessment_level_button" (click)="getUserLevel('advanced')">Advanced</button>
+        <button class="btn btn-success ms-2 mb-1 assessment_level_button"
+          (click)="getUserLevel('advanced')">Advanced</button>
       </div>
 
       <ng-container *ngIf="userQuizDetails[0]?.attributes?.status == true">
-        <div class="card shadow-4  " style="height: 100px;">
-          <div class="card-body text-center d-flex justify-content-center align-items-center">
-            <p class="fs-4 lh-sm"> You have already taken this Assessment.</p>
-            <p class="fs-4 lh-sm"> Please take After <b>2</b> weeks.</p>
+        <div class="card shadow-4  ">
+          <div class="card-body text-center  justify-content-center align-items-center">
+            <div>
+              <h1>You will take assessment in next </h1>
+              <div class="d-flex justify-content-center align-items-center">
+                <i class="pi pi-clock" style="font-size: 3rem"> </i>
+                <div class="d-flex">
+                  <div *ngIf="days" class="countdown">
+                    <span> {{days}} </span>
+                    <p >Days </p>
+                  </div>
+
+                  <div *ngIf="hours" class="countdown"> <span> {{hours}} </span>
+                    <p >Hours </p>
+                  </div>
+
+                  <div *ngIf="minutes" class="countdown"> <span> {{minutes}} </span>
+                    <p >Minutes </p>
+                  </div>
+                  <div *ngIf="seconds" class="countdown "> <span class="text-danger"> {{seconds}} </span>
+                    <p >Seconds </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
           </div>
         </div>
       </ng-container>
 
-      <ng-container *ngIf="userQuizDetails.length !=0 && !showAssessment && userQuizDetails[0]?.attributes?.status == false">
+      <ng-container
+        *ngIf="userQuizDetails.length !=0 && !showAssessment && userQuizDetails[0]?.attributes?.status == false">
         <div>
           <h1 style="font-size: 1.2rem"><b> {{headerName | titlecase}} level </b></h1>
         </div>

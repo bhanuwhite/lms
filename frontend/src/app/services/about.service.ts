@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { AboutContent } from '../models/about-content';
 
-
-function _window() : any {
+function _window(): any {
   // return the global native browser window object
   return window;
 }
@@ -13,10 +12,9 @@ function _window() : any {
   providedIn: 'root',
 })
 export class AboutService {
-
-  get nativeWindow() : any {
+  get nativeWindow(): any {
     return _window();
- }
+  }
 
   private aboutLms = '../../assets/data/about/aboutlms.json';
   constructor(private httpClientRef: HttpClient) {}
@@ -31,9 +29,11 @@ export class AboutService {
     this.cartLength.next(value);
   }
 
-private progressValue = new BehaviorSubject<number>(0)
-watchCount$ = this.progressValue.asObservable();
-public watchCourseCount(value:number):void{
-  this.progressValue.next(value)
-}
+  private progressValue = new BehaviorSubject<number>(0);
+  watchCount$ = this.progressValue.asObservable();
+  public watchCourseCount(value: number): void {
+    this.progressValue.next(value);
+  }
+
+
 }

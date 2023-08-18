@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription, interval } from 'rxjs';
 import { AboutService } from 'src/app/services/about.service';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -21,7 +22,20 @@ export class AssessmentComponent implements OnInit {
     private aboutService: AboutService
   ) {}
 
+  targetTime!: Date;
+  countdown!: string;
+  private timerSubscription: Subscription = new Subscription();
   ngOnInit(): void {
+    this.targetTime = new Date();
+    // this.targetTime.setDate(this.targetTime.getDate() + 14);
+    const currentTime = new Date();
+
+    this.targetTime = new Date(currentTime.getTime() + 5 * 60 * 1000);
+    this.timerSubscription = interval(1000).subscribe(() => {
+      this.updateCountdown();
+    });
+
+
     this.getAllQuizDetails();
     this.getAllCourseDetais();
     this.getLocalStoredData();
@@ -81,4 +95,42 @@ export class AssessmentComponent implements OnInit {
       tech.toLowerCase().includes(searchInputLowercase)
     );
   }
+
+  ngOnDestroy(): void {
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
+  }
+  // updateCountdown(): void {
+  //   const currentTime = new Date();
+  //   const timeDifference = this.targetTime.getTime() - currentTime.getTime();
+
+  //   if (timeDifference <= 0) {
+  //     this.countdown = 'Product is now available!';
+  //   } else {
+  //     const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  //     const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  //     const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+  //     const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+  //     this.countdown = `${days}d ${hours}hr ${minutes}m ${seconds}s`;
+  //   }
+  // }
+
+  updateCountdown(): void {
+    const currentTime = new Date();
+    const timeDifference = this.targetTime.getTime() - currentTime.getTime();
+
+    if (timeDifference <= 0) {
+      this.countdown = 'Product is now available!';
+    } else {
+      const minutes = Math.floor(timeDifference / (1000 * 60));
+      const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+      this.countdown = `${minutes}m ${seconds}s`;
+    }
+  }
+
+
+
 }
