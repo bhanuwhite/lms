@@ -1,4 +1,10 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -12,7 +18,7 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './quiz-details.component.html',
   styleUrls: ['./quiz-details.component.scss'],
 })
-export class QuizDetailsComponent implements OnInit {
+export class QuizDetailsComponent implements OnInit, AfterViewInit {
   public courseName: string = '';
   public quizBeginerDetails: QuizDetails[] = [];
   public userQuizDetails: QuizDetails[] = [];
@@ -30,11 +36,9 @@ export class QuizDetailsComponent implements OnInit {
   public wrongtAns: number = 0;
   public notAnswered: number = 0;
   public answersArray: string[] = [];
-
-  targetTime!: Date;
-  targetTimes!: Date;
-  countdown!: string;
-
+  public successPer: string = '';
+  private targetTime!: Date;
+  public countdown!: string;
   public days!: number;
   public hours!: number;
   public minutes!: number;
@@ -52,7 +56,9 @@ export class QuizDetailsComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.getTechName();
+  }
 
+  ngAfterViewInit(): void {
     this.getUserLevel('beginner')
       .then(() => {
         this.assessmentTime();
@@ -81,48 +87,57 @@ export class QuizDetailsComponent implements OnInit {
       this.timerSubscription$ = interval(1000).subscribe(() => {
         this.updateCountdown();
       });
+    } else {
+      this.timerSubscription$.unsubscribe();
     }
   }
 
   updateCountdown() {
-    const currentTime = new Date();
-    const timeDifference = this.targetTime.getTime() - currentTime.getTime();
+    if (this.userQuizDetails[0]?.attributes.status) {
+      const currentTime = new Date();
+      const timeDifference = this.targetTime.getTime() - currentTime.getTime();
 
-    if (timeDifference <= 0) {
-      this.apiService.getQuiz().subscribe((res) => {
-        res.data.map((resObj: any) => {
-          if (
-            this.courseName.toLowerCase() ===
-            resObj.attributes.course_name.toLowerCase()
-          ) {
-            const putAssessmentStatus = {
-              data: {
-                status: false,
-              },
-            };
-            this.apiService
-              .updateQuiz(resObj.id, putAssessmentStatus)
-              .subscribe((res) => {
-                this.getUserLevel(this.headerName);
-                this.timerSubscription$.unsubscribe();
-              });
-          } else
-            (err: any) => {
-              console.log(err);
-            };
+      if (timeDifference <= 0) {
+        this.timerSubscription$.unsubscribe();
+        this.apiService.getQuiz().subscribe((res) => {
+          res.data.map((resObj: any) => {
+            if (
+              this.courseName.toLowerCase() ===
+                resObj.attributes.course_name.toLowerCase() &&
+              this.headerName.toLowerCase() ===
+                resObj.attributes.level.toLowerCase()
+            ) {
+              const putAssessmentStatus = {
+                data: {
+                  status: false,
+                },
+              };
+              this.apiService
+                .updateQuiz(resObj.id, putAssessmentStatus)
+                .subscribe((res) => {});
+            } else
+              (err: any) => {
+                console.log(err);
+              };
+          });
         });
-      });
-    } else {
-      // below lines for show in days
-      this.days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-      this.hours = Math.floor(
-        (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      this.minutes = Math.floor(
-        (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-      );
-      this.seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-      this.countdown = `${this.days}d ${this.hours}hr ${this.minutes}m ${this.seconds}s`;
+        this.getUserLevel(this.headerName);
+        this.timerSubscription$.unsubscribe();
+      } else {
+        // below lines for show in days
+        this.days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        this.hours = Math.floor(
+          (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        this.minutes = Math.floor(
+          (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+        );
+        this.seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+        this.countdown = `${this.days}d ${this.hours}hr ${this.minutes}m ${this.seconds}s`;
+      }
+    }
+    else {
+      this.timerSubscription$.unsubscribe();
     }
   }
 
@@ -140,7 +155,7 @@ export class QuizDetailsComponent implements OnInit {
       this.showAssessment = false;
       this.apiService.getQuiz().subscribe((res) => {
         try {
-          res.data.filter((resObj: any) => {
+          res.data.map((resObj: any) => {
             if (
               this.headerName.toLowerCase() ===
                 resObj.attributes.level.toLowerCase() &&
@@ -154,6 +169,7 @@ export class QuizDetailsComponent implements OnInit {
             this.ass_submit_time = new Date(
               this.userQuizDetails[0]?.attributes.updatedAt
             );
+            this.assessmentTime();
           }
           if (!this.userQuizDetails[0]?.attributes.status) {
             this.timerSubscription$.unsubscribe();
@@ -162,10 +178,6 @@ export class QuizDetailsComponent implements OnInit {
           for (let i = 0; i < this.userQuizDetails.length; i++) {
             this.answersArray[i] = '';
           }
-          if (this.userQuizDetails[0]?.attributes.status) {
-            this.assessmentTime();
-          }
-
           resolve();
         } catch (err: any) {
           console.log(err);
@@ -179,7 +191,6 @@ export class QuizDetailsComponent implements OnInit {
     this.answersArray[Index] = option;
   }
 
-  public successPer: string = '';
   public async SubmitBeginnerAss(data: any): Promise<void> {
     try {
       this.assessmentCutoff = Math.round(this.userQuizDetails.length / 2);
