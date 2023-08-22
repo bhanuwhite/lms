@@ -45,52 +45,46 @@
         <div>
           <h1 style="font-size: 1.2rem"><b> {{headerName | titlecase}} level </b></h1>
         </div>
-        <div class="grid">
-          <div class="col-12 md:col-6 lg:col-6  question-box" *ngFor="let question of userQuizDetails; let i = index">
-            <div class="shadow-4 bg-white rounded p-2">
+        <div class="grid align-items-center justify-content-center ">
+
+          <div class="col-12 md:col-8 lg:col-8  question-box  " *ngIf="userQuizDetails.length > 0; else noQuestions">
+            <div class="shadow-4 bg-white rounded p-2 ">
               <div class="question-type ms-1 my-2 d-flex align-items-center justify-content-between">
-                <h2>{{ i + 1 }}.{{ question.attributes.question }}</h2>
+                <h2>{{ questionNumber + 1 }}. {{ userQuizDetails[questionNumber].attributes.question }}</h2>
               </div>
-              <div>
+
+              <div
+                *ngFor="let option of userQuizDetails[questionNumber].attributes.q_options | keyvalue; let i = index">
                 <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
-                  <input class="form-check-input ml-2" type="radio" [name]="'option' + i" [value]="'A'"
-                    [id]="question.attributes.q_options.a" (change)="onChange( 'A', i)" />
+
+                  <input class="form-check-input ml-2" type="radio" name="answer" [value]="option.key"       [checked]="selectedAnswers[questionNumber] === option.key"
+                    [id]="userQuizDetails[questionNumber].attributes.q_options.a"
+                    (change)="onChange( option.key, questionNumber)" />
                   <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
-                    [for]="question.attributes.q_options.a">
-                    {{ question.attributes.q_options.a }}
+                    [for]="userQuizDetails[questionNumber].attributes.q_options.a">
+                    {{ option.value }}
                   </label>
                 </li>
-                <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
-                  <input class="form-check-input ml-2" type="radio" [name]="'option' + i" [value]="'B'"
-                    [id]="question.attributes.q_options.b" (change)="onChange( 'B', i)" />
-                  <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
-                    [for]="question.attributes.q_options.b">
-                    {{ question.attributes.q_options.b }}
-                  </label>
-                </li>
-                <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
-                  <input class="form-check-input ml-2" type="radio" [name]="'option' + i" [value]="'C'"
-                    [id]="question.attributes.q_options.c" (change)="onChange( 'C', i)" />
-                  <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
-                    [for]="question.attributes.q_options.c">
-                    {{ question.attributes.q_options.c }}
-                  </label>
-                </li>
-                <li class="form-check p-2 m-1 d-flex" style="width: 99%; cursor: pointer; gap: 10px">
-                  <input class="form-check-input ml-2" type="radio" [name]="'option' + i" [value]="'D'"
-                    [id]="question.attributes.q_options.d" (change)="onChange( 'D', i)" />
-                  <label class="form-check-label" style="padding-top: 1px; cursor: pointer"
-                    [for]="question.attributes.q_options.d">
-                    {{ question.attributes.q_options.d }}
-                  </label>
-                </li>
+
               </div>
+              <button class="btn btn-warning  me-5" (click)="previousQuestion()"
+                [disabled]="questionNumber === 0">Previous</button>
+              <button class="btn btn-primary  " (click)="nextQuestion()"
+                [disabled]="questionNumber === userQuizDetails.length - 1">Next</button>
+              <button class="btn btn-success" *ngIf="questionNumber === userQuizDetails.length - 1"
+                (click)="SubmitBeginnerAss(userQuizDetails)">Submit</button>
+
             </div>
           </div>
+
+          <ng-template #noQuestions>
+            <div class="card d-flex justify-content-center text-center shadow-4">
+              <p>No questions available.</p>
+            </div>
+          </ng-template>
+
         </div>
-        <div class="d-flex justify-content-center m-3">
-          <button class="btn btn-success px-4" (click)="SubmitBeginnerAss(userQuizDetails)">Submit</button>
-        </div>
+
       </ng-container>
       <ng-container *ngIf="userQuizDetails.length == 0">
         <div class="d-flex justify-content-center align-items-center">
@@ -200,3 +194,4 @@
       </ng-container>
     </div>
   </div>
+</div>

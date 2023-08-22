@@ -21,7 +21,7 @@ import { ApiService } from 'src/app/services/api.service';
 export class QuizDetailsComponent implements OnInit, AfterViewInit {
   public courseName: string = '';
   public quizBeginerDetails: QuizDetails[] = [];
-  public userQuizDetails: QuizDetails[] = [];
+  public userQuizDetails: any[] = [];
   public quizintermidiateDetails: QuizDetails[] = [];
   public quizAdvancedDetails: QuizDetails[] = [];
   public isCorrect: boolean = false;
@@ -45,7 +45,9 @@ export class QuizDetailsComponent implements OnInit, AfterViewInit {
   public seconds!: number;
   private timerSubscription$: Subscription = new Subscription();
   public ass_submit_time!: Date;
-
+  public questionNumber: number = 0;
+  public quizLength!: number;
+  public selectedAnswers: { [key: number]: string } = {};
   constructor(
     private apiService: ApiService,
     private fb: FormBuilder,
@@ -124,7 +126,6 @@ export class QuizDetailsComponent implements OnInit, AfterViewInit {
         this.getUserLevel(this.headerName);
         this.timerSubscription$.unsubscribe();
       } else {
-        // below lines for show in days
         this.days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
         this.hours = Math.floor(
           (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
@@ -135,8 +136,7 @@ export class QuizDetailsComponent implements OnInit, AfterViewInit {
         this.seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
         this.countdown = `${this.days}d ${this.hours}hr ${this.minutes}m ${this.seconds}s`;
       }
-    }
-    else {
+    } else {
       this.timerSubscription$.unsubscribe();
     }
   }
@@ -151,6 +151,7 @@ export class QuizDetailsComponent implements OnInit, AfterViewInit {
     return new Promise((resolve, reject) => {
       this.headerName = level;
       this.userQuizDetails = [];
+      this.questionNumber = 0;
       this.answersArray = [];
       this.showAssessment = false;
       this.apiService.getQuiz().subscribe((res) => {
@@ -165,6 +166,7 @@ export class QuizDetailsComponent implements OnInit, AfterViewInit {
               this.userQuizDetails.push(resObj);
             }
           });
+          this.quizLength = this.userQuizDetails.length;
           if (this.userQuizDetails[0]?.attributes.status) {
             this.ass_submit_time = new Date(
               this.userQuizDetails[0]?.attributes.updatedAt
@@ -187,8 +189,22 @@ export class QuizDetailsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onChange(option: string, Index: number) {
-    this.answersArray[Index] = option;
+  onChange(option: any, Index: number) {
+    this.answersArray[Index] = option.toUpperCase();
+    this.selectedAnswers[Index] = option;
+  }
+
+
+  nextQuestion() {
+    if (this.questionNumber < this.userQuizDetails.length - 1) {
+      this.questionNumber++;
+    }
+  }
+
+  previousQuestion() {
+    if (this.questionNumber > 0) {
+      this.questionNumber--;
+    }
   }
 
   public async SubmitBeginnerAss(data: any): Promise<void> {
@@ -250,6 +266,7 @@ export class QuizDetailsComponent implements OnInit, AfterViewInit {
           });
         });
       }
+      this.selectedAnswers = {}
     } catch (error) {}
   }
 

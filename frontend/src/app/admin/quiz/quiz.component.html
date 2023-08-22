@@ -20,10 +20,16 @@
         <tr>
           <td (click)="showQuizQuestions(tech)" class="cursor-pointer">{{tech}} </td>
           <td>
-            <div class="add_remove_button">
-              <p-button label="Add" icon="pi pi-plus" class=" cursor-pointer mb-1" styleClass="p-button-sm" (click)="showDialog(tech)"> </p-button>
-              <p-button label="Remove" icon="pi pi-minus" class=" cursor-pointer" styleClass="p-button-danger p-button-sm"
-                *ngIf="techCourseNames.includes(tech.toLowerCase())" (click)="deleteExam(tech)"> </p-button>
+            <div class="add_remove_button ">
+
+              <span class="material-icons text-primary cursor-pointer mb-1" (click)="showDialog(tech)"
+                style="font-size: 2rem;">
+                add
+              </span>
+              <span class="material-icons text-danger cursor-pointer mb-1 ms-1" style="font-size: 1.7rem;"
+                *ngIf="techCourseNames.includes(tech.toLowerCase())" (click)="deleteExam(tech)">
+                delete
+              </span>
             </div>
           </td>
         </tr>
@@ -48,13 +54,14 @@
       <div class="d-flex m-4">
 
         <button class="btn btn-primary" value="beginner" (click)="deleteAssesmentLevel($event)">Beginner</button>
-        <button class="btn btn-warning ms-2" value="intermediate" (click)="deleteAssesmentLevel($event)">Intermediate</button>
+        <button class="btn btn-warning ms-2" value="intermediate"
+          (click)="deleteAssesmentLevel($event)">Intermediate</button>
         <button class="btn btn-info ms-2" value="advanced" (click)="deleteAssesmentLevel($event)">Advansed</button>
         <button class="btn btn-danger ms-2" value="all" (click)="deleteAllAssesmentLevel($event)">ALL</button>
 
       </div>
-  </div>
-</p-dialog>
+    </div>
+  </p-dialog>
 
   <!-- Add dialog start -->
   <p-dialog header="Add Question" [(visible)]="visible" [style]="{width: '50vw'}" styleClass="active" [modal]="true">

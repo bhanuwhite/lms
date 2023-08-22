@@ -170,10 +170,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
           .subscribe((res) => {
             this.videoCount = false;
             try {
-              this.messageService.add({
-                severity: 'success',
-                detail: 'Video count increased',
-              });
+
             } catch (err) {
               console.log(err);
             }
