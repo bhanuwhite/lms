@@ -48,6 +48,7 @@ export class UserContentComponent {
   ngOnInit(): void {
     this.getContent();
     this.getLocalData();
+    this.getAllQuizDetails();
     this.gettingUserHasCourse();
     window.scrollTo(0, 0);
     this.getCategory();
@@ -109,6 +110,20 @@ export class UserContentComponent {
     location.reload();
   }
   //GET CONTENT
+  courseTech: string[] = [];
+  filteredTech: string[] = [];
+
+  public getAllQuizDetails() {
+    this.apiService.getQuiz().subscribe((res) => {
+      this.courseTech = res.data.map(
+        (resObj: any) => resObj.attributes.course_name
+      );
+    });
+    setTimeout(() => {
+      this.courseTech = Array.from(new Set(this.courseTech));
+      this.filteredTech = this.courseTech;
+    }, 1000);
+  }
 
   public allCourses: string[] = [];
   public uniqueTech: string[] = [];
@@ -119,17 +134,6 @@ export class UserContentComponent {
         this.coursesList = res.data;
         this.courseList2 = res.data;
         this.isLoading = true;
-        res.data.forEach((item) => {
-          this.allCourses.push(item.attributes?.technologies);
-          this.allCourses.forEach((item) => {
-            const values = Object.values(item);
-            values.forEach((obj) => {
-              if (!this.uniqueTech.includes(obj)) {
-                this.uniqueTech.push(obj);
-              }
-            });
-          });
-        });
       } catch (error) {}
     });
   }
@@ -161,7 +165,7 @@ export class UserContentComponent {
       } else {
         this.courseList2.forEach((course: any) => {
           if (
-            course.attributes.subject?.toLowerCase() ===
+            course.attributes.categories?.toLowerCase() ===
             selectedValue?.toLowerCase()
           ) {
             this.coursesList.push(course);

@@ -18,8 +18,10 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 export class AdminComponent implements OnInit {
   step: number = 2;
   visibleSidebar1!: boolean;
+  showTechCat: boolean= false;
   items: any;
   public TechCat: any;
+
   constructor(private router: Router) {}
 
   ngOnInit(): void {

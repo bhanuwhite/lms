@@ -60,7 +60,7 @@
             <p-button (click)="showDialog()" label="Give Rating"></p-button>
 
             <p-dialog header="Rating" class="flex justify-content-center" [(visible)]="visible" [modal]="true"
-              [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
+              [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
               <p-rating #ratingComponent [stars]="5" [cancel]="false"></p-rating>
               <button class="btn btn-primary mt-3" (click)="userRating(ratingComponent.value)">
                 Submit
