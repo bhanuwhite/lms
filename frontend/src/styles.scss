@@ -349,8 +349,14 @@ span.p-rating-icon.ng-star-inserted.pi.pi-star-fill {
   }
   }
   .p-dialog.p-component.p-dialog-draggable {
-    width: 80% !important;
+    width: 88% !important;
   }
+  .p-element.p-dialog.p-component  {
+    width: 88% !important;
+}
+ .p-dialog.p-confirm-dialog.p-component  {
+  width: 88% !important;
+}
   .all-Courses {
     .p-card.p-component{
 

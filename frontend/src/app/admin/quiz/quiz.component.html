@@ -51,13 +51,13 @@
   <p-dialog header="Confirmation.." [(visible)]="delAss" [style]="{width: '50vw'}" styleClass="active" [modal]="true">
     <div class="">
       <h2> Select level to delete Assessments of {{deleteAss}} </h2>
-      <div class="d-flex m-4">
+      <div class="d-flex gap-2 flex-wrap">
 
         <button class="btn btn-primary" value="beginner" (click)="deleteAssesmentLevel($event)">Beginner</button>
-        <button class="btn btn-warning ms-2" value="intermediate"
+        <button class="btn btn-warning  " value="intermediate"
           (click)="deleteAssesmentLevel($event)">Intermediate</button>
-        <button class="btn btn-info ms-2" value="advanced" (click)="deleteAssesmentLevel($event)">Advansed</button>
-        <button class="btn btn-danger ms-2" value="all" (click)="deleteAllAssesmentLevel($event)">ALL</button>
+        <button class="btn btn-info  " value="advanced" (click)="deleteAssesmentLevel($event)">Advansed</button>
+        <button class="btn btn-danger  " value="all" (click)="deleteAllAssesmentLevel($event)">ALL</button>
 
       </div>
     </div>
