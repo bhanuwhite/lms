@@ -48,13 +48,6 @@ export class UserHeaderComponent implements OnInit {
         label: 'Action',
         items: [
           {
-            label: 'Messages',
-            icon: 'pi pi-comments ',
-            command: () => {
-              this.router.navigateByUrl('user/message');
-            },
-          },
-          {
             label: 'Purchase History',
             icon: 'pi pi-cart-plus',
             command: () => {

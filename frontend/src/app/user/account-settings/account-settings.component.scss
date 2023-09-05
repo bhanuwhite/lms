@@ -1,60 +1,59 @@
 .learningHead {
-    background-color: lightblue;
+  background-color: lightblue;
 }
 
 button {
-    background-color: black;
+  background-color: black;
 }
 
 
 form {
-    button {
-        background-color: black;
-    }
+  button {
+    background-color: black;
+  }
 
-    label {
-        color: black
-    }
+  label {
+    color: black
+  }
 }
 
 .card {
-    margin-top: 20px;
-    padding: 10px;
+  margin-top: 20px;
+  padding: 10px;
+  height: fit-content;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
-    height: fit-content;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  h3 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
 
-    h3 {
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    }
+  p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
-    p {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    button {
-        width: fit-content;
-        background-color: black;
-    }
+  button {
+    width: fit-content;
+    background-color: black;
+  }
 }
 
 .Notification {
-    h2 {
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    }
+  h2 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
 
-    button {
-        background-color: black;
-    }
+  button {
+    background-color: black;
+  }
 }
 
 .checkbox {
-    border: 1px rgb(213 213 213) solid;
-    height: fit-content;
-    padding: 10px;
-    margin: 10px;
+  border: 1px rgb(213 213 213) solid;
+  height: fit-content;
+  padding: 10px;
+  margin: 10px;
 
-    b {
-        color: black
-    }
+  b {
+    color: black
+  }
 }

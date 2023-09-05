@@ -25,20 +25,19 @@
           <li class="listbox-item" [class.active]="isActive('/admin/trackuser')" routerLink="/admin/trackuser">
             <i class="pi pi-user me-2"></i><span>Users</span>
           </li>
-          <li class="listbox-item" [class.active]="isActive('/admin/technology')" (click)="op.toggle($event)">
-            <div>
-              <i class="pi pi-database me-2"></i><span>Tech</span>
+          <li class="listbox-item" [class.active]="isActive('/admin/technology')" (click)="showTechCat = !showTechCat">
+            <div class="d-flex align-items-center">
+              <i class="pi pi-database me-2"></i><span>Tech <i class="pi pi-angle-right"
+                  *ngIf="showTechCat == false"></i><i class="pi pi-angle-down" *ngIf="showTechCat == true"></i> </span>
             </div>
           </li>
-          <p-overlayPanel #op [style]="{'width':'21vw'}" >
-            <div class="text-center">
-              <h3 [routerLink]="['/admin/technology','Technology']" class="cursor-pointer techee">Technology</h3>
-              <h3 [routerLink]="['/admin/technology','Category']" class="cursor-pointer techee">Category</h3>
-            </div>
-          </p-overlayPanel>
-
+          <div class="ms-3" *ngIf="showTechCat">
+            <h3 [routerLink]="['/admin/technology','Technology']" class="cursor-pointer techee"
+              (click)="showTechCat = !showTechCat">Technology</h3>
+            <h3 [routerLink]="['/admin/technology','Category']" class="cursor-pointer techee"
+              (click)="showTechCat = !showTechCat">Category</h3>
+          </div>
           <hr class="mt-4 mb-2">
-
         </ul>
       </div>
 
@@ -96,17 +95,18 @@
     <li class="listbox-item" [class.active]="isActive('/admin/trackuser')" routerLink="/admin/trackuser">
       <i class="pi pi-user me-2"></i><span>Users</span>
     </li>
-    <li class="listbox-item" [class.active]="isActive('/admin/technology')" (click)="op.toggle($event)">
-      <div>
-        <i class="pi pi-database me-2"></i><span>Tech</span>
+    <li class="listbox-item" [class.active]="isActive('/admin/technology')" (click)="showTechCat = !showTechCat">
+      <div class="d-flex align-items-center">
+        <i class="pi pi-database me-2"></i><span>Tech <i class="pi pi-angle-right" *ngIf="showTechCat == false"></i><i
+            class="pi pi-angle-down" *ngIf="showTechCat == true"></i> </span>
       </div>
     </li>
-    <p-overlayPanel #op>
-      <div>
-        <h3 [routerLink]="['/admin/technology','Technology']" class="cursor-pointer techee">Technology</h3>
-        <h3 [routerLink]="['/admin/technology','Category']" class="cursor-pointer techee">Category</h3>
-      </div>
-    </p-overlayPanel>
+    <div class="ms-3" *ngIf="showTechCat">
+      <h3 [routerLink]="['/admin/technology','Technology']" class="cursor-pointer techee"
+        (click)="showTechCat = !showTechCat">Technology</h3>
+      <h3 [routerLink]="['/admin/technology','Category']" class="cursor-pointer techee"
+        (click)="showTechCat = !showTechCat">Category</h3>
+    </div>
 
   </ng-template>
   <ng-template pTemplate="footer">
