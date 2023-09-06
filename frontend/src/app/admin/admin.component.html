@@ -25,11 +25,9 @@
           <li class="listbox-item" [class.active]="isActive('/admin/trackuser')" routerLink="/admin/trackuser">
             <i class="pi pi-user me-2"></i><span>Users</span>
           </li>
-          <li class="listbox-item" [class.active]="isActive('/admin/technology')" (click)="showTechCat = !showTechCat">
-            <div class="d-flex align-items-center">
-              <i class="pi pi-database me-2 d-flex align-items-center"></i><span class="flex align-items-center">Tech <i class="pi pi-angle-right ms-2"
-                  *ngIf="showTechCat == false"></i><i class="pi pi-angle-down ms-2" *ngIf="showTechCat == true"></i> </span>
-            </div>
+          <li class="listbox-item" [class.active]="isActive('/admin/technology')" (click)="step=2" (click)="showTechCat = !showTechCat">          
+              <i class="pi pi-database me-2"></i><span>Tech <i class="pi pi-angle-right  ms-2 dropdown-icon"
+                  *ngIf="showTechCat == false"></i><i class="pi pi-angle-down ms-2 dropdown-icon" *ngIf="showTechCat == true"></i> </span>         
           </li>
           <div class=" listbox-item d-block bg-white" *ngIf="showTechCat">
             <h3 [routerLink]="['/admin/technology','Technology']" class="cursor-pointer techee"
@@ -92,12 +90,10 @@
       <i class="pi pi-user me-2"></i><span>Users</span>
     </li>
     <li class="listbox-item" [class.active]="isActive('/admin/technology')" (click)="showTechCat = !showTechCat">
-      <div class="d-flex align-items-center">
-        <i class="pi pi-database me-2"></i><span>Tech <i class="pi pi-angle-right" *ngIf="showTechCat == false"></i><i
-            class="pi pi-angle-down" *ngIf="showTechCat == true"></i> </span>
-      </div>
+        <i class="pi pi-database me-2"></i><span class="flex align-items-center">Tech <i class="pi pi-angle-right ms-2" *ngIf="showTechCat == false"></i><i
+            class="pi pi-angle-down ms-2" *ngIf="showTechCat == true"></i> </span>
     </li>
-    <div class="ms-3" *ngIf="showTechCat">
+    <div class=" listbox-item d-block bg-white" *ngIf="showTechCat">
       <h3 [routerLink]="['/admin/technology','Technology']" class="cursor-pointer techee"
         (click)="showTechCat = !showTechCat">Technology</h3>
       <h3 [routerLink]="['/admin/technology','Category']" class="cursor-pointer techee"

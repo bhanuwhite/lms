@@ -78,6 +78,10 @@
   display: flex;
   align-items: center;
   user-select: none;
+  .dropdown-icon{
+    position: relative;
+    top: 3.3px;
+  }
 }
 
 .sidebar .sidebar-header+.sidebar-content {
