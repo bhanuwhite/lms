@@ -12,50 +12,57 @@ import { TrackuserComponent } from './trackuser/trackuser.component';
 import { TrackDetailsComponent } from './track-details/track-details.component';
 import { TecheCatComponent } from './teche-cat/teche-cat.component';
 
-
 const routes: Routes = [
   {
-    path: '', component: AdminComponent,
+    path: '',
+    component: AdminComponent,
     children: [
       {
-        path: '', component: DashboardComponent
+        path: '',
+        component: DashboardComponent,
       },
       {
-        path: 'content', component: ContentComponent
+        path: 'content',
+        component: ContentComponent,
       },
       {
-        path: 'content/:id', component: ContentDetailsComponent
+        path: 'content/:id',
+        component: ContentDetailsComponent,
       },
       {
-        path: 'quiz', component: QuizComponent
+        path: 'quiz',
+        component: QuizComponent,
       },
       {
-        path: 'trackuser',component: TrackuserComponent
+        path: 'trackuser',
+        component: TrackuserComponent,
       },
       {
-        path:'trackuser/:id',component: TrackDetailsComponent
+        path: 'trackuser/:id',
+        component: TrackDetailsComponent,
       },
       {
-        path: 'profile', component: ProfileComponent
+        path: 'profile',
+        component: ProfileComponent,
       },
       {
-        path: 'account-settings', component: AccountSettingsComponent
+        path: 'account-settings',
+        component: AccountSettingsComponent,
       },
       {
-        path: 'quiz/:course', component: QuizDetailsComponent
+        path: 'quiz/:course',
+        component: QuizDetailsComponent,
       },
       {
-        path:'technology/:technology',
-        component: TecheCatComponent
-      }
-    ]
+        path: 'technology/:technology',
+        component: TecheCatComponent,
+      },
+    ],
   },
-
-
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AdminRoutingModule { }
+export class AdminRoutingModule {}

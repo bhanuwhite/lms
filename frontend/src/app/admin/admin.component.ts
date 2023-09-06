@@ -18,10 +18,10 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 export class AdminComponent implements OnInit {
   step: number = 2;
   visibleSidebar1!: boolean;
-  showTechCat: boolean= false;
+  showTechCat: boolean = false;
   items: any;
   public TechCat: any;
-
+  techItems: any;
   constructor(private router: Router) {}
 
   ngOnInit(): void {
@@ -33,7 +33,6 @@ export class AdminComponent implements OnInit {
     return this.router.url === base;
   }
 
-  techItems: any;
   public techDropdown(): void {
     this.techItems = [
       { name: 'Tech' },

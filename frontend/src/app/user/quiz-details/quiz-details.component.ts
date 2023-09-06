@@ -9,7 +9,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Subscription, interval } from 'rxjs';
-import { QuizDetails } from 'src/app/models/quiz';
+import { QuizDetails, QuizResponse } from 'src/app/models/quiz';
 import { AboutService } from 'src/app/services/about.service';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -21,7 +21,7 @@ import { ApiService } from 'src/app/services/api.service';
 export class QuizDetailsComponent implements OnInit, AfterViewInit {
   public courseName: string = '';
   public quizBeginerDetails: QuizDetails[] = [];
-  public userQuizDetails: any[] = [];
+  public userQuizDetails: QuizResponse[] = [];
   public quizintermidiateDetails: QuizDetails[] = [];
   public quizAdvancedDetails: QuizDetails[] = [];
   public isCorrect: boolean = false;
@@ -85,7 +85,6 @@ export class QuizDetailsComponent implements OnInit, AfterViewInit {
       this.targetTime = new Date(
         this.ass_submit_time?.getTime() + 2 * 60 * 1000
       );
-
       this.timerSubscription$ = interval(1000).subscribe(() => {
         this.updateCountdown();
       });
@@ -98,11 +97,10 @@ export class QuizDetailsComponent implements OnInit, AfterViewInit {
     if (this.userQuizDetails[0]?.attributes.status) {
       const currentTime = new Date();
       const timeDifference = this.targetTime.getTime() - currentTime.getTime();
-
       if (timeDifference <= 0) {
         this.timerSubscription$.unsubscribe();
         this.apiService.getQuiz().subscribe((res) => {
-          res.data.map((resObj: any) => {
+          res.data.map((resObj: QuizResponse) => {
             if (
               this.courseName.toLowerCase() ===
                 resObj.attributes.course_name.toLowerCase() &&
@@ -156,7 +154,7 @@ export class QuizDetailsComponent implements OnInit, AfterViewInit {
       this.showAssessment = false;
       this.apiService.getQuiz().subscribe((res) => {
         try {
-          res.data.map((resObj: any) => {
+          res.data.map((resObj: QuizResponse) => {
             if (
               this.headerName.toLowerCase() ===
                 resObj.attributes.level.toLowerCase() &&
@@ -176,7 +174,6 @@ export class QuizDetailsComponent implements OnInit, AfterViewInit {
           if (!this.userQuizDetails[0]?.attributes.status) {
             this.timerSubscription$.unsubscribe();
           }
-
           for (let i = 0; i < this.userQuizDetails.length; i++) {
             this.answersArray[i] = '';
           }
@@ -189,11 +186,10 @@ export class QuizDetailsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onChange(option: any, Index: number) {
+  onChange(option: string, Index: number) {
     this.answersArray[Index] = option.toUpperCase();
     this.selectedAnswers[Index] = option;
   }
-
 
   nextQuestion() {
     if (this.questionNumber < this.userQuizDetails.length - 1) {
@@ -224,7 +220,6 @@ export class QuizDetailsComponent implements OnInit, AfterViewInit {
           this.wrongtAns++;
         }
       }
-
       this.successPer = (
         (Number(this.correctAns) * 100) /
         Number(this.userQuizDetails.length)
@@ -236,10 +231,9 @@ export class QuizDetailsComponent implements OnInit, AfterViewInit {
       }
       this.showAssessment = true;
       await this.scoreStatus(this.correctAns, this.wrongtAns, this.notAnswered);
-
       if (this.assessmentStatus.toLowerCase() === 'failed') {
         this.apiService.getQuiz().subscribe((res) => {
-          res.data.map((resObj: any) => {
+          res.data.map((resObj: QuizResponse) => {
             if (
               this.courseName.toLowerCase() ===
                 resObj.attributes.course_name.toLowerCase() &&
@@ -266,7 +260,7 @@ export class QuizDetailsComponent implements OnInit, AfterViewInit {
           });
         });
       }
-      this.selectedAnswers = {}
+      this.selectedAnswers = {};
     } catch (error) {}
   }
 
@@ -276,7 +270,6 @@ export class QuizDetailsComponent implements OnInit, AfterViewInit {
   public scoreStatus(correct: number, wrong: number, notAns: number): void {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
-
     this.chartData = {
       labels: ['Correct Answers', 'Wrong Answers', 'Not Answers'],
       datasets: [

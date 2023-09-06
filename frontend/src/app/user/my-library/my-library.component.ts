@@ -54,7 +54,7 @@ export class MyLibraryComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.apiService.getUserCourse(this.userID).subscribe((res) => {
         if (res.length != 0) {
-          res.map((courseRes: any) => {
+          res.map((courseRes: CourseData) => {
             if (courseRes.course_ids.length != 0) {
               this.courseData.push(courseRes);
             }
@@ -72,7 +72,7 @@ export class MyLibraryComponent implements OnInit {
   filterCourseData(): void {
     if (this.searchWord) {
       this.courseData = this.searchData.filter(
-        (course: any) =>
+        (course: CourseData) =>
           course?.course_ids[0]?.name
             .toLowerCase()
             .includes(this.searchWord.toLowerCase()) ||

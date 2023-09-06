@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import { environment } from 'src/environment/environment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AboutService } from 'src/app/services/about.service';
+import { CourseData } from 'src/app/models/library';
 @Component({
   selector: 'app-course-details',
   templateUrl: './course-details.component.html',
@@ -106,7 +107,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   public gettingUserHasCourse(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.apiService.getUserCourse(this.userID).subscribe((res) => {
-        res.map((resData: any) => {
+        res.map((resData: CourseData) => {
           this.libDataIds.push(resData.course_ids[0]?.id);
         });
         resolve(),
@@ -151,7 +152,6 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
         progress_percentage: progressPer.toFixed(0),
       },
     };
-
     this.PutUserHasCourse$ = this.apiService
       .putUserHasCourse(this.courseId, putBody)
       .subscribe((res) => {});
@@ -170,7 +170,6 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
           .subscribe((res) => {
             this.videoCount = false;
             try {
-
             } catch (err) {
               console.log(err);
             }

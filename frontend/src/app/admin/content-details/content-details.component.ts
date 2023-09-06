@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
-import { SingleCourseObj } from 'src/app/models/content';
 import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environment/environment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -21,7 +19,6 @@ export class ContentDetailsComponent implements OnInit {
   id: number = 0;
   isLoading: boolean = false;
   public techArr: string[] = [];
-  // SingleCourseObj  interface
   singleContent: any;
   public img_url = environment.apiUrl;
   public courseIncludes: string[] = [];

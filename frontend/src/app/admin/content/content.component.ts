@@ -22,10 +22,11 @@ import {
   AllCourseContent,
   mediaDocument,
   videoObj,
+  categoryObj,
 } from 'src/app/models/content';
 import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environment/environment';
-
+import { technologyObj } from 'src/app/models/content';
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
@@ -39,6 +40,8 @@ import { environment } from 'src/environment/environment';
   ],
   providers: [ConfirmationService, MessageService],
 })
+
+
 export class ContentComponent implements OnInit, OnDestroy {
   @ViewChild('vid', { read: ElementRef }) tempRef!: ElementRef;
   popup: string = '';
@@ -67,6 +70,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   public selectedTech!: string;
   public selectedLevel!: string;
   public selectedSubject!: string;
+  public data!: { [key: number]: string };
   public selectedStatus!: string;
   public updatedStatus!: string;
   public videoUploadProgress: boolean = false;
@@ -82,17 +86,13 @@ export class ContentComponent implements OnInit, OnDestroy {
   public updateDocuments: boolean = false;
   public editUserLearnings!: AllCourseContentData;
   Technologies: { tech: string }[] = [];
-
   levels = [
     { level: 'Beginner' },
     { level: 'Intermediate' },
     { level: 'Advanced' },
   ];
-
   subjects: { tech: string }[] = [];
-
   courseStatus = [{ status: 'active' }, { status: 'block' }];
-
   constructor(
     private router: Router,
     private apiService: ApiService,
@@ -111,14 +111,14 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   private getTech(): void {
     this.apiService.getTechnoogy().subscribe((res) => {
-      res.data.map((resObj: any) => {
+      res.data.map((resObj: technologyObj) => {
         this.Technologies.push(resObj.attributes.technologies);
       });
     });
   }
   private getCategory(): void {
     this.apiService.getCategory().subscribe((res) => {
-      res.data.map((resObj: any) => {
+      res.data.map((resObj: categoryObj) => {
         this.subjects.push(resObj.attributes.categories);
       });
     });
@@ -191,8 +191,9 @@ export class ContentComponent implements OnInit, OnDestroy {
       this.contentData = this.contentData2.filter(
         (content) =>
           content.attributes.name
-            .toLowerCase().replace(/ /g,'')
-            .includes(this.searchWord.toLowerCase().replace(/ /g,'')) ||
+            .toLowerCase()
+            .replace(/ /g, '')
+            .includes(this.searchWord.toLowerCase().replace(/ /g, '')) ||
           content.attributes.price.includes(this.searchWord.toLowerCase())
       );
     } else {
@@ -219,7 +220,6 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
   public subjectSelected(event: { value: { tech: string } }) {
     this.selectedSubject = event.value.tech;
-
   }
   public statusSelected(event: { value: { status: string } }) {
     this.selectedStatus = event.value.status;
@@ -331,7 +331,6 @@ export class ContentComponent implements OnInit, OnDestroy {
     return new Promise<void>((resolve, reject) => {
       const isChecked = (event.target as HTMLInputElement).checked;
       const arrayForm = this.addCourse.get('coursesIncludes') as FormArray;
-
       if (isChecked) {
         arrayForm.push(this.fb.control(value));
         if (value.toLowerCase() === 'documents') {
@@ -350,7 +349,6 @@ export class ContentComponent implements OnInit, OnDestroy {
           }
         }
       }
-
       this.addCourse.get('documents')?.updateValueAndValidity();
       resolve();
     });
@@ -399,8 +397,6 @@ export class ContentComponent implements OnInit, OnDestroy {
       control.markAsTouched();
     });
   }
-  public data!: { [key: number]: string };
-
   public courseFormSubmit(
     videoInput: HTMLInputElement,
     imgInput: HTMLInputElement
@@ -433,21 +429,18 @@ export class ContentComponent implements OnInit, OnDestroy {
           files: this.courseDocument,
         },
       };
-
       this.apiService.postContent(courseData).subscribe((res) => {
         try {
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
             detail: 'Course added successfully !!',
-
           });
           this.courseContentVideo = [];
           this.showDocuments = false;
           this.addCourse
             .get('documents')
             ?.removeValidators(Validators.required);
-
           videoInput.value = '';
           imgInput.value = '';
           this.allVideosDuration = 0;
@@ -467,7 +460,6 @@ export class ContentComponent implements OnInit, OnDestroy {
         detail: 'Please fill required fields..!!',
       });
     }
-
     for (let i = 0; i < this.elements.length; i++) {
       if (this.elements[i].type == 'checkbox') {
         this.elements[i].checked = false;

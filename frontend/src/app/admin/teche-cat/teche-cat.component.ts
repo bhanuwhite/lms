@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService, SortEvent } from 'primeng/api';
 import { UserCatData, UserTechData } from 'src/app/models/track';
@@ -30,7 +35,14 @@ export class TecheCatComponent implements OnInit {
     private messageService: MessageService
   ) {
     this.techForm = this.fb.group({
-      tech: ['', [Validators.required, Validators.minLength(1), Validators.pattern('^[a-zA-Z., ]+$')]],
+      tech: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.pattern('^[a-zA-Z., ]+$'),
+        ],
+      ],
     });
   }
   ngOnInit(): void {
@@ -38,8 +50,6 @@ export class TecheCatComponent implements OnInit {
     this.getTech();
     this.getCategory();
   }
-
-
 
   private routerName(): void {
     this.router.paramMap.subscribe((param) => {
@@ -70,117 +80,118 @@ export class TecheCatComponent implements OnInit {
   }
 
   public addTech(): void {
+    this.techForm.reset();
     this.showPopup = true;
     this.formValue = 'new';
   }
 
   public addCat(): void {
+    this.techForm.reset();
     this.showPopup = true;
     this.formValue = 'new';
   }
   public techSubmit(): void {
     const myValue = this.techForm.value.tech;
-    if(this.techForm.valid){
-
-
-    try {
-      if (this.headerName?.toLowerCase() === 'technology') {
-        const postTech = {
-          data: {
-            technologies: {
-              tech: this.techForm.value.tech,
+    if (this.techForm.valid) {
+      try {
+        if (this.headerName?.toLowerCase() === 'technology') {
+          const postTech = {
+            data: {
+              technologies: {
+                tech: this.techForm.value.tech,
+              },
             },
-          },
-        };
-        if (this.formValue === 'new') {
-          this.getTech();
-          if (
-            this.techList.includes(
-              this.techForm.value.tech.toLowerCase().trim()
-            )
-          ) {
-            this.messageService.add({
-              severity: 'warn',
-              summary: `${myValue} Technology already exists.`,
-              life: 3000,
-            });
-            this.techForm.reset();
-          } else {
-            this.apiService.postTechnoogy(postTech).subscribe((res) => {
-              this.getTech();
-              this.techForm.reset();
+          };
+          if (this.formValue === 'new') {
+            this.getTech();
+            if (
+              this.techList.includes(
+                this.techForm.value.tech.toLowerCase().trim()
+              )
+            ) {
               this.messageService.add({
-                severity: 'success',
-                summary: `${myValue} Technology added.`,
+                severity: 'warn',
+                summary: `${myValue} Technology already exists.`,
                 life: 3000,
               });
-            });
-          }
-        } else {
-          this.apiService
-            .putTechnoogy(this.editId, postTech)
-            .subscribe((res) => {
-              this.getTech();
-              this.messageService.add({
-                severity: 'success',
-                summary: 'Technology edit successfull',
-              });
-            });
-        }
-        this.showPopup = false;
-      } else if (this.headerName?.toLowerCase() === 'category') {
-        const postCat = {
-          data: {
-            categories: {
-              tech: this.techForm.value.tech,
-            },
-          },
-        };
-        if (this.formValue === 'new') {
-          this.getCategory();
-          if (
-            this.categoryList.includes(
-              this.techForm.value.tech.toLowerCase().trim()
-            )
-          ) {
-            this.messageService.add({
-              severity: 'warn',
-              summary: `${myValue} Category already exists.`,
-              life: 4000,
-            });
-            this.techForm.reset();
-          } else {
-            this.apiService.postCategory(postCat).subscribe((res) => {
-              this.getCategory();
               this.techForm.reset();
-              this.messageService.add({
-                severity: 'success',
-                summary: `${myValue} Category added.`,
-                life: 3000,
+            } else {
+              this.apiService.postTechnoogy(postTech).subscribe((res) => {
+                this.getTech();
+                this.techForm.reset();
+                this.messageService.add({
+                  severity: 'success',
+                  summary: `${myValue} Technology added.`,
+                  life: 3000,
+                });
               });
-            });
+            }
+          } else {
+            this.apiService
+              .putTechnoogy(this.editId, postTech)
+              .subscribe((res) => {
+                this.getTech();
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Technology edit successfull',
+                });
+              });
           }
-        } else if (this.formValue === 'edit') {
-          this.apiService.putCategory(this.editId, postCat).subscribe((res) => {
+          this.showPopup = false;
+        } else if (this.headerName?.toLowerCase() === 'category') {
+          const postCat = {
+            data: {
+              categories: {
+                tech: this.techForm.value.tech,
+              },
+            },
+          };
+          if (this.formValue === 'new') {
             this.getCategory();
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Category edited successfull.',
-            });
-          });
+            if (
+              this.categoryList.includes(
+                this.techForm.value.tech.toLowerCase().trim()
+              )
+            ) {
+              this.messageService.add({
+                severity: 'warn',
+                summary: `${myValue} Category already exists.`,
+                life: 4000,
+              });
+              this.techForm.reset();
+            } else {
+              this.apiService.postCategory(postCat).subscribe((res) => {
+                this.getCategory();
+                this.techForm.reset();
+                this.messageService.add({
+                  severity: 'success',
+                  summary: `${myValue} Category added.`,
+                  life: 3000,
+                });
+              });
+            }
+          } else if (this.formValue === 'edit') {
+            this.apiService
+              .putCategory(this.editId, postCat)
+              .subscribe((res) => {
+                this.getCategory();
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Category edited successfull.',
+                });
+              });
+          }
+          this.showPopup = false;
         }
-        this.showPopup = false;
+      } catch (err: any) {
+        console.warn(err);
       }
-    } catch (err: any) {
-      console.warn(err);
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Please enter valid data',
+      });
     }
-  }
-  else{
-    this.messageService.add({
-      severity:'error',
-      summary:"Please enter valid data"
-    })
-  }
   }
 
   public editTech(id: number, name: string): void {
@@ -241,8 +252,8 @@ export class TecheCatComponent implements OnInit {
       },
     });
   }
-  public cancelForm():void {
+  public cancelForm(): void {
     this.showPopup = false;
-    this.techForm.reset()
+    this.techForm.reset();
   }
 }

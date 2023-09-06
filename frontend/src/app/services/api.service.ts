@@ -4,7 +4,12 @@ import { Observable } from 'rxjs/internal/Observable';
 import {
   AllCourseContent,
   AllCourseContentData,
-  postCourseContentData
+  categoryInterface,
+  postCat,
+  postContentData,
+  postCourseContentData,
+  postTech,
+  technologyInterface,
 } from '../models/content';
 import { Quiz, QuizData } from '../models/quiz';
 import {
@@ -24,8 +29,11 @@ import {
   CartResponse,
 } from '../models/cart';
 import { environment } from 'src/environment/environment';
-import { CourseData , postUserCourse , postUserCourseData} from 'src/app/models/library';
-
+import {
+  CourseData,
+  postUserCourse,
+  postUserCourseData,
+} from 'src/app/models/library';
 
 @Injectable({
   providedIn: 'root',
@@ -67,9 +75,12 @@ export class ApiService {
   }
 
   //Post COURSE CONTENT
-  public postContent( item: any ): Observable<any> {
-    return this.http.post<any>( `${environment.apiUrl}/api/course-contents`,item);
-}
+  public postContent(item: postContentData): Observable<postContentData> {
+    return this.http.post<postContentData>(
+      `${environment.apiUrl}/api/course-contents`,
+      item
+    );
+  }
 
   // update COURSE CONTENT
   public updateContent(
@@ -234,8 +245,6 @@ export class ApiService {
     );
   }
 
-
-
   //  --------- USER-HAS-COURSE API----------
   // GET Courses by passing UserID
   public getUserCourse(id: number): Observable<CourseData[]> {
@@ -243,7 +252,6 @@ export class ApiService {
       `${environment.apiUrl}/api/users-course?user_id=${id}`
     );
   }
-
 
   // GET by ID
   public getUserHasCourseById(id: number): Observable<any> {
@@ -253,7 +261,9 @@ export class ApiService {
   }
 
   // POST
-  public postUserHasCourse(item: postUserCourse): Observable<postUserCourseData> {
+  public postUserHasCourse(
+    item: postUserCourse
+  ): Observable<postUserCourseData> {
     return this.http.post<postUserCourseData>(
       `${environment.apiUrl}/api/user-has-courses`,
       item
@@ -335,52 +345,74 @@ export class ApiService {
     return this.http.put<any>(`${environment.apiUrl}/api/ratings/${id}`, item);
   }
 
+  // GET ALL USER'S
 
-// GET ALL USER'S
+  public getAllUers(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/api/users`);
+  }
 
-public getAllUers():Observable<any> {
-  return this.http.get<any>(`${environment.apiUrl}/api/users`)
-}
+  // GET SINGLE USER PROGRESS
+  public getSingleUserProgress(id: number): Observable<any> {
+    return this.http.get<any>(
+      `${environment.apiUrl}/api/users-course?user_id=${id}`
+    );
+  }
 
-// GET SINGLE USER PROGRESS
-public getSingleUserProgress(id:number):Observable<any> {
-  return this.http.get<any>(`${environment.apiUrl}/api/users-course?user_id=${id}`)
-}
+  // Get Users by Id
 
-// Get Users by Id
+  public getSingleUser(id: number): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/api/users/${id}`);
+  }
 
-public getSingleUser(id:number):Observable<any> {
-  return this.http.get<any>(`${environment.apiUrl}/api/users/${id}`)
-}
+  // GET Technology and Category
+  public getTechnoogy(): Observable<technologyInterface> {
+    return this.http.get<technologyInterface>(
+      `${environment.apiUrl}/api/technologies`
+    );
+  }
+  public postTechnoogy(item: postTech): Observable<technologyInterface> {
+    return this.http.post<technologyInterface>(
+      `${environment.apiUrl}/api/technologies`,
+      item
+    );
+  }
+  public putTechnoogy(
+    id: number,
+    item: postTech
+  ): Observable<technologyInterface> {
+    return this.http.put<technologyInterface>(
+      `${environment.apiUrl}/api/technologies/${id}`,
+      item
+    );
+  }
 
-// GET Technology and Category
-public getTechnoogy():Observable<any> {
-  return this.http.get<any>(`${environment.apiUrl}/api/technologies`)
-}
-public postTechnoogy(item:any):Observable<any> {
-  return this.http.post<any>(`${environment.apiUrl}/api/technologies`,item)
-}
-public putTechnoogy(id:number,item:any):Observable<any> {
-  return this.http.put<any>(`${environment.apiUrl}/api/technologies/${id}`,item)
-}
+  public deleteTechnoogy(id: number): Observable<technologyInterface> {
+    return this.http.delete<technologyInterface>(
+      `${environment.apiUrl}/api/technologies/${id}`
+    );
+  }
 
-public deleteTechnoogy(id:number):Observable<any> {
-  return this.http.delete<any>(`${environment.apiUrl}/api/technologies/${id}`)
-}
+  public getCategory(): Observable<categoryInterface> {
+    return this.http.get<categoryInterface>(
+      `${environment.apiUrl}/api/categories`
+    );
+  }
 
-
-public getCategory():Observable<any> {
-  return this.http.get<any>(`${environment.apiUrl}/api/categories`)
-}
-
-public postCategory(item:any):Observable<any> {
-  return this.http.post<any>(`${environment.apiUrl}/api/categories`,item)
-}
-public putCategory(id:number,item:any):Observable<any> {
-  return this.http.put<any>(`${environment.apiUrl}/api/categories/${id}`,item)
-}
-public deleteCategory(id:number):Observable<any> {
-  return this.http.delete<any>(`${environment.apiUrl}/api/categories/${id}`)
-}
-
+  public postCategory(item: postCat): Observable<categoryInterface> {
+    return this.http.post<categoryInterface>(
+      `${environment.apiUrl}/api/categories`,
+      item
+    );
+  }
+  public putCategory(id: number, item: postCat): Observable<categoryInterface> {
+    return this.http.put<categoryInterface>(
+      `${environment.apiUrl}/api/categories/${id}`,
+      item
+    );
+  }
+  public deleteCategory(id: number): Observable<categoryInterface> {
+    return this.http.delete<categoryInterface>(
+      `${environment.apiUrl}/api/categories/${id}`
+    );
+  }
 }

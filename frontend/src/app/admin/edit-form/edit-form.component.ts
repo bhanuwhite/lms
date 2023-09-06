@@ -18,7 +18,7 @@ import { ContentComponent } from '../content/content.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ApiService } from 'src/app/services/api.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { mediaDocument, videoObj } from 'src/app/models/content';
+import { categoryObjInterface, mediaDocument, technologyObjInterface, videoObj } from 'src/app/models/content';
 import { environment } from 'src/environment/environment';
 
 @Component({
@@ -62,19 +62,15 @@ export class EditFormComponent implements OnInit, OnChanges {
   public technologyArr: string[] = [];
   public technologyData: any;
   public newVideosUpload: any[] = [];
-
   Technologies: { label: string; value: string }[] = [];
   levels = [
     { level: 'Beginner' },
     { level: 'Intermediate' },
     { level: 'Advanced' },
   ];
-
   subjects: { tech: string }[] = [];
   public selectedTechnologies: string[] = [];
-
   courseStatus = [{ status: 'active' }, { status: 'block' }];
-
   constructor(
     public fb: FormBuilder,
     private apiService: ApiService,
@@ -123,7 +119,7 @@ export class EditFormComponent implements OnInit, OnChanges {
 
   private getTech(): void {
     this.apiService.getTechnoogy().subscribe((res) => {
-      res.data.map((resObj: any) => {
+      res.data.map((resObj: technologyObjInterface) => {
         this.Technologies.push({
           label: resObj.attributes.technologies.tech,
           value: resObj.attributes.technologies.tech,
@@ -133,7 +129,7 @@ export class EditFormComponent implements OnInit, OnChanges {
   }
   private getCategory(): void {
     this.apiService.getCategory().subscribe((res) => {
-      res.data.map((resObj: any) => {
+      res.data.map((resObj: categoryObjInterface) => {
         this.subjects.push(resObj.attributes.categories);
       });
     });

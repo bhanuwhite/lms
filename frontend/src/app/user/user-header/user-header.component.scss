@@ -1,58 +1,59 @@
 .nav-link {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .nave-menu {
-    color: #fff !important;
-    font-size: 1rem;
+  color: #fff !important;
+  font-size: 1rem;
 }
 
 .bg-blue {
-    background: linear-gradient(to left, lightblue, #0d6efd, );
+  background: linear-gradient(to left, lightblue, #0d6efd, );
 }
 
 .currentPwdIP {
-    border: 2px solid red;
-    opacity: 0.5;
+  border: 2px solid red;
+  opacity: 0.5;
 }
+
 .listbox-item {
-    margin: 0;
-    padding: 0.75rem 1.25rem;
-    border: 0 none;
-    color: #495057;
-    transition: box-shadow 0.2s;
-    border-radius: 0;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    user-select: none;
+  margin: 0;
+  padding: 0.75rem 1.25rem;
+  border: 0 none;
+  color: #495057;
+  transition: box-shadow 0.2s;
+  border-radius: 0;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  user-select: none;
 }
 
 .sidebar .sidebar-header+.sidebar-content {
-    padding-top: 0;
+  padding-top: 0;
 }
 
 .sidebar-footer {
-    margin-top: auto;
+  margin-top: auto;
 }
 
 .sidebar .sidebar-footer {
-    padding: 1.25rem;
+  padding: 1.25rem;
 }
 
 // listbox
 .listbox-list {
-    padding: 0.75rem 0;
-    list-style-type: none;
-    margin: 0;
+  padding: 0.75rem 0;
+  list-style-type: none;
+  margin: 0;
 }
 
 .listbox-item:hover {
-    background-color: #0d6efd45;
-    // background-color: #bdedcf;
-    color: #0d6efd;
-    font-weight: 500;
-    border-radius: 4px;
+  background-color: #0d6efd45;
+  // background-color: #bdedcf;
+  color: #0d6efd;
+  font-weight: 500;
+  border-radius: 4px;
 }

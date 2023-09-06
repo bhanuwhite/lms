@@ -67,7 +67,6 @@ export class TrackDetailsComponent implements OnInit {
       '--text-color-secondary'
     );
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
     const barColors = [
       documentStyle.getPropertyValue('--red-500'),
       documentStyle.getPropertyValue('--blue-500'),
@@ -76,7 +75,6 @@ export class TrackDetailsComponent implements OnInit {
       documentStyle.getPropertyValue('--navy-500'),
       documentStyle.getPropertyValue('--pink-500'),
     ];
-
     this.TrackUserData = {
       labels: this.UserTeck,
       datasets: [

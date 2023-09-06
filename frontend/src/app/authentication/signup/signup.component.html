@@ -1,98 +1,87 @@
-
-<!-- <app-spinner *ngIf="isLoading == true"></app-spinner> -->
 <div class="surface-ground pt-5 main_login_wrapper">
-    <div class=" card0 border-0">
-        <div class="row d-flex">
-            <div class="col-lg-6">
-                <div class="card1 pb-5">
-                    <div class="row px-3">
-                        <h1 style="color: #0d6efd">Welcome to LMS</h1>
-                    </div>
-                    <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
-                        <img height="400px"
-                            src="https://t4.ftcdn.net/jpg/04/12/22/09/360_F_412220949_b05U6ue0CR4AwLykbPZIqithDXKHf5L7.jpg">
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 login_div">
-                <div class="card2 card border-0 px-4 py-5">
-                    <form [formGroup]="formgroup">
-                        <div class="row mb-4 px-3">
-                            <h1 class="mb-0 mr-4 mt-2" style="padding: 10px 12px 0 0 ;">SIGN UP</h1>
-
-                        </div>
-                        <div class="row px-3 pb-3 position-relative">
-                            <label class="mb-1 p-0">
-                                <h6 class="mb-0 text-sm">Username : <span class="text-danger"> * </span></h6>
-                            </label>
-                            <input class="mb-1" type="text" name="name" formControlName="name"
-                                [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
-                                placeholder="Enter User Name ">
-                            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback px-0">
-                                <div *ngIf="name.errors?.['required']">
-                                    User name is required.
-                                </div>
-                                <div *ngIf="name.errors?.['minlength']">
-                                    User name must have at least 1 character.
-                                </div>
-                                <div *ngIf="name.errors?.['maxlength']">
-                                    User name must have at most 20 characters.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row px-3 pb-3 position-relative">
-                            <label class="mb-1 p-0">
-                                <h6 class="mb-0 text-sm">Email : <span class="text-danger"> * </span></h6>
-                            </label>
-                            <input class="mb-1" type="text" name="email" formControlName="email"
-                                [class.is-invalid]="email.invalid && (email.dirty || email.touched)"
-                                placeholder="Enter Email Address">
-
-                            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback px-0">
-                                <div *ngIf="email.errors?.['required']">
-                                    Email Address is required.
-                                </div>
-                                <div class="p-0"
-                                    *ngIf="!email.errors?.['required'] &&  email.errors?.['emailValidator']">
-                                    Invalid email format.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row px-3 position-relative">
-                            <label class="mb-1 p-0">
-                                <h6 class="mb-0 text-sm">Password : <span class="text-danger"> * </span></h6>
-                            </label>
-                            <input type="password" formControlName="pwd" name="pwd"
-                                [class.is-invalid]="pwd.invalid && (pwd.dirty || pwd.touched)"
-                                placeholder="Enter Password">
-
-                            <div *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" class="invalid-feedback pass px-0">
-                                <div *ngIf="pwd.errors?.['required']">
-                                    Password is required.
-                                </div>
-                                <div *ngIf="pwd.errors?.['minlength']">
-                                    Password must have at least 8 characters.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row px-3 mb-4">
-                        </div>
-                        <div class="row mb-3 px-3">
-                            <button pButton pRipple type="submit" class="w-full p-2 text-xl btn btn-primary"
-                                (click)="onSubmit()" [disabled]="formgroup.invalid">Sign Up</button>
-                        </div>
-                        <p-divider align="center">
-                            <b>OR</b>
-                        </p-divider>
-                        <div class="row mb-4 px-1">
-                            <small style="font-size: 14px; text-align: center;font-weight: 500;">Already a user ? <a
-                                    routerLink="/login" class="text-info ">Login</a></small>
-                        </div>
-                    </form>
-                </div>
-            </div>
+  <div class=" card0 border-0">
+    <div class="row d-flex">
+      <div class="col-lg-6">
+        <div class="card1 pb-5">
+          <div class="row px-3">
+            <h1 style="color: #0d6efd">Welcome to LMS</h1>
+          </div>
+          <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
+            <img height="400px"
+              src="https://t4.ftcdn.net/jpg/04/12/22/09/360_F_412220949_b05U6ue0CR4AwLykbPZIqithDXKHf5L7.jpg">
+          </div>
         </div>
+      </div>
+      <div class="col-lg-6 login_div">
+        <div class="card2 card border-0 px-4 py-5">
+          <form [formGroup]="formgroup">
+            <div class="row mb-4 px-3">
+              <h1 class="mb-0 mr-4 mt-2" style="padding: 10px 12px 0 0 ;">SIGN UP</h1>
+            </div>
+            <div class="row px-3 pb-3 position-relative">
+              <label class="mb-1 p-0">
+                <h6 class="mb-0 text-sm">Username : <span class="text-danger"> * </span></h6>
+              </label>
+              <input class="mb-1" type="text" name="name" formControlName="name"
+                [class.is-invalid]="name.invalid && (name.dirty || name.touched)" placeholder="Enter User Name ">
+              <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback px-0">
+                <div *ngIf="name.errors?.['required']">
+                  User name is required.
+                </div>
+                <div *ngIf="name.errors?.['minlength']">
+                  User name must have at least 1 character.
+                </div>
+                <div *ngIf="name.errors?.['maxlength']">
+                  User name must have at most 20 characters.
+                </div>
+              </div>
+            </div>
+            <div class="row px-3 pb-3 position-relative">
+              <label class="mb-1 p-0">
+                <h6 class="mb-0 text-sm">Email : <span class="text-danger"> * </span></h6>
+              </label>
+              <input class="mb-1" type="text" name="email" formControlName="email"
+                [class.is-invalid]="email.invalid && (email.dirty || email.touched)" placeholder="Enter Email Address">
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback px-0">
+                <div *ngIf="email.errors?.['required']">
+                  Email Address is required.
+                </div>
+                <div class="p-0" *ngIf="!email.errors?.['required'] &&  email.errors?.['emailValidator']">
+                  Invalid email format.
+                </div>
+              </div>
+            </div>
+            <div class="row px-3 position-relative">
+              <label class="mb-1 p-0">
+                <h6 class="mb-0 text-sm">Password : <span class="text-danger"> * </span></h6>
+              </label>
+              <input type="password" formControlName="pwd" name="pwd"
+                [class.is-invalid]="pwd.invalid && (pwd.dirty || pwd.touched)" placeholder="Enter Password">
+              <div *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" class="invalid-feedback pass px-0">
+                <div *ngIf="pwd.errors?.['required']">
+                  Password is required.
+                </div>
+                <div *ngIf="pwd.errors?.['minlength']">
+                  Password must have at least 8 characters.
+                </div>
+              </div>
+            </div>
+            <div class="row px-3 mb-4">
+            </div>
+            <div class="row mb-3 px-3">
+              <button pButton pRipple type="submit" class="w-full p-2 text-xl btn btn-primary" (click)="onSubmit()"
+                [disabled]="formgroup.invalid">Sign Up</button>
+            </div>
+            <p-divider align="center">
+              <b>OR</b>
+            </p-divider>
+            <div class="row mb-4 px-1">
+              <small style="font-size: 14px; text-align: center;font-weight: 500;">Already a user ? <a
+                  routerLink="/login" class="text-info ">Login</a></small>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

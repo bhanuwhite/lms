@@ -30,6 +30,14 @@ export class ProfileComponent {
   public userProfileSettings: string[] = [];
   public userDetails!: userUpdateProfile;
   public remainingWords: number = 50;
+  public userLoginEmail!: string;
+  userId!: number;
+  loginUserName!: string;
+  userFirstName!: string;
+  userLastName!: string;
+  mobileNo!: number;
+  linkedin!: string;
+  biograpy!: string;
 
   constructor(
     private fb: FormBuilder,
@@ -61,19 +69,9 @@ export class ProfileComponent {
     ];
   }
 
-  public userLoginEmail!: string;
-  userId!: number;
-  loginUserName!: string;
-  userFirstName!: string;
-  userLastName!: string;
-  mobileNo!: number;
-  linkedin!: string;
-  biograpy!: string;
-
   //login Details
   public getLocalStorage() {
     const userLoginData = JSON.parse(localStorage.getItem('user')!);
-
     this.apiService.getProfileDetails().subscribe((res) => {
       const allUserDetails = res;
       allUserDetails.filter((res: userProfile) => {
@@ -136,9 +134,7 @@ export class ProfileComponent {
       email: this.userProfileForm.value.email,
       mobile: this.userProfileForm.value.mobileNo,
       biography: this.userProfileForm.value.biography,
-      // linkedIn: this.userProfileForm.value.linkedin,
     };
-
     this.apiService
       .updateProfileDetails(this.userId, this.userDetails)
       .subscribe((res) => {
@@ -160,7 +156,6 @@ export class ProfileComponent {
     this.reader = new FileReader();
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
-
       this.reader.readAsDataURL(file);
       this.reader.onload = () => {
         this.userImageForm.patchValue({
@@ -176,7 +171,6 @@ export class ProfileComponent {
     const textValue = this.userProfileForm.controls['biography'].value;
     const wordCount = textValue?.trim().split(/\s+/).length;
     this.remainingWords = 50 - wordCount;
-
     if (this.remainingWords < 0) {
       const words = textValue.trim().split(/\s+/);
       this.userProfileForm.controls['biography'].setValue(
@@ -188,7 +182,6 @@ export class ProfileComponent {
 
   //save image
   public saveImage(): void {}
-
   //saveProfileSettingValues
   public savingProfileSettingValues(): void {}
 }

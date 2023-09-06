@@ -34,7 +34,4 @@ export class AboutService {
   public watchCourseCount(value: number): void {
     this.progressValue.next(value);
   }
-
-
-
 }

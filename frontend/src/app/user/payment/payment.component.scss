@@ -1,17 +1,20 @@
 .field-radiobutton {
-    border: 1px solid lightgray;
-    padding: 10px;
-    border-radius: 0px;
-    background-color: rgb(241, 243, 244);
+  border: 1px solid lightgray;
+  padding: 10px;
+  border-radius: 0px;
+  background-color: rgb(241, 243, 244);
 }
-@media (min-width: 319px) and (max-width: 800px){
-    .wrapper_country{
-        flex-wrap: wrap;
-        div{
-            width: 100% !important;
-        }
+
+@media (min-width: 319px) and (max-width: 800px) {
+  .wrapper_country {
+    flex-wrap: wrap;
+
+    div {
+      width: 100% !important;
     }
-    .course_detail_div{
-        width: 100% !important;
-    }
+  }
+
+  .course_detail_div {
+    width: 100% !important;
+  }
 }

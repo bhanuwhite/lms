@@ -3,6 +3,7 @@
 //for responsiveness
 .profile-first-section {
   margin-top: 30px;
+
   h1 {
     font-size: 42px;
   }
@@ -26,9 +27,16 @@
     position: static;
   }
 }
+
 @media only screen and (max-width: 760px) {
-  
+
   .content-inner {
     padding: 15px 15px !important;
-}
+  }
+  .input-shadow {
+    width: 95% !important;
+  }
+  .biography_input_box{
+    width: 95% !important;
+  }
 }

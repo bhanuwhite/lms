@@ -83,11 +83,15 @@ export class QuizDetailsComponent implements OnInit {
     this.apiService.getQuiz().subscribe((res) => {
       this.quizData = res.data;
       this.quizData.map((res: QuizResponse) => {
-        if (this.courseName == res.attributes.course_name) {
+        if (this.courseName.toLowerCase() === res.attributes.course_name.toLowerCase()) {
           this.quizDetails.push(res);
         }
       });
     });
+setTimeout(() => {
+  console.log(this.quizDetails);
+
+}, 1000);
   }
 
   showDialog(question: QuizResponse) {

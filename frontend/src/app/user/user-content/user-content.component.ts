@@ -3,10 +3,17 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
-import { AllCourseContentData, ContentResponse } from 'src/app/models/content';
+import {
+  AllCourseContentData,
+  ContentResponse,
+  categoryObjInterface,
+} from 'src/app/models/content';
 import { AboutService } from 'src/app/services/about.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { environment } from 'src/environment/environment';
+import { CourseData } from 'src/app/models/library';
+import { CartResponse } from 'src/app/models/cart';
+import { QuizResponse } from 'src/app/models/quiz';
 
 interface Subjects {
   name: string;
@@ -59,7 +66,7 @@ export class UserContentComponent {
 
   private getCategory(): void {
     this.apiService.getCategory().subscribe((res) => {
-      res.data.map((resObj: any) => {
+      res.data.map((resObj: categoryObjInterface) => {
         const catObj = {
           name: resObj.attributes.categories.tech,
         };
@@ -83,14 +90,14 @@ export class UserContentComponent {
 
   public gettingUserHasCourse(): void {
     this.apiService.getUserCourse(this.userID).subscribe((res) => {
-      res.map((resObj: any) => {
+      res.map((resObj: CourseData) => {
         if (resObj.course_ids.length != 0) {
           this.myCourseLen += 1;
         }
       });
     });
     this.apiService.getUserCart(this.userID).subscribe((res) => {
-      res.map((cartRes: any) => {
+      res.map((cartRes: CartResponse) => {
         if (cartRes.course_ids.length == 0) {
           this.apiService.deleteCartItem(cartRes.id).subscribe();
         }
@@ -116,7 +123,7 @@ export class UserContentComponent {
   public getAllQuizDetails() {
     this.apiService.getQuiz().subscribe((res) => {
       this.courseTech = res.data.map(
-        (resObj: any) => resObj.attributes.course_name
+        (resObj: QuizResponse) => resObj.attributes.course_name
       );
     });
     setTimeout(() => {
@@ -141,7 +148,7 @@ export class UserContentComponent {
   public searchFunction() {
     if (this.searchWord) {
       this.coursesList = this.courseList2.filter(
-        (course: any) =>
+        (course: AllCourseContentData) =>
           course.attributes.name
             .toLowerCase()
             .includes(this.searchWord.toLowerCase()) ||
@@ -163,7 +170,7 @@ export class UserContentComponent {
       if (selectedValue === 'All') {
         this.coursesList = this.courseList2;
       } else {
-        this.courseList2.forEach((course: any) => {
+        this.courseList2.forEach((course: AllCourseContentData) => {
           if (
             course.attributes.categories?.toLowerCase() ===
             selectedValue?.toLowerCase()

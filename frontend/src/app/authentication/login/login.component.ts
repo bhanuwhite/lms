@@ -114,9 +114,7 @@ export class LoginComponent {
     const forgotBody = {
       email: this.forgotForm.value.email,
     };
-
     this.authService.forgotPassword(forgotBody).subscribe((res) => {});
-
     this.messageService.add({
       severity: 'success',
       summary: 'Check your Email',

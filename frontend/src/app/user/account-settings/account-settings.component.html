@@ -15,7 +15,6 @@
                     <div class="p-inputgroup">
                       <input type="email" readonly="true" id="email" [(ngModel)]="userCurrentEmail"
                         name="userCurrentEmail" pInputText placeholder="dev1@gmail.com" />
-
                     </div>
                   </div>
                 </form>
@@ -44,7 +43,6 @@
                       (click)="changeUserEmail()"></button>
                   </ng-template>
                 </p-dialog>
-
                 <p-dialog header="Change Password" [(visible)]="displayPasswordModal" [modal]="true"
                   [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
                   <form>
@@ -186,6 +184,5 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>

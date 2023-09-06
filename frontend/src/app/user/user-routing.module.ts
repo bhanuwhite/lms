@@ -16,60 +16,73 @@ import { AssessmentComponent } from './assessment/assessment.component';
 import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
 import { MycartComponent } from './mycart/mycart.component';
 
-
 const routes: Routes = [
   {
     path: '',
     component: UserComponent,
     children: [
       {
-        path: '', component: UserContentComponent
+        path: '',
+        component: UserContentComponent,
       },
       {
-        path: 'library', component: MyLibraryComponent
+        path: 'library',
+        component: MyLibraryComponent,
       },
       {
-        path:'assessment', component: AssessmentComponent
+        path: 'assessment',
+        component: AssessmentComponent,
       },
       {
-        path: 'assessment/:course', component: QuizDetailsComponent
+        path: 'assessment/:course',
+        component: QuizDetailsComponent,
       },
       {
-        path: 'course/:id', component: ContentDetailsComponent
+        path: 'course/:id',
+        component: ContentDetailsComponent,
       },
       {
-        path: 'library/:id', component: CourseDetailsComponent
+        path: 'library/:id',
+        component: CourseDetailsComponent,
       },
       {
-        path: 'message',component: MessageComponent
+        path: 'message',
+        component: MessageComponent,
       },
       {
-        path: 'payment', component: PaymentComponent
+        path: 'payment',
+        component: PaymentComponent,
       },
       {
-        path: 'purchase-history', component: PurchaseHistoryComponent
+        path: 'purchase-history',
+        component: PurchaseHistoryComponent,
       },
       {
-        path: 'receipt', component: ReceiptComponent
+        path: 'receipt',
+        component: ReceiptComponent,
       },
       {
-        path: 'invoice', component: InvoiceComponent
+        path: 'invoice',
+        component: InvoiceComponent,
       },
       {
-        path: 'profile', component: ProfileComponent
+        path: 'profile',
+        component: ProfileComponent,
       },
       {
-        path: 'account-settings', component:AccountSettingsComponent
+        path: 'account-settings',
+        component: AccountSettingsComponent,
       },
       {
-        path:'mycart', component:MycartComponent
-      }
-    ]
-  }
+        path: 'mycart',
+        component: MycartComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UserRoutingModule { }
+export class UserRoutingModule {}

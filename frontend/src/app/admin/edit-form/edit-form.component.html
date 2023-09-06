@@ -1,7 +1,6 @@
 <p-dialog header="Update Course" [(visible)]="editFormVisible" [modal]="true" [style]="{ width: '50vw' }"
   [draggable]="false" [resizable]="false">
   <form [formGroup]="popupForm">
-
     <div class="p-fluid grid">
       <div class="field mt-2 w-100">
         <label for="name">
@@ -10,7 +9,6 @@
         <span class="p-float-label">
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="name" pInputText
             placeholder="Course Name" />
-
           <small class="p-error block" *ngIf="
                   popupForm.get('name')?.invalid &&
                   popupForm.get('name')?.touched
@@ -32,20 +30,17 @@
           </div>
         </span>
       </div>
-
       <div class="field mt-2 w-100">
         <label for="image"> Thumbnail image :
           <img *ngIf="edituserLearnings.attributes.placeholder_img.data != null"
             [src]=" imgSrc ? imgUrl+imgSrc: imgUrl+edituserLearnings.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url"
             alt="" pTooltip="Click to change image" tooltip [style]="{'height':'80px','width':'80px'}"
             class=" ms-5 rounded-pill">
-
           <ng-container
             *ngIf="edituserLearnings.attributes.placeholder_img.data == null || edituserLearnings.attributes.placeholder_img.data == undefined">
             <img [src]="imgSrc? imgUrl+imgSrc:''" alt="No Image" [style]="{'height':'80px','width':'80px'}"
               class=" ms-5 rounded-pill">
           </ng-container>
-
         </label>
         <span class="p-float-label">
           <input type="file" id="image" accept="image/*" class="bg-light-grey input-shadow w-100 p-inputtext d-none"
@@ -56,7 +51,6 @@
           <span>Selected Image <b>{{imageFileData}}</b> </span>
         </ng-container>
       </div>
-
       <div class="field mt-2 w-100">
         <label for="courseVideos">
           Content Video (mp4/MPEG/WMV/FLV) :
@@ -94,7 +88,6 @@
           </div>
         </ng-container>
       </div>
-
       <div class="field mt-2 w-100">
         <label for="link">Link :</label>
         <span class="p-float-label">
@@ -108,11 +101,9 @@
           Please enter valid http address.
         </small>
       </div>
-
       <div class="field mt-2 w-100">
         <label for="technology">Technology<span class="text-danger fs-5">*</span> :
         </label>
-
         <p-multiSelect formControlName="technologies" id="technology" [options]="Technologies"
           placeholder="Select Technology" (onChange)="techSelected($event)"></p-multiSelect>
         <span class="p-float-label">
@@ -123,9 +114,7 @@
             Technology selection is required.
           </small>
         </span>
-
       </div>
-
       <div class="field mt-2 w-100">
         <label for="technology">Level<span class="text-danger fs-5">*</span> :
         </label>
@@ -140,7 +129,6 @@
           </small>
         </span>
       </div>
-
       <div class="field mt-2 w-100">
         <label for="name">Category<span class="text-danger fs-5">*</span> :
         </label>
@@ -155,7 +143,6 @@
           </small>
         </span>
       </div>
-
       <div class="field mt-2 w-100">
         <label for="imgage">Course Includes:</label>
         <div class="row">
@@ -174,7 +161,6 @@
             </div>
           </div>
         </div>
-
         <ng-container *ngIf="showDocuments">
           <div class="field mt-2 w-100">
             <label for="uploadFile"> Uploaded Documents (pdf/csv/excel/zip) <span class="text-danger fs-5">*</span> :
@@ -195,7 +181,6 @@
           </div>
         </ng-container>
       </div>
-
       <div class="field mt-2 w-100">
         <label for="price">Price <span class="text-danger fs-5">*</span> :</label>
         <span class="p-float-label">
@@ -211,18 +196,15 @@
           </small>
         </span>
       </div>
-
     </div>
     <div class="d-flex justify-content-between mt-2">
       <button type="button" class="btn btn-dark cursor-pointer" (click)="cancelUpdate()">
         <i class="pi pi-delete-left me-2 "> </i>Cancel
       </button>
-
       <button type="button" class="btn btn-success me-2 cursor-pointer" (click)="onUpdateContent()">
         <i class="pi pi-save me-2 "></i>Update
       </button>
     </div>
-
   </form>
 </p-dialog>
 

@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder, EmailValidator } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+  EmailValidator,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { emailValidator } from 'src/app/email.directive';
@@ -9,10 +15,9 @@ import { SignUp } from 'src/app/models/authenticate';
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class SignupComponent {
-
   formgroup!: FormGroup;
 
   body!: SignUp;
@@ -25,31 +30,36 @@ export class SignupComponent {
     private authSerice: AuthService,
     private router: Router,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.formgroup = this.fb.group({
-      name: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]),
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(20),
+      ]),
       email: new FormControl('', [Validators.required, emailValidator()]),
       pwd: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
   }
 
-  public get f() { return this.formgroup.controls; }
+  public get f() {
+    return this.formgroup.controls;
+  }
 
   public onSubmit(): void {
     this.submitted = true;
     if (this.formgroup.invalid) {
       return;
     }
-
     this.body = {
-        username: this.formgroup.value.name,
-        email: this.formgroup.value.email,
-        password: this.formgroup.value.pwd
-    }
+      username: this.formgroup.value.name,
+      email: this.formgroup.value.email,
+      password: this.formgroup.value.pwd,
+    };
     this.isLoading = true;
-    this.authSerice.signupUser(this.body).subscribe(res => {
+    this.authSerice.signupUser(this.body).subscribe((res) => {
       const data = res.user;
       localStorage.setItem('token', res.jwt);
       localStorage.setItem('user', JSON.stringify(data));
@@ -59,7 +69,11 @@ export class SignupComponent {
         this.router.navigate(['user']);
         this.isLoading = false;
       } catch (error) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went to wrong !!' });
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Something went to wrong !!',
+        });
       }
     });
   }

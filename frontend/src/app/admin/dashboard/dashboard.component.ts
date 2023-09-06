@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { resolve } from 'chart.js/dist/helpers/helpers.options';
 import { AllCourseContent, AllCourseContentData } from 'src/app/models/content';
 import { userProfile } from 'src/app/models/profile';
 import { UserDetails } from 'src/app/models/track';
@@ -49,7 +48,7 @@ export class DashboardComponent implements OnInit {
         (a: any, b: any) =>
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );
-      this.usersData = this.usersData.filter((res: any) => {
+      this.usersData = this.usersData.filter((res: userProfile) => {
         return res.role_id == 3;
       });
       this.usersData2 = this.usersData.slice(0, 5);
@@ -112,8 +111,8 @@ export class DashboardComponent implements OnInit {
       this.apiService.getContent().subscribe((res: AllCourseContent) => {
         try {
           this.courseCount = res.data.length;
-          res.data.map((resObj: any) => {
-            if (resObj.attributes.price == 0) {
+          res.data.map((resObj: AllCourseContentData) => {
+            if (Number(resObj.attributes.price) == 0) {
               this.freeCourseCount += 1;
             } else {
               this.paidCourseCount += 1;
@@ -122,26 +121,24 @@ export class DashboardComponent implements OnInit {
               this.purchaseCount += 1;
             }
           });
-
           res.data.sort(
             (a: any, b: any) =>
               b.attributes.no_of_purchases - a.attributes.no_of_purchases
           );
           this.top5Courses = res.data.slice(0, 5);
-
           res.data.sort(
             (a: any, b: any) =>
               b.attributes.video_name - a.attributes.video_name
           );
-
           this.top3ViewedCourses = res.data.slice(0, 3);
           this.top3ViewedCourses.map((resObj: AllCourseContentData) => {
             this.topViewedCourses.push(resObj.attributes.technologies['1']);
           });
-          this.top3ViewedCourses.map((resObj: any) => {
-            this.topViewedCount.push(resObj.attributes.video_name);
+          this.top3ViewedCourses.map((resObj: AllCourseContentData) => {
+            if (resObj.attributes.video_name) {
+              this.topViewedCount.push(resObj.attributes.video_name);
+            }
           });
-
           res.data.forEach((item) => {
             this.allCourses.push(item.attributes?.technologies);
             this.allCourses.forEach((obj) => {

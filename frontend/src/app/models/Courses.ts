@@ -50,10 +50,10 @@ export interface CoursesAttributes {
   };
   hash: string;
   height: number;
-  id?:number;
+  id?: number;
   mime: string;
   name: string;
-  createdAt?:string;
+  createdAt?: string;
   provider: string;
   size: number;
   previewUrl: string | null;
@@ -145,18 +145,18 @@ export interface CoursesImgUpload {
   width: number;
 }
 export interface UpdateCourseObj {
-  data : {
-    assignment:number | undefined,
-    courseContent:number,
-    courseDescription:string,
-    title:string
-  }
+  data: {
+    assignment: number | undefined;
+    courseContent: number;
+    courseDescription: string;
+    title: string;
+  };
 }
 export interface PostCourseData {
-  data:{
-    assignment:number | undefined,
-    courseContent:number | undefined,
-    courseDescription:string,
-    title:string
-  }
+  data: {
+    assignment: number | undefined;
+    courseContent: number | undefined;
+    courseDescription: string;
+    title: string;
+  };
 }

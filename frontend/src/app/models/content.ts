@@ -11,11 +11,11 @@ export interface AllCourseContent {
   };
 }
 
-
 export interface AllCourseContentData {
   data: AllCourseContentData;
   id: number;
   attributes: {
+    categories?: string;
     content: AllCourseContentVideo;
     description: string;
     link: string;
@@ -33,61 +33,62 @@ export interface AllCourseContentData {
     course_duration: any;
     user_id: string | number;
     course_include: string[];
-    video_name?:null | string;
-    discount?:string
+    video_name?: null | string;
+    discount?: string;
   };
 }
 
 export interface myFiles {
   data: {
-    id:number,
-    attributes:{
-      alternativeText:string,
-      caption:string,
-      ext:string,
-      hash:string,
-      name:string,
-      url:string
-    }
-  }[]
+    id: number;
+    attributes: {
+      alternativeText: string;
+      caption: string;
+      ext: string;
+      hash: string;
+      name: string;
+      url: string;
+    };
+  }[];
 }
 
 export interface SingleCourseObj {
   id: number;
-  attributes:{
-    content:{
-      data : {
-        id:number,
-        attributes:{
-          alternativeText: string,
-          caption:string,
-          ext:string,
-          hash:string,
-          name:string,
-          url:string
-        } [] | null
-      }
-    },
-    course_includes?:string[],
-    createdAt:string,
-    creater_id:null | string,
-    description:string,
-    discount:number | string,
-    files?:myFiles,
-    level:string,
-    link:string,
-    name:string,
-    no_of_purchases:number | string,
-    placeholder_img:any,
-    price:number | string,
-    rating:null | number,
-    review : null | string,
-    status:string,
-    subject:string,
-    technologies:any,
-    total_duration:number | string,
-
-  }
+  attributes: {
+    content: {
+      data: {
+        id: number;
+        attributes:
+          | {
+              alternativeText: string;
+              caption: string;
+              ext: string;
+              hash: string;
+              name: string;
+              url: string;
+            }[]
+          | null;
+      };
+    };
+    course_includes?: string[];
+    createdAt: string;
+    creater_id: null | string;
+    description: string;
+    discount: number | string;
+    files?: myFiles;
+    level: string;
+    link: string;
+    name: string;
+    no_of_purchases: number | string;
+    placeholder_img: any;
+    price: number | string;
+    rating: null | number;
+    review: null | string;
+    status: string;
+    subject: string;
+    technologies: any;
+    total_duration: number | string;
+  };
 }
 
 export interface SingleCourseData {
@@ -217,17 +218,17 @@ export interface postCourseContentData {
           url: string;
         };
       };
-    } ;
+    };
     price?: number | string;
     status?: string;
     technology?: string;
     subject?: string;
     user_id?: number;
-    no_of_purchases?: number ;
+    no_of_purchases?: number;
     course_include?: any;
     files?: any;
-    video_name?:string | null,
-    discount?:string
+    video_name?: string | null;
+    discount?: string;
   };
 }
 
@@ -303,4 +304,88 @@ export interface videoObj {
   name: string;
   size: number;
   url: string;
+}
+
+export interface technologyObj {
+  id: number;
+  attributes: {
+    technologies: { tech: string };
+  };
+}
+export interface categoryObj {
+  id: number;
+  attributes: {
+    categories: { tech: string };
+  };
+}
+
+export interface postContentData {
+  data: {
+    categories: string;
+    content: {
+      name: string;
+      url: string;
+    }[];
+    course_include: string[];
+    description: string;
+    files: any;
+    level: string;
+    link: string;
+    placeholder_img: {
+      formats?: {
+        thumbnail: {
+          url: string;
+        };
+      };
+    };
+    price: number;
+    status: string;
+    technologies: {
+      [key: number]: string;
+    };
+    total_duration: string;
+    user_id: number;
+  };
+  meta?: {};
+}
+
+export interface technologyObjInterface {
+  id: number;
+  attributes: {
+    technologies: { tech: string };
+  };
+}
+export interface categoryObjInterface {
+  id: number;
+  attributes: {
+    categories: { tech: string };
+  };
+}
+export interface postTech {
+  data: { technologies: { tech: string } };
+}
+export interface postCat {
+  data: { categories: { tech: string } };
+}
+export interface technologyInterface {
+  data: technologyObjInterface[];
+  meta: {
+    pagination: {
+      page: number;
+      pageCount: number;
+      pageSize: number;
+      total: number;
+    };
+  };
+}
+export interface categoryInterface {
+  data: categoryObjInterface[];
+  meta: {
+    pagination: {
+      page: number;
+      pageCount: number;
+      pageSize: number;
+      total: number;
+    };
+  };
 }

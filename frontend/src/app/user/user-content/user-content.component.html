@@ -33,7 +33,6 @@
           </div>
         </div>
       </div>
-
       <div class="col-lg-4 mb-1 col-md-6 md:col-6 lg:col-4">
         <div class="surface-card shadow-2 p-2 border-round" (click)="examPopup()">
           <div class="flex justify-content-between mb-3">
@@ -56,7 +55,6 @@
       </div>
     </div>
   </div>
-
   <div class="container-fluid" *ngIf="!Spinner">
     <div class="text-center">
       <h2><b>Courses to get you Started</b></h2>
@@ -73,12 +71,12 @@
             placeholder="Search Course...." />
         </span>
       </div>
-
       <div class="col-lg-4">
         <form [formGroup]="formGroup">
           <div class="category">
             <p-dropdown formControlName="selectedSubject" [options]="subjects" optionLabel="name"
-              placeholder="Select Category" (onChange)="onSelectSubject(formGroup.value.selectedSubject.name  )"></p-dropdown>
+              placeholder="Select Category"
+              (onChange)="onSelectSubject(formGroup.value.selectedSubject.name  )"></p-dropdown>
           </div>
         </form>
       </div>
@@ -86,7 +84,6 @@
     <div *ngIf="Spinner">
       <div class="loader">Loading...</div>
     </div>
-
     <div class="row all-Courses" *ngIf="coursesList.length != 0">
       <p-card class="course-card" *ngFor="let course of coursesList">
         <ng-template pTemplate="header">
@@ -96,7 +93,6 @@
                 ?.thumbnail?.url" class="img-fluid" style="height: 225px; border-radius: 10px 10px 2px 2px"
                   [routerLink]="['course/', course.id]" /></a>
             </ng-container>
-
             <ng-container *ngIf="course.attributes.placeholder_img.data == null">
               <div class="card  cursor-pointer d-flex justify-content-center align-items-center"
                 [style]="{'height':'225px','width':'100%','border-radius':'10px 10px 2px 2px'}"
@@ -104,7 +100,6 @@
                 <p class="fs-3 fw-bold"> {{course.attributes.technologies['1']}} </p>
               </div>
             </ng-container>
-
           </div>
         </ng-template>
         <div class="cursor-pointer">
@@ -114,7 +109,8 @@
                 <b>{{ course.attributes.name }}</b>
               </h4>
             </div>
-            <div class="col-lg-6 col-sm-6 col-md-6  d-flex justify-content-end" *ngIf="course.attributes.total_duration !=0">
+            <div class="col-lg-6 col-sm-6 col-md-6  d-flex justify-content-end"
+              *ngIf="course.attributes.total_duration !=0">
               <p class="m-0 p-0 d-flex justify-content-center"><span class="material-icons pe-1"> schedule </span>
                 {{((course.attributes.total_duration)/3600).toFixed(1)}}hrs </p>
             </div>
@@ -124,14 +120,16 @@
               <i class="user_badge" pBadge style="font-size: 2rem" value="{{ course.attributes.level }}"
                 severity="warning"></i>
             </div>
-            <div class="col-lg-8 col-sm-8 col-md-8 d-flex justify-content-end" *ngIf="course?.attributes?.content?.data?.length">
+            <div class="col-lg-8 col-sm-8 col-md-8 d-flex justify-content-end"
+              *ngIf="course?.attributes?.content?.data?.length">
               <p class="m-0 p-0">
                 Lectures : <b>{{ course?.attributes?.content?.data?.length }}</b>
               </p>
             </div>
           </div>
           <div class="d-flex justify-content-between">
-            <div class="col-lg-12 col-sm-12 col-md-12 text-truncate" pTooltip="{{ course.attributes.description }}" tooltip>
+            <div class="col-lg-12 col-sm-12 col-md-12 text-truncate" pTooltip="{{ course.attributes.description }}"
+              tooltip>
               <p class="textOverflow">{{ course.attributes.description }}</p>
             </div>
           </div>
@@ -168,7 +166,6 @@
         </ng-template>
       </p-card>
     </div>
-
     <div class="d-flex justify-content-center mt-5" *ngIf="coursesList.length == 0  &&  !Spinner">
       <div class="d-flex justify-content-center card shadow-4 col-lg-3">
         <div class="card-body text-center d-flex justify-content-center align-items-center">

@@ -29,12 +29,10 @@ export class AssessmentComponent implements OnInit {
     this.targetTime = new Date();
     // this.targetTime.setDate(this.targetTime.getDate() + 14);
     const currentTime = new Date();
-
     this.targetTime = new Date(currentTime.getTime() + 5 * 60 * 1000);
     this.timerSubscription = interval(1000).subscribe(() => {
       this.updateCountdown();
     });
-
 
     this.getAllQuizDetails();
     this.getAllCourseDetais();
@@ -130,7 +128,4 @@ export class AssessmentComponent implements OnInit {
       this.countdown = `${minutes}m ${seconds}s`;
     }
   }
-
-
-
 }

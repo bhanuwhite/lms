@@ -9,10 +9,8 @@ import {
 export function emailValidator(): ValidatorFn {
   const EMAIL_REGEXP =
     /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-
   return (control: AbstractControl): ValidationErrors | null => {
     const isValid = EMAIL_REGEXP.test(control.value);
-
     if (isValid) {
       return null;
     } else {
@@ -37,7 +35,6 @@ export function emailValidator(): ValidatorFn {
 })
 export class EmailDirective {
   constructor() {}
-
   public validate(control: AbstractControl): ValidationErrors | null {
     return emailValidator()(control);
   }

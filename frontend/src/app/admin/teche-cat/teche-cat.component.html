@@ -31,12 +31,10 @@
               </span>
             </div>
           </td>
-
         </tr>
       </ng-template>
     </p-table>
   </div>
-
 </ng-container>
 
 <ng-container *ngIf="roleName?.toLowerCase() === 'category'">
@@ -59,7 +57,6 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-product>
-
         <tr>
           <td>{{product.attributes.categories.tech}}</td>
           <td>
@@ -82,27 +79,25 @@
 <div>
   <p-toast></p-toast>
   <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
-
 </div>
 
 <p-dialog header="Add {{headerName}}" [visible]="showPopup" [modal]="true" [style]="{'width':'40vw'}">
   <form [formGroup]="techForm" (ngSubmit)="techSubmit()">
     <div class="mb-2">
-      <label for="tech" class="mb-2">{{headerName}}  </label>
+      <label for="tech" class="mb-2">{{headerName}} </label>
       <input pInputText id="tech" type="text" formControlName="tech" class="p-inputtext-md form-control mt-1"
         placeholder='Enter {{headerName | lowercase}} name ' />
-        <small class="p-error block" *ngIf="
+      <small class="p-error block" *ngIf="
         techForm.get('tech')?.invalid && techForm.get('tech')?.touched
       ">
-      <ng-container *ngIf="techForm.get('tech')?.errors?.['required']">Category name is required.</ng-container>
-      <ng-container *ngIf="techForm.get('tech')?.errors?.['pattern']">Numbers or special characters are not
-        allowed.</ng-container>
-    </small>
-
+        <ng-container *ngIf="techForm.get('tech')?.errors?.['required']">Category name is required.</ng-container>
+        <ng-container *ngIf="techForm.get('tech')?.errors?.['pattern']">Numbers or special characters are not
+          allowed.</ng-container>
+      </small>
     </div>
     <div class="d-flex justify-content-end ">
       <button class="btn btn-secondary btn-sm" type="reset" (click)="cancelForm()"> Cancel </button>
-      <button class="btn btn-success btn-sm" type="submit" >Submit</button>
+      <button class="btn btn-success btn-sm" type="submit">Submit</button>
     </div>
   </form>
 </p-dialog>

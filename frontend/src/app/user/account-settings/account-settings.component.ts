@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-account-settings',
   templateUrl: './account-settings.component.html',
-  styleUrls: ['./account-settings.component.scss']
+  styleUrls: ['./account-settings.component.scss'],
 })
 export class AccountSettingsComponent {
   displayPasswordModal!: boolean;
@@ -20,18 +20,14 @@ export class AccountSettingsComponent {
   public changeUserEmail(): void {
     if (this.userEnteredPassword === this.userCurrentPassword) {
       this.userCurrentEmail = this.userNewEmail;
-
       const userNewDetails = {
         email: this.userNewEmail,
         password: this.userCurrentPassword,
       };
-
       localStorage.setItem('userDetails', JSON.stringify(userNewDetails));
       this.displayEmailModal = false;
-    }
-    else {
-      console.log("enter currect password");
-
+    } else {
+      console.log('enter currect password');
     }
   }
   public onPasswordEdit(): void {
@@ -53,7 +49,6 @@ export class AccountSettingsComponent {
       );
       this.displayPasswordModal = false;
     } else {
-
       console.log('enter your correct password');
     }
   }

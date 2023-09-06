@@ -50,7 +50,7 @@ export interface courseDetails {
   review: null | string;
   status: string;
   subject: string;
-  technologies: {1:string;2:string;3:string;4:string};
+  technologies: { 1: string; 2: string; 3: string; 4: string };
   total_duration: string;
   updatedAt: string;
   user_learning: { 0: string; 1: string };
@@ -111,26 +111,23 @@ export interface content {
   width: number | null;
 }
 
-export interface postUserCourse{
-    data: {
-      course_ids:number,
-      user_id:number,
-
-    },
-
+export interface postUserCourse {
+  data: {
+    course_ids: number;
+    user_id: number;
+  };
 }
 
-export interface postUserCourseData{
-  data:{
-    attributes :{
-      createdAt: string
-    progress_percentage: null
-    publishedAt: string
-    time_consumed: string
-    total_duration: string
-    updatedAt: string
-    }
-    id: number
-
-  }
+export interface postUserCourseData {
+  data: {
+    attributes: {
+      createdAt: string;
+      progress_percentage: null;
+      publishedAt: string;
+      time_consumed: string;
+      total_duration: string;
+      updatedAt: string;
+    };
+    id: number;
+  };
 }

@@ -131,7 +131,6 @@ export class QuizComponent implements OnInit, OnDestroy {
         course_name: this.addQuizGroup.value.Course_Name,
       },
     };
-
     this.apiService.postQuiz(this.quizBody).subscribe((res) => {
       try {
         this.messageService.add({

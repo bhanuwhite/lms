@@ -22,7 +22,6 @@ export class UserHeaderComponent implements OnInit {
   passwordDialog: boolean = false;
   changePassword!: FormGroup;
   public toNewPassword: boolean = true;
-  errorMessageObj!: any;
   visibleSidebar1!: boolean;
   constructor(
     private router: Router,

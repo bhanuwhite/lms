@@ -27,19 +27,19 @@ import { AvatarModule } from 'primeng/avatar';
 import { EditorModule } from 'primeng/editor';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import {SidebarModule} from 'primeng/sidebar';
+import { SidebarModule } from 'primeng/sidebar';
 import { CalendarModule } from 'primeng/calendar';
-import {ChartModule} from 'primeng/chart';
+import { ChartModule } from 'primeng/chart';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {ProgressBarModule} from 'primeng/progressbar';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { SpinnerComponent } from '../component/spinner/spinner.component';
 import { ContentComponent } from './content/content.component';
 import { MegaMenuModule } from 'primeng/megamenu';
-import {TabViewModule} from 'primeng/tabview';
+import { TabViewModule } from 'primeng/tabview';
 import { ToolbarModule } from 'primeng/toolbar';
-import {AccordionModule} from 'primeng/accordion';
-import {CheckboxModule} from 'primeng/checkbox';
-import {AvatarGroupModule} from 'primeng/avatargroup';
+import { AccordionModule } from 'primeng/accordion';
+import { CheckboxModule } from 'primeng/checkbox';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 import { ProfileComponent } from './profile/profile.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SplitterModule } from 'primeng/splitter';
@@ -72,8 +72,7 @@ import { RatingModule } from 'primeng/rating';
     TrackuserComponent,
     TrackDetailsComponent,
     EditFormComponent,
-    TecheCatComponent
-
+    TecheCatComponent,
   ],
   imports: [
     CommonModule,
@@ -117,10 +116,8 @@ import { RatingModule } from 'primeng/rating';
     ScrollPanelModule,
     ScrollerModule,
     TieredMenuModule,
-    RatingModule
+    RatingModule,
   ],
-  providers: [
-    ApiService
-  ]
+  providers: [ApiService],
 })
-export class AdminModule { }
+export class AdminModule {}

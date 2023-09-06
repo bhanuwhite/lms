@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { courseDataObj } from 'src/app/interface';
+import { CourseData } from 'src/app/models/library';
 import { ApiService } from 'src/app/services/api.service';
 import { PurchaseService } from 'src/app/services/purchase.service';
 
@@ -30,8 +31,8 @@ export class PurchaseHistoryComponent implements OnInit {
   }
 
   getPaidCourses() {
-    this.apiservice.getUserCourse(this.userID).subscribe((res: any) => {
-      res.map((course: any) => {
+    this.apiservice.getUserCourse(this.userID).subscribe((res: CourseData[]) => {
+      res.map((course: CourseData) => {
         if (course.course_ids.length != 0 && course.course_ids[0].price != 0) {
           this.purchasingCourses.push(course);
         }

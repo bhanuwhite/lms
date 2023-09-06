@@ -5,16 +5,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { DividerModule } from 'primeng/divider';
 
-
 @NgModule({
-  declarations: [
-    SignupComponent,
-  ],
+  declarations: [SignupComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     SignupRoutingModule,
-    DividerModule
-  ]
+    DividerModule,
+  ],
 })
-export class SignupModule { }
+export class SignupModule {}

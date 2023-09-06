@@ -1,24 +1,16 @@
 import { Injectable } from '@angular/core';
-import { courseDataObj } from '../interface';
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PurchaseService {
-
-  constructor() { }
-
-  courseObj: any = { }
-
-  purchasingCourse(purchaseCourse:any) {
-    console.log(purchaseCourse);
-
+  constructor() {}
+  courseObj: any = {};
+  purchasingCourse(purchaseCourse: any) {
     this.courseObj = purchaseCourse;
-
   }
 
-  invoiceCourseObj: any= { }
+  invoiceCourseObj: any = {};
   invoice(invoiceCourse: any) {
-    this.invoiceCourseObj = invoiceCourse
+    this.invoiceCourseObj = invoiceCourse;
   }
 }

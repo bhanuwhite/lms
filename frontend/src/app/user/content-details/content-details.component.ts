@@ -12,6 +12,7 @@ import { AboutService } from 'src/app/services/about.service';
 import { CartResponse } from 'src/app/models/cart';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { environment } from 'src/environment/environment';
+import { CourseData } from 'src/app/models/library';
 
 @Component({
   selector: 'app-content-details',
@@ -78,7 +79,7 @@ export class ContentDetailsComponent implements OnInit {
   public gettingUserHasCourse(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.apiService.getUserCourse(this.userID).subscribe((res) => {
-        res.map((resData: any) => {
+        res.map((resData: CourseData) => {
           this.libDataIds.push(resData.course_ids[0]?.id);
         });
         resolve(),
@@ -183,7 +184,7 @@ export class ContentDetailsComponent implements OnInit {
     this.router.navigate(['mycart']);
   }
 
-  addToLibrary(course: any) {
+  addToLibrary(course: SingleCourseData) {
     this.purchases = course.attributes.no_of_purchases;
     this.confirmationService.confirm({
       message: `Do you want to add this ${course?.attributes.name} to Library?`,

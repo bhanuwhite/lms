@@ -2,8 +2,6 @@
   <div class="row">
     <div class="mb-3 d-flex align-items-center justify-content-between search_bar_area">
       <h1 class="m-0" style="font-size: 1.5rem"><b> Content</b></h1>
-
-
       <div class="col-lg-5 mb-2  d-flex justify-content-end align-items-center">
         <span class="p-input-icon-left w-100">
           <i class="pi pi-search"></i>
@@ -11,7 +9,6 @@
             placeholder="Search Course...." />
         </span>
       </div>
-
       <div class="drop-button">
         <button class="btn btn-primary" (click)="showCourseDialog()">
           Add Course <i class="pi pi-plus cursor-pointer"></i>
@@ -19,7 +16,6 @@
       </div>
     </div>
   </div>
-
   <div class="d-flex justify-content-center align-items-center mt-5" *ngIf="contentData?.length == 0">
     <div class="card shadow-4 col-lg-3 " style="height: 100px;">
       <div class="card-body text-center d-flex justify-content-center align-items-center">
@@ -27,7 +23,6 @@
       </div>
     </div>
   </div>
-
   <div class="row" *ngIf="contentData.length != 0">
     <div class="col-lg-6 col-xl-3 mb-3" *ngFor="let data of contentData">
       <div class="card" style="max-height: 380px; width: 100%">
@@ -38,7 +33,6 @@
             class="card-img-top" />
           <div *ngIf="data.attributes.placeholder_img.data == null"
             class="card-header d-flex align-items-center justify-content-center" style="height: 225px; cursor: pointer">
-
             <ng-container *ngIf="data.attributes.technologies">
               <div>
                 <div *ngFor="let tech of data.attributes.technologies | keyvalue"
@@ -46,9 +40,7 @@
                   <p class="fs-4 fw-bold">{{ tech.value }}</p>
                 </div>
               </div>
-
             </ng-container>
-
             <b *ngIf="!data.attributes.technologies"> No preview Image </b>
           </div>
         </div>
@@ -99,8 +91,7 @@
           <input type="text" class="bg-light-grey input-shadow w-100 p-inputtext" formControlName="name" pInputText
             placeholder="Course Name" />
           <small class="p-error block" *ngIf="
-              addCourse.get('name')?.invalid && addCourse.get('name')?.touched
-            ">
+              addCourse.get('name')?.invalid && addCourse.get('name')?.touched ">
             <ng-container *ngIf="addCourse.get('name')?.errors?.['required']">Course name is required.</ng-container>
             <ng-container *ngIf="addCourse.get('name')?.errors?.['pattern']">Numbers or special characters are not
               allowed.</ng-container>
@@ -137,7 +128,6 @@
             pInputText (change)="courseFileSelect($event)" />
           <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" *ngIf="videoUploadProgress"></p-progressBar>
         </span>
-
         <ng-container *ngFor="let desc of courseContentVideo; let i = index">
           <div class="my-2">
             <label for="videoDescription">
@@ -166,7 +156,6 @@
         </label>
         <p-multiSelect [options]="Technologies" optionLabel="tech" placeholder="Select Technology"
           formControlName="technology" (onChange)="techSelected($event)"></p-multiSelect>
-
         <span class="p-float-label">
           <small class="p-error block" *ngIf="
               addCourse.get('technology')?.invalid &&
@@ -188,7 +177,6 @@
           </small>
         </span>
       </div>
-
 
       <div class="field mt-2 w-100">
         <label for="name">Category<span class="text-danger fs-5">*</span> :

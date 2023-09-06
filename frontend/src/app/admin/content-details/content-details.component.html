@@ -1,192 +1,187 @@
 <div class="content-inner surface-ground px-3 py-3">
-   
-    <ng-container *ngIf="singleContent">
-      <h1 style="font-size: 1.5rem;"><b> {{singleContent.attributes.name}}</b> </h1>
-    </ng-container>
-    <div class="grid" *ngIf="singleContent">
-      <div class="col-12 md:col-6 lg:col-4 ">
-        <div class="surface-card shadow-2 p-3 border-round">
-          <div class="flex justify-content-between mb-3 ">
-            <div>
-              <span class="block text-700 font-medium mb-3">Cost</span>
-              <div class="text-900 font-medium text-xl">{{singleContent.attributes.price | currency:'INR'}} </div>
-            </div>
-            <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
-              style="width:2.5rem;height:2.5rem">
-              <span class="material-icons text-blue-500 text-xl">
-                currency_rupee
-              </span>
-            </div>
+  <ng-container *ngIf="singleContent">
+    <h1 style="font-size: 1.5rem;"><b> {{singleContent.attributes.name}}</b> </h1>
+  </ng-container>
+  <div class="grid" *ngIf="singleContent">
+    <div class="col-12 md:col-6 lg:col-4 ">
+      <div class="surface-card shadow-2 p-3 border-round">
+        <div class="flex justify-content-between mb-3 ">
+          <div>
+            <span class="block text-700 font-medium mb-3">Cost</span>
+            <div class="text-900 font-medium text-xl">{{singleContent.attributes.price | currency:'INR'}} </div>
           </div>
-          <span class="text-green-500 font-medium">4 new purchases </span>
-          <span class="text-500">since last week</span>
-        </div>
-      </div>
-      <div class="col-12 md:col-6 lg:col-4">
-        <div class="surface-card shadow-2 p-3 border-round ">
-          <div class="flex justify-content-between mb-3">
-            <div>
-              <span class="block text-500 font-medium mb-3">Revenue</span>
-              <div class="text-900 font-medium text-xl">0</div>
-            </div>
-            <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
-              style="width:2.5rem;height:2.5rem">
-              <span class="material-icons text-blue-500 text-xl">
-                currency_rupee
-              </span>
-            </div>
+          <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
+            style="width:2.5rem;height:2.5rem">
+            <span class="material-icons text-blue-500 text-xl">
+              currency_rupee
+            </span>
           </div>
-          <span class="text-green-500 font-medium">%0 increase </span>
-          <span class="text-500">since last week</span>
         </div>
-      </div>
-      <div class="col-12 md:col-6 lg:col-4">
-        <div class="surface-card shadow-2 p-3 border-round">
-          <div class="flex justify-content-between mb-3">
-            <div>
-              <span class="block text-500 font-medium mb-3">Reviews</span>
-              <div class="text-900 font-medium text-xl">0</div>
-            </div>
-            <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
-              style="width:2.5rem;height:2.5rem">
-              <span class="material-icons text-blue-500 text-xl">
-                currency_rupee
-              </span>
-            </div>
-          </div>
-          <span class="text-green-500 font-medium">%0 increase </span>
-          <span class="text-500">since last week</span>
-        </div>
+        <span class="text-green-500 font-medium">4 new purchases </span>
+        <span class="text-500">since last week</span>
       </div>
     </div>
-    <div class="row surface-card shadow-2 p-0 m-0 border-round" *ngIf="singleContent">
-      <div class="col-lg-4">
-        <ng-container *ngIf="singleContent.attributes.placeholder_img.data != null">
-          <div class="img-fluid p-2">
-            <img [src]=" img_url + singleContent.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url"
-              alt="" [style]="{'height':'200px','width':'100%','border-radius':'30px'}">
+    <div class="col-12 md:col-6 lg:col-4">
+      <div class="surface-card shadow-2 p-3 border-round ">
+        <div class="flex justify-content-between mb-3">
+          <div>
+            <span class="block text-500 font-medium mb-3">Revenue</span>
+            <div class="text-900 font-medium text-xl">0</div>
           </div>
-        </ng-container>
-        <ng-container *ngIf="singleContent.attributes.placeholder_img.data == null">
-          <div class="card  d-flex justify-content-center align-items-center"
-            [style]="{'height':'200px','width':'100%','border-radius':'30px'}">
-            <p class="fs-3 fw-bold"> {{singleContent.attributes.technologies['1']}} </p>
+          <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
+            style="width:2.5rem;height:2.5rem">
+            <span class="material-icons text-blue-500 text-xl">
+              currency_rupee
+            </span>
           </div>
-        </ng-container>
+        </div>
+        <span class="text-green-500 font-medium">%0 increase </span>
+        <span class="text-500">since last week</span>
       </div>
-      <div class="col-lg-8">
-        <div class="my-3">
-          <b class="fs-4">{{singleContent.attributes.name}} </b>
+    </div>
+    <div class="col-12 md:col-6 lg:col-4">
+      <div class="surface-card shadow-2 p-3 border-round">
+        <div class="flex justify-content-between mb-3">
+          <div>
+            <span class="block text-500 font-medium mb-3">Reviews</span>
+            <div class="text-900 font-medium text-xl">0</div>
+          </div>
+          <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
+            style="width:2.5rem;height:2.5rem">
+            <span class="material-icons text-blue-500 text-xl">
+              currency_rupee
+            </span>
+          </div>
         </div>
-        <div class=" col-lg-11">
-          <p class="">{{singleContent.attributes.description}} PrimeIcons is the default icon library of
-            PrimeNG with over 250 open source icons developed by PrimeTek.</p>
+        <span class="text-green-500 font-medium">%0 increase </span>
+        <span class="text-500">since last week</span>
+      </div>
+    </div>
+  </div>
+  <div class="row surface-card shadow-2 p-0 m-0 border-round" *ngIf="singleContent">
+    <div class="col-lg-4">
+      <ng-container *ngIf="singleContent.attributes.placeholder_img.data != null">
+        <div class="img-fluid p-2">
+          <img [src]=" img_url + singleContent.attributes.placeholder_img.data.attributes.formats?.thumbnail?.url"
+            alt="" [style]="{'height':'200px','width':'100%','border-radius':'30px'}">
         </div>
-
-        <div class="d-flex align-items-center">
+      </ng-container>
+      <ng-container *ngIf="singleContent.attributes.placeholder_img.data == null">
+        <div class="card  d-flex justify-content-center align-items-center"
+          [style]="{'height':'200px','width':'100%','border-radius':'30px'}">
+          <p class="fs-3 fw-bold"> {{singleContent.attributes.technologies['1']}} </p>
+        </div>
+      </ng-container>
+    </div>
+    <div class="col-lg-8">
+      <div class="my-3">
+        <b class="fs-4">{{singleContent.attributes.name}} </b>
+      </div>
+      <div class=" col-lg-11">
+        <p class="">{{singleContent.attributes.description}} PrimeIcons is the default icon library of
+          PrimeNG with over 250 open source icons developed by PrimeTek.</p>
+      </div>
+      <div class="d-flex align-items-center">
+        <span class="material-icons">
+          category
+        </span>
+        <b class="ms-2"> {{singleContent.attributes.subject}} </b>
+      </div>
+      <div class="d-flex lecture_details col-lg-12 mt-3">
+        <div class="col-lg-6">
+          <span> No.of Lectures - <b>{{ singleContent.attributes.content.data !== null ?
+              singleContent.attributes.content.data.length : '' }} </b> </span>
+          <span> No.of Lectures - <b>{{ singleContent.attributes.content.data !== null ?
+              singleContent.attributes.content.data.length : '' }} </b> </span>
+        </div>
+        <div class="col-lg-6 d-flex align-items-center mb-2 ">
           <span class="material-icons">
-            category
+            schedule
           </span>
-          <b class="ms-2"> {{singleContent.attributes.subject}} </b>
+          <span class="ms-2 "> Duration - <b>{{(singleContent.attributes.total_duration/3600).toFixed(1)}} hrs</b>
+          </span>
         </div>
-
-        <div class="d-flex lecture_details col-lg-12 mt-3">
-          <div class="col-lg-6">
-            <span> No.of Lectures - <b>{{ singleContent.attributes.content.data !== null ?
-                singleContent.attributes.content.data.length : '' }} </b> </span>
-            <span> No.of Lectures - <b>{{ singleContent.attributes.content.data !== null ?
-                singleContent.attributes.content.data.length : '' }} </b> </span>
-          </div>
-          <div class="col-lg-6 d-flex align-items-center mb-2 ">
+      </div>
+      <div class="d-flex button_wrapper my-2 justify-content-between align-items-center">
+        <div class="my-3 d-flex align-items-center">
+          <div *ngIf="singleContent.attributes.price !=0" class="d-flex align-items-center">
             <span class="material-icons">
-              schedule
+              currency_rupee
             </span>
-            <span class="ms-2 "> Duration - <b>{{(singleContent.attributes.total_duration/3600).toFixed(1)}} hrs</b>
-            </span>
+            <b class="fs-6">{{(singleContent.attributes.price) }}.00 </b>
+          </div>
+          <div *ngIf="singleContent.attributes.price == 0">
+            <button class="btn btn-sm btn-primary">Free Course</button>
           </div>
         </div>
-
-
-        <div class="d-flex button_wrapper my-2 justify-content-between align-items-center">
-          <div class="my-3 d-flex align-items-center">
-            <div *ngIf="singleContent.attributes.price !=0" class="d-flex align-items-center">
-              <span class="material-icons">
-                currency_rupee
-              </span>
-              <b class="fs-6">{{(singleContent.attributes.price) }}.00 </b>
-            </div>
-            <div *ngIf="singleContent.attributes.price == 0">
-              <button class="btn btn-sm btn-primary">Free Course</button>
+        <div class="">
+          <button class="btn btn-sm btn-warning">{{ singleContent.attributes.level }}</button>
+        </div>
+        <ng-container *ngIf="singleContent.attributes.no_of_purchases">
+          <button class="btn btn-sm fw-bold btn-warning" style="background-color: rgb(213, 240, 158);">
+            Best Seller
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="singleContent &&  singleContent.attributes.content.data !=null">
+    <div class=" course_video_section surface-card  border-round" *ngIf="singleContent">
+      <h1 class="px-2" style="font-size: 1.5rem;"><b> Content videos :</b> </h1>
+      <div class=" row flex-wrap">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div *ngFor="let content of singleContent.attributes.content.data">
+            <div class="row px-2 align-items-center">
+              <div class="col-lg-4 mb-2 col-md-12 flex-shrink-0 ">
+                <video [src]="img_url+content.attributes.url" controls class="card  mt-2"
+                  [style]="{'height':'200px','width':'100% ','border-radius':'30px'}"></video>
+              </div>
+              <div class="  fs-6 col-lg-8 col-md-12 mb-2 ">
+                <p> {{content.attributes.alternativeText}} </p>
+              </div>
             </div>
           </div>
-          <div class="">
-            <button class="btn btn-sm btn-warning">{{ singleContent.attributes.level }}</button>
+        </div>
+        <div class="col-lg-12 my-3 col-md-12 col-sm-12">
+          <div class="card  ">
+            <div class="card-header  d-flex align-items-center justify-content-center">
+              <b class="fs-4">Others</b>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-6">
+                  <ng-container *ngIf="singleContent.attributes.course_include.length !=0">
+                    <h2><b>Attachements :</b></h2>
+                    <div *ngFor="let course of courseIncludes" class=" d-flex align-items-center">
+                      <i class="pi pi-angle-right me-3"> </i>
+                      <h4 class="m-0"> {{course}}</h4>
+                    </div>
+                  </ng-container>
+                </div>
+                <div class="col-lg-6">
+                  <ng-container *ngIf="techArr">
+                    <h2><b> Technology :</b> </h2>
+                    <div class="d-flex align-items-center" *ngFor="let tech of techArr">
+                      <i class="pi pi-angle-right me-3"> </i>
+                      <h4 class="m-0">{{tech}}</h4>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
           </div>
-          <ng-container *ngIf="singleContent.attributes.no_of_purchases">
-            <button class="btn btn-sm fw-bold btn-warning" style="background-color: rgb(213, 240, 158);">
-              Best Seller
-            </button>
-          </ng-container>
         </div>
       </div>
     </div>
-    <ng-container *ngIf="singleContent &&  singleContent.attributes.content.data !=null">
-      <div class=" course_video_section surface-card  border-round" *ngIf="singleContent">
-        <h1 class="px-2" style="font-size: 1.5rem;"><b> Content videos :</b> </h1>
-        <div class=" row flex-wrap">
-          <div class="col-lg-12 col-md-12 col-sm-12">
-            <div *ngFor="let content of singleContent.attributes.content.data">
-              <div class="row px-2 align-items-center">
-                <div class="col-lg-4 mb-2 col-md-12 flex-shrink-0 ">
-                  <video [src]="img_url+content.attributes.url" controls class="card  mt-2"
-                    [style]="{'height':'200px','width':'100% ','border-radius':'30px'}"></video>
-                </div>
-                <div class="  fs-6 col-lg-8 col-md-12 mb-2 ">
-                  <p> {{content.attributes.alternativeText}} </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-12 my-3 col-md-12 col-sm-12">
-            <div class="card  ">
-              <div class="card-header  d-flex align-items-center justify-content-center">
-                <b class="fs-4">Others</b>
-              </div>
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <ng-container *ngIf="singleContent.attributes.course_include.length !=0">
-                      <h2><b>Attachements :</b></h2>
-                      <div *ngFor="let course of courseIncludes" class=" d-flex align-items-center">
-                        <i class="pi pi-angle-right me-3"> </i>
-                        <h4 class="m-0"> {{course}}</h4>
-                      </div>
-                    </ng-container>
-                  </div>
-                  <div class="col-lg-6">
-                    <ng-container *ngIf="techArr">
-                      <h2><b> Technology :</b> </h2>
-                      <div class="d-flex align-items-center" *ngFor="let tech of techArr">
-                        <i class="pi pi-angle-right me-3"> </i>
-                        <h4 class="m-0">{{tech}}</h4>
-                      </div>
-                    </ng-container>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </ng-container>
+  </ng-container>
 
-    <ng-container
-      *ngIf="singleContent &&  singleContent.attributes.content.data == null && singleContent.attributes.link != ''">
-      <div class=" course_video_section surface-card  border-round" *ngIf="singleContent">
-        <h1 class="px-2" style="font-size: 1.5rem;"><b> Content videos :</b> </h1>
-        <iframe [src]="videoUrl" frameborder="10" height="350px" style="border-radius: 10px; width: 100%"></iframe>
-      </div>
-    </ng-container>
+  <ng-container
+    *ngIf="singleContent &&  singleContent.attributes.content.data == null && singleContent.attributes.link != ''">
+    <div class=" course_video_section surface-card  border-round" *ngIf="singleContent">
+      <h1 class="px-2" style="font-size: 1.5rem;"><b> Content videos :</b> </h1>
+      <iframe [src]="videoUrl" frameborder="10" height="350px" style="border-radius: 10px; width: 100%"></iframe>
+    </div>
+  </ng-container>
 
-  
+
 </div>

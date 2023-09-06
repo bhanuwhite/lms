@@ -40,7 +40,6 @@
           <hr class="mt-4 mb-2">
         </ul>
       </div>
-
     </div>
     <div class="sidebar-footer cursor-pointer" style="overflow-y: auto;">
       <li class="listbox-item" routerLink="/admin/profile">
@@ -49,7 +48,6 @@
       <li class="listbox-item" (click)="onLogout()">
         <i class="pi pi-sign-out me-2"></i> <span>Logout</span>
       </li>
-
     </div>
   </div>
   <div class="content-inner">
@@ -72,7 +70,6 @@
   </div>
 </div>
 
-
 <!-- sidebar for mobile screen -->
 <p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000">
   <ng-template pTemplate="header">
@@ -82,7 +79,6 @@
     </span>
   </ng-template>
   <ng-template pTemplate="content">
-
     <li class="listbox-item" [class.active]="isActive('/admin')" routerLink="/admin">
       <i class="pi pi-chart-line me-2"></i> <span> Dashboard</span>
     </li>

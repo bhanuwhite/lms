@@ -2,11 +2,8 @@
   <div class="row align-items-center">
     <div class="col-lg-6 col-md-6 d-flex align-items-center">
       <h1 style="font-size: 1.5rem;"><b> Assessments</b> </h1>
-
     </div>
-
   </div>
-
   <div *ngIf="uniqueTech">
     <p-table [value]="uniqueTech" class="table">
       <ng-template pTemplate="header">
@@ -20,13 +17,12 @@
           <td (click)="showQuizQuestions(tech)" class="cursor-pointer">{{tech}} </td>
           <td>
             <div class="add_remove_button d-flex align-items-center">
-
               <span class="material-icons text-primary cursor-pointer mb-1" (click)="showDialog(tech)"
                 style="font-size: 2rem;">
                 add
               </span>
               <span class="material-icons text-danger cursor-pointer mb-1 ms-1" style="font-size: 1.7rem;"
-                *ngIf="techCourseNames.includes(tech.toLowerCase())" (click)="deleteExam(tech)">
+                 (click)="deleteExam(tech)">
                 delete
               </span>
             </div>
@@ -34,33 +30,24 @@
         </tr>
       </ng-template>
     </p-table>
-
   </div>
-
-
   <div class="row d-flex " *ngIf="!allCourses">
-
     <div class="d-flex justify-content-center card shadow-4 col-lg-3">
       <div class="card-body text-center d-flex justify-content-center align-items-center">
         <p class="fs-4 lh-sm"> Courses are not available</p>
       </div>
     </div>
   </div>
-
   <p-dialog header="Confirmation.." [(visible)]="delAss" [style]="{width: '50vw'}" styleClass="active" [modal]="true">
     <div class="">
       <h2> Select level to delete Assessments of {{deleteAss}} </h2>
       <div class="d-flex  flex-md-row m-4 gap-2">
-
         <button class="btn btn-primary" value="beginner" (click)="deleteAssesmentLevel($event)">Beginner</button>
         <button class="btn btn-warning  " value="intermediate"
           (click)="deleteAssesmentLevel($event)">Intermediate</button>
         <button class="btn btn-info  " value="advanced" (click)="deleteAssesmentLevel($event)">Advansed</button>
         <button class="btn btn-danger  " value="all" (click)="deleteAllAssesmentLevel($event)">ALL</button>
-
       </div>
-
-
     </div>
   </p-dialog>
 
@@ -144,8 +131,6 @@
             </span>
           </div>
         </div>
-
-
         <div class="field mt-2 w-100">
           <label for="title">Answer<span class="text-danger fs-5">*</span> :</label>
           <span class="d-flex">
@@ -161,7 +146,6 @@
             </small>
           </span>
         </div>
-
       </div>
       <div class="d-flex justify-content-between mt-2">
         <button (click)="addCancel()" type="button" class="btn btn-dark"><i
@@ -170,10 +154,7 @@
           (click)="onSubmitQuestionDetails()"><i class="pi pi-save me-2 cursor-pointer"></i>Save</button>
       </div>
     </form>
-
   </p-dialog>
-
-  <!-- Add dialog end -->
 </div>
 <div>
   <p-toast position="top-right"></p-toast>

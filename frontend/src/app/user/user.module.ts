@@ -1,18 +1,16 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
 import { MenuModule } from 'primeng/menu';
 import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
-import { Button, ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessagesModule } from 'primeng/messages';
-import { RippleModule } from 'primeng/ripple';
 import { AdminRoutingModule } from '../admin/admin-routing.module';
 import { SheredModule } from '../component/shered.module';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -21,10 +19,8 @@ import { MyLibraryComponent } from './my-library/my-library.component';
 import { CardModule } from 'primeng/card';
 import { RatingModule } from 'primeng/rating';
 import { CourseDetailsComponent } from './course-details/course-details.component';
-import { HeaderComponent } from './header/header.component';
 import { AccordionModule } from 'primeng/accordion';
-import { TabView, TabViewModule } from 'primeng/tabview';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { TabViewModule } from 'primeng/tabview';
 import { UserFooterComponent } from './user-footer/user-footer.component';
 import { UserHeaderComponent } from './user-header/user-header.component';
 import { AvatarModule } from 'primeng/avatar';
@@ -135,7 +131,7 @@ import { ChartModule } from 'primeng/chart';
     BadgeModule,
     OverlayPanelModule,
     SidebarModule,
-    ChartModule
+    ChartModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

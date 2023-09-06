@@ -34,35 +34,34 @@ export interface UserLibraryGetResponseData {
               };
             }[];
           };
-          description:string,
-          link:string,
-          name:string,
-          placeholder_img : {
-            data:{
-              id:number,
-              attributes:{
-                formats:{
-                  thumbnail:{
-                    url:string,
-                    name?:string
-                  }
-                },
-                name:string,
-                url:string
-              }
-            }
-          },
-          price:number,
-          status:string,
-          technology:string,
-          user_id:number
+          description: string;
+          link: string;
+          name: string;
+          placeholder_img: {
+            data: {
+              id: number;
+              attributes: {
+                formats: {
+                  thumbnail: {
+                    url: string;
+                    name?: string;
+                  };
+                };
+                name: string;
+                url: string;
+              };
+            };
+          };
+          price: number;
+          status: string;
+          technology: string;
+          user_id: number;
         };
       };
     };
-    progress_percentage?:number
+    progress_percentage?: number;
   };
 }
-
 
 export interface LibraryGetResponse {
   data: LibraryObjectData[];
