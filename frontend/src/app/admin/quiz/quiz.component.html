@@ -22,7 +22,7 @@
                 add
               </span>
               <span class="material-icons text-danger cursor-pointer mb-1 ms-1" style="font-size: 1.7rem;"
-                 (click)="deleteExam(tech)">
+                *ngIf="techCourseNames.includes(tech.toLowerCase())" (click)="deleteExam(tech)">
                 delete
               </span>
             </div>
